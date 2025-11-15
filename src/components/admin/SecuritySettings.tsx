@@ -202,7 +202,7 @@ export function AdminSecuritySettings() {
                 <h3 className="font-semibold text-base text-neutral-900 dark:text-neutral-100">
                   Two-Factor Authentication (2FA)
                 </h3>
-                <span className="rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/20 dark:text-neutral-100">
+                <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/20 dark:text-neutral-100">
                   COMING SOON
                 </span>
               </div>

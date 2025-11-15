@@ -210,7 +210,7 @@ export function BookingSheet({
     <>
       {/* Overlay */}
       <div
-        className="fade-in fixed inset-0 z-40 animate-in bg-[neutral-900]/40 backdrop-blur-sm duration-300"
+        className="fade-in fixed inset-0 z-40 animate-in bg-[neutral-900]/40 duration-300"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
@@ -243,7 +243,7 @@ export function BookingSheet({
           </div>
           <button
             aria-label="Close booking sheet"
-            className="flex h-11 w-11 items-center justify-center rounded-full text-[neutral-400] transition hover:bg-[neutral-200]"
+            className="flex h-11 w-11 items-center justify-center text-[neutral-400] transition hover:bg-[neutral-200]"
             onClick={onClose}
             type="button"
           >
@@ -253,7 +253,7 @@ export function BookingSheet({
 
         <div className="p-6 md:p-8">
           {error && (
-            <div className="mb-6 rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/10 px-5 py-4 text-[neutral-500] text-base">
+            <div className="mb-6 border border-[neutral-500]/30 bg-[neutral-500]/10 px-5 py-4 text-[neutral-500] text-base">
               {error}
             </div>
           )}
@@ -269,7 +269,7 @@ export function BookingSheet({
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-5 py-4 font-semibold text-[neutral-900] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[neutral-500] hover:bg-[neutral-500]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in border-2 border-[neutral-200] bg-[neutral-50] px-5 py-4 font-semibold text-[neutral-900] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[neutral-500] hover:bg-[neutral-500]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
@@ -287,7 +287,7 @@ export function BookingSheet({
           {currentStep === "details" && (
             <div className="fade-in-50 animate-in space-y-8 duration-500">
               {/* Selected Time Display */}
-              <div className="rounded-2xl bg-[neutral-500]/5 p-6">
+              <div className="bg-[neutral-500]/5 p-6">
                 <div className="flex items-center gap-3 text-[neutral-500] text-base">
                   <HugeiconsIcon className="h-5 w-5" icon={Clock01Icon} />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
@@ -310,7 +310,7 @@ export function BookingSheet({
                   Service *
                 </label>
                 <select
-                  className="w-full rounded-xl border-2 border-[neutral-200] px-4 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 md:px-5"
+                  className="w-full border-2 border-[neutral-200] px-4 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 md:px-5"
                   id="service-select"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
@@ -341,7 +341,7 @@ export function BookingSheet({
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
                     aria-label="Decrease duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -352,12 +352,12 @@ export function BookingSheet({
                   >
                     <HugeiconsIcon className="h-5 w-5" icon={MinusSignIcon} />
                   </button>
-                  <div className="flex-1 rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-4 text-center font-semibold text-[neutral-900] text-lg md:px-5 md:text-xl">
+                  <div className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-4 py-4 text-center font-semibold text-[neutral-900] text-lg md:px-5 md:text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
                     aria-label="Increase duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -389,7 +389,7 @@ export function BookingSheet({
                   />
                 ) : (
                   <textarea
-                    className="w-full rounded-xl border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                    className="w-full border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                     id="service-address"
                     onChange={(e) =>
                       setBookingData({
@@ -415,7 +415,7 @@ export function BookingSheet({
                       const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
                       return (
                         <button
-                          className={`w-full rounded-xl border-2 p-5 text-left transition ${
+                          className={`w-full border-2 p-5 text-left transition ${
                             isSelected
                               ? "border-[neutral-500] bg-[neutral-500]/5"
                               : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50"
@@ -455,7 +455,7 @@ export function BookingSheet({
                   Special instructions
                 </label>
                 <textarea
-                  className="w-full rounded-xl border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                  className="w-full border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                   id="special-instructions"
                   onChange={(e) =>
                     setBookingData({
@@ -470,7 +470,7 @@ export function BookingSheet({
               </div>
 
               {/* Price Summary */}
-              <div className="rounded-2xl border-2 border-[neutral-200] bg-[neutral-50] p-6">
+              <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6">
                 <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">Price summary</h3>
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
@@ -499,14 +499,14 @@ export function BookingSheet({
               {/* Actions - Touch-friendly */}
               <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  className="order-2 rounded-xl border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] md:order-1"
+                  className="order-2 border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] md:order-1"
                   onClick={() => setCurrentStep("time")}
                   type="button"
                 >
                   Back
                 </button>
                 <button
-                  className="order-1 flex-1 rounded-xl bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+                  className="order-1 flex-1 bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
@@ -610,7 +610,7 @@ function PaymentStep({
       {error && <p className="text-[neutral-500] text-base">{error}</p>}
       <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          className="order-2 rounded-xl border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
+          className="order-2 border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
           type="button"
@@ -618,7 +618,7 @@ function PaymentStep({
           Back
         </button>
         <button
-          className="order-1 flex-1 rounded-xl bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+          className="order-1 flex-1 bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"

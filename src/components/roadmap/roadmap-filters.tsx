@@ -87,7 +87,7 @@ export function RoadmapFilters({
       {/* Search bar - Auto Layout: Horizontal stack, padding 12px, gap 8px */}
       <div className="relative">
         <div
-          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-[neutral-50] px-4 py-3 transition-all ${isSearchFocused ? "border-[neutral-500]" : "border-[neutral-200]"}
+          className={`relative flex items-center gap-2 border-2 bg-[neutral-50] px-4 py-3 transition-all ${isSearchFocused ? "border-[neutral-500]" : "border-[neutral-200]"}
         `}
         >
           <HugeiconsIcon
@@ -107,7 +107,7 @@ export function RoadmapFilters({
           {searchQuery && (
             <button
               aria-label="Clear search"
-              className="rounded-lg p-1 transition-colors hover:bg-[neutral-50]"
+              className="p-1 transition-colors hover:bg-[neutral-50]"
               onClick={() => onSearchChange("")}
               type="button"
             >
@@ -129,7 +129,7 @@ export function RoadmapFilters({
 
             return (
               <button
-                className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
+                className={`inline-flex items-center gap-1.5 border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
                     ? "border-[neutral-500] bg-[neutral-50] text-[neutral-500]"
                     : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-500]"
@@ -159,7 +159,7 @@ export function RoadmapFilters({
 
             return (
               <button
-                className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
+                className={`inline-flex items-center gap-1.5 border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
                     ? "border-[neutral-500] bg-[neutral-50] text-[neutral-500]"
                     : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-500]"

@@ -32,7 +32,7 @@ export function PortfolioGallery({
     <div className="space-y-4">
       {/* Featured Work Description */}
       {featuredWork && (
-        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
           <h3 className="font-semibold text-[neutral-900] text-sm">Featured Work</h3>
           <p className="mt-2 text-[neutral-400] text-sm">{featuredWork}</p>
         </div>
@@ -42,7 +42,7 @@ export function PortfolioGallery({
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            className="group relative aspect-square overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-200] transition hover:border-[neutral-500] hover:shadow-md"
+            className="group relative aspect-square overflow-hidden border border-[neutral-200] bg-[neutral-200] transition hover:border-[neutral-500] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
             type="button"
@@ -138,7 +138,7 @@ function Lightbox({
     >
       {/* Close Button */}
       <button
-        className="absolute top-4 right-4 rounded-full bg-[neutral-50]/10 p-2 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+        className="absolute top-4 right-4 bg-[neutral-50]/10 p-2 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
         onClick={onClose}
         type="button"
       >
@@ -148,7 +148,7 @@ function Lightbox({
       {/* Previous Button */}
       {hasPrevious && (
         <button
-          className="-tranneutral-y-1/2 absolute top-1/2 left-4 rounded-full bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+          className="-translate-y-1/2 absolute top-1/2 left-4 bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
           onClick={(e) => {
             e.stopPropagation();
             handlePrevious();
@@ -162,7 +162,7 @@ function Lightbox({
       {/* Next Button */}
       {hasNext && (
         <button
-          className="-tranneutral-y-1/2 absolute top-1/2 right-4 rounded-full bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+          className="-translate-y-1/2 absolute top-1/2 right-4 bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
           onClick={(e) => {
             e.stopPropagation();
             handleNext();
@@ -177,7 +177,7 @@ function Lightbox({
       <div className="max-h-[90vh] max-w-5xl" role="presentation">
         <Image
           alt={image.caption || "Portfolio image"}
-          className="max-h-[80vh] w-auto rounded-lg"
+          className="max-h-[80vh] w-auto"
           height={800}
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
@@ -210,10 +210,7 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
   return (
     <div className="grid grid-cols-4 gap-2">
       {previewImages.map((image, index) => (
-        <div
-          className="relative aspect-square overflow-hidden rounded-md bg-[neutral-200]"
-          key={image.id}
-        >
+        <div className="relative aspect-square overflow-hidden bg-[neutral-200]" key={image.id}>
           <Image
             alt={image.caption || `Portfolio ${index + 1}`}
             className="h-full w-full object-cover"

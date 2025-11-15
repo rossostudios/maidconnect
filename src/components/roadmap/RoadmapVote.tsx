@@ -69,7 +69,7 @@ export function RoadmapVoteButton({
     <div className="relative">
       <button
         aria-label={hasVoted ? "Remove vote" : "Upvote this item"}
-        className={`flex flex-col items-center justify-center rounded-[12px] border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
+        className={`flex flex-col items-center justify-center border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
           ${
             hasVoted
               ? "border-[neutral-500] bg-[neutral-50] text-[neutral-500]"
@@ -94,9 +94,9 @@ export function RoadmapVoteButton({
 
       {/* Sign in prompt */}
       {showSignInPrompt && !canVote && (
-        <div className="-tranneutral-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-[neutral-900] px-3 py-2 text-[neutral-50] text-sm">
+        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap bg-[neutral-900] px-3 py-2 text-[neutral-50] text-sm">
           Sign in to vote
-          <div className="-tranneutral-x-1/2 -mt-1 absolute top-full left-1/2">
+          <div className="-translate-x-1/2 -mt-1 absolute top-full left-1/2">
             <div className="h-2 w-2 rotate-45 bg-[neutral-900]" />
           </div>
         </div>

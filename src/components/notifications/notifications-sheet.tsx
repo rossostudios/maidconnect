@@ -133,7 +133,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         <div className="flex items-center justify-between border-[neutral-200] border-b px-6 py-4">
           <h2 className="font-semibold text-[neutral-900] text-xl">Notifications</h2>
           <button
-            className="rounded-lg p-2 text-[neutral-400] transition hover:bg-[neutral-50]"
+            className="p-2 text-[neutral-400] transition hover:bg-[neutral-50]"
             onClick={onClose}
             type="button"
           >
@@ -197,14 +197,14 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             if (loading) {
               return (
                 <div className="flex items-center justify-center p-12">
-                  <div className="h-8 w-8 animate-spin rounded-full border-[neutral-500] border-b-2" />
+                  <div className="h-8 w-8 animate-spin border-[neutral-500] border-b-2" />
                 </div>
               );
             }
             if (notifications.length === 0) {
               return (
                 <div className="flex flex-col items-center justify-center p-12">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-50]">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center bg-[neutral-50]">
                     <svg
                       aria-hidden="true"
                       className="h-8 w-8 text-[neutral-400]"
@@ -263,7 +263,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                             </p>
                           </div>
                           {!notification.read_at && (
-                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[neutral-500]" />
+                            <div className="mt-1 h-2 w-2 flex-shrink-0 bg-[neutral-500]" />
                           )}
                         </div>
                       </Link>
@@ -282,7 +282,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                         </div>
                         {!notification.read_at && (
                           <button
-                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[neutral-500] transition hover:bg-[neutral-500]"
+                            className="mt-1 h-2 w-2 flex-shrink-0 bg-[neutral-500] transition hover:bg-[neutral-500]"
                             onClick={() => markAsRead([notification.id])}
                             type="button"
                           />

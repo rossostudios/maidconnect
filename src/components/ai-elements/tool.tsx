@@ -42,7 +42,7 @@ export const ToolCall = ({ part, title }: ToolProps) => {
           <span className="text-neutral-900">{header}</span>
           <span
             className={cn(
-              "rounded-full px-2 py-0.5 text-xs",
+              "px-2 py-0.5 text-xs",
               part.state === "output-error" || part.state === "output-denied"
                 ? "bg-red-50 text-red-600"
                 : part.state === "output-available" || part.state === "approval-responded"

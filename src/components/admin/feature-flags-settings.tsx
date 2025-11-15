@@ -135,7 +135,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
                   {feature.name}
                 </h4>
                 {feature.beta && (
-                  <span className="rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                  <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                     BETA
                   </span>
                 )}
@@ -156,7 +156,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
             >
               <span
                 className={`-full absolute top-0.5 left-0.5 h-5 w-5 bg-white transition-transform dark:bg-neutral-950 ${
-                  flags[feature.key] ? "tranneutral-x-5" : "tranneutral-x-0"
+                  flags[feature.key] ? "translate-x-5" : "translate-x-0"
                 }`}
               />
             </button>

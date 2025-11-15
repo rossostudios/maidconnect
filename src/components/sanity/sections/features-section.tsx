@@ -52,7 +52,7 @@ export function FeaturesSection({ data }: FeaturesSectionProps) {
               className={layout === "list" ? "border-[neutral-200] border-b pb-8" : ""}
               key={index}
             >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/100/10">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
                 <HugeiconsIcon
                   className="h-7 w-7 text-[neutral-500]"
                   icon={CheckmarkCircle01Icon}

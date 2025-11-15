@@ -41,7 +41,7 @@ export function OnboardingChecklist({
   const totalRequired = requiredItems.length;
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center justify-between">
@@ -50,9 +50,9 @@ export function OnboardingChecklist({
         </div>
 
         {/* Progress Bar */}
-        <div className="relative h-3 overflow-hidden rounded-full bg-[neutral-50]">
+        <div className="relative h-3 overflow-hidden bg-[neutral-50]">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[neutral-500] to-[neutral-500] transition-all duration-500"
+            className="h-full bg-gradient-to-r from-[neutral-500] to-[neutral-500] transition-all duration-500"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -124,7 +124,7 @@ export function OnboardingChecklist({
 
       {/* Help Text */}
       {!canAcceptBookings && (
-        <div className="mt-6 rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
+        <div className="mt-6 bg-[neutral-50] p-4 text-[neutral-500] text-sm">
           <p className="font-semibold">{t("helpTitle")}</p>
           <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
         </div>
@@ -141,7 +141,7 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
 
   return (
     <button
-      className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+      className={`flex w-full items-center gap-3 border-2 p-4 text-left transition-all ${
         item.completed
           ? "border-[neutral-500]/40 bg-[neutral-500]/10 hover:bg-[neutral-500]/10"
           : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50 hover:shadow-sm"
@@ -151,7 +151,7 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
     >
       {/* Icon */}
       <div
-        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ${
+        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center ${
           item.completed
             ? "bg-[neutral-500]/100 text-[neutral-50]"
             : "border-2 border-[neutral-200] bg-[neutral-50] text-[neutral-400]"

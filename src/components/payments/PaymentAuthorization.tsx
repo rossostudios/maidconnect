@@ -93,7 +93,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
         {message ? <p className="text-neutral-800 text-sm">{message}</p> : null}
         <button
           className={cn(
-            "inline-flex w-fit items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
+            "inline-flex w-fit items-center justify-center px-6 py-3 font-semibold text-base transition",
             "bg-neutral-900 text-white shadow-lg hover:bg-neutral-800",
             "disabled:cursor-not-allowed disabled:opacity-70"
           )}
@@ -179,7 +179,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
         <div className="flex items-center gap-3">
           <button
             className={cn(
-              "inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
+              "inline-flex items-center justify-center px-6 py-3 font-semibold text-base transition",
               "bg-neutral-900 text-white shadow-lg hover:bg-neutral-800",
               "disabled:cursor-not-allowed disabled:opacity-70"
             )}
@@ -191,7 +191,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           </button>
           <button
             className={cn(
-              "inline-flex items-center justify-center rounded-full border-2 px-6 py-3 font-semibold text-base transition",
+              "inline-flex items-center justify-center border-2 px-6 py-3 font-semibold text-base transition",
               "border-neutral-300 text-neutral-700 hover:border-neutral-400 hover:text-neutral-900",
               "disabled:cursor-not-allowed disabled:opacity-70"
             )}

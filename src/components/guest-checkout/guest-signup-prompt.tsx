@@ -105,12 +105,12 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-50 bg-[neutral-900]/50 backdrop-blur-sm" />
+      <div className="fixed inset-0 z-50 bg-[neutral-900]/50" />
 
       {/* Modal */}
-      <div className="-tranneutral-x-1/2 -tranneutral-y-1/2 fixed top-1/2 left-1/2 z-50 w-full max-w-md rounded-3xl border-2 border-[neutral-200] bg-[neutral-50] p-8 shadow-2xl">
+      <div className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 w-full max-w-md border-2 border-[neutral-200] bg-[neutral-50] p-8 shadow-2xl">
         <div className="mb-6 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
             <svg
               className="h-8 w-8 text-[neutral-500]"
               fill="none"
@@ -136,7 +136,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
           <div>
             <label className="mb-2 block font-medium text-[neutral-900] text-sm">Email</label>
             <input
-              className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-sm"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-sm"
               disabled
               readOnly
               type="email"
@@ -151,7 +151,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
             </label>
             <input
               autoComplete="new-password"
-              className="w-full rounded-lg border border-[neutral-200] px-4 py-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+              className="w-full border border-[neutral-200] px-4 py-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               disabled={isLoading}
               id="password"
               minLength={8}
@@ -165,7 +165,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
           </div>
 
           {/* Benefits list */}
-          <div className="rounded-lg bg-[neutral-50] p-4">
+          <div className="bg-[neutral-50] p-4">
             <p className="mb-2 font-semibold text-[neutral-900] text-sm">
               With an account you can:
             </p>
@@ -192,7 +192,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
           {/* Action buttons */}
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
               disabled={isLoading}
               onClick={handleSkip}
               type="button"
@@ -200,7 +200,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
               Skip for now
             </button>
             <button
-              className="flex-1 rounded-lg bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isLoading}
               type="submit"
             >

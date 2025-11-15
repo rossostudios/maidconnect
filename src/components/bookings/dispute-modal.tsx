@@ -79,14 +79,14 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[neutral-200] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-900]"
+            className="flex-1 border-2 border-[neutral-200] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-900]"
             onClick={onClose}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="flex-1 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={
               form.isSubmitting || !form.formData.reason || !form.formData.description.trim()
             }
@@ -104,7 +104,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
     >
       {/* Success State */}
       {form.success ? (
-        <div className="rounded-xl border border-[neutral-500]/40 bg-[neutral-500]/10 p-6 text-center">
+        <div className="border border-[neutral-500]/40 bg-[neutral-500]/10 p-6 text-center">
           <p className="font-semibold text-[neutral-500]">Dispute submitted successfully!</p>
           <p className="mt-2 text-[neutral-500] text-sm">
             Our support team will review your report and contact you within 24 hours.
@@ -119,7 +119,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
           </div>
 
           {/* Info Banner */}
-          <div className="rounded-xl border border-[neutral-50] bg-[neutral-50] p-4">
+          <div className="border border-[neutral-50] bg-[neutral-50] p-4">
             <p className="text-[neutral-900] text-sm leading-relaxed">
               <span className="font-semibold text-[neutral-900]">48-Hour Protection Period</span> –
               You have up to 48 hours after service completion to report any issues. Our team will
@@ -128,7 +128,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
           </div>
 
           {/* Booking Details */}
-          <div className="mt-6 rounded-xl border border-[neutral-50] bg-[neutral-50] p-4">
+          <div className="mt-6 border border-[neutral-50] bg-[neutral-50] p-4">
             <p className="font-semibold text-[neutral-900] text-sm">Booking Details</p>
             <div className="mt-2 space-y-1 text-[neutral-900] text-sm">
               <p>
@@ -159,7 +159,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               What went wrong? <span className="text-[neutral-500]">*</span>
             </label>
             <select
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-base transition focus:border-[neutral-900] focus:outline-none"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-base transition focus:border-[neutral-900] focus:outline-none"
               id="dispute-reason"
               onChange={(e) => form.updateField("reason", e.target.value)}
               value={form.formData.reason}
@@ -182,7 +182,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               Please describe what happened <span className="text-[neutral-500]">*</span>
             </label>
             <textarea
-              className="min-h-32 w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-base leading-relaxed transition focus:border-[neutral-900] focus:outline-none"
+              className="min-h-32 w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-base leading-relaxed transition focus:border-[neutral-900] focus:outline-none"
               id="dispute-description"
               onChange={(e) => form.updateField("description", e.target.value)}
               placeholder="Include specific details about the issue, when it occurred, and any relevant context..."
@@ -196,7 +196,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Error Display */}
           {form.error && (
-            <div className="mt-6 rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-4">
+            <div className="mt-6 border border-[neutral-500]/30 bg-[neutral-500]/10 p-4">
               <p className="text-[neutral-500] text-sm">{form.error}</p>
             </div>
           )}

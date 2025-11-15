@@ -49,7 +49,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
   };
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
         <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={Calendar03Icon} />
@@ -58,7 +58,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
       {/* Health Score */}
       <div
-        className={`mb-6 rounded-2xl border-2 p-6 ${getHealthBgColor(health.healthScore)} ${getHealthBorderColor(health.healthScore)}`}
+        className={`mb-6 border-2 p-6 ${getHealthBgColor(health.healthScore)} ${getHealthBorderColor(health.healthScore)}`}
       >
         <div className="flex items-center justify-between">
           <div>
@@ -83,7 +83,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
       {/* Recommendations */}
       {health.recommendations.length > 0 && (
-        <div className="rounded-xl bg-[neutral-50] p-4">
+        <div className="bg-[neutral-50] p-4">
           <p className="mb-3 flex items-center gap-2 font-semibold text-[neutral-500] text-sm">
             <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
             {t("recommendations")}
@@ -101,7 +101,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
       {/* Success State */}
       {health.healthScore === 100 && (
-        <div className="rounded-xl bg-[neutral-500]/10 p-4">
+        <div className="bg-[neutral-500]/10 p-4">
           <p className="flex items-center gap-2 font-semibold text-[neutral-500] text-sm">
             <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
             {t("perfectHealth")}
@@ -120,7 +120,7 @@ function HealthItem({ completed, label }: { completed: boolean; label: string })
   return (
     <div className="flex items-center gap-3">
       <div
-        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
+        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center ${
           completed
             ? "bg-[neutral-500]/100 text-[neutral-50]"
             : "border-2 border-[neutral-200] bg-[neutral-50] text-[neutral-400]"

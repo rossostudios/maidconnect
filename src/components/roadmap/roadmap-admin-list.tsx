@@ -87,7 +87,7 @@ export function RoadmapAdminList() {
     };
 
     return (
-      <span className={`rounded-lg border px-2 py-1 font-medium text-xs ${colors[visibility]}`}>
+      <span className={`border px-2 py-1 font-medium text-xs ${colors[visibility]}`}>
         {visibility.charAt(0).toUpperCase() + visibility.slice(1)}
       </span>
     );
@@ -116,9 +116,7 @@ export function RoadmapAdminList() {
             type="button"
           >
             {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            <span className="ml-2 rounded-full bg-neutral-100 px-2 py-0.5 text-xs">
-              {filterCounts[filter]}
-            </span>
+            <span className="ml-2 bg-neutral-100 px-2 py-0.5 text-xs">{filterCounts[filter]}</span>
           </button>
         ))}
       </div>
@@ -126,17 +124,17 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral-900 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin border-4 border-neutral-900 border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-neutral-100">
             <span className="text-3xl">📋</span>
           </div>
           <h3 className="mb-2 font-semibold text-lg text-neutral-900">No roadmap items</h3>
           <p className="mb-4 text-neutral-600">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition-all hover:bg-orange-600"
+            className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-medium text-white transition-all hover:bg-orange-600"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
@@ -150,7 +148,7 @@ export function RoadmapAdminList() {
 
             return (
               <div
-                className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all hover:border-neutral-300 hover:shadow-md"
+                className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all hover:border-neutral-300 hover:shadow-md"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -162,7 +160,7 @@ export function RoadmapAdminList() {
 
                     <div className="mb-3 flex items-center gap-3">
                       <span
-                        className="inline-flex items-center gap-1 rounded-lg px-2 py-1 font-medium text-xs"
+                        className="inline-flex items-center gap-1 px-2 py-1 font-medium text-xs"
                         style={{
                           backgroundColor: statusConfig.bgColor,
                           color: statusConfig.color,
@@ -172,7 +170,7 @@ export function RoadmapAdminList() {
                         <span>{statusConfig.label}</span>
                       </span>
 
-                      <span className="inline-flex items-center gap-1 rounded-lg bg-neutral-100 px-2 py-1 font-medium text-neutral-600 text-xs">
+                      <span className="inline-flex items-center gap-1 bg-neutral-100 px-2 py-1 font-medium text-neutral-600 text-xs">
                         <span>{categoryConfig.icon}</span>
                         <span>{categoryConfig.label}</span>
                       </span>
@@ -198,7 +196,7 @@ export function RoadmapAdminList() {
                   <div className="flex items-center gap-2">
                     {item.visibility === "published" && (
                       <Link
-                        className="rounded-lg p-2 transition-colors hover:bg-neutral-50"
+                        className="p-2 transition-colors hover:bg-neutral-50"
                         href={`/roadmap/${item.slug}`}
                         target="_blank"
                         title="Preview"
@@ -208,7 +206,7 @@ export function RoadmapAdminList() {
                     )}
 
                     <Link
-                      className="rounded-lg p-2 transition-colors hover:bg-neutral-50"
+                      className="p-2 transition-colors hover:bg-neutral-50"
                       href={`/admin/roadmap/${item.id}/edit`}
                       title="Edit"
                     >
@@ -216,7 +214,7 @@ export function RoadmapAdminList() {
                     </Link>
 
                     <button
-                      className="rounded-lg p-2 transition-colors hover:bg-red-50"
+                      className="p-2 transition-colors hover:bg-red-50"
                       onClick={() => handleDelete(item.id, item.title)}
                       title="Archive"
                       type="button"

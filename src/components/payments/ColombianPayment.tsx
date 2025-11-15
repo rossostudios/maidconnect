@@ -90,7 +90,7 @@ export function ColombianPaymentSelector({
           .map((method) => (
             <button
               className={cn(
-                "relative w-full rounded-xl border-2 p-5 text-left transition-all",
+                "relative w-full border-2 p-5 text-left transition-all",
                 selected === method.id
                   ? "border-neutral-900 bg-neutral-50 shadow-md ring-2 ring-neutral-200"
                   : "border-neutral-200 bg-white hover:border-neutral-300 hover:shadow-sm"
@@ -111,7 +111,7 @@ export function ColombianPaymentSelector({
               {/* Content */}
               <div className="flex items-start gap-4">
                 {/* Icon */}
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-2xl">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-neutral-100 text-2xl">
                   {method.icon}
                 </div>
 
@@ -124,7 +124,7 @@ export function ColombianPaymentSelector({
                 {/* Radio indicator */}
                 <div
                   className={cn(
-                    "mt-1 h-6 w-6 flex-shrink-0 rounded-full border-2 transition-all",
+                    "mt-1 h-6 w-6 flex-shrink-0 border-2 transition-all",
                     selected === method.id
                       ? "border-neutral-900 bg-neutral-900"
                       : "border-neutral-300 bg-white"

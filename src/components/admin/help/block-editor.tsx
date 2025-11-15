@@ -36,9 +36,9 @@ const editorTokens = {
   handleRail:
     "absolute top-2 right-2 flex items-center gap-1 -full bg-white dark:bg-neutral-950/90 px-1 py-0.5 text-neutral-600 dark:text-neutral-400/70 opacity-0 shadow-sm ring-1 ring-[neutral-200] transition-all group-hover:opacity-100",
   handleButton:
-    "rounded-full p-1 transition hover:bg-[neutral-200]/30 hover:text-neutral-600 dark:text-neutral-400 active:cursor-grabbing",
+    " p-1 transition hover:bg-[neutral-200]/30 hover:text-neutral-600 dark:text-neutral-400 active:cursor-grabbing",
   deleteButton:
-    "rounded-full p-1 text-neutral-900 dark:text-neutral-100 transition hover:bg-white dark:bg-neutral-950 hover:text-neutral-900 dark:text-neutral-100",
+    " p-1 text-neutral-900 dark:text-neutral-100 transition hover:bg-white dark:bg-neutral-950 hover:text-neutral-900 dark:text-neutral-100",
 };
 
 const TEXT_BLOCK_TYPES: BlockType[] = [
@@ -566,7 +566,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
         >
           {toolbarButtons.map((button) => (
             <button
-              className="rounded-full p-1 transition hover:bg-[neutral-200]/30"
+              className="p-1 transition hover:bg-[neutral-200]/30"
               key={button.label}
               onClick={(e) => {
                 e.preventDefault();
@@ -1434,7 +1434,7 @@ const BlockContent = ({
     };
 
     return (
-      <div className={cn("rounded-2xl border p-4", calloutStyles[calloutConfig.color])}>
+      <div className={cn("border p-4", calloutStyles[calloutConfig.color])}>
         <div className="mb-2 flex items-center gap-2">
           <HugeiconsIcon className="h-4 w-4" icon={calloutConfig.iconComponent} />
           <select

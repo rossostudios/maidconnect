@@ -229,15 +229,14 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             </h3>
             <div className="space-y-2 text-neutral-600 text-xs dark:text-neutral-400">
               <div>
-                <kbd className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">/</kbd> Open block
-                menu
+                <kbd className="bg-neutral-100 px-1 dark:bg-neutral-800">/</kbd> Open block menu
               </div>
               <div>
-                <kbd className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">Enter</kbd> Create
-                new block
+                <kbd className="bg-neutral-100 px-1 dark:bg-neutral-800">Enter</kbd> Create new
+                block
               </div>
               <div>
-                <kbd className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">Backspace</kbd>{" "}
+                <kbd className="bg-neutral-100 px-1 dark:bg-neutral-800">Backspace</kbd>{" "}
                 Delete/merge blocks
               </div>
               <div>Select text for formatting toolbar</div>

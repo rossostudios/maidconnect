@@ -68,7 +68,7 @@ export function PriceBreakdown({
                       className="h-3.5 w-3.5 cursor-help text-orange-600 transition hover:text-orange-700"
                       icon={HelpCircleIcon}
                     />
-                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                       <p className="mb-2 font-semibold text-neutral-900 text-sm">
                         {serviceType === "concierge" ? "Concierge Service Fee" : "Platform Fee"}
                       </p>

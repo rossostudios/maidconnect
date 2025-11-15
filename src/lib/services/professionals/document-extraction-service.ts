@@ -12,11 +12,11 @@
  * - Reference letters
  */
 
-import { getStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
 import {
-  documentExtractionSchema,
   type DocumentExtraction,
+  documentExtractionSchema,
 } from "@/lib/integrations/amara/schemas";
+import { getStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
 import { trackDocumentExtraction } from "@/lib/integrations/amara/tracking";
 
 /**
@@ -163,14 +163,17 @@ export async function extractBatchDocuments(
  *
  * Returns warnings if extraction confidence is low or critical fields are missing
  */
-export function validateExtractionQuality(
-  extraction: DocumentExtraction
-): { isValid: boolean; warnings: string[] } {
+export function validateExtractionQuality(extraction: DocumentExtraction): {
+  isValid: boolean;
+  warnings: string[];
+} {
   const warnings: string[] = [];
 
   // Check confidence score
   if (extraction.confidence < 70) {
-    warnings.push(`Low extraction confidence (${extraction.confidence}%). Manual review recommended.`);
+    warnings.push(
+      `Low extraction confidence (${extraction.confidence}%). Manual review recommended.`
+    );
   }
 
   // Check for critical missing data based on document type
@@ -186,16 +189,18 @@ export function validateExtractionQuality(
     }
   }
 
-  if (extraction.documentType === "background_check_report") {
-    if (!extraction.backgroundCheckResults?.status) {
-      warnings.push("Unable to determine background check status");
-    }
+  if (
+    extraction.documentType === "background_check_report" &&
+    !extraction.backgroundCheckResults?.status
+  ) {
+    warnings.push("Unable to determine background check status");
   }
 
-  if (extraction.documentType === "certification") {
-    if (!extraction.certifications || extraction.certifications.length === 0) {
-      warnings.push("No certifications found in document");
-    }
+  if (
+    extraction.documentType === "certification" &&
+    (!extraction.certifications || extraction.certifications.length === 0)
+  ) {
+    warnings.push("No certifications found in document");
   }
 
   // Add any warnings from the extraction itself
@@ -214,9 +219,7 @@ export function validateExtractionQuality(
  *
  * Intelligently merges data from multiple document extractions
  */
-export function mergeDocumentExtractions(
-  extractions: DocumentExtraction[]
-): {
+export function mergeDocumentExtractions(extractions: DocumentExtraction[]): {
   fullName?: string;
   idNumber?: string;
   dateOfBirth?: string;
@@ -235,8 +238,7 @@ export function mergeDocumentExtractions(
   const merged = {
     fullName: sorted.find((e) => e.personalInfo?.fullName)?.personalInfo?.fullName,
     idNumber: sorted.find((e) => e.personalInfo?.idNumber)?.personalInfo?.idNumber,
-    dateOfBirth: sorted.find((e) => e.personalInfo?.dateOfBirth)?.personalInfo
-      ?.dateOfBirth,
+    dateOfBirth: sorted.find((e) => e.personalInfo?.dateOfBirth)?.personalInfo?.dateOfBirth,
     certifications: extractions.flatMap((e) => e.certifications || []),
     backgroundCheckStatus: sorted.find((e) => e.backgroundCheckResults?.status)
       ?.backgroundCheckResults?.status,

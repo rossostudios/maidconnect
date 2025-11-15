@@ -323,7 +323,7 @@ export function ProfessionalVettingDashboard() {
             <Card className="border-neutral-200 bg-white">
               <CardContent className="flex min-h-[400px] items-center justify-center p-12">
                 <div className="flex max-w-md flex-col items-center gap-4 text-center">
-                  <div className="rounded-full bg-neutral-100 p-4">
+                  <div className="bg-neutral-100 p-4">
                     <HugeiconsIcon
                       className="h-12 w-12 text-neutral-700"
                       icon={CheckmarkCircle02Icon}
@@ -369,7 +369,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-neutral-600/10 px-3 py-1 font-semibold text-neutral-600 text-sm">
+                          <span className="bg-neutral-600/10 px-3 py-1 font-semibold text-neutral-600 text-sm">
                             <HugeiconsIcon className="mr-1 inline h-4 w-4" icon={Calendar03Icon} />
                             {professional.waitingDays}d waiting
                           </span>
@@ -534,7 +534,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-neutral-600/10 px-3 py-1 font-semibold text-neutral-600 text-sm">
+                          <span className="bg-neutral-600/10 px-3 py-1 font-semibold text-neutral-600 text-sm">
                             ✓ Approved
                           </span>
                         </div>
@@ -657,7 +657,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-sm">
+                          <span className="bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-sm">
                             Incomplete
                           </span>
                         </div>

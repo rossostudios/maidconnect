@@ -65,7 +65,7 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       <div className="border border-neutral-200 bg-white p-4 font-[family-name:var(--font-geist-sans)] shadow-xl">
         {/* Header */}
         <div className="mb-3 flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-orange-50">
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center bg-orange-50">
             <AmaraIcon className="text-orange-600" size={24} />
           </div>
           <div className="flex-1">

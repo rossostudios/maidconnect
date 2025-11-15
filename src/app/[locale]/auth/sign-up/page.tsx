@@ -45,7 +45,7 @@ export default async function SignUpPage({ params }: Props) {
               <h1 className="serif-headline-lg text-neutral-900">{t("hero.title")}</h1>
               <p className="text-lg text-neutral-900/70 leading-relaxed">{t("hero.description")}</p>
             </div>
-            <div className="rounded-[40px] border border-neutral-200 bg-neutral-50 p-12 shadow-[0_28px_70px_rgba(22,22,22,0.08)]">
+            <div className="border border-neutral-200 bg-neutral-50 p-12 shadow-[0_28px_70px_rgba(22,22,22,0.08)]">
               <SignUpForm />
               <p className="mt-8 text-neutral-900/70 text-sm">
                 {t("form.haveAccount")}{" "}

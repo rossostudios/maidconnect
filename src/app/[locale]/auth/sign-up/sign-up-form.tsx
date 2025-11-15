@@ -19,7 +19,7 @@ import { defaultSignUpState, type SignUpActionState } from "./types";
 
 function getRoleOptionClassName(error: string | undefined): string {
   return cn(
-    "flex cursor-pointer flex-col gap-3 rounded-lg border border-neutral-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-neutral-900 hover:border-neutral-400",
+    "flex cursor-pointer flex-col gap-3 border border-neutral-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-neutral-900 hover:border-neutral-400",
     error && "border-red-300 focus-within:border-red-500 hover:border-red-400"
   );
 }
@@ -74,10 +74,7 @@ function FormStatusMessages({
 }) {
   if (state.status === "error" && state.error) {
     return (
-      <p
-        className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-700 text-sm"
-        role="alert"
-      >
+      <p className="border border-red-200 bg-red-50 px-3 py-2 text-red-700 text-sm" role="alert">
         {state.error}
       </p>
     );
@@ -85,7 +82,7 @@ function FormStatusMessages({
   if (state.status === "success") {
     return (
       <p
-        className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-green-700 text-sm"
+        className="border border-green-200 bg-green-50 px-3 py-2 text-green-700 text-sm"
         role="status"
       >
         {t("successMessage")}

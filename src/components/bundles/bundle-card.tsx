@@ -30,7 +30,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
   const savingsAmount = bundle.basePriceCop - bundle.finalPriceCop;
 
   return (
-    <div className="group rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:border-[neutral-500]/30 hover:shadow-md">
+    <div className="group border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:border-[neutral-500]/30 hover:shadow-md">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
@@ -40,7 +40,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
         {/* Discount Badge */}
         {bundle.discountPercentage > 0 && (
-          <div className="ml-4 rounded-full bg-[neutral-500] px-3 py-1 font-bold text-[neutral-50] text-sm">
+          <div className="ml-4 bg-[neutral-500] px-3 py-1 font-bold text-[neutral-50] text-sm">
             {bundle.discountPercentage}% {t("off")}
           </div>
         )}
@@ -49,8 +49,8 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       {/* Services List */}
       <div className="mb-4 space-y-2">
         {bundle.services.map((service, index) => (
-          <div className="flex items-center gap-2 rounded-lg bg-[neutral-50] px-3 py-2" key={index}>
-            <div className="h-2 w-2 rounded-full bg-[neutral-500]" />
+          <div className="flex items-center gap-2 bg-[neutral-50] px-3 py-2" key={index}>
+            <div className="h-2 w-2 bg-[neutral-500]" />
             <span className="flex-1 text-[neutral-900] text-sm">{service.name}</span>
             <span className="text-[neutral-400] text-xs">{service.durationMinutes} min</span>
           </div>
@@ -81,7 +81,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       </div>
 
       {/* Pricing */}
-      <div className="mb-4 rounded-xl bg-[neutral-50] p-4">
+      <div className="mb-4 bg-[neutral-50] p-4">
         <div className="flex items-center justify-between">
           <div>
             {bundle.discountPercentage > 0 && (
@@ -108,7 +108,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       {/* Actions */}
       <div className="flex gap-2">
         <button
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="flex flex-1 items-center justify-center gap-2 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={() => onQuickQuote(bundle.id)}
           type="button"
         >
@@ -118,7 +118,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
         <button
           aria-label="Edit bundle"
-          className="rounded-xl border-2 border-[neutral-200] bg-[neutral-50] p-2 text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          className="border-2 border-[neutral-200] bg-[neutral-50] p-2 text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={() => onEdit(bundle.id)}
           type="button"
         >
@@ -127,7 +127,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
         <button
           aria-label="Delete bundle"
-          className="rounded-xl border-2 border-[neutral-200] bg-[neutral-50] p-2 text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500]/100"
+          className="border-2 border-[neutral-200] bg-[neutral-50] p-2 text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500]/100"
           onClick={() => onDelete(bundle.id)}
           type="button"
         >
@@ -137,7 +137,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
       {/* Inactive Badge */}
       {!bundle.isActive && (
-        <div className="mt-3 rounded-lg bg-[neutral-500]/5 px-3 py-2 text-center text-[neutral-500] text-sm">
+        <div className="mt-3 bg-[neutral-500]/5 px-3 py-2 text-center text-[neutral-500] text-sm">
           {t("inactive")}
         </div>
       )}

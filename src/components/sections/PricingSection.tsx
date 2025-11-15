@@ -62,7 +62,7 @@ export function PricingSection() {
         <div className="mx-auto max-w-5xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {/* Section Header */}
           <div className="px-8 py-16 text-center">
-            <div className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1.5">
+            <div className="mb-4 inline-block bg-orange-100 px-4 py-1.5">
               <span className="font-semibold text-orange-600 text-xs uppercase tracking-wider">
                 {t("badge")}
               </span>
@@ -116,7 +116,7 @@ export function PricingSection() {
                   <Button
                     asChild
                     className={cn(
-                      "w-full rounded-full font-semibold transition-all duration-200",
+                      "w-full font-semibold transition-all duration-200",
                       plan.highlighted
                         ? "bg-orange-500 text-white shadow-md hover:bg-orange-600 hover:shadow-lg"
                         : "border-2 border-neutral-200 bg-white hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"

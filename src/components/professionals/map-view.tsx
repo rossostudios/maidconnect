@@ -166,7 +166,7 @@ const MapViewComponent = memo(
                   >
                     <div className="flex gap-3">
                       {/* Professional photo */}
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
+                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden">
                         <Image
                           alt={professional.name}
                           className="object-cover"
@@ -174,7 +174,7 @@ const MapViewComponent = memo(
                           src={professional.photoUrl || "/placeholder-avatar.jpg"}
                         />
                         {professional.availableToday && (
-                          <div className="absolute top-1 right-1 h-3 w-3 rounded-full border-2 border-[neutral-50] bg-[neutral-500]/100" />
+                          <div className="absolute top-1 right-1 h-3 w-3 border-2 border-[neutral-50] bg-[neutral-500]/100" />
                         )}
                       </div>
 

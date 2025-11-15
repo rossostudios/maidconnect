@@ -148,7 +148,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         size="md"
       >
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
             <HugeiconsIcon className="h-8 w-8 text-[neutral-500]" icon={CheckmarkCircle01Icon} />
           </div>
           <h3 className="font-bold text-2xl text-[neutral-900]">{t("success.title")}</h3>
@@ -187,7 +187,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
               return (
                 <button
-                  className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition ${
+                  className={`flex flex-col items-center gap-2 border-2 p-4 text-center transition ${
                     isSelected
                       ? "border-[neutral-500] bg-[neutral-500]/10"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50"
@@ -224,7 +224,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <span className="text-[neutral-400]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
+            className="w-full border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="subject"
             maxLength={200}
@@ -244,7 +244,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             {t("form.messageLabel")} <span className="text-[neutral-500]/100">*</span>
           </label>
           <textarea
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
+            className="w-full border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="message"
             maxLength={5000}
@@ -267,7 +267,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <span className="text-[neutral-400]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
+            className="w-full border border-[neutral-200] px-4 py-3 text-base shadow-sm transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="email"
             onChange={(e) => form.updateField("email", e.target.value)}
@@ -296,20 +296,20 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         </div>
 
         {/* Privacy Notice */}
-        <div className="mb-6 rounded-xl bg-[neutral-50] p-4">
+        <div className="mb-6 bg-[neutral-50] p-4">
           <p className="text-[neutral-500] text-sm leading-relaxed">{t("form.privacyNotice")}</p>
         </div>
 
         {/* Error Message */}
         {form.error && (
-          <div className="mb-6 rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500] text-sm">
+          <div className="mb-6 bg-[neutral-500]/10 p-4 text-[neutral-500] text-sm">
             {form.error}
           </div>
         )}
 
         {/* Submit Button */}
         <button
-          className="w-full rounded-full bg-[neutral-500] px-6 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full bg-[neutral-500] px-6 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={
             feedbackMutation.isLoading ||
             !form.formData.consent ||

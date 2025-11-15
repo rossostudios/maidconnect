@@ -129,7 +129,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
   if (!isExpanded) {
     return (
       <button
-        className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-700 text-sm shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50"
+        className="flex items-center gap-2 border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-700 text-sm shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50"
         onClick={() => setIsExpanded(true)}
         type="button"
       >
@@ -140,7 +140,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
   }
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+    <div className="border border-neutral-200 bg-white p-4 shadow-sm">
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <h3 className="font-semibold text-neutral-900 text-sm">Quick Reply Templates</h3>
@@ -157,7 +157,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
       <div className="mb-3 flex gap-2 overflow-x-auto">
         {(["all", "acceptance", "questions", "scheduling", "general"] as const).map((category) => (
           <button
-            className={`whitespace-nowrap rounded-full px-3 py-1 font-medium text-xs transition ${
+            className={`whitespace-nowrap px-3 py-1 font-medium text-xs transition ${
               selectedCategory === category
                 ? "bg-neutral-900 text-white"
                 : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -175,7 +175,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
       <div className="grid max-h-64 grid-cols-1 gap-2 overflow-y-auto sm:grid-cols-2">
         {filteredReplies.map((reply) => (
           <button
-            className="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-left text-sm transition hover:border-neutral-300 hover:bg-neutral-100"
+            className="border border-neutral-200 bg-neutral-50 px-4 py-3 text-left text-sm transition hover:border-neutral-300 hover:bg-neutral-100"
             key={reply.id}
             onClick={() => {
               onSelectReply(reply.message);

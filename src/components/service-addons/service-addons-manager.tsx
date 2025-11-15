@@ -128,7 +128,7 @@ export function ServiceAddonsManager({
 
       {/* Empty State */}
       {addons.length === 0 && !isAdding && (
-        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50]/90 p-8 text-center">
+        <div className="border border-[neutral-200] bg-[neutral-50]/90 p-8 text-center">
           <p className="text-[neutral-400] text-sm">{t("emptyState")}</p>
           <button
             className="mt-3 font-semibold text-[neutral-500] text-sm hover:text-[neutral-500]"
@@ -143,7 +143,7 @@ export function ServiceAddonsManager({
       {/* Add New Button */}
       {addons.length > 0 && !isAdding && !editingId && (
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-[neutral-200] border-dashed bg-[neutral-50]/90 px-4 py-3 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          className="flex w-full items-center justify-center gap-2 border-2 border-[neutral-200] border-dashed bg-[neutral-50]/90 px-4 py-3 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={handleAddNew}
           type="button"
         >
@@ -192,7 +192,7 @@ function AddonCard({
 
   return (
     <div
-      className={`rounded-lg border p-4 transition ${
+      className={`border p-4 transition ${
         addon.is_active
           ? "border-[neutral-200] bg-[neutral-50]"
           : "border-[neutral-200] bg-[neutral-50] opacity-70"
@@ -203,7 +203,7 @@ function AddonCard({
           <div className="flex items-center gap-2">
             <h4 className="font-semibold text-[neutral-900]">{addon.name}</h4>
             {!addon.is_active && (
-              <span className="rounded-full bg-[neutral-200] px-2 py-0.5 font-semibold text-[neutral-400] text-xs">
+              <span className="bg-[neutral-200] px-2 py-0.5 font-semibold text-[neutral-400] text-xs">
                 {t("inactive")}
               </span>
             )}
@@ -220,21 +220,21 @@ function AddonCard({
         {/* Actions */}
         <div className="flex gap-2">
           <button
-            className="rounded-md px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
+            className="px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
             onClick={onEdit}
             type="button"
           >
             {t("actions.edit")}
           </button>
           <button
-            className="rounded-md px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
+            className="px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
             onClick={onToggleActive}
             type="button"
           >
             {addon.is_active ? t("actions.deactivate") : t("actions.activate")}
           </button>
           <button
-            className="rounded-md px-2 py-1 font-medium text-[neutral-500] text-xs transition hover:bg-[neutral-500]/10"
+            className="px-2 py-1 font-medium text-[neutral-500] text-xs transition hover:bg-[neutral-500]/10"
             onClick={onDelete}
             type="button"
           >
@@ -282,7 +282,7 @@ function AddonForm({
 
   return (
     <form
-      className="space-y-4 rounded-lg border border-[neutral-200] bg-[neutral-50] p-4"
+      className="space-y-4 border border-[neutral-200] bg-[neutral-50] p-4"
       onSubmit={handleSubmit}
     >
       <h4 className="font-semibold text-[neutral-900]">
@@ -294,7 +294,7 @@ function AddonForm({
           {t("form.fields.name.label")}
         </label>
         <input
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="addon-name"
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t("form.fields.name.placeholder")}
@@ -312,7 +312,7 @@ function AddonForm({
           {t("form.fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="addon-description"
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder={t("form.fields.description.placeholder")}
@@ -330,7 +330,7 @@ function AddonForm({
             {t("form.fields.price.label")}
           </label>
           <input
-            className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="addon-price"
             min="0"
             onChange={(e) =>
@@ -352,7 +352,7 @@ function AddonForm({
             {t("form.fields.extraTime.label")}
           </label>
           <input
-            className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="addon-duration"
             min="0"
             onChange={(e) =>
@@ -382,14 +382,14 @@ function AddonForm({
 
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md border border-[neutral-200] px-4 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          className="border border-[neutral-200] px-4 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={onCancel}
           type="button"
         >
           {t("form.cancel")}
         </button>
         <button
-          className="rounded-md bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           type="submit"
         >
           {addon ? t("form.saveChanges") : t("form.createAddon")}

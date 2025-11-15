@@ -8,7 +8,7 @@ export function CapabilitiesSection() {
   return (
     <section className="py-16 sm:py-20 lg:py-24" id="capabilities">
       <Container>
-        <Card className="rounded-[44px] border-neutral-800 bg-neutral-900 p-10 text-neutral-50 shadow-2xl md:p-14">
+        <Card className="border-neutral-800 bg-neutral-900 p-10 text-neutral-50 shadow-2xl md:p-14">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_minmax(0,_1fr)]">
             <div className="flex flex-col gap-6">
               <p className="font-semibold text-neutral-400 text-xs uppercase tracking-[0.15em]">
@@ -26,7 +26,7 @@ export function CapabilitiesSection() {
               {productPillars.map((pillar) => (
                 <Card
                   className={cn(
-                    "flex flex-col gap-3 rounded-[28px] border-neutral-800 bg-neutral-900 p-6 text-left transition-colors",
+                    "flex flex-col gap-3 border-neutral-800 bg-neutral-900 p-6 text-left transition-colors",
                     "hover:border-neutral-700 hover:bg-neutral-850"
                   )}
                   key={pillar.title}

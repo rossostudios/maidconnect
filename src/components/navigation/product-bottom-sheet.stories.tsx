@@ -57,7 +57,7 @@ const ProductBottomSheetWrapper = () => {
         <div className="flex items-center justify-between">
           <div className="font-bold text-neutral-900 text-xl">Casaora</div>
           <button
-            className="rounded-lg border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50"
+            className="border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50"
             onClick={() => setIsOpen(true)}
             type="button"
           >
@@ -96,7 +96,7 @@ export const FewerFeatures: Story = {
       <div className="min-h-screen bg-neutral-50">
         <header className="border-neutral-200 border-b bg-white p-4">
           <button
-            className="rounded-lg bg-neutral-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-neutral-800"
+            className="bg-neutral-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-neutral-800"
             onClick={() => setIsOpen(true)}
             type="button"
           >

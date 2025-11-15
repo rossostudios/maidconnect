@@ -25,7 +25,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-900]/5">
+        <div className="flex h-16 w-16 items-center justify-center bg-[neutral-900]/5">
           <HugeiconsIcon className="h-8 w-8 text-[neutral-900]" icon={HomeIcon} />
         </div>
       </div>
@@ -54,7 +54,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
             {t("bedroomsLabel", { defaultValue: "Bedrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="bedrooms"
             onChange={(e) => onUpdate({ bedrooms: Number(e.target.value) })}
             value={data.bedrooms || ""}
@@ -80,7 +80,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
             {t("bathroomsLabel", { defaultValue: "Bathrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="bathrooms"
             onChange={(e) => onUpdate({ bathrooms: Number(e.target.value) })}
             value={data.bathrooms || ""}
@@ -104,7 +104,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
             {t("squareMetersLabel", { defaultValue: "Approximate size (m²)" })}
           </label>
           <input
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="square-meters"
             min="20"
             onChange={(e) => onUpdate({ squareMeters: Number(e.target.value) })}
@@ -115,7 +115,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         </div>
 
         {/* Pets */}
-        <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
           <label className="flex items-center gap-3">
             <input
               checked={data.hasPets}
@@ -142,7 +142,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
               {t("petDetailsLabel", { defaultValue: "Pet details (optional)" })}
             </label>
             <input
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
               id="pet-details"
               onChange={(e) => onUpdate({ petDetails: e.target.value })}
               placeholder={t("petDetailsPlaceholder", {
@@ -155,7 +155,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         )}
 
         {/* Supplies Needed */}
-        <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
           <label className="flex items-center gap-3">
             <input
               checked={data.suppliesNeeded}
@@ -182,21 +182,21 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900]"
+          className="flex-1 bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900]"
           onClick={onNext}
           type="button"
         >

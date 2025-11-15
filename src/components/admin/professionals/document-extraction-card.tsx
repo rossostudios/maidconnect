@@ -61,11 +61,13 @@ type DocumentExtraction = {
 interface DocumentExtractionCardProps {
   professionalId?: string;
   onExtractionComplete?: (data: DocumentExtraction) => void;
-  onAutoFill?: (data: Partial<{
-    fullName: string;
-    idNumber: string;
-    dateOfBirth: string;
-  }>) => void;
+  onAutoFill?: (
+    data: Partial<{
+      fullName: string;
+      idNumber: string;
+      dateOfBirth: string;
+    }>
+  ) => void;
 }
 
 export function DocumentExtractionCard({
@@ -171,7 +173,7 @@ export function DocumentExtractionCard({
   };
 
   const handleAutoFill = () => {
-    if (!extraction?.personalInfo || !onAutoFill) return;
+    if (!(extraction?.personalInfo && onAutoFill)) return;
 
     onAutoFill({
       fullName: extraction.personalInfo.fullName,
@@ -209,42 +211,7 @@ export function DocumentExtractionCard({
       </div>
 
       {/* Upload Area */}
-      {!file ? (
-        <div
-          className="flex min-h-[200px] cursor-pointer flex-col items-center justify-center border-2 border-dashed border-neutral-300 bg-neutral-50 px-6 py-8 transition-colors hover:border-orange-500 hover:bg-orange-50"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
-          <HugeiconsIcon
-            className="mb-4 h-12 w-12 text-neutral-400"
-            icon={CloudUploadIcon}
-            strokeWidth={1.5}
-          />
-          <p className="mb-2 text-center font-medium text-neutral-900">
-            Drop document here or click to browse
-          </p>
-          <p className="mb-4 text-center text-neutral-500 text-sm">
-            Supports JPG, PNG, WebP, PDF (max 10MB)
-          </p>
-          <input
-            accept="image/jpeg,image/jpg,image/png,image/webp,application/pdf"
-            className="hidden"
-            id="document-upload"
-            onChange={(e) => {
-              const selectedFile = e.target.files?.[0];
-              if (selectedFile) {
-                handleFileSelect(selectedFile);
-              }
-            }}
-            type="file"
-          />
-          <label htmlFor="document-upload">
-            <Button className="cursor-pointer" type="button" variant="outline">
-              Select File
-            </Button>
-          </label>
-        </div>
-      ) : (
+      {file ? (
         <div className="space-y-4">
           {/* File Preview */}
           <div className="border border-neutral-200 bg-neutral-50 p-4">
@@ -257,9 +224,7 @@ export function DocumentExtractionCard({
                 />
                 <div className="flex-1">
                   <p className="font-medium text-neutral-900 text-sm">{file.name}</p>
-                  <p className="text-neutral-500 text-xs">
-                    {(file.size / 1024).toFixed(1)} KB
-                  </p>
+                  <p className="text-neutral-500 text-xs">{(file.size / 1024).toFixed(1)} KB</p>
                 </div>
               </div>
             ) : (
@@ -305,7 +270,9 @@ export function DocumentExtractionCard({
                     strokeWidth={1.5}
                   />
                   <span className="font-semibold text-neutral-900 text-sm">
-                    {extraction.documentType.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                    {extraction.documentType
+                      .replace(/_/g, " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -328,7 +295,9 @@ export function DocumentExtractionCard({
                       icon={UserIcon}
                       strokeWidth={1.5}
                     />
-                    <span className="font-medium text-neutral-700 text-sm">Personal Information</span>
+                    <span className="font-medium text-neutral-700 text-sm">
+                      Personal Information
+                    </span>
                   </div>
                   {extraction.personalInfo.fullName && (
                     <div className="flex justify-between">
@@ -390,7 +359,7 @@ export function DocumentExtractionCard({
                   <span className="font-medium text-neutral-700 text-sm">Background Check</span>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`inline-flex px-3 py-1 text-xs font-medium ${
+                      className={`inline-flex px-3 py-1 font-medium text-xs ${
                         extraction.backgroundCheckResults.status === "clear"
                           ? "border border-green-200 bg-green-50 text-green-700"
                           : extraction.backgroundCheckResults.status === "flagged"
@@ -427,8 +396,8 @@ export function DocumentExtractionCard({
                       strokeWidth={1.5}
                     />
                     <div>
-                      <p className="font-medium text-yellow-900 text-sm">Warnings</p>
-                      <ul className="ml-4 mt-1 list-disc space-y-1 text-yellow-700 text-xs">
+                      <p className="font-medium text-sm text-yellow-900">Warnings</p>
+                      <ul className="mt-1 ml-4 list-disc space-y-1 text-xs text-yellow-700">
                         {extraction.warnings.map((warning, index) => (
                           <li key={index}>{warning}</li>
                         ))}
@@ -440,12 +409,7 @@ export function DocumentExtractionCard({
 
               {/* Auto-Fill Button */}
               {extraction.personalInfo && onAutoFill && (
-                <Button
-                  className="w-full"
-                  onClick={handleAutoFill}
-                  type="button"
-                  variant="default"
-                >
+                <Button className="w-full" onClick={handleAutoFill} type="button" variant="default">
                   Auto-Fill Professional Profile
                 </Button>
               )}
@@ -465,6 +429,41 @@ export function DocumentExtractionCard({
               </div>
             </div>
           )}
+        </div>
+      ) : (
+        <div
+          className="flex min-h-[200px] cursor-pointer flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 px-6 py-8 transition-colors hover:border-orange-500 hover:bg-orange-50"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <HugeiconsIcon
+            className="mb-4 h-12 w-12 text-neutral-400"
+            icon={CloudUploadIcon}
+            strokeWidth={1.5}
+          />
+          <p className="mb-2 text-center font-medium text-neutral-900">
+            Drop document here or click to browse
+          </p>
+          <p className="mb-4 text-center text-neutral-500 text-sm">
+            Supports JPG, PNG, WebP, PDF (max 10MB)
+          </p>
+          <input
+            accept="image/jpeg,image/jpg,image/png,image/webp,application/pdf"
+            className="hidden"
+            id="document-upload"
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0];
+              if (selectedFile) {
+                handleFileSelect(selectedFile);
+              }
+            }}
+            type="file"
+          />
+          <label htmlFor="document-upload">
+            <Button className="cursor-pointer" type="button" variant="outline">
+              Select File
+            </Button>
+          </label>
         </div>
       )}
     </Card>

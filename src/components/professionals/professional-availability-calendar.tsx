@@ -170,7 +170,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         </div>
 
         {/* Details Sidebar */}
-        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-sm">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-sm">
           <h4 className="font-semibold text-[neutral-900] text-sm">Day details</h4>
           {selectedDate && (
             <p className="mt-1 text-[neutral-400] text-xs">
@@ -243,7 +243,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                         : (booking.status ?? "Booking");
                     return (
                       <li
-                        className="rounded-2xl border border-[neutral-200] bg-[neutral-50] px-3 py-2 text-[neutral-400] text-sm"
+                        className="border border-[neutral-200] bg-[neutral-50] px-3 py-2 text-[neutral-400] text-sm"
                         key={booking.id}
                       >
                         <p className="font-semibold text-[neutral-900]">
@@ -295,7 +295,7 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {hasAvailability && (
-        <span className="mt-1 rounded-full bg-[neutral-500]/12 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
+        <span className="mt-1 bg-[neutral-500]/12 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
           Open
         </span>
       )}

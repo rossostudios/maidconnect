@@ -149,10 +149,7 @@ export const documentExtractionSchema = z.object({
     .optional()
     .describe("Background check results if document is a background report"),
 
-  expirationDate: z
-    .string()
-    .optional()
-    .describe("Document expiration date in YYYY-MM-DD format"),
+  expirationDate: z.string().optional().describe("Document expiration date in YYYY-MM-DD format"),
 
   confidence: z
     .number()
@@ -297,10 +294,7 @@ export const matchingCriteriaSchema = z.object({
     .optional()
     .describe("Required verification level"),
 
-  maxDistance: z
-    .number()
-    .optional()
-    .describe("Maximum distance in kilometers from user location"),
+  maxDistance: z.number().optional().describe("Maximum distance in kilometers from user location"),
 
   priceRange: z
     .object({
@@ -404,15 +398,7 @@ export const adminAnalyticsSchema = z.object({
     .array(
       z.object({
         category: z
-          .enum([
-            "revenue",
-            "growth",
-            "quality",
-            "retention",
-            "operations",
-            "marketing",
-            "risk",
-          ])
+          .enum(["revenue", "growth", "quality", "retention", "operations", "marketing", "risk"])
           .describe("Insight category"),
         priority: z
           .enum(["critical", "high", "medium", "low"])

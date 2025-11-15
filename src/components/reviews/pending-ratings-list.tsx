@@ -34,7 +34,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
+    <div className="border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
       <p className="mt-1 text-[neutral-400] text-sm">{t("description")}</p>
 
@@ -48,7 +48,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
           return (
             <div
-              className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50] p-4"
+              className="flex items-center justify-between border border-[neutral-200] bg-[neutral-50] p-4"
               key={booking.id}
             >
               <div>
@@ -60,7 +60,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
                 </p>
               </div>
               <button
-                className="rounded-lg bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+                className="bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
                 onClick={() => setSelectedBooking(booking)}
                 type="button"
               >

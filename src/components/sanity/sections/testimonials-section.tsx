@@ -48,10 +48,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <div
-              className="rounded-3xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm"
-              key={index}
-            >
+            <div className="border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm" key={index}>
               <blockquote className="mb-6 text-[neutral-900] leading-relaxed">
                 "{testimonial.quote}"
               </blockquote>
@@ -69,7 +66,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500]/100/10 font-semibold text-[neutral-500]">
+                <div className="flex h-12 w-12 items-center justify-center bg-[neutral-500]/100/10 font-semibold text-[neutral-500]">
                   {testimonial.authorName.charAt(0)}
                 </div>
                 <div>

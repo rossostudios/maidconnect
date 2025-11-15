@@ -104,7 +104,7 @@ export function StoryContent() {
           {/* Key Features Grid */}
           <div className="grid gap-8 md:grid-cols-3">
             <div className="flex flex-col">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/100/10">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
                 <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={Shield01Icon} />
               </div>
               <h3 className="mb-3 font-semibold text-[neutral-900] text-lg">
@@ -116,7 +116,7 @@ export function StoryContent() {
             </div>
 
             <div className="flex flex-col">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/100/10">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
                 <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={GlobeIcon} />
               </div>
               <h3 className="mb-3 font-semibold text-[neutral-900] text-lg">
@@ -128,7 +128,7 @@ export function StoryContent() {
             </div>
 
             <div className="flex flex-col">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/100/10">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
                 <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={MagicWand01Icon} />
               </div>
               <h3 className="mb-3 font-semibold text-[neutral-900] text-lg">

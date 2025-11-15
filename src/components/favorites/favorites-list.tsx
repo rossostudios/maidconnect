@@ -59,7 +59,7 @@ export function FavoritesList() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
+      <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
         {error || t("errors.loadFailed")}
       </div>
     );
@@ -67,7 +67,7 @@ export function FavoritesList() {
 
   if (favorites.length === 0) {
     return (
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-12 text-center">
         <div className="flex justify-center">
           <HugeiconsIcon className="h-12 w-12 text-[neutral-200]" icon={FavouriteIcon} />
         </div>
@@ -76,7 +76,7 @@ export function FavoritesList() {
           {t("empty.description")}
         </p>
         <Link
-          className="mt-6 inline-flex rounded-full bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
+          className="mt-6 inline-flex bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
           href="/professionals"
         >
           {t("empty.browseProfessionals")}
@@ -121,7 +121,7 @@ function ProfessionalCard({
   }).format(professional.hourly_rate_cop);
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md">
+    <div className="group relative overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md">
       <Link href={`/professionals/${professional.profile_id}`}>
         <div className="p-6">
           {/* Header */}
@@ -130,14 +130,14 @@ function ProfessionalCard({
             {professional.profile.avatar_url ? (
               <Image
                 alt={professional.profile.full_name}
-                className="h-16 w-16 rounded-full object-cover"
+                className="h-16 w-16 object-cover"
                 height={64}
                 loading="lazy"
                 src={professional.profile.avatar_url}
                 width={64}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-[neutral-50] text-xl">
+              <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500] font-semibold text-[neutral-50] text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}

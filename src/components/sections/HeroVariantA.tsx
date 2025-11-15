@@ -203,7 +203,7 @@ export function HeroVariantA() {
 
           {/* Trusted By Section - Marquee inside bordered card */}
           <div className="mt-24">
-            <div className="rounded-3xl border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
+            <div className="border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
                 Built for expat and local households in Medellín — expanding across Colombia
               </p>

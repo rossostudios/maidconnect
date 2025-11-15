@@ -54,9 +54,9 @@ export function TeamSection() {
         </div>
 
         {/* Remote-First Philosophy */}
-        <div className="mx-auto mb-12 max-w-4xl rounded-2xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm sm:p-12">
+        <div className="mx-auto mb-12 max-w-4xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm sm:p-12">
           <div className="mb-8 flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-500]/100/10">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-[neutral-500]/100/10">
               <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={Location01Icon} />
             </div>
             <div>
@@ -94,10 +94,10 @@ export function TeamSection() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {teamBenefits.map((benefit, index) => (
             <div
-              className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-xs transition hover:shadow-sm"
+              className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-xs transition hover:shadow-sm"
               key={index}
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[neutral-500]/100/10">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center bg-[neutral-500]/100/10">
                 <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={benefit.icon} />
               </div>
               <h4 className="mb-2 font-semibold text-[neutral-900]">{t(benefit.titleKey)}</h4>
@@ -107,7 +107,7 @@ export function TeamSection() {
         </div>
 
         {/* Join Team CTA */}
-        <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-[neutral-500]/20 bg-[neutral-500]/100/5 p-8 text-center">
+        <div className="mx-auto mt-12 max-w-2xl border border-[neutral-500]/20 bg-[neutral-500]/100/5 p-8 text-center">
           <HugeiconsIcon
             className="mx-auto mb-4 h-12 w-12 text-[neutral-500]"
             icon={UserGroupIcon}
@@ -115,7 +115,7 @@ export function TeamSection() {
           <h3 className="mb-3 font-semibold text-[neutral-900] text-xl">{t("joinTeam.title")}</h3>
           <p className="mb-6 text-[neutral-400]">{t("joinTeam.description")}</p>
           <a
-            className="inline-flex items-center justify-center rounded-lg bg-[neutral-500]/100 px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] active:scale-95"
+            className="inline-flex items-center justify-center bg-[neutral-500]/100 px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] active:scale-95"
             href="/contact"
           >
             {t("joinTeam.cta")}

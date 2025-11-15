@@ -1,7 +1,20 @@
 "use client";
 
 /**
- * Amara Chat Interface
+ * @deprecated This component is deprecated and should not be used.
+ * Use @/components/amara/amara-chat-interface instead.
+ *
+ * This older version is kept for reference but lacks:
+ * - Escape key dismissal handler
+ * - Backdrop click-to-dismiss functionality
+ * - Latest Lia design system updates
+ * - Improved accessibility features
+ *
+ * The newer amara-chat-interface.tsx component is the maintained version.
+ */
+
+/**
+ * Amara Chat Interface (DEPRECATED - USE amara-chat-interface.tsx)
  *
  * Main chat window component for the Amara AI assistant.
  * Uses Vercel AI SDK's useChat hook for streaming responses.
@@ -129,9 +142,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
   }
 
   return (
-    <Card className="amara-chat-window fixed inset-0 z-50 flex flex-col border-neutral-200 bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-lg sm:border sm:shadow-lg md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
+    <Card className="amara-chat-window sm: fixed inset-0 z-50 flex flex-col border-neutral-200 bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:border sm:shadow-lg md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
       {/* Header */}
-      <div className="flex items-center justify-between border-neutral-200 border-b bg-white px-4 py-3 sm:rounded-t-lg sm:px-6 sm:py-4">
+      <div className="sm: flex items-center justify-between border-neutral-200 border-b bg-white px-4 py-3 sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
             <AmaraIcon className="text-neutral-900" size={40} />
@@ -143,7 +156,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         </div>
         <button
           aria-label={t("closeChat")}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2"
+          className="inline-flex h-11 w-11 items-center justify-center text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2"
           onClick={onClose}
           type="button"
         >
@@ -205,7 +218,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             })}
 
             {isLoading && (
-              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 shadow-sm">
+              <div className="flex items-center gap-3 border border-neutral-200 bg-white px-4 py-3 shadow-sm">
                 <AmaraIcon className="text-neutral-900" size={28} />
                 <Loader />
                 <span className="text-neutral-500 text-sm">{t("typing")}</span>
@@ -213,7 +226,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             )}
 
             {error && (
-              <div className="rounded-xl border border-red-300 bg-neutral-100 px-4 py-3 text-neutral-800 text-sm">
+              <div className="border border-red-300 bg-neutral-100 px-4 py-3 text-neutral-800 text-sm">
                 {t("errorMessage")}
               </div>
             )}
@@ -241,28 +254,28 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="border-neutral-200 border-t bg-white px-4 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-4 gap-2">
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
               href="/"
             >
               <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Home01Icon} />
               <span className="font-medium text-neutral-600 text-xs">Home</span>
             </Link>
             <button
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
               type="button"
             >
               <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Message01Icon} />
               <span className="font-medium text-neutral-600 text-xs">Messages</span>
             </button>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
               href="/support/account-suspended"
             >
               <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={HelpCircleIcon} />
               <span className="font-medium text-neutral-600 text-xs">Help</span>
             </Link>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
               href="/changelog"
             >
               <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={NewsIcon} />
@@ -274,7 +287,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
       {/* Input */}
       <form
-        className="border-neutral-200 border-t bg-white px-4 py-3 sm:rounded-b-lg sm:px-6"
+        className="sm: border-neutral-200 border-t bg-white px-4 py-3 sm:px-6"
         onSubmit={async (e) => {
           e.preventDefault();
           if (!input.trim() || isLoading) {
@@ -293,7 +306,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-[15px] text-neutral-900 transition placeholder:text-neutral-400 focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+              className="w-full border border-neutral-200 bg-white px-4 py-3 text-[15px] text-neutral-900 transition placeholder:text-neutral-400 focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -305,7 +318,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           </div>
           <button
             aria-label={t("send")}
-            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-lg bg-neutral-900 text-neutral-50 shadow-sm transition hover:bg-neutral-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
+            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center bg-neutral-900 text-neutral-50 shadow-sm transition hover:bg-neutral-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
             disabled={isLoading || !input.trim()}
             type="submit"
           >

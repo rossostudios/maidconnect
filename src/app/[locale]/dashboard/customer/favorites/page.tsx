@@ -22,7 +22,7 @@ export default async function CustomerFavoritesPage({
         <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
       </div>
 
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <FavoritesList />
       </div>
     </section>

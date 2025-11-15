@@ -27,7 +27,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
       <SiteHeader />
       <main className="px-4 py-16">
         <div className="mx-auto max-w-4xl">
-          <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] md:p-12">
+          <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] md:p-12">
             {isSpanish ? (
               <SpanishPrivacyPolicy lastUpdated={lastUpdated} />
             ) : (
@@ -60,7 +60,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             1. Responsable del Tratamiento de Datos
           </h2>
-          <div className="mb-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="mb-4 border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Razón Social:</strong> [Su empresa - Por completar]
             </p>
@@ -224,7 +224,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-orange-500 border-l-4 bg-neutral-50 p-4">
+          <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">¿Cómo Ejercer Sus Derechos?</h3>
             <p className="mb-2 text-neutral-500">
               Para ejercer cualquiera de estos derechos, puede contactarnos por los siguientes
@@ -293,19 +293,19 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             6.1 Proveedores de Servicios
           </h3>
           <div className="mb-4 space-y-2">
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Stripe Inc. (Estados Unidos)</p>
               <p className="text-neutral-500 text-sm">
                 Finalidad: Procesamiento de pagos | Certificación: PCI DSS Level 1
               </p>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Supabase Inc. (Estados Unidos)</p>
               <p className="text-neutral-500 text-sm">
                 Finalidad: Almacenamiento de base de datos | Certificación: SOC 2 Type II
               </p>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Vercel Inc. (Estados Unidos)</p>
               <p className="text-neutral-500 text-sm">
                 Finalidad: Hosting de aplicación | Certificación: SOC 2 Type II
@@ -460,7 +460,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <p className="mb-4 text-neutral-500">
             Si considera que sus derechos no han sido respetados, puede presentar una queja ante:
           </p>
-          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 font-semibold text-neutral-900">
               Superintendencia de Industria y Comercio (SIC)
             </p>
@@ -490,7 +490,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             Para preguntas, solicitudes o inquietudes sobre esta Política de Privacidad o el
             tratamiento de sus datos personales:
           </p>
-          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
               <a className="text-orange-500" href="mailto:privacy@casaora.com">
@@ -507,7 +507,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         {/* Legal Declaration */}
-        <section className="rounded-lg border-2 border-orange-500 bg-neutral-50 p-6">
+        <section className="border-2 border-orange-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Declaración de Consentimiento</h2>
           <p className="text-neutral-500">Al registrarse y usar Casaora, usted declara que:</p>
           <ul className="mb-4 ml-6 list-disc text-neutral-500">
@@ -542,7 +542,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
       <div className="prose prose-lg max-w-none space-y-8">
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">1. Data Controller</h2>
-          <div className="mb-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="mb-4 border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Company Name:</strong> [Your company - To be completed]
             </p>
@@ -623,7 +623,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-orange-500 border-l-4 bg-neutral-50 p-4">
+          <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">How to Exercise Your Rights</h3>
             <p className="mb-2 text-neutral-500">Contact us at:</p>
             <ul className="ml-6 list-disc text-neutral-500">
@@ -649,19 +649,19 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </h2>
           <p className="mb-4 text-neutral-500">We share your data only with:</p>
           <div className="mb-4 space-y-2">
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Stripe Inc. (USA)</p>
               <p className="text-neutral-500 text-sm">
                 Purpose: Payment processing | Certification: PCI DSS Level 1
               </p>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Supabase Inc. (USA)</p>
               <p className="text-neutral-500 text-sm">
                 Purpose: Database storage | Certification: SOC 2 Type II
               </p>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Vercel Inc. (USA)</p>
               <p className="text-neutral-500 text-sm">
                 Purpose: Application hosting | Certification: SOC 2 Type II
@@ -720,7 +720,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">7. Contact</h2>
-          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
               <a className="text-orange-500" href="mailto:privacy@casaora.com">
@@ -733,7 +733,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </div>
         </section>
 
-        <section className="rounded-lg border-2 border-orange-500 bg-neutral-50 p-6">
+        <section className="border-2 border-orange-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Consent Declaration</h2>
           <p className="text-neutral-500">By registering and using Casaora, you declare that:</p>
           <ul className="mb-4 ml-6 list-disc text-neutral-500">

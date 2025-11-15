@@ -111,7 +111,7 @@ export function ProfessionalsFilterSheet({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-[neutral-900]/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-50 bg-neutral-900/40 transition-opacity"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -125,24 +125,24 @@ export function ProfessionalsFilterSheet({
 
       {/* Bottom Sheet - Optimized for landscape */}
       <div
-        className={`landscape:-tranneutral-x-1/2 fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-3xl bg-[neutral-50] shadow-2xl transition-transform duration-300 ease-out landscape:right-auto landscape:left-1/2 landscape:max-w-xl landscape:rounded-2xl ${
-          isOpen ? "tranneutral-y-0" : "tranneutral-y-full"
+        className={`landscape:-translate-x-1/2 landscape: fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto bg-neutral-50 shadow-2xl transition-transform duration-300 ease-out landscape:right-auto landscape:left-1/2 landscape:max-w-xl ${
+          isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-[neutral-200] border-b bg-[neutral-50] px-6 py-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-neutral-200 border-b bg-neutral-50 px-6 py-4">
           <div className="flex items-center gap-3">
-            <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={FilterIcon} />
-            <h2 className="font-semibold text-[neutral-900] text-lg">Filters</h2>
+            <HugeiconsIcon className="h-5 w-5 text-neutral-900" icon={FilterIcon} />
+            <h2 className="font-semibold text-lg text-neutral-900">Filters</h2>
             {activeFilterCount > 0 && (
-              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[neutral-500] px-2 font-semibold text-[neutral-50] text-xs">
+              <span className="flex h-6 min-w-[24px] items-center justify-center bg-orange-500 px-2 font-semibold text-white text-xs">
                 {activeFilterCount}
               </span>
             )}
           </div>
           <button
             aria-label="Close filters"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[neutral-900] transition hover:bg-[neutral-200] active:scale-95"
+            className="flex h-10 w-10 items-center justify-center text-neutral-900 transition hover:bg-neutral-200 active:scale-95"
             onClick={onClose}
             type="button"
           >
@@ -154,12 +154,12 @@ export function ProfessionalsFilterSheet({
         <div className="space-y-6 p-6">
           {/* Service Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-neutral-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={FilterIcon} />
               {t("filters.service")}
             </div>
             <select
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3.5 text-[neutral-900] text-base transition focus:border-[neutral-900] focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
               onChange={(e) => setServiceFilter(e.target.value)}
               value={serviceFilter}
             >
@@ -173,12 +173,12 @@ export function ProfessionalsFilterSheet({
 
           {/* City Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-neutral-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={Location01Icon} />
               {t("filters.city")}
             </div>
             <select
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3.5 text-[neutral-900] text-base transition focus:border-[neutral-900] focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
               onChange={(e) => setCityFilter(e.target.value)}
               value={cityFilter}
             >
@@ -192,12 +192,12 @@ export function ProfessionalsFilterSheet({
 
           {/* Rating Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-neutral-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
               {t("filters.rating")}
             </div>
             <select
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3.5 text-[neutral-900] text-base transition focus:border-[neutral-900] focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
               onChange={(e) => setRatingFilter(e.target.value)}
               value={ratingFilter}
             >
@@ -210,15 +210,15 @@ export function ProfessionalsFilterSheet({
           </div>
 
           {/* Available Today */}
-          <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
+          <div className="border border-neutral-200 bg-neutral-50 p-4">
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 checked={availableToday}
-                className="h-6 w-6 cursor-pointer rounded border-[neutral-200] text-[neutral-500] focus:ring-[neutral-500]"
+                className="h-6 w-6 cursor-pointer rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
                 onChange={(e) => setAvailableToday(e.target.checked)}
                 type="checkbox"
               />
-              <span className="font-semibold text-[neutral-900] text-base">
+              <span className="font-semibold text-base text-neutral-900">
                 {t("filters.availableToday")}
               </span>
             </label>
@@ -226,17 +226,17 @@ export function ProfessionalsFilterSheet({
         </div>
 
         {/* Footer Actions */}
-        <div className="sticky bottom-0 border-[neutral-200] border-t bg-[neutral-50] p-6">
+        <div className="sticky bottom-0 border-neutral-200 border-t bg-neutral-50 p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3.5 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] active:scale-95"
+              className="flex-1 border-2 border-neutral-200 bg-neutral-50 px-6 py-3.5 font-semibold text-base text-neutral-900 transition hover:border-orange-500 active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 rounded-full bg-[neutral-500] px-6 py-3.5 font-semibold text-[neutral-50] text-base shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:bg-[neutral-500] active:scale-95"
+              className="flex-1 bg-orange-500 px-6 py-3.5 font-semibold text-base text-white shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:bg-orange-500 active:scale-95"
               onClick={handleApply}
               type="button"
             >

@@ -81,7 +81,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
     >
       {/* Mobile: Collapsible disclosure button */}
       <button
-        className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white px-4 py-3 text-left shadow-sm transition-colors hover:bg-neutral-50 lg:hidden"
+        className="flex w-full items-center justify-between border border-neutral-200 bg-white px-4 py-3 text-left shadow-sm transition-colors hover:bg-neutral-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
         type="button"
       >
@@ -97,7 +97,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
       {/* Mobile: Collapsible content */}
       <div className={cn("mt-2 lg:hidden", !isOpen && "hidden")}>
         <nav>
-          <ul className="space-y-1 rounded-lg border border-neutral-200 bg-white p-3 text-sm shadow-sm">
+          <ul className="space-y-1 border border-neutral-200 bg-white p-3 text-sm shadow-sm">
             {headings.map((heading) => (
               <li
                 key={heading.id}

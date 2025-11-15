@@ -90,11 +90,11 @@ const BookAgainCardComponent = memo(
     };
 
     return (
-      <div className="group rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
+      <div className="group border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
-            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-[neutral-200]">
+            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden border-2 border-[neutral-200]">
               {booking.professionalPhoto ? (
                 <Image
                   alt={booking.professionalName}
@@ -124,7 +124,7 @@ const BookAgainCardComponent = memo(
           </div>
 
           {/* Badge */}
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[neutral-500]/10 px-3 py-1.5 font-medium text-[neutral-500] text-xs">
+          <span className="inline-flex items-center gap-1.5 bg-[neutral-500]/10 px-3 py-1.5 font-medium text-[neutral-500] text-xs">
             <HugeiconsIcon className="h-3.5 w-3.5" icon={Tick02Icon} />
             Completed
           </span>
@@ -147,14 +147,14 @@ const BookAgainCardComponent = memo(
 
         {/* Error Message */}
         {error && (
-          <div className="mt-4 rounded-lg bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
+          <div className="mt-4 bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
             {error}
           </div>
         )}
 
         {/* Quick Rebook Button */}
         <button
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 flex w-full items-center justify-center gap-2 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isRebooking}
           onClick={handleBookAgain}
           type="button"

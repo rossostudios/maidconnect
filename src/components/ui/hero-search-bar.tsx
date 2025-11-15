@@ -54,10 +54,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
 
   return (
     <form
-      className={cn(
-        "relative mx-auto w-full overflow-visible rounded-xl bg-white shadow-2xl",
-        className
-      )}
+      className={cn("relative mx-auto w-full overflow-visible bg-white shadow-2xl", className)}
       onSubmit={handleSearch}
     >
       <div className="grid grid-cols-1 gap-2 overflow-visible p-4 md:grid-cols-[1fr_1fr_1fr_auto]">
@@ -111,7 +108,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
 
         {/* Search Button */}
         <Button
-          className="h-14 w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-neutral-900 font-bold text-base text-white uppercase tracking-wider transition-transform hover:scale-105 md:w-auto md:px-8"
+          className="h-14 w-full cursor-pointer items-center justify-center overflow-hidden bg-neutral-900 font-bold text-base text-white uppercase tracking-wider transition-transform hover:scale-105 md:w-auto md:px-8"
           type="submit"
         >
           {t("searchButton")}

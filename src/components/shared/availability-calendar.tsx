@@ -235,7 +235,7 @@ export function AvailabilityCalendar({
           {showTodayButton && (
             <button
               className={cn(
-                "rounded-md border border-[neutral-200] font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
+                "border border-[neutral-200] font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
                 sizeConfig.button
               )}
               onClick={goToToday}
@@ -247,7 +247,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "rounded-md border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
+              "border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
@@ -258,7 +258,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Next month"
             className={cn(
-              "rounded-md border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
+              "border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
@@ -273,7 +273,7 @@ export function AvailabilityCalendar({
       {isLoading && (
         <div
           className={cn(
-            "rounded-lg border border-[neutral-200] bg-[neutral-50]/90 text-center",
+            "border border-[neutral-200] bg-[neutral-50]/90 text-center",
             sizeConfig.loadingPadding
           )}
         >
@@ -283,7 +283,7 @@ export function AvailabilityCalendar({
 
       {/* Error State */}
       {error && (
-        <div className="rounded-lg border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-center">
+        <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-center">
           <p className={cn("text-[neutral-500]", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
@@ -305,7 +305,7 @@ export function AvailabilityCalendar({
         <>
           <div
             className={cn(
-              "grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-200]",
+              "grid grid-cols-7 gap-px overflow-hidden border border-[neutral-200] bg-[neutral-200]",
               themeConfig.gridBorder
             )}
           >
@@ -394,7 +394,7 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
-          <div className="rounded-lg border border-[neutral-200] bg-[neutral-50]/90 p-4">
+          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-4">
             <h4 className={cn("mb-3 font-semibold text-[neutral-900]", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
@@ -427,7 +427,7 @@ export function AvailabilityCalendar({
                 ) : (
                   <button
                     className={cn(
-                      "rounded-md border font-medium transition",
+                      "border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
                         ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
@@ -456,7 +456,7 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length === 0 && (
-          <div className="rounded-lg border border-[neutral-200] bg-[neutral-50]/90 p-4 text-center">
+          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-4 text-center">
             <p className={cn("text-[neutral-400]", sizeConfig.text)}>
               No available time slots on this date. Please choose another day.
             </p>
@@ -529,7 +529,7 @@ function getThemeConfig(theme: CalendarTheme) {
       gridBorder: "border-[neutral-200]",
       selected: "scale-105 ring-4 ring-[neutral-500] ring-offset-2",
       today: "border-[neutral-500]",
-      selectable: "hover:-tranneutral-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
+      selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
 

@@ -17,7 +17,7 @@ const DocumentsTable = dynamic(
     })),
   {
     loading: () => (
-      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-neutral-200/30 to-neutral-200/10" />
+      <div className="h-[400px] w-full animate-pulse bg-gradient-to-br from-neutral-200/30 to-neutral-200/10" />
     ),
   }
 );
@@ -89,14 +89,14 @@ export default async function ProDocumentsPage({
           <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
         </div>
         <Link
-          className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500"
+          className="inline-flex items-center justify-center bg-orange-500 px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500"
           href="/dashboard/pro/onboarding"
         >
           {t("uploadButton")}
         </Link>
       </div>
 
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <DocumentsTable documents={documents} labels={DOCUMENT_LABELS} />
       </div>
     </section>

@@ -127,14 +127,14 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
     <div className="space-y-8">
       {/* Success/Error Messages */}
       {submissionState.status === "success" && (
-        <div className="flex items-center gap-3 rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
+        <div className="flex items-center gap-3 bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
       {submissionState.error && (
-        <div className="rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
+        <div className="bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <p className="font-semibold text-sm">{submissionState.error}</p>
         </div>
       )}
@@ -155,7 +155,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               id="profile-fullname"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
@@ -168,7 +168,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <div className="mb-2 block font-semibold text-[neutral-900] text-sm">
               {t("sections.basicInfo.fields.email.label")}
             </div>
-            <div className="flex items-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3">
+            <div className="flex items-center gap-2 border border-[neutral-200] bg-[neutral-50] px-4 py-3">
               <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={Mail01Icon} />
               <span className="text-[neutral-400] text-base">{profile.email}</span>
             </div>
@@ -184,7 +184,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             >
               {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
-            <div className="flex items-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 shadow-sm">
+            <div className="flex items-center gap-2 border border-[neutral-200] bg-[neutral-50] px-4 py-3 shadow-sm">
               <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={CallIcon} />
               <input
                 className="flex-1 text-base focus:outline-none"
@@ -205,7 +205,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               id="profile-avatar"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
@@ -234,7 +234,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="profile-bio"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
@@ -258,7 +258,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {LANGUAGE_OPTIONS.map((language) => (
             <button
-              className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
+              className={`border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
                   ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
                   : "border-[neutral-200] bg-[neutral-50] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]"
@@ -284,7 +284,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {SERVICE_OPTIONS.map((service) => (
             <button
-              className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
+              className={`border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
                   ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
                   : "border-[neutral-200] bg-[neutral-50] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]"
@@ -303,7 +303,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-[neutral-200] border-t pt-6">
         <button
-          className="rounded-full bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isPending}
           onClick={handleSave}
           type="button"

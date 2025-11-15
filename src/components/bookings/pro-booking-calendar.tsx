@@ -127,7 +127,7 @@ export function ProBookingCalendar({ bookings }: Props) {
   };
 
   return (
-    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
+    <div className="border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         {/* Calendar Grid */}
         <div>
@@ -157,7 +157,7 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         {/* Booking Details Sidebar */}
-        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
           <h4 className="font-semibold text-[neutral-900] text-sm">{t("details")}</h4>
           {selectedDate && (
             <p className="mt-1 text-[neutral-400] text-xs">
@@ -187,7 +187,7 @@ export function ProBookingCalendar({ bookings }: Props) {
                   const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                   return (
                     <li
-                      className="rounded-md border border-[neutral-200] bg-[neutral-50] p-3"
+                      className="border border-[neutral-200] bg-[neutral-50] p-3"
                       key={booking.id}
                     >
                       <div className="flex items-center justify-between text-[neutral-900] text-sm">
@@ -234,7 +234,7 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {bookingsCount > 0 && (
-        <span className="mt-1 rounded-full bg-[neutral-500]/15 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
+        <span className="mt-1 bg-[neutral-500]/15 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
           {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
         </span>
       )}

@@ -63,7 +63,7 @@ const ChartTooltipContent = ({
 
   return (
     <div
-      className={cn("rounded-lg border border-neutral-200 bg-white p-3 shadow-lg", className)}
+      className={cn("border border-neutral-200 bg-white p-3 shadow-lg", className)}
       ref={ref}
       {...props}
     >
@@ -78,9 +78,9 @@ const ChartTooltipContent = ({
             {!hideIndicator && (
               <div
                 className={cn(
-                  "h-2 w-2 rounded-full",
-                  indicator === "line" && "h-[2px] w-4 rounded-none",
-                  indicator === "dashed" && "h-[2px] w-4 rounded-none border-t-2 border-dashed"
+                  "h-2 w-2",
+                  indicator === "line" && "h-[2px] w-4",
+                  indicator === "dashed" && "h-[2px] w-4 border-t-2 border-dashed"
                 )}
                 style={{ backgroundColor: entry.color }}
               />
@@ -124,7 +124,7 @@ const ChartLegendContent = ({
     >
       {payload.map((entry, index) => (
         <div className="flex items-center gap-2 text-sm" key={`legend-${index}`}>
-          <div className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
+          <div className="h-2 w-2" style={{ backgroundColor: entry.color }} />
           <span className="text-neutral-600">{entry[nameKey]}</span>
         </div>
       ))}

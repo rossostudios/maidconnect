@@ -32,18 +32,18 @@ export {
   getFeatureFlagOrDefault,
   getFeatureFlagWithDefault,
   getHeroVariant,
+  isAIAnalyticsEnabled,
+  // Structured Outputs Feature Checks
+  isBookingIntentDetectionEnabled,
+  isDocumentExtractionEnabled,
   isFeatureEnabled,
   isFeatureEnabledOrDefault,
   isMatchWizardEnabled,
   isOneTapRebookEnabled,
-  overrideFeatureFlags,
-  reloadFeatureFlags,
-  // Structured Outputs Feature Checks
-  isBookingIntentDetectionEnabled,
-  isDocumentExtractionEnabled,
   isReviewModerationEnabled,
   isSmartMatchingEnabled,
-  isAIAnalyticsEnabled,
+  overrideFeatureFlags,
+  reloadFeatureFlags,
 } from "./feature-flags";
 export { matchWizardTracking } from "./match-wizard-tracking";
 export { pmfTracking } from "./pmf-tracking-client";

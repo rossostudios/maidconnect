@@ -39,7 +39,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
 
   return (
     <div
-      className={`group rounded-[24px] border-2 p-6 shadow-sm transition ${
+      className={`group border-2 p-6 shadow-sm transition ${
         service.isActive
           ? "border-[neutral-200] bg-[neutral-50]"
           : "border-[bg-[neutral-50]] bg-[neutral-50] opacity-60"
@@ -51,12 +51,12 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
           <div className="flex items-center gap-2">
             <h3 className="font-semibold text-[neutral-900] text-lg">{service.name}</h3>
             {service.isFeatured && (
-              <span className="rounded-full bg-[neutral-500] px-2 py-1 font-medium text-[neutral-50] text-xs">
+              <span className="bg-[neutral-500] px-2 py-1 font-medium text-[neutral-50] text-xs">
                 {t("featured")}
               </span>
             )}
             {!service.isActive && (
-              <span className="rounded-full bg-[neutral-400] px-2 py-1 font-medium text-[neutral-50] text-xs">
+              <span className="bg-[neutral-400] px-2 py-1 font-medium text-[neutral-50] text-xs">
                 {t("inactive")}
               </span>
             )}
@@ -70,7 +70,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
           <div className="flex gap-2">
             {onEdit && (
               <button
-                className="rounded-lg border-2 border-[neutral-200] bg-[neutral-50] p-2 transition hover:bg-[neutral-50]"
+                className="border-2 border-[neutral-200] bg-[neutral-50] p-2 transition hover:bg-[neutral-50]"
                 onClick={() => onEdit(service)}
                 type="button"
               >
@@ -79,7 +79,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
             )}
             {onDelete && (
               <button
-                className="rounded-lg border-2 border-[neutral-500]/30 bg-[neutral-50] p-2 transition hover:bg-[neutral-500]/10"
+                className="border-2 border-[neutral-500]/30 bg-[neutral-50] p-2 transition hover:bg-[neutral-500]/10"
                 onClick={() => onDelete(service.id)}
                 type="button"
               >
@@ -136,7 +136,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
 
       {/* Included Items */}
       {service.includedItems.length > 0 && (
-        <div className="mt-4 rounded-xl bg-[neutral-50] p-3">
+        <div className="mt-4 bg-[neutral-50] p-3">
           <p className="mb-2 font-medium text-[neutral-900] text-xs">{t("included")}:</p>
           <ul className="space-y-1">
             {service.includedItems.slice(0, 3).map((item, index) => (

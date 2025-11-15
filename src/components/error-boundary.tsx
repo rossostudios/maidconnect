@@ -95,10 +95,10 @@ function ErrorDisplay({ error }: { error: Error }) {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[neutral-50] px-4">
-      <div className="w-full max-w-md rounded-lg border border-[neutral-200] bg-[neutral-50] p-8 shadow-lg">
+      <div className="w-full max-w-md border border-[neutral-200] bg-[neutral-50] p-8 shadow-lg">
         {/* Error Icon */}
         <div className="mb-6 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+          <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
             <svg
               aria-label="Error"
               className="h-8 w-8 text-[neutral-500]"
@@ -127,7 +127,7 @@ function ErrorDisplay({ error }: { error: Error }) {
 
         {/* Error Details (development only) */}
         {process.env.NODE_ENV === "development" && (
-          <details className="mb-6 rounded-lg bg-[neutral-500]/10 p-4">
+          <details className="mb-6 bg-[neutral-500]/10 p-4">
             <summary className="cursor-pointer font-medium text-[neutral-500] text-sm">
               Error Details (Development Only)
             </summary>
@@ -142,14 +142,14 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+            className="w-full bg-[neutral-500] px-4 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={() => window.location.reload()}
             type="button"
           >
             Reload Page
           </button>
           <button
-            className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] px-4 py-3 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
             onClick={() => (window.location.href = "/")}
             type="button"
           >

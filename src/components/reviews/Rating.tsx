@@ -146,7 +146,7 @@ export function RatingPromptModal({
       </div>
 
       {/* Category Ratings */}
-      <div className="space-y-2 rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+      <div className="space-y-2 border border-[neutral-200] bg-[neutral-50] p-4">
         <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-wide">
           Optional: Rate by category
         </p>
@@ -176,7 +176,7 @@ export function RatingPromptModal({
           Title (optional)
         </label>
         <input
-          className="w-full rounded-lg border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           disabled={form.isSubmitting}
           id="title"
           onChange={(e) => form.updateField("title", e.target.value)}
@@ -192,7 +192,7 @@ export function RatingPromptModal({
           Comment (optional)
         </label>
         <textarea
-          className="w-full rounded-lg border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           disabled={form.isSubmitting}
           id="comment"
           onChange={(e) => form.updateField("comment", e.target.value)}
@@ -205,7 +205,7 @@ export function RatingPromptModal({
       {/* Message */}
       {form.message && (
         <div
-          className={`rounded-lg p-3 text-sm ${
+          className={`p-3 text-sm ${
             form.success
               ? "bg-[neutral-500]/10 text-[neutral-500]"
               : "bg-[neutral-500]/10 text-[neutral-500]"

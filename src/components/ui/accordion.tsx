@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 const accordionVariants = cva("overflow-hidden transition-all", {
   variants: {
     variant: {
-      default: "rounded-3xl border border-neutral-200 bg-white shadow-sm hover:shadow-md",
-      bordered: "rounded-2xl border-2 border-neutral-200 bg-white hover:border-neutral-300",
+      default: "border border-neutral-200 bg-white shadow-sm hover:shadow-md",
+      bordered: "border-2 border-neutral-200 bg-white hover:border-neutral-300",
       minimal: "border-neutral-200 border-b",
     },
   },

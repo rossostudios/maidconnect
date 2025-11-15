@@ -28,18 +28,13 @@ export function HeroSectionClient({ title, subtitle }: HeroSectionClientProps) {
   return (
     <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-5xl">
-        <motion.div
-          animate="visible"
-          className="text-center"
-          initial="hidden"
-          variants={stagger}
-        >
+        <motion.div animate="visible" className="text-center" initial="hidden" variants={stagger}>
           {/* Badge */}
           <motion.div
             className="mb-6 inline-flex items-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]"
             variants={fadeIn}
           >
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
+            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
             How It Works
           </motion.div>
 

@@ -137,8 +137,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
 
       {/* Lead Cards */}
       {filteredBookings.length === 0 ? (
-        <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-[neutral-200]">
             <HugeiconsIcon className="h-8 w-8 text-[neutral-400]" icon={Calendar03Icon} />
           </div>
           <h3 className="font-semibold text-[neutral-900] text-xl">
@@ -199,20 +199,20 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
+    <div className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-6">
         {/* Customer Avatar */}
         <div className="flex-shrink-0">
           {booking.customer?.avatar_url ? (
             <Image
               alt={booking.customer.full_name}
-              className="h-16 w-16 rounded-full object-cover"
+              className="h-16 w-16 object-cover"
               height={64}
               src={booking.customer.avatar_url}
               width={64}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500] font-bold text-[neutral-50] text-xl">
+            <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500] font-bold text-[neutral-50] text-xl">
               {booking.customer?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -231,7 +231,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
             {/* Status Badge */}
             <span
-              className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
+              className={`inline-flex px-3 py-1 font-semibold text-xs ${
                 isPending
                   ? "bg-[neutral-500]/10 text-[neutral-500]"
                   : booking.status === "confirmed"
@@ -281,7 +281,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
             )}
 
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[neutral-500]/10 font-bold text-[neutral-500] text-xs">
+              <div className="flex h-5 w-5 items-center justify-center bg-[neutral-500]/10 font-bold text-[neutral-500] text-xs">
                 $
               </div>
               <div>
@@ -310,7 +310,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
           {/* Special Instructions */}
           {booking.special_instructions && (
-            <div className="mb-4 rounded-lg bg-[neutral-50] p-4">
+            <div className="mb-4 bg-[neutral-50] p-4">
               <p className="mb-1 font-medium text-[neutral-900] text-sm">Special Instructions:</p>
               <p className="text-[neutral-400] text-sm">{booking.special_instructions}</p>
             </div>
@@ -330,14 +330,14 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
       {isPending && (
         <div className="mt-6 flex gap-3 border-[neutral-200] border-t pt-6">
           <button
-            className="flex-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleDecline}
           >
             {isProcessing ? "Processing..." : "Decline"}
           </button>
           <button
-            className="flex-1 rounded-lg bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleAccept}
           >
@@ -348,7 +348,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
       {booking.status === "confirmed" && (
         <div className="mt-6 border-[neutral-200] border-t pt-6">
-          <button className="w-full rounded-lg border border-[neutral-200] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]">
+          <button className="w-full border border-[neutral-200] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]">
             View Booking Details
           </button>
         </div>

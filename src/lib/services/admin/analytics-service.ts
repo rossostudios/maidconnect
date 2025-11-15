@@ -12,13 +12,10 @@
  * - Risk alerts
  */
 
+import { type AdminAnalytics, adminAnalyticsSchema } from "@/lib/integrations/amara/schemas";
 import { getStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
-import {
-  adminAnalyticsSchema,
-  type AdminAnalytics,
-} from "@/lib/integrations/amara/schemas";
-import { createSupabaseServerClient } from "@/lib/integrations/supabase/serverClient";
 import { trackAnalyticsReport } from "@/lib/integrations/amara/tracking";
+import { createSupabaseServerClient } from "@/lib/integrations/supabase/serverClient";
 
 /**
  * Generate comprehensive analytics report for a time period
@@ -139,20 +136,16 @@ async function fetchAnalyticsData(startDate: string, endDate: string) {
 
   // Calculate metrics
   const totalBookings = bookings?.length || 0;
-  const completedBookings =
-    bookings?.filter((b) => b.status === "completed").length || 0;
-  const cancelledBookings =
-    bookings?.filter((b) => b.status === "cancelled").length || 0;
-  const disputedBookings =
-    bookings?.filter((b) => b.status === "disputed").length || 0;
+  const completedBookings = bookings?.filter((b) => b.status === "completed").length || 0;
+  const cancelledBookings = bookings?.filter((b) => b.status === "cancelled").length || 0;
+  const disputedBookings = bookings?.filter((b) => b.status === "disputed").length || 0;
 
   const totalRevenue =
     bookings
       ?.filter((b) => b.status === "completed")
       .reduce((sum, b) => sum + (b.total_price_cop || 0), 0) || 0;
 
-  const averageBookingValue =
-    completedBookings > 0 ? totalRevenue / completedBookings : 0;
+  const averageBookingValue = completedBookings > 0 ? totalRevenue / completedBookings : 0;
 
   const averageRating =
     reviews && reviews.length > 0
@@ -185,8 +178,7 @@ async function fetchAnalyticsData(startDate: string, endDate: string) {
       completed: completedBookings,
       cancelled: cancelledBookings,
       disputed: disputedBookings,
-      pendingPayment:
-        bookings?.filter((b) => b.status === "pending_payment").length || 0,
+      pendingPayment: bookings?.filter((b) => b.status === "pending_payment").length || 0,
     },
     revenue: {
       totalCop: totalRevenue,
@@ -301,8 +293,7 @@ function analyzeBookingPatterns(bookings: any[]): string {
 function analyzeReviews(reviews: any[]): string {
   if (!reviews || reviews.length === 0) return "No review data available";
 
-  const avgRating =
-    reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviews.length;
+  const avgRating = reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviews.length;
 
   const distribution = [1, 2, 3, 4, 5].map((stars) => {
     const count = reviews.filter((r) => r.rating === stars).length;

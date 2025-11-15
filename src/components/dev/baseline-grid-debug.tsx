@@ -62,7 +62,7 @@ export function BaselineGridDebug() {
       />
 
       {/* Info Badge */}
-      <div className="pointer-events-none fixed right-4 bottom-4 z-[10000] rounded-lg bg-neutral-900/90 px-4 py-2 text-white text-xs shadow-lg backdrop-blur-sm">
+      <div className="pointer-events-none fixed right-4 bottom-4 z-[10000] bg-neutral-900/90 px-4 py-2 text-white text-xs shadow-lg">
         <div className="font-semibold">Swiss Baseline Grid (24px)</div>
         <div className="text-neutral-300">Press Cmd/Ctrl + Shift + G to toggle</div>
       </div>

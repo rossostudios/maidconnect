@@ -117,10 +117,10 @@ export function ProfessionalProfileView({
         </Link>
 
         {/* Professional Hero Card */}
-        <div className="mt-8 overflow-hidden rounded-[36px] border border-[neutral-200] bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
+        <div className="mt-8 overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
           <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
-            <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full">
+            <div className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full">
               <Image
                 alt={professional.name}
                 className="object-cover"
@@ -183,7 +183,7 @@ export function ProfessionalProfileView({
               </div>
 
               {professional.availableToday && (
-                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[neutral-500]/10 px-5 py-2.5 font-semibold text-[neutral-500] text-base">
+                <div className="inline-flex w-fit items-center gap-2 bg-[neutral-500]/10 px-5 py-2.5 font-semibold text-[neutral-500] text-base">
                   <HugeiconsIcon className="h-5 w-5" icon={CalendarSetting01Icon} />
                   {t("availableToday")}
                 </div>
@@ -235,7 +235,7 @@ export function ProfessionalProfileView({
           {/* Right: Info Tabs */}
           <aside className="space-y-8">
             {/* Tab Navigation - Horizontally scrollable on mobile */}
-            <div className="rounded-[32px] border border-[neutral-200] bg-[neutral-50] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="border border-[neutral-200] bg-[neutral-50] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <div className="overflow-x-auto">
                 <div className="flex w-max border-[neutral-200] border-b md:w-full">
                   <button
@@ -305,7 +305,7 @@ export function ProfessionalProfileView({
                       {hasServices ? (
                         professional.services.map((service) => (
                           <div
-                            className="rounded-2xl border border-[neutral-50] bg-[neutral-50] p-5"
+                            className="border border-[neutral-50] bg-[neutral-50] p-5"
                             key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                           >
                             <div className="flex flex-col gap-2">
@@ -354,10 +354,7 @@ export function ProfessionalProfileView({
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
-                          <div
-                            className="relative aspect-square overflow-hidden rounded-2xl"
-                            key={index}
-                          >
+                          <div className="relative aspect-square overflow-hidden" key={index}>
                             <Image
                               alt={image.caption || t("portfolioSection.imageAlt")}
                               className="object-cover"

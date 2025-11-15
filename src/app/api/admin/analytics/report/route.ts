@@ -7,16 +7,19 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import {
-  generateAnalyticsReport,
-  exportReport,
-} from "@/lib/services/admin/analytics-service";
-import { withAuth } from "@/lib/shared/api/middleware";
 import { z } from "zod";
+import { exportReport, generateAnalyticsReport } from "@/lib/services/admin/analytics-service";
+import { withAuth } from "@/lib/shared/api/middleware";
 
 const requestSchema = z.object({
-  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).describe("Start date (YYYY-MM-DD)"),
-  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).describe("End date (YYYY-MM-DD)"),
+  startDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .describe("Start date (YYYY-MM-DD)"),
+  endDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .describe("End date (YYYY-MM-DD)"),
   format: z.enum(["json", "markdown", "csv"]).optional().default("json"),
 });
 

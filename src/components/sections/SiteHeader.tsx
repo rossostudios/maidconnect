@@ -20,7 +20,7 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-neutral-200 border-b bg-white py-4">
       <Container className="flex items-center justify-between gap-8 text-neutral-900">
-        <Link className="flex items-center gap-3 transition-opacity hover:opacity-80" href="/">
+        <Link className="flex items-center gap-3 no-underline transition-opacity hover:opacity-80" href="/">
           <Image
             alt="Casaora logo"
             className="h-8 w-auto lg:h-10"

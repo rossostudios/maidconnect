@@ -12,11 +12,8 @@
  * - Multi-criteria ranking
  */
 
+import { type MatchingCriteria, matchingCriteriaSchema } from "@/lib/integrations/amara/schemas";
 import { getStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
-import {
-  matchingCriteriaSchema,
-  type MatchingCriteria,
-} from "@/lib/integrations/amara/schemas";
 import { trackProfessionalMatching } from "@/lib/integrations/amara/tracking";
 
 /**
@@ -229,9 +226,7 @@ export function calculateMatchScore(
   // Skills match (30 points max)
   if (criteria.skills && criteria.skills.length > 0) {
     const matchedSkills = criteria.skills.filter((skill) =>
-      professional.skills.some((pSkill) =>
-        pSkill.toLowerCase().includes(skill.toLowerCase())
-      )
+      professional.skills.some((pSkill) => pSkill.toLowerCase().includes(skill.toLowerCase()))
     );
     breakdown.skills = (matchedSkills.length / criteria.skills.length) * 30;
   } else {
@@ -255,8 +250,7 @@ export function calculateMatchScore(
       breakdown.experience = 15;
     } else {
       // Partial points if close
-      breakdown.experience =
-        (professional.experienceYears / criteria.experienceYears) * 15;
+      breakdown.experience = (professional.experienceYears / criteria.experienceYears) * 15;
     }
   } else {
     breakdown.experience = 15;
@@ -276,27 +270,21 @@ export function calculateMatchScore(
 
     if (criteria.availability.weekdays !== undefined) {
       requiredCount++;
-      if (
-        professional.availability.weekdays === criteria.availability.weekdays
-      ) {
+      if (professional.availability.weekdays === criteria.availability.weekdays) {
         availabilityScore += 1;
       }
     }
 
     if (criteria.availability.weekends !== undefined) {
       requiredCount++;
-      if (
-        professional.availability.weekends === criteria.availability.weekends
-      ) {
+      if (professional.availability.weekends === criteria.availability.weekends) {
         availabilityScore += 1;
       }
     }
 
     if (criteria.availability.evenings !== undefined) {
       requiredCount++;
-      if (
-        professional.availability.evenings === criteria.availability.evenings
-      ) {
+      if (professional.availability.evenings === criteria.availability.evenings) {
         availabilityScore += 1;
       }
     }

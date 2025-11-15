@@ -101,7 +101,7 @@ function TrustIndicators() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
             <div className="text-center" key={index}>
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/100/10">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center bg-orange-500/10">
                 <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CheckmarkCircle01Icon} />
               </div>
               <h3 className="serif-headline-sm mb-4 text-neutral-900">{t(indicator.titleKey)}</h3>
@@ -132,7 +132,7 @@ function CTASection() {
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
+              className="inline-flex items-center justify-center gap-2 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
               href="/professionals"
             >
               {t("browseProfessionals")}
@@ -140,7 +140,7 @@ function CTASection() {
             </Link>
 
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
+              className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
               href="/auth/sign-up"
             >
               {t("signUp")}

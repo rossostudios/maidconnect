@@ -199,7 +199,7 @@ export default async function HelpCategoryPage({
 
                   return (
                     <Link
-                      className="group block rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-orange-500 hover:shadow-md"
+                      className="group block border border-neutral-200 bg-neutral-50 p-6 transition hover:border-orange-500 hover:shadow-md"
                       href={`/${locale}/help/${categorySlug}/${article.slug}`}
                       key={article._id}
                     >
@@ -233,7 +233,7 @@ export default async function HelpCategoryPage({
                         </div>
 
                         <div className="flex-shrink-0">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-50 text-neutral-500/70 transition group-hover:bg-orange-500/10 group-hover:text-orange-500">
+                          <div className="flex h-10 w-10 items-center justify-center bg-neutral-50 text-neutral-500/70 transition group-hover:bg-orange-500/10 group-hover:text-orange-500">
                             <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
                           </div>
                         </div>
@@ -244,7 +244,7 @@ export default async function HelpCategoryPage({
               </div>
             </div>
           ) : (
-            <div className="mx-auto max-w-4xl rounded-lg border border-neutral-200 bg-neutral-50 p-12 text-center">
+            <div className="mx-auto max-w-4xl border border-neutral-200 bg-neutral-50 p-12 text-center">
               <HugeiconsIcon
                 className="mx-auto mb-4 h-12 w-12 text-neutral-500/70"
                 icon={BookOpen01Icon}
@@ -254,7 +254,7 @@ export default async function HelpCategoryPage({
               </h3>
               <p className="mb-6 text-neutral-500">{t("category.noArticles.description")}</p>
               <Link
-                className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
+                className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
                 href={`/${locale}/help`}
               >
                 {t("category.noArticles.button")}

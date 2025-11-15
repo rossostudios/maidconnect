@@ -1,9 +1,4 @@
-import {
-  ArrowRight01Icon,
-  LockIcon,
-  Message01Icon,
-  Shield01Icon,
-} from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/SiteFooter";
@@ -16,8 +11,8 @@ import {
 } from "@/components/ui/accordion";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
-import { HeroSectionClient } from "./hero-section-client";
 import { CustomerFlowSectionClient } from "./customer-flow-section-client";
+import { HeroSectionClient } from "./hero-section-client";
 import { ProfessionalFlowSectionClient } from "./professional-flow-section-client";
 import { SafetyTrustSectionClient } from "./safety-trust-section-client";
 
@@ -90,19 +85,17 @@ async function CTASection() {
     <section className="bg-neutral-900 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="text-center">
-          <h2 className="font-bold text-4xl text-white tracking-tight md:text-5xl">
-            {t("title")}
-          </h2>
+          <h2 className="font-bold text-4xl text-white tracking-tight md:text-5xl">{t("title")}</h2>
           <p className="mt-6 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
+              className="inline-flex items-center justify-center gap-2 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
               href="/professionals"
             >
               {t("browseButton")}
             </Link>
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
+              className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
               href="/auth/sign-up"
             >
               {t("signUpButton")}

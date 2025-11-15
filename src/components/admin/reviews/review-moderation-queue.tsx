@@ -25,7 +25,7 @@ import {
   ThumbsUpIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { ReviewAnalysis } from "@/lib/integrations/amara/schemas";
@@ -96,9 +96,7 @@ export function ReviewModerationQueue() {
       const analysis: ReviewAnalysis = await response.json();
 
       setReviews((prev) =>
-        prev.map((r) =>
-          r.id === reviewId ? { ...r, analysis, analyzing: false } : r
-        )
+        prev.map((r) => (r.id === reviewId ? { ...r, analysis, analyzing: false } : r))
       );
     } catch (error) {
       setReviews((prev) =>
@@ -115,10 +113,7 @@ export function ReviewModerationQueue() {
     }
   };
 
-  const handleModeration = async (
-    reviewId: string,
-    action: "approve" | "reject" | "clarify"
-  ) => {
+  const handleModeration = async (reviewId: string, action: "approve" | "reject" | "clarify") => {
     try {
       const response = await fetch("/api/admin/reviews/moderate", {
         method: "POST",
@@ -206,7 +201,7 @@ export function ReviewModerationQueue() {
         <Button
           onClick={() =>
             reviews.forEach((r) => {
-              if (!r.analysis && !r.analyzing) {
+              if (!(r.analysis || r.analyzing)) {
                 analyzeReview(r.id);
               }
             })
@@ -280,7 +275,7 @@ export function ReviewModerationQueue() {
                 {/* Sentiment & Categories */}
                 <div className="flex flex-wrap gap-2">
                   <span
-                    className={`inline-flex border px-3 py-1 text-xs font-medium ${getSentimentColor(review.analysis.sentiment)}`}
+                    className={`inline-flex border px-3 py-1 font-medium text-xs ${getSentimentColor(review.analysis.sentiment)}`}
                   >
                     {review.analysis.sentiment.toUpperCase()}
                   </span>
@@ -305,7 +300,7 @@ export function ReviewModerationQueue() {
                       />
                       <span className="font-medium text-sm text-yellow-900">Safety Flags</span>
                     </div>
-                    <ul className="ml-6 space-y-1 text-yellow-700 text-xs">
+                    <ul className="ml-6 space-y-1 text-xs text-yellow-700">
                       {review.analysis.flags.map((flag, index) => (
                         <li key={index}>• {flag}</li>
                       ))}
@@ -316,12 +311,12 @@ export function ReviewModerationQueue() {
                 {/* Severity & Action Required */}
                 <div className="flex items-center justify-between border-neutral-200 border-t pt-3">
                   <span
-                    className={`inline-flex border px-3 py-1 text-xs font-medium ${getSeverityColor(review.analysis.severity)}`}
+                    className={`inline-flex border px-3 py-1 font-medium text-xs ${getSeverityColor(review.analysis.severity)}`}
                   >
                     {review.analysis.severity.toUpperCase()}
                   </span>
                   {review.analysis.actionRequired && (
-                    <span className="text-orange-600 text-xs font-medium">ACTION REQUIRED</span>
+                    <span className="font-medium text-orange-600 text-xs">ACTION REQUIRED</span>
                   )}
                 </div>
 
@@ -338,54 +333,32 @@ export function ReviewModerationQueue() {
 
             {/* Action Buttons */}
             <div className="flex gap-2">
-              {!review.analysis && !review.analyzing ? (
-                <Button
-                  className="flex-1"
-                  onClick={() => analyzeReview(review.id)}
-                  variant="outline"
-                >
-                  <HugeiconsIcon
-                    className="mr-2 h-4 w-4"
-                    icon={EyeIcon}
-                    strokeWidth={1.5}
-                  />
-                  Analyze
-                </Button>
-              ) : (
+              {review.analysis || review.analyzing ? (
                 <>
                   <Button
                     className="flex-1"
                     onClick={() => handleModeration(review.id, "approve")}
                     variant="default"
                   >
-                    <HugeiconsIcon
-                      className="mr-2 h-4 w-4"
-                      icon={ThumbsUpIcon}
-                      strokeWidth={1.5}
-                    />
+                    <HugeiconsIcon className="mr-2 h-4 w-4" icon={ThumbsUpIcon} strokeWidth={1.5} />
                     Approve
                   </Button>
-                  <Button
-                    onClick={() => handleModeration(review.id, "reject")}
-                    variant="outline"
-                  >
-                    <HugeiconsIcon
-                      className="h-4 w-4"
-                      icon={ThumbsDownIcon}
-                      strokeWidth={1.5}
-                    />
+                  <Button onClick={() => handleModeration(review.id, "reject")} variant="outline">
+                    <HugeiconsIcon className="h-4 w-4" icon={ThumbsDownIcon} strokeWidth={1.5} />
                   </Button>
-                  <Button
-                    onClick={() => handleModeration(review.id, "clarify")}
-                    variant="outline"
-                  >
-                    <HugeiconsIcon
-                      className="h-4 w-4"
-                      icon={SentIcon}
-                      strokeWidth={1.5}
-                    />
+                  <Button onClick={() => handleModeration(review.id, "clarify")} variant="outline">
+                    <HugeiconsIcon className="h-4 w-4" icon={SentIcon} strokeWidth={1.5} />
                   </Button>
                 </>
+              ) : (
+                <Button
+                  className="flex-1"
+                  onClick={() => analyzeReview(review.id)}
+                  variant="outline"
+                >
+                  <HugeiconsIcon className="mr-2 h-4 w-4" icon={EyeIcon} strokeWidth={1.5} />
+                  Analyze
+                </Button>
               )}
             </div>
           </Card>

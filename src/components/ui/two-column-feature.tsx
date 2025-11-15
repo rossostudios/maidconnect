@@ -47,7 +47,7 @@ export function TwoColumnFeature({
           </div>
 
           {/* Image Column */}
-          <div className={cn("relative aspect-[4/3] overflow-hidden rounded-[32px]", imageOrder)}>
+          <div className={cn("relative aspect-[4/3] overflow-hidden", imageOrder)}>
             <Image
               alt={imageAlt}
               className="object-cover"

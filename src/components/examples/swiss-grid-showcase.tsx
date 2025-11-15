@@ -35,7 +35,7 @@ export function LiaGridShowcase() {
         </div>
 
         <LiaGrid12>
-          <GridFieldTwoThirds className="rounded-lg border border-neutral-200 bg-neutral-100 p-6">
+          <GridFieldTwoThirds className="border border-neutral-200 bg-neutral-100 p-6">
             <h3 className="mb-baseline-1 font-semibold text-[24px] leading-[24px]">
               Main Content (8 columns)
             </h3>
@@ -44,7 +44,7 @@ export function LiaGridShowcase() {
             </p>
           </GridFieldTwoThirds>
 
-          <GridFieldThird className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+          <GridFieldThird className="border border-neutral-200 bg-neutral-50 p-6">
             <h4 className="mb-baseline-1 font-semibold text-[20px] leading-[24px]">
               Sidebar (4 columns)
             </h4>
@@ -53,7 +53,7 @@ export function LiaGridShowcase() {
             </p>
           </GridFieldThird>
 
-          <GridFieldThird className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+          <GridFieldThird className="border border-neutral-200 bg-neutral-50 p-6">
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">
               Card 1 (4 cols)
             </h4>
@@ -62,14 +62,14 @@ export function LiaGridShowcase() {
             </p>
           </GridFieldThird>
 
-          <GridFieldThird className="rounded-lg border border-neutral-200 bg-neutral-100 p-6">
+          <GridFieldThird className="border border-neutral-200 bg-neutral-100 p-6">
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">
               Card 2 (4 cols)
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Another 4-column field.</p>
           </GridFieldThird>
 
-          <GridFieldThird className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+          <GridFieldThird className="border border-neutral-200 bg-neutral-50 p-6">
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">
               Card 3 (4 cols)
             </h4>
@@ -88,10 +88,7 @@ export function LiaGridShowcase() {
         </div>
 
         <LiaGrid10>
-          <GridField
-            className="rounded-lg border border-neutral-200 bg-neutral-100 p-6"
-            colSpan={6}
-          >
+          <GridField className="border border-neutral-200 bg-neutral-100 p-6" colSpan={6}>
             <h3 className="mb-baseline-1 font-semibold text-[24px] leading-[24px]">
               Hero Content (6 columns)
             </h3>
@@ -100,24 +97,21 @@ export function LiaGridShowcase() {
             </p>
           </GridField>
 
-          <GridField className="rounded-lg border border-neutral-200 bg-neutral-50 p-6" colSpan={4}>
+          <GridField className="border border-neutral-200 bg-neutral-50 p-6" colSpan={4}>
             <h4 className="mb-baseline-1 font-semibold text-[20px] leading-[24px]">
               Aside (4 columns)
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Supporting content area.</p>
           </GridField>
 
-          <GridField className="rounded-lg border border-neutral-200 bg-neutral-50 p-6" colSpan={5}>
+          <GridField className="border border-neutral-200 bg-neutral-50 p-6" colSpan={5}>
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">
               Feature A (5 cols)
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Half of 10-column grid.</p>
           </GridField>
 
-          <GridField
-            className="rounded-lg border border-neutral-200 bg-neutral-100 p-6"
-            colSpan={5}
-          >
+          <GridField className="border border-neutral-200 bg-neutral-100 p-6" colSpan={5}>
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">
               Feature B (5 cols)
             </h4>
@@ -136,10 +130,7 @@ export function LiaGridShowcase() {
         </div>
 
         <LiaGrid13>
-          <GridField
-            className="rounded-lg border border-neutral-200 bg-neutral-100 p-6"
-            colSpan={8}
-          >
+          <GridField className="border border-neutral-200 bg-neutral-100 p-6" colSpan={8}>
             <h3 className="mb-baseline-1 font-semibold text-[24px] leading-[24px]">
               Dominant Content (8 columns)
             </h3>
@@ -148,7 +139,7 @@ export function LiaGridShowcase() {
             </p>
           </GridField>
 
-          <GridField className="rounded-lg border border-neutral-200 bg-neutral-50 p-6" colSpan={5}>
+          <GridField className="border border-neutral-200 bg-neutral-50 p-6" colSpan={5}>
             <h4 className="mb-baseline-1 font-semibold text-[20px] leading-[24px]">
               Secondary (5 columns)
             </h4>
@@ -170,33 +161,27 @@ export function LiaGridShowcase() {
 
         <LiaGrid12>
           <GridField
-            className="h-module-2 rounded-lg border border-neutral-200 bg-neutral-100 p-6"
+            className="h-module-2 border border-neutral-200 bg-neutral-100 p-6"
             colSpan={3}
           >
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">2 Modules</h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">128px tall</p>
           </GridField>
 
-          <GridField
-            className="h-module-3 rounded-lg border border-neutral-200 bg-neutral-50 p-6"
-            colSpan={3}
-          >
+          <GridField className="h-module-3 border border-neutral-200 bg-neutral-50 p-6" colSpan={3}>
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">3 Modules</h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">192px tall</p>
           </GridField>
 
           <GridField
-            className="h-module-4 rounded-lg border border-neutral-200 bg-neutral-100 p-6"
+            className="h-module-4 border border-neutral-200 bg-neutral-100 p-6"
             colSpan={3}
           >
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">4 Modules</h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">256px tall</p>
           </GridField>
 
-          <GridField
-            className="h-module-2 rounded-lg border border-neutral-200 bg-neutral-50 p-6"
-            colSpan={3}
-          >
+          <GridField className="h-module-2 border border-neutral-200 bg-neutral-50 p-6" colSpan={3}>
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">2 Modules</h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">128px tall</p>
           </GridField>
@@ -209,7 +194,7 @@ export function LiaGridShowcase() {
           Baseline-Aligned Typography
         </h2>
 
-        <div className="max-w-3xl space-y-baseline-1 rounded-lg border border-neutral-200 bg-neutral-50 p-8">
+        <div className="max-w-3xl space-y-baseline-1 border border-neutral-200 bg-neutral-50 p-8">
           <h3 className="mb-baseline-1 font-semibold text-[28px] leading-[48px]">
             Heading 3 (28px / 48px line-height)
           </h3>
@@ -231,7 +216,7 @@ export function LiaGridShowcase() {
 
           <p className="text-[14px] text-neutral-600 leading-[24px]">
             Even smaller text maintains baseline alignment. Press{" "}
-            <kbd className="rounded border border-neutral-300 bg-white px-2 py-1 text-xs">
+            <kbd className="border border-neutral-300 bg-white px-2 py-1 text-xs">
               Cmd/Ctrl + Shift + G
             </kbd>{" "}
             to toggle the baseline grid overlay and see how every line aligns perfectly.
@@ -241,7 +226,7 @@ export function LiaGridShowcase() {
 
       {/* Usage Instructions */}
       <section className="container mx-auto px-6">
-        <div className="rounded-lg bg-neutral-900 p-8 text-white">
+        <div className="bg-neutral-900 p-8 text-white">
           <h2 className="mb-baseline-1 font-semibold text-[28px] leading-[48px]">
             How to Use the Lia Grid System
           </h2>
@@ -284,8 +269,7 @@ export function LiaGridShowcase() {
                 4. Debug with Baseline Grid
               </h3>
               <p className="text-[16px] text-neutral-300 leading-[24px]">
-                Press{" "}
-                <kbd className="rounded bg-neutral-700 px-2 py-1 text-xs">Cmd/Ctrl + Shift + G</kbd>{" "}
+                Press <kbd className="bg-neutral-700 px-2 py-1 text-xs">Cmd/Ctrl + Shift + G</kbd>{" "}
                 to toggle the red baseline grid overlay and verify your typography alignment.
               </p>
             </div>

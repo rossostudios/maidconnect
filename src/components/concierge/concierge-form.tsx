@@ -77,8 +77,8 @@ export function ConciergeForm() {
         className="mx-auto max-w-2xl text-center"
         initial={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="rounded-2xl border border-neutral-200 bg-white p-12 shadow-sm">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+        <div className="border border-neutral-200 bg-white p-12 shadow-sm">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center bg-green-100">
             <CheckCircle2 className="h-12 w-12 text-green-600" />
           </div>
 
@@ -88,7 +88,7 @@ export function ConciergeForm() {
             out within 2 hours during business hours (Mon-Fri, 9am-6pm COT).
           </p>
 
-          <div className="mb-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <div className="mb-8 border border-blue-200 bg-blue-50 p-4">
             <p className="text-blue-900 text-sm">
               📧 Check your email for a confirmation message. If you don't see it, please check your
               spam folder.
@@ -112,7 +112,7 @@ export function ConciergeForm() {
     <>
       {/* Hero Section */}
       <div className="mb-16 text-center">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-1 font-medium text-orange-600 text-sm">
+        <div className="mb-3 inline-flex items-center gap-2 bg-orange-100 px-4 py-1 font-medium text-orange-600 text-sm">
           <Sparkles className="h-4 w-4" />
           White-Glove Service
         </div>
@@ -127,8 +127,8 @@ export function ConciergeForm() {
 
       {/* Features Grid */}
       <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <Users className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Personal Coordinator</h3>
@@ -138,8 +138,8 @@ export function ConciergeForm() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <Shield className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Curated Matches</h3>
@@ -149,8 +149,8 @@ export function ConciergeForm() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <Clock className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">5-Day Guarantee</h3>
@@ -160,8 +160,8 @@ export function ConciergeForm() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <Globe className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Bilingual Support</h3>
@@ -170,8 +170,8 @@ export function ConciergeForm() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <CheckCircle2 className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Interview Coordination</h3>
@@ -181,8 +181,8 @@ export function ConciergeForm() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
             <Sparkles className="h-6 w-6 text-orange-600" />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Ongoing Support</h3>
@@ -194,7 +194,7 @@ export function ConciergeForm() {
       </div>
 
       {/* Comparison Table */}
-      <div className="mb-16 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
+      <div className="mb-16 overflow-hidden border border-neutral-200 bg-white shadow-sm">
         <div className="bg-neutral-50 p-6">
           <h2 className="text-center font-bold text-2xl text-neutral-900">
             Concierge vs. Marketplace
@@ -271,7 +271,7 @@ export function ConciergeForm() {
       </div>
 
       {/* Request Form */}
-      <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm sm:p-12">
+      <div className="border border-neutral-200 bg-white p-8 shadow-sm sm:p-12">
         <div className="mb-8 text-center">
           <h2 className="mb-2 font-bold text-3xl text-neutral-900">Request Concierge Service</h2>
           <p className="text-neutral-600">
@@ -348,7 +348,7 @@ export function ConciergeForm() {
 
           {errorMessage && (
             <div
-              className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm"
+              className="border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm"
               role="alert"
             >
               {errorMessage}

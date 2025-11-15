@@ -110,7 +110,7 @@ export function SimilarProfessionals({
         <div className="h-6 w-48 rounded bg-[neutral-200]" />
         <div className="flex gap-4">
           {[1, 2, 3].map((i) => (
-            <div className="h-32 w-64 rounded-2xl bg-[neutral-200]" key={i} />
+            <div className="h-32 w-64 bg-[neutral-200]" key={i} />
           ))}
         </div>
       </div>
@@ -131,14 +131,14 @@ export function SimilarProfessionals({
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {similar.map((pro) => (
           <Link
-            className="group rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
+            className="group border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
             href={`/professionals/${pro.id}`}
             key={pro.id}
           >
             <div className="space-y-4">
               {/* Match Score Badge */}
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
+                <span className="bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
                   {pro.matchScore}% Match
                 </span>
                 <div className="flex items-center gap-1">
@@ -173,7 +173,7 @@ export function SimilarProfessionals({
 
               {/* CTA */}
               <button
-                className="w-full rounded-full bg-[neutral-200] py-2 font-semibold text-[neutral-900] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50]"
+                className="w-full bg-[neutral-200] py-2 font-semibold text-[neutral-900] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50]"
                 type="button"
               >
                 View Profile

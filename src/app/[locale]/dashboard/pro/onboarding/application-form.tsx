@@ -104,7 +104,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           {services.map((service) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-xl border-2 border-neutral-200 bg-neutral-50 p-4 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
+                "flex cursor-pointer items-center gap-3 border-2 border-neutral-200 bg-neutral-50 p-4 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
                 hasError("services") && "border-orange-500/50"
               )}
               key={service}
@@ -165,9 +165,9 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       >
         <div className="space-y-4">
           {[1, 2].map((index) => (
-            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6" key={index}>
+            <div className="border border-neutral-200 bg-neutral-50 p-6" key={index}>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 font-semibold text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center bg-orange-500 font-semibold text-sm text-white">
                   {index}
                 </div>
                 <p className="font-semibold text-neutral-500 text-sm uppercase tracking-[0.2em]">
@@ -202,7 +202,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField error={fieldError("consent")} label={t("consent.label")}>
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
+        <label className="flex cursor-pointer items-start gap-3 border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
           <input
             aria-invalid={hasError("consent")}
             className="mt-0.5 h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
@@ -217,7 +217,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         <p className="text-neutral-500 text-sm">{t("footer.note")}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -233,12 +233,9 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
-        role="alert"
-      >
+      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Error icon"
               className="h-5 w-5 text-orange-500"
@@ -262,12 +259,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   }
   if (state.status === "success" && state.message) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
-        role="status"
-      >
+      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Success icon"
               className="h-5 w-5 text-orange-500"

@@ -8,7 +8,7 @@ export function BookingsListSkeleton() {
     <div aria-label="Loading bookings" className="space-y-4" role="status">
       {[1, 2, 3].map((i) => (
         <div
-          className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+          className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
           key={i}
         >
           <div className="flex items-start justify-between gap-4">
@@ -17,7 +17,7 @@ export function BookingsListSkeleton() {
               <div className="h-4 w-1/2 rounded bg-neutral-200" />
               <div className="h-4 w-2/3 rounded bg-neutral-200" />
             </div>
-            <div className="h-8 w-24 rounded-full bg-neutral-200" />
+            <div className="h-8 w-24 bg-neutral-200" />
           </div>
         </div>
       ))}
@@ -34,11 +34,11 @@ export function FavoritesListSkeleton() {
     >
       {[1, 2, 3].map((i) => (
         <div
-          className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+          className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
           key={i}
         >
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-neutral-200" />
+            <div className="h-16 w-16 bg-neutral-200" />
             <div className="flex-1 space-y-2">
               <div className="h-5 w-3/4 rounded bg-neutral-200" />
               <div className="h-4 w-1/2 rounded bg-neutral-200" />
@@ -71,7 +71,7 @@ export function BookingCalendarSkeleton() {
           ))}
           {/* Calendar days */}
           {[...new Array(35)].map((_, i) => (
-            <div className="h-20 rounded-lg bg-neutral-200" key={`day-${i}`} />
+            <div className="h-20 bg-neutral-200" key={`day-${i}`} />
           ))}
         </div>
       </div>
@@ -84,7 +84,7 @@ export function ProfileMetricsSkeleton() {
     <dl aria-label="Loading metrics" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {[1, 2, 3, 4].map((i) => (
         <div
-          className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm shadow-sm ring-1 ring-black/5"
+          className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm shadow-sm ring-1 ring-black/5"
           key={i}
         >
           <div className="h-4 w-24 rounded bg-neutral-200" />
@@ -100,7 +100,7 @@ export function ServiceAddonsSkeleton() {
     <div aria-label="Loading service addons" className="space-y-4" role="status">
       {[1, 2].map((i) => (
         <div
-          className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+          className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
           key={i}
         >
           <div className="flex items-start justify-between gap-4">
@@ -121,7 +121,7 @@ export function AddressesSkeleton() {
     <div aria-label="Loading addresses" className="space-y-4" role="status">
       {[1, 2].map((i) => (
         <div
-          className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+          className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
           key={i}
         >
           <div className="space-y-3">
@@ -139,7 +139,7 @@ export function PendingRatingsSkeleton() {
   return (
     <div
       aria-label="Loading pending ratings"
-      className="rounded-lg bg-white p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] shadow-sm ring-1 ring-black/5 backdrop-blur-sm"
+      className="bg-white p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] shadow-sm ring-1 ring-black/5"
       role="status"
     >
       <div className="animate-pulse space-y-4">
@@ -147,13 +147,13 @@ export function PendingRatingsSkeleton() {
         <div className="grid gap-4 md:grid-cols-2">
           {[1, 2].map((i) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+              className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
               key={i}
             >
               <div className="space-y-3">
                 <div className="h-5 w-2/3 rounded bg-neutral-200" />
                 <div className="h-4 w-1/2 rounded bg-neutral-200" />
-                <div className="mt-4 h-10 w-full rounded-full bg-neutral-200" />
+                <div className="mt-4 h-10 w-full bg-neutral-200" />
               </div>
             </div>
           ))}
@@ -185,13 +185,13 @@ export function PaymentMethodSkeleton() {
   return (
     <div
       aria-label="Loading payment method"
-      className="animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
+      className="animate-pulse border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5"
       role="status"
     >
       <div className="space-y-3">
         <div className="h-5 w-48 rounded bg-neutral-200" />
         <div className="h-4 w-full rounded bg-neutral-200" />
-        <div className="mt-4 h-10 w-full rounded-full bg-neutral-200" />
+        <div className="mt-4 h-10 w-full bg-neutral-200" />
       </div>
     </div>
   );

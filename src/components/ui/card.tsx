@@ -12,15 +12,13 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-neutral-900 focus-visible:outline-offset-2",
+  "overflow-hidden transition-all duration-200 focus-visible:outline-2 focus-visible:outline-neutral-900 focus-visible:outline-offset-2",
   {
     variants: {
       variant: {
         default: "bg-white shadow-sm ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
         elevated: "bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
         outlined: "bg-white shadow-none ring-1 ring-black/8 dark:bg-neutral-900 dark:ring-white/12",
-        glass:
-          "bg-white/70 shadow-sm ring-1 ring-black/5 backdrop-blur-lg dark:bg-neutral-900/70 dark:ring-white/10",
       },
     },
     defaultVariants: {

@@ -48,18 +48,18 @@ export default async function ProAvailabilityPage({
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
         <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Availability Editor */}
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <AvailabilityEditor initialBlockedDates={blockedDates} initialWeeklyHours={weeklyHours} />
       </div>
 
       {/* Help Section */}
-      <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
+      <div className="border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
         <h3 className="font-semibold text-lg text-neutral-900">{t("tips.title")}</h3>
         <ul className="mt-4 space-y-3 text-base text-neutral-500">
           <li className="flex gap-3">

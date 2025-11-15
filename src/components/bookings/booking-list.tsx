@@ -81,7 +81,7 @@ export function BookingList({
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[neutral-500] border-t-2 border-b-2" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin border-[neutral-500] border-t-2 border-b-2" />
           <p className="text-[neutral-400]">{t("loading")}</p>
         </div>
       </div>
@@ -90,11 +90,11 @@ export function BookingList({
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
+      <div className="border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
         <p className="font-semibold text-[neutral-500]">{t("error")}</p>
         <p className="mt-2 text-[neutral-500] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="mt-4 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={() => loadBookings()}
           type="button"
         >
@@ -117,7 +117,7 @@ export function BookingList({
         <HugeiconsIcon className="h-5 w-5 flex-shrink-0 text-[neutral-400]" icon={FilterIcon} />
         {filterButtons.map(({ key, label }) => (
           <button
-            className={`flex-shrink-0 rounded-lg px-4 py-2 font-medium text-sm transition ${
+            className={`flex-shrink-0 px-4 py-2 font-medium text-sm transition ${
               filter === key
                 ? "bg-[neutral-500] text-[neutral-50]"
                 : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-200]"
@@ -146,7 +146,7 @@ export function BookingList({
           ))}
         </div>
       ) : (
-        <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-12 text-center">
+        <div className="border-2 border-[neutral-200] bg-[neutral-50] p-12 text-center">
           <p className="font-semibold text-[neutral-900]">{t("noBookings")}</p>
           <p className="mt-2 text-[neutral-400] text-sm">{t("noBookingsDescription")}</p>
         </div>

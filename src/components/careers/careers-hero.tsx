@@ -37,7 +37,7 @@ export async function CareersHero() {
 
           {/* Right Column - Team Image */}
           <div className="relative">
-            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5 shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
+            <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5 shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
               {/* Placeholder for team image */}
               <div className="flex h-full w-full items-center justify-center">
                 <div className="text-center text-[neutral-400]">

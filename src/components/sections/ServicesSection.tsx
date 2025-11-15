@@ -70,7 +70,7 @@ export function ServicesSection() {
       {/* CTA Section */}
       <div className="mt-16 text-center">
         <Link
-          className="inline-flex items-center justify-center rounded-full border-2 border-neutral-900 bg-transparent px-8 py-4 font-semibold text-neutral-900 shadow-lg transition-all duration-300 hover:bg-neutral-900 hover:text-white hover:shadow-xl active:scale-95"
+          className="inline-flex items-center justify-center border-2 border-neutral-900 bg-transparent px-8 py-4 font-semibold text-neutral-900 shadow-lg transition-all duration-300 hover:bg-neutral-900 hover:text-white hover:shadow-xl active:scale-95"
           href="/professionals"
         >
           {t("viewAll") || "View All Services"}

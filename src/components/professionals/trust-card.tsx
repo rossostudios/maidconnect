@@ -26,7 +26,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
   const t = useTranslations("components.trustCard");
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
 
       {/* Trust Badges */}

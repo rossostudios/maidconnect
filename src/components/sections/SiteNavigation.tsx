@@ -132,12 +132,12 @@ export function SiteNavigation() {
               onMouseLeave={handleMouseLeave}
               role="menu"
             >
-              <div className="w-[640px] rounded-2xl border border-neutral-200 bg-white p-3 shadow-lg backdrop-blur-sm">
+              <div className="w-[640px] border border-neutral-200 bg-white p-3 shadow-lg">
                 <div className="grid grid-cols-2 gap-2">
                   {productFeatures.map((feature) => (
                     <Link
                       className={cn(
-                        "group flex flex-col gap-1 rounded-xl p-3 transition",
+                        "group flex flex-col gap-1 p-3 transition",
                         "hover:bg-neutral-50 hover:text-neutral-700",
                         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-neutral-900 focus-visible:outline-offset-2"
                       )}

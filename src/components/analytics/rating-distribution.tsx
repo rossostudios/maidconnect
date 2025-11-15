@@ -31,7 +31,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
     totalRatings > 0 ? ((metrics.fiveStarCount + metrics.fourStarCount) / totalRatings) * 100 : 0;
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
@@ -71,7 +71,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
               </div>
 
               {/* Progress Bar */}
-              <div className="relative h-6 flex-1 overflow-hidden rounded-full bg-[neutral-50]">
+              <div className="relative h-6 flex-1 overflow-hidden bg-[neutral-50]">
                 <div
                   className={`h-full transition-all duration-500 ${item.color}`}
                   style={{ width: `${percentage}%` }}
@@ -89,7 +89,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
       </div>
 
       {/* Satisfaction Rate */}
-      <div className="mt-6 rounded-xl border-[neutral-200] border-t bg-gradient-to-r from-[neutral-500]/10 to-[neutral-500]/10 p-4 pt-4">
+      <div className="mt-6 border-[neutral-200] border-t bg-gradient-to-r from-[neutral-500]/10 to-[neutral-500]/10 p-4 pt-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="font-medium text-[neutral-900] text-sm">{t("satisfactionRate")}</p>

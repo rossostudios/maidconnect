@@ -58,7 +58,7 @@ export function RoadmapCard({ item }: RoadmapCardProps) {
     <div className="group relative">
       <Link href={`/roadmap/${item.slug}`}>
         {/* Auto Layout: Vertical stack, padding 16px, gap 16px, rounded corners */}
-        <div className="relative flex flex-col gap-4 rounded-[20px] border-2 border-[neutral-200] bg-[neutral-50] p-4 transition-all duration-200 hover:border-[neutral-500]">
+        <div className="relative flex flex-col gap-4 border-2 border-[neutral-200] bg-[neutral-50] p-4 transition-all duration-200 hover:border-[neutral-500]">
           {/* Header - Auto Layout: Vertical stack, gap 8px */}
           <div className="flex flex-col gap-2">
             <h3 className="line-clamp-2 font-semibold text-[neutral-900] text-base transition-colors group-hover:text-[neutral-500]">
@@ -69,7 +69,7 @@ export function RoadmapCard({ item }: RoadmapCardProps) {
             <div className="flex flex-wrap items-center gap-2">
               {/* Status badge - Auto Layout: Horizontal stack, gap 4px, padding 4px 8px */}
               <span
-                className="inline-flex items-center gap-1 rounded-lg px-2 py-1 font-medium text-xs"
+                className="inline-flex items-center gap-1 px-2 py-1 font-medium text-xs"
                 style={{
                   backgroundColor: statusConfig.bgColor,
                   color: statusConfig.color,
@@ -82,7 +82,7 @@ export function RoadmapCard({ item }: RoadmapCardProps) {
               </span>
 
               {/* Category badge - Auto Layout: Horizontal stack, gap 4px, padding 4px 8px */}
-              <span className="inline-flex items-center gap-1 rounded-lg border border-[neutral-200] bg-[neutral-50] px-2 py-1 font-medium text-[neutral-400] text-xs">
+              <span className="inline-flex items-center gap-1 border border-[neutral-200] bg-[neutral-50] px-2 py-1 font-medium text-[neutral-400] text-xs">
                 <HugeiconsIcon icon={CategoryIcon} size={14} />
                 <span>{categoryConfig.label}</span>
               </span>
@@ -119,7 +119,7 @@ export function RoadmapCard({ item }: RoadmapCardProps) {
                 <div className="hidden items-center gap-1.5 sm:flex">
                   {item.tags.slice(0, 2).map((tag) => (
                     <span
-                      className="rounded-md bg-[neutral-50] px-2 py-0.5 text-[neutral-400] text-xs"
+                      className="bg-[neutral-50] px-2 py-0.5 text-[neutral-400] text-xs"
                       key={tag}
                     >
                       #{tag}

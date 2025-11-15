@@ -65,7 +65,7 @@ export function HeroSection() {
           {/* Hero Content - Swiss Grid Layout */}
           <motion.div
             animate="visible"
-            className="mb-24 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8 md:items-start"
+            className="mb-24 grid grid-cols-1 gap-16 md:grid-cols-12 md:items-start md:gap-8"
             initial="hidden"
             variants={stagger}
           >
@@ -173,7 +173,7 @@ export function HeroSection() {
 
           {/* Trusted By Section - Marquee inside bordered card */}
           <div className="mt-24">
-            <div className="rounded-3xl border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
+            <div className="border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
                 Built for expat and local households in Medellín — expanding across Colombia
               </p>

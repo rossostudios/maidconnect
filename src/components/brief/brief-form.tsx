@@ -159,7 +159,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         <div className="mb-4 flex items-center justify-between">
           {STEPS.map((step) => (
             <div
-              className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
+              className={`flex h-10 w-10 items-center justify-center border-2 ${
                 step.id === currentStep
                   ? "border-orange-500 bg-orange-500 text-white"
                   : step.id < currentStep
@@ -172,7 +172,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
             </div>
           ))}
         </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
+        <div className="h-2 w-full overflow-hidden bg-neutral-200">
           <div
             className="h-full bg-orange-500 transition-all duration-300"
             style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
@@ -199,7 +199,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
             <div className="grid gap-3 sm:grid-cols-2">
               {SERVICE_TYPES.map((service) => (
                 <label
-                  className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 border-2 p-4 transition-all ${
                     formData.serviceType === service.value
                       ? "border-orange-500 bg-orange-50"
                       : "border-neutral-200 hover:border-neutral-300"
@@ -232,7 +232,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               <select
                 id="city"
                 {...register("city")}
-                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               >
                 <option value="">Select a city</option>
                 {CITIES.map((city) => (
@@ -251,7 +251,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               <div className="space-y-2">
                 {LANGUAGES.map((lang) => (
                   <label
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
+                    className={`flex cursor-pointer items-center gap-3 border-2 p-4 transition-all ${
                       formData.language === lang.value
                         ? "border-orange-500 bg-orange-50"
                         : "border-neutral-200 hover:border-neutral-300"
@@ -307,7 +307,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               <select
                 id="hoursPerWeek"
                 {...register("hoursPerWeek")}
-                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               >
                 <option value="">Select hours</option>
                 <option value="1-10">1-10 hours/week</option>

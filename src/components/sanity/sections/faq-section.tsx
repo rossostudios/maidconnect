@@ -57,7 +57,7 @@ function FaqItem({ question, answer }: FaqItem) {
 
   return (
     <Collapsible
-      className="rounded-2xl border border-[neutral-200] bg-[neutral-50] transition-all hover:border-[neutral-500]"
+      className="border border-[neutral-200] bg-[neutral-50] transition-all hover:border-[neutral-500]"
       onOpenChange={setIsOpen}
       open={isOpen}
     >

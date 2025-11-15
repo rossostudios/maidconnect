@@ -38,18 +38,11 @@ export async function POST(request: Request) {
       }
 
       if (rating !== undefined && (rating < 1 || rating > 5)) {
-        return NextResponse.json(
-          { error: "rating must be between 1 and 5" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "rating must be between 1 and 5" }, { status: 400 });
       }
 
       // Analyze review using Claude
-      const analysis = await analyzeReview(
-        reviewText,
-        rating,
-        locale as "en" | "es"
-      );
+      const analysis = await analyzeReview(reviewText, rating, locale as "en" | "es");
 
       return NextResponse.json(analysis);
     } catch (error) {

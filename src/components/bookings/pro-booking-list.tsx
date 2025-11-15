@@ -89,8 +89,8 @@ function AcceptDeclineActions({
 }) {
   const isMobile = size === "mobile";
   const baseClass = isMobile
-    ? "inline-flex items-center justify-center rounded-xl px-4 py-3 font-semibold text-sm"
-    : "inline-flex items-center rounded-md px-3 py-1.5 font-semibold text-xs";
+    ? "inline-flex items-center justify-center  px-4 py-3 font-semibold text-sm"
+    : "inline-flex items-center  px-3 py-1.5 font-semibold text-xs";
 
   return (
     <div className={isMobile ? "grid grid-cols-2 gap-3" : "flex flex-wrap items-center gap-2"}>
@@ -134,8 +134,8 @@ function CaptureVoidActions({
 }) {
   const isMobile = size === "mobile";
   const baseClass = isMobile
-    ? "inline-flex items-center justify-center rounded-xl px-4 py-3 font-semibold text-sm"
-    : "inline-flex items-center rounded-md px-3 py-1.5 font-semibold text-xs";
+    ? "inline-flex items-center justify-center  px-4 py-3 font-semibold text-sm"
+    : "inline-flex items-center  px-3 py-1.5 font-semibold text-xs";
 
   return (
     <div className={isMobile ? "flex flex-col gap-3" : "flex flex-wrap items-center gap-2"}>
@@ -268,7 +268,7 @@ function BookingTableRow({
       <td className="px-4 py-3 text-[neutral-400]">{amountDisplay}</td>
       <td className="px-4 py-3">
         <span
-          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
+          className={`inline-flex items-center px-3 py-1 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
         >
           {booking.status.replace(/_/g, " ")}
         </span>
@@ -321,10 +321,7 @@ function BookingMobileCard({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <div
-      className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-5 shadow-sm"
-      key={booking.id}
-    >
+    <div className="border border-[neutral-200] bg-[neutral-50] p-5 shadow-sm" key={booking.id}>
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <p className="text-[neutral-400] text-xs uppercase tracking-wide">{t("table.booking")}</p>
@@ -333,7 +330,7 @@ function BookingMobileCard({
           </p>
         </div>
         <span
-          className={`inline-flex items-center rounded-full px-3 py-1.5 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
+          className={`inline-flex items-center px-3 py-1.5 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
         >
           {booking.status.replace(/_/g, " ")}
         </span>
@@ -460,7 +457,7 @@ export function ProBookingList({ bookings }: Props) {
           </h3>
 
           {/* Desktop Table View - Hidden on mobile */}
-          <div className="hidden overflow-hidden rounded-2xl border border-[neutral-200] md:block">
+          <div className="hidden overflow-hidden border border-[neutral-200] md:block">
             <table className="min-w-full divide-y divide-[neutral-200] text-sm">
               <thead className="bg-[neutral-50] text-[neutral-400] text-xs uppercase tracking-wide">
                 <tr>

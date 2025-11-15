@@ -45,7 +45,7 @@ export function CheckmarkListItem({
           <div className="flex flex-1 items-start gap-4">
             <div
               className={cn(
-                "mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
+                "mt-1 flex h-8 w-8 shrink-0 items-center justify-center",
                 negative ? "bg-[neutral-500]" : "bg-[neutral-500]/100"
               )}
             >
@@ -72,7 +72,7 @@ export function CheckmarkListItem({
     <li className={cn("flex items-start gap-3", className)}>
       <div
         className={cn(
-          "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full",
+          "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center",
           negative ? "bg-[neutral-500]/10" : "bg-[neutral-500]/10"
         )}
       >

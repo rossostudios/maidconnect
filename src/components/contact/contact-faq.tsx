@@ -23,7 +23,7 @@ export function ContactFAQ() {
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
-              className="overflow-hidden rounded-[24px] border border-[neutral-200] bg-[neutral-50] shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
+              className="overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
               key={key}
             >
               <button

@@ -24,12 +24,12 @@ export function StepDiagram({
   return (
     <div className="relative flex flex-col items-center">
       {/* Step number badge */}
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[neutral-500] to-[var(--red)] font-bold text-2xl text-[neutral-50] shadow-lg">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-[neutral-500] to-[var(--red)] font-bold text-2xl text-[neutral-50] shadow-lg">
         {stepNumber}
       </div>
 
       {/* Icon */}
-      <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-[neutral-50]">
+      <div className="mb-4 flex h-20 w-20 items-center justify-center bg-[neutral-50]">
         <HugeiconsIcon className="h-10 w-10 text-[neutral-500]" icon={icon} />
       </div>
 

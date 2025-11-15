@@ -38,7 +38,7 @@ export function ConfirmationModal({
         <div className="flex justify-end gap-3">
           <button
             className={cn(
-              "rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm",
+              "border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm",
               "transition-colors hover:bg-neutral-50",
               "disabled:cursor-not-allowed disabled:opacity-50"
             )}
@@ -50,7 +50,7 @@ export function ConfirmationModal({
           </button>
           <button
             className={cn(
-              "rounded-lg px-4 py-2 font-medium text-sm text-white transition-colors",
+              "px-4 py-2 font-medium text-sm text-white transition-colors",
               "focus:outline-none focus:ring-2 focus:ring-offset-2",
               "disabled:cursor-not-allowed disabled:opacity-50",
               variant === "danger"

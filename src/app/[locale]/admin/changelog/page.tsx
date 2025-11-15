@@ -173,11 +173,11 @@ export default async function AdminChangelogPage({
                 {/* Content */}
                 <div className="flex-1">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-neutral-100 px-3 py-1 font-semibold text-neutral-900 text-xs">
+                    <span className="bg-neutral-100 px-3 py-1 font-semibold text-neutral-900 text-xs">
                       Sprint {changelog.sprint_number}
                     </span>
                     <span
-                      className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${visibilityBadge[changelog.visibility]}`}
+                      className={`px-3 py-1 font-medium text-xs capitalize ${visibilityBadge[changelog.visibility]}`}
                     >
                       {changelog.visibility}
                     </span>

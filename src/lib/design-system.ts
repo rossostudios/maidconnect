@@ -6,7 +6,7 @@
 
 // Card Layout Constants
 export const CARD_LAYOUT = {
-  base: "rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-200",
+  base: " border border-neutral-200 bg-white p-6 transition-all duration-200",
   hover: "hover:shadow-lg",
   elevated: "shadow-md",
   padding: "p-6",
@@ -16,11 +16,11 @@ export const CARD_LAYOUT = {
 
 // Icon Container Constants
 export const ICON_CONTAINER = {
-  base: "flex h-10 w-10 items-center justify-center rounded-lg",
+  base: "flex h-10 w-10 items-center justify-center ",
   default: "bg-neutral-900/10 text-neutral-900",
   muted: "bg-neutral-100 text-neutral-600",
   containerSize: "h-10 w-10",
-  borderRadius: "rounded-lg",
+  borderRadius: "",
   background: "bg-neutral-100",
   padding: "p-2",
   iconSize: "h-5 w-5",

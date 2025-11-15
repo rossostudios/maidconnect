@@ -45,7 +45,7 @@ export default function RoadmapPage() {
           <Suspense
             fallback={
               <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
+                <div className="h-8 w-8 animate-spin border-4 border-orange-500 border-t-transparent" />
               </div>
             }
           >

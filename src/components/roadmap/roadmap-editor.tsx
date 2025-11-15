@@ -117,7 +117,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
   return (
     <form className="mx-auto max-w-4xl space-y-6">
       {error && (
-        <div className="rounded-[16px] border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-[neutral-500]">
+        <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-[neutral-500]">
           {error}
         </div>
       )}
@@ -131,7 +131,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           Title *
         </label>
         <input
-          className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+          className="w-full border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
           id="roadmap-title"
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Add real-time notifications"
@@ -150,7 +150,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           Slug *
         </label>
         <input
-          className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 font-mono text-sm outline-none transition-colors focus:border-[neutral-500]"
+          className="w-full border-2 border-[neutral-200] px-4 py-3 font-mono text-sm outline-none transition-colors focus:border-[neutral-500]"
           id="roadmap-slug"
           onChange={(e) => setSlug(e.target.value)}
           placeholder="add-real-time-notifications"
@@ -169,7 +169,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           Description *
         </label>
         <textarea
-          className="w-full resize-y rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+          className="w-full resize-y border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
           id="roadmap-description"
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe the roadmap item..."
@@ -188,7 +188,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
               const config = ROADMAP_STATUS_CONFIG[statusOption];
               return (
                 <label
-                  className={`flex cursor-pointer items-center gap-3 rounded-[12px] border-2 p-3 transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 border-2 p-3 transition-all ${
                     status === statusOption
                       ? "border-[neutral-500] bg-[neutral-50]"
                       : "border-[neutral-200] hover:border-[neutral-500]"
@@ -218,7 +218,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
               const config = ROADMAP_CATEGORY_CONFIG[categoryOption];
               return (
                 <label
-                  className={`flex cursor-pointer items-center gap-3 rounded-[12px] border-2 p-3 transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 border-2 p-3 transition-all ${
                     category === categoryOption
                       ? "border-[neutral-500] bg-[neutral-50]"
                       : "border-[neutral-200] hover:border-[neutral-500]"
@@ -252,7 +252,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
             Priority
           </label>
           <select
-            className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+            className="w-full border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
             id="roadmap-priority"
             onChange={(e) => setPriority(e.target.value as RoadmapPriority)}
             value={priority}
@@ -271,7 +271,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
             Target Quarter
           </label>
           <input
-            className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+            className="w-full border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
             id="roadmap-quarter"
             onChange={(e) => setTargetQuarter(e.target.value)}
             placeholder="Q1 2025"
@@ -287,7 +287,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         <div className="flex gap-3">
           {(["all", "customer", "professional"] as RoadmapAudience[]).map((audience) => (
             <label
-              className={`flex-1 cursor-pointer rounded-[12px] border-2 p-3 text-center transition-all ${
+              className={`flex-1 cursor-pointer border-2 p-3 text-center transition-all ${
                 targetAudience.includes(audience)
                   ? "border-[neutral-500] bg-[neutral-50] text-[neutral-500]"
                   : "border-[neutral-200] hover:border-[neutral-500]"
@@ -315,7 +315,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           Tags (comma separated)
         </label>
         <input
-          className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+          className="w-full border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
           id="roadmap-tags"
           onChange={(e) => setTags(e.target.value)}
           placeholder="notifications, realtime, websockets"
@@ -333,7 +333,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           Featured Image URL
         </label>
         <input
-          className="w-full rounded-[12px] border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
+          className="w-full border-2 border-[neutral-200] px-4 py-3 outline-none transition-colors focus:border-[neutral-500]"
           id="roadmap-image"
           onChange={(e) => setFeaturedImageUrl(e.target.value)}
           placeholder="https://example.com/image.png"
@@ -345,7 +345,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
       {/* Actions */}
       <div className="flex items-center justify-between gap-4 border-[neutral-200] border-t pt-6">
         <button
-          className="rounded-[12px] border-2 border-[neutral-200] px-6 py-3 font-medium text-[neutral-400] transition-all hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="border-2 border-[neutral-200] px-6 py-3 font-medium text-[neutral-400] transition-all hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={() => router.back()}
           type="button"
         >
@@ -355,7 +355,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
         <div className="flex gap-3">
           <button
-            className="rounded-[12px] border-2 border-[neutral-200] px-6 py-3 font-medium text-[neutral-400] transition-all hover:border-[neutral-900] hover:text-[neutral-900] disabled:opacity-50"
+            className="border-2 border-[neutral-200] px-6 py-3 font-medium text-[neutral-400] transition-all hover:border-[neutral-900] hover:text-[neutral-900] disabled:opacity-50"
             disabled={isSubmitting}
             onClick={(e) => handleSubmit(e, true)}
             type="button"
@@ -365,7 +365,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           </button>
 
           <button
-            className="rounded-[12px] bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] transition-all hover:bg-[neutral-500] disabled:opacity-50"
+            className="bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] transition-all hover:bg-[neutral-500] disabled:opacity-50"
             disabled={isSubmitting}
             onClick={(e) => handleSubmit(e, false)}
             type="submit"

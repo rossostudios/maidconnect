@@ -17,7 +17,7 @@ export default async function AdminChangelogContentPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="rounded-[20px] border-2 border-neutral-200 bg-white p-6">
+      <div className="border-2 border-neutral-200 bg-white p-6">
         <h1 className="mb-2 font-bold text-2xl text-neutral-900">Changelog Content</h1>
         <p className="text-neutral-600">
           Manage product updates, release notes, and version history. Keep users informed about new

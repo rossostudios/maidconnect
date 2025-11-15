@@ -304,7 +304,7 @@ const ProfessionalsDirectoryComponent = memo(
             <p className="lead mx-auto max-w-3xl text-[neutral-900]/70">{t("header.subtitle")}</p>
           </header>
 
-          <div className="space-y-6 rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="space-y-6 border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <div className="space-y-6">
               {/* Search Bar with Autocomplete */}
               <SearchBar
@@ -324,14 +324,14 @@ const ProfessionalsDirectoryComponent = memo(
               {/* Mobile Filter Button */}
               <div className="md:hidden">
                 <button
-                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-500] text-base transition hover:bg-[neutral-500] hover:text-[neutral-50]"
+                  className="flex w-full items-center justify-center gap-2 border-2 border-[neutral-500] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-500] text-base transition hover:bg-[neutral-500] hover:text-[neutral-50]"
                   onClick={() => setIsFilterSheetOpen(true)}
                   type="button"
                 >
                   <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
                   Filters
                   {activeFilterCount > 0 && (
-                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[neutral-500] px-2 font-semibold text-[neutral-50] text-xs">
+                    <span className="flex h-6 min-w-[24px] items-center justify-center bg-[neutral-500] px-2 font-semibold text-[neutral-50] text-xs">
                       {activeFilterCount}
                     </span>
                   )}
@@ -344,7 +344,7 @@ const ProfessionalsDirectoryComponent = memo(
                   <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={FilterIcon} />
                   <span>{t("filters.service")}</span>
                   <select
-                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
+                    className="border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => {
                       const newValue = event.target.value;
                       if (newValue !== "all") {
@@ -369,7 +369,7 @@ const ProfessionalsDirectoryComponent = memo(
                   <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={Location01Icon} />
                   <span>{t("filters.city")}</span>
                   <select
-                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
+                    className="border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => {
                       const newValue = event.target.value;
                       if (newValue !== "all") {
@@ -394,7 +394,7 @@ const ProfessionalsDirectoryComponent = memo(
                   <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={Settings02Icon} />
                   <span>{t("filters.rating")}</span>
                   <select
-                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
+                    className="border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => {
                       const newValue = event.target.value;
                       if (newValue !== "all") {
@@ -435,7 +435,7 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <button
-                  className="ml-auto rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-5 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50]"
+                  className="ml-auto border-2 border-[neutral-500] bg-[neutral-50] px-5 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50]"
                   onClick={resetFilters}
                   type="button"
                 >
@@ -453,21 +453,21 @@ const ProfessionalsDirectoryComponent = memo(
               onClearFilters={resetFilters}
             />
           ) : viewMode === "map" ? (
-            <div className="h-[600px] overflow-hidden rounded-[32px] border border-[neutral-200] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="h-[600px] overflow-hidden border border-[neutral-200] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <MapView professionals={filteredProfessionals} />
             </div>
           ) : (
             <div className="space-y-12">
               {filteredProfessionals.map((professional) => (
                 <article
-                  className="hover:-tranneutral-y-0.5 overflow-hidden rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10"
+                  className="hover:-translate-y-0.5 overflow-hidden border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10"
                   key={professional.id}
                 >
                   {/* Header Row: Profile + Stats + Actions */}
                   <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                     {/* Left: Profile Info */}
                     <div className="flex items-start gap-5">
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-[neutral-200] shadow-[0_2px_12px_rgba(22,22,22,0.02)]">
+                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden border-2 border-[neutral-200] shadow-[0_2px_12px_rgba(22,22,22,0.02)]">
                         <Image
                           alt={professional.name}
                           className="object-cover"
@@ -493,7 +493,7 @@ const ProfessionalsDirectoryComponent = memo(
                     <div className="flex items-center gap-3">
                       <button
                         aria-label={t("card.favorite")}
-                        className="rounded-full border-2 border-[neutral-500]/30 bg-[neutral-50] p-2.5 transition hover:border-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]"
+                        className="border-2 border-[neutral-500]/30 bg-[neutral-50] p-2.5 transition hover:border-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]"
                         type="button"
                       >
                         <HugeiconsIcon
@@ -502,7 +502,7 @@ const ProfessionalsDirectoryComponent = memo(
                         />
                       </button>
                       <Link
-                        className="flex-1 rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-6 py-2.5 text-center font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50] sm:flex-none"
+                        className="flex-1 border-2 border-[neutral-500] bg-[neutral-50] px-6 py-2.5 text-center font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50] sm:flex-none"
                         href={`/professionals/${professional.id}`}
                         onClick={() => {
                           conversionTracking.profileViewed({
@@ -555,7 +555,7 @@ const ProfessionalsDirectoryComponent = memo(
                       <div className="mt-4 flex flex-wrap items-center gap-2">
                         {activityIndicators.map((indicator, index) => (
                           <span
-                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-xs ${getStyles(indicator.type)}`}
+                            className={`inline-flex items-center gap-1.5 border px-3 py-1.5 font-medium text-xs ${getStyles(indicator.type)}`}
                             key={index}
                           >
                             {getIcon(indicator.icon)}
@@ -629,20 +629,20 @@ const ProfessionalsDirectoryComponent = memo(
                       )}
 
                     {!showEnhancedTrustBadges && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
                         <HugeiconsIcon className="h-3.5 w-3.5 text-[neutral-900]" icon={StarIcon} />
                         {t("card.newBadge")}
                       </span>
                     )}
 
                     {professional.languages.length > 0 && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
                         {professional.languages.join(" / ")}
                       </span>
                     )}
 
                     {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50]">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50]">
                         {t("filters.availableToday")}
                       </span>
                     )}

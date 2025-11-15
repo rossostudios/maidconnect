@@ -63,7 +63,7 @@ export function CityHeroSection({
           {/* Left Column - Content */}
           <div className="flex flex-col justify-center">
             {/* Location Badge */}
-            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 shadow-sm">
+            <div className="mb-6 inline-flex w-fit items-center gap-2 border border-[neutral-200] bg-[neutral-50] px-4 py-2 shadow-sm">
               <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={Location01Icon} />
               <span className="font-medium text-[neutral-900] text-sm">{cityName}</span>
             </div>
@@ -102,18 +102,18 @@ export function CityHeroSection({
             {/* Primary CTA - Linked to professionals directory filtered by city */}
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
+                className="group inline-flex items-center justify-center gap-2 bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
                 href={`/professionals?city=${citySlug}`}
               >
                 {t("hero.cta.primary")}
                 <HugeiconsIcon
-                  className="group-hover:tranneutral-x-1 h-5 w-5 transition-transform"
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
                   icon={ArrowRight01Icon}
                 />
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
+                className="inline-flex items-center justify-center gap-2 border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
                 href="/how-it-works"
               >
                 {t("hero.cta.secondary")}
@@ -124,7 +124,7 @@ export function CityHeroSection({
           {/* Right Column - Visual */}
           <div className="relative lg:flex lg:items-center">
             {/* Hero Image */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5 p-12 shadow-xl">
+            <div className="relative overflow-hidden bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5 p-12 shadow-xl">
               {/* Placeholder for city-specific imagery */}
               <div className="relative aspect-square">
                 <div className="flex h-full flex-col items-center justify-center gap-6">
@@ -137,19 +137,19 @@ export function CityHeroSection({
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute top-8 right-8 h-32 w-32 rounded-full bg-[neutral-500]/10 blur-3xl" />
-              <div className="absolute bottom-8 left-8 h-32 w-32 rounded-full bg-[neutral-500]/10 blur-3xl" />
+              <div className="absolute top-8 right-8 h-32 w-32 bg-[neutral-500]/10 blur-3xl" />
+              <div className="absolute bottom-8 left-8 h-32 w-32 bg-[neutral-500]/10 blur-3xl" />
             </div>
 
             {/* Floating Stats Card */}
-            <div className="-bottom-4 -left-4 absolute rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-lg lg:left-4">
+            <div className="-bottom-4 -left-4 absolute border border-[neutral-200] bg-[neutral-50] p-6 shadow-lg lg:left-4">
               <p className="mb-2 font-semibold text-[neutral-900] text-sm">
                 {t("hero.popularServices")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {(["cleaning", "deepCleaning", "moving"] as const).map((service) => (
                   <span
-                    className="rounded-full bg-[neutral-500]/10 px-3 py-1 text-[neutral-500] text-xs"
+                    className="bg-[neutral-500]/10 px-3 py-1 text-[neutral-500] text-xs"
                     key={service}
                   >
                     {t(`hero.services.${service}` as `hero.services.${typeof service}`)}

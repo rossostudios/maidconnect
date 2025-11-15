@@ -59,7 +59,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       </div>
 
       {/* Profile Information */}
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("profile.title")}</h2>
         <div className="space-y-6">
           <div className="grid gap-6 sm:grid-cols-2">
@@ -92,7 +92,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
             </div>
           </div>
 
-          <div className="rounded-lg bg-neutral-50 p-4">
+          <div className="bg-neutral-50 p-4">
             <p className="text-neutral-500 text-sm">
               <strong className="text-neutral-900">{t("profile.note")}:</strong>{" "}
               {t("profile.noteDescription")}
@@ -102,7 +102,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       </div>
 
       {/* Property Preferences */}
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("preferences.title")}</h2>
         <div className="space-y-4">
           <div>
@@ -114,7 +114,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
             </p>
           </div>
 
-          <div className="rounded-lg bg-neutral-50 p-4">
+          <div className="bg-neutral-50 p-4">
             <p className="text-neutral-500 text-sm">
               <strong className="text-neutral-900">{t("preferences.comingSoon")}:</strong>{" "}
               {t("preferences.comingSoonDescription")}
@@ -124,7 +124,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       </div>
 
       {/* Saved Addresses */}
-      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("addresses.title")}</h2>
         <SavedAddressesManager addresses={savedAddresses} />
       </div>

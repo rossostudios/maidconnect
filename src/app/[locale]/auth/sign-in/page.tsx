@@ -53,9 +53,9 @@ export default async function SignInPage({ params, searchParams }: Props) {
               </p>
             </div>
             {signedOut && (
-              <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-4 shadow-sm">
+              <div className="border border-neutral-200 bg-neutral-50 px-6 py-4 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500">
+                  <div className="flex h-8 w-8 items-center justify-center bg-orange-500">
                     <svg
                       aria-label="Success"
                       className="h-5 w-5 text-white"
@@ -82,7 +82,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
                 </div>
               </div>
             )}
-            <div className="rounded-[36px] border border-neutral-200 bg-neutral-50 p-12 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
+            <div className="border border-neutral-200 bg-neutral-50 p-12 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
               <SignInForm redirectTo={redirectTo} />
               <p className="mt-8 text-neutral-900/70 text-sm">
                 {t("form.needAccount")}{" "}

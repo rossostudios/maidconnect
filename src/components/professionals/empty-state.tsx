@@ -13,8 +13,8 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
   if (hasFilters) {
     // When filters are applied but no results
     return (
-      <div className="flex min-h-[400px] flex-col items-center justify-center rounded-xl border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
-        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-200">
+      <div className="flex min-h-[400px] flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center bg-neutral-200">
           <Search className="h-8 w-8 text-neutral-400" />
         </div>
 
@@ -39,7 +39,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
           </Link>
         </div>
 
-        <div className="mt-8 rounded-lg border border-orange-200 bg-orange-50 p-4">
+        <div className="mt-8 border border-orange-200 bg-orange-50 p-4">
           <p className="text-orange-900 text-sm">
             <strong>Can't find what you're looking for?</strong> Our concierge team can handpick the
             perfect match for you.
@@ -51,8 +51,8 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
 
   // When there are genuinely no professionals in the database yet
   return (
-    <div className="flex min-h-[500px] flex-col items-center justify-center rounded-xl border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
+    <div className="flex min-h-[500px] flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
+      <div className="mb-6 flex h-20 w-20 items-center justify-center bg-orange-100">
         <Users className="h-10 w-10 text-orange-600" />
       </div>
 
@@ -79,11 +79,11 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
       </div>
 
       {/* What happens next */}
-      <div className="mx-auto max-w-2xl rounded-xl border border-neutral-200 bg-white p-6 text-left">
+      <div className="mx-auto max-w-2xl border border-neutral-200 bg-white p-6 text-left">
         <h4 className="mb-4 font-semibold text-neutral-900">How it works:</h4>
         <div className="space-y-3">
           <div className="flex gap-3">
-            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
               1
             </div>
             <p className="text-neutral-700 text-sm">
@@ -91,7 +91,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
             </p>
           </div>
           <div className="flex gap-3">
-            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
               2
             </div>
             <p className="text-neutral-700 text-sm">
@@ -99,7 +99,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
             </p>
           </div>
           <div className="flex gap-3">
-            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
               3
             </div>
             <p className="text-neutral-700 text-sm">
@@ -107,7 +107,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
             </p>
           </div>
           <div className="flex gap-3">
-            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
               4
             </div>
             <p className="text-neutral-700 text-sm">

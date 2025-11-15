@@ -174,7 +174,7 @@ export default async function ChangelogDetailPage({
 
             {/* Sprint Badge and Date */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
+              <span className="bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
                 Sprint {changelog.sprintNumber}
               </span>
               <span className="flex items-center gap-1.5 text-neutral-500 text-sm">
@@ -204,7 +204,7 @@ export default async function ChangelogDetailPage({
 
                   return (
                     <span
-                      className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
+                      className={`flex items-center gap-1.5 border px-3 py-1.5 font-medium text-sm ${config.color}`}
                       key={category}
                     >
                       <HugeiconsIcon className="h-4 w-4" icon={Icon} />
@@ -220,10 +220,10 @@ export default async function ChangelogDetailPage({
         {/* Main Content */}
         <main className="py-12">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-8">
+            <div className="border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-8">
               {/* Featured Image */}
               {changelog.featuredImage?.asset && (
-                <div className="mb-8 overflow-hidden rounded-2xl">
+                <div className="mb-8 overflow-hidden">
                   <Image
                     alt={changelog.featuredImage.alt || changelog.title}
                     className="h-auto w-full object-cover"
@@ -241,7 +241,7 @@ export default async function ChangelogDetailPage({
                 <div className="mb-8 grid gap-4 sm:grid-cols-3">
                   {changelog.impactMetrics.map((metric, index) => (
                     <div
-                      className="rounded-xl border border-neutral-200 bg-gradient-to-br from-white to-white p-4 text-center"
+                      className="border border-neutral-200 bg-gradient-to-br from-white to-white p-4 text-center"
                       key={index}
                     >
                       <div className="mb-1 font-bold text-2xl text-orange-500">{metric.value}</div>
@@ -265,7 +265,7 @@ export default async function ChangelogDetailPage({
                   <div className="flex flex-wrap gap-2">
                     {changelog.tags.map((tag) => (
                       <span
-                        className="rounded-full bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm"
+                        className="bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm"
                         key={tag}
                       >
                         #{tag}

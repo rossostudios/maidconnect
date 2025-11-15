@@ -71,7 +71,7 @@ export function ProHeader({
           {/* Messages */}
           <Link
             aria-label="Messages"
-            className="group relative rounded-lg p-2.5 transition-colors hover:bg-[neutral-50]"
+            className="group relative p-2.5 transition-colors hover:bg-[neutral-50]"
             href="/dashboard/pro/messages"
           >
             <HugeiconsIcon
@@ -79,7 +79,7 @@ export function ProHeader({
               icon={Message01Icon}
             />
             {unreadMessagesCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[neutral-500] px-1 font-semibold text-[10px] text-[neutral-50]">
+              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center bg-[neutral-500] px-1 font-semibold text-[10px] text-[neutral-50]">
                 {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
               </span>
             )}
@@ -88,7 +88,7 @@ export function ProHeader({
           {/* Notifications */}
           <button
             aria-label="Notifications"
-            className="group relative rounded-lg p-2.5 transition-colors hover:bg-[neutral-50]"
+            className="group relative p-2.5 transition-colors hover:bg-[neutral-50]"
             onClick={() => setShowNotifications(true)}
             type="button"
           >
@@ -98,8 +98,8 @@ export function ProHeader({
             />
             {unreadCount > 0 && (
               <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[neutral-500] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[neutral-500]" />
+                <span className="absolute inline-flex h-full w-full animate-ping bg-[neutral-500] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 bg-[neutral-500]" />
               </span>
             )}
           </button>
@@ -108,11 +108,11 @@ export function ProHeader({
           <div className="relative">
             <button
               aria-label="Profile menu"
-              className="group flex items-center gap-2.5 rounded-lg p-2 transition-colors hover:bg-[neutral-50]"
+              className="group flex items-center gap-2.5 p-2 transition-colors hover:bg-[neutral-50]"
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               type="button"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[neutral-500]/10 transition-colors group-hover:bg-[neutral-500]/20">
+              <div className="flex h-8 w-8 items-center justify-center bg-[neutral-500]/10 transition-colors group-hover:bg-[neutral-500]/20">
                 <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={UserCircleIcon} />
               </div>
               <div className="hidden text-left md:block">
@@ -133,7 +133,7 @@ export function ProHeader({
                 />
 
                 {/* Menu */}
-                <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-[neutral-200] bg-[neutral-50] shadow-lg">
+                <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-lg">
                   {/* User Info */}
                   <div className="border-[neutral-200] border-b bg-[neutral-50] px-4 py-3">
                     <p className="font-semibold text-[neutral-900] text-sm">

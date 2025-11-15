@@ -20,7 +20,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         transition={{ duration: 0.5 }}
       >
         {/* Success Icon */}
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+        <div className="mx-auto flex h-20 w-20 items-center justify-center bg-green-100">
           <CheckCircle2 className="h-12 w-12 text-green-600" />
         </div>
 
@@ -34,11 +34,11 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         </div>
 
         {/* Details Card */}
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 text-left shadow-sm">
+        <div className="border border-neutral-200 bg-white p-6 text-left shadow-sm">
           <h2 className="mb-4 font-semibold text-neutral-900">What happens next?</h2>
           <div className="space-y-4">
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
                 1
               </div>
               <div>
@@ -50,7 +50,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
                 2
               </div>
               <div>
@@ -62,7 +62,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
                 3
               </div>
               <div>
@@ -75,7 +75,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
                 4
               </div>
               <div>
@@ -90,7 +90,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         </div>
 
         {/* Reference Number */}
-        <div className="rounded-lg bg-neutral-100 p-4">
+        <div className="bg-neutral-100 p-4">
           <p className="text-neutral-600 text-sm">
             Reference Number:{" "}
             <span className="font-mono font-semibold text-neutral-900">{briefId}</span>
@@ -98,7 +98,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         </div>
 
         {/* Confirmation Email */}
-        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <div className="border border-blue-200 bg-blue-50 p-4">
           <p className="text-blue-900 text-sm">
             📧 A confirmation email has been sent to <strong>{email}</strong>. Please check your
             spam folder if you don't see it within a few minutes.

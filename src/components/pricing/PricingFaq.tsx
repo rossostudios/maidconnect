@@ -97,7 +97,7 @@ export function PricingFaqSection() {
       <div className="pt-8 text-center">
         <p className="mb-4 text-neutral-600">Still have questions?</p>
         <a
-          className="inline-block rounded-xl border-2 border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-all hover:border-neutral-900"
+          className="inline-block border-2 border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-all hover:border-neutral-900"
           href="/contact"
         >
           Contact Support

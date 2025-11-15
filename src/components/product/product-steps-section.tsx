@@ -23,7 +23,7 @@ export function ProductStepsSection({ headline, description, steps }: ProductSte
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step) => (
             <div className="text-center" key={step.number}>
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-2xl text-[neutral-50]">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center bg-[neutral-500] font-semibold text-2xl text-[neutral-50]">
                 {step.number}
               </div>
 

@@ -84,7 +84,7 @@ export function TipSelector({
       <CardContent className="space-y-4 p-6">
         {/* Header */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100">
+          <div className="flex h-10 w-10 items-center justify-center bg-neutral-100">
             <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FavouriteIcon} />
           </div>
           <div>
@@ -104,7 +104,7 @@ export function TipSelector({
             return (
               <button
                 className={cn(
-                  "flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-4 transition",
+                  "flex flex-col items-center justify-center gap-1 border-2 p-4 transition",
                   isSelected
                     ? "border-neutral-900 bg-neutral-50"
                     : "border-neutral-200 bg-white hover:border-neutral-300"
@@ -133,7 +133,7 @@ export function TipSelector({
         <div className="space-y-2">
           <button
             className={cn(
-              "w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition",
+              "w-full border-2 px-4 py-3 text-left text-sm transition",
               selectedType === "custom"
                 ? "border-neutral-900 bg-neutral-50 font-semibold text-neutral-900"
                 : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
@@ -148,7 +148,7 @@ export function TipSelector({
             <div className="relative">
               <span className="absolute top-3 left-3 text-base text-neutral-600">$</span>
               <input
-                className="w-full rounded-xl border border-neutral-300 py-3 pr-4 pl-8 text-neutral-900 transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200"
+                className="w-full border border-neutral-300 py-3 pr-4 pl-8 text-neutral-900 transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200"
                 inputMode="decimal"
                 onChange={(e) => handleCustomAmountChange(e.target.value)}
                 placeholder="0"
@@ -162,7 +162,7 @@ export function TipSelector({
         {/* No Tip Option */}
         <button
           className={cn(
-            "w-full rounded-xl border-2 px-4 py-3 text-center text-sm transition",
+            "w-full border-2 px-4 py-3 text-center text-sm transition",
             selectedType === "none"
               ? "border-neutral-300 bg-neutral-50 font-medium text-neutral-900"
               : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"

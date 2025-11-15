@@ -149,7 +149,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+            <div className="flex h-12 w-12 items-center justify-center bg-neutral-100">
               <svg
                 className="h-6 w-6 text-neutral-500"
                 fill="none"
@@ -178,7 +178,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
   return (
     <div className="space-y-4">
       {/* Table - Horizontally scrollable on mobile */}
-      <div className="overflow-hidden rounded-lg border border-neutral-200">
+      <div className="overflow-hidden border border-neutral-200">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead className="bg-neutral-50">
@@ -235,7 +235,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
           <div className="flex items-center gap-2">
             <button
               className={cn(
-                "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
+                "border px-4 py-2.5 font-semibold text-sm transition",
                 "border-neutral-300 text-neutral-700 hover:border-neutral-400 hover:text-neutral-900",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
@@ -247,7 +247,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             </button>
             <button
               className={cn(
-                "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
+                "border px-4 py-2.5 font-semibold text-sm transition",
                 "border-neutral-300 text-neutral-700 hover:border-neutral-400 hover:text-neutral-900",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}

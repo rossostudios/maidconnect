@@ -60,9 +60,9 @@ export function ProsHowItWorksSection() {
         <motion.div
           className="mb-16 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
             How to get started
@@ -76,9 +76,9 @@ export function ProsHowItWorksSection() {
         <motion.div
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           {howItWorksSteps.map((item, index) => (
             <motion.div className="relative" key={item.step} variants={fadeInUp}>
@@ -87,17 +87,17 @@ export function ProsHowItWorksSection() {
                 <motion.div
                   className="absolute top-12 left-1/2 hidden h-0.5 w-full bg-orange-200 lg:block"
                   initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
+                  viewport={{ once: true }}
+                  whileInView={{ scaleX: 1 }}
                 />
               )}
 
               <div className="relative flex flex-col items-center text-center">
                 <motion.div
-                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-orange-500 font-bold text-2xl text-white shadow-md"
-                  whileHover={{ scale: 1.15, rotate: 10 }}
+                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center border-4 border-white bg-orange-500 font-bold text-2xl text-white shadow-md"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  whileHover={{ scale: 1.15, rotate: 10 }}
                 >
                   {item.step}
                 </motion.div>
@@ -112,15 +112,15 @@ export function ProsHowItWorksSection() {
         <motion.div
           className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, delay: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView={{ opacity: 1, y: 0 }}
         >
           <Link href="#apply">
             <motion.div
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <Button className="min-w-[250px]" size="lg">
                 Start Your Application

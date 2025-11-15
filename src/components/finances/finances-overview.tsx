@@ -152,7 +152,7 @@ const PieChartComponent = dynamic(
 // Loading skeleton for charts
 function ChartSkeleton() {
   return (
-    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-50" />
+    <div className="h-[300px] w-full animate-pulse bg-gradient-to-br from-neutral-100 to-neutral-50" />
   );
 }
 

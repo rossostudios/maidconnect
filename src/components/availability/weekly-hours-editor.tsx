@@ -104,21 +104,21 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
         <h4 className="mb-3 font-semibold text-[neutral-900] text-sm">Quick Presets</h4>
         <div className="flex flex-wrap gap-2">
           <button
-            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+            className="border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("weekdays")}
             type="button"
           >
             Weekdays (Mon-Fri)
           </button>
           <button
-            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+            className="border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("weekends")}
             type="button"
           >
             Weekends Only
           </button>
           <button
-            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+            className="border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("everyday")}
             type="button"
           >
@@ -131,7 +131,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
       <div className="space-y-3">
         {schedule.map((day, index) => (
           <div
-            className={`rounded-xl border-2 p-4 transition ${
+            className={`border-2 p-4 transition ${
               day.enabled
                 ? "border-[neutral-500]/20 bg-[neutral-50]"
                 : "border-[neutral-200] bg-[neutral-50]"
@@ -162,14 +162,14 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                   <div className="flex items-center gap-2">
                     <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={Clock01Icon} />
                     <input
-                      className="rounded-lg border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                      className="border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                       onChange={(e) => handleTimeChange(index, "start", e.target.value)}
                       type="time"
                       value={day.start}
                     />
                     <span className="text-[neutral-400] text-sm">to</span>
                     <input
-                      className="rounded-lg border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                      className="border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                       onChange={(e) => handleTimeChange(index, "end", e.target.value)}
                       type="time"
                       value={day.end}
@@ -178,7 +178,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
                   {/* Copy Button */}
                   <button
-                    className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 font-semibold text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-900]"
+                    className="ml-auto flex items-center gap-1 px-3 py-2 font-semibold text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-900]"
                     onClick={() => handleCopyToAll(index)}
                     title="Copy these hours to all days"
                     type="button"
@@ -194,7 +194,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
       </div>
 
       {/* Summary */}
-      <div className="rounded-xl bg-[neutral-50] p-4">
+      <div className="bg-[neutral-50] p-4">
         <p className="text-[neutral-400] text-sm">
           <strong className="text-[neutral-900]">
             {schedule.filter((d) => d.enabled).length} days

@@ -106,14 +106,14 @@ export function NotificationsHistory() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-[neutral-500] border-b-2" />
+        <div className="h-8 w-8 animate-spin border-[neutral-500] border-b-2" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
+      <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
         {error}
       </div>
     );
@@ -160,10 +160,10 @@ export function NotificationsHistory() {
 
       {/* Notifications list */}
       {notifications.length === 0 ? (
-        <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-16 text-center">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-16 text-center">
           <div className="mx-auto max-w-md">
             <div className="mb-4 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-50]">
+              <div className="flex h-16 w-16 items-center justify-center bg-[neutral-50]">
                 <svg
                   aria-hidden="true"
                   className="h-8 w-8 text-[neutral-400]"
@@ -194,7 +194,7 @@ export function NotificationsHistory() {
         <div className="space-y-2">
           {notifications.map((notification) => (
             <div
-              className={`rounded-xl border p-6 transition hover:border-[neutral-500]/30 ${
+              className={`border p-6 transition hover:border-[neutral-500]/30 ${
                 notification.read_at
                   ? "border-[neutral-200] bg-[neutral-50]"
                   : "border-[neutral-500]/20 bg-[neutral-500]/5"

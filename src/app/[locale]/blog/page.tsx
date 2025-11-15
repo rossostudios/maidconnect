@@ -33,10 +33,7 @@ function BlogSkeleton() {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {[1, 2, 3].map((i) => (
-        <div
-          className="animate-pulse overflow-hidden rounded-[28px] border border-neutral-200 bg-white"
-          key={i}
-        >
+        <div className="animate-pulse overflow-hidden border border-neutral-200 bg-white" key={i}>
           <div className="h-48 bg-neutral-100" />
           <div className="p-6">
             <div className="mb-3 h-4 w-24 rounded bg-neutral-100" />
@@ -78,7 +75,7 @@ async function BlogList({ locale }: { locale: string }) {
 
   if (!blogPosts || blogPosts.length === 0) {
     return (
-      <div className="rounded-[28px] border border-neutral-200 bg-white p-12 text-center shadow-sm">
+      <div className="border border-neutral-200 bg-white p-12 text-center shadow-sm">
         <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-600" icon={BookOpen01Icon} />
         <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Posts Yet</h3>
         <p className="text-neutral-600">We'll publish our first blog post soon. Stay tuned!</p>
@@ -97,7 +94,7 @@ async function BlogList({ locale }: { locale: string }) {
 
         return (
           <Link
-            className="group overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-sm transition hover:border-orange-500 hover:shadow-md"
+            className="group overflow-hidden border border-neutral-200 bg-white shadow-sm transition hover:border-orange-500 hover:shadow-md"
             href={`/${locale}/blog/${post.slug.current}`}
             key={post._id}
           >
@@ -120,7 +117,7 @@ async function BlogList({ locale }: { locale: string }) {
               {/* Category Badge */}
               {post.categoryName && (
                 <div className="mb-3">
-                  <span className="inline-block rounded-full bg-orange-50 px-3 py-1 font-medium text-orange-600 text-sm">
+                  <span className="inline-block bg-orange-50 px-3 py-1 font-medium text-orange-600 text-sm">
                     {post.categoryName}
                   </span>
                 </div>
@@ -191,7 +188,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-orange-500/10 to-orange-600/10">
               <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={BookOpen01Icon} />
             </div>
             <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl">

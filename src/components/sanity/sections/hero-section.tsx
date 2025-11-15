@@ -68,7 +68,7 @@ export function HeroSection({ data }: HeroSectionProps) {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {ctaText && ctaLink && (
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[neutral-50] px-8 py-4 font-semibold text-[neutral-900] text-base transition hover:bg-[neutral-200]"
+                className="inline-flex items-center justify-center gap-2 bg-[neutral-50] px-8 py-4 font-semibold text-[neutral-900] text-base transition hover:bg-[neutral-200]"
                 href={ctaLink}
               >
                 {ctaText}
@@ -78,7 +78,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
             {secondaryCtaText && secondaryCtaLink && (
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[neutral-50] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-50]/10"
+                className="inline-flex items-center justify-center gap-2 border-2 border-[neutral-50] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-50]/10"
                 href={secondaryCtaLink}
               >
                 {secondaryCtaText}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { draftMode, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
@@ -11,7 +10,6 @@ import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { UnifiedCommandPaletteWrapper } from "@/components/command-palette/unified-command-palette-wrapper";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { AnnouncementBanner } from "@/components/sections/AnnouncementBanner";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
@@ -19,21 +17,15 @@ import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
+import { AnnouncementBanner } from "@/components/sections/AnnouncementBanner";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
 import { geistMono, geistSans } from "../fonts";
 
 // Font configuration - Lia Design System
-// - Geist Sans: Primary UI and marketing font
-// - Geist Mono: Numbers, data, metrics
-// - Inter: Fallback/system compatibility
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
+// - Geist Sans: Primary UI and marketing font (all text)
+// - Geist Mono: Numbers, data, metrics, code
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://casaora.com"),
@@ -108,7 +100,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         data-nonce={nonce}
       >
         <ErrorBoundary>

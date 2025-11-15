@@ -98,12 +98,12 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
                 </span>
               )}
               <span
-                className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${statusBadge[feedback.status as keyof typeof statusBadge]}`}
+                className={`border px-3 py-1 font-medium text-xs capitalize ${statusBadge[feedback.status as keyof typeof statusBadge]}`}
               >
                 {feedback.status.replace("_", " ")}
               </span>
               <span
-                className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${priorityBadge[feedback.priority as keyof typeof priorityBadge]}`}
+                className={`border px-3 py-1 font-medium text-xs capitalize ${priorityBadge[feedback.priority as keyof typeof priorityBadge]}`}
               >
                 {feedback.priority}
               </span>
@@ -115,7 +115,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Metadata */}
       <div className="mb-6 grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-4">
+        <div className="border border-neutral-200 bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-neutral-600 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
             <span className="font-semibold">User Information</span>
@@ -134,7 +134,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
           </dl>
         </div>
 
-        <div className="rounded-2xl border border-neutral-200 bg-white p-4">
+        <div className="border border-neutral-200 bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-neutral-600 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span className="font-semibold">Submission Time</span>
@@ -152,13 +152,13 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
       </div>
 
       {/* Message */}
-      <div className="mb-6 rounded-2xl border border-neutral-200 bg-white p-6">
+      <div className="mb-6 border border-neutral-200 bg-white p-6">
         <h2 className="mb-4 font-bold text-neutral-900 text-xl">Message</h2>
         <p className="whitespace-pre-wrap text-neutral-600 leading-relaxed">{feedback.message}</p>
       </div>
 
       {/* Technical Context */}
-      <div className="mb-6 rounded-2xl border border-neutral-200 bg-white p-6">
+      <div className="mb-6 border border-neutral-200 bg-white p-6">
         <div className="mb-4 flex items-center gap-2">
           <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={ComputerIcon} />
           <h2 className="font-bold text-neutral-900 text-xl">Technical Context</h2>
@@ -214,7 +214,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Admin Notes */}
       {feedback.admin_notes && (
-        <div className="mb-6 rounded-2xl border border-neutral-200 bg-white p-6">
+        <div className="mb-6 border border-neutral-200 bg-white p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Admin Notes</h2>
           <p className="whitespace-pre-wrap text-neutral-600">{feedback.admin_notes}</p>
         </div>

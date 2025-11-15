@@ -49,11 +49,11 @@ export function BenefitsGrid() {
       <div className="mx-auto mb-16 h-px max-w-7xl bg-neutral-200" />
 
       <Container className="relative mx-auto max-w-7xl px-4">
-        <div className="overflow-hidden rounded-[40px] border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
+        <div className="overflow-hidden border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
           {/* Section Header - Swiss Typography */}
           <div className="border-neutral-200/80 border-b px-6 py-12 sm:px-12">
             <p className="mb-4 flex items-center gap-2 text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
-              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
+              <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
               In Action
             </p>
             <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
@@ -84,10 +84,10 @@ export function BenefitsGrid() {
                     <div className="flow-diagram flex w-full flex-col items-center gap-8 py-8">
                       {/* Trigger Node */}
                       <div
-                        className="flow-node flow-node--muted flow-node--has-next flex items-center gap-4 rounded-2xl border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
+                        className="flow-node flow-node--muted flow-node--has-next flex items-center gap-4 border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
                         style={{ "--connector-length": "64px" } as CSSProperties}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50">
+                        <div className="flex h-12 w-12 items-center justify-center bg-blue-50">
                           <svg
                             aria-hidden="true"
                             className="h-6 w-6 text-blue-500"
@@ -115,10 +115,10 @@ export function BenefitsGrid() {
 
                       {/* Action Node */}
                       <div
-                        className="flow-node flow-node--branch flex items-center gap-4 rounded-2xl border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
+                        className="flow-node flow-node--branch flex items-center gap-4 border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
                         style={{ "--branch-connector-length": "32px" } as CSSProperties}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50">
+                        <div className="flex h-12 w-12 items-center justify-center bg-green-50">
                           <svg
                             aria-hidden="true"
                             className="h-6 w-6 text-green-500"
@@ -150,8 +150,8 @@ export function BenefitsGrid() {
                         <div className="flow-leaves relative z-10 flex w-full gap-4">
                           <div className="flow-leaf flex-1">
                             <span aria-hidden="true" className="flow-leaf-line" />
-                            <div className="flex items-center gap-3 rounded-xl border-2 border-orange-200 bg-orange-50 px-4 py-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-100">
+                            <div className="flex items-center gap-3 border-2 border-orange-200 bg-orange-50 px-4 py-3">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-100">
                                 <svg
                                   aria-hidden="true"
                                   className="h-5 w-5 text-orange-600"
@@ -179,8 +179,8 @@ export function BenefitsGrid() {
                           </div>
                           <div className="flow-leaf flex-1">
                             <span aria-hidden="true" className="flow-leaf-line" />
-                            <div className="flex items-center gap-3 rounded-xl border-2 border-orange-200 bg-orange-50 px-4 py-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-100">
+                            <div className="flex items-center gap-3 border-2 border-orange-200 bg-orange-50 px-4 py-3">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-100">
                                 <svg
                                   aria-hidden="true"
                                   className="h-5 w-5 text-orange-600"
@@ -213,7 +213,7 @@ export function BenefitsGrid() {
                 ) : (
                   <>
                     <div className="mb-6 flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-neutral-300 font-semibold text-neutral-900">
+                      <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 font-semibold text-neutral-900">
                         {step.number}
                       </div>
                       <div className="font-semibold text-neutral-400 text-xs uppercase tracking-[0.35em]">

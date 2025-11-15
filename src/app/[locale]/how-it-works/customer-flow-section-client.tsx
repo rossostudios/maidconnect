@@ -9,8 +9,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion, type Variants } from "motion/react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
@@ -81,7 +81,7 @@ export function CustomerFlowSectionClient() {
                 className="mb-4 inline-flex items-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]"
                 variants={fadeIn}
               >
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
+                <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
                 For Customers
               </motion.div>
 
@@ -94,10 +94,7 @@ export function CustomerFlowSectionClient() {
               </motion.h2>
 
               {/* Subtitle */}
-              <motion.p
-                className="mt-6 text-lg text-neutral-600 leading-relaxed"
-                variants={fadeIn}
-              >
+              <motion.p className="mt-6 text-lg text-neutral-600 leading-relaxed" variants={fadeIn}>
                 {t("subtitle")}
               </motion.p>
 
@@ -122,26 +119,21 @@ export function CustomerFlowSectionClient() {
                       >
                         {/* Step indicator */}
                         <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 font-bold text-white shadow-md md:h-16 md:w-16 md:text-lg">
+                          <div className="flex h-12 w-12 items-center justify-center bg-orange-500 font-bold text-white shadow-md md:h-16 md:w-16 md:text-lg">
                             {index + 1}
                           </div>
                         </div>
 
                         {/* Content card */}
                         <div className="flex-1 pb-8">
-                          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md">
-                            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-50">
-                              <HugeiconsIcon
-                                className="h-7 w-7 text-orange-600"
-                                icon={Icon}
-                              />
+                          <div className="border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md">
+                            <div className="mb-4 flex h-14 w-14 items-center justify-center bg-orange-50">
+                              <HugeiconsIcon className="h-7 w-7 text-orange-600" icon={Icon} />
                             </div>
                             <h3 className="mb-2 font-semibold text-neutral-900 text-xl">
                               {step.title}
                             </h3>
-                            <p className="text-neutral-600 leading-relaxed">
-                              {step.description}
-                            </p>
+                            <p className="text-neutral-600 leading-relaxed">{step.description}</p>
                           </div>
                         </div>
                       </motion.div>
@@ -159,7 +151,7 @@ export function CustomerFlowSectionClient() {
                 whileInView="visible"
               >
                 <Link
-                  className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
+                  className="inline-flex items-center gap-2 bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
                   href="/brief"
                 >
                   {t("cta")}
@@ -183,7 +175,7 @@ export function CustomerFlowSectionClient() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-200 shadow-2xl">
+            <div className="relative aspect-[4/5] overflow-hidden bg-neutral-200 shadow-2xl">
               <Image
                 alt="Customer booking process"
                 className="object-cover"

@@ -1,14 +1,12 @@
 import { cn } from "@/lib/utils";
 
 export function Skeleton({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("animate-pulse rounded-md bg-[neutral-200]/50", className)} {...props} />
-  );
+  return <div className={cn("animate-pulse bg-[neutral-200]/50", className)} {...props} />;
 }
 
 export function DashboardSectionSkeleton() {
   return (
-    <section className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
+    <section className="border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="space-y-4">
         {/* Header */}
         <div className="space-y-2">
@@ -29,9 +27,9 @@ export function DashboardSectionSkeleton() {
 
 export function CardSkeleton() {
   return (
-    <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+    <div className="border border-[neutral-200] bg-[neutral-50] p-4">
       <div className="flex items-start gap-3">
-        <Skeleton className="h-12 w-12 rounded-full" />
+        <Skeleton className="h-12 w-12" />
         <div className="flex-1 space-y-2">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-3 w-full" />
@@ -54,14 +52,14 @@ export function ListSkeleton({ count = 3 }: { count?: number }) {
 
 export function ConversationSkeleton() {
   return (
-    <div className="flex h-[600px] overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-50]">
+    <div className="flex h-[600px] overflow-hidden border border-[neutral-200] bg-[neutral-50]">
       {/* Conversations List */}
       <div className="w-80 border-[neutral-200] border-r p-4">
         <Skeleton className="mb-4 h-6 w-32" />
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
             <div className="flex items-start gap-3" key={i}>
-              <Skeleton className="h-10 w-10 rounded-full" />
+              <Skeleton className="h-10 w-10" />
               <div className="flex-1 space-y-2">
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-3 w-full" />
@@ -75,7 +73,7 @@ export function ConversationSkeleton() {
       <div className="flex flex-1 flex-col">
         <div className="border-[neutral-200] border-b p-4">
           <div className="flex items-center gap-3">
-            <Skeleton className="h-10 w-10 rounded-full" />
+            <Skeleton className="h-10 w-10" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-32" />
               <Skeleton className="h-3 w-24" />
@@ -85,7 +83,7 @@ export function ConversationSkeleton() {
         <div className="flex-1 space-y-4 p-4">
           {Array.from({ length: 3 }).map((_, i) => (
             <div className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`} key={i}>
-              <Skeleton className="h-16 w-64 rounded-lg" />
+              <Skeleton className="h-16 w-64" />
             </div>
           ))}
         </div>
@@ -101,7 +99,7 @@ export function ConversationSkeleton() {
  */
 export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       {/* Header */}
       <div className="mb-4 grid gap-4" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         {Array.from({ length: columns }).map((_, i) => (
@@ -112,7 +110,7 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
       <div className="space-y-3">
         {Array.from({ length: rows }).map((_, rowIndex) => (
           <div
-            className="grid gap-4 rounded-xl border-2 border-[neutral-200] p-4"
+            className="grid gap-4 border-2 border-[neutral-200] p-4"
             key={`row-${rowIndex}`}
             style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
           >
@@ -133,10 +131,10 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
  */
 export function ProfileCardSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="flex items-center gap-4">
         {/* Avatar */}
-        <Skeleton className="h-20 w-20 flex-shrink-0 rounded-full" />
+        <Skeleton className="h-20 w-20 flex-shrink-0" />
         {/* Info */}
         <div className="flex-1 space-y-3">
           <Skeleton className="h-7 w-40" />
@@ -160,13 +158,13 @@ export function ProfileCardSkeleton() {
  */
 export function StatCardSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="flex items-center justify-between">
         <div className="flex-1 space-y-3">
           <Skeleton className="h-5 w-28" />
           <Skeleton className="h-9 w-36" />
         </div>
-        <Skeleton className="h-14 w-14 flex-shrink-0 rounded-full" />
+        <Skeleton className="h-14 w-14 flex-shrink-0" />
       </div>
     </div>
   );
@@ -179,17 +177,17 @@ export function StatCardSkeleton() {
  */
 export function FormSkeleton({ fields = 4 }: { fields?: number }) {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="space-y-6">
         {Array.from({ length: fields }).map((_, i) => (
           <div className="space-y-2" key={i}>
             <Skeleton className="h-5 w-28" />
-            <Skeleton className="h-12 w-full rounded-lg" />
+            <Skeleton className="h-12 w-full" />
           </div>
         ))}
         <div className="flex gap-3 pt-4">
-          <Skeleton className="h-12 w-32 rounded-full" />
-          <Skeleton className="h-12 w-32 rounded-full" />
+          <Skeleton className="h-12 w-32" />
+          <Skeleton className="h-12 w-32" />
         </div>
       </div>
     </div>
@@ -203,13 +201,13 @@ export function FormSkeleton({ fields = 4 }: { fields?: number }) {
  */
 export function CalendarSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       {/* Month header */}
       <div className="mb-6 flex items-center justify-between">
         <Skeleton className="h-9 w-40" />
         <div className="flex gap-2">
-          <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-10 w-10 rounded-full" />
+          <Skeleton className="h-10 w-10" />
+          <Skeleton className="h-10 w-10" />
         </div>
       </div>
       {/* Day headers */}
@@ -221,7 +219,7 @@ export function CalendarSkeleton() {
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-2">
         {Array.from({ length: 35 }).map((_, i) => (
-          <Skeleton className="h-12 w-full rounded-lg" key={`date-${i}`} />
+          <Skeleton className="h-12 w-full" key={`date-${i}`} />
         ))}
       </div>
     </div>
@@ -235,19 +233,19 @@ export function CalendarSkeleton() {
  */
 export function ChartSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="mb-6 flex items-center justify-between">
         <div className="space-y-2">
           <Skeleton className="h-6 w-32" />
           <Skeleton className="h-4 w-48" />
         </div>
-        <Skeleton className="h-10 w-28 rounded-full" />
+        <Skeleton className="h-10 w-28" />
       </div>
       {/* Chart bars */}
       <div className="flex h-64 items-end gap-4">
         {[85, 70, 92, 65, 88, 75, 80].map((height, i) => (
           <div className="flex flex-1 flex-col items-center gap-2" key={i}>
-            <Skeleton className="w-full rounded-t-lg" style={{ height: `${height}%` }} />
+            <Skeleton className="w-full" style={{ height: `${height}%` }} />
             <Skeleton className="h-4 w-8" />
           </div>
         ))}

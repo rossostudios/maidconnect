@@ -72,13 +72,13 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
   return (
     <Link
-      className="group mx-3 mt-4 mb-4 block rounded-xl border border-[neutral-200] p-3 transition-all hover:shadow-md"
+      className="group mx-3 mt-4 mb-4 block border border-[neutral-200] p-3 transition-all hover:shadow-md"
       href="/dashboard/pro/onboarding"
       style={{ backgroundColor: config.bgColor }}
     >
       <div className="flex items-start gap-3">
         <div
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg"
+          className="flex h-8 w-8 flex-shrink-0 items-center justify-center"
           style={{ backgroundColor: `${config.color}20` }}
         >
           <HugeiconsIcon className="h-4 w-4" icon={Alert01Icon} style={{ color: config.color }} />
@@ -92,9 +92,9 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
           {completionPercentage > 0 && completionPercentage < 100 && (
             <div className="mt-2">
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[neutral-50]/50">
+              <div className="h-1.5 w-full overflow-hidden bg-[neutral-50]/50">
                 <div
-                  className="h-full rounded-full transition-all duration-300"
+                  className="h-full transition-all duration-300"
                   style={{
                     width: `${completionPercentage}%`,
                     backgroundColor: config.color,

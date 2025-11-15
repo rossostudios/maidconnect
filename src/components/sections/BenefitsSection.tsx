@@ -84,7 +84,7 @@ const TagMarquee = ({ items, direction, label, speed = 28 }: TagMarqueeProps) =>
         {repeatedItems.map((item, index) => (
           <span
             aria-hidden={index >= items.length}
-            className="flex-none whitespace-nowrap rounded-xl border border-neutral-200 bg-[#f4ede6] px-5 py-2 font-medium text-neutral-700 text-sm shadow-[0_1px_0_rgba(15,23,42,0.08)] sm:text-base"
+            className="flex-none whitespace-nowrap border border-neutral-200 bg-[#f4ede6] px-5 py-2 font-medium text-neutral-700 text-sm shadow-[0_1px_0_rgba(15,23,42,0.08)] sm:text-base"
             key={`${item}-${index}`}
             role={index < items.length ? "listitem" : undefined}
           >

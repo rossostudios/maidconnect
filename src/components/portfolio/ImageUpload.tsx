@@ -171,7 +171,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
     <div className="space-y-4">
       {/* Dropzone */}
       <div
-        className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition ${
+        className={`cursor-pointer border-2 border-dashed p-8 text-center transition ${
           dragging
             ? "border-[neutral-500] bg-[neutral-500]/5"
             : "border-[neutral-200] hover:border-[neutral-500] hover:bg-[neutral-50]"
@@ -199,7 +199,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         />
 
         <div className="flex flex-col items-center gap-3">
-          <div className="rounded-full bg-[neutral-500]/10 p-4">
+          <div className="bg-[neutral-500]/10 p-4">
             <HugeiconsIcon className="h-8 w-8 text-[neutral-500]" icon={Upload01Icon} />
           </div>
 
@@ -238,7 +238,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {images.map((image) => (
               <div
-                className="group relative overflow-hidden rounded-xl border border-[neutral-200] bg-[neutral-50]"
+                className="group relative overflow-hidden border border-[neutral-200] bg-[neutral-50]"
                 key={image.id}
               >
                 {/* Image */}
@@ -256,7 +256,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
                 {/* Caption Input */}
                 <div className="p-2">
                   <input
-                    className="w-full rounded-lg border border-[neutral-200] px-2 py-1 text-xs focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
+                    className="w-full border border-[neutral-200] px-2 py-1 text-xs focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
                     onChange={(e) => updateCaption(image.id, e.target.value)}
                     placeholder="Add caption (optional)"
                     type="text"
@@ -266,7 +266,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
                 {/* Remove Button */}
                 <button
-                  className="absolute top-2 right-2 rounded-full bg-[neutral-50]/90 p-1.5 opacity-0 shadow-lg transition hover:bg-[neutral-500]/100 hover:text-[neutral-50] group-hover:opacity-100"
+                  className="absolute top-2 right-2 bg-[neutral-50]/90 p-1.5 opacity-0 shadow-lg transition hover:bg-[neutral-500]/100 hover:text-[neutral-50] group-hover:opacity-100"
                   onClick={() => removeImage(image.id)}
                   type="button"
                 >
@@ -278,7 +278,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
           {/* Upload Button */}
           <button
-            className="w-full rounded-xl bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={uploading || images.length === 0}
             onClick={handleUpload}
             type="button"
@@ -313,7 +313,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
       {/* Tips */}
       {images.length === 0 && (
-        <div className="rounded-xl bg-[neutral-50] p-4">
+        <div className="bg-[neutral-50] p-4">
           <h4 className="flex items-center gap-2 font-semibold text-[neutral-900] text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={ImageIcon} />
             Image Tips

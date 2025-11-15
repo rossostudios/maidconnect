@@ -80,7 +80,7 @@ export function PremiumStatCard({
       transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Card Container */}
-      <div className="hover:-translate-y-0.5 relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
+      <div className="hover:-translate-y-0.5 relative overflow-hidden border border-neutral-200/60 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
         {/* Gradient Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
@@ -91,7 +91,7 @@ export function PremiumStatCard({
           {/* Icon & Label */}
           <div className="mb-4 flex items-start justify-between">
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-xl ${colors.iconBg} transition-transform duration-300 group-hover:scale-110`}
+              className={`flex h-12 w-12 items-center justify-center ${colors.iconBg} transition-transform duration-300 group-hover:scale-110`}
             >
               <HugeiconsIcon className={`h-6 w-6 ${colors.icon}`} icon={icon} />
             </div>

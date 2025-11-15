@@ -28,13 +28,13 @@ export function RecentlyViewed() {
       <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4">
         {recentlyViewed.map((item) => (
           <Link
-            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[neutral-200] bg-[neutral-50] p-4 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
+            className="group min-w-[240px] flex-shrink-0 border border-[neutral-200] bg-[neutral-50] p-4 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
             href={`/professionals/${item.id}`}
             key={item.id}
           >
             <div className="flex gap-3">
               {/* Photo */}
-              <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full">
+              <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
                 <Image
                   alt={item.name}
                   className="object-cover"

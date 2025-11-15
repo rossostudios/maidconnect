@@ -53,7 +53,7 @@ export function AdminSidebar() {
       {/* Logo */}
       <div className="flex h-16 items-center border-neutral-200 border-b px-6">
         <Link className="flex items-center gap-3" href="/">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 bg-white shadow-sm">
+          <div className="flex h-9 w-9 items-center justify-center border border-neutral-200 bg-white shadow-sm">
             <Image alt="Casaora" height={18} src="/isologo.svg" width={18} />
           </div>
           <span className="font-bold text-neutral-900 text-xl tracking-tight">Casaora</span>
@@ -67,7 +67,7 @@ export function AdminSidebar() {
           return (
             <Link
               className={cn(
-                "group flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all",
+                "group flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all",
                 active
                   ? "bg-neutral-900 text-white shadow-sm"
                   : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
@@ -90,7 +90,7 @@ export function AdminSidebar() {
 
       {/* User Section */}
       <div className="border-neutral-200 border-t p-4">
-        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+        <div className="border border-neutral-200 bg-neutral-50 p-3">
           <SignOutButton showLabel />
         </div>
       </div>

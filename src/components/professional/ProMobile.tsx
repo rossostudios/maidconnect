@@ -43,7 +43,7 @@ export function ProMobileSidebar({
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="rounded-lg p-2 text-[neutral-900] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900] lg:hidden"
+        className="p-2 text-[neutral-900] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900] lg:hidden"
         onClick={() => setIsOpen(true)}
         type="button"
       >
@@ -62,7 +62,7 @@ export function ProMobileSidebar({
       {/* Drawer */}
       <div
         className={`fixed top-0 left-0 z-50 h-full transform transition-transform duration-300 lg:hidden ${
-          isOpen ? "tranneutral-x-0" : "-tranneutral-x-full"
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <ProSidebar

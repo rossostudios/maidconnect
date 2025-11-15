@@ -234,7 +234,7 @@ function PageHeader() {
 function StatusMessages({ error, success }: { error: string | null; success: string | null }) {
   if (error) {
     return (
-      <div className="rounded-xl border border-orange-500/30 bg-orange-500/10 p-4 text-orange-500">
+      <div className="border border-orange-500/30 bg-orange-500/10 p-4 text-orange-500">
         <p className="font-semibold">Error</p>
         <p className="text-sm">{error}</p>
       </div>
@@ -243,7 +243,7 @@ function StatusMessages({ error, success }: { error: string | null; success: str
 
   if (success) {
     return (
-      <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 text-orange-500">
+      <div className="border border-orange-500/40 bg-orange-500/10 p-4 text-orange-500">
         <p className="font-semibold">Success</p>
         <p className="text-sm">{success}</p>
       </div>
@@ -261,9 +261,9 @@ function ExportDataSection({
   onExport: () => void;
 }) {
   return (
-    <section className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-orange-500/10">
           <svg
             aria-label="Export data icon"
             className="h-6 w-6 text-orange-500"
@@ -296,7 +296,7 @@ function ExportDataSection({
           </ul>
           <button
             className={cn(
-              "rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-neutral-900",
+              "border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-neutral-900",
               isExporting && "cursor-not-allowed opacity-60"
             )}
             disabled={isExporting}
@@ -333,9 +333,9 @@ function DeleteAccountSection({
   onCancel: () => void;
 }) {
   return (
-    <section className="rounded-[28px] border border-orange-500/30 bg-orange-500/10 p-8 shadow-sm">
+    <section className="border border-orange-500/30 bg-orange-500/10 p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-orange-500/10">
           <svg
             aria-label="Delete account icon"
             className="h-6 w-6 text-orange-500"
@@ -371,7 +371,7 @@ function DeleteAccountSection({
           {!showDeleteConfirm && (
             <button
               className={cn(
-                "rounded-full border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
+                "border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
                 isCheckingDeletion && "cursor-not-allowed opacity-60"
               )}
               disabled={isCheckingDeletion}
@@ -418,7 +418,7 @@ function DeletionConfirmation({
 }) {
   if (canDelete) {
     return (
-      <div className="mt-6 space-y-4 rounded-xl border border-orange-500/50 bg-neutral-50 p-6">
+      <div className="mt-6 space-y-4 border border-orange-500/50 bg-neutral-50 p-6">
         <p className="font-semibold text-orange-500 text-sm">
           Are you absolutely sure you want to delete your account?
         </p>
@@ -426,7 +426,7 @@ function DeletionConfirmation({
           Type <strong>DELETE MY ACCOUNT</strong> below to confirm:
         </p>
         <input
-          className="w-full rounded-full border border-orange-500/50 bg-neutral-50 px-4 py-2 text-sm focus:border-orange-500/100 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+          className="w-full border border-orange-500/50 bg-neutral-50 px-4 py-2 text-sm focus:border-orange-500/100 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           onChange={(e) => onConfirmTextChange(e.target.value)}
           placeholder="DELETE MY ACCOUNT"
           type="text"
@@ -435,7 +435,7 @@ function DeletionConfirmation({
         <div className="flex gap-3">
           <button
             className={cn(
-              "rounded-full border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
+              "border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
               isDeletingAccount && "cursor-not-allowed opacity-60"
             )}
             disabled={isDeletingAccount || confirmText !== "DELETE MY ACCOUNT"}
@@ -445,7 +445,7 @@ function DeletionConfirmation({
             {isDeletingAccount ? "Deleting..." : "Confirm Deletion"}
           </button>
           <button
-            className="rounded-full border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
+            className="border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
             onClick={onCancel}
             type="button"
           >
@@ -457,7 +457,7 @@ function DeletionConfirmation({
   }
 
   return (
-    <div className="mt-6 space-y-4 rounded-xl border border-orange-500/50 bg-neutral-50 p-6">
+    <div className="mt-6 space-y-4 border border-orange-500/50 bg-neutral-50 p-6">
       <p className="font-semibold text-orange-500">Cannot Delete Account</p>
       <p className="text-orange-500 text-sm">{deletionCheck.message}</p>
       {deletionCheck.blockers &&
@@ -473,7 +473,7 @@ function DeletionConfirmation({
           </ul>
         )}
       <button
-        className="rounded-full border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
+        className="border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
         onClick={onCancel}
         type="button"
       >
@@ -485,7 +485,7 @@ function DeletionConfirmation({
 
 function LegalNoticeSection() {
   return (
-    <section className="rounded-xl bg-neutral-50 p-6">
+    <section className="bg-neutral-50 p-6">
       <h3 className="mb-2 font-semibold text-neutral-900 text-sm">
         Your Rights Under Colombian Law
       </h3>

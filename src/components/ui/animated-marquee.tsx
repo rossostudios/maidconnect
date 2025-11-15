@@ -15,7 +15,7 @@ export function AnimatedMarquee({ text, className, speed = 12 }: AnimatedMarquee
   return (
     <div
       className={cn(
-        "relative z-10 overflow-hidden bg-neutral-50/90 py-2.5 shadow-sm backdrop-blur-sm sm:py-3",
+        "relative z-10 overflow-hidden bg-neutral-50/90 py-2.5 shadow-sm sm:py-3",
         className
       )}
     >

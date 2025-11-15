@@ -129,7 +129,7 @@ export const Outlined: Story = {
  */
 export const Glass: Story = {
   render: () => (
-    <div className="relative h-64 w-80 rounded-xl bg-gradient-to-br from-orange to-secondary p-8">
+    <div className="relative h-64 w-80 bg-gradient-to-br from-orange to-secondary p-8">
       <Card className="w-full" variant="glass">
         <CardHeader>
           <h3 className="font-semibold text-midnight text-xl">Glass Card</h3>
@@ -217,7 +217,7 @@ export const WithFooter: Story = {
         <div className="flex items-center justify-between">
           <span className="text-sm text-stone">Last updated: 2 hours ago</span>
           <button
-            className="rounded-md bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
+            className="bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
             type="button"
           >
             View Details
@@ -290,7 +290,7 @@ export const ProfessionalCard: Story = {
       </CardContent>
       <CardFooter>
         <button
-          className="w-full rounded-md bg-orange px-4 py-2.5 font-semibold text-sm text-white hover:bg-orange/90"
+          className="w-full bg-orange px-4 py-2.5 font-semibold text-sm text-white hover:bg-orange/90"
           type="button"
         >
           View Profile

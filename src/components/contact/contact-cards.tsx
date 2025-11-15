@@ -26,7 +26,7 @@ export async function ContactCards() {
         <div className="grid gap-8 md:grid-cols-3">
           {contactOptions.map((option) => (
             <div
-              className="flex flex-col justify-between rounded-[32px] border border-[neutral-200] bg-gradient-to-br from-[bg-[neutral-50]] to-[neutral-50] p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]"
+              className="flex flex-col justify-between border border-[neutral-200] bg-gradient-to-br from-[bg-[neutral-50]] to-[neutral-50] p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]"
               key={option.key}
             >
               <div className="space-y-6">
@@ -36,7 +36,7 @@ export async function ContactCards() {
                 </p>
               </div>
               <Link
-                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500]"
+                className="mt-12 inline-flex w-fit items-center justify-center bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500]"
                 href={option.buttonHref}
               >
                 {t(`${option.key}.buttonText`)}

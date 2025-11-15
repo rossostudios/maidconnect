@@ -59,9 +59,9 @@ export function PricingFaqSection() {
         <motion.div
           className="mb-12 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
             {t("title")}
@@ -72,9 +72,9 @@ export function PricingFaqSection() {
         <motion.div
           className="space-y-4"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           {FAQ_KEYS.map((faqKey) => {
             const isOpen = openFaqId === faqKey;
@@ -92,9 +92,9 @@ export function PricingFaqSection() {
                   <motion.button
                     className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                     onClick={() => toggleFaq(faqKey)}
+                    transition={{ duration: 0.2 }}
                     type="button"
                     whileHover={{ backgroundColor: "rgba(255, 247, 240, 0.5)" }}
-                    transition={{ duration: 0.2 }}
                   >
                     <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
                       {t(`questions.${faqKey}.question`)}
@@ -117,17 +117,17 @@ export function PricingFaqSection() {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
+                        initial={{ height: 0, opacity: 0 }}
+                        key="content"
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                       >
                         <CardContent className="px-6 pb-5">
                           <motion.p
+                            animate={{ y: 0 }}
                             className="text-[16px] text-neutral-700 leading-[24px]"
                             initial={{ y: -10 }}
-                            animate={{ y: 0 }}
                             transition={{ delay: 0.1 }}
                           >
                             {t(`questions.${faqKey}.answer`)}
@@ -146,19 +146,19 @@ export function PricingFaqSection() {
         <motion.div
           className="mt-12 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <p className="mb-4 text-[16px] text-neutral-700 leading-[24px]">
             Still have questions about pricing?
           </p>
           <motion.a
-            className="inline-block rounded-full border-2 border-neutral-200 bg-white px-8 py-3 font-semibold text-neutral-900 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
+            className="inline-block border-2 border-neutral-200 bg-white px-8 py-3 font-semibold text-neutral-900 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
             href="/contact"
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             Contact Support
           </motion.a>

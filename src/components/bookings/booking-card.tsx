@@ -50,7 +50,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
     onRate;
 
   return (
-    <div className="group rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
+    <div className="group border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
@@ -106,7 +106,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
       {/* Add-ons */}
       {booking.addons && booking.addons.length > 0 && (
-        <div className="mb-4 rounded-xl bg-[neutral-50] p-3">
+        <div className="mb-4 bg-[neutral-50] p-3">
           <p className="mb-2 font-medium text-[neutral-900] text-xs">{t("addons")}:</p>
           <ul className="space-y-1">
             {booking.addons.map((addon) => (
@@ -120,7 +120,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
       {/* Customer Notes */}
       {booking.customerNotes && role === "professional" && (
-        <div className="mb-4 rounded-xl bg-[neutral-50] p-3">
+        <div className="mb-4 bg-[neutral-50] p-3">
           <p className="mb-1 font-medium text-[neutral-500] text-xs">{t("customerNotes")}:</p>
           <p className="text-[neutral-500] text-xs">{booking.customerNotes}</p>
         </div>
@@ -130,7 +130,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
       <div className="flex gap-2 border-[neutral-200] border-t pt-4">
         {onView && (
           <button
-            className="flex-1 rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-sm transition hover:bg-[neutral-50]"
+            className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-sm transition hover:bg-[neutral-50]"
             onClick={() => onView(booking)}
             type="button"
           >
@@ -140,7 +140,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
         {canRate && (
           <button
-            className="flex-1 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+            className="flex-1 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={() => onRate(booking.id)}
             type="button"
           >
@@ -150,7 +150,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
         {canCancel && (
           <button
-            className="rounded-xl border-2 border-[neutral-500]/30 bg-[neutral-50] px-4 py-2 font-medium text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
+            className="border-2 border-[neutral-500]/30 bg-[neutral-50] px-4 py-2 font-medium text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
             onClick={() => onCancel(booking.id)}
             type="button"
           >

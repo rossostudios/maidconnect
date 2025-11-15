@@ -76,7 +76,7 @@ function SecurityHero({ isSpanish, lastUpdated }: HeroProps) {
   return (
     <div className="mb-16 text-center">
       <div className="mb-6 flex items-center justify-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
+        <div className="flex h-20 w-20 items-center justify-center bg-orange-100">
           <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={SecurityCheckIcon} />
         </div>
       </div>
@@ -126,11 +126,11 @@ function SecurityLayerGrid({ isSpanish }: SectionProps) {
     <div className="mb-12 grid gap-6 md:grid-cols-3">
       {cards.map((card) => (
         <div
-          className="rounded-xl border border-neutral-200 bg-white p-6 text-center shadow-sm"
+          className="border border-neutral-200 bg-white p-6 text-center shadow-sm"
           key={card.title}
         >
           <div className="mb-4 flex justify-center">
-            <div className={`flex h-14 w-14 items-center justify-center rounded-full ${card.bg}`}>
+            <div className={`flex h-14 w-14 items-center justify-center ${card.bg}`}>
               <HugeiconsIcon className={`h-7 w-7 ${card.color}`} icon={card.icon} />
             </div>
           </div>
@@ -170,7 +170,7 @@ function EncryptionSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <SectionHeader
         description={
           isSpanish
@@ -224,7 +224,7 @@ function AuthenticationSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <SectionHeader
         description={
           isSpanish
@@ -280,7 +280,7 @@ function SecurityInfrastructureSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <SectionHeader
         description={
           isSpanish
@@ -347,7 +347,7 @@ function ApplicationSecuritySection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Seguridad de Aplicación" : "Application Security"}
@@ -359,7 +359,7 @@ function ApplicationSecuritySection({ isSpanish }: SectionProps) {
         </p>
       </div>
       <div className="space-y-4">
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <h3 className="mb-2 font-semibold text-neutral-900">
             {isSpanish ? "Prevención de Vulnerabilidades" : "Vulnerability Prevention"}
           </h3>
@@ -406,7 +406,7 @@ function MonitoringSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Monitoreo y Registro" : "Monitoring & Logging"}
@@ -457,7 +457,7 @@ function SecureDevelopmentSection({ isSpanish }: SectionProps) {
   ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Desarrollo Seguro (SDLC)" : "Secure Development (SDLC)"}
@@ -471,7 +471,7 @@ function SecureDevelopmentSection({ isSpanish }: SectionProps) {
       <div className="space-y-3">
         {steps.map((step) => (
           <div className="flex items-start gap-3" key={step.label}>
-            <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 font-bold text-green-600 text-xs">
+            <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center bg-green-100 font-bold text-green-600 text-xs">
               {step.label}
             </div>
             <div>
@@ -513,7 +513,7 @@ function DisclosureSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border-2 border-orange-500 bg-orange-50 p-8">
+    <section className="border-2 border-orange-500 bg-orange-50 p-8">
       <h2 className="mb-4 font-bold text-2xl text-neutral-900">
         {isSpanish
           ? "Divulgación Responsable de Vulnerabilidades"
@@ -525,7 +525,7 @@ function DisclosureSection({ isSpanish }: SectionProps) {
           : "If you discover a security vulnerability in Casaora, please report it responsibly. We value your collaboration."}
       </p>
       <div className="space-y-3">
-        <div className="rounded-lg bg-white p-4">
+        <div className="bg-white p-4">
           <h3 className="mb-2 font-semibold text-neutral-900">
             {isSpanish ? "Cómo Reportar" : "How to Report"}
           </h3>
@@ -535,7 +535,7 @@ function DisclosureSection({ isSpanish }: SectionProps) {
             ))}
           </ul>
         </div>
-        <div className="rounded-lg bg-white p-4">
+        <div className="bg-white p-4">
           <h3 className="mb-2 font-semibold text-neutral-900">
             {isSpanish ? "Nuestro Compromiso" : "Our Commitment"}
           </h3>
@@ -552,7 +552,7 @@ function DisclosureSection({ isSpanish }: SectionProps) {
 
 function SecurityContactSection({ isSpanish }: SectionProps) {
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 text-center shadow-sm">
       <h2 className="mb-4 font-bold text-2xl text-neutral-900">
         {isSpanish ? "¿Preguntas de Seguridad?" : "Security Questions?"}
       </h2>
@@ -562,7 +562,7 @@ function SecurityContactSection({ isSpanish }: SectionProps) {
           : "For questions about our security practices or to report an issue, contact us:"}
       </p>
       <a
-        className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-600"
+        className="inline-flex items-center gap-2 bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-600"
         href="mailto:security@casaora.com"
       >
         security@casaora.com
@@ -587,7 +587,7 @@ function SectionHeader({
   const Icon = icon;
   return (
     <div className="mb-6 flex items-start gap-4">
-      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ${iconBg}`}>
+      <div className={`flex h-12 w-12 shrink-0 items-center justify-center ${iconBg}`}>
         <HugeiconsIcon className={`h-6 w-6 ${iconColor}`} icon={Icon} />
       </div>
       <div>
@@ -600,7 +600,7 @@ function SectionHeader({
 
 function BulletCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+    <div className="border border-neutral-100 bg-neutral-50 p-4">
       <h3 className="mb-2 font-semibold text-neutral-900">{title}</h3>
       <ul className="ml-6 list-disc space-y-1 text-neutral-600 text-sm">
         {items.map((item) => (

@@ -113,7 +113,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       <p className="text-[neutral-400] text-base">{booking.service_name || "Service"}</p>
 
       {/* Current Schedule */}
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-6">
         <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-[0.2em]">
           {t("currentScheduleLabel")}
         </p>
@@ -137,7 +137,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
             {t("newDateLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="newDate"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => form.updateField("newDate", e.target.value)}
@@ -154,7 +154,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
             {t("newTimeLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="newTime"
             onChange={(e) => form.updateField("newTime", e.target.value)}
             type="time"
@@ -164,7 +164,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       </div>
 
       {/* Important Notice */}
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-6">
         <p className="font-semibold text-[neutral-500] text-base">{t("notice.title")}</p>
         <p className="mt-3 text-[neutral-500] text-base leading-relaxed">
           {t("notice.description")}
@@ -174,7 +174,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       {/* Message */}
       {form.message && (
         <div
-          className={`rounded-2xl p-4 text-base ${
+          className={`p-4 text-base ${
             form.success
               ? "bg-[neutral-500]/10 text-[neutral-500]"
               : "bg-[neutral-500]/10 text-[neutral-500]"

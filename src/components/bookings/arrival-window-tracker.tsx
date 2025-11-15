@@ -183,7 +183,7 @@ export function ArrivalWindowTracker({
     <Card className={cn("border-2 shadow-sm", className)}>
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+          <div className="flex h-12 w-12 items-center justify-center bg-neutral-100">
             <Icon className="h-6 w-6 text-neutral-700" />
           </div>
 
@@ -206,14 +206,14 @@ export function ArrivalWindowTracker({
           {/* Animated pulse indicator */}
           {arrivalWindow.status === "arriving_soon" && (
             <div className="relative">
-              <div className="absolute h-3 w-3 animate-ping rounded-full bg-neutral-400 opacity-75" />
-              <div className="relative h-3 w-3 rounded-full bg-neutral-500" />
+              <div className="absolute h-3 w-3 animate-ping bg-neutral-400 opacity-75" />
+              <div className="relative h-3 w-3 bg-neutral-500" />
             </div>
           )}
         </div>
 
         {/* Privacy notice */}
-        <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+        <div className="mt-4 border border-neutral-200 bg-neutral-50 p-3">
           <p className="text-neutral-600 text-xs">{t("privacyNotice")}</p>
         </div>
       </CardContent>

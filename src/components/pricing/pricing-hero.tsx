@@ -27,9 +27,9 @@ export function PricingHero({
       <Container>
         {/* Hero Content */}
         <motion.div
+          animate={{ opacity: 1, y: 0 }}
           className="mx-auto mb-12 max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <h1 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[48px] text-neutral-900 leading-[48px]">
@@ -40,34 +40,34 @@ export function PricingHero({
           </p>
 
           {/* Tab Switcher */}
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-neutral-200 bg-white p-2 shadow-sm">
+          <div className="inline-flex items-center gap-2 border-2 border-neutral-200 bg-white p-2 shadow-sm">
             <motion.button
               className={cn(
-                "rounded-full px-8 py-3 font-semibold text-base transition-colors duration-200",
+                "px-8 py-3 font-semibold text-base transition-colors duration-200",
                 activeTab === "customers"
                   ? "bg-orange-500 text-white shadow-md"
                   : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               onClick={() => setActiveTab("customers")}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               type="button"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               {t("tabs.customers")}
             </motion.button>
             <motion.button
               className={cn(
-                "rounded-full px-8 py-3 font-semibold text-base transition-colors duration-200",
+                "px-8 py-3 font-semibold text-base transition-colors duration-200",
                 activeTab === "professionals"
                   ? "bg-orange-500 text-white shadow-md"
                   : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               onClick={() => setActiveTab("professionals")}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               type="button"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               {t("tabs.professionals")}
             </motion.button>
@@ -77,10 +77,10 @@ export function PricingHero({
         {/* Tab Content */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
+            key={activeTab}
             transition={{ duration: 0.4, ease: "easeInOut" }}
           >
             {activeTab === "customers" ? customerContent : professionalContent}

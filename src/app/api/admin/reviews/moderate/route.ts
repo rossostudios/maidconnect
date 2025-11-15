@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         );
       }
 
-      if (!action || !["approve", "reject", "clarify"].includes(action)) {
+      if (!(action && ["approve", "reject", "clarify"].includes(action))) {
         return NextResponse.json(
           { error: 'action must be "approve", "reject", or "clarify"' },
           { status: 400 }

@@ -7,9 +7,9 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { extractDocumentData } from "@/lib/services/professionals/document-extraction-service";
 import { withAuth } from "@/lib/shared/api/middleware";
-import { z } from "zod";
 
 const requestSchema = z.object({
   imageData: z.string().describe("Base64 encoded image or URL"),

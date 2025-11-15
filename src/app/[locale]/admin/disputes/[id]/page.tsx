@@ -63,7 +63,7 @@ export default function DisputeDetailPage({ params }: { params: Promise<{ id: st
       <h1 className="type-ui-lg mb-6 font-semibold">Dispute Details</h1>
 
       <div className="space-y-6">
-        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
           <h2 className="type-ui-md mb-4 font-semibold">Information</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -89,27 +89,27 @@ export default function DisputeDetailPage({ params }: { params: Promise<{ id: st
           </div>
         </div>
 
-        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
           <h2 className="type-ui-md mb-4 font-semibold">Description</h2>
           <p className="type-body-sm text-neutral-900">{dispute.description}</p>
         </div>
 
         {dispute.customer_statement && (
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+          <div className="border border-neutral-200 bg-neutral-50 p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Customer Statement</h2>
             <p className="type-body-sm text-neutral-900">{dispute.customer_statement}</p>
           </div>
         )}
 
         {dispute.professional_statement && (
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+          <div className="border border-neutral-200 bg-neutral-50 p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Professional Statement</h2>
             <p className="type-body-sm text-neutral-900">{dispute.professional_statement}</p>
           </div>
         )}
 
         {dispute.status !== "resolved" && (
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+          <div className="border border-neutral-200 bg-neutral-50 p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Resolve Dispute</h2>
             <div className="space-y-4">
               <div>

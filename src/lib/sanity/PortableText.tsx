@@ -137,7 +137,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <figure className="my-8">
-          <div className="relative aspect-video overflow-hidden rounded-lg border border-[#E5E5E5]">
+          <div className="relative aspect-video overflow-hidden border border-[#E5E5E5]">
             <Image
               alt={alt}
               blurDataURL={blurDataUrl}
@@ -164,15 +164,11 @@ export const portableTextComponents: PortableTextComponents = {
       return (
         <div className="my-6">
           {filename && (
-            <div className="rounded-t-lg bg-[#171717] px-4 py-2 font-mono text-[#737373]/50 text-sm">
+            <div className="bg-[#171717] px-4 py-2 font-mono text-[#737373]/50 text-sm">
               {filename}
             </div>
           )}
-          <pre
-            className={`overflow-x-auto p-4 ${
-              filename ? "rounded-b-lg" : "rounded-lg"
-            } bg-[#171717]`}
-          >
+          <pre className={`overflow-x-auto p-4 ${filename ? "" : ""} bg-[#171717]`}>
             <code
               className={`font-mono text-[#FFFFFF] text-sm language-${language || "plaintext"}`}
             >

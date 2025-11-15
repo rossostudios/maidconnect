@@ -109,7 +109,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+          <div className="border border-neutral-200 bg-neutral-50 p-6">
             <UserProfileHeader
               activeSuspension={activeSuspension}
               onManageSuspension={() => setShowModerationModal(true)}
@@ -121,7 +121,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
             <UserDetailsGrid user={user} />
           </div>
 
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+          <div className="border border-neutral-200 bg-neutral-50 p-6">
             <h3 className="type-ui-md mb-4 font-semibold text-neutral-900">Suspension History</h3>
             <SuspensionHistoryList suspensionHistory={suspensionHistory} />
           </div>

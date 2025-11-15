@@ -21,7 +21,7 @@ export function KeyboardShortcutsButton({
       <button
         aria-label="View keyboard shortcuts"
         className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 active:scale-95",
+          "flex h-8 w-8 items-center justify-center border transition-all duration-200 active:scale-95",
           variant === "light" &&
             "border-[neutral-500] bg-[neutral-50] text-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]",
           variant === "dark" &&
@@ -40,7 +40,7 @@ export function KeyboardShortcutsButton({
       {showTooltip && (
         <div
           className={cn(
-            "-tranneutral-x-1/2 pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-xs shadow-lg",
+            "-translate-x-1/2 pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap px-3 py-1.5 font-medium text-xs shadow-lg",
             variant === "light" && "bg-[neutral-900] text-[neutral-50]",
             variant === "dark" && "bg-[neutral-50] text-[neutral-900]"
           )}
@@ -49,7 +49,7 @@ export function KeyboardShortcutsButton({
           {/* Arrow */}
           <div
             className={cn(
-              "-tranneutral-x-1/2 absolute top-full left-1/2 h-0 w-0 border-4 border-transparent",
+              "-translate-x-1/2 absolute top-full left-1/2 h-0 w-0 border-4 border-transparent",
               variant === "light" && "border-t-[neutral-900]",
               variant === "dark" && "border-t-white"
             )}

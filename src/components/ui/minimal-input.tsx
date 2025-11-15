@@ -26,7 +26,7 @@ export function MinimalInput({ label, error, helper, className, ...props }: Mini
       )}
       <input
         className={cn(
-          "flex h-9 w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-neutral-500 focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-9 w-full border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-neutral-500 focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
           error && "border-red-300 focus-visible:border-red-400 focus-visible:ring-red-400/20",
           className
         )}
@@ -65,7 +65,7 @@ export function MinimalTextarea({
       )}
       <textarea
         className={cn(
-          "flex w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors placeholder:text-neutral-500 focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex w-full border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors placeholder:text-neutral-500 focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
           error && "border-red-300 focus-visible:border-red-400 focus-visible:ring-red-400/20",
           className
         )}
@@ -105,7 +105,7 @@ export function MinimalSelect({
       )}
       <select
         className={cn(
-          "flex h-9 w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-9 w-full border border-neutral-200 bg-white px-3 py-2 text-neutral-900 text-sm transition-colors focus-visible:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/20 disabled:cursor-not-allowed disabled:opacity-50",
           error && "border-red-300 focus-visible:border-red-400 focus-visible:ring-red-400/20",
           className
         )}

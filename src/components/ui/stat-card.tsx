@@ -44,7 +44,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md",
+        "border border-neutral-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md",
         className
       )}
     >
@@ -59,7 +59,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
             <div className="mt-2 flex items-center gap-1.5">
               <span
                 className={cn(
-                  "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-medium text-[10px]",
+                  "inline-flex items-center gap-0.5 px-1.5 py-0.5 font-medium text-[10px]",
                   trend.isPositive !== false
                     ? "bg-green-50 text-green-700"
                     : "bg-red-50 text-red-700"
@@ -77,10 +77,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
 
         {icon && (
           <div
-            className={cn(
-              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
-              colors.icon
-            )}
+            className={cn("flex h-10 w-10 flex-shrink-0 items-center justify-center", colors.icon)}
           >
             <HugeiconsIcon className="h-5 w-5" icon={icon} />
           </div>

@@ -87,7 +87,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
   };
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -98,14 +98,14 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
         {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
+              className="border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
               onClick={handleCancel}
               type="button"
             >
               {t("cancel")}
             </button>
             <button
-              className="rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
+              className="bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
               disabled={saving}
               onClick={handleSave}
               type="button"
@@ -115,7 +115,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
           </div>
         ) : (
           <button
-            className="rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+            className="bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={() => setEditing(true)}
             type="button"
           >
@@ -131,7 +131,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
 
           return (
             <div
-              className={`rounded-xl border-2 p-4 transition-all ${
+              className={`border-2 p-4 transition-all ${
                 dayHours?.isAvailable
                   ? "border-[neutral-500]/40 bg-[neutral-500]/10"
                   : "border-[neutral-200] bg-[neutral-50]"
@@ -157,7 +157,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                 {dayHours?.isAvailable && (
                   <div className="flex items-center gap-2">
                     <input
-                      className="w-24 rounded-lg border-2 border-[neutral-200] px-3 py-1 text-sm disabled:bg-[neutral-50]"
+                      className="w-24 border-2 border-[neutral-200] px-3 py-1 text-sm disabled:bg-[neutral-50]"
                       disabled={!editing}
                       onChange={(e) => handleTimeChange(day.value, "startTime", e.target.value)}
                       type="time"
@@ -165,7 +165,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                     />
                     <span className="text-[neutral-400]">-</span>
                     <input
-                      className="w-24 rounded-lg border-2 border-[neutral-200] px-3 py-1 text-sm disabled:bg-[neutral-50]"
+                      className="w-24 border-2 border-[neutral-200] px-3 py-1 text-sm disabled:bg-[neutral-50]"
                       disabled={!editing}
                       onChange={(e) => handleTimeChange(day.value, "endTime", e.target.value)}
                       type="time"
@@ -184,7 +184,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
       </div>
 
       {/* Help Text */}
-      <div className="mt-6 rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
+      <div className="mt-6 bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
         <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
       </div>

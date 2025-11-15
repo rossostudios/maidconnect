@@ -114,7 +114,7 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
 
           return (
             <button
-              className={`flex flex-col items-center gap-3 rounded-2xl border-2 p-4 transition ${
+              className={`flex flex-col items-center gap-3 border-2 p-4 transition ${
                 isSelected
                   ? "border-[neutral-900] bg-[neutral-900]/5"
                   : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-900]/30"
@@ -124,7 +124,7 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
               type="button"
             >
               <div
-                className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                className={`flex h-12 w-12 items-center justify-center ${
                   isSelected
                     ? "bg-[neutral-900] text-[neutral-50]"
                     : "bg-[neutral-50] text-[neutral-900]"
@@ -159,7 +159,7 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
 
               return (
                 <button
-                  className={`w-full rounded-xl border-2 px-4 py-3 text-left transition ${
+                  className={`w-full border-2 px-4 py-3 text-left transition ${
                     isSelected
                       ? "border-[neutral-900] bg-[neutral-900]/5 font-semibold text-[neutral-900]"
                       : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-900]/30"
@@ -179,14 +179,14 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!data.serviceType}
           onClick={handleNext}
           type="button"

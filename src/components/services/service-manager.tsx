@@ -117,7 +117,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[neutral-500] border-t-2 border-b-2" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin border-[neutral-500] border-t-2 border-b-2" />
           <p className="text-[neutral-400]">{t("loading")}</p>
         </div>
       </div>
@@ -126,11 +126,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
+      <div className="border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
         <p className="font-semibold text-[neutral-500]">{t("error")}</p>
         <p className="mt-2 text-[neutral-500] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="mt-4 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={() => loadServices()}
           type="button"
         >
@@ -149,7 +149,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           <p className="text-[neutral-400] text-sm">{t("description")}</p>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="flex items-center gap-2 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           type="button"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -161,7 +161,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
       <div className="flex items-center gap-2">
         <HugeiconsIcon className="h-5 w-5 text-[neutral-400]" icon={FilterIcon} />
         <button
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             filter === "all"
               ? "bg-[neutral-500] text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-200]"
@@ -172,7 +172,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           {t("all")} ({services.length})
         </button>
         <button
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             filter === "active"
               ? "bg-[neutral-500] text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-200]"
@@ -183,7 +183,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           {t("active")} ({services.filter((s) => s.isActive).length})
         </button>
         <button
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             filter === "inactive"
               ? "bg-[neutral-500] text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-200]"
@@ -209,11 +209,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-12 text-center">
+        <div className="border-2 border-[neutral-200] bg-[neutral-50] p-12 text-center">
           <p className="font-semibold text-[neutral-900]">{t("noServices")}</p>
           <p className="mt-2 text-[neutral-400] text-sm">{t("noServicesDescription")}</p>
           <button
-            className="mt-6 rounded-xl bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] transition hover:bg-[neutral-500]"
+            className="mt-6 bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] transition hover:bg-[neutral-500]"
             type="button"
           >
             {t("createFirstService")}
@@ -222,7 +222,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
       )}
 
       {/* Help Text */}
-      <div className="rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
+      <div className="bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
         <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
       </div>

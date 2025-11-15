@@ -71,13 +71,13 @@ export function FeedbackActions({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+        <div className="border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
           {error}
         </div>
       )}
 
       {/* Status & Priority */}
-      <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
           Update Status & Priority
         </h3>
@@ -130,7 +130,7 @@ export function FeedbackActions({
       </div>
 
       {/* Admin Notes */}
-      <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
           Add Admin Notes
         </h3>

@@ -72,7 +72,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-900]/5">
+        <div className="flex h-16 w-16 items-center justify-center bg-[neutral-900]/5">
           <HugeiconsIcon className="h-8 w-8 text-[neutral-900]" icon={Location01Icon} />
         </div>
       </div>
@@ -97,7 +97,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
             {t("cityLabel", { defaultValue: "City" })} *
           </label>
           <select
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="city"
             onChange={(e) => handleCityChange(e.target.value)}
             value={data.city}
@@ -124,7 +124,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
               </span>
             </label>
             <select
-              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+              className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
               id="neighborhood"
               onChange={(e) => onUpdate({ neighborhood: e.target.value })}
               value={data.neighborhood || ""}
@@ -147,14 +147,14 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!data.city}
           onClick={handleNext}
           type="button"

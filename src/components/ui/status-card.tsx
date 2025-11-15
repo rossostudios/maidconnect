@@ -76,7 +76,7 @@ export function StatusCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
+        "relative overflow-hidden border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
         "transition-all duration-200",
         isClickable &&
           "cursor-pointer hover:border-neutral-300 hover:shadow-md dark:hover:border-neutral-700",

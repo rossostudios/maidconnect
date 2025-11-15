@@ -24,12 +24,12 @@ export function UseCasesSection() {
         <div className="grid gap-6 sm:grid-cols-2">
           {useCaseFlows.map((flow) => (
             <Card
-              className="flex h-full flex-col rounded-3xl border-neutral-200 bg-white shadow-sm"
+              className="flex h-full flex-col border-neutral-200 bg-white shadow-sm"
               key={flow.name}
             >
               <CardHeader className="flex flex-col gap-1">
                 <Badge
-                  className="w-fit rounded-full bg-neutral-900/10 px-2.5 py-1 font-semibold text-neutral-900 text-xs uppercase tracking-[0.15em]"
+                  className="w-fit bg-neutral-900/10 px-2.5 py-1 font-semibold text-neutral-900 text-xs uppercase tracking-[0.15em]"
                   variant="secondary"
                 >
                   {flow.persona}
@@ -41,12 +41,12 @@ export function UseCasesSection() {
                 <ul className="flex flex-col gap-3 text-sm">
                   {flow.steps.map((step) => (
                     <li className="flex items-start gap-2" key={step}>
-                      <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-neutral-900" />
+                      <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-neutral-900" />
                       <span>{step}</span>
                     </li>
                   ))}
                 </ul>
-                <Card className="rounded-2xl border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-600 text-xs">
+                <Card className="border-neutral-200 bg-neutral-50 px-4 py-3 text-neutral-600 text-xs">
                   <CardContent className="p-0">
                     Interactive wireframes are available in the internal prototype. Replace this
                     card with live embeds when ready.

@@ -80,7 +80,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
       <div className="flex justify-end border-neutral-200 border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -140,7 +140,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-neutral-50 p-6 shadow-sm transition hover:shadow-md",
+        "border bg-neutral-50 p-6 shadow-sm transition hover:shadow-md",
         config.required ? "border-neutral-200" : "border-neutral-200 border-dashed"
       )}
     >
@@ -150,7 +150,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         </label>
         <span
           className={cn(
-            "rounded-full px-3 py-1 font-semibold text-xs",
+            "px-3 py-1 font-semibold text-xs",
             config.required
               ? "bg-orange-500/10 text-orange-500"
               : "bg-neutral-200/30 text-neutral-500"
@@ -170,7 +170,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-orange-500 file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-orange-500",
+          "file: mt-4 cursor-pointer file:mr-4 file:border-0 file:bg-orange-500 file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-orange-500",
           (serverError || clientError) && errorClass
         )}
         id={inputId}
@@ -186,7 +186,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         rows={2}
       />
       {selectedFile ? (
-        <div className="mt-4 flex items-center gap-2 rounded-xl border border-orange-500/40 bg-orange-500/10 p-3">
+        <div className="mt-4 flex items-center gap-2 border border-orange-500/40 bg-orange-500/10 p-3">
           <svg
             aria-label="Check mark icon"
             className="h-5 w-5 text-orange-500"
@@ -248,12 +248,9 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
-        role="alert"
-      >
+      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Error icon"
               className="h-5 w-5 text-orange-500"
@@ -277,12 +274,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   }
   if (state.status === "success" && state.message) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
-        role="status"
-      >
+      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Success icon"
               className="h-5 w-5 text-orange-500"

@@ -110,12 +110,12 @@ export function RoadmapBoard() {
         {isLoading ? (
           /* Loading state - Auto Layout: Center aligned, padding 48px vertical */
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[neutral-500] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin border-4 border-[neutral-500] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
           /* Empty state - Auto Layout: Vertical stack, center aligned, gap 16px, padding 48px */
           <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+            <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
               <HugeiconsIcon className="text-[neutral-500]" icon={Search01Icon} size={32} />
             </div>
             <div className="flex flex-col gap-2">

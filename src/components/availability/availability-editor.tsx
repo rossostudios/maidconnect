@@ -71,14 +71,14 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
     <div className="space-y-6">
       {/* Success/Error Messages */}
       {success && (
-        <div className="flex items-center gap-3 rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
+        <div className="flex items-center gap-3 bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
+        <div className="bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <p className="font-semibold text-sm">{error}</p>
         </div>
       )}
@@ -110,7 +110,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
-              <span className="rounded-full bg-[neutral-500]/100 px-2 py-0.5 font-bold text-[neutral-50] text-xs">
+              <span className="bg-[neutral-500]/100 px-2 py-0.5 font-bold text-[neutral-50] text-xs">
                 {blockedDates.length}
               </span>
             )}
@@ -149,7 +149,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       <div className="flex items-center justify-end gap-3 border-[neutral-200] border-t pt-6">
         <div className="flex-1 text-[neutral-400] text-sm">{t("infoText")}</div>
         <button
-          className="rounded-full bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

@@ -34,9 +34,7 @@ export const Message = ({
 
 export const MessageAvatar = ({ from, avatar }: MessageBaseProps & { avatar?: ReactNode }) =>
   from === "assistant" ? (
-    <div className="mt-1 size-8 shrink-0 rounded-full bg-[neutral-50] text-[neutral-500]">
-      {avatar}
-    </div>
+    <div className="mt-1 size-8 shrink-0 bg-[neutral-50] text-[neutral-500]">{avatar}</div>
   ) : (
     <div className="size-8 shrink-0" />
   );

@@ -59,7 +59,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-900]/5">
+        <div className="flex h-16 w-16 items-center justify-center bg-[neutral-900]/5">
           <HugeiconsIcon className="h-8 w-8 text-[neutral-900]" icon={SecurityCheckIcon} />
         </div>
       </div>
@@ -88,7 +88,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
               return (
                 <button
-                  className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
+                  className={`flex w-full items-center gap-3 border-2 px-4 py-3 transition ${
                     isSelected
                       ? "border-[neutral-900] bg-[neutral-900]/5"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-900]/30"
@@ -110,7 +110,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                     {lang.label}
                   </span>
                   {isSelected && (
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[neutral-900] text-[neutral-50]">
+                    <div className="flex h-6 w-6 items-center justify-center bg-[neutral-900] text-[neutral-50]">
                       ✓
                     </div>
                   )}
@@ -132,7 +132,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
               return (
                 <button
-                  className={`flex w-full items-start gap-3 rounded-xl border-2 px-4 py-3 text-left transition ${
+                  className={`flex w-full items-start gap-3 border-2 px-4 py-3 text-left transition ${
                     isSelected
                       ? "border-[neutral-900] bg-[neutral-900]/5"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-900]/30"
@@ -145,7 +145,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                   }
                   type="button"
                 >
-                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[neutral-900]/10 font-semibold text-[neutral-900] text-xs">
+                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center bg-[neutral-900]/10 font-semibold text-[neutral-900] text-xs">
                     {level.icon}
                   </div>
                   <div className="flex-1">
@@ -156,7 +156,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                         {level.label}
                       </span>
                       {level.recommended && (
-                        <span className="rounded-full bg-[neutral-500] px-2 py-1 font-semibold text-[neutral-50] text-xs">
+                        <span className="bg-[neutral-500] px-2 py-1 font-semibold text-[neutral-50] text-xs">
                           Recommended
                         </span>
                       )}
@@ -164,7 +164,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                     <p className="mt-1 text-[neutral-400] text-xs">{level.description}</p>
                   </div>
                   {isSelected && (
-                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[neutral-900] text-[neutral-50]">
+                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center bg-[neutral-900] text-[neutral-50]">
                       ✓
                     </div>
                   )}
@@ -184,7 +184,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
             {t("experienceLabel", { defaultValue: "Minimum years of experience" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="experience-years"
             onChange={(e) => onUpdate({ experienceYears: Number(e.target.value) })}
             value={data.experienceYears || ""}
@@ -209,7 +209,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
               return (
                 <button
-                  className={`flex flex-col items-center gap-2 rounded-xl border-2 p-3 transition ${
+                  className={`flex flex-col items-center gap-2 border-2 p-3 transition ${
                     isSelected
                       ? "border-[neutral-900] bg-[neutral-900]/5"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-900]/30"
@@ -240,21 +240,21 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+          className="border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900]"
+          className="flex-1 bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900]"
           onClick={onNext}
           type="button"
         >

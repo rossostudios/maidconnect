@@ -24,7 +24,7 @@ export function RebookButton({ booking }: RebookButtonProps) {
   return (
     <>
       <button
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 font-semibold text-sm text-white shadow-sm transition hover:bg-orange-600 active:bg-orange-700"
+        className="inline-flex w-full items-center justify-center gap-2 bg-orange-500 px-5 py-2.5 font-semibold text-sm text-white shadow-sm transition hover:bg-orange-600 active:bg-orange-700"
         onClick={() => setShowRebookModal(true)}
         type="button"
       >

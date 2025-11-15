@@ -117,7 +117,7 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
       <div className="flex flex-wrap gap-2">
         {filters.map((filter) => (
           <button
-            className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm transition ${
+            className={`flex items-center gap-2 border-2 px-4 py-2 text-sm transition ${
               filter.active
                 ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
                 : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-500] hover:text-[neutral-500]"

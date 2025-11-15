@@ -57,7 +57,7 @@ export function CtaSection({ data }: CtaSectionProps) {
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             {primaryCtaText && primaryCtaLink && (
               <Link
-                className={`inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-semibold text-base transition ${
+                className={`inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-base transition ${
                   backgroundColor === "white"
                     ? "bg-[neutral-500]/100 text-[neutral-50] hover:bg-[neutral-500]"
                     : "bg-[neutral-50] text-[neutral-900] hover:bg-[neutral-200]"
@@ -71,7 +71,7 @@ export function CtaSection({ data }: CtaSectionProps) {
 
             {secondaryCtaText && secondaryCtaLink && (
               <Link
-                className={`inline-flex items-center justify-center gap-2 rounded-full border-2 px-8 py-4 font-semibold text-base transition ${
+                className={`inline-flex items-center justify-center gap-2 border-2 px-8 py-4 font-semibold text-base transition ${
                   backgroundColor === "white"
                     ? "border-[neutral-500] text-[neutral-500] hover:bg-[neutral-500]/100 hover:text-[neutral-50]"
                     : "border-[neutral-50] text-[neutral-50] hover:bg-[neutral-50]/10"

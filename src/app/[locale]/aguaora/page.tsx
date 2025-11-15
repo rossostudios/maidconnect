@@ -41,7 +41,7 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
       <main className="flex flex-1 items-center justify-center bg-gradient-to-br from-[bg-neutral-50] to-[bg-neutral-50] px-4 py-24">
         <div className="mx-auto max-w-2xl text-center">
           {/* Logo/Brand */}
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-orange-500/10 p-6">
+          <div className="mb-8 inline-flex items-center justify-center bg-orange-500/10 p-6">
             <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={MagicWand01Icon} />
           </div>
 
@@ -61,10 +61,10 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
           </p>
 
           {/* Coming Soon Badge */}
-          <div className="inline-flex items-center gap-3 rounded-full border-2 border-orange-500 bg-neutral-50 px-8 py-4 shadow-sm">
+          <div className="inline-flex items-center gap-3 border-2 border-orange-500 bg-neutral-50 px-8 py-4 shadow-sm">
             <div className="flex h-2 w-2 items-center justify-center">
-              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-orange-500 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
+              <span className="absolute inline-flex h-2 w-2 animate-ping bg-orange-500 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 bg-orange-500" />
             </div>
             <span className="font-semibold text-lg text-neutral-900 uppercase tracking-wider">
               {isSpanish ? "Próximamente" : "Coming Soon"}

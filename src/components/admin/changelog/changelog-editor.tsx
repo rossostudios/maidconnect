@@ -186,7 +186,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
       <form className="space-y-6">
         {/* Basic Info */}
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
             Basic Information
           </h3>
@@ -296,7 +296,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Content */}
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
             Content *
           </h3>
@@ -314,7 +314,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Categories */}
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
             Categories
           </h3>
@@ -342,7 +342,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Tags & Audience */}
-        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
             Metadata
           </h3>
@@ -416,7 +416,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         {/* Actions */}
         <div className="-2xl flex items-center justify-between gap-4 border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <button
-            className="rounded-full border border-neutral-200 px-6 py-2.5 font-semibold text-neutral-600 transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
+            className="border border-neutral-200 px-6 py-2.5 font-semibold text-neutral-600 transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
             disabled={saving}
             onClick={() => router.back()}
             type="button"

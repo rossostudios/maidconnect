@@ -144,7 +144,7 @@ export function PortfolioManager({
           {t("fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="featured-work"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
@@ -173,13 +173,13 @@ export function PortfolioManager({
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
-                className="flex gap-3 rounded-lg border border-[neutral-200] bg-[neutral-50] p-3"
+                className="flex gap-3 border border-[neutral-200] bg-[neutral-50] p-3"
                 key={image.id}
               >
                 {/* Thumbnail */}
                 <Image
                   alt={image.caption || `Image ${index + 1}`}
-                  className="h-20 w-20 flex-shrink-0 rounded-md object-cover"
+                  className="h-20 w-20 flex-shrink-0 object-cover"
                   height={80}
                   loading="lazy"
                   src={image.thumbnail_url || image.url}
@@ -192,7 +192,7 @@ export function PortfolioManager({
                     <div className="space-y-2">
                       <input
                         autoFocus
-                        className="w-full rounded-md border border-[neutral-200] px-2 py-1 text-sm focus:border-[neutral-500] focus:outline-none"
+                        className="w-full border border-[neutral-200] px-2 py-1 text-sm focus:border-[neutral-500] focus:outline-none"
                         defaultValue={image.caption || ""}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
@@ -250,7 +250,7 @@ export function PortfolioManager({
 
                 {/* Order Badge */}
                 <div className="flex-shrink-0">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[neutral-200] font-semibold text-[neutral-400] text-xs">
+                  <span className="inline-flex h-6 w-6 items-center justify-center bg-[neutral-200] font-semibold text-[neutral-400] text-xs">
                     {index + 1}
                   </span>
                 </div>
@@ -260,7 +260,7 @@ export function PortfolioManager({
         )}
 
         {images.length === 0 && (
-          <div className="rounded-lg border border-[neutral-200] bg-[neutral-50]/90 p-12 text-center">
+          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-12 text-center">
             <p className="text-2xl">📸</p>
             <p className="mt-2 font-semibold text-[neutral-900] text-sm">{t("emptyState.title")}</p>
             <p className="mt-1 text-[neutral-400] text-sm">{t("emptyState.description")}</p>
@@ -269,7 +269,7 @@ export function PortfolioManager({
       </div>
 
       {/* Upload Tips */}
-      <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-4">
         <h4 className="font-semibold text-[neutral-900] text-sm">📸 {t("tips.title")}</h4>
         <ul className="mt-2 space-y-1 text-[neutral-400] text-sm">
           <li>• {t("tips.tip1")}</li>
@@ -283,7 +283,7 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

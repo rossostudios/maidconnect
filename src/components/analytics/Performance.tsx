@@ -49,7 +49,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
   };
 
   return (
-    <div className="rounded-lg border bg-white p-6 shadow-sm ring-1 ring-black/5">
+    <div className="border bg-white p-6 shadow-sm ring-1 ring-black/5">
       {/* Header */}
       <div className="mb-6">
         <h3 className="font-semibold text-lg text-neutral-900">{t("title")}</h3>
@@ -63,7 +63,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
       {/* Metrics Grid */}
       <div className="grid gap-4 md:grid-cols-2">
         {/* Completion Rate */}
-        <div className="rounded-lg bg-neutral-50 p-4">
+        <div className="bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={CheckmarkCircle02Icon} />
             <span className="font-medium text-neutral-600 text-sm">{t("completionRate")}</span>
@@ -77,7 +77,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         </div>
 
         {/* Average Rating */}
-        <div className="rounded-lg bg-neutral-50 p-4">
+        <div className="bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={StarIcon} />
             <span className="font-medium text-neutral-600 text-sm">{t("averageRating")}</span>
@@ -94,7 +94,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         </div>
 
         {/* Total Revenue */}
-        <div className="rounded-lg bg-neutral-50 p-4">
+        <div className="bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={MoneyBag02Icon} />
             <span className="font-medium text-neutral-600 text-sm">{t("totalRevenue")}</span>
@@ -108,7 +108,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         </div>
 
         {/* Cancellation Rate */}
-        <div className="rounded-lg bg-neutral-50 p-4">
+        <div className="bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={CancelCircleIcon} />
             <span className="font-medium text-neutral-600 text-sm">{t("cancellationRate")}</span>

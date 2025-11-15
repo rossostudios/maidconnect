@@ -2,21 +2,12 @@
  * Sanity Studio Loading State
  */
 
+import { LoadingCamper } from "@/components/ui/loading-camper";
+
 export default function StudioLoading() {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        fontFamily: "system-ui, sans-serif",
-      }}
-    >
-      <div style={{ textAlign: "center" }}>
-        <h2>Loading Sanity Studio...</h2>
-        <p style={{ color: "#737373" }}>Please wait</p>
-      </div>
+    <div className="flex h-screen items-center justify-center">
+      <LoadingCamper size="lg" text="Loading Sanity Studio..." />
     </div>
   );
 }

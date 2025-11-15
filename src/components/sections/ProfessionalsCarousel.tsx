@@ -91,7 +91,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
             <button
               aria-label="Previous"
               className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-neutral-300 bg-white text-neutral-900 transition-all",
+                "inline-flex h-10 w-10 items-center justify-center border-2 border-neutral-300 bg-white text-neutral-900 transition-all",
                 "hover:border-neutral-900 hover:bg-neutral-900 hover:text-white",
                 "disabled:opacity-30 disabled:hover:border-neutral-300 disabled:hover:bg-white disabled:hover:text-neutral-900"
               )}
@@ -103,7 +103,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
             <button
               aria-label="Next"
               className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-neutral-300 bg-white text-neutral-900 transition-all",
+                "inline-flex h-10 w-10 items-center justify-center border-2 border-neutral-300 bg-white text-neutral-900 transition-all",
                 "hover:border-neutral-900 hover:bg-neutral-900 hover:text-white",
                 "disabled:opacity-30 disabled:hover:border-neutral-300 disabled:hover:bg-white disabled:hover:text-neutral-900"
               )}
@@ -155,7 +155,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
         {/* View All Link */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center rounded-full border-2 border-neutral-900 bg-transparent px-8 py-3 font-semibold text-neutral-900 text-sm transition-all hover:bg-neutral-900 hover:text-white"
+            className="inline-flex items-center justify-center border-2 border-neutral-900 bg-transparent px-8 py-3 font-semibold text-neutral-900 text-sm transition-all hover:bg-neutral-900 hover:text-white"
             href="/professionals"
           >
             View All Professionals

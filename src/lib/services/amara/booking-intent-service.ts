@@ -9,8 +9,8 @@
  * - "Looking for someone experienced with kids" → { serviceType: 'childcare', requirements: { ... }, ... }
  */
 
+import { type BookingIntent, bookingIntentSchema } from "@/lib/integrations/amara/schemas";
 import { getStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
-import { bookingIntentSchema, type BookingIntent } from "@/lib/integrations/amara/schemas";
 import { trackBookingIntentParsing } from "@/lib/integrations/amara/tracking";
 
 /**

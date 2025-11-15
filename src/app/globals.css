@@ -32,10 +32,9 @@
   /* Legacy: Keep white for compatibility */
   --color-white: #ffffff;
 
-  /* Typography - Precision Design System (Geist Fonts Only) */
-  --font-family-geist-sans: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+  /* Typography - Lia Design System (Geist Fonts Only) */
+  --font-family-geist-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-family-geist-mono: var(--font-geist-mono), 'Courier New', monospace;
-  --font-family-inter: Inter, system-ui, -apple-system, sans-serif;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
 
   /* 8px Grid Design System - 2025/2026 Best Practice
@@ -58,11 +57,11 @@
   --spacing-grid-20: 80px;     /* 10 × 8px - maximum spacing */
   --spacing-grid-24: 96px;     /* 12 × 8px - ultra spacing */
 
-  /* Border Radius - Aligned to 8px grid */
-  --radius-xl: 50px;
-  --radius-lg: 8px;            /* Updated to 8px (1 × base unit) */
-  --radius-md: 6px;            /* Rounded to closest grid value */
-  --radius-sm: 4px;            /* 0.5 × base unit */
+  /* Border Radius - Lia Design System (Zero Rounded Corners) */
+  --radius-xl: 0px;            /* Sharp, precise edges */
+  --radius-lg: 0px;            /* No rounding */
+  --radius-md: 0px;            /* Mathematical precision */
+  --radius-sm: 0px;            /* Zero radius */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -152,7 +151,7 @@
   html,
   body {
     @apply bg-neutral-50 text-neutral-900;
-    font-family: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -184,7 +183,6 @@
   a:hover {
     @apply text-neutral-900;
     text-decoration: none;
-    box-shadow: inset 0 -1px 0 currentColor;
   }
 
   a:active {
@@ -310,9 +308,9 @@
     margin-bottom: var(--baseline);
   }
 
-  /* Headings - Precision Design System with Geist Sans */
+  /* Headings - Lia Design System with Geist Sans */
   h1 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 48px;             /* 2 × baseline */
     line-height: 48px;           /* 2 × baseline */
     margin-bottom: var(--baseline);
@@ -321,7 +319,7 @@
   }
 
   h2 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 36px;             /* 1.5 × baseline */
     line-height: 48px;           /* 2 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -330,7 +328,7 @@
   }
 
   h3 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 28px;             /* ~1.17 × baseline */
     line-height: 48px;           /* 2 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -339,7 +337,7 @@
   }
 
   h4 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 24px;             /* 1 × baseline */
     line-height: 24px;           /* 1 × baseline */
     margin-bottom: var(--baseline);
@@ -347,7 +345,7 @@
   }
 
   h5 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 20px;
     line-height: 24px;           /* 1 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -355,7 +353,7 @@
   }
 
   h6 {
-    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-size: 18px;
     line-height: 24px;           /* 1 × baseline (round up) */
     margin-bottom: var(--baseline);

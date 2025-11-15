@@ -72,19 +72,16 @@ function ChangelogSkeleton() {
   return (
     <div className="space-y-6">
       {[1, 2, 3].map((i) => (
-        <div
-          className="animate-pulse rounded-[28px] border border-neutral-200 bg-neutral-50 p-8"
-          key={i}
-        >
+        <div className="animate-pulse border border-neutral-200 bg-neutral-50 p-8" key={i}>
           <div className="mb-4 flex items-center gap-3">
-            <div className="h-6 w-24 rounded-full bg-neutral-200" />
+            <div className="h-6 w-24 bg-neutral-200" />
             <div className="h-4 w-32 rounded bg-neutral-200" />
           </div>
           <div className="mb-3 h-8 w-3/4 rounded bg-neutral-200" />
           <div className="mb-4 h-20 w-full rounded bg-neutral-200" />
           <div className="flex gap-2">
-            <div className="h-8 w-24 rounded-full bg-neutral-200" />
-            <div className="h-8 w-24 rounded-full bg-neutral-200" />
+            <div className="h-8 w-24 bg-neutral-200" />
+            <div className="h-8 w-24 bg-neutral-200" />
           </div>
         </div>
       ))}
@@ -116,7 +113,7 @@ async function ChangelogList({ locale }: { locale: string }) {
 
   if (!changelogs || changelogs.length === 0) {
     return (
-      <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-12 text-center">
+      <div className="border border-neutral-200 bg-neutral-50 p-12 text-center">
         <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-500" icon={MagicWand01Icon} />
         <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Updates Yet</h3>
         <p className="text-neutral-500">We'll post our first changelog soon. Stay tuned!</p>
@@ -135,12 +132,12 @@ async function ChangelogList({ locale }: { locale: string }) {
 
         return (
           <article
-            className="group rounded-[28px] border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md sm:p-8"
+            className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md sm:p-8"
             key={changelog._id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
+              <span className="bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
                 Sprint {changelog.sprintNumber}
               </span>
               <span className="text-neutral-500 text-sm">{formattedDate}</span>
@@ -171,7 +168,7 @@ async function ChangelogList({ locale }: { locale: string }) {
 
                   return (
                     <span
-                      className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
+                      className={`flex items-center gap-1.5 border px-3 py-1.5 font-medium text-sm ${config.color}`}
                       key={category}
                     >
                       <HugeiconsIcon className="h-4 w-4" icon={Icon} />
@@ -184,7 +181,7 @@ async function ChangelogList({ locale }: { locale: string }) {
 
             {/* Featured Image */}
             {changelog.featuredImage?.asset && (
-              <div className="mb-6 overflow-hidden rounded-2xl">
+              <div className="mb-6 overflow-hidden">
                 <Image
                   alt={changelog.featuredImage.alt || changelog.title}
                   className="h-auto w-full object-cover"
@@ -237,7 +234,7 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-500/10">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-orange-500/10 to-orange-500/10">
               <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={MagicWand01Icon} />
             </div>
             <h1 className="type-serif-lg mb-4 text-neutral-900">{t("hero.title")}</h1>

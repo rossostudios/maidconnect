@@ -40,7 +40,7 @@ export async function CareersValues() {
             return (
               <div className="flex flex-col" key={valueKey}>
                 {/* Icon */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500]/10">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center bg-[neutral-500]/10">
                   <HugeiconsIcon
                     className="h-6 w-6 text-[neutral-500]"
                     icon={valueIcons[valueKey]}

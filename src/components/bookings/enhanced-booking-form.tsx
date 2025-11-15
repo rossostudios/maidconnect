@@ -88,7 +88,7 @@ export function EnhancedBookingForm({
 
   if (serviceWithName.length === 0) {
     return (
-      <div className="rounded-2xl border border-[neutral-50] bg-[neutral-50] p-5 text-[neutral-400] text-sm">
+      <div className="border border-[neutral-50] bg-[neutral-50] p-5 text-[neutral-400] text-sm">
         This professional is updating their services. Check back soon.
       </div>
     );
@@ -96,7 +96,7 @@ export function EnhancedBookingForm({
 
   if (!stripePromise) {
     return (
-      <div className="rounded-lg border border-[neutral-500]/30 bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
+      <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
         Payment system not configured.
       </div>
     );
@@ -152,7 +152,7 @@ export function EnhancedBookingForm({
         ].map((step, index) => (
           <div className="flex items-center" key={step.key}>
             <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold text-xs ${
+              className={`flex h-8 w-8 items-center justify-center font-semibold text-xs ${
                 currentStep === step.key
                   ? "bg-[neutral-500] text-[neutral-50]"
                   : index <
@@ -171,7 +171,7 @@ export function EnhancedBookingForm({
       </div>
 
       {submissionState.error && (
-        <div className="rounded-md border border-[neutral-500]/30 bg-[neutral-500]/10 px-3 py-2 text-[neutral-500] text-sm">
+        <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 px-3 py-2 text-[neutral-500] text-sm">
           {submissionState.error}
         </div>
       )}
@@ -264,7 +264,7 @@ function ServiceDetailsStep({
           Service *
         </label>
         <select
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="enhanced-service-select"
           onChange={(e) => {
             const service = services.find((s) => s.name === e.target.value);
@@ -296,7 +296,7 @@ function ServiceDetailsStep({
           Duration (hours) *
         </label>
         <input
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="duration-hours"
           max={12}
           min={1}
@@ -315,7 +315,7 @@ function ServiceDetailsStep({
       {/* Availability Calendar - TODO: Fix calendar API integration */}
       <div>
         <div className="mb-2 block font-medium text-neutral-900 text-sm">Select Date & Time *</div>
-        <div className="rounded-lg border-2 border-neutral-200 bg-white p-4">
+        <div className="border-2 border-neutral-200 bg-white p-4">
           <p className="text-neutral-500 text-sm">Calendar integration coming soon</p>
         </div>
         {/* <AvailabilityCalendar
@@ -347,7 +347,7 @@ function ServiceDetailsStep({
       </div>
 
       {bookingData.isRecurring && (
-        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50]/90 p-4">
+        <div className="border border-[neutral-200] bg-[neutral-50]/90 p-4">
           <label
             className="mb-2 block font-medium text-[neutral-900] text-sm"
             htmlFor="recurrence-frequency"
@@ -355,7 +355,7 @@ function ServiceDetailsStep({
             Frequency
           </label>
           <select
-            className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="recurrence-frequency"
             onChange={(e) =>
               setBookingData({
@@ -376,7 +376,7 @@ function ServiceDetailsStep({
 
       <div className="flex justify-end">
         <button
-          className="rounded-md bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
           type="button"
@@ -455,7 +455,7 @@ function AddressAddonsStep({
         {(useCustomAddress || addresses.length === 0) && (
           <div className="space-y-2">
             <textarea
-              className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+              className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               id="custom-address-enhanced"
               onChange={(e) =>
                 setBookingData({
@@ -490,7 +490,7 @@ function AddressAddonsStep({
           Special Instructions
         </label>
         <textarea
-          className="w-full rounded-md border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="special-instructions-enhanced"
           onChange={(e) =>
             setBookingData({
@@ -515,7 +515,7 @@ function AddressAddonsStep({
               const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
               return (
                 <button
-                  className={`w-full rounded-lg border p-3 text-left transition ${
+                  className={`w-full border p-3 text-left transition ${
                     isSelected
                       ? "border-[neutral-500] bg-[neutral-500]/5 ring-2 ring-[neutral-500]/20"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50"
@@ -552,14 +552,14 @@ function AddressAddonsStep({
 
       <div className="flex justify-between">
         <button
-          className="rounded-md border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          className="border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={onBack}
           type="button"
         >
           ← Back
         </button>
         <button
-          className="rounded-md bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
           type="button"
@@ -598,7 +598,7 @@ function ConfirmationStep({
     <div className="space-y-6">
       <h3 className="font-semibold text-[neutral-900] text-lg">Review Your Booking</h3>
 
-      <div className="space-y-4 rounded-lg border border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="space-y-4 border border-[neutral-200] bg-[neutral-50] p-6">
         {/* Service Details */}
         <div>
           <h4 className="font-semibold text-[neutral-400] text-sm">Service</h4>
@@ -716,7 +716,7 @@ function ConfirmationStep({
 
       <div className="flex justify-between">
         <button
-          className="rounded-md border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onBack}
           type="button"
@@ -724,7 +724,7 @@ function ConfirmationStep({
           ← Back
         </button>
         <button
-          className="rounded-md bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onConfirm}
           type="button"
@@ -788,7 +788,7 @@ function PaymentConfirmation({
   };
 
   return (
-    <div className="space-y-4 rounded-lg border border-[neutral-200] bg-[neutral-50] p-6">
+    <div className="space-y-4 border border-[neutral-200] bg-[neutral-50] p-6">
       <h3 className="font-semibold text-[neutral-900] text-lg">Confirm Payment Method</h3>
       <p className="text-[neutral-400] text-sm">
         We'll authorize a hold on your card. You'll only be charged after the service is completed.
@@ -797,7 +797,7 @@ function PaymentConfirmation({
       {error && <p className="text-[neutral-500] text-sm">{error}</p>}
       <div className="flex items-center gap-3">
         <button
-          className="rounded-md bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"
@@ -805,7 +805,7 @@ function PaymentConfirmation({
           {submitting ? "Confirming..." : "Confirm Booking"}
         </button>
         <button
-          className="rounded-md border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className="border border-[neutral-200] px-6 py-2 font-semibold text-[neutral-400] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={onReset}
           type="button"

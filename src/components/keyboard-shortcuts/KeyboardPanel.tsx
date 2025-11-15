@@ -67,7 +67,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-60 bg-[neutral-900]/50 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 z-60 bg-[neutral-900]/50 transition-opacity"
           onClick={onClose}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
@@ -83,7 +83,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
       <div
         className={cn(
           "fixed top-0 right-0 z-60 h-full w-full max-w-md transform border-[neutral-200] border-l bg-[neutral-50] shadow-2xl transition-transform duration-300 ease-in-out",
-          open ? "tranneutral-x-0" : "tranneutral-x-full"
+          open ? "translate-x-0" : "translate-x-full"
         )}
       >
         {/* Header */}
@@ -91,7 +91,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
           <h2 className="font-semibold text-[neutral-900] text-xl">Keyboard Shortcuts</h2>
           <button
             aria-label="Close shortcuts panel"
-            className="rounded-lg p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
+            className="p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
             onClick={onClose}
             type="button"
           >
@@ -104,7 +104,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
           <div className="relative">
             <svg
               aria-hidden="true"
-              className="-tranneutral-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-[neutral-400]"
+              className="-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-[neutral-400]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -117,7 +117,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
               />
             </svg>
             <input
-              className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] py-2 pr-4 pl-10 text-[neutral-900] text-sm placeholder:text-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+              className="w-full border border-[neutral-200] bg-[neutral-50] py-2 pr-4 pl-10 text-[neutral-900] text-sm placeholder:text-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search shortcuts..."
               type="text"
@@ -152,7 +152,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
 
                         return (
                           <div
-                            className="flex items-center justify-between gap-4 rounded-lg bg-[neutral-50] px-4 py-3 shadow-sm ring-1 ring-[neutral-200]/50 transition-shadow hover:shadow-md"
+                            className="flex items-center justify-between gap-4 bg-[neutral-50] px-4 py-3 shadow-sm ring-1 ring-[neutral-200]/50 transition-shadow hover:shadow-md"
                             key={shortcut.id}
                           >
                             <div className="min-w-0 flex-1">
@@ -181,7 +181,7 @@ export function KeyboardPanel({ open, onClose, role }: KeyboardPanelProps) {
         <div className="absolute right-0 bottom-0 left-0 border-[neutral-200] border-t bg-[neutral-50] px-6 py-4">
           <p className="text-[neutral-400] text-xs">
             Press{" "}
-            <kbd className="rounded border border-[neutral-200] bg-[neutral-50] px-1.5 py-1 font-mono text-xs">
+            <kbd className="border border-[neutral-200] bg-[neutral-50] px-1.5 py-1 font-mono text-xs">
               ?
             </kbd>{" "}
             to toggle this panel

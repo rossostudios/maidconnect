@@ -223,7 +223,7 @@ export function MatchWizard() {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="h-2 overflow-hidden rounded-full bg-[neutral-200]">
+          <div className="h-2 overflow-hidden bg-[neutral-200]">
             <div
               aria-label={t("progressLabel", {
                 defaultValue: "Match wizard progress",
@@ -233,7 +233,7 @@ export function MatchWizard() {
               aria-valuemax={100}
               aria-valuemin={0}
               aria-valuenow={Math.round(progress)}
-              className="h-full rounded-full bg-[neutral-900] transition-all duration-300"
+              className="h-full bg-[neutral-900] transition-all duration-300"
               role="progressbar"
               style={{ width: `${progress}%` }}
             />
@@ -254,7 +254,7 @@ export function MatchWizard() {
         </div>
 
         {/* Step Content */}
-        <div className="rounded-3xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
           {currentStep === "location" && (
             <LocationStep
               data={wizardData}

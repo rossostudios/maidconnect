@@ -13,7 +13,7 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
   const hasImages = images.length > 0;
 
   return (
-    <section className="rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
+    <section className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="font-semibold text-[neutral-900] text-lg">Portfolio</h3>
@@ -23,7 +23,7 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
           </p>
         </div>
         {hasImages ? null : (
-          <div className="flex items-center gap-2 rounded-full border border-[neutral-200] border-dashed px-3 py-1.5 font-semibold text-[neutral-400] text-xs uppercase tracking-[0.26em]">
+          <div className="flex items-center gap-2 border border-[neutral-200] border-dashed px-3 py-1.5 font-semibold text-[neutral-400] text-xs uppercase tracking-[0.26em]">
             <HugeiconsIcon className="h-3.5 w-3.5" icon={Camera01Icon} />
             Coming soon
           </div>
@@ -34,7 +34,7 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
         <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {images.map((item, index) => (
             <figure
-              className="group relative overflow-hidden rounded-[28px] border border-[neutral-200] bg-[neutral-50]"
+              className="group relative overflow-hidden border border-[neutral-200] bg-[neutral-50]"
               key={`${item.url}-${index}`}
             >
               <div className="relative aspect-[4/3] w-full">
@@ -53,7 +53,7 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
           ))}
         </div>
       ) : (
-        <div className="mt-5 rounded-[28px] border border-[neutral-200] border-dashed bg-[neutral-50] p-6 text-[neutral-400] text-sm">
+        <div className="mt-5 border border-[neutral-200] border-dashed bg-[neutral-50] p-6 text-[neutral-400] text-sm">
           <p className="font-semibold text-[neutral-900]">No portfolio images yet</p>
           <p className="mt-2 text-sm">
             Once this professional uploads photos of their work, you&apos;ll see them here.

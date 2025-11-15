@@ -38,7 +38,7 @@ export function ArticleTags({ tags, locale, className }: ArticleTagsProps) {
       {tags.map((tag) => (
         <Link
           className={cn(
-            "rounded-full px-3 py-1 font-medium text-sm transition",
+            "px-3 py-1 font-medium text-sm transition",
             colorMap[tag.color as keyof typeof colorMap] || colorMap.gray
           )}
           href={`/${locale}/help?tag=${tag.slug}`}

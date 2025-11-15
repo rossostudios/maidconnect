@@ -161,15 +161,11 @@ export async function getStructuredOutput<T extends z.ZodType>(
 
     // Provide helpful error messages
     if (error instanceof Anthropic.APIError) {
-      throw new Error(
-        `Claude API error: ${error.message} (status: ${error.status})`
-      );
+      throw new Error(`Claude API error: ${error.message} (status: ${error.status})`);
     }
 
     if (error instanceof z.ZodError) {
-      throw new Error(
-        `Schema validation failed: ${error.errors.map((e) => e.message).join(", ")}`
-      );
+      throw new Error(`Schema validation failed: ${error.errors.map((e) => e.message).join(", ")}`);
     }
 
     throw error;
@@ -212,9 +208,7 @@ export async function getBatchStructuredOutput<T extends z.ZodType>(
 
   for (let i = 0; i < configs.length; i += CONCURRENCY_LIMIT) {
     const batch = configs.slice(i, i + CONCURRENCY_LIMIT);
-    const batchResults = await Promise.all(
-      batch.map((config) => getStructuredOutput(config))
-    );
+    const batchResults = await Promise.all(batch.map((config) => getStructuredOutput(config)));
     results.push(...batchResults);
   }
 

@@ -173,13 +173,13 @@ export default async function ProfessionalDashboardPage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-neutral-200 object-cover"
+                  className="h-12 w-12 border-2 border-neutral-200 object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-neutral-200 bg-orange-500/10">
+                <div className="flex h-12 w-12 items-center justify-center border-2 border-neutral-200 bg-orange-500/10">
                   <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={UserCircleIcon} />
                 </div>
               )}
@@ -243,7 +243,7 @@ export default async function ProfessionalDashboardPage() {
           <h2 className="mb-2 font-bold text-2xl text-neutral-900">Booking Calendar</h2>
           <p className="text-neutral-500 text-sm">Manage your schedule and upcoming bookings</p>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
           <Suspense fallback={<BookingCalendarSkeleton />}>
             <ProBookingCalendar
               bookings={bookings.map((booking) => ({
@@ -270,7 +270,7 @@ export default async function ProfessionalDashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* View All Bookings */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -284,7 +284,7 @@ export default async function ProfessionalDashboardPage() {
 
           {/* Manage Availability */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/availability"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -298,7 +298,7 @@ export default async function ProfessionalDashboardPage() {
 
           {/* Portfolio */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/portfolio"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -312,7 +312,7 @@ export default async function ProfessionalDashboardPage() {
 
           {/* Finances */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/finances"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -326,7 +326,7 @@ export default async function ProfessionalDashboardPage() {
 
           {/* Documents */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/documents"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -340,7 +340,7 @@ export default async function ProfessionalDashboardPage() {
 
           {/* Settings */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
+            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/onboarding"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -377,11 +377,9 @@ function MetricCard({
   };
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:shadow-md">
+    <div className="border border-neutral-200 bg-neutral-50 p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
-        <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
-        >
+        <div className={`flex h-10 w-10 items-center justify-center ${colorClasses[color]}`}>
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>

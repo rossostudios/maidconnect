@@ -158,7 +158,7 @@ export function ProfileBuildForm({
           {languages.map((language) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-neutral-200 bg-neutral-50 px-5 py-3 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
+                "flex cursor-pointer items-center gap-3 border-2 border-neutral-200 bg-neutral-50 px-5 py-3 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
                 hasError("languages") && "border-orange-500/50"
               )}
               key={language}
@@ -184,7 +184,7 @@ export function ProfileBuildForm({
         <div className="space-y-4">
           {services.map((service) => (
             <div
-              className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md"
+              className="border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md"
               key={service.name}
             >
               <input name="service_name" type="hidden" value={service.name} />
@@ -245,10 +245,7 @@ export function ProfileBuildForm({
       <FormField helper={t("availability.helper")} label={t("availability.label")}>
         <div className="space-y-3">
           {availabilityDays.map((day) => (
-            <div
-              className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 shadow-sm"
-              key={day.slug}
-            >
+            <div className="border border-neutral-200 bg-neutral-50 p-5 shadow-sm" key={day.slug}>
               <div className="grid gap-4 sm:grid-cols-[120px_1fr_1fr_1fr]">
                 <div className="flex items-center">
                   <span className="font-semibold text-base text-neutral-900">{day.label}</span>
@@ -309,7 +306,7 @@ export function ProfileBuildForm({
         <p className="text-neutral-500 text-sm">{defaultFootnote}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -325,12 +322,9 @@ export function ProfileBuildForm({
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
-        role="alert"
-      >
+      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Error icon"
               className="h-5 w-5 text-orange-500"
@@ -354,12 +348,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   }
   if (state.status === "success" && state.message) {
     return (
-      <div
-        className="rounded-2xl border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
-        role="status"
-      >
+      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
             <svg
               aria-label="Success icon"
               className="h-5 w-5 text-orange-500"

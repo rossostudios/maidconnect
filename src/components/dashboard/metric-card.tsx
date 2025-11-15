@@ -6,7 +6,7 @@
  * - Consistent icon backgrounds (lightest stone)
  * - Proper visual hierarchy
  * - Smooth animations with motion.dev
- * - 8px rounded corners (rounded-lg)
+ * - 8px rounded corners ()
  * - Icon has 24px top margin (3 × 8px grid)
  */
 
@@ -162,7 +162,7 @@ export function MetricCard({
     return (
       <div
         className={cn(
-          "rounded-lg border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
+          "border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
           "animate-pulse",
           className
         )}
@@ -182,9 +182,7 @@ export function MetricCard({
           <div className="flex flex-col gap-2">
             <div className="h-4 w-24 rounded bg-neutral-200 dark:bg-neutral-800" />
             <div className="h-8 w-32 rounded bg-neutral-200 dark:bg-neutral-800" />
-            {trendValue && (
-              <div className="h-6 w-28 rounded-full bg-neutral-200 dark:bg-neutral-800" />
-            )}
+            {trendValue && <div className="h-6 w-28 bg-neutral-200 dark:bg-neutral-800" />}
           </div>
         </div>
       </div>
@@ -202,7 +200,7 @@ export function MetricCard({
       <div
         className={cn(
           // Base styles - 8px grid system with proper spacing
-          "rounded-lg border bg-white shadow-sm dark:bg-neutral-950",
+          "border bg-white shadow-sm dark:bg-neutral-950",
           CARD_LAYOUT.padding,
           // Border color from variant
           variant !== "default" ? colors.accent : "border-neutral-200 dark:border-neutral-800",

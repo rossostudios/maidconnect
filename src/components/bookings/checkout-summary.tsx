@@ -57,7 +57,7 @@ export function CheckoutSummary({
   return (
     <div className="space-y-6">
       {/* Service Summary */}
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-6">
         <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">Booking Summary</h3>
 
         <div className="space-y-3">
@@ -88,7 +88,7 @@ export function CheckoutSummary({
 
           {/* Recurring Discount (if applicable) */}
           {recurringDiscount && recurringDiscount > 0 && (
-            <div className="flex items-center justify-between rounded-lg bg-[neutral-500]/10 px-3 py-2">
+            <div className="flex items-center justify-between bg-[neutral-500]/10 px-3 py-2">
               <div className="flex items-center gap-2">
                 <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={Tick02Icon} />
                 <span className="font-medium text-[neutral-500] text-sm">Recurring discount</span>
@@ -137,7 +137,7 @@ export function CheckoutSummary({
 
           {/* Deposit Information Tooltip */}
           {showDepositInfo && (
-            <div className="rounded-lg bg-[neutral-50] p-4 text-sm">
+            <div className="bg-[neutral-50] p-4 text-sm">
               <p className="mb-2 font-medium text-[neutral-500]">How payment works</p>
               <p className="text-[neutral-500] leading-relaxed">
                 We place a temporary hold (not a charge) on your payment method to secure your
@@ -160,7 +160,7 @@ export function CheckoutSummary({
       )}
 
       {/* Cancellation Policy */}
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-6">
         <h3 className="mb-3 font-semibold text-[neutral-900] text-base">Cancellation Policy</h3>
         <div className="space-y-2 text-[neutral-400] text-sm">
           <p className="leading-relaxed">

@@ -14,7 +14,7 @@ import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
+  "w-full  border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -112,7 +112,7 @@ export default async function ProfessionalOnboardingPage({
           </p>
         </div>
         <Link
-          className="inline-flex items-center rounded-full border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
+          className="inline-flex items-center border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -128,30 +128,30 @@ export default async function ProfessionalOnboardingPage({
 
             return (
               <li
-                className={`hover:-tranneutral-y-1 rounded-[28px] border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
+                className={`hover:-translate-y-1 border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center bg-orange-500 font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
                     if (isCompleted) {
                       return (
-                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.completed")}
                         </span>
                       );
                     }
                     if (isCurrent) {
                       return (
-                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.inProgress")}
                         </span>
                       );
                     }
                     return (
-                      <span className="rounded-full bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-xs">
+                      <span className="bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-xs">
                         {t("status.pending")}
                       </span>
                     );
@@ -171,9 +171,9 @@ export default async function ProfessionalOnboardingPage({
 
       {isActive ? (
         <div className="space-y-8">
-          <div className="rounded-[28px] border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10">
+              <div className="flex h-12 w-12 items-center justify-center bg-orange-500/10">
                 <svg
                   aria-label="Success icon"
                   className="h-6 w-6 text-orange-500"
@@ -244,11 +244,11 @@ export default async function ProfessionalOnboardingPage({
                   </h3>
                   <ul className="mt-4 space-y-3 text-base text-neutral-500">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-orange-500" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-orange-500" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
@@ -258,16 +258,16 @@ export default async function ProfessionalOnboardingPage({
                   </h3>
                   <ul className="mt-4 space-y-3 text-base text-neutral-500">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-neutral-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-neutral-500" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-neutral-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-neutral-500" />
                       <span>{t("sections.uploadDocuments.optionalDocs.workPermits")}</span>
                     </li>
                   </ul>
 
-                  <div className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                  <div className="mt-8 border border-neutral-200 bg-neutral-50 p-6">
                     <p className="text-neutral-500 text-sm leading-relaxed">
                       <strong className="text-neutral-900">
                         {t("sections.uploadDocuments.acceptedFormats")}
@@ -300,9 +300,9 @@ export default async function ProfessionalOnboardingPage({
           ) : null}
 
           {onboardingComplete && !isActive ? (
-            <div className="rounded-[28px] border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10">
+                <div className="flex h-12 w-12 items-center justify-center bg-orange-500/10">
                   <svg
                     aria-label="Success icon"
                     className="h-6 w-6 text-orange-500"
@@ -344,7 +344,7 @@ function SectionWrapper({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+    <section className="border border-neutral-200 bg-neutral-50 p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       <header className="mb-8">
         <h2 className="font-semibold text-3xl text-neutral-900">{title}</h2>
         <p className="mt-3 text-base text-neutral-500 leading-relaxed">{subtitle}</p>

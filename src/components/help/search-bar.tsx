@@ -252,7 +252,7 @@ export function HelpSearchBar({
 
         <input
           autoFocus={autoFocus}
-          className="w-full rounded-lg border border-[neutral-400]/40 bg-[neutral-50] py-3 pr-10 pl-12 text-[neutral-900] placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border border-[neutral-400]/40 bg-[neutral-50] py-3 pr-10 pl-12 text-[neutral-900] placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           onChange={(e) => {
             setQuery(e.target.value);
             setShowResults(true);
@@ -282,7 +282,7 @@ export function HelpSearchBar({
 
       {/* Search Results Dropdown */}
       {showResults && query.length >= 2 && (
-        <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-50] shadow-lg">
+        <div className="absolute z-50 mt-2 w-full overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-lg">
           {(() => {
             if (isLoading && results.length === 0) {
               return (
@@ -310,7 +310,7 @@ export function HelpSearchBar({
                       type="button"
                     >
                       <div className="mb-1 flex items-center gap-2">
-                        <span className="rounded bg-[neutral-200]/30 px-2 py-0.5 text-[neutral-400] text-xs">
+                        <span className="bg-[neutral-200]/30 px-2 py-0.5 text-[neutral-400] text-xs">
                           {result.category_name}
                         </span>
                       </div>

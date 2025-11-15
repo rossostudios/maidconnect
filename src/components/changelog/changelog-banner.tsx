@@ -47,7 +47,7 @@ export function ChangelogBanner() {
             onClick={handleClick}
             type="button"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[neutral-500]/10">
+            <div className="flex h-8 w-8 items-center justify-center bg-[neutral-500]/10">
               <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={MagicWand01Icon} />
             </div>
             <div className="flex-1">
@@ -63,7 +63,7 @@ export function ChangelogBanner() {
                 })}
               </p>
             </div>
-            <span className="hidden rounded-full border border-[neutral-500] px-3 py-1 font-medium text-[neutral-500] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50] sm:inline-block">
+            <span className="hidden border border-[neutral-500] px-3 py-1 font-medium text-[neutral-500] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50] sm:inline-block">
               View Details
             </span>
           </button>
@@ -71,7 +71,7 @@ export function ChangelogBanner() {
           {/* Dismiss Button */}
           <button
             aria-label="Dismiss"
-            className="rounded-full p-1.5 text-[neutral-400] transition hover:bg-[neutral-50]/50 hover:text-[neutral-900]"
+            className="p-1.5 text-[neutral-400] transition hover:bg-[neutral-50]/50 hover:text-[neutral-900]"
             onClick={handleDismiss}
             type="button"
           >

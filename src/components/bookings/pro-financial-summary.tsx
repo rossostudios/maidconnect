@@ -133,7 +133,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
   };
 
   return (
-    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
+    <div className="border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={DollarCircleIcon} />
@@ -141,7 +141,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
         </div>
         {needsConnect ? (
           <button
-            className="inline-flex items-center rounded-md bg-[neutral-500] px-3 py-1.5 font-semibold text-[neutral-50] text-xs shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center bg-[neutral-500] px-3 py-1.5 font-semibold text-[neutral-50] text-xs shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
             onClick={startStripeOnboarding}
             type="button"
@@ -184,7 +184,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             />
           </dl>
 
-          <div className="mt-6 rounded-lg border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-xs">
+          <div className="mt-6 border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-xs">
             <p className="font-semibold text-[neutral-900]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
@@ -207,11 +207,11 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           </div>
 
           <div className="mt-6 space-y-3 text-[neutral-400] text-sm">
-            <div className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
+            <div className="flex items-center justify-between border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
+            <div className="flex items-center justify-between border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span className="flex items-center gap-2">
                 <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={AlertCircleIcon} />
                 {t("metrics.holdsReleased")}
@@ -236,7 +236,7 @@ type SummaryCardProps = {
 
 function SummaryCard({ icon, title, amount, description, tone, accent }: SummaryCardProps) {
   return (
-    <div className={`rounded-lg border border-[neutral-200] ${tone} p-4`}>
+    <div className={`border border-[neutral-200] ${tone} p-4`}>
       <div className="flex items-center gap-2">
         <HugeiconsIcon className={`h-4 w-4 ${accent}`} icon={icon} />
         <dt className="font-semibold text-[neutral-400] text-xs uppercase tracking-wide">

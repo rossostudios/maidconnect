@@ -38,13 +38,13 @@ export function ProsHeroSection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Content */}
           <motion.div
+            animate="visible"
             className="flex flex-col justify-center"
             initial="hidden"
-            animate="visible"
             variants={staggerContainer}
           >
             <motion.div
-              className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-700 text-sm"
+              className="mb-4 inline-flex w-fit items-center gap-2 border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-700 text-sm"
               variants={fadeInUp}
             >
               <HugeiconsIcon className="h-4 w-4" icon={Award01Icon} />
@@ -58,23 +58,17 @@ export function ProsHeroSection() {
               Join Colombia's top household staffing platform
             </motion.h1>
 
-            <motion.p
-              className="mb-8 text-neutral-700 text-xl leading-relaxed"
-              variants={fadeInUp}
-            >
+            <motion.p className="mb-8 text-neutral-700 text-xl leading-relaxed" variants={fadeInUp}>
               Connect with quality expat families who value professional domestic staff. Set your
               own rates, build long-term relationships, and grow your income.
             </motion.p>
 
-            <motion.div
-              className="flex flex-col gap-4 sm:flex-row"
-              variants={fadeInUp}
-            >
+            <motion.div className="flex flex-col gap-4 sm:flex-row" variants={fadeInUp}>
               <Link href="#apply">
                 <motion.div
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <Button className="min-w-[200px]" size="lg">
                     Apply to Join Now
@@ -84,9 +78,9 @@ export function ProsHeroSection() {
               </Link>
               <Link href="#how-it-works">
                 <motion.div
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <Button className="min-w-[200px]" size="lg" variant="outline">
                     See How It Works
@@ -116,17 +110,17 @@ export function ProsHeroSection() {
 
           {/* Right Column - Earnings Preview */}
           <motion.div
+            animate={{ opacity: 1, scale: 1 }}
             className="flex items-center justify-center lg:justify-end"
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
+            <div className="w-full max-w-md border border-neutral-200 bg-white p-8 shadow-lg">
               <div className="mb-6 flex items-center gap-3">
                 <motion.div
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="flex h-12 w-12 items-center justify-center bg-green-100"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <HugeiconsIcon className="h-6 w-6 text-green-700" icon={ArrowUp01Icon} />
                 </motion.div>
@@ -138,21 +132,19 @@ export function ProsHeroSection() {
 
               <div className="space-y-4">
                 <motion.div
-                  className="rounded-lg bg-neutral-50 p-4"
-                  whileHover={{ scale: 1.02 }}
+                  className="bg-neutral-50 p-4"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="mb-1 text-neutral-600 text-sm">Part-time (20 hrs/week)</div>
-                  <div className="font-bold text-3xl text-neutral-900">
-                    $1,200,000-1,600,000
-                  </div>
+                  <div className="font-bold text-3xl text-neutral-900">$1,200,000-1,600,000</div>
                   <div className="text-neutral-600 text-sm">COP per month</div>
                 </motion.div>
 
                 <motion.div
-                  className="rounded-lg bg-orange-50 p-4"
-                  whileHover={{ scale: 1.02 }}
+                  className="bg-orange-50 p-4"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="mb-1 text-orange-700 text-sm">Full-time (40 hrs/week)</div>
                   <div className="font-bold text-3xl text-orange-900">$2,400,000-3,200,000</div>
@@ -169,8 +161,8 @@ export function ProsHeroSection() {
       </Container>
 
       {/* Decorative Elements */}
-      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full bg-orange-100 opacity-20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-neutral-200 opacity-20 blur-3xl" />
+      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 bg-orange-100 opacity-20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 bg-neutral-200 opacity-20 blur-3xl" />
     </section>
   );
 }

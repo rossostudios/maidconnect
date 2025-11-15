@@ -79,7 +79,7 @@ export function AmaraMessageActions({
         <button
           aria-label={t("thumbsUp")}
           className={cn(
-            "group rounded-md p-1.5 transition-all hover:bg-[neutral-200]/30",
+            "group p-1.5 transition-all hover:bg-[neutral-200]/30",
             feedback === "positive" && "bg-[neutral-500]/10 text-[neutral-500]"
           )}
           onClick={() => handleFeedback("positive")}
@@ -100,7 +100,7 @@ export function AmaraMessageActions({
         <button
           aria-label={t("thumbsDown")}
           className={cn(
-            "group rounded-md p-1.5 transition-all hover:bg-[neutral-200]/30",
+            "group p-1.5 transition-all hover:bg-[neutral-200]/30",
             feedback === "negative" && "bg-[neutral-500]/10 text-[neutral-500]"
           )}
           onClick={() => handleFeedback("negative")}
@@ -125,7 +125,7 @@ export function AmaraMessageActions({
       {/* Copy Button */}
       <button
         aria-label={t("copyMessage")}
-        className="group rounded-md p-1.5 transition-all hover:bg-[neutral-200]/30"
+        className="group p-1.5 transition-all hover:bg-[neutral-200]/30"
         onClick={handleCopy}
         title={t("copyMessage")}
         type="button"
@@ -146,7 +146,7 @@ export function AmaraMessageActions({
           <div className="h-4 w-px bg-[neutral-200]" />
           <button
             aria-label={t("retry")}
-            className="group rounded-md p-1.5 transition-all hover:bg-[neutral-200]/30"
+            className="group p-1.5 transition-all hover:bg-[neutral-200]/30"
             onClick={onRetry}
             title={t("retry")}
             type="button"

@@ -56,13 +56,11 @@ export function ViewToggle({
   };
 
   return (
-    <div
-      className={`inline-flex rounded-lg border border-[neutral-400]/40 bg-[neutral-50] p-1 ${className}`}
-    >
+    <div className={`inline-flex border border-[neutral-400]/40 bg-[neutral-50] p-1 ${className}`}>
       <button
         aria-label={t("viewToggle.list")}
         aria-pressed={view === "list"}
-        className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
+        className={`flex items-center gap-2 px-3 py-2 font-medium text-sm transition-colors ${
           view === "list"
             ? "bg-[neutral-500] text-[neutral-50] shadow-sm"
             : "text-[neutral-400] hover:bg-[neutral-200]/30 hover:text-[neutral-900]"
@@ -77,7 +75,7 @@ export function ViewToggle({
       <button
         aria-label={t("viewToggle.map")}
         aria-pressed={view === "map"}
-        className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
+        className={`flex items-center gap-2 px-3 py-2 font-medium text-sm transition-colors ${
           view === "map"
             ? "bg-[neutral-500] text-[neutral-50] shadow-sm"
             : "text-[neutral-400] hover:bg-[neutral-200]/30 hover:text-[neutral-900]"

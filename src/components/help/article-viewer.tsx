@@ -28,9 +28,9 @@ import { cn } from "@/lib/utils";
 const articleTheme = {
   shell: "mx-auto w-full max-w-4xl space-y-10 px-4 sm:px-0",
   metaCard:
-    "flex flex-wrap items-center gap-4 rounded-2xl border border-[neutral-200] bg-[neutral-50]/90 px-4 py-3 text-sm text-[neutral-400]",
+    "flex flex-wrap items-center gap-4  border border-[neutral-200] bg-[neutral-50]/90 px-4 py-3 text-sm text-[neutral-400]",
   gradientCard:
-    "rounded-3xl border border-[neutral-200] bg-gradient-to-br from-[neutral-50] via-[neutral-50] to-[bg-[neutral-50]] px-6 py-5",
+    " border border-[neutral-200] bg-gradient-to-br from-[neutral-50] via-[neutral-50] to-[bg-[neutral-50]] px-6 py-5",
 };
 
 type ArticleTag = {
@@ -241,7 +241,7 @@ export function ArticleViewer({
     backToTopBtn.innerHTML = `
       <button
         type="button"
-        class="inline-flex items-center gap-2 rounded-lg border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm font-medium text-[neutral-400] transition hover:border-[neutral-400]/40 hover:bg-[neutral-50] hover:text-[neutral-900]"
+        class="inline-flex items-center gap-2  border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm font-medium text-[neutral-400] transition hover:border-[neutral-400]/40 hover:bg-[neutral-50] hover:text-[neutral-900]"
         aria-label="${locale === "en" ? "Back to top" : "Volver arriba"}"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -290,7 +290,7 @@ export function ArticleViewer({
 
           {isAdmin && articleId && (
             <Link
-              className="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-400] text-xs shadow-sm transition hover:border-[neutral-500]/40 hover:text-[neutral-500]"
+              className="inline-flex shrink-0 items-center gap-2 border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-400] text-xs shadow-sm transition hover:border-[neutral-500]/40 hover:text-[neutral-500]"
               href={`/${locale}/admin/help/articles/${articleId}/edit`}
             >
               <HugeiconsIcon className="h-3.5 w-3.5" icon={PencilEdit02Icon} />
@@ -306,7 +306,7 @@ export function ArticleViewer({
         <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_320px]">
           <div className={articleTheme.metaCard}>
             {recentlyUpdated && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
+              <span className="inline-flex items-center gap-1 bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
                 <HugeiconsIcon className="h-3.5 w-3.5" icon={CheckmarkCircle02Icon} />
                 {t("meta.recentlyUpdated")}
               </span>
@@ -378,9 +378,9 @@ export function ArticleViewer({
       </div>
 
       {/* Enhanced Feedback Section (W3C findable-support pattern) */}
-      <div className="rounded-3xl border border-[neutral-200] bg-[neutral-50]/80 px-6 py-8">
+      <div className="border border-[neutral-200] bg-[neutral-50]/80 px-6 py-8">
         {feedbackSubmitted ? (
-          <div className="rounded-lg bg-[neutral-500]/10 p-6 text-[neutral-500]">
+          <div className="bg-[neutral-500]/10 p-6 text-[neutral-500]">
             <p className="mb-2 font-semibold text-lg">
               {feedbackType === "helpful"
                 ? t("feedback.thanksHelpful")
@@ -403,7 +403,7 @@ export function ArticleViewer({
 
             <div className="flex flex-wrap gap-4">
               <button
-                className="flex items-center gap-2 rounded-lg border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
+                className="flex items-center gap-2 border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => handleFeedback(true)}
                 type="button"
@@ -412,7 +412,7 @@ export function ArticleViewer({
                 {t("feedback.helpful")}
               </button>
               <button
-                className="flex items-center gap-2 rounded-lg border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500]/100 hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
+                className="flex items-center gap-2 border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500]/100 hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => {
                   setShowFeedbackForm(true);
@@ -429,7 +429,7 @@ export function ArticleViewer({
 
         {/* Enhanced Feedback Form with Quick Responses */}
         {showFeedbackForm && !feedbackSubmitted && (
-          <div className="mt-6 rounded-lg border border-[neutral-200] bg-[neutral-50] p-6">
+          <div className="mt-6 border border-[neutral-200] bg-[neutral-50] p-6">
             <h4 className="mb-4 font-semibold text-[neutral-900] text-lg">
               {locale === "en"
                 ? "What stopped you from completing your task?"
@@ -445,7 +445,7 @@ export function ArticleViewer({
                 {quickResponses.map((response) => (
                   <button
                     className={cn(
-                      "rounded-full border px-4 py-2 text-sm transition-all",
+                      "border px-4 py-2 text-sm transition-all",
                       selectedQuickResponse === response
                         ? "border-[neutral-500] bg-[neutral-500]/10 text-[neutral-500]"
                         : "border-[neutral-400]/40 bg-[neutral-50] text-[neutral-400] hover:border-[neutral-400] hover:bg-[neutral-50]"
@@ -471,7 +471,7 @@ export function ArticleViewer({
                   : "Detalles adicionales (opcional):"}
               </label>
               <textarea
-                className="w-full rounded-lg border border-[neutral-400]/40 p-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                className="w-full border border-[neutral-400]/40 p-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                 onChange={(e) => setFeedbackText(e.target.value)}
                 placeholder={
                   locale === "en"
@@ -485,7 +485,7 @@ export function ArticleViewer({
 
             <div className="flex flex-wrap gap-3">
               <button
-                className="rounded-lg bg-[neutral-500] px-6 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
+                className="bg-[neutral-500] px-6 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
                 disabled={submitting || !feedbackText}
                 onClick={handleFeedbackTextSubmit}
                 type="button"
@@ -497,7 +497,7 @@ export function ArticleViewer({
                   : t("feedback.submit")}
               </button>
               <button
-                className="rounded-lg border border-[neutral-400]/40 bg-[neutral-50] px-6 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
+                className="border border-[neutral-400]/40 bg-[neutral-50] px-6 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
                 onClick={() => setShowFeedbackForm(false)}
                 type="button"
               >
@@ -515,7 +515,7 @@ export function ArticleViewer({
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
-                className="group rounded-2xl border border-[neutral-200] bg-[neutral-50]/80 p-5 transition hover:border-[neutral-500]/40 hover:shadow-md"
+                className="group border border-[neutral-200] bg-[neutral-50]/80 p-5 transition hover:border-[neutral-500]/40 hover:shadow-md"
                 href={`/${locale}/help/${related.category_slug}/${related.slug}`}
                 key={related.id}
               >
@@ -542,7 +542,7 @@ export function ArticleViewer({
         <h3 className="mb-2 font-semibold text-[neutral-900] text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-[neutral-400]">{t("contact.description")}</p>
         <Link
-          className="inline-flex items-center gap-2 rounded-xl bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500]"
+          className="inline-flex items-center gap-2 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500]"
           href={`/${locale}/contact`}
         >
           {t("contact.button")}

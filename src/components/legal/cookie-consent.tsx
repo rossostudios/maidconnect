@@ -38,12 +38,12 @@ export function CookieConsent() {
   return (
     <div className="slide-in-from-bottom fixed right-0 bottom-0 left-0 z-50 animate-in p-4 duration-300">
       <div className="mx-auto max-w-screen-xl">
-        <div className="rounded-[28px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.25)] backdrop-blur-sm">
+        <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.25)]">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             {/* Icon and Text */}
             <div className="flex flex-1 items-start gap-4">
               <div className="flex-shrink-0">
-                <div className="rounded-full bg-[neutral-50] p-3">
+                <div className="bg-[neutral-50] p-3">
                   <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={CookieIcon} />
                 </div>
               </div>
@@ -61,14 +61,14 @@ export function CookieConsent() {
             {/* Actions */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <button
-                className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+                className="border-2 border-[neutral-200] bg-[neutral-50] px-6 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
                 onClick={declineCookies}
                 type="button"
               >
                 {t("decline")}
               </button>
               <button
-                className="rounded-full bg-[neutral-500] px-6 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+                className="bg-[neutral-500] px-6 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
                 onClick={acceptCookies}
                 type="button"
               >
@@ -79,7 +79,7 @@ export function CookieConsent() {
             {/* Close button */}
             <button
               aria-label="Close cookie banner"
-              className="absolute top-4 right-4 rounded-full p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900] md:relative md:top-0 md:right-0"
+              className="absolute top-4 right-4 p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900] md:relative md:top-0 md:right-0"
               onClick={declineCookies}
               type="button"
             >

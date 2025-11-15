@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  *
  * Minimalist tabbed services display following Lia design principles:
  * - Clean vertical tab navigation
- * - Sharp corners (rounded-sm)
+ * - Sharp corners ()
  * - Minimal borders
  * - Orange accent bars for features
  * - Satoshi for headings
@@ -146,7 +146,7 @@ export function ServicesTabs() {
               </div>
 
               {/* Image - Grayscale */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-neutral-200 shadow-sm">
+              <div className="relative aspect-[4/3] overflow-hidden bg-neutral-200 shadow-sm">
                 <Image
                   alt={activeService.title}
                   className="h-full w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"

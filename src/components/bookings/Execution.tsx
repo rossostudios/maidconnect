@@ -232,7 +232,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
-    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+    <div className="border border-[neutral-200] bg-[neutral-50] p-6">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
@@ -242,7 +242,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <p className="text-[neutral-400] text-sm">{scheduledDate}</p>
         </div>
         <span
-          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${(() => {
+          className={`inline-flex items-center px-3 py-1 font-semibold text-xs ${(() => {
             const status = optimisticBooking.status;
             if (status === "confirmed") {
               return "bg-[neutral-500]/10 text-[neutral-500]";
@@ -275,7 +275,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       {/* Timer for in_progress bookings */}
       {optimisticBooking.status === "in_progress" && (
-        <div className="mb-4 rounded-lg bg-[neutral-50] p-4">
+        <div className="mb-4 bg-[neutral-50] p-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-[neutral-500] text-sm">Service in progress</p>
@@ -302,7 +302,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Messages */}
       {message && (
         <div
-          className={`mb-4 rounded-lg p-3 text-sm ${
+          className={`mb-4 p-3 text-sm ${
             message.type === "success"
               ? "bg-[neutral-500]/10 text-[neutral-500]"
               : "bg-[neutral-500]/10 text-[neutral-500]"
@@ -313,7 +313,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       )}
 
       {gpsError && (
-        <div className="mb-4 rounded-lg bg-[neutral-500]/5 p-3 text-[neutral-500] text-sm">
+        <div className="mb-4 bg-[neutral-500]/5 p-3 text-[neutral-500] text-sm">
           <p className="font-medium">Location Access Required</p>
           <p>{gpsError}</p>
         </div>
@@ -324,7 +324,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         {/* Check-in button for confirmed bookings */}
         {optimisticBooking.status === "confirmed" && (
           <button
-            className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+            className="w-full bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
             onClick={handleCheckIn}
             type="button"
@@ -338,7 +338,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[neutral-500] bg-[neutral-50] px-4 py-3 font-semibold text-[neutral-500] transition hover:bg-[neutral-500] hover:text-[neutral-50]"
+              className="w-full border-2 border-[neutral-500] bg-[neutral-50] px-4 py-3 font-semibold text-[neutral-500] transition hover:bg-[neutral-500] hover:text-[neutral-50]"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -347,7 +347,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"

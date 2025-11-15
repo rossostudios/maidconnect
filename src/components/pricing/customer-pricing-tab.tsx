@@ -37,9 +37,9 @@ export function CustomerPricingTab() {
         <motion.div
           className="mx-auto mb-12 max-w-3xl text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
             {t("howItWorks.title")}
@@ -53,16 +53,16 @@ export function CustomerPricingTab() {
         <motion.div
           className="mb-16 grid gap-8 md:grid-cols-3"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           {[1, 2, 3].map((step) => (
             <motion.div className="text-center" key={step} variants={fadeInUp}>
               <motion.div
-                className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 font-bold text-2xl text-white shadow-md"
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="mb-4 inline-flex h-16 w-16 items-center justify-center bg-orange-500 font-bold text-2xl text-white shadow-md"
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
               >
                 {step}
               </motion.div>
@@ -80,9 +80,9 @@ export function CustomerPricingTab() {
         <motion.div
           className="mb-16"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <h2 className="mb-baseline-2 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
             {t("chooseService.title")}
@@ -97,9 +97,9 @@ export function CustomerPricingTab() {
           <motion.div
             className="mb-12 text-center"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView="visible"
           >
             <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
               {t("calculator.title")}
@@ -110,9 +110,9 @@ export function CustomerPricingTab() {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView={{ opacity: 1, scale: 1 }}
           >
             <PricingCalculator />
           </motion.div>
@@ -122,9 +122,9 @@ export function CustomerPricingTab() {
       {/* Fee Explainer */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
         variants={fadeInUp}
+        viewport={{ once: true, margin: "-100px" }}
+        whileInView="visible"
       >
         <FeeExplainer />
       </motion.div>
@@ -132,9 +132,9 @@ export function CustomerPricingTab() {
       {/* Concierge Justification */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
         variants={fadeInUp}
+        viewport={{ once: true, margin: "-100px" }}
+        whileInView="visible"
       >
         <ConciergeJustification />
       </motion.div>
@@ -145,9 +145,9 @@ export function CustomerPricingTab() {
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView="visible"
           >
             <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-white leading-[48px]">
               {t("cta.title")}
@@ -155,20 +155,20 @@ export function CustomerPricingTab() {
             <p className="mb-8 text-[16px] text-neutral-300 leading-[24px]">{t("cta.subtitle")}</p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <motion.a
-                className="inline-block rounded-full bg-orange-500 px-8 py-4 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
+                className="inline-block bg-orange-500 px-8 py-4 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
                 href="/professionals"
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {t("cta.primary")}
               </motion.a>
               <motion.a
-                className="inline-block rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-neutral-900"
+                className="inline-block border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-neutral-900"
                 href="/concierge"
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {t("cta.secondary")}
               </motion.a>

@@ -76,7 +76,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[neutral-500] border-t-2 border-b-2" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin border-[neutral-500] border-t-2 border-b-2" />
           <p className="text-[neutral-400]">{t("loading")}</p>
         </div>
       </div>
@@ -85,11 +85,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
+      <div className="border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
         <p className="font-semibold text-[neutral-500]">{t("error")}</p>
         <p className="mt-2 text-[neutral-500] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="mt-4 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={() => loadData()}
           type="button"
         >
@@ -101,7 +101,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   if (!metrics) {
     return (
-      <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6">
+      <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6">
         <p className="text-center text-[neutral-400]">{t("noData")}</p>
       </div>
     );
@@ -116,7 +116,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
           <h2 className="font-bold text-2xl text-[neutral-900]">{t("title")}</h2>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50] disabled:opacity-50"
+          className="flex items-center gap-2 border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50] disabled:opacity-50"
           disabled={refreshing}
           onClick={handleRefresh}
           type="button"
@@ -147,28 +147,28 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
         </div>
 
         {/* Recent Activity Summary */}
-        <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+        <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
           <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">{t("recentActivity")}</h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+            <div className="flex items-center justify-between bg-[neutral-50] p-4">
               <span className="text-[neutral-400] text-sm">{t("bookingsLast7Days")}</span>
               <span className="font-bold text-[neutral-900] text-xl">
                 {metrics.bookingsLast7Days}
               </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+            <div className="flex items-center justify-between bg-[neutral-50] p-4">
               <span className="text-[neutral-400] text-sm">{t("bookingsLast30Days")}</span>
               <span className="font-bold text-[neutral-900] text-xl">
                 {metrics.bookingsLast30Days}
               </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+            <div className="flex items-center justify-between bg-[neutral-50] p-4">
               <span className="text-[neutral-400] text-sm">{t("revenueLast7Days")}</span>
               <span className="font-bold text-[neutral-500] text-xl">
                 ${(metrics.revenueLast7DaysCop / 1000).toFixed(0)}k
               </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+            <div className="flex items-center justify-between bg-[neutral-50] p-4">
               <span className="text-[neutral-400] text-sm">{t("revenueLast30Days")}</span>
               <span className="font-bold text-[neutral-500] text-xl">
                 ${(metrics.revenueLast30DaysCop / 1000).toFixed(0)}k
@@ -179,7 +179,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
       </div>
 
       {/* Footer Note */}
-      <div className="rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
+      <div className="bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("noteTitle")}</p>
         <p className="mt-1 text-[neutral-500]">{t("noteDescription")}</p>
       </div>

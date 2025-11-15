@@ -193,7 +193,7 @@ export function UserStatsCard({
   };
 }) {
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
       <h3 className="type-ui-md mb-4 font-semibold text-neutral-900 dark:text-neutral-100">
         Stats
       </h3>

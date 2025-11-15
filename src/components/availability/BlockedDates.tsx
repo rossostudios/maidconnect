@@ -100,7 +100,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="flex items-center gap-2">
           <button
             aria-label="Previous month"
-            className="rounded-lg p-2 text-[neutral-400] transition hover:bg-[neutral-200] hover:text-[neutral-900]"
+            className="p-2 text-[neutral-400] transition hover:bg-[neutral-200] hover:text-[neutral-900]"
             onClick={goToPreviousMonth}
             type="button"
           >
@@ -111,7 +111,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
           </h3>
           <button
             aria-label="Next month"
-            className="rounded-lg p-2 text-[neutral-400] transition hover:bg-[neutral-200] hover:text-[neutral-900]"
+            className="p-2 text-[neutral-400] transition hover:bg-[neutral-200] hover:text-[neutral-900]"
             onClick={goToNextMonth}
             type="button"
           >
@@ -121,7 +121,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
         <div className="flex gap-2">
           <button
-            className="flex items-center gap-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-3 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+            className="flex items-center gap-1 border-2 border-[neutral-200] bg-[neutral-50] px-3 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={handleBlockMonth}
             type="button"
           >
@@ -130,7 +130,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
           </button>
           {blockedDates.length > 0 && (
             <button
-              className="flex items-center gap-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-3 py-2 font-semibold text-[neutral-500] text-sm transition hover:border-[neutral-500]/100 hover:bg-[neutral-500]/10"
+              className="flex items-center gap-1 border-2 border-[neutral-200] bg-[neutral-50] px-3 py-2 font-semibold text-[neutral-500] text-sm transition hover:border-[neutral-500]/100 hover:bg-[neutral-500]/10"
               onClick={handleClearAll}
               type="button"
             >
@@ -142,7 +142,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       </div>
 
       {/* Calendar Grid */}
-      <div className="overflow-hidden rounded-xl border border-[neutral-200] bg-[neutral-50]">
+      <div className="overflow-hidden border border-[neutral-200] bg-[neutral-50]">
         {/* Day Headers */}
         <div className="grid grid-cols-7 gap-px border-[neutral-200] border-b bg-[neutral-50]">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
@@ -191,13 +191,13 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
       {/* Summary */}
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl bg-[neutral-50] p-4">
+        <div className="bg-[neutral-50] p-4">
           <p className="text-[neutral-400] text-sm">
             <strong className="text-[neutral-900]">{blockedInCurrentMonth} days</strong> blocked in{" "}
             {getMonthLabel("en-US", { month: "long" })}
           </p>
         </div>
-        <div className="rounded-xl bg-[neutral-50] p-4">
+        <div className="bg-[neutral-50] p-4">
           <p className="text-[neutral-400] text-sm">
             <strong className="text-[neutral-900]">{blockedDates.length} total days</strong> blocked
             across all months
@@ -206,7 +206,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       </div>
 
       {/* Instructions */}
-      <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-4">
         <h4 className="font-semibold text-[neutral-900] text-sm">How to use:</h4>
         <ul className="mt-2 space-y-1 text-[neutral-400] text-sm">
           <li>• Click any date to block it (turns red)</li>

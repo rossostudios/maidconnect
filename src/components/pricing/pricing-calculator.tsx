@@ -43,7 +43,7 @@ export function PricingCalculator() {
 
   return (
     <Card className="mx-auto max-w-2xl border-2 border-neutral-200 bg-white shadow-lg">
-      <CardContent className="p-8">
+      <CardContent className="p-10">
         <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 leading-[24px]">
           {t("title")}
         </h3>
@@ -55,7 +55,7 @@ export function PricingCalculator() {
         <div className="mb-baseline-1 flex justify-center">
           <div
             aria-label="Currency selection"
-            className="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1"
+            className="inline-flex border border-neutral-200 bg-neutral-50 p-1"
             role="group"
           >
             <button
@@ -101,7 +101,7 @@ export function PricingCalculator() {
             >
               <button
                 aria-pressed={serviceType === "marketplace"}
-                className={`rounded-lg border-2 px-4 py-3 font-medium text-sm transition-all ${
+                className={`border-2 px-4 py-3 font-medium text-sm transition-all ${
                   serviceType === "marketplace"
                     ? "border-orange-500 bg-orange-50 text-orange-600"
                     : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
@@ -113,7 +113,7 @@ export function PricingCalculator() {
               </button>
               <button
                 aria-pressed={serviceType === "concierge"}
-                className={`rounded-lg border-2 px-4 py-3 font-medium text-sm transition-all ${
+                className={`border-2 px-4 py-3 font-medium text-sm transition-all ${
                   serviceType === "concierge"
                     ? "border-orange-500 bg-orange-50 text-orange-600"
                     : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
@@ -135,7 +135,7 @@ export function PricingCalculator() {
               {t("selectService")}
             </label>
             <select
-              className="w-full rounded-lg border-2 border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+              className="w-full border-2 border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               id="service-category"
               onChange={(e) => setServiceCategory(e.target.value as ServiceCategory)}
               value={serviceCategory}
@@ -161,7 +161,7 @@ export function PricingCalculator() {
               aria-valuemin={2}
               aria-valuenow={hours}
               aria-valuetext={`${hours} hours`}
-              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-orange-500"
+              className="h-2 w-full cursor-pointer appearance-none bg-neutral-200 accent-orange-500"
               id="hours"
               max="8"
               min="2"
@@ -177,7 +177,7 @@ export function PricingCalculator() {
           </div>
 
           {/* Insurance */}
-          <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="flex items-center justify-between border border-neutral-200 bg-neutral-50 p-4">
             <div>
               <div className="font-semibold text-neutral-900 text-sm" id="insurance-label">
                 {t("addInsurance")}
@@ -198,7 +198,7 @@ export function PricingCalculator() {
                 role="switch"
                 type="checkbox"
               />
-              <div className="peer rtl:peer-checked:after:-translate-x-full h-6 w-11 rounded-full bg-neutral-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/25" />
+              <div className="peer rtl:peer-checked:after:-translate-x-full h-6 w-11 bg-neutral-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/25" />
             </label>
           </div>
 
@@ -268,7 +268,7 @@ export function PricingCalculator() {
           </div>
 
           {/* Professional Receives */}
-          <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
+          <div className="border-2 border-orange-200 bg-orange-50 p-4">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-[14px] text-orange-900 leading-[24px]">
                 {t("professionalReceives")}

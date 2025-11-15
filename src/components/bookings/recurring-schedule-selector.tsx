@@ -142,7 +142,7 @@ export function RecurringScheduleSelector({
     }).format(amount);
 
   return (
-    <div className="space-y-6 rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+    <div className="space-y-6 border border-[neutral-200] bg-[neutral-50] p-6">
       {/* Toggle Recurring */}
       <div className="flex items-start justify-between">
         <div className="flex-1">
@@ -152,14 +152,14 @@ export function RecurringScheduleSelector({
           </p>
         </div>
         <button
-          className={`relative h-7 w-12 rounded-full transition ${
+          className={`relative h-7 w-12 transition ${
             isEnabled ? "bg-[neutral-500]" : "bg-[neutral-200]"
           }`}
           onClick={() => handleToggle(!isEnabled)}
           type="button"
         >
           <span
-            className={`absolute top-1 h-5 w-5 rounded-full bg-[neutral-50] transition ${
+            className={`absolute top-1 h-5 w-5 bg-[neutral-50] transition ${
               isEnabled ? "right-1" : "left-1"
             }`}
           />
@@ -174,7 +174,7 @@ export function RecurringScheduleSelector({
             <div className="grid grid-cols-3 gap-3">
               {(["weekly", "biweekly", "monthly"] as RecurringFrequency[]).map((freq) => (
                 <button
-                  className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition ${
+                  className={`flex flex-col items-center gap-2 border-2 p-4 transition ${
                     frequency === freq
                       ? "border-[neutral-500] bg-[neutral-50]"
                       : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-200]"
@@ -205,7 +205,7 @@ export function RecurringScheduleSelector({
                 icon={Calendar01Icon}
               />
               <input
-                className="w-full rounded-xl border border-[neutral-200] py-3 pr-4 pl-11 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                className="w-full border border-[neutral-200] py-3 pr-4 pl-11 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                 id="start-date"
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => handleStartDateChange(e.target.value)}
@@ -222,7 +222,7 @@ export function RecurringScheduleSelector({
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((day, index) => (
                   <button
-                    className={`rounded-lg border-2 px-2 py-3 text-xs transition ${
+                    className={`border-2 px-2 py-3 text-xs transition ${
                       dayOfWeek === index
                         ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
                         : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
@@ -243,7 +243,7 @@ export function RecurringScheduleSelector({
             <div className="block font-medium text-[neutral-900] text-sm">End Condition</div>
             <div className="grid grid-cols-3 gap-3">
               <button
-                className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
+                className={`border-2 px-4 py-3 text-sm transition ${
                   endType === "occurrences"
                     ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
                     : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
@@ -254,7 +254,7 @@ export function RecurringScheduleSelector({
                 # of times
               </button>
               <button
-                className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
+                className={`border-2 px-4 py-3 text-sm transition ${
                   endType === "date"
                     ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
                     : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
@@ -265,7 +265,7 @@ export function RecurringScheduleSelector({
                 End date
               </button>
               <button
-                className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
+                className={`border-2 px-4 py-3 text-sm transition ${
                   endType === "never"
                     ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
                     : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
@@ -280,7 +280,7 @@ export function RecurringScheduleSelector({
             {endType === "occurrences" && (
               <div className="mt-3">
                 <input
-                  className="w-full rounded-xl border border-[neutral-200] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                  className="w-full border border-[neutral-200] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                   max="52"
                   min="2"
                   onChange={(e) => handleOccurrencesChange(Number(e.target.value))}
@@ -298,7 +298,7 @@ export function RecurringScheduleSelector({
                   icon={Calendar01Icon}
                 />
                 <input
-                  className="w-full rounded-xl border border-[neutral-200] py-3 pr-4 pl-11 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                  className="w-full border border-[neutral-200] py-3 pr-4 pl-11 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                   min={startDate}
                   onChange={(e) => handleEndDateChange(e.target.value)}
                   type="date"
@@ -309,9 +309,9 @@ export function RecurringScheduleSelector({
           </div>
 
           {/* Pricing Summary */}
-          <div className="space-y-4 rounded-xl bg-gradient-to-br from-[bg-[neutral-50]] to-[neutral-50] p-5">
+          <div className="space-y-4 bg-gradient-to-br from-[bg-[neutral-50]] to-[neutral-50] p-5">
             <div className="flex items-start gap-3">
-              <div className="rounded-full bg-[neutral-500]/10 p-2">
+              <div className="bg-[neutral-500]/10 p-2">
                 <HugeiconsIcon
                   className="h-5 w-5 text-[neutral-500]"
                   icon={InformationCircleIcon}

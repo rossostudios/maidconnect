@@ -519,7 +519,7 @@ function CheckCardActions({ onClick }: { onClick: () => void }) {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`rounded-full px-3 py-1 font-semibold text-sm ${getStatusBadgeClass(status)}`}>
+    <span className={`px-3 py-1 font-semibold text-sm ${getStatusBadgeClass(status)}`}>
       {status}
     </span>
   );
@@ -527,9 +527,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function ProviderBadge({ provider }: { provider: string }) {
   return (
-    <span
-      className={`rounded-full px-3 py-1 font-semibold text-sm ${getProviderBadgeClass(provider)}`}
-    >
+    <span className={`px-3 py-1 font-semibold text-sm ${getProviderBadgeClass(provider)}`}>
       {provider}
     </span>
   );

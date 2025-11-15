@@ -68,9 +68,9 @@ export function ProsFaqCtaSection() {
           <motion.div
             className="mb-16 text-center"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView="visible"
           >
             <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
               Frequently asked questions
@@ -83,17 +83,17 @@ export function ProsFaqCtaSection() {
           <motion.div
             className="space-y-6"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView="visible"
           >
             {faqs.map((faq) => (
               <motion.div
-                className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm"
+                className="border border-neutral-200 bg-white p-6 shadow-sm"
                 key={faq.question}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.01, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 <h3 className="mb-3 font-semibold text-lg text-neutral-900">{faq.question}</h3>
                 <p className="text-neutral-700 leading-relaxed">{faq.answer}</p>
@@ -111,9 +111,9 @@ export function ProsFaqCtaSection() {
         <Container className="relative max-w-4xl text-center">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
+            viewport={{ once: true, margin: "-100px" }}
+            whileInView="visible"
           >
             <motion.h2
               className="mb-6 font-bold text-4xl leading-tight sm:text-5xl"
@@ -121,12 +121,9 @@ export function ProsFaqCtaSection() {
             >
               Ready to grow your income with quality families?
             </motion.h2>
-            <motion.p
-              className="mb-8 text-orange-50 text-xl"
-              variants={fadeInUp}
-            >
-              Join a growing network of trusted professionals on Casaora. Apply today — it's free and
-              takes just 10 minutes.
+            <motion.p className="mb-8 text-orange-50 text-xl" variants={fadeInUp}>
+              Join a growing network of trusted professionals on Casaora. Apply today — it's free
+              and takes just 10 minutes.
             </motion.p>
 
             <motion.div
@@ -135,9 +132,9 @@ export function ProsFaqCtaSection() {
             >
               <Link href="/auth/sign-up?type=professional">
                 <motion.div
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <Button
                     className="min-w-[250px] border-white bg-white text-orange-600 hover:bg-neutral-50"
@@ -151,9 +148,9 @@ export function ProsFaqCtaSection() {
               </Link>
               <Link href="/contact">
                 <motion.div
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <Button
                     className="min-w-[200px] border border-white bg-transparent text-white hover:bg-white/10"
@@ -187,8 +184,8 @@ export function ProsFaqCtaSection() {
         </Container>
 
         {/* Decorative Elements */}
-        <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full bg-white opacity-10 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-orange-900 opacity-20 blur-3xl" />
+        <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 bg-white opacity-10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 bg-orange-900 opacity-20 blur-3xl" />
       </section>
     </>
   );

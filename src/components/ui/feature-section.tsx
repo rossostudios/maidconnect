@@ -127,7 +127,7 @@ export function FeatureCard({
     <div className="group flex flex-col items-center gap-3 text-center">
       {/* Icon */}
       {icon && (
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600">
+        <div className="flex h-12 w-12 items-center justify-center bg-neutral-100 text-neutral-600">
           {icon}
         </div>
       )}
@@ -143,7 +143,7 @@ export function FeatureCard({
         <div className="mt-2 flex items-center gap-2 font-semibold text-neutral-600 text-sm transition-colors group-hover:text-neutral-800">
           {linkText}
           <svg
-            className="group-hover:tranneutral-x-1 h-4 w-4 transition-transform"
+            className="h-4 w-4 transition-transform group-hover:translate-x-1"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -158,7 +158,7 @@ export function FeatureCard({
   if (href) {
     return (
       <a
-        className="block rounded-xl border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-md"
+        className="block border border-neutral-200 bg-white p-6 transition-all hover:border-neutral-300 hover:shadow-md"
         href={href}
       >
         {CardContent}
@@ -166,7 +166,7 @@ export function FeatureCard({
     );
   }
 
-  return <div className="rounded-xl border border-neutral-200 bg-white p-6">{CardContent}</div>;
+  return <div className="border border-neutral-200 bg-white p-6">{CardContent}</div>;
 }
 
 /**

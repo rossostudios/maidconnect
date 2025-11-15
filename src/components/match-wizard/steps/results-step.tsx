@@ -163,7 +163,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
       <div className="space-y-6 py-12 text-center">
         <div className="flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[neutral-200] border-t-gray-900" />
+            <div className="h-16 w-16 animate-spin border-4 border-[neutral-200] border-t-gray-900" />
           </div>
         </div>
         <div>
@@ -186,7 +186,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
       {/* Header */}
       <div className="text-center">
         <div className="mb-4 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+          <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
             <HugeiconsIcon className="h-8 w-8 text-[neutral-500]" icon={MagicWand01Icon} />
           </div>
         </div>
@@ -210,7 +210,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
 
           return (
             <div
-              className="overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md"
+              className="overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md"
               key={match.id}
             >
               {/* Match Score Badge */}
@@ -225,14 +225,9 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
                 <div className="flex gap-4">
                   {/* Photo */}
                   <div className="relative h-20 w-20 shrink-0">
-                    <Image
-                      alt={match.name}
-                      className="rounded-full object-cover"
-                      fill
-                      src={match.photo}
-                    />
+                    <Image alt={match.name} className="object-cover" fill src={match.photo} />
                     {match.availableToday && (
-                      <div className="-right-1 -top-1 absolute h-6 w-6 rounded-full border-2 border-[neutral-50] bg-[neutral-500]/100" />
+                      <div className="-right-1 -top-1 absolute h-6 w-6 border-2 border-[neutral-50] bg-[neutral-500]/100" />
                     )}
                   </div>
 
@@ -257,26 +252,26 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
                     <div className="mt-3 flex flex-wrap gap-2">
                       {/* Verification */}
                       <span
-                        className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-medium text-xs ${verificationBadge.color}`}
+                        className={`inline-flex items-center gap-1 px-2 py-1 font-medium text-xs ${verificationBadge.color}`}
                       >
                         <HugeiconsIcon className="h-3 w-3" icon={SecurityCheckIcon} />
                         {verificationBadge.label}
                       </span>
 
                       {/* Rating */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-500]/5 px-2 py-1 font-medium text-[neutral-500] text-xs">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-500]/5 px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3 fill-current" icon={StarIcon} />
                         {match.rating} ({match.reviewCount})
                       </span>
 
                       {/* On-Time Rate */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-2 py-1 font-medium text-[neutral-500] text-xs">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3" icon={Clock01Icon} />
                         {match.onTimeRate}% on-time
                       </span>
 
                       {/* Response Time */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-500]/10 px-2 py-1 font-medium text-[neutral-500] text-xs">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-500]/10 px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3" icon={BubbleChatIcon} />
                         {match.responseTime}
                       </span>
@@ -301,7 +296,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
                     {/* Action */}
                     <div className="mt-4">
                       <Link
-                        className="inline-flex w-full items-center justify-center rounded-xl bg-[neutral-900] px-4 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-900]"
+                        className="inline-flex w-full items-center justify-center bg-[neutral-900] px-4 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-900]"
                         href={`/professionals/${match.id}`}
                         onClick={() => {
                           // Track match selection
@@ -327,21 +322,21 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
       {/* Actions */}
       <div className="space-y-3 pt-4">
         <Link
-          className="block w-full rounded-xl bg-[neutral-50] px-6 py-3 text-center font-semibold text-[neutral-900] transition hover:bg-[neutral-50]"
+          className="block w-full bg-[neutral-50] px-6 py-3 text-center font-semibold text-[neutral-900] transition hover:bg-[neutral-50]"
           href="/professionals"
         >
           {t("browseAll", { defaultValue: "Browse All Professionals" })}
         </Link>
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+            className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
             onClick={onBack}
             type="button"
           >
             {t("refineSearch", { defaultValue: "Refine Search" })}
           </button>
           <button
-            className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
+            className="flex-1 border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
             onClick={() => {
               // Track wizard restart
               matchWizardTracking.restarted({

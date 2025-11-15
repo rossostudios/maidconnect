@@ -319,7 +319,7 @@ export function ProfessionalVettingDashboard() {
             <Card className="border-neutral-200 bg-white">
               <CardContent className="flex min-h-[400px] items-center justify-center p-12">
                 <div className="flex max-w-md flex-col items-center gap-4 text-center">
-                  <div className="rounded-full bg-green-50 p-4">
+                  <div className="bg-green-50 p-4">
                     <HugeiconsIcon
                       className="h-12 w-12 text-green-600"
                       icon={CheckmarkCircle02Icon}
@@ -365,7 +365,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="whitespace-nowrap rounded-full bg-neutral-600/10 px-2 py-1 font-semibold text-neutral-600 text-xs">
+                          <span className="whitespace-nowrap bg-neutral-600/10 px-2 py-1 font-semibold text-neutral-600 text-xs">
                             <HugeiconsIcon className="mr-1 inline h-3 w-3" icon={Calendar03Icon} />
                             {professional.waitingDays}d waiting
                           </span>
@@ -530,7 +530,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="whitespace-nowrap rounded-full bg-neutral-600/10 px-2 py-1 font-semibold text-neutral-600 text-xs">
+                          <span className="whitespace-nowrap bg-neutral-600/10 px-2 py-1 font-semibold text-neutral-600 text-xs">
                             ✓ Approved
                           </span>
                         </div>
@@ -656,7 +656,7 @@ export function ProfessionalVettingDashboard() {
                               </p>
                             </div>
                           </div>
-                          <span className="whitespace-nowrap rounded-full bg-neutral-200/30 px-2 py-1 font-semibold text-neutral-500 text-xs">
+                          <span className="whitespace-nowrap bg-neutral-200/30 px-2 py-1 font-semibold text-neutral-500 text-xs">
                             Incomplete
                           </span>
                         </div>

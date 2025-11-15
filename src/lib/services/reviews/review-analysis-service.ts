@@ -12,11 +12,11 @@
  * - AI-generated response suggestions
  */
 
-import { getStructuredOutput, getBatchStructuredOutput } from "@/lib/integrations/amara/structured-outputs";
+import { type ReviewAnalysis, reviewAnalysisSchema } from "@/lib/integrations/amara/schemas";
 import {
-  reviewAnalysisSchema,
-  type ReviewAnalysis,
-} from "@/lib/integrations/amara/schemas";
+  getBatchStructuredOutput,
+  getStructuredOutput,
+} from "@/lib/integrations/amara/structured-outputs";
 import { trackReviewAnalysis } from "@/lib/integrations/amara/tracking";
 
 /**
@@ -168,10 +168,7 @@ export function shouldAutoPublish(analysis: ReviewAnalysis): {
   }
 
   // Auto-publish positive reviews with low risk
-  if (
-    analysis.sentiment === "positive" &&
-    analysis.professionalImpact.riskLevel === "none"
-  ) {
+  if (analysis.sentiment === "positive" && analysis.professionalImpact.riskLevel === "none") {
     return {
       autoPublish: true,
       reason: "Positive review with no risk",

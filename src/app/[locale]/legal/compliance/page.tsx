@@ -63,7 +63,7 @@ function ComplianceHero({ isSpanish, lastUpdated }: HeroProps) {
   return (
     <div className="mb-16 text-center">
       <div className="mb-6 flex items-center justify-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
+        <div className="flex h-20 w-20 items-center justify-center bg-orange-100">
           <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={Shield01Icon} />
         </div>
       </div>
@@ -120,9 +120,9 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-orange-100">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-orange-100">
           <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={SecurityCheckIcon} />
         </div>
         <div>
@@ -143,7 +143,7 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
       </div>
 
       <div className="space-y-4">
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-green-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">PCI DSS Level 1 Certified</h3>
@@ -161,7 +161,7 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+          <div className="border border-neutral-100 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">
               {isSpanish ? "Controles Anti-Fraude" : "Fraud Controls"}
             </h3>
@@ -171,7 +171,7 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
               ))}
             </ul>
           </div>
-          <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+          <div className="border border-neutral-100 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">
               {isSpanish ? "Protección de Pagos" : "Payment Protection"}
             </h3>
@@ -215,7 +215,7 @@ function InfrastructureSecuritySection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-3">
           <h2 className="font-bold text-2xl text-neutral-900">
@@ -231,7 +231,7 @@ function InfrastructureSecuritySection({ isSpanish }: SectionProps) {
       </div>
 
       <div className="space-y-6">
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="font-semibold text-neutral-900">Supabase (Database & Auth)</h3>
             <div className="flex gap-2">
@@ -250,7 +250,7 @@ function InfrastructureSecuritySection({ isSpanish }: SectionProps) {
           </ul>
         </div>
 
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="font-semibold text-neutral-900">Vercel (Application Hosting)</h3>
             <div className="flex gap-2">
@@ -299,7 +299,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-3">
           <h2 className="font-bold text-2xl text-neutral-900">
@@ -315,7 +315,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
       </div>
 
       <div className="space-y-4">
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">
@@ -334,7 +334,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
           </ul>
         </div>
 
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">
@@ -383,7 +383,7 @@ function SecurityMonitoringSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Monitoreo de Seguridad Continuo" : "Continuous Security Monitoring"}
@@ -396,7 +396,7 @@ function SecurityMonitoringSection({ isSpanish }: SectionProps) {
       </div>
 
       <div className="space-y-4">
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-purple-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">Snyk Security</h3>
@@ -408,7 +408,7 @@ function SecurityMonitoringSection({ isSpanish }: SectionProps) {
           </ul>
         </div>
 
-        <div className="rounded-lg border border-neutral-100 bg-neutral-50 p-4">
+        <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-purple-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">Better Stack Logging</h3>
@@ -447,7 +447,7 @@ function ThirdPartyAuditsSection({ isSpanish }: SectionProps) {
   ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Auditorías de Terceros" : "Third-Party Audits"}
@@ -462,7 +462,7 @@ function ThirdPartyAuditsSection({ isSpanish }: SectionProps) {
       <div className="space-y-3">
         {audits.map((audit) => (
           <div
-            className="flex items-start gap-3 rounded-lg border border-neutral-100 bg-neutral-50 p-4"
+            className="flex items-start gap-3 border border-neutral-100 bg-neutral-50 p-4"
             key={audit.title}
           >
             <HugeiconsIcon
@@ -509,7 +509,7 @@ function IncidentResponseSection({ isSpanish }: SectionProps) {
   ];
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+    <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h2 className="mb-2 font-bold text-2xl text-neutral-900">
           {isSpanish ? "Respuesta a Incidentes" : "Incident Response"}
@@ -523,10 +523,7 @@ function IncidentResponseSection({ isSpanish }: SectionProps) {
 
       <div className="space-y-3">
         {steps.map((step) => (
-          <div
-            className="rounded-lg border-orange-500 border-l-4 bg-orange-50 p-4"
-            key={step.title}
-          >
+          <div className="border-orange-500 border-l-4 bg-orange-50 p-4" key={step.title}>
             <h3 className="mb-2 font-semibold text-neutral-900">{step.title}</h3>
             <p className="text-neutral-600 text-sm">{step.description}</p>
           </div>
@@ -538,7 +535,7 @@ function IncidentResponseSection({ isSpanish }: SectionProps) {
 
 function QuestionsSection({ isSpanish }: SectionProps) {
   return (
-    <section className="rounded-xl border-2 border-orange-500 bg-orange-50 p-8">
+    <section className="border-2 border-orange-500 bg-orange-50 p-8">
       <h2 className="mb-4 font-bold text-2xl text-neutral-900">
         {isSpanish ? "¿Tiene Preguntas?" : "Have Questions?"}
       </h2>

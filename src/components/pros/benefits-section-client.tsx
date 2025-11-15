@@ -77,9 +77,9 @@ export function ProsBenefitsSection() {
         <motion.div
           className="mb-16 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
             Why professionals choose Casaora
@@ -93,24 +93,24 @@ export function ProsBenefitsSection() {
         <motion.div
           className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
+          viewport={{ once: true, margin: "-100px" }}
+          whileInView="visible"
         >
           {benefits.map((benefit) => {
             const Icon = benefit.icon;
             return (
               <motion.div
-                className="flex flex-col items-start gap-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
+                className="flex flex-col items-start gap-4 border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 key={benefit.title}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 variants={fadeInUp}
                 whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 <motion.div
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100"
-                  whileHover={{ scale: 1.15, rotate: 10 }}
+                  className="flex h-12 w-12 items-center justify-center bg-orange-100"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  whileHover={{ scale: 1.15, rotate: 10 }}
                 >
                   <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Icon} />
                 </motion.div>

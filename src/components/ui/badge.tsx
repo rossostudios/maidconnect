@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2",
+  "inline-flex items-center gap-1.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2",
   {
     variants: {
       variant: {
@@ -72,12 +72,7 @@ export interface BadgeProps
 function Badge({ className, variant, size, icon, dot, dotColor, children, ...props }: BadgeProps) {
   return (
     <div className={cn(badgeVariants({ variant, size }), className)} {...props}>
-      {dot && (
-        <span
-          aria-hidden="true"
-          className={cn("h-1.5 w-1.5 rounded-full", dotColor || "bg-current")}
-        />
-      )}
+      {dot && <span aria-hidden="true" className={cn("h-1.5 w-1.5", dotColor || "bg-current")} />}
       {icon && (
         <HugeiconsIcon
           className={cn(

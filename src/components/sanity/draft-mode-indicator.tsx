@@ -16,11 +16,11 @@ export function DraftModeIndicator() {
   return (
     <div className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between bg-[neutral-500] px-4 py-2 text-[neutral-50] shadow-lg">
       <div className="flex items-center gap-2">
-        <div className="h-2 w-2 animate-pulse rounded-full bg-[neutral-50]" />
+        <div className="h-2 w-2 animate-pulse bg-[neutral-50]" />
         <span className="font-medium text-sm">Draft Mode Active - Viewing unpublished content</span>
       </div>
       <button
-        className="flex items-center gap-2 rounded-md bg-[neutral-50]/20 px-3 py-1 text-sm transition-colors hover:bg-[neutral-50]/30"
+        className="flex items-center gap-2 bg-[neutral-50]/20 px-3 py-1 text-sm transition-colors hover:bg-[neutral-50]/30"
         onClick={exitDraftMode}
         type="button"
       >

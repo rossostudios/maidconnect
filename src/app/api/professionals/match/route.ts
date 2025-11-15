@@ -8,13 +8,13 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import {
-  parseMatchingCriteria,
-  criteriaToFilters,
-  calculateMatchScore,
-} from "@/lib/services/matching/smart-matching-service";
-import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { z } from "zod";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import {
+  calculateMatchScore,
+  criteriaToFilters,
+  parseMatchingCriteria,
+} from "@/lib/services/matching/smart-matching-service";
 
 const requestSchema = z.object({
   query: z.string().min(1).describe("Natural language requirements"),

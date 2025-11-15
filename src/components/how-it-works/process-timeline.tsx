@@ -53,15 +53,15 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
               {/* Step indicator */}
               <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
                 {/* Number badge */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500] font-bold text-[neutral-50] shadow-sm md:h-16 md:w-16 md:text-lg">
+                <div className="flex h-12 w-12 items-center justify-center bg-[neutral-500] font-bold text-[neutral-50] shadow-sm md:h-16 md:w-16 md:text-lg">
                   {index + 1}
                 </div>
               </div>
 
               {/* Content card */}
               <div className="flex-1 pb-8">
-                <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-xs transition hover:shadow-sm">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/10">
+                <div className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-xs transition hover:shadow-sm">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/10">
                     <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={icon} />
                   </div>
                   <h3 className="mb-2 font-semibold text-[neutral-900] text-xl">

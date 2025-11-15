@@ -93,7 +93,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           const mimeType = info.getValue()?.mimeType || "";
           const extension = mimeType.split("/")[1]?.toUpperCase() || "—";
           return (
-            <span className="inline-flex items-center rounded-full bg-[neutral-200] px-2.5 py-1 font-medium text-[neutral-900] text-xs">
+            <span className="inline-flex items-center bg-[neutral-200] px-2.5 py-1 font-medium text-[neutral-900] text-xs">
               {extension}
             </span>
           );
@@ -108,7 +108,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           }
           return (
             <a
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[neutral-200] px-3 py-1.5 font-semibold text-[neutral-500] text-sm transition hover:border-[neutral-500] hover:bg-[neutral-50]"
+              className="inline-flex items-center gap-1.5 border border-[neutral-200] px-3 py-1.5 font-semibold text-[neutral-500] text-sm transition hover:border-[neutral-500] hover:bg-[neutral-50]"
               href={url}
               rel="noopener noreferrer"
               target="_blank"
@@ -162,7 +162,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-200]">
+            <div className="flex h-12 w-12 items-center justify-center bg-[neutral-200]">
               <svg
                 aria-hidden="true"
                 className="h-6 w-6 text-[neutral-400]"
@@ -194,7 +194,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
           <input
-            className="w-full rounded-lg border border-[neutral-200] px-4 py-2 pl-10 text-[neutral-900] text-sm placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
+            className="w-full border border-[neutral-200] px-4 py-2 pl-10 text-[neutral-900] text-sm placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
             onChange={(e) => table.getColumn("document_type")?.setFilterValue(e.target.value)}
             placeholder="Search documents..."
             type="text"
@@ -222,7 +222,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       </div>
 
       {/* Table - Horizontally scrollable on mobile */}
-      <div className="overflow-hidden rounded-lg border border-[neutral-200]">
+      <div className="overflow-hidden border border-[neutral-200]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead className="bg-[neutral-50]">
@@ -278,7 +278,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
+              className="border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -286,7 +286,7 @@ export function DocumentsTable({ documents, labels }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
+              className="border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

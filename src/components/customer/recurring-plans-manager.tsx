@@ -121,8 +121,8 @@ export function RecurringPlansManager({
 
       {/* Plans Grid */}
       {filteredPlans.length === 0 ? (
-        <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-[neutral-200]">
             <HugeiconsIcon className="h-8 w-8 text-[neutral-400]" icon={Calendar03Icon} />
           </div>
           <h3 className="font-semibold text-[neutral-900] text-xl">
@@ -244,18 +244,18 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
   const savingsPerBooking = plan.base_amount - plan.final_amount;
 
   return (
-    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
+    <div className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-6">
         {/* Professional Avatar */}
         <div className="flex-shrink-0">
           {plan.professional?.avatar_url ? (
             <img
               alt={plan.professional.full_name}
-              className="h-16 w-16 rounded-full object-cover"
+              className="h-16 w-16 object-cover"
               src={plan.professional.avatar_url}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500] font-bold text-[neutral-50] text-xl">
+            <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500] font-bold text-[neutral-50] text-xl">
               {plan.professional?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -273,7 +273,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
 
             {/* Status Badge */}
             <span
-              className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
+              className={`inline-flex px-3 py-1 font-semibold text-xs ${
                 plan.status === "active"
                   ? "bg-[neutral-500]/10 text-[neutral-500]"
                   : plan.status === "paused"
@@ -312,7 +312,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[neutral-500]/10 font-bold text-[neutral-500] text-xs">
+              <div className="flex h-5 w-5 items-center justify-center bg-[neutral-500]/10 font-bold text-[neutral-500] text-xs">
                 $
               </div>
               <div>
@@ -346,7 +346,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
           </div>
 
           {/* Stats */}
-          <div className="mb-4 rounded-lg bg-[neutral-50] p-4">
+          <div className="mb-4 bg-[neutral-50] p-4">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-[neutral-400] text-xs">Next booking</p>
@@ -380,7 +380,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "active" && (
           <>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={() => setShowPauseModal(true)}
             >
@@ -388,7 +388,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               Pause Plan
             </button>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -401,14 +401,14 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "paused" && (
           <>
             <button
-              className="flex-1 rounded-lg bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleResume}
             >
               {isProcessing ? "Processing..." : "Resume Plan"}
             </button>
             <button
-              className="flex-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -421,20 +421,20 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
       {/* Pause Modal (simplified - would typically be a proper modal component) */}
       {showPauseModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[neutral-900]/50">
-          <div className="mx-4 w-full max-w-md rounded-2xl bg-[neutral-50] p-6">
+          <div className="mx-4 w-full max-w-md bg-[neutral-50] p-6">
             <h3 className="mb-4 font-bold text-xl">Pause Recurring Plan</h3>
             <p className="mb-6 text-[neutral-400]">
               Your plan will be paused for 30 days. You won't be charged during this time.
             </p>
             <div className="flex gap-3">
               <button
-                className="flex-1 rounded-lg border-2 border-[neutral-200] px-4 py-2 font-semibold"
+                className="flex-1 border-2 border-[neutral-200] px-4 py-2 font-semibold"
                 onClick={() => setShowPauseModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="flex-1 rounded-lg bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] disabled:opacity-50"
+                className="flex-1 bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] disabled:opacity-50"
                 disabled={isProcessing}
                 onClick={handlePause}
               >

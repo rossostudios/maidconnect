@@ -17,7 +17,7 @@ export default async function AdminRoadmapContentPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="rounded-[20px] border-2 border-neutral-200 bg-neutral-50 p-6">
+      <div className="border-2 border-neutral-200 bg-neutral-50 p-6">
         <h1 className="mb-2 font-bold text-2xl text-neutral-900">Roadmap Content</h1>
         <p className="text-neutral-500">
           Manage upcoming features, improvements, and product plans. Show users what's coming next.

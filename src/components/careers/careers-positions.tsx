@@ -45,7 +45,7 @@ export async function CareersPositions() {
 
                     return (
                       <div
-                        className="flex flex-col gap-4 rounded-[20px] border border-[neutral-200] bg-[neutral-50] p-6 transition hover:border-[neutral-200] hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] sm:flex-row sm:items-center sm:justify-between"
+                        className="flex flex-col gap-4 border border-[neutral-200] bg-[neutral-50] p-6 transition hover:border-[neutral-200] hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] sm:flex-row sm:items-center sm:justify-between"
                         key={jobKey}
                       >
                         {/* Job Info */}
@@ -111,7 +111,7 @@ export async function CareersPositions() {
         </div>
 
         {/* No perfect match CTA */}
-        <div className="mt-16 rounded-[28px] bg-[neutral-50] p-8 text-center sm:p-12">
+        <div className="mt-16 bg-[neutral-50] p-8 text-center sm:p-12">
           <h3 className="font-semibold text-2xl text-[neutral-900] sm:text-3xl">
             Don't see a perfect match?
           </h3>

@@ -43,7 +43,7 @@ export function BundleManager({
   });
 
   return (
-    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+    <div className="border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -52,7 +52,7 @@ export function BundleManager({
         </div>
 
         <button
-          className="flex items-center gap-2 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="flex items-center gap-2 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={onCreateBundle}
           type="button"
         >
@@ -67,7 +67,7 @@ export function BundleManager({
       {/* Filters */}
       <div className="mb-6 flex gap-2">
         <button
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             filter === "all"
               ? "bg-[neutral-500] font-semibold text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
@@ -78,7 +78,7 @@ export function BundleManager({
           {t("all")} ({bundles.length})
         </button>
         <button
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             filter === "active"
               ? "bg-[neutral-500] font-semibold text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
@@ -89,7 +89,7 @@ export function BundleManager({
           {t("active")} ({bundles.filter((b) => b.isActive).length})
         </button>
         <button
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             filter === "inactive"
               ? "bg-[neutral-500] font-semibold text-[neutral-50]"
               : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
@@ -115,12 +115,12 @@ export function BundleManager({
           ))}
         </div>
       ) : (
-        <div className="rounded-xl bg-[neutral-50] py-12 text-center">
+        <div className="bg-[neutral-50] py-12 text-center">
           <HugeiconsIcon className="mx-auto mb-3 h-12 w-12 text-[neutral-200]" icon={PackageIcon} />
           <p className="mb-2 font-semibold text-[neutral-900] text-lg">{t("noBundles")}</p>
           <p className="mb-4 text-[neutral-400] text-sm">{t("noBundlesDescription")}</p>
           <button
-            className="rounded-xl bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+            className="bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={onCreateBundle}
             type="button"
           >
@@ -130,7 +130,7 @@ export function BundleManager({
       )}
 
       {/* Help Text */}
-      <div className="mt-6 rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
+      <div className="mt-6 bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
         <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
       </div>

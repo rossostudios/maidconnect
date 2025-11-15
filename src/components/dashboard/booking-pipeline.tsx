@@ -217,10 +217,10 @@ export function BookingPipeline() {
       <div className="space-y-8">
         {/* Tabs & Filter skeleton */}
         <div className="flex items-center justify-between">
-          <div className="h-10 w-96 animate-pulse rounded-lg bg-neutral-100 will-change-[opacity]" />
+          <div className="h-10 w-96 animate-pulse bg-neutral-100 will-change-[opacity]" />
           <div className="flex items-center gap-3">
             <div className="h-4 w-4 animate-pulse rounded bg-neutral-100 will-change-[opacity]" />
-            <div className="h-10 w-40 animate-pulse rounded-lg bg-neutral-100 will-change-[opacity]" />
+            <div className="h-10 w-40 animate-pulse bg-neutral-100 will-change-[opacity]" />
           </div>
         </div>
 
@@ -228,11 +228,11 @@ export function BookingPipeline() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           {[1, 2, 3, 4, 5].map((i) => (
             <div
-              className="animate-pulse rounded-xl border border-neutral-200 bg-white p-8 will-change-[opacity]"
+              className="animate-pulse border border-neutral-200 bg-white p-8 will-change-[opacity]"
               key={i}
             >
               <div className="mb-6 flex items-center gap-3">
-                <div className="h-12 w-12 animate-pulse rounded-xl bg-neutral-100 will-change-[opacity]" />
+                <div className="h-12 w-12 animate-pulse bg-neutral-100 will-change-[opacity]" />
                 <div className="h-3 w-16 animate-pulse rounded bg-neutral-100 will-change-[opacity]" />
               </div>
               <div className="mb-2 h-10 w-16 animate-pulse rounded bg-neutral-100 will-change-[opacity]" />
@@ -245,7 +245,7 @@ export function BookingPipeline() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {[1, 2].map((i) => (
             <div
-              className="h-[380px] animate-pulse rounded-xl border border-neutral-200 bg-white p-6 will-change-[opacity]"
+              className="h-[380px] animate-pulse border border-neutral-200 bg-white p-6 will-change-[opacity]"
               key={i}
             >
               <div className="mb-6 h-16 w-full animate-pulse rounded bg-neutral-100 will-change-[opacity]" />
@@ -299,10 +299,7 @@ export function BookingPipeline() {
                 >
                   <CardContent className="p-4">
                     <div className="mb-4 flex flex-col gap-3">
-                      <div
-                        className="w-fit rounded-lg p-2.5"
-                        style={{ backgroundColor: stage.bgColor }}
-                      >
+                      <div className="w-fit p-2.5" style={{ backgroundColor: stage.bgColor }}>
                         <HugeiconsIcon className={cn("h-5 w-5", stage.color)} icon={stage.icon} />
                       </div>
                       <p className="font-semibold text-[10px] text-neutral-500 uppercase leading-tight tracking-wider">
@@ -335,14 +332,14 @@ export function BookingPipeline() {
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Maximize chart"
-                    className="rounded-lg bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
+                    className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Expand chart view - Feature coming soon!")}
                   >
                     <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
                   </button>
                   <button
                     aria-label="More options"
-                    className="rounded-lg bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
+                    className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Export data, Refresh, Settings - Coming soon!")}
                   >
                     <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={MoreVerticalIcon} />
@@ -385,7 +382,7 @@ export function BookingPipeline() {
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Maximize metrics"
-                    className="rounded-lg bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
+                    className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Expand metrics view - Feature coming soon!")}
                   >
                     <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
@@ -404,9 +401,9 @@ export function BookingPipeline() {
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-neutral-100">
+                    <div className="h-3 w-full bg-neutral-100">
                       <div
-                        className="h-3 rounded-full bg-neutral-600 transition-all"
+                        className="h-3 bg-neutral-600 transition-all"
                         style={{
                           width:
                             totalActive > 0
@@ -427,9 +424,9 @@ export function BookingPipeline() {
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-neutral-100">
+                    <div className="h-3 w-full bg-neutral-100">
                       <div
-                        className="h-3 rounded-full bg-neutral-400 transition-all"
+                        className="h-3 bg-neutral-400 transition-all"
                         style={{
                           width:
                             totalActive > 0
@@ -450,9 +447,9 @@ export function BookingPipeline() {
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-neutral-100">
+                    <div className="h-3 w-full bg-neutral-100">
                       <div
-                        className="h-3 rounded-full bg-neutral-500 transition-all"
+                        className="h-3 bg-neutral-500 transition-all"
                         style={{
                           width:
                             totalActive > 0

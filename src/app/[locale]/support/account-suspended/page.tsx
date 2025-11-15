@@ -12,13 +12,13 @@ export default function AccountSuspendedPage() {
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link
-            className="rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[var(--red)] hover:bg-neutral-900"
+            className="border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[var(--red)] hover:bg-neutral-900"
             href="mailto:support@casaora.com"
           >
             Email support
           </Link>
           <Link
-            className="rounded-full border border-[var(--foreground)] px-5 py-2 font-semibold text-neutral-900 text-sm transition hover:border-[var(--red)]"
+            className="border border-[var(--foreground)] px-5 py-2 font-semibold text-neutral-900 text-sm transition hover:border-[var(--red)]"
             href={AUTH_ROUTES.signOut}
           >
             Return to home

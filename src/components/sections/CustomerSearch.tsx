@@ -31,7 +31,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
         </div>
 
         {featuredProfessionals.length === 0 ? (
-          <Card className="rounded-3xl border-neutral-200 bg-neutral-50">
+          <Card className="border-neutral-200 bg-neutral-50">
             <CardContent className="p-10 text-center text-neutral-600 text-sm">
               We&apos;ll showcase new professionals here as they complete onboarding. In the
               meantime, explore the full directory to see who&apos;s available.
@@ -42,8 +42,8 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
             {featuredProfessionals.map((professional) => (
               <Card
                 className={cn(
-                  "flex h-full flex-col overflow-hidden rounded-3xl border-neutral-200 bg-white shadow-sm transition-all duration-300",
-                  "hover:-tranneutral-y-1 hover:border-neutral-400 hover:shadow-lg"
+                  "flex h-full flex-col overflow-hidden border-neutral-200 bg-white shadow-sm transition-all duration-300",
+                  "hover:-translate-y-1 hover:border-neutral-400 hover:shadow-lg"
                 )}
                 key={professional.id}
               >
@@ -63,12 +63,12 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 font-semibold text-neutral-600 text-xs">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-neutral-900 px-3 py-1 text-white">
+                    <span className="inline-flex items-center gap-1 bg-neutral-900 px-3 py-1 text-white">
                       <HugeiconsIcon className="h-3.5 w-3.5 text-white" icon={StarIcon} />
                       New to Casaora
                     </span>
                     {professional.languages.length > 0 ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-neutral-100 px-3 py-1">
+                      <span className="inline-flex items-center gap-1 bg-neutral-100 px-3 py-1">
                         {professional.languages.join(" / ")}
                       </span>
                     ) : null}
@@ -96,7 +96,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
           </div>
         )}
 
-        <Card className="rounded-3xl border-neutral-200 bg-neutral-50/90">
+        <Card className="border-neutral-200 bg-neutral-50/90">
           <CardContent className="flex flex-col gap-4 p-6 text-neutral-600 text-sm sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-semibold text-neutral-900">Ready to explore more?</p>

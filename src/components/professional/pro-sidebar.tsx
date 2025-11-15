@@ -115,7 +115,7 @@ export function ProSidebar({
         )}
         <button
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="rounded-lg p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
+          className="p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
           onClick={onClose || handleToggle}
           type="button"
         >
@@ -146,7 +146,7 @@ export function ProSidebar({
 
                 return (
                   <Link
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
+                    className={`flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all ${
                       active
                         ? "bg-[neutral-50] text-[neutral-500]"
                         : "text-[neutral-400] hover:bg-[neutral-50] hover:text-[neutral-900]"
@@ -161,14 +161,14 @@ export function ProSidebar({
                       <>
                         <span className="flex-1">{item.label}</span>
                         {showBadge && (
-                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[neutral-500] px-1.5 font-semibold text-[neutral-50] text-xs">
+                          <span className="flex h-5 min-w-[20px] items-center justify-center bg-[neutral-500] px-1.5 font-semibold text-[neutral-50] text-xs">
                             {pendingLeadsCount > 99 ? "99+" : pendingLeadsCount}
                           </span>
                         )}
                       </>
                     )}
                     {isCollapsed && showBadge && (
-                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[neutral-500]" />
+                      <span className="absolute top-1 right-1 h-2 w-2 bg-[neutral-500]" />
                     )}
                   </Link>
                 );

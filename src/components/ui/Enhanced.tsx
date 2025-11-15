@@ -75,7 +75,7 @@ export function DataTableEnhanced<T extends Record<string, any>>({
   // Loading state
   if (isLoading) {
     return (
-      <div className="overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50]">
+      <div className="overflow-hidden border border-[neutral-200] bg-[neutral-50]">
         <div className="space-y-3 p-8">
           {[...new Array(5)].map((_, i) => (
             <div className="flex animate-pulse gap-4" key={i}>
@@ -92,19 +92,14 @@ export function DataTableEnhanced<T extends Record<string, any>>({
   // Empty state
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-12 text-center">
         <p className="text-[neutral-400] text-base">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50]",
-        className
-      )}
-    >
+    <div className={cn("overflow-hidden border border-[neutral-200] bg-[neutral-50]", className)}>
       <div className="overflow-x-auto">
         <table className="w-full">
           {caption && <caption className="sr-only">{caption}</caption>}
@@ -199,7 +194,7 @@ export function TableActionButton({
   return (
     <button
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-medium text-sm transition-all",
+        "inline-flex items-center gap-1.5 px-3 py-1.5 font-medium text-sm transition-all",
         variant === "default" &&
           "border border-[neutral-200] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]",
         variant === "danger" &&

@@ -90,13 +90,13 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
     >
       {/* Header Icon */}
       <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500]/10">
+        <div className="flex h-12 w-12 items-center justify-center bg-[neutral-500]/10">
           <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={RefreshIcon} />
         </div>
       </div>
 
       {/* Pre-filled Details */}
-      <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
+      <div className="border border-[neutral-200] bg-[neutral-50] p-4">
         <h3 className="mb-3 font-semibold text-[neutral-900] text-sm">Service Details</h3>
         <div className="space-y-2 text-sm">
           <p>
@@ -137,7 +137,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
           When would you like to schedule?
         </label>
         <input
-          className="w-full rounded-xl border border-[neutral-200] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
+          className="w-full border border-[neutral-200] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
           id="rebook-schedule"
           min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => handleStartTimeChange(e.target.value)}
@@ -149,7 +149,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Error Message */}
       {form.error && (
-        <div className="rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-[neutral-500] text-sm">
+        <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-[neutral-500] text-sm">
           {form.error}
         </div>
       )}

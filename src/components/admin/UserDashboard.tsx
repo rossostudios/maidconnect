@@ -101,7 +101,7 @@ export function UserManagementDashboard() {
         {/* Search Bar */}
         <div className="relative">
           <HugeiconsIcon
-            className="-tranneutral-y-1/2 absolute top-1/2 left-4 h-5 w-5 text-[#A3A3A3]"
+            className="-translate-y-1/2 absolute top-1/2 left-4 h-5 w-5 text-[#A3A3A3]"
             icon={Search01Icon}
           />
           <input

@@ -89,7 +89,7 @@ export function PayoutDashboard() {
         <CardContent className="p-8 text-center">
           <p className="text-red-600 text-sm">{error}</p>
           <button
-            className="mt-4 rounded-lg bg-neutral-900 px-4 py-2 font-semibold text-sm text-white hover:bg-neutral-800"
+            className="mt-4 bg-neutral-900 px-4 py-2 font-semibold text-sm text-white hover:bg-neutral-800"
             onClick={fetchPayoutData}
             type="button"
           >
@@ -221,7 +221,7 @@ export function PayoutDashboard() {
           <CardContent className="space-y-3 p-6 pt-0">
             {recentPayouts.map((payout) => (
               <div
-                className="flex items-center justify-between rounded-lg border border-neutral-200 p-4"
+                className="flex items-center justify-between border border-neutral-200 p-4"
                 key={payout.id}
               >
                 <div className="flex-1">

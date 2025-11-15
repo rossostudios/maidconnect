@@ -1,11 +1,11 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect } from "react";
-import { Link } from "@/i18n/routing";
-import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { Link } from "@/i18n/routing";
+import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
 /**
  * AnnouncementBanner - Lia Design System
@@ -48,7 +48,7 @@ export function AnnouncementBanner() {
       {isVisible && (
         <motion.div
           animate={{ y: 0, opacity: 1 }}
-          className="relative overflow-hidden border-neutral-200 border-b bg-gradient-to-b from-orange-50/40 via-neutral-50/60 to-white/80 backdrop-blur-sm"
+          className="relative overflow-hidden border-neutral-200 border-b bg-gradient-to-b from-orange-50/40 via-neutral-50/60 to-white/80"
           exit={{ y: -100, opacity: 0 }}
           initial={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -72,25 +72,23 @@ export function AnnouncementBanner() {
                 transition={{ delay: 0.3, duration: 0.5 }}
               >
                 {/* Badge */}
-                <span className="hidden rounded-full bg-orange-500/10 px-2.5 py-0.5 font-medium text-orange-600 text-xs uppercase tracking-wider sm:inline-block">
+                <span className="hidden flex-shrink-0 bg-orange-500/10 px-2.5 py-1 font-medium text-orange-600 text-xs uppercase tracking-wider sm:inline-flex sm:items-center">
                   New
                 </span>
 
                 {/* Message */}
-                <p className="font-[family-name:var(--font-family-manrope)] text-neutral-700 text-sm leading-tight sm:text-base">
+                <p className="flex-shrink-0 font-[family-name:var(--font-family-manrope)] text-neutral-700 text-sm sm:text-base">
                   <strong className="font-semibold text-neutral-900">New to Colombia?</strong>{" "}
                   <span className="hidden sm:inline">
-                    Try our Concierge service — English-speaking coordinator, curated matches in
-                    5 days.
+                    Try our Concierge service — English-speaking coordinator, curated matches in 5
+                    days.
                   </span>
-                  <span className="sm:hidden">
-                    Try our Concierge — curated matches in 5 days.
-                  </span>
+                  <span className="sm:hidden">Try our Concierge — curated matches in 5 days.</span>
                 </p>
 
                 {/* CTA Link */}
                 <Link
-                  className="group relative inline-flex items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700 sm:text-base"
+                  className="group relative inline-flex flex-shrink-0 items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700 sm:text-base"
                   href="/concierge"
                   onClick={() =>
                     conversionTracking.heroCTAClicked({
@@ -109,11 +107,15 @@ export function AnnouncementBanner() {
                     strokeWidth={2.5}
                     viewBox="0 0 24 24"
                   >
-                    <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
 
                   {/* Hover underline */}
-                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-orange-600 transition-all duration-300 group-hover:w-[calc(100%-1.25rem)]" />
+                  <span className="-bottom-0.5 absolute left-0 h-px w-0 bg-orange-600 transition-all duration-300 group-hover:w-[calc(100%-1.25rem)]" />
                 </Link>
               </motion.div>
 
@@ -121,16 +123,19 @@ export function AnnouncementBanner() {
               <motion.button
                 animate={{ opacity: 1, scale: 1 }}
                 aria-label="Dismiss announcement"
-                className="group relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-neutral-500 transition-all hover:bg-neutral-100 hover:text-neutral-900"
+                className="group relative flex h-8 w-8 flex-shrink-0 items-center justify-center text-neutral-500 transition-all hover:bg-neutral-100 hover:text-neutral-900"
                 initial={{ opacity: 0, scale: 0.8 }}
                 onClick={handleDismiss}
                 transition={{ delay: 0.4, duration: 0.3 }}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 transition-transform group-hover:rotate-90" icon={Cancel01Icon} />
+                <HugeiconsIcon
+                  className="h-4 w-4 transition-transform group-hover:rotate-90"
+                  icon={Cancel01Icon}
+                />
 
                 {/* Ripple effect on hover */}
-                <span className="absolute inset-0 scale-0 rounded-full bg-neutral-900/5 transition-transform duration-500 group-hover:scale-100" />
+                <span className="absolute inset-0 scale-0 bg-neutral-900/5 transition-transform duration-500 group-hover:scale-100" />
               </motion.button>
             </div>
           </div>

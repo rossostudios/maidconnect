@@ -102,7 +102,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -111,7 +111,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
           </button>
           {policy?.canCancel && (
             <button
-              className="flex-1 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={form.isSubmitting}
               onClick={handleCancel}
               type="button"
@@ -140,7 +140,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Cancellation Policy Info */}
       {policy && (
         <div
-          className={`mt-6 rounded-2xl border p-6 ${
+          className={`mt-6 border p-6 ${
             policy.canCancel
               ? "border-[neutral-500]/30 bg-[neutral-500]/5"
               : "border-[neutral-500]/30 bg-[neutral-500]/10"
@@ -184,7 +184,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
             {t("form.reasonLabel")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+            className="w-full border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="reason"
             onChange={(e) => form.updateField("reason", e.target.value)}
             placeholder={t("form.reasonPlaceholder")}
@@ -197,7 +197,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Message */}
       {form.message && (
         <div
-          className={`mt-6 rounded-2xl p-4 text-base ${
+          className={`mt-6 p-4 text-base ${
             form.success
               ? "bg-[neutral-500]/10 text-[neutral-500]"
               : "bg-[neutral-500]/10 text-[neutral-500]"

@@ -385,13 +385,13 @@ export function InterviewCalendar() {
                             </div>
                             <div className="flex gap-2">
                               <span
-                                className={`rounded-full px-3 py-1 font-semibold text-sm ${getStatusBadge(interview.status)}`}
+                                className={`px-3 py-1 font-semibold text-sm ${getStatusBadge(interview.status)}`}
                               >
                                 {interview.status.replace("_", " ")}
                               </span>
                               {isUpcoming(interview.scheduled_at) &&
                                 interview.status === "scheduled" && (
-                                  <span className="rounded-full bg-neutral-900 px-3 py-1 font-semibold text-red-700 text-sm dark:bg-neutral-100/10 dark:text-red-200">
+                                  <span className="bg-neutral-900 px-3 py-1 font-semibold text-red-700 text-sm dark:bg-neutral-100/10 dark:text-red-200">
                                     Upcoming
                                   </span>
                                 )}

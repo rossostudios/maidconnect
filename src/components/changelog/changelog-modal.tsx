@@ -106,7 +106,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full bg-[neutral-500]/20 px-3 py-1 font-semibold text-[neutral-500] text-sm">
+          <span className="bg-[neutral-500]/20 px-3 py-1 font-semibold text-[neutral-500] text-sm">
             Sprint {changelog.sprint_number}
           </span>
           <span className="text-[neutral-400] text-sm">{formattedDate}</span>
@@ -130,7 +130,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
 
             return (
               <span
-                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-sm ${config.color}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 font-medium text-sm ${config.color}`}
                 key={category}
               >
                 <HugeiconsIcon className="h-4 w-4" icon={Icon} />
@@ -143,7 +143,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
 
       {/* Featured Image */}
       {changelog.featured_image_url && (
-        <div className="mb-6 overflow-hidden rounded-2xl">
+        <div className="mb-6 overflow-hidden">
           <Image
             alt={changelog.title}
             className="h-auto w-full object-cover"
@@ -165,14 +165,14 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Actions */}
       <div className="mt-8 flex flex-col gap-3 border-[neutral-200] border-t pt-6 sm:flex-row">
         <button
-          className="flex-1 rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={() => router.push("/changelog")}
           type="button"
         >
           {t("viewAllUpdates")}
         </button>
         <button
-          className="flex-1 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex-1 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={markAsReadMutation.isLoading}
           onClick={handleMarkAsRead}
           type="button"

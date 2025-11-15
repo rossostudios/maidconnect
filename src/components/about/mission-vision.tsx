@@ -58,8 +58,8 @@ export function MissionVision() {
         {/* Mission & Vision Cards */}
         <div className="mb-16 grid gap-8 lg:grid-cols-2">
           {/* Mission Card */}
-          <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[neutral-500]/100/10">
+          <div className="border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
               <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={Target01Icon} />
             </div>
             <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[neutral-900] tracking-wide">
@@ -69,8 +69,8 @@ export function MissionVision() {
           </div>
 
           {/* Vision Card */}
-          <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[neutral-500]/100/10">
+          <div className="border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center bg-[neutral-500]/100/10">
               <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={CompassIcon} />
             </div>
             <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[neutral-900] tracking-wide">
@@ -81,7 +81,7 @@ export function MissionVision() {
         </div>
 
         {/* Core Values */}
-        <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm sm:p-12">
+        <div className="border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm sm:p-12">
           <div className="mb-8 text-center">
             <h3 className="mb-3 font-semibold text-2xl text-[neutral-900]">{t("values.title")}</h3>
             <p className="text-[neutral-400]">{t("values.subtitle")}</p>
@@ -90,7 +90,7 @@ export function MissionVision() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((value, index) => (
               <div className="text-center" key={index}>
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[neutral-500]/100/10">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[neutral-500]/100/10">
                   <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={value.icon} />
                 </div>
                 <h4 className="mb-2 font-semibold text-[neutral-900]">{t(value.titleKey)}</h4>

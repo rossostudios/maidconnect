@@ -65,7 +65,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
               <div className="mb-6 text-center">
                 <div
                   className={cn(
-                    "mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full",
+                    "mb-4 inline-flex h-16 w-16 items-center justify-center",
                     isPopular ? "bg-orange-100" : "bg-neutral-100"
                   )}
                 >
@@ -83,7 +83,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
               </div>
 
               {/* Commission */}
-              <div className="mb-8 rounded-xl bg-neutral-50 py-6 text-center">
+              <div className="mb-8 bg-neutral-50 py-6 text-center">
                 <div className="mb-1 font-semibold text-[14px] text-neutral-600 uppercase leading-[24px] tracking-wider">
                   {t("platformFee")}
                 </div>
@@ -111,7 +111,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
               {/* CTA */}
               <a
                 className={cn(
-                  "block w-full rounded-full py-4 text-center font-semibold transition-all duration-200",
+                  "block w-full py-4 text-center font-semibold transition-all duration-200",
                   isPopular
                     ? "bg-orange-500 text-white shadow-md hover:bg-orange-600 hover:shadow-lg"
                     : "border-2 border-neutral-200 text-neutral-900 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
@@ -122,7 +122,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
               </a>
 
               {/* Best For */}
-              <div className="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+              <div className="mt-6 border border-neutral-200 bg-neutral-50 p-4">
                 <p className="text-[14px] text-neutral-700 leading-[20px]">
                   <span className="font-semibold text-neutral-900">{t("bestFor")}</span>{" "}
                   {t(`${service.type}.bestFor`)}

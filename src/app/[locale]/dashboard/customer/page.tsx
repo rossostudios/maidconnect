@@ -160,13 +160,13 @@ export default async function CustomerDashboardPage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-neutral-200 object-cover"
+                  className="h-12 w-12 border-2 border-neutral-200 object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-neutral-200 bg-orange-50">
+                <div className="flex h-12 w-12 items-center justify-center border-2 border-neutral-200 bg-orange-50">
                   <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={UserCircleIcon} />
                 </div>
               )}
@@ -234,7 +234,7 @@ export default async function CustomerDashboardPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {completedBookingsList.map((booking) => (
               <div
-                className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:shadow-md"
+                className="group border border-neutral-200 bg-white p-6 transition hover:shadow-md"
                 key={booking.id}
               >
                 <div className="mb-4">
@@ -263,7 +263,7 @@ export default async function CustomerDashboardPage() {
           <h2 className="mb-2 font-bold text-2xl text-neutral-900">Favorite Professionals</h2>
           <p className="text-neutral-600 text-sm">Your trusted service providers</p>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-6">
+        <div className="border border-neutral-200 bg-white p-6">
           <Suspense fallback={<FavoritesListSkeleton />}>
             <FavoritesList />
           </Suspense>
@@ -280,7 +280,7 @@ export default async function CustomerDashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Book a Professional */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/professionals"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -294,7 +294,7 @@ export default async function CustomerDashboardPage() {
 
           {/* View All Bookings */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -308,7 +308,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Manage Addresses */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/addresses"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -320,7 +320,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Manage Payments */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/payments"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -334,7 +334,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Favorites */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/favorites"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -346,7 +346,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Settings */}
           <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/settings"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -381,11 +381,9 @@ function MetricCard({
   };
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-6 transition hover:shadow-md">
+    <div className="border border-neutral-200 bg-white p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
-        <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
-        >
+        <div className={`flex h-10 w-10 items-center justify-center ${colorClasses[color]}`}>
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>

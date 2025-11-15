@@ -47,12 +47,12 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
   return (
     <form
       className={cn(
-        "relative mx-auto max-w-7xl overflow-visible rounded-[32px] bg-neutral-50 shadow-[0_20px_70px_rgba(22,22,22,0.3)] backdrop-blur-sm",
+        "relative mx-auto max-w-7xl overflow-visible bg-neutral-50 shadow-[0_20px_70px_rgba(22,22,22,0.3)]",
         className
       )}
       onSubmit={handleSearch}
     >
-      <div className="grid overflow-visible rounded-[32px] md:grid-cols-[minmax(220px,1fr)_minmax(220px,1fr)_minmax(280px,1.3fr)_auto]">
+      <div className="grid overflow-visible md:grid-cols-[minmax(220px,1fr)_minmax(220px,1fr)_minmax(280px,1.3fr)_auto]">
         {/* Location Input */}
         <div className="group relative flex items-center px-8 py-6">
           <div className="flex-1">
@@ -75,7 +75,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
               </Select>
             </div>
           </div>
-          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
+          <span className="-translate-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Date Input */}
@@ -88,7 +88,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
               <BrandedDatePicker onChange={setDate} placeholder={t("selectDate")} value={date} />
             </div>
           </div>
-          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
+          <span className="-translate-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Service Type */}
@@ -113,12 +113,12 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
               </Select>
             </div>
           </div>
-          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
+          <span className="-translate-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Search Button */}
         <Button
-          className="rounded-r-[32px] bg-neutral-500 px-12 py-6 font-semibold text-neutral-50 text-sm uppercase tracking-[0.15em] hover:bg-neutral-500 active:scale-[0.98] md:min-w-[180px]"
+          className="bg-neutral-500 px-12 py-6 font-semibold text-neutral-50 text-sm uppercase tracking-[0.15em] [32px] hover:bg-neutral-500 active:scale-[0.98] md:min-w-[180px]"
           type="submit"
         >
           {t("searchButton")}

@@ -65,21 +65,21 @@ export const WithActions: Story = {
     actions: (
       <>
         <button
-          className="inline-flex items-center gap-2 rounded-md border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
+          className="inline-flex items-center gap-2 border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
           type="button"
         >
           <span>📅</span>
           <span>1 Oct - 30 Oct, 2025</span>
         </button>
         <button
-          className="inline-flex items-center gap-2 rounded-md border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
+          className="inline-flex items-center gap-2 border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
           type="button"
         >
           <span>🔍</span>
           <span>Filter</span>
         </button>
         <button
-          className="rounded-md bg-midnight px-4 py-2 font-semibold text-sm text-white hover:bg-midnight/90"
+          className="bg-midnight px-4 py-2 font-semibold text-sm text-white hover:bg-midnight/90"
           type="button"
         >
           Download
@@ -114,7 +114,7 @@ export const ProfessionalDashboard: Story = {
           3 Pending
         </Badge>
         <button
-          className="rounded-md bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
+          className="bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
           type="button"
         >
           View Schedule
@@ -134,7 +134,7 @@ export const CustomerDashboard: Story = {
     stats: "2 upcoming bookings this week",
     actions: (
       <button
-        className="rounded-md bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
+        className="bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
         type="button"
       >
         Book Now
@@ -155,14 +155,14 @@ export const AdminDashboard: Story = {
       <div className="flex items-center gap-3">
         <Badge variant="danger">3 Urgent</Badge>
         <button
-          className="inline-flex items-center gap-2 rounded-md border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
+          className="inline-flex items-center gap-2 border border-grey bg-white px-4 py-2 font-medium text-midnight text-sm hover:bg-silver"
           type="button"
         >
           <span>⚙️</span>
           <span>Settings</span>
         </button>
         <button
-          className="rounded-md bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
+          className="bg-orange px-4 py-2 font-semibold text-sm text-white hover:bg-orange/90"
           type="button"
         >
           View All
@@ -203,13 +203,13 @@ export const MobileView: Story = {
     actions: (
       <>
         <button
-          className="inline-flex items-center gap-2 rounded-md border border-grey bg-white px-3 py-2 font-medium text-midnight text-sm hover:bg-silver"
+          className="inline-flex items-center gap-2 border border-grey bg-white px-3 py-2 font-medium text-midnight text-sm hover:bg-silver"
           type="button"
         >
           <span>🔍</span>
         </button>
         <button
-          className="rounded-md bg-midnight px-4 py-2 font-semibold text-sm text-white hover:bg-midnight/90"
+          className="bg-midnight px-4 py-2 font-semibold text-sm text-white hover:bg-midnight/90"
           type="button"
         >
           Download

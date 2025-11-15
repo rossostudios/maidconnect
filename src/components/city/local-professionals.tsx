@@ -47,7 +47,7 @@ export function LocalProfessionals({
     return (
       <section className={`bg-[neutral-50] py-16 ${className}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="rounded-3xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+          <div className="border border-[neutral-200] bg-[neutral-50] p-12 text-center">
             <p className="text-[neutral-400] text-lg">
               {t("professionals.empty", { city: cityName })}
             </p>
@@ -83,7 +83,7 @@ export function LocalProfessionals({
         {/* View All CTA */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[neutral-500] px-8 py-4 font-semibold text-[neutral-500] text-base transition hover:bg-[neutral-500] hover:text-[neutral-50]"
+            className="inline-flex items-center justify-center gap-2 border-2 border-[neutral-500] px-8 py-4 font-semibold text-[neutral-500] text-base transition hover:bg-[neutral-500] hover:text-[neutral-50]"
             href={`/professionals?city=${cityName.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {t("professionals.viewAll")}
@@ -107,12 +107,12 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
   return (
     <Link
-      className="group relative overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md"
+      className="group relative overflow-hidden border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md"
       href={`/professionals/${professional.profile_id}`}
     >
       {/* Verification Badge */}
       {professional.is_verified && (
-        <div className="absolute top-4 right-4 flex items-center gap-1 rounded-full bg-[neutral-500]/10 px-3 py-1">
+        <div className="absolute top-4 right-4 flex items-center gap-1 bg-[neutral-500]/10 px-3 py-1">
           <HugeiconsIcon
             className="h-3 w-3 fill-[neutral-500] text-[neutral-500]"
             icon={IdVerifiedIcon}
@@ -124,7 +124,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       )}
 
       {/* Profile Image */}
-      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5">
+      <div className="mb-4 aspect-square overflow-hidden bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5">
         {professional.profile_image_url ? (
           <Image
             alt={professional.full_name || "Professional"}
@@ -179,14 +179,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           <div className="mb-4 flex flex-wrap gap-2">
             {professional.services.slice(0, 2).map((service, index) => (
               <span
-                className="rounded-full bg-[neutral-500]/10 px-3 py-1 text-[neutral-500] text-xs"
+                className="bg-[neutral-500]/10 px-3 py-1 text-[neutral-500] text-xs"
                 key={index}
               >
                 {service.name}
               </span>
             ))}
             {professional.services.length > 2 && (
-              <span className="rounded-full bg-[neutral-200] px-3 py-1 text-[neutral-400] text-xs">
+              <span className="bg-[neutral-200] px-3 py-1 text-[neutral-400] text-xs">
                 +{professional.services.length - 2}
               </span>
             )}

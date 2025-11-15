@@ -68,7 +68,7 @@ export function SafetyTrustSectionClient() {
             className="mb-6 inline-flex items-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]"
             variants={fadeIn}
           >
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
+            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
             Safety & Trust
           </motion.div>
 
@@ -99,15 +99,10 @@ export function SafetyTrustSectionClient() {
           {safetyFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
-                className="group"
-                key={index}
-                variants={fadeIn}
-                whileHover={cardHover}
-              >
-                <div className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-10 text-center shadow-sm transition-shadow group-hover:shadow-lg">
+              <motion.div className="group" key={index} variants={fadeIn} whileHover={cardHover}>
+                <div className="flex h-full flex-col border border-neutral-200 bg-neutral-50 p-10 text-center shadow-sm transition-shadow group-hover:shadow-lg">
                   {/* Icon */}
-                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-50 transition-colors group-hover:bg-orange-100">
+                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center bg-orange-50 transition-colors group-hover:bg-orange-100">
                     <HugeiconsIcon
                       className="h-8 w-8 text-orange-600 transition-transform group-hover:scale-110"
                       icon={Icon}

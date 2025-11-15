@@ -49,7 +49,7 @@ export function NotificationPermissionPrompt({
       <div className="border-[neutral-200] border-b bg-[neutral-500]/5 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500]">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center bg-[neutral-500]">
               <HugeiconsIcon className="h-5 w-5 text-[neutral-50]" icon={Notification02Icon} />
             </div>
             <div className="min-w-0 flex-1">
@@ -62,7 +62,7 @@ export function NotificationPermissionPrompt({
 
           <div className="flex items-center gap-3">
             <button
-              className="whitespace-nowrap rounded-full bg-[neutral-500] px-6 py-2.5 font-semibold text-[neutral-50] text-sm shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+              className="whitespace-nowrap bg-[neutral-500] px-6 py-2.5 font-semibold text-[neutral-50] text-sm shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={isLoading}
               onClick={handleEnable}
               type="button"
@@ -72,7 +72,7 @@ export function NotificationPermissionPrompt({
 
             <button
               aria-label="Dismiss"
-              className="rounded-full p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900]"
+              className="p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900]"
               onClick={handleDismiss}
               type="button"
             >
@@ -92,10 +92,10 @@ export function NotificationPermissionPrompt({
 
   // Card variant
   return (
-    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+    <div className="border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500]/10">
+          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-[neutral-500]/10">
             <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={Notification02Icon} />
           </div>
           <div>
@@ -122,7 +122,7 @@ export function NotificationPermissionPrompt({
 
             <div className="mt-6 flex items-center gap-3">
               <button
-                className="inline-flex items-center justify-center rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+                className="inline-flex items-center justify-center bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
                 disabled={isLoading}
                 onClick={handleEnable}
                 type="button"
@@ -131,7 +131,7 @@ export function NotificationPermissionPrompt({
               </button>
 
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
+                className="inline-flex items-center justify-center border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
                 onClick={handleDismiss}
                 type="button"
               >
@@ -140,16 +140,14 @@ export function NotificationPermissionPrompt({
             </div>
 
             {error && (
-              <div className="mt-4 rounded-xl bg-[neutral-500]/10 p-3 text-[neutral-500] text-sm">
-                {error}
-              </div>
+              <div className="mt-4 bg-[neutral-500]/10 p-3 text-[neutral-500] text-sm">{error}</div>
             )}
           </div>
         </div>
 
         <button
           aria-label="Dismiss"
-          className="rounded-full p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900]"
+          className="p-2 text-[neutral-400] transition hover:bg-[neutral-50] hover:text-[neutral-900]"
           onClick={handleDismiss}
           type="button"
         >
@@ -163,9 +161,9 @@ export function NotificationPermissionPrompt({
 // Component to show when notifications are disabled in browser settings
 export function NotificationsDeniedMessage() {
   return (
-    <div className="rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/5 p-6">
+    <div className="border border-[neutral-500]/30 bg-[neutral-500]/5 p-6">
       <div className="flex items-start gap-4">
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500]/10">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center bg-[neutral-500]/10">
           <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={NotificationOff02Icon} />
         </div>
         <div>

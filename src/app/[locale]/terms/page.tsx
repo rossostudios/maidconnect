@@ -21,7 +21,7 @@ export default async function TermsPage({ params }: Props) {
       <SiteHeader />
       <main className="px-4 py-16">
         <div className="mx-auto max-w-4xl">
-          <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] md:p-12">
+          <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] md:p-12">
             {isSpanish ? (
               <SpanishTerms lastUpdated={lastUpdated} />
             ) : (
@@ -645,7 +645,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </p>
         </section>
 
-        <section className="rounded-xl bg-neutral-50 p-6">
+        <section className="bg-neutral-50 p-6">
           <p className="text-neutral-500 text-sm">
             <strong>Nota Legal:</strong> Al hacer clic en &quot;Acepto los Términos y
             Condiciones&quot; durante el registro, usted confirma que ha leído, comprendido y
@@ -808,7 +808,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
           </ul>
         </section>
 
-        <section className="rounded-xl bg-neutral-50 p-6">
+        <section className="bg-neutral-50 p-6">
           <p className="text-neutral-500 text-sm">
             <strong>Legal Notice:</strong> By clicking &quot;I Accept the Terms and Conditions&quot;
             during registration, you confirm that you have read, understood, and accepted these

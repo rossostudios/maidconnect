@@ -132,7 +132,7 @@ const TabsList = ({
   return (
     <div
       className={cn(
-        "inline-flex h-12 items-center justify-center rounded-lg bg-[neutral-50] p-1 text-[neutral-400]",
+        "inline-flex h-12 items-center justify-center bg-[neutral-50] p-1 text-[neutral-400]",
         className
       )}
       ref={tabListRef}
@@ -178,7 +178,7 @@ const TabsTrigger = ({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-2 font-medium text-sm transition-all",
+        "inline-flex items-center justify-center whitespace-nowrap px-6 py-2 font-medium text-sm transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500] focus-visible:ring-offset-2",
         "disabled:pointer-events-none disabled:opacity-50",
         isSelected && "bg-[neutral-50] text-[neutral-900] shadow-sm",

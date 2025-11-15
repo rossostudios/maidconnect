@@ -167,7 +167,7 @@ export default async function SecureMessagingPage({ params }: Props) {
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-500">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
@@ -181,7 +181,7 @@ export default async function SecureMessagingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-500">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
@@ -195,7 +195,7 @@ export default async function SecureMessagingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-500">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
@@ -209,7 +209,7 @@ export default async function SecureMessagingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-500">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
@@ -231,7 +231,7 @@ export default async function SecureMessagingPage({ params }: Props) {
             <h2 className="type-serif-lg text-center text-neutral-900">{t("useCases.title")}</h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2">
-              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8">
+              <div className="border border-neutral-200 bg-neutral-50 p-8">
                 <h3 className="font-semibold text-2xl text-neutral-900">
                   {t("useCases.beforeService.title")}
                 </h3>
@@ -255,7 +255,7 @@ export default async function SecureMessagingPage({ params }: Props) {
                 </ul>
               </div>
 
-              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8">
+              <div className="border border-neutral-200 bg-neutral-50 p-8">
                 <h3 className="font-semibold text-2xl text-neutral-900">
                   {t("useCases.duringService.title")}
                 </h3>
@@ -293,14 +293,14 @@ export default async function SecureMessagingPage({ params }: Props) {
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-neutral-200 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:border-[var(--red)] hover:text-orange-500"
+                className="inline-flex items-center justify-center border-2 border-neutral-200 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:border-[var(--red)] hover:text-orange-500"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

@@ -17,7 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 const propertyCardClass =
-  "rounded-3xl border border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-950/60 p-5 shadow-[0_1px_2px_rgba(22,22,22,0.05)] backdrop-blur";
+  " border border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-950/60 p-5 shadow-[0_1px_2px_rgba(22,22,22,0.05)] ";
 const propertyHeadingClass =
   "text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-600 dark:text-neutral-400";
 const propertyRowClass = "grid grid-cols-[110px_1fr] items-center gap-4 -2xl px-2 py-1.5";
@@ -430,7 +430,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 onScroll={(e) => handleScroll(e, "en")}
               >
                 <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
-                  <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
+                  <span className="bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                     English
                   </span>
                   {!titleEn && (
@@ -462,7 +462,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 onScroll={(e) => handleScroll(e, "es")}
               >
                 <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
-                  <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
+                  <span className="bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                     Español
                   </span>
                   {!titleEs && (
@@ -491,7 +491,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             /* Single language view */
             <div className="p-8">
               <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
-                <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
+                <span className="bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                   {previewMode === "en" ? "English" : "Español"}
                 </span>
               </div>
@@ -647,7 +647,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                         value={slug}
                       />
                       <button
-                        className="rounded-2xl border border-neutral-200 px-3 py-1.5 font-medium text-[11px] text-neutral-600 transition hover:text-neutral-900 dark:border-neutral-800/70 dark:text-neutral-100 dark:text-neutral-400"
+                        className="border border-neutral-200 px-3 py-1.5 font-medium text-[11px] text-neutral-600 transition hover:text-neutral-900 dark:border-neutral-800/70 dark:text-neutral-100 dark:text-neutral-400"
                         onClick={generateSlug}
                         type="button"
                       >
@@ -677,7 +677,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <div className="flex items-center justify-between">
                   <p className={propertyHeadingClass}>{locale === "es" ? "Etiquetas" : "Tags"}</p>
                   {selectedTags.length > 0 && (
-                    <span className="rounded-full bg-white px-2 py-0.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                    <span className="bg-white px-2 py-0.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                       {selectedTags.length}
                     </span>
                   )}
@@ -752,7 +752,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                     {locale === "es" ? "Estado" : "Status"}
                   </span>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-white px-3 py-1 font-medium text-neutral-600 text-sm dark:bg-neutral-950 dark:text-neutral-400">
+                    <span className="bg-white px-3 py-1 font-medium text-neutral-600 text-sm dark:bg-neutral-950 dark:text-neutral-400">
                       {isPublished
                         ? locale === "es"
                           ? "Publicado"

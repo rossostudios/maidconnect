@@ -146,7 +146,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm shadow-[neutral-900]/5 shadow-inner transition hover:border-[neutral-500] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[neutral-500] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm shadow-[neutral-900]/5 shadow-inner transition hover:border-[neutral-500] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[neutral-500] focus-visible:outline-offset-2",
           !value && "text-[neutral-400]"
         )}
         onClick={() => setOpen((prev) => !prev)}
@@ -167,10 +167,10 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       </button>
 
       {open ? (
-        <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[neutral-200] bg-[neutral-50] p-4 shadow-[0_24px_60px_rgba(22,22,22,0.12)]">
+        <div className="absolute z-50 mt-3 w-full min-w-[280px] border border-[neutral-200] bg-[neutral-50] p-4 shadow-[0_24px_60px_rgba(22,22,22,0.12)]">
           <div className="flex items-center justify-between">
             <button
-              className="rounded-full border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
@@ -183,7 +183,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               {new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(viewDate)}
             </div>
             <button
-              className="rounded-full border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
@@ -219,7 +219,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               return (
                 <button
                   className={cn(
-                    "rounded-full py-2 text-sm transition",
+                    "py-2 text-sm transition",
                     inCurrentMonth ? "text-[neutral-900]" : "text-[neutral-200]",
                     isSelected &&
                       "bg-[neutral-900] text-[neutral-50] shadow-[0_10px_20px_rgba(22,22,22,0.16)]",
@@ -238,14 +238,14 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
           <div className="mt-4 flex items-center justify-between text-[neutral-400] text-xs">
             <button
-              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[neutral-500] transition hover:border-[neutral-500]/40"
+              className="border border-transparent px-3 py-1 font-semibold text-[neutral-500] transition hover:border-[neutral-500]/40"
               onClick={() => onChange(null)}
               type="button"
             >
               {t("clear")}
             </button>
             <button
-              className="rounded-full border border-[neutral-900] px-3 py-1 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="border border-[neutral-900] px-3 py-1 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]"
               onClick={handleToday}
               type="button"
             >

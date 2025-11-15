@@ -121,7 +121,7 @@ export function TimeExtensionModal({
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-lg border-2 border-[neutral-200] px-4 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-900]"
+            className="flex-1 border-2 border-[neutral-200] px-4 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-900]"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -129,7 +129,7 @@ export function TimeExtensionModal({
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"
@@ -155,7 +155,7 @@ export function TimeExtensionModal({
 
             return (
               <button
-                className={`rounded-xl border-2 p-4 text-left transition ${
+                className={`border-2 p-4 text-left transition ${
                   isSelected
                     ? "border-[neutral-500] bg-[neutral-500]/5"
                     : "border-[neutral-200] hover:border-[neutral-500]/50"
@@ -185,7 +185,7 @@ export function TimeExtensionModal({
           Custom Duration (minutes)
         </label>
         <input
-          className="w-full rounded-lg border-2 border-[neutral-200] px-4 py-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className="w-full border-2 border-[neutral-200] px-4 py-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="custom"
           max="240"
           min="1"
@@ -198,7 +198,7 @@ export function TimeExtensionModal({
 
       {/* Cost Preview */}
       {estimatedCost > 0 && (
-        <div className="mb-6 rounded-xl bg-[neutral-50] p-4">
+        <div className="mb-6 bg-[neutral-50] p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <HugeiconsIcon className="text-[neutral-500]" icon={DollarCircleIcon} size={20} />
@@ -216,7 +216,7 @@ export function TimeExtensionModal({
 
       {/* Error Message */}
       {form.error && (
-        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+        <div className="mb-4 border border-red-200 bg-red-50 p-3 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
           {form.error}
         </div>
       )}

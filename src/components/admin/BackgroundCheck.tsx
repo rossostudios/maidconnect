@@ -52,13 +52,11 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
                 </div>
               </div>
               <div className="flex gap-2">
-                <span
-                  className={`rounded-full px-3 py-1 font-semibold text-sm ${getStatusBadge(check.status)}`}
-                >
+                <span className={`px-3 py-1 font-semibold text-sm ${getStatusBadge(check.status)}`}>
                   {check.status}
                 </span>
                 <span
-                  className={`rounded-full px-3 py-1 font-semibold text-sm ${getProviderBadge(check.provider)}`}
+                  className={`px-3 py-1 font-semibold text-sm ${getProviderBadge(check.provider)}`}
                 >
                   {check.provider}
                 </span>

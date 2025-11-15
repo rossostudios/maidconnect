@@ -18,7 +18,7 @@ import { MetricCard } from "./metric-card";
  * - Tailwind CSS 4.1 best practices
  * - Clean white backgrounds (NO beige!)
  * - Proper spacing and layout
- * - Less rounded corners (rounded-lg)
+ * - Less rounded corners ()
  *
  * Color Variants: blue, green, orange, pink, purple, default
  */
@@ -174,7 +174,7 @@ export const Clickable: Story = {
 export const AllColors: Story = {
   args: {} as any,
   render: () => (
-    <div className="grid grid-cols-1 gap-6 rounded-xl bg-gray-50 p-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 bg-gray-50 p-8 sm:grid-cols-2 lg:grid-cols-3">
       <MetricCard
         description="Default variant"
         icon={DollarSquareIcon}
