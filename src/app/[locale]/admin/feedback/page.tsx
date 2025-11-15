@@ -114,40 +114,40 @@ export default async function AdminFeedbackPage({
       {/* Status Filter Tabs */}
       <div className="flex gap-2 border-neutral-200 border-b pb-4">
         <Link
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
-              : "bg-neutral-900 text-white"
+              ? "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
+              : "bg-orange-500 text-white"
           }`}
           href="/admin/feedback"
         >
           All ({counts.all})
         </Link>
         <Link
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-neutral-900 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
+              ? "bg-orange-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
           }`}
           href="/admin/feedback?status=new"
         >
           New ({counts.new})
         </Link>
         <Link
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-neutral-900 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
+              ? "bg-orange-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
           }`}
           href="/admin/feedback?status=in_review"
         >
           In Review ({counts.in_review})
         </Link>
         <Link
-          className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+          className={`px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-neutral-900 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
+              ? "bg-orange-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -157,7 +157,7 @@ export default async function AdminFeedbackPage({
 
       {/* Feedback List */}
       {feedbackList.length === 0 ? (
-        <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
+        <div className="border border-neutral-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
           <HugeiconsIcon
             className="mx-auto mb-4 h-12 w-12 text-neutral-400"
             icon={AlertCircleIcon}
@@ -177,7 +177,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-neutral-300 hover:shadow-md"
+                className="group border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-neutral-300 hover:shadow-md"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -185,7 +185,7 @@ export default async function AdminFeedbackPage({
                   <div className="flex-1">
                     <div className="mb-3 flex flex-wrap items-center gap-2">
                       <span
-                        className={`flex items-center gap-1 rounded-full px-3 py-1 font-medium text-xs ${typeConf.color}`}
+                        className={`-full flex items-center gap-1 px-3 py-1 font-medium text-xs ${typeConf.color}`}
                       >
                         <HugeiconsIcon className="h-3 w-3" icon={TypeIcon} />
                         {typeConf.label}
@@ -230,7 +230,7 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition hover:bg-neutral-800"
+                    className="flex items-center gap-2 bg-orange-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-orange-600"
                     href={`/admin/feedback/${item.id}`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
