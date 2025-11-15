@@ -77,7 +77,7 @@ export function AnnouncementBanner() {
                 </span>
 
                 {/* Message */}
-                <p className="flex-shrink-0 font-[family-name:var(--font-family-manrope)] text-neutral-700 text-sm sm:text-base">
+                <p className="mb-0 flex-shrink-0 font-[family-name:var(--font-family-manrope)] text-neutral-700 text-sm sm:text-base">
                   <strong className="font-semibold text-neutral-900">New to Colombia?</strong>{" "}
                   <span className="hidden sm:inline">
                     Try our Concierge service — English-speaking coordinator, curated matches in 5
