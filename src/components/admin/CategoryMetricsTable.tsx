@@ -125,17 +125,13 @@ export function CategoryMetricsTable({ data, isLoading = false }: Props) {
       <PrecisionDataTable
         columns={columns}
         data={data}
-        emptyStateProps={{
-          icon: CleaningBucketIcon,
-          title: "No category data available",
-          description: "Category metrics will appear here once bookings are created.",
-        }}
+        emptyStateIcon={CleaningBucketIcon}
+        emptyStateTitle="No category data available"
+        emptyStateDescription="Category metrics will appear here once bookings are created."
         enableExport
-        enableGlobalFilter
         exportFilename="casaora-category-metrics"
         isLoading={isLoading}
         pageSize={10}
-        storageKey="analytics-category-metrics"
       />
     </div>
   );

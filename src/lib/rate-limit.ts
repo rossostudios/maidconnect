@@ -590,7 +590,7 @@ export function createRateLimitResponse(result: RateLimitResult): NextResponse {
  * }, 'api')
  */
 export function withRateLimit<
-  T extends (request: Request, ...args: unknown[]) => Promise<Response>,
+  T extends (request: Request, ...args: any[]) => Promise<Response>,
 >(
   handler: T,
   type:
@@ -607,7 +607,7 @@ export function withRateLimit<
     | "upload"
     | "cron" = "api"
 ): T {
-  return (async (request: Request, ...args: unknown[]) => {
+  return (async (request: Request, ...args: any[]) => {
     const result = await rateLimit(request, type);
 
     if (!result.success) {

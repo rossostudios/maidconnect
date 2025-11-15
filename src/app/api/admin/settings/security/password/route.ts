@@ -5,7 +5,7 @@
  * Rate Limit: 10 requests per minute (admin tier)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -15,7 +15,7 @@ const PasswordChangeSchema = z.object({
   newPassword: z.string().min(8),
 });
 
-async function handlePasswordChange(request: NextRequest) {
+async function handlePasswordChange(request: Request) {
   try {
     const supabase = await createSupabaseServerClient();
 

@@ -10,7 +10,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/email/send";
 import { rebookNudgeEmail } from "@/lib/email/templates";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -52,7 +52,7 @@ type NormalizedBooking = {
 /**
  * Verify cron authentication
  */
-function verifyCronAuth(request: NextRequest): boolean {
+function verifyCronAuth(request: Request): boolean {
   const authHeader = request.headers.get("authorization");
   const expectedAuth = `Bearer ${process.env.CRON_SECRET}`;
 
@@ -324,7 +324,7 @@ async function processVariant(
   }
 }
 
-async function handleRebookNudges(request: NextRequest) {
+async function handleRebookNudges(request: Request) {
   try {
     // 1. Verify authentication
     if (!verifyCronAuth(request)) {

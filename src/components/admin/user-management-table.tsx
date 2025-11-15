@@ -28,13 +28,6 @@ export type User = {
   suspension: UserSuspension | null;
 };
 
-type Pagination = {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-};
-
 const getRoleBadgeColor = (role: UserRole) => {
   switch (role) {
     case "admin":
@@ -239,13 +232,10 @@ export function UserManagementTable({ users, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={users}
-      emptyStateProps={{
-        icon: UserCircleIcon,
-        title: "No users found",
-        description: "Try adjusting your search or filter to find what you're looking for.",
-      }}
+      emptyStateIcon={UserCircleIcon}
+      emptyStateTitle="No users found"
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
-      enableGlobalFilter
       enableUrlSync
       exportFilename="casaora-users"
       isLoading={isLoading}

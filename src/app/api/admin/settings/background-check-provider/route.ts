@@ -6,7 +6,7 @@
  * Rate Limit: 10 requests per minute (admin tier)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -17,7 +17,7 @@ const SettingsSchema = z.object({
   auto_initiate: z.boolean(),
 });
 
-async function handleUpdateBackgroundCheckProvider(request: NextRequest) {
+async function handleUpdateBackgroundCheckProvider(request: Request) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -74,7 +74,7 @@ async function handleUpdateBackgroundCheckProvider(request: NextRequest) {
   }
 }
 
-async function handleGetBackgroundCheckProvider(_request: NextRequest) {
+async function handleGetBackgroundCheckProvider(_request: Request) {
   try {
     const supabase = await createSupabaseServerClient();
 

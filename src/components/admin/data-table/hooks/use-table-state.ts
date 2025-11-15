@@ -9,14 +9,6 @@ import type {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-type TableState = {
-  pagination: PaginationState;
-  sorting: SortingState;
-  columnFilters: ColumnFiltersState;
-  columnVisibility: VisibilityState;
-  globalFilter: string;
-};
-
 type UseTableStateOptions = {
   pageSize?: number;
   enableUrlSync?: boolean;
@@ -123,8 +115,8 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
     // Sorting
     if (sorting.length > 0) {
-      params.set("sortBy", sorting[0].id);
-      params.set("sortOrder", sorting[0].desc ? "desc" : "asc");
+      params.set("sortBy", sorting[0]!.id);
+      params.set("sortOrder", sorting[0]!.desc ? "desc" : "asc");
     } else {
       params.delete("sortBy");
       params.delete("sortOrder");

@@ -214,18 +214,14 @@ export function DisputesTable({ disputes, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={disputes}
-      emptyStateProps={{
-        icon: Alert02Icon,
-        title: "No disputes found",
-        description: "Try adjusting your search or filter to find what you're looking for.",
-      }}
+      emptyStateIcon={Alert02Icon}
+      emptyStateTitle="No disputes found"
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
-      enableGlobalFilter
       enableUrlSync
       exportFilename="casaora-disputes"
       isLoading={isLoading}
       pageSize={10}
-      storageKey="disputes-table"
     />
   );
 }

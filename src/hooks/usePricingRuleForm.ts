@@ -6,7 +6,7 @@
  */
 
 import { type FormEvent, useCallback, useEffect, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browser-client";
+import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import { toast } from "@/lib/toast";
 import { createInitialFormData } from "@/lib/utils/pricing/initial-data";
 import { buildPricingPayload } from "@/lib/utils/pricing/payload";

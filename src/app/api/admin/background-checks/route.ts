@@ -9,7 +9,7 @@
  * Rate Limit: 10 requests per minute (admin tier)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import type { RawBackgroundCheck } from "@/lib/admin/background-checks-service";
 import {
   countChecksByStatus,
@@ -19,7 +19,7 @@ import {
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-async function handleGetBackgroundChecks(_request: NextRequest) {
+async function handleGetBackgroundChecks(_request: Request) {
   try {
     const supabase = await createSupabaseServerClient();
 

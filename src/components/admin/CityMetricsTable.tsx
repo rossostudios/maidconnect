@@ -136,17 +136,13 @@ export function CityMetricsTable({ data, isLoading = false }: Props) {
       <PrecisionDataTable
         columns={columns}
         data={data}
-        emptyStateProps={{
-          icon: Location04Icon,
-          title: "No city data available",
-          description: "City metrics will appear here once bookings are created.",
-        }}
+        emptyStateIcon={Location04Icon}
+        emptyStateTitle="No city data available"
+        emptyStateDescription="City metrics will appear here once bookings are created."
         enableExport
-        enableGlobalFilter
         exportFilename="casaora-city-metrics"
         isLoading={isLoading}
         pageSize={10}
-        storageKey="analytics-city-metrics"
       />
     </div>
   );

@@ -5,13 +5,13 @@
  * Rate Limit: 10 requests per minute (admin tier)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { sendProfessionalApprovedEmail } from "@/lib/email/send";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 async function handleApproveBackgroundCheck(
-  _request: NextRequest,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {

@@ -15,7 +15,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browser-client";
+import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 
 export type TimeRange = "7d" | "30d" | "90d" | "all";
 

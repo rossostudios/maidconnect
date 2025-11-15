@@ -148,18 +148,14 @@ export function AuditLogsTable({ logs, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={logs}
-      emptyStateProps={{
-        icon: LegalDocumentIcon,
-        title: "No audit logs found",
-        description: "Try adjusting your search or filter to find what you're looking for.",
-      }}
+      emptyStateIcon={LegalDocumentIcon}
+      emptyStateTitle="No audit logs found"
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
-      enableGlobalFilter
       enableUrlSync
       exportFilename="casaora-audit-logs"
       isLoading={isLoading}
       pageSize={50}
-      storageKey="audit-logs-table"
     />
   );
 }
