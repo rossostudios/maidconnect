@@ -108,8 +108,8 @@ export function RoadmapAdminList() {
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-neutral-900 text-neutral-900"
-                : "border-transparent text-neutral-600 hover:text-neutral-900"
+                ? "border-orange-500 text-orange-600"
+                : "border-transparent text-neutral-600 hover:border-orange-500 hover:text-orange-600"
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
@@ -136,7 +136,7 @@ export function RoadmapAdminList() {
           <h3 className="mb-2 font-semibold text-lg text-neutral-900">No roadmap items</h3>
           <p className="mb-4 text-neutral-600">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 font-medium text-white transition-all hover:bg-neutral-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition-all hover:bg-orange-600"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
