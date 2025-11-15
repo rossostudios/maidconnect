@@ -71,7 +71,10 @@ type CategoryMetrics = {
   avgPrice: number;
 };
 
+type TimeRange = "7d" | "30d" | "90d";
+
 const COLORS = ["#E85D48", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
+const TIME_RANGE_OPTIONS: readonly TimeRange[] = ["7d", "30d", "90d"];
 
 export function EnhancedAnalyticsDashboard() {
   const [metrics, setMetrics] = useState<AnalyticsMetrics | null>(null);
@@ -79,7 +82,7 @@ export function EnhancedAnalyticsDashboard() {
   const [cityMetrics, setCityMetrics] = useState<CityMetrics[]>([]);
   const [categoryMetrics, setCategoryMetrics] = useState<CategoryMetrics[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedTimeRange, setSelectedTimeRange] = useState<"7d" | "30d" | "90d">("30d");
+  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>("30d");
 
   const loadAnalytics = useCallback(async () => {
     setIsLoading(true);
@@ -89,7 +92,7 @@ export function EnhancedAnalyticsDashboard() {
       // Calculate date range
       const now = new Date();
       const startDate = new Date(now);
-      const days = selectedTimeRange === "7d" ? 7 : selectedTimeRange === "30d" ? 30 : 90;
+      const days = getRangeInDays(selectedTimeRange);
       startDate.setDate(startDate.getDate() - days);
 
       // Fetch bookings
@@ -190,17 +193,18 @@ export function EnhancedAnalyticsDashboard() {
     <div className="space-y-8">
       {/* Time Range Selector */}
       <div className="flex justify-end gap-2">
-        {(["7d", "30d", "90d"] as const).map((range) => (
+        {TIME_RANGE_OPTIONS.map((range) => (
           <button
-            className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+            className={`px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
                 ? "bg-[#E85D48] text-white"
                 : "border border-[#E5E5E5] text-[#171717] hover:border-[#E85D48]"
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
+            type="button"
           >
-            {range === "7d" ? "7 Days" : range === "30d" ? "30 Days" : "90 Days"}
+            {formatRangeLabel(range)}
           </button>
         ))}
       </div>
@@ -211,36 +215,24 @@ export function EnhancedAnalyticsDashboard() {
           description="Booking requests accepted"
           icon={Analytics01Icon}
           title="Fill Rate"
-          trend={metrics.fillRate >= 70 ? "up" : metrics.fillRate >= 50 ? "neutral" : "down"}
+          trend={getPositiveTrend(metrics.fillRate, 70, 50)}
           trendValue={`${metrics.fillRate.toFixed(0)}%`}
           value={`${metrics.fillRate.toFixed(1)}%`}
-          variant={metrics.fillRate >= 70 ? "green" : metrics.fillRate >= 50 ? "default" : "pink"}
+          variant={getPositiveVariant(metrics.fillRate, 70, 50)}
         />
         <MetricCard
           description="Days (avg. professional)"
           icon={TimeScheduleIcon}
           title="Time to First Booking"
           value={`${metrics.avgTimeToFirstBooking.toFixed(1)}`}
-          variant={
-            metrics.avgTimeToFirstBooking <= 7
-              ? "green"
-              : metrics.avgTimeToFirstBooking <= 14
-                ? "default"
-                : "pink"
-          }
+          variant={getNegativeVariant(metrics.avgTimeToFirstBooking, 7, 14)}
         />
         <MetricCard
           description="Customers with 2+ bookings"
           icon={RepeatIcon}
           title="Repeat Booking Rate"
           value={`${metrics.repeatBookingRate.toFixed(1)}%`}
-          variant={
-            metrics.repeatBookingRate >= 40
-              ? "green"
-              : metrics.repeatBookingRate >= 25
-                ? "default"
-                : "pink"
-          }
+          variant={getPositiveVariant(metrics.repeatBookingRate, 40, 25)}
         />
         <MetricCard
           description="With bookings (30 days)"
@@ -383,7 +375,7 @@ export function EnhancedAnalyticsDashboard() {
               {categoryMetrics.map((category, index) => (
                 <div className="flex items-center gap-3" key={category.category}>
                   <div
-                    className="h-3 w-3 rounded-full"
+                    className="-full h-3 w-3"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
                   <span className="flex-1 text-[#171717] text-sm">{category.category}</span>
@@ -398,4 +390,62 @@ export function EnhancedAnalyticsDashboard() {
       </Card>
     </div>
   );
+}
+
+function getRangeInDays(range: TimeRange): number {
+  if (range === "7d") {
+    return 7;
+  }
+  if (range === "30d") {
+    return 30;
+  }
+  return 90;
+}
+
+function formatRangeLabel(range: TimeRange): string {
+  if (range === "7d") {
+    return "7 Days";
+  }
+  if (range === "30d") {
+    return "30 Days";
+  }
+  return "90 Days";
+}
+
+function getPositiveTrend(value: number, good: number, neutral: number): "up" | "neutral" | "down" {
+  if (value >= good) {
+    return "up";
+  }
+  if (value >= neutral) {
+    return "neutral";
+  }
+  return "down";
+}
+
+function getPositiveVariant(
+  value: number,
+  good: number,
+  neutral: number
+): "green" | "default" | "pink" {
+  if (value >= good) {
+    return "green";
+  }
+  if (value >= neutral) {
+    return "default";
+  }
+  return "pink";
+}
+
+function getNegativeVariant(
+  value: number,
+  good: number,
+  neutral: number
+): "green" | "default" | "pink" {
+  if (value <= good) {
+    return "green";
+  }
+  if (value <= neutral) {
+    return "default";
+  }
+  return "pink";
 }

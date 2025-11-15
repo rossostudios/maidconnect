@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { sendAccountRestorationEmail, sendAccountSuspensionEmail } from "@/lib/email/send";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ModerationBody = {
@@ -204,13 +205,21 @@ async function handleBan(options: {
 /**
  * Handle unsuspend action
  */
-async function handleUnsuspend(
-  supabase: SupabaseClient,
-  userId: string,
-  adminId: string,
-  liftReason: string | undefined,
-  details: Record<string, any> | undefined
-) {
+type UnsuspendOptions = {
+  supabase: SupabaseClient;
+  userId: string;
+  adminId: string;
+  liftReason?: string;
+  details?: Record<string, any>;
+};
+
+async function handleUnsuspend({
+  supabase,
+  userId,
+  adminId,
+  liftReason,
+  details,
+}: UnsuspendOptions) {
   // Find active suspension
   const { data: activeSuspension, error: findError } = await supabase
     .from("user_suspensions")
@@ -269,16 +278,29 @@ async function handleUnsuspend(
 /**
  * Execute moderation action based on type
  */
-async function executeModerationAction(
-  supabase: SupabaseClient,
-  action: string,
-  userId: string,
-  adminId: string,
-  reason: string | undefined,
-  liftReason: string | undefined,
-  durationDays: number | undefined,
-  details: Record<string, any> | undefined
-): Promise<{ result: any; durationDays?: number } | { error: NextResponse }> {
+type ModerationActionOptions = {
+  supabase: SupabaseClient;
+  action: string;
+  userId: string;
+  adminId: string;
+  reason?: string;
+  liftReason?: string;
+  durationDays?: number;
+  details?: Record<string, any>;
+};
+
+async function executeModerationAction({
+  supabase,
+  action,
+  userId,
+  adminId,
+  reason,
+  liftReason,
+  durationDays,
+  details,
+}: ModerationActionOptions): Promise<
+  { result: any; durationDays?: number } | { error: NextResponse }
+> {
   switch (action) {
     case "suspend": {
       const result = await handleSuspend({
@@ -310,7 +332,13 @@ async function executeModerationAction(
     }
 
     case "unsuspend": {
-      const result = await handleUnsuspend(supabase, userId, adminId, liftReason, details);
+      const result = await handleUnsuspend({
+        supabase,
+        userId,
+        adminId,
+        liftReason,
+        details,
+      });
       if ("error" in result) {
         return result;
       }
@@ -325,15 +353,25 @@ async function executeModerationAction(
 /**
  * Send notification email
  */
-async function sendNotificationEmail(
-  action: string,
-  userEmail: string,
-  userName: string,
-  reason: string | undefined,
-  liftReason: string | undefined,
-  result: any,
-  durationDays: number | undefined
-) {
+type NotificationOptions = {
+  action: string;
+  userEmail: string;
+  userName: string;
+  reason?: string;
+  liftReason?: string;
+  result: any;
+  durationDays?: number;
+};
+
+async function sendNotificationEmail({
+  action,
+  userEmail,
+  userName,
+  reason,
+  liftReason,
+  result,
+  durationDays,
+}: NotificationOptions) {
   try {
     if (action === "suspend" || action === "ban") {
       const expiresAt = action === "suspend" && result.expires_at ? result.expires_at : null;
@@ -379,8 +417,10 @@ function getSuccessMessage(action: string, durationDays: number | undefined): st
  * - suspend: Temporarily suspend user (default 7 days)
  * - ban: Permanently ban user
  * - unsuspend: Lift active suspension
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
  */
-export async function POST(request: Request) {
+async function handleModeration(request: Request) {
   try {
     // Verify admin access
     const admin = await requireAdmin();
@@ -403,31 +443,31 @@ export async function POST(request: Request) {
     const { user } = userInfoResult;
 
     // Execute moderation action
-    const actionResult = await executeModerationAction(
+    const actionResult = await executeModerationAction({
       supabase,
       action,
       userId,
-      admin.id,
+      adminId: admin.id,
       reason,
       liftReason,
       durationDays,
-      details
-    );
+      details,
+    });
     if ("error" in actionResult) {
       return actionResult.error;
     }
 
     // Send email notification
     if (user.email) {
-      await sendNotificationEmail(
+      await sendNotificationEmail({
         action,
-        user.email,
-        user.name,
+        userEmail: user.email,
+        userName: user.name,
         reason,
         liftReason,
-        actionResult.result,
-        actionResult.durationDays
-      );
+        result: actionResult.result,
+        durationDays: actionResult.durationDays,
+      });
     }
 
     return NextResponse.json({
@@ -442,3 +482,6 @@ export async function POST(request: Request) {
     );
   }
 }
+
+// Apply rate limiting: 10 requests per minute
+export const POST = withRateLimit(handleModeration, "admin");

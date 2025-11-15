@@ -1,5 +1,14 @@
+/**
+ * Admin Background Check Provider Settings API
+ * POST /api/admin/settings/background-check-provider - Update provider settings
+ * GET /api/admin/settings/background-check-provider - Get current provider settings
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const SettingsSchema = z.object({
@@ -8,7 +17,7 @@ const SettingsSchema = z.object({
   auto_initiate: z.boolean(),
 });
 
-export async function POST(request: NextRequest) {
+async function handleUpdateBackgroundCheckProvider(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -65,7 +74,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(_request: NextRequest) {
+async function handleGetBackgroundCheckProvider(_request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -114,3 +123,7 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const POST = withRateLimit(handleUpdateBackgroundCheckProvider, "admin");
+export const GET = withRateLimit(handleGetBackgroundCheckProvider, "admin");

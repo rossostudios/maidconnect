@@ -297,7 +297,7 @@ export function EnhancedAnalyticsDashboard() {
       <div className="flex justify-end gap-2">
         {(["7d", "30d", "90d"] as const).map((range) => (
           <button
-            className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+            className={`px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
                 ? "bg-[#E85D48] text-white"
                 : "border border-[#E5E5E5] text-[#171717] hover:border-[#E85D48]"
@@ -488,7 +488,7 @@ export function EnhancedAnalyticsDashboard() {
               {categoryMetrics.map((category, index) => (
                 <div className="flex items-center gap-3" key={category.category}>
                   <div
-                    className="h-3 w-3 rounded-full"
+                    className="-full h-3 w-3"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
                   <span className="flex-1 text-[#171717] text-sm">{category.category}</span>

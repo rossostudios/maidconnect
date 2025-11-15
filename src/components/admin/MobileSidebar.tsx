@@ -26,7 +26,7 @@ export function AdminMobileSidebar() {
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="rounded-lg p-2 text-neutral-900 transition-colors hover:bg-white hover:text-neutral-900 lg:hidden dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-100"
+        className="p-2 text-neutral-900 transition-colors hover:bg-white hover:text-neutral-900 lg:hidden dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-100"
         onClick={() => setIsOpen(true)}
         type="button"
       >

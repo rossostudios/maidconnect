@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { getDashboardRouteForRole, getSession } from "@/lib/auth";
-import Image from "next/image";
 import { SiteHeaderClient } from "./SiteHeaderClient";
 
 /**

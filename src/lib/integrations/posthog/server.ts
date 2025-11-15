@@ -4,6 +4,8 @@
  */
 
 import { PostHog } from "posthog-node";
+import type { FeatureFlagKey, FeatureFlagValue } from "@/lib/shared/config/feature-flags";
+import { getFeatureFlagMetadata } from "@/lib/shared/config/feature-flags";
 
 let posthogInstance: PostHog | null = null;
 
@@ -218,4 +220,117 @@ export async function trackBookingDisputeCreatedServer(
   }
 ) {
   await trackServerEvent(userId, "Booking Dispute Created", data);
+}
+
+/**
+ * Server-Side Feature Flags (Epic G-1)
+ */
+
+/**
+ * Get feature flag for a specific user (server-side)
+ *
+ * @param flagKey - The feature flag key to check
+ * @param distinctId - User ID or anonymous ID
+ * @param defaultValue - Default value if flag is not set
+ * @returns The feature flag value
+ *
+ * @example
+ * const variant = await getFeatureFlagServer('hero_variant', userId);
+ */
+export async function getFeatureFlagServer(
+  flagKey: FeatureFlagKey,
+  distinctId: string,
+  defaultValue?: FeatureFlagValue
+): Promise<FeatureFlagValue> {
+  const client = getPostHogClient();
+  if (!client) {
+    return defaultValue ?? getFeatureFlagMetadata(flagKey)?.defaultValue;
+  }
+
+  try {
+    const value = await client.getFeatureFlag(flagKey, distinctId);
+    return value ?? defaultValue ?? getFeatureFlagMetadata(flagKey)?.defaultValue;
+  } catch (error) {
+    console.error(`PostHog: Error getting feature flag ${flagKey}:`, error);
+    return defaultValue ?? getFeatureFlagMetadata(flagKey)?.defaultValue;
+  }
+}
+
+/**
+ * Check if feature flag is enabled for a user (server-side)
+ *
+ * @param flagKey - The feature flag key to check
+ * @param distinctId - User ID or anonymous ID
+ * @param defaultValue - Default value if flag is not set
+ * @returns true if enabled, false otherwise
+ *
+ * @example
+ * const enabled = await isFeatureFlagEnabledServer('match_wizard_enabled', userId);
+ */
+export async function isFeatureFlagEnabledServer(
+  flagKey: FeatureFlagKey,
+  distinctId: string,
+  defaultValue = false
+): Promise<boolean> {
+  const client = getPostHogClient();
+  if (!client) return defaultValue;
+
+  try {
+    const value = await client.isFeatureEnabled(flagKey, distinctId);
+    return value ?? defaultValue;
+  } catch (error) {
+    console.error(`PostHog: Error checking feature flag ${flagKey}:`, error);
+    return defaultValue;
+  }
+}
+
+/**
+ * Get all feature flags for a user (server-side)
+ *
+ * @param distinctId - User ID or anonymous ID
+ * @returns Object with all feature flags and their values
+ *
+ * @example
+ * const flags = await getAllFeatureFlagsServer(userId);
+ */
+export async function getAllFeatureFlagsServer(
+  distinctId: string
+): Promise<Record<string, FeatureFlagValue>> {
+  const client = getPostHogClient();
+  if (!client) return {};
+
+  try {
+    const flags = await client.getAllFlags(distinctId);
+    return flags || {};
+  } catch (error) {
+    console.error("PostHog: Error getting all feature flags:", error);
+    return {};
+  }
+}
+
+/**
+ * Get feature flag payload for a user (server-side)
+ * Useful for multivariate flags with additional data
+ *
+ * @param flagKey - The feature flag key
+ * @param distinctId - User ID or anonymous ID
+ * @returns Feature flag payload (string, number, boolean, object, or undefined)
+ *
+ * @example
+ * const payload = await getFeatureFlagPayloadServer('hero_variant', userId);
+ */
+export async function getFeatureFlagPayloadServer(
+  flagKey: FeatureFlagKey,
+  distinctId: string
+): Promise<string | number | boolean | Record<string, any> | undefined> {
+  const client = getPostHogClient();
+  if (!client) return;
+
+  try {
+    const payload = await client.getFeatureFlagPayload(flagKey, distinctId);
+    return payload ?? undefined;
+  } catch (error) {
+    console.error(`PostHog: Error getting feature flag payload ${flagKey}:`, error);
+    return;
+  }
 }

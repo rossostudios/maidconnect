@@ -62,22 +62,22 @@ export function AdminSecuritySettings() {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+        <div className="border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
           <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+        <div className="border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <p className="text-red-700 text-sm dark:text-red-200">{successMessage}</p>
         </div>
       )}
 
       {/* Password Change */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 dark:bg-neutral-100/10">
+            <div className="-full flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
               <HugeiconsIcon
                 className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
                 icon={LockPasswordIcon}
@@ -95,7 +95,7 @@ export function AdminSecuritySettings() {
 
           {!isChangingPassword && (
             <button
-              className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-red-700 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-red-200"
+              className="border border-neutral-200 bg-white px-4 py-2 font-medium text-red-700 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-red-200"
               onClick={() => setIsChangingPassword(true)}
               type="button"
             >
@@ -114,7 +114,7 @@ export function AdminSecuritySettings() {
                 Current Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 id="current-password"
                 onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
                 required
@@ -131,7 +131,7 @@ export function AdminSecuritySettings() {
                 New Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 id="new-password"
                 minLength={8}
                 onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
@@ -152,7 +152,7 @@ export function AdminSecuritySettings() {
                 Confirm New Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 id="confirm-password"
                 onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
                 required
@@ -163,7 +163,7 @@ export function AdminSecuritySettings() {
 
             <div className="flex items-center gap-3 pt-2">
               <button
-                className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                 disabled={isSaving}
                 type="submit"
               >
@@ -171,7 +171,7 @@ export function AdminSecuritySettings() {
                 {isSaving ? "Updating..." : "Update Password"}
               </button>
               <button
-                className="rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+                className="border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
                 disabled={isSaving}
                 onClick={() => {
                   setIsChangingPassword(false);
@@ -188,10 +188,10 @@ export function AdminSecuritySettings() {
       </div>
 
       {/* Two-Factor Authentication (Coming Soon) */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 dark:bg-neutral-100/10">
+            <div className="-full flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
               <HugeiconsIcon
                 className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
                 icon={Shield01Icon}
@@ -213,7 +213,7 @@ export function AdminSecuritySettings() {
           </div>
 
           <button
-            className="cursor-not-allowed rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-600 text-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+            className="cursor-not-allowed border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-600 text-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
             disabled
             type="button"
           >
@@ -221,7 +221,7 @@ export function AdminSecuritySettings() {
           </button>
         </div>
 
-        <div className="mt-4 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
+        <div className="mt-4 border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
           <p className="text-red-700 text-sm dark:text-red-200">
             <strong>Note:</strong> Two-factor authentication requires Supabase Pro. This feature
             will be available once we upgrade to the Pro plan. It will provide additional security
@@ -231,7 +231,7 @@ export function AdminSecuritySettings() {
       </div>
 
       {/* Security Best Practices */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <h3 className="mb-3 font-semibold text-base text-neutral-900 dark:text-neutral-100">
           Security Best Practices
         </h3>

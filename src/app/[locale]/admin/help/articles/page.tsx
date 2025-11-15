@@ -92,7 +92,7 @@ export default async function HelpArticlesListPage({
           </div>
 
           <Link
-            className="flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+            className="flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
             href={`/${locale}/admin/help/articles/new`}
           >
             <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />

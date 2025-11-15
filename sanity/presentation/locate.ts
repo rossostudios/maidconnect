@@ -25,7 +25,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
       const doc$ = createDocQuery("title, slug, language");
       return doc$.pipe(
         map((doc) => {
-          if (!(doc && doc.slug) || typeof doc.slug !== "object" || !("current" in doc.slug)) {
+          if (!doc?.slug || typeof doc.slug !== "object" || !("current" in doc.slug)) {
             return null;
           }
 
@@ -49,7 +49,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
       const doc$ = createDocQuery("name, slug, language");
       return doc$.pipe(
         map((doc) => {
-          if (!(doc && doc.slug) || typeof doc.slug !== "object" || !("current" in doc.slug)) {
+          if (!doc?.slug || typeof doc.slug !== "object" || !("current" in doc.slug)) {
             return null;
           }
 
@@ -73,7 +73,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
       const doc$ = createDocQuery("title, slug, language");
       return doc$.pipe(
         map((doc) => {
-          if (!(doc && doc.slug) || typeof doc.slug !== "object" || !("current" in doc.slug)) {
+          if (!doc?.slug || typeof doc.slug !== "object" || !("current" in doc.slug)) {
             return null;
           }
 
@@ -126,7 +126,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
       const doc$ = createDocQuery("title, slug, language");
       return doc$.pipe(
         map((doc) => {
-          if (!(doc && doc.slug) || typeof doc.slug !== "object" || !("current" in doc.slug)) {
+          if (!doc?.slug || typeof doc.slug !== "object" || !("current" in doc.slug)) {
             return null;
           }
 
@@ -150,11 +150,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
       const doc$ = createDocQuery("name, citySlug, language");
       return doc$.pipe(
         map((doc) => {
-          if (
-            !(doc && doc.citySlug) ||
-            typeof doc.citySlug !== "object" ||
-            !("current" in doc.citySlug)
-          ) {
+          if (!doc?.citySlug || typeof doc.citySlug !== "object" || !("current" in doc.citySlug)) {
             return null;
           }
 

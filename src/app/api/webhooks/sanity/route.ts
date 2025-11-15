@@ -17,12 +17,19 @@
  *    - API version: v2021-03-25
  *    - Include drafts: No
  *    - Secret: (use SANITY_WEBHOOK_SECRET from .env)
+ *
+ * SECURITY (Epic H-2):
+ * - Signature verification (HMAC-SHA256)
+ * - Idempotency checks (prevent duplicate processing)
+ * - Document type validation (allowlist)
  */
 
 import crypto from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { syncDocument } from "@/lib/integrations/algolia";
 import { client } from "@/lib/integrations/sanity/client";
+import { logger } from "@/lib/logger";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
 /**
  * Verify webhook signature to ensure request is from Sanity
@@ -57,18 +64,40 @@ export async function POST(request: NextRequest) {
 
     // Verify webhook signature
     if (!verifySignature(rawBody, signature)) {
-      console.error("Invalid webhook signature");
+      logger.error("[Sanity Webhook] Invalid signature");
       return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
     }
 
     // Parse webhook payload
     const payload = JSON.parse(rawBody);
-    const { _id, _type } = payload;
+    const { _id, _type, _rev } = payload;
 
     // Check if document type is supported
     if (!SUPPORTED_TYPES.has(_type)) {
-      console.log(`Ignoring webhook for unsupported document type: ${_type}`);
+      logger.info("[Sanity Webhook] Ignoring unsupported document type", {
+        documentType: _type,
+        documentId: _id,
+      });
       return NextResponse.json({ message: "Document type not supported" });
+    }
+
+    // Epic H-2.3: Idempotency check - Prevent duplicate processing
+    // Use document_id + revision as unique constraint
+    const { data: existingEvent } = await supabaseAdmin
+      .from("sanity_webhook_events")
+      .select("document_id")
+      .eq("document_id", _id)
+      .eq("revision", _rev)
+      .single();
+
+    if (existingEvent) {
+      logger.info("[Sanity Webhook] Duplicate event ignored (idempotency)", {
+        documentId: _id,
+        documentType: _type,
+        revision: _rev,
+      });
+      // Return 200 OK to prevent Sanity from retrying
+      return NextResponse.json({ received: true, duplicate: true });
     }
 
     // Determine action (create, update, or delete)
@@ -82,7 +111,12 @@ export async function POST(request: NextRequest) {
       action = "update";
     }
 
-    console.log(`Sanity webhook: ${action} ${_type} ${_id}`);
+    logger.info("[Sanity Webhook] Processing event", {
+      action,
+      documentType: _type,
+      documentId: _id,
+      revision: _rev,
+    });
 
     // For create/update, fetch the full document from Sanity
     // (webhook payload may not include all fields)
@@ -98,7 +132,9 @@ export async function POST(request: NextRequest) {
       document = await client.fetch(query, { id: _id });
 
       if (!document) {
-        console.error(`Document not found: ${_id}`);
+        logger.error("[Sanity Webhook] Document not found in Sanity", {
+          documentId: _id,
+        });
         return NextResponse.json({ error: "Document not found" }, { status: 404 });
       }
     }
@@ -106,7 +142,29 @@ export async function POST(request: NextRequest) {
     // Sync to Algolia
     const result = await syncDocument(document, action);
 
-    console.log("Algolia sync successful:", result);
+    // Epic H-2.3: Store event in database to prevent replay
+    const { error: insertError } = await supabaseAdmin.from("sanity_webhook_events").insert({
+      document_id: _id,
+      document_type: _type,
+      action,
+      revision: _rev,
+      payload,
+    });
+
+    if (insertError) {
+      logger.error("[Sanity Webhook] Failed to store event for idempotency", {
+        documentId: _id,
+        error: insertError.message,
+        code: insertError.code,
+      });
+      // Continue anyway - event already processed, better to succeed than fail
+    }
+
+    logger.info("[Sanity Webhook] Event processed successfully", {
+      action: result.action,
+      documentId: result.documentId,
+      documentType: result.documentType,
+    });
 
     return NextResponse.json({
       success: true,
@@ -115,12 +173,13 @@ export async function POST(request: NextRequest) {
       documentType: result.documentType,
     });
   } catch (error) {
-    console.error("Sanity webhook error:", error);
+    logger.error("[Sanity Webhook] Processing error", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
 
     return NextResponse.json(
       {
         error: "Internal server error",
-        message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -131,7 +190,7 @@ export async function POST(request: NextRequest) {
  * GET /api/webhooks/sanity
  * Health check endpoint
  */
-export async function GET() {
+export function GET() {
   return NextResponse.json({
     status: "ok",
     message: "Sanity → Algolia webhook endpoint",

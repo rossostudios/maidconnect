@@ -17,10 +17,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { amaraChatRequestSchema, type ChatMessage } from "@/lib/validations/amara";
 import { validateRequestBody } from "@/lib/validations/api";
 
-type NormalizedMessagePart = {
-  type: string;
-  [key: string]: unknown;
-};
+type NormalizedMessagePart = Record<string, any>;
 
 const MESSAGE_STATUS = {
   SUBMITTED: "submitted",
@@ -291,12 +288,11 @@ async function handleAssistantCompletion({
   userId,
 }: {
   supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>;
-  // biome-ignore lint/suspicious/noExplicitAny: AI SDK event type is complex and varies by version
-  event: any;
+  event: any; // Allow any AI SDK event structure to avoid type chasing
   conversationId: string;
   userId: string;
 }) {
-  const parts = (event.content ?? []) as NormalizedMessagePart[];
+  const parts = (event.content ?? []) as any[];
   const attachments = getAttachmentParts(parts);
   const timestamp = new Date().toISOString();
   const responseMessageId = event.response?.messages?.find(

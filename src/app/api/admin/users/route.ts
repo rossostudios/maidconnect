@@ -5,6 +5,8 @@
  * REFACTORED: Complexity 28 → <15
  * - Extracted query building to user-management-service.ts
  * - Route now focuses on orchestration only
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
  */
 
 import { NextResponse } from "next/server";
@@ -20,9 +22,10 @@ import {
   parseUserQueryParams,
 } from "@/lib/admin/user-management-service";
 import { requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function GET(request: Request) {
+async function handleGetUsers(request: Request) {
   try {
     // Verify admin access
     await requireAdmin();
@@ -76,3 +79,6 @@ export async function GET(request: Request) {
     );
   }
 }
+
+// Apply rate limiting: 10 requests per minute
+export const GET = withRateLimit(handleGetUsers, "admin");

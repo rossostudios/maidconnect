@@ -46,7 +46,7 @@ export default defineType({
     },
     prepare({ title, language }) {
       return {
-        title: title,
+        title,
         subtitle: language?.toUpperCase() || "NO LANG",
       };
     },

@@ -1,16 +1,39 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { MatchWizard } from "@/components/match-wizard/match-wizard";
-import { isFeatureEnabled } from "@/lib/feature-flags";
+import { isMatchWizardEnabled } from "@/lib/integrations/posthog";
 
-export const metadata = {
-  title: "Find Your Perfect Match",
-  description: "Answer a few questions and we'll recommend the best professionals for your needs",
-};
-
+/**
+ * Match Wizard Page - Feature Flag Gated
+ *
+ * Epic G-3: Gate Match Wizard rollout with PostHog feature flags
+ *
+ * This page is protected by the "match_wizard_enabled" PostHog feature flag.
+ * If the flag is disabled, users are redirected to the professionals listing page.
+ *
+ * Feature Flag: match_wizard_enabled
+ * - true → Show Match Wizard
+ * - false → Redirect to /professionals
+ *
+ * @see docs/experiments/match-wizard-rollout.md for rollout documentation
+ */
 export default function MatchWizardPage() {
-  // Check if feature flag is enabled
-  if (!isFeatureEnabled("show_match_wizard")) {
-    redirect("/professionals");
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if Match Wizard is enabled via PostHog feature flag
+    // This allows for gradual rollout and A/B testing
+    if (!isMatchWizardEnabled()) {
+      router.push("/professionals");
+    }
+  }, [router]);
+
+  // Only render if feature flag is enabled
+  // The useEffect above will handle redirection if disabled
+  if (!isMatchWizardEnabled()) {
+    return null;
   }
 
   return <MatchWizard />;

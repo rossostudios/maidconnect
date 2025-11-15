@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { draftMode } from "next/headers";
+import { draftMode, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -99,13 +99,20 @@ export default async function RootLayout({
   // Check if draft mode is enabled for Sanity Visual Editing
   const isDraftMode = (await draftMode()).isEnabled;
 
+  // Get nonce from middleware for CSP-compliant inline scripts
+  // The nonce is generated per-request in middleware.ts and passed via x-nonce header
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html lang={locale}>
-      <body className={`${satoshi.variable} ${manrope.variable} ${inter.variable} antialiased`}>
+      <body
+        className={`${satoshi.variable} ${manrope.variable} ${inter.variable} antialiased`}
+        data-nonce={nonce}
+      >
         <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <PostHogProvider>
+            <PostHogProvider nonce={nonce}>
               <FeedbackProvider>
                 <UnifiedCommandPaletteWrapper>
                   <ChangelogBanner />

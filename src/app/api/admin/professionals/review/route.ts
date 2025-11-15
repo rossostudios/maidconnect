@@ -10,11 +10,14 @@ import {
   validateReviewInput,
 } from "@/lib/admin/professional-review-service";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 /**
  * Review professional application
  * POST /api/admin/professionals/review
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
  *
  * Body:
  * - professionalId: string (required)
@@ -31,7 +34,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * - reject: Reject application, send notification
  * - request_info: Request more information from professional
  */
-export async function POST(request: Request) {
+async function handleReviewProfessional(request: Request) {
   try {
     // Verify admin access
     const admin = await requireAdmin();
@@ -116,3 +119,6 @@ export async function POST(request: Request) {
     );
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const POST = withRateLimit(handleReviewProfessional, "admin");

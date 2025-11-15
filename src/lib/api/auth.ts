@@ -10,7 +10,7 @@
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { AuthenticationError, NotFoundError, UnauthorizedError } from "@/lib/errors";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import type { Database } from "@/types/database.types";
+import type { Database } from "@/types/supabase";
 
 // Type aliases for database tables
 export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
@@ -321,7 +321,8 @@ export async function requireResourceOwnership<T extends Record<string, unknown>
 ): Promise<T> {
   // Note: Type assertion is required here due to Supabase's generic type system
   // The table parameter is validated by TypeScript to be a valid table name
-  const { data: resource, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: resource, error } = await (supabase as any)
     .from(table)
     .select("*")
     .eq("id", resourceId)

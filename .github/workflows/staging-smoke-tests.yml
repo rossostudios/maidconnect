@@ -1,0 +1,128 @@
+name: Staging Smoke Tests
+
+# Trigger after Vercel staging deployment completes
+# Requires Vercel integration with GitHub Actions
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+  deployments: read
+  pull-requests: write
+
+jobs:
+  smoke-tests:
+    name: Run Smoke Tests on Staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Only run on successful staging deployments
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment_status.environment == 'Preview'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium
+
+      - name: Extract deployment URL
+        id: deployment
+        run: |
+          DEPLOYMENT_URL="${{ github.event.deployment_status.target_url }}"
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          echo "🚀 Testing staging deployment at: $DEPLOYMENT_URL"
+
+      - name: Wait for deployment to be ready
+        run: |
+          URL="${{ steps.deployment.outputs.url }}"
+          echo "Waiting for $URL to be ready..."
+
+          for i in {1..30}; do
+            if curl -sf "$URL" > /dev/null; then
+              echo "✅ Deployment is ready!"
+              exit 0
+            fi
+            echo "⏳ Attempt $i/30 - waiting 10s..."
+            sleep 10
+          done
+
+          echo "❌ Deployment not ready after 5 minutes"
+          exit 1
+
+      - name: Run smoke tests against staging
+        run: bunx playwright test --config=playwright.smoke.config.ts
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: ${{ steps.deployment.outputs.url }}
+          # Staging environment variables
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-smoke-test-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+      - name: Comment on PR with test results
+        if: github.event.deployment_status.environment == 'Preview' && github.event.pull_request
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const success = '${{ job.status }}' === 'success';
+            const emoji = success ? '✅' : '❌';
+            const status = success ? 'passed' : 'failed';
+
+            const body = `${emoji} **Staging Smoke Tests ${status}**\n\n` +
+              `Tested deployment: ${{ steps.deployment.outputs.url }}\n\n` +
+              (success
+                ? '✅ All critical user flows are working on staging!'
+                : '❌ Smoke tests failed on staging. Check the [test report](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.'
+              );
+
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
+
+      - name: Update deployment status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const success = '${{ job.status }}' === 'success';
+            const state = success ? 'success' : 'failure';
+            const description = success
+              ? 'Smoke tests passed'
+              : 'Smoke tests failed';
+
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: context.payload.deployment.id,
+              state: state,
+              description: description,
+              log_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              environment_url: '${{ steps.deployment.outputs.url }}'
+            });

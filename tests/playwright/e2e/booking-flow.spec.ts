@@ -349,7 +349,7 @@ test.describe("Booking Flow", () => {
   });
 
   test.describe("Payment Security", () => {
-    test("should use HTTPS for payment pages", async ({ page }) => {
+    test("should use HTTPS for payment pages", ({ page }) => {
       // Production payment pages should use HTTPS
       // In test/dev, may use HTTP
       const url = page.url();

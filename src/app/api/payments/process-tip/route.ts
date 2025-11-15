@@ -4,6 +4,8 @@
  *
  * BEFORE: 154 lines
  * AFTER: 84 lines (45% reduction)
+ *
+ * Rate Limit: 15 requests per minute (payment tier)
  */
 
 import { z } from "zod";
@@ -115,5 +117,5 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   );
 });
 
-// Apply rate limiting: 10 tips per hour (prevent abuse)
-export const POST = withRateLimit(handler, "api");
+// Apply rate limiting: 15 requests per minute (payment tier)
+export const POST = withRateLimit(handler, "payment");

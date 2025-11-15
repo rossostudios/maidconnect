@@ -1,25 +1,52 @@
 /**
- * Custom Font Configuration for Casaora
+ * Custom Font Configuration for Casaora Admin
  *
- * Uses next/font/local for optimal font loading with automatic optimization.
- * All fonts are self-hosted for better performance, privacy, and GDPR compliance.
+ * Uses Vercel's Geist font family for exceptional readability and precision.
+ * Geist is designed specifically for interfaces and data display.
  *
  * Font Usage:
- * - Satoshi: Display text, headings, hero sections (Swiss typography tradition)
- * - Manrope: Body text, UI elements, interface copy
- * - Inter: Fallback for system compatibility
+ * - Geist Sans: UI text, labels, headings - clean and readable
+ * - Geist Mono: Numbers, data, metrics, code - precise and authoritative
+ * - Satoshi/Manrope: Preserved for marketing site
  */
 
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 
 /**
- * Satoshi Font Family
+ * Geist Sans - Primary Admin UI Font
  *
- * A geometric sans-serif with clean, modern aesthetics.
- * Perfect for headings and display text following Swiss design principles.
+ * Modern sans-serif designed by Vercel for maximum readability.
+ * Perfect for labels, headings, and interface text.
  *
- * License: Commercial license required from Indian Type Foundry
- * Variable font for optimal performance and flexibility.
+ * Features:
+ * - Optimized for screen readability
+ * - Excellent spacing and kerning
+ * - Wide range of weights
+ * - Variable font for performance
+ */
+export const geistSans = GeistSans;
+
+/**
+ * Geist Mono - Data Display Font
+ *
+ * Monospace font designed for code, data, and numbers.
+ * Creates a precise, authoritative feel for metrics and analytics.
+ *
+ * Features:
+ * - Tabular figures (numbers align vertically)
+ * - Clear distinction between similar characters (0/O, 1/I/l)
+ * - Professional, technical aesthetic
+ * - Perfect for dashboards and data tables
+ */
+export const geistMono = GeistMono;
+
+/**
+ * Satoshi Font Family (Marketing Site)
+ *
+ * Preserved for marketing pages to maintain brand consistency.
+ * Use Geist for admin interfaces.
  */
 export const satoshi = localFont({
   src: [
@@ -36,17 +63,14 @@ export const satoshi = localFont({
   display: "swap",
   preload: true,
   fallback: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-  adjustFontFallback: "Arial", // Matches x-height for better fallback rendering
+  adjustFontFallback: "Arial",
 });
 
 /**
- * Manrope Font Family
+ * Manrope Font Family (Marketing Site)
  *
- * Open-source geometric sans-serif designed for readability.
- * Ideal for body text and UI elements with excellent legibility.
- *
- * License: Open Font License (free to use)
- * Using individual weights for maximum browser compatibility.
+ * Preserved for marketing pages to maintain brand consistency.
+ * Use Geist for admin interfaces.
  */
 export const manrope = localFont({
   src: [
@@ -94,19 +118,17 @@ export const manrope = localFont({
 });
 
 /**
- * Font Loading Notes:
+ * Font Usage Guidelines:
  *
- * 1. Variable Fonts: Satoshi uses variable font format for optimal performance.
- *    Single file contains all weights, reducing HTTP requests.
+ * ADMIN DASHBOARD:
+ * - Use Geist Sans for all text, labels, headings
+ * - Use Geist Mono for numbers, metrics, data values, timestamps
  *
- * 2. Font Display: 'swap' ensures text is always visible while fonts load.
- *    Prevents Flash of Invisible Text (FOIT).
+ * MARKETING SITE:
+ * - Use Satoshi for headings and display text
+ * - Use Manrope for body text and UI elements
  *
- * 3. Preload: Critical fonts are preloaded for faster initial render.
- *
- * 4. Fallback Chain: Inter → system-ui → -apple-system → sans-serif
- *    Ensures consistent rendering while fonts load.
- *
- * 5. Font Size: Total ~200KB (gzipped) for both font families.
- *    Acceptable overhead for custom typography.
+ * This separation ensures:
+ * - Admin feels professional, precise, data-focused
+ * - Marketing feels warm, approachable, brand-focused
  */

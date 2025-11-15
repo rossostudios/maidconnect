@@ -20,9 +20,9 @@ const propertyCardClass =
   "rounded-3xl border border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-950/60 p-5 shadow-[0_1px_2px_rgba(22,22,22,0.05)] backdrop-blur";
 const propertyHeadingClass =
   "text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-600 dark:text-neutral-400";
-const propertyRowClass = "grid grid-cols-[110px_1fr] items-center gap-4 rounded-2xl px-2 py-1.5";
+const propertyRowClass = "grid grid-cols-[110px_1fr] items-center gap-4 -2xl px-2 py-1.5";
 const propertyValueClass =
-  "w-full rounded-2xl border border-neutral-200 dark:border-neutral-800/70 bg-white dark:bg-neutral-950 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition focus:border-neutral-900 dark:border-neutral-100/40 focus:ring-0";
+  "w-full -2xl border border-neutral-200 dark:border-neutral-800/70 bg-white dark:bg-neutral-950 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition focus:border-neutral-900 dark:border-neutral-100/40 focus:ring-0";
 
 type Category = {
   id: string;
@@ -87,7 +87,7 @@ function TranslationHealthBadge({
   if (isEmpty && !otherIsEmpty) {
     // This field is empty but other language has content
     return (
-      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+      <span className="-full ml-2 inline-flex items-center gap-1 bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
         {locale === "es" ? "Falta traducción" : "Missing translation"}
       </span>
@@ -97,7 +97,7 @@ function TranslationHealthBadge({
   if (!(isEmpty || otherIsEmpty)) {
     // Both have content - show healthy status
     return (
-      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+      <span className="-full ml-2 inline-flex items-center gap-1 bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle01Icon} />
         {locale === "es" ? "Completo" : "Complete"}
       </span>
@@ -316,7 +316,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
           <div className="flex items-center gap-3">
             <button
-              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+              className="flex items-center gap-2 border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               onClick={() => setIsPreview(!isPreview)}
               type="button"
             >
@@ -331,7 +331,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             </button>
 
             <button
-              className="rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+              className="border border-neutral-200 bg-white px-4 py-2 text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               disabled={saving}
               onClick={() => {
                 handleSave(false);
@@ -342,7 +342,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             </button>
 
             <button
-              className="rounded-lg bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={saving}
               onClick={() => {
                 handleSave(true);
@@ -357,7 +357,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
       {/* Preview Mode - Dual-language with synchronized scrolling */}
       {isPreview ? (
-        <div className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
           <div className="border-neutral-200 border-b bg-white px-6 py-3 dark:border-neutral-800 dark:bg-neutral-950">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -378,10 +378,10 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
               </div>
 
               {/* Language selector tabs */}
-              <div className="flex gap-1 rounded-lg border border-neutral-200 bg-white p-1 dark:border-neutral-800 dark:bg-neutral-950">
+              <div className="flex gap-1 border border-neutral-200 bg-white p-1 dark:border-neutral-800 dark:bg-neutral-950">
                 <button
                   className={cn(
-                    "rounded px-3 py-1.5 font-medium text-xs",
+                    "px-3 py-1.5 font-medium text-xs",
                     previewMode === "en"
                       ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
                       : "text-neutral-600 dark:text-neutral-400"
@@ -393,7 +393,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 </button>
                 <button
                   className={cn(
-                    "rounded px-3 py-1.5 font-medium text-xs",
+                    "px-3 py-1.5 font-medium text-xs",
                     previewMode === "es"
                       ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
                       : "text-neutral-600 dark:text-neutral-400"
@@ -405,7 +405,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 </button>
                 <button
                   className={cn(
-                    "rounded px-3 py-1.5 font-medium text-xs",
+                    "px-3 py-1.5 font-medium text-xs",
                     previewMode === "both"
                       ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
                       : "text-neutral-600 dark:text-neutral-400"
@@ -692,7 +692,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                       }
                       return (
                         <span
-                          className="inline-flex items-center gap-1 rounded-full bg-[neutral-200]/30 px-2 py-1 text-neutral-600 text-xs dark:text-neutral-400"
+                          className="-full inline-flex items-center gap-1 bg-[neutral-200]/30 px-2 py-1 text-neutral-600 text-xs dark:text-neutral-400"
                           key={tagId}
                         >
                           <span>{locale === "es" ? tag.name_es : tag.name_en}</span>
@@ -720,12 +720,12 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   ) : (
                     tags.map((tag) => (
                       <label
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-neutral-600 text-xs hover:bg-white dark:bg-neutral-950 dark:text-neutral-400"
+                        className="flex cursor-pointer items-center gap-2 px-2 py-1 text-neutral-600 text-xs hover:bg-white dark:bg-neutral-950 dark:text-neutral-400"
                         key={tag.id}
                       >
                         <input
                           checked={selectedTags.includes(tag.id)}
-                          className="h-3.5 w-3.5 rounded border-neutral-400/40 text-neutral-900 focus:ring-0 dark:border-neutral-500/40 dark:text-neutral-100"
+                          className="h-3.5 w-3.5 border-neutral-400/40 text-neutral-900 focus:ring-0 dark:border-neutral-500/40 dark:text-neutral-100"
                           onChange={(e) => {
                             if (e.target.checked) {
                               setSelectedTags([...selectedTags, tag.id]);
@@ -764,7 +764,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                     <label className="inline-flex cursor-pointer items-center gap-2">
                       <input
                         checked={isPublished}
-                        className="h-5 w-10 cursor-pointer rounded-full border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                        className="-full h-5 w-10 cursor-pointer border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
                         onChange={(e) => setIsPublished(e.target.checked)}
                         type="checkbox"
                       />

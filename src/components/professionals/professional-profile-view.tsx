@@ -32,6 +32,7 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
+import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
 
 export type ProfessionalProfileDetail = {
@@ -101,6 +102,11 @@ export function ProfessionalProfileView({
   const handleDateSelect = (date: Date | null) => {
     if (date) {
       setSelectedDate(date);
+      // Track professional selection in PostHog
+      bookingTracking.professionalSelected({
+        professionalId: professional.id,
+        serviceType: professional.service || "general",
+      });
       // Note: Calendar component handles time slots internally
       setIsBookingSheetOpen(true);
     }

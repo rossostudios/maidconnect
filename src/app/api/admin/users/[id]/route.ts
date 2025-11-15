@@ -1,13 +1,31 @@
 /**
  * Admin User Detail API
  * GET /api/admin/users/[id] - Get user details with suspension history
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
  */
 
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+type SupabaseServerClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
+
+type SuspensionHistoryItem = {
+  id: string;
+  suspension_type: string;
+  reason: string | null;
+  details: any;
+  suspended_at: string;
+  expires_at: string | null;
+  lifted_at: string | null;
+  lift_reason: string | null;
+  suspended_by_profile: { id: string; full_name: string } | null;
+  lifted_by_profile: { id: string; full_name: string } | null;
+};
+
+async function handleGetUser(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Verify admin access
     const { id } = await params;
@@ -15,98 +33,17 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     const supabase = await createSupabaseServerClient();
     const userId = id;
 
-    // Get user profile
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .single();
-
-    if (profileError || !profile) {
+    const profile = await fetchProfile(supabase, userId);
+    if (!profile) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Get user email from auth
-    const { data: authUser } = await supabase.auth.admin.getUserById(userId);
-    const email = authUser?.user?.email || null;
-
-    // Get professional profile if applicable
-    let professionalProfile: any = null;
-    if (profile.role === "professional") {
-      const { data: proProfile } = await supabase
-        .from("professional_profiles")
-        .select("*")
-        .eq("id", userId)
-        .single();
-      professionalProfile = proProfile;
-    }
-
-    // Get suspension history
-    const { data: suspensionHistory } = await supabase
-      .from("user_suspensions")
-      .select(`
-        id,
-        suspension_type,
-        reason,
-        details,
-        suspended_at,
-        expires_at,
-        lifted_at,
-        lift_reason,
-        suspended_by_profile:profiles!user_suspensions_suspended_by_fkey(id, full_name),
-        lifted_by_profile:profiles!user_suspensions_lifted_by_fkey(id, full_name)
-      `)
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false });
-
-    // Get active suspension
-    const activeSuspension = suspensionHistory?.find(
-      (s) =>
-        !s.lifted_at &&
-        (s.suspension_type === "permanent" || (s.expires_at && new Date(s.expires_at) > new Date()))
-    );
-
-    // Get booking stats
-    let bookingStats: { total: number; completed: number } | null = null;
-    if (profile.role === "customer") {
-      const { count: totalBookings } = await supabase
-        .from("bookings")
-        .select("id", { count: "exact", head: true })
-        .eq("customer_id", userId);
-
-      const { count: completedBookings } = await supabase
-        .from("bookings")
-        .select("id", { count: "exact", head: true })
-        .eq("customer_id", userId)
-        .eq("status", "completed");
-
-      bookingStats = {
-        total: totalBookings || 0,
-        completed: completedBookings || 0,
-      };
-    } else if (profile.role === "professional") {
-      const { count: totalBookings } = await supabase
-        .from("bookings")
-        .select("id", { count: "exact", head: true })
-        .eq("professional_id", userId);
-
-      const { count: completedBookings } = await supabase
-        .from("bookings")
-        .select("id", { count: "exact", head: true })
-        .eq("professional_id", userId)
-        .eq("status", "completed");
-
-      bookingStats = {
-        total: totalBookings || 0,
-        completed: completedBookings || 0,
-      };
-    }
-
-    // Get dispute count
-    const { count: disputeCount } = await supabase
-      .from("disputes")
-      .select("id", { count: "exact", head: true })
-      .eq("opened_by", userId);
+    const email = await fetchUserEmail(supabase, userId);
+    const professionalProfile = await fetchProfessionalProfile(supabase, profile.role, userId);
+    const suspensionHistory = await fetchSuspensionHistory(supabase, userId);
+    const activeSuspension = findActiveSuspension(suspensionHistory);
+    const bookingStats = await fetchBookingStats(supabase, profile.role, userId);
+    const disputeCount = await fetchDisputeCount(supabase, userId);
 
     return NextResponse.json({
       user: {
@@ -146,3 +83,125 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     );
   }
 }
+
+async function fetchProfile(supabase: SupabaseServerClient, userId: string) {
+  const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
+  if (error || !data) {
+    return null;
+  }
+  return data;
+}
+
+async function fetchUserEmail(supabase: SupabaseServerClient, userId: string) {
+  const { data: authUser } = await supabase.auth.admin.getUserById(userId);
+  return authUser?.user?.email || null;
+}
+
+async function fetchProfessionalProfile(
+  supabase: SupabaseServerClient,
+  role: string,
+  userId: string
+) {
+  if (role !== "professional") {
+    return null;
+  }
+  const { data } = await supabase
+    .from("professional_profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+  return data ?? null;
+}
+
+async function fetchSuspensionHistory(
+  supabase: SupabaseServerClient,
+  userId: string
+): Promise<SuspensionHistoryItem[]> {
+  const { data } = await supabase
+    .from("user_suspensions")
+    .select(`
+      id,
+      suspension_type,
+      reason,
+      details,
+      suspended_at,
+      expires_at,
+      lifted_at,
+      lift_reason,
+      suspended_by_profile:profiles!user_suspensions_suspended_by_fkey(id, full_name),
+      lifted_by_profile:profiles!user_suspensions_lifted_by_fkey(id, full_name)
+    `)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (!data) {
+    return [];
+  }
+
+  // Transform the data to extract single objects from foreign key arrays
+  return data.map((item: any) => ({
+    id: item.id,
+    suspension_type: item.suspension_type,
+    reason: item.reason,
+    details: item.details,
+    suspended_at: item.suspended_at,
+    expires_at: item.expires_at,
+    lifted_at: item.lifted_at,
+    lift_reason: item.lift_reason,
+    suspended_by_profile: Array.isArray(item.suspended_by_profile)
+      ? item.suspended_by_profile[0] || null
+      : item.suspended_by_profile,
+    lifted_by_profile: Array.isArray(item.lifted_by_profile)
+      ? item.lifted_by_profile[0] || null
+      : item.lifted_by_profile,
+  }));
+}
+
+function findActiveSuspension(
+  suspensionHistory: SuspensionHistoryItem[]
+): SuspensionHistoryItem | undefined {
+  return suspensionHistory.find(
+    (s) =>
+      !s.lifted_at &&
+      (s.suspension_type === "permanent" || (s.expires_at && new Date(s.expires_at) > new Date()))
+  );
+}
+
+async function fetchBookingStats(
+  supabase: SupabaseServerClient,
+  role: string,
+  userId: string
+): Promise<{ total: number; completed: number } | null> {
+  if (role !== "customer" && role !== "professional") {
+    return null;
+  }
+
+  const idColumn = role === "customer" ? "customer_id" : "professional_id";
+
+  const { count: totalBookings } = await supabase
+    .from("bookings")
+    .select("id", { count: "exact", head: true })
+    .eq(idColumn, userId);
+
+  const { count: completedBookings } = await supabase
+    .from("bookings")
+    .select("id", { count: "exact", head: true })
+    .eq(idColumn, userId)
+    .eq("status", "completed");
+
+  return {
+    total: totalBookings || 0,
+    completed: completedBookings || 0,
+  };
+}
+
+async function fetchDisputeCount(supabase: SupabaseServerClient, userId: string) {
+  const { count } = await supabase
+    .from("disputes")
+    .select("id", { count: "exact", head: true })
+    .eq("opened_by", userId);
+  return count || 0;
+}
+
+// Apply rate limiting: 10 requests per minute
+export const GET = withRateLimit(handleGetUser, "admin");

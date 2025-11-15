@@ -38,6 +38,7 @@ export const conversionTracking = {
     ctaType: "start_brief" | "learn_more" | "concierge";
     location: "hero" | "banner";
     ctaText?: string;
+    variant?: "control" | "variant_a"; // Epic G-2: A/B test tracking
   }) => {
     trackEvent("Hero CTA Clicked", props);
   },

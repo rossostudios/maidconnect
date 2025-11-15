@@ -1,13 +1,25 @@
 import type { ReactNode } from "react";
-import { AdminHeader } from "@/components/admin/admin-header";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { geistSans } from "@/app/fonts";
+import { PrecisionAdminHeader } from "@/components/admin/precision-admin-header";
+import { PrecisionAdminSidebar } from "@/components/admin/precision-admin-sidebar";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type Props = {
   children: ReactNode;
 };
 
+/**
+ * Admin Layout - Precision Dashboard Design
+ *
+ * Inspired by Bloomberg Terminal + Swiss Design:
+ * - Ultra-high contrast for readability (WCAG AAA)
+ * - Geist Sans for UI text, Geist Mono for data
+ * - Pure white backgrounds with deep black borders
+ * - Electric blue accents for primary actions
+ * - Sharp geometric design language
+ */
 export default async function AdminLayout({ children }: Props) {
   const user = await requireUser({ allowedRoles: ["admin"] });
 
@@ -20,22 +32,23 @@ export default async function AdminLayout({ children }: Props) {
     .single();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-neutral-50">
-      {/* Desktop Sidebar - More spacious */}
-      <div className="hidden lg:block">
-        <AdminSidebar />
+    <div className={cn("flex h-screen overflow-hidden bg-white", geistSans.className)}>
+      {/* Sidebar - Fixed on desktop */}
+      <div className="hidden lg:flex lg:w-64 lg:flex-col">
+        <PrecisionAdminSidebar
+          userEmail={user.email ?? undefined}
+          userName={profile?.full_name ?? undefined}
+        />
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Enhanced Header */}
-        <AdminHeader
+      {/* Main Content Area */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <PrecisionAdminHeader
           userEmail={user.email ?? undefined}
           userName={profile?.full_name ?? undefined}
         />
 
-        {/* Main Content Area - More spacious */}
-        <main className="flex-1 overflow-y-auto bg-neutral-50 px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-neutral-50 px-6 py-6 lg:px-8">{children}</main>
       </div>
     </div>
   );

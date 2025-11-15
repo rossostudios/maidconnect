@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { formatDate, formatTime } from "@/lib/format";
+import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -181,8 +182,10 @@ async function processExpiredBooking(
  * - Race condition protection: Double-checks status before updating
  *
  * GET /api/cron/auto-decline-bookings
+ *
+ * Rate Limit: 1 request per 5 minutes (cron tier - prevents concurrent execution)
  */
-export async function GET(request: Request) {
+async function handleAutoDeclineBookings(request: Request) {
   const startTime = Date.now();
   logger.info("Auto-decline cron started");
 
@@ -284,3 +287,6 @@ export async function GET(request: Request) {
     );
   }
 }
+
+// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
+export const GET = withRateLimit(handleAutoDeclineBookings, "cron");

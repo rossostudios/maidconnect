@@ -88,10 +88,10 @@ export function BackgroundCheckDetailModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 p-4 dark:bg-neutral-100/50">
-      <div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-xl border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
         {/* Close Button */}
         <button
-          className="absolute top-6 right-6 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
+          className="absolute top-6 right-6 p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
           disabled={isProcessing}
           onClick={onClose}
           type="button"
@@ -102,7 +102,7 @@ export function BackgroundCheckDetailModal({
         {/* Header */}
         <div className="mb-8">
           <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+            <div className="bg-white p-3 dark:bg-neutral-950">
               <HugeiconsIcon
                 className="h-8 w-8 text-neutral-900 dark:text-neutral-100"
                 icon={SecurityCheckIcon}
@@ -119,9 +119,9 @@ export function BackgroundCheckDetailModal({
           </div>
 
           {/* Professional Info */}
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
             <div className="flex items-center gap-4">
-              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+              <div className="bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={UserAccountIcon}
@@ -146,7 +146,7 @@ export function BackgroundCheckDetailModal({
 
         {/* Status & Recommendation */}
         <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
             <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
               Status
             </p>
@@ -175,7 +175,7 @@ export function BackgroundCheckDetailModal({
             </div>
           </div>
 
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
             <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
               Recommendation
             </p>
@@ -186,7 +186,7 @@ export function BackgroundCheckDetailModal({
             </p>
           </div>
 
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
             <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
               Completed
             </p>
@@ -205,7 +205,7 @@ export function BackgroundCheckDetailModal({
             <div className="flex flex-wrap gap-3">
               {check.checksPerformed.map((checkType) => (
                 <div
-                  className="rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
+                  className="border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
                   key={checkType}
                 >
                   <p className="font-medium text-red-700 text-sm dark:text-red-200">
@@ -226,7 +226,7 @@ export function BackgroundCheckDetailModal({
               Criminal Background Check
             </h3>
             {check.results.criminal.records.length === 0 ? (
-              <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+              <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
                 <div className="flex items-center gap-3">
                   <HugeiconsIcon
                     className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
@@ -241,7 +241,7 @@ export function BackgroundCheckDetailModal({
               <div className="space-y-4">
                 {check.results.criminal.records.map((record, index) => (
                   <div
-                    className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950"
+                    className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950"
                     key={index}
                   >
                     <div className="mb-3 flex items-start justify-between">
@@ -253,7 +253,7 @@ export function BackgroundCheckDetailModal({
                         <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                           Record #{index + 1}
                           {record.severity && (
-                            <span className="ml-2 rounded bg-neutral-900 px-2 py-0.5 text-xs uppercase dark:bg-neutral-100/20">
+                            <span className="ml-2 bg-neutral-900 px-2 py-0.5 text-xs uppercase dark:bg-neutral-100/20">
                               {record.severity} severity
                             </span>
                           )}
@@ -271,7 +271,7 @@ export function BackgroundCheckDetailModal({
                         <summary className="cursor-pointer font-medium text-red-700 text-sm dark:text-red-200">
                           View full details
                         </summary>
-                        <pre className="mt-2 overflow-auto rounded bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                        <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                           {JSON.stringify(record.details, null, 2)}
                         </pre>
                       </details>
@@ -290,7 +290,7 @@ export function BackgroundCheckDetailModal({
               Identity Verification
             </h3>
             {check.results.identity.records.length === 0 ? (
-              <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
+              <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
                 <div className="flex items-center gap-3">
                   <HugeiconsIcon
                     className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
@@ -305,7 +305,7 @@ export function BackgroundCheckDetailModal({
               <div className="space-y-4">
                 {check.results.identity.records.map((record, index) => (
                   <div
-                    className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
+                    className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
                     key={index}
                   >
                     <div className="flex items-center gap-2">
@@ -322,7 +322,7 @@ export function BackgroundCheckDetailModal({
                         <summary className="cursor-pointer font-medium text-red-700 text-sm dark:text-red-200">
                           View details
                         </summary>
-                        <pre className="mt-2 overflow-auto rounded bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                        <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                           {JSON.stringify(record.details, null, 2)}
                         </pre>
                       </details>
@@ -341,7 +341,7 @@ export function BackgroundCheckDetailModal({
               <summary className="cursor-pointer font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                 Raw Provider Data
               </summary>
-              <div className="mt-4 overflow-auto rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+              <div className="mt-4 overflow-auto border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
                 <pre className="text-neutral-900 text-xs dark:text-neutral-100">
                   {JSON.stringify(check.rawData, null, 2)}
                 </pre>
@@ -352,7 +352,7 @@ export function BackgroundCheckDetailModal({
 
         {/* Error Display */}
         {error && (
-          <div className="mb-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+          <div className="mb-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
             <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
           </div>
         )}
@@ -361,7 +361,7 @@ export function BackgroundCheckDetailModal({
         {check.status === "consider" && (
           <div className="flex gap-4">
             <button
-              className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={isProcessing}
               onClick={handleApprove}
               type="button"
@@ -370,7 +370,7 @@ export function BackgroundCheckDetailModal({
               {isProcessing ? "Processing..." : "Approve Professional"}
             </button>
             <button
-              className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={isProcessing}
               onClick={handleReject}
               type="button"
@@ -382,7 +382,7 @@ export function BackgroundCheckDetailModal({
         )}
 
         {check.status === "clear" && check.recommendation === "approved" && (
-          <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+          <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <HugeiconsIcon
@@ -394,7 +394,7 @@ export function BackgroundCheckDetailModal({
                 </p>
               </div>
               <button
-                className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                 disabled={isProcessing}
                 onClick={handleApprove}
                 type="button"
@@ -406,7 +406,7 @@ export function BackgroundCheckDetailModal({
         )}
 
         {check.status === "suspended" && (
-          <div className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
+          <div className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
             <div className="flex items-center gap-3">
               <HugeiconsIcon
                 className="h-6 w-6 text-neutral-900 dark:text-neutral-100"

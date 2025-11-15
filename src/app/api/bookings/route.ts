@@ -7,7 +7,9 @@
  * - Route now focuses on orchestration
  */
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { ok, withAuth, withRateLimit } from "@/lib/api";
+import type { BookingInsertInput } from "@/lib/bookings/booking-creation-service";
 import {
   calculateBookingAmount,
   calculateScheduledEnd,
@@ -20,111 +22,54 @@ import {
 } from "@/lib/bookings/booking-creation-service";
 import { ValidationError } from "@/lib/errors";
 import { trackBookingSubmittedServer } from "@/lib/integrations/posthog/server";
+import type { CreateBookingInput } from "@/lib/validations/booking";
 import { createBookingSchema } from "@/lib/validations/booking";
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
-  // Validate request body with Zod schema
-  const body = await request.json();
-  const validatedData = createBookingSchema.parse(body);
+  const validatedData = await parseBookingRequest(request);
+  const derivedValues = deriveBookingValues(validatedData);
 
-  const {
-    professionalId,
-    scheduledStart,
-    durationMinutes,
-    currency,
-    specialInstructions,
-    address,
-    serviceName,
-    serviceHourlyRate,
-  } = validatedData;
-  let { scheduledEnd, amount } = validatedData;
-
-  // Auto-calculate scheduledEnd if not provided using service
-  if (!scheduledEnd) {
-    scheduledEnd =
-      calculateScheduledEnd(scheduledStart ?? null, durationMinutes ?? null) || undefined;
-  }
-
-  // Auto-calculate amount if not provided using service
-  amount = calculateBookingAmount(
-    amount ?? null,
-    serviceHourlyRate ?? null,
-    durationMinutes ?? null
-  );
-
-  // Ensure Stripe customer exists using service
   const stripeCustomerId = await ensureStripeCustomer(supabase, user.id, user.email ?? null);
+  const bookingPayload = buildBookingPayload(user.id, validatedData, derivedValues);
+  const booking = await createBookingOrThrow(supabase, bookingPayload);
 
-  // Create pending booking record using service
-  const bookingResult = await createPendingBooking(supabase, {
-    customer_id: user.id,
-    professional_id: professionalId,
-    scheduled_start: scheduledStart ?? null,
-    scheduled_end: scheduledEnd ?? null,
-    duration_minutes: durationMinutes ?? null,
-    status: "pending_payment",
-    amount_estimated: amount,
-    currency,
-    special_instructions: specialInstructions ?? null,
-    address: address ? JSON.stringify(address) : null,
-    service_name: serviceName ?? null,
-    service_hourly_rate: serviceHourlyRate ?? null,
+  const paymentIntent = await initializePaymentIntent({
+    supabase,
+    amount: derivedValues.amount,
+    currency: validatedData.currency,
+    stripeCustomerId,
+    userId: user.id,
+    bookingId: booking.id,
   });
 
-  if (!(bookingResult.success && bookingResult.booking)) {
-    throw new ValidationError(bookingResult.error ?? "Unable to create booking");
-  }
-
-  const insertedBooking = bookingResult.booking;
-
-  // Create payment intent using service
-  const paymentResult = await createBookingPaymentIntent(
-    amount,
-    currency,
-    stripeCustomerId,
-    user.id,
-    insertedBooking.id
-  );
-
-  if (!(paymentResult.success && paymentResult.paymentIntent)) {
-    // Clean up booking if payment intent creation fails
-    await cleanupFailedBooking(supabase, insertedBooking.id);
-    throw new ValidationError(paymentResult.error ?? "Unable to initialize payment");
-  }
-
-  const paymentIntent = paymentResult.paymentIntent;
-
-  // Link payment intent to booking using service
   await linkPaymentIntentToBooking(
     supabase,
-    insertedBooking.id,
+    booking.id,
     paymentIntent.id,
     paymentIntent.status,
-    amount
+    derivedValues.amount
   );
 
-  // Send notification to professional using service (fire-and-forget)
   await sendNewBookingNotification(
     supabase,
-    professionalId,
-    insertedBooking.id,
-    serviceName ?? null,
+    validatedData.professionalId,
+    booking.id,
+    validatedData.serviceName ?? null,
     user.id,
-    scheduledStart ?? null
+    validatedData.scheduledStart ?? null
   );
 
-  // Track booking submission
   await trackBookingSubmittedServer(user.id, {
-    bookingId: insertedBooking.id,
-    professionalId,
-    serviceType: serviceName ?? "unknown",
-    totalAmount: amount,
-    currency,
-    duration: durationMinutes ?? 0,
+    bookingId: booking.id,
+    professionalId: validatedData.professionalId,
+    serviceType: validatedData.serviceName ?? "unknown",
+    totalAmount: derivedValues.amount,
+    currency: validatedData.currency,
+    duration: validatedData.durationMinutes ?? 0,
   });
 
   return ok({
-    bookingId: insertedBooking.id,
+    bookingId: booking.id,
     clientSecret: paymentIntent.client_secret,
     paymentIntentId: paymentIntent.id,
   });
@@ -132,3 +77,83 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
 
 // Apply rate limiting: 20 requests per minute
 export const POST = withRateLimit(handler, "booking");
+
+async function parseBookingRequest(request: Request): Promise<CreateBookingInput> {
+  const body = await request.json();
+  return createBookingSchema.parse(body);
+}
+
+type DerivedBookingValues = {
+  scheduledEnd: string | null;
+  amount: number;
+};
+
+function deriveBookingValues(data: CreateBookingInput): DerivedBookingValues {
+  const scheduledEnd =
+    data.scheduledEnd ??
+    calculateScheduledEnd(data.scheduledStart ?? null, data.durationMinutes ?? null) ??
+    null;
+
+  const amount = calculateBookingAmount(
+    data.amount,
+    data.serviceHourlyRate ?? null,
+    data.durationMinutes ?? null
+  );
+
+  return { scheduledEnd, amount };
+}
+
+function buildBookingPayload(
+  customerId: string,
+  data: CreateBookingInput,
+  derived: DerivedBookingValues
+): BookingInsertInput {
+  return {
+    customer_id: customerId,
+    professional_id: data.professionalId,
+    scheduled_start: data.scheduledStart ?? null,
+    scheduled_end: derived.scheduledEnd,
+    duration_minutes: data.durationMinutes ?? null,
+    status: "pending_payment",
+    amount_estimated: derived.amount,
+    currency: data.currency,
+    special_instructions: data.specialInstructions ?? null,
+    address: data.address ? JSON.stringify(data.address) : null,
+    service_name: data.serviceName ?? null,
+    service_hourly_rate: data.serviceHourlyRate ?? null,
+  };
+}
+
+async function createBookingOrThrow(supabase: SupabaseClient, payload: BookingInsertInput) {
+  const bookingResult = await createPendingBooking(supabase, payload);
+  if (!(bookingResult.success && bookingResult.booking)) {
+    throw new ValidationError(bookingResult.error ?? "Unable to create booking");
+  }
+  return bookingResult.booking;
+}
+
+type PaymentInitializationInput = {
+  supabase: SupabaseClient;
+  amount: number;
+  currency: string;
+  stripeCustomerId: string;
+  userId: string;
+  bookingId: string;
+};
+
+async function initializePaymentIntent(input: PaymentInitializationInput) {
+  const paymentResult = await createBookingPaymentIntent(
+    input.amount,
+    input.currency,
+    input.stripeCustomerId,
+    input.userId,
+    input.bookingId
+  );
+
+  if (!(paymentResult.success && paymentResult.paymentIntent)) {
+    await cleanupFailedBooking(input.supabase, input.bookingId);
+    throw new ValidationError(paymentResult.error ?? "Unable to initialize payment");
+  }
+
+  return paymentResult.paymentIntent;
+}

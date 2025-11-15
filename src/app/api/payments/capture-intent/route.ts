@@ -4,12 +4,14 @@
  *
  * BEFORE: 83 lines
  * AFTER: 56 lines (33% reduction)
+ *
+ * Rate Limit: 15 requests per minute (payment tier)
  */
 
 import { z } from "zod";
 import { ok, withAuth } from "@/lib/api";
 import { BusinessRuleError, NotFoundError, UnauthorizedError } from "@/lib/errors";
-import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
+import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 
 const captureIntentSchema = z.object({
@@ -17,13 +19,7 @@ const captureIntentSchema = z.object({
   amountToCapture: z.number().int().positive().optional(),
 });
 
-export const POST = withAuth(async ({ user, supabase }, request: Request) => {
-  // Rate limiting: 20 payment captures per hour per user
-  const rateLimitResult = await rateLimit(request, "booking");
-  if (!rateLimitResult.success) {
-    return createRateLimitResponse(rateLimitResult);
-  }
-
+const handler = withAuth(async ({ user, supabase }, request: Request) => {
   // Parse and validate request body
   const body = await request.json();
   const { paymentIntentId, amountToCapture } = captureIntentSchema.parse(body);
@@ -76,3 +72,6 @@ export const POST = withAuth(async ({ user, supabase }, request: Request) => {
 
   return ok({ paymentIntent: intent });
 });
+
+// Apply rate limiting: 15 requests per minute (payment tier)
+export const POST = withRateLimit(handler, "payment");

@@ -74,7 +74,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+        <div className="border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
           <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
         </div>
       )}
@@ -91,7 +91,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 max={50}
                 min={0}
                 onChange={(e) =>
@@ -118,7 +118,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -154,7 +154,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -182,7 +182,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -210,7 +210,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -246,7 +246,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -273,7 +273,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -300,7 +300,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -328,7 +328,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -363,7 +363,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <select
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 onChange={(e) =>
                   setSettings({
                     ...settings,
@@ -392,7 +392,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -421,7 +421,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={isSaving}
               onClick={handleSave}
               type="button"
@@ -430,7 +430,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
             <button
-              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+              className="flex items-center gap-2 border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               disabled={isSaving}
               onClick={handleCancel}
               type="button"
@@ -441,7 +441,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </>
         ) : (
           <button
-            className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={() => setIsEditing(true)}
             type="button"
           >

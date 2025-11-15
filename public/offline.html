@@ -100,42 +100,11 @@
         It looks like you've lost your internet connection. Please check your network settings and
         try again.
       </p>
-      <button onclick="_tryReload()">Try Again</button>
+      <button id="retry-button">Try Again</button>
       <div class="status" id="status">Checking connection...</div>
     </div>
 
-    <script>
-    "use strict";
-    function _tryReload() {
-      window.location.reload();
-    }
-
-    function checkOnlineStatus() {
-      const statusEl = document.getElementById("status");
-      if (navigator.onLine) {
-        statusEl.textContent = "✓ Connection restored";
-        statusEl.className = "status online";
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      } else {
-        statusEl.textContent = "✗ Still offline";
-        statusEl.className = "status offline";
-      }
-    }
-
-    // Check online status periodically
-    setInterval(checkOnlineStatus, 3000);
-    checkOnlineStatus();
-
-    // Listen for online event
-    window.addEventListener("online", () => {
-      document.getElementById("status").textContent = "✓ Connection restored! Reloading...";
-      document.getElementById("status").className = "status online";
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    });
-    </script>
+    <!-- External script - CSP compliant (no inline handlers) -->
+    <script src="/offline-script.js"></script>
   </body>
 </html>

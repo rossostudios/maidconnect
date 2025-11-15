@@ -3,9 +3,12 @@
 import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
+import type { MouseEvent } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { confirm } from "@/lib/toast";
+
+type Translator = ReturnType<typeof useTranslations>;
 
 export type SavedAddress = {
   id: string;
@@ -199,149 +202,167 @@ function AddressCard({
     .filter(Boolean)
     .join(", ");
 
-  return onSelect ? (
-    <button
-      className={`w-full rounded-2xl border p-6 text-left shadow-sm transition ${
-        isSelected
-          ? "border-[neutral-500] bg-[neutral-500]/5 ring-2 ring-[neutral-500]/20"
-          : "border-[neutral-200] bg-[neutral-50] hover:shadow-md"
-      } cursor-pointer`}
-      onClick={onSelect}
-      type="button"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{getAddressIcon(address.label)}</span>
-            <h4 className="font-semibold text-[neutral-900] text-lg">{address.label}</h4>
-            {address.is_default && (
-              <span className="rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
-                {t("addressCard.defaultBadge")}
-              </span>
-            )}
-          </div>
-          <p className="mt-3 text-[neutral-400] text-base">{addressText}</p>
-          {address.building_access && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
-              {address.building_access}
-            </p>
-          )}
-          {address.parking_info && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
-              {address.parking_info}
-            </p>
-          )}
-          {address.special_notes && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
-              {address.special_notes}
-            </p>
-          )}
-        </div>
+  const baseClasses = `rounded-2xl border p-6 shadow-sm transition ${
+    isSelected
+      ? "border-[neutral-500] bg-[neutral-500]/5 ring-2 ring-[neutral-500]/20"
+      : "border-[neutral-200] bg-[neutral-50] hover:shadow-md"
+  }`;
 
-        {/* Actions */}
-        {(onEdit || onDelete) && (
-          <div className="flex gap-2">
-            {onEdit && (
-              <button
-                className="rounded-full border-2 border-[neutral-200] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit();
-                }}
-                type="button"
-              >
-                {t("addressCard.editButton")}
-              </button>
-            )}
-            {onDelete && (
-              <button
-                className="rounded-full border-2 border-[neutral-500]/30 px-4 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete();
-                }}
-                type="button"
-              >
-                {t("addressCard.deleteButton")}
-              </button>
-            )}
-          </div>
-        )}
-      </div>
-    </button>
-  ) : (
-    <div
-      className={`rounded-2xl border p-6 shadow-sm transition ${
-        isSelected
-          ? "border-[neutral-500] bg-[neutral-500]/5 ring-2 ring-[neutral-500]/20"
-          : "border-[neutral-200] bg-[neutral-50] hover:shadow-md"
-      }`}
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{getAddressIcon(address.label)}</span>
-            <h4 className="font-semibold text-[neutral-900] text-lg">{address.label}</h4>
-            {address.is_default && (
-              <span className="rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
-                {t("addressCard.defaultBadge")}
-              </span>
-            )}
-          </div>
-          <p className="mt-3 text-[neutral-400] text-base">{addressText}</p>
-          {address.building_access && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
-              {address.building_access}
-            </p>
-          )}
-          {address.parking_info && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
-              {address.parking_info}
-            </p>
-          )}
-          {address.special_notes && (
-            <p className="mt-2 text-[neutral-400] text-sm">
-              📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
-              {address.special_notes}
-            </p>
-          )}
-        </div>
+  const content = (
+    <AddressCardBody
+      address={address}
+      addressText={addressText}
+      onDelete={onDelete}
+      onEdit={onEdit}
+      preventParentClick={Boolean(onSelect)}
+      t={t}
+    />
+  );
 
-        {/* Actions */}
-        {(onEdit || onDelete) && (
-          <div className="flex gap-2">
-            {onEdit && (
-              <button
-                className="rounded-full border-2 border-[neutral-200] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit();
-                }}
-                type="button"
-              >
-                {t("addressCard.editButton")}
-              </button>
-            )}
-            {onDelete && (
-              <button
-                className="rounded-full border-2 border-[neutral-500]/30 px-4 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete();
-                }}
-                type="button"
-              >
-                {t("addressCard.deleteButton")}
-              </button>
-            )}
-          </div>
-        )}
+  if (onSelect) {
+    return (
+      <button
+        className={`${baseClasses} w-full cursor-pointer text-left`}
+        onClick={onSelect}
+        type="button"
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return <div className={baseClasses}>{content}</div>;
+}
+
+type AddressCardBodyProps = {
+  address: SavedAddress;
+  addressText: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  preventParentClick: boolean;
+  t: Translator;
+};
+
+function AddressCardBody({
+  address,
+  addressText,
+  onEdit,
+  onDelete,
+  preventParentClick,
+  t,
+}: AddressCardBodyProps) {
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <div className="flex-1">
+        <AddressHeader address={address} t={t} />
+        <p className="mt-3 text-[neutral-400] text-base">{addressText}</p>
+        <AddressOptionalDetails address={address} t={t} />
       </div>
+      <AddressCardActions
+        onDelete={onDelete}
+        onEdit={onEdit}
+        preventParentClick={preventParentClick}
+        t={t}
+      />
+    </div>
+  );
+}
+
+function AddressHeader({ address, t }: { address: SavedAddress; t: Translator }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-2xl">{getAddressIcon(address.label)}</span>
+      <h4 className="font-semibold text-[neutral-900] text-lg">{address.label}</h4>
+      {address.is_default && (
+        <span className="rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
+          {t("addressCard.defaultBadge")}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function AddressOptionalDetails({ address, t }: { address: SavedAddress; t: Translator }) {
+  const detailConfigs = [
+    {
+      icon: "🔑",
+      label: t("addressCard.buildingAccess"),
+      value: address.building_access,
+    },
+    {
+      icon: "🅿️",
+      label: t("addressCard.parkingInfo"),
+      value: address.parking_info,
+    },
+    {
+      icon: "📝",
+      label: t("addressCard.specialNotes"),
+      value: address.special_notes,
+    },
+  ];
+
+  const details = detailConfigs
+    .filter((detail) => Boolean(detail.value))
+    .map((detail) => ({
+      icon: detail.icon,
+      label: detail.label,
+      value: detail.value as string,
+    }));
+
+  if (details.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      {details.map((detail) => (
+        <p className="mt-2 text-[neutral-400] text-sm" key={detail.label}>
+          {detail.icon} <span className="font-semibold">{detail.label}:</span> {detail.value}
+        </p>
+      ))}
+    </>
+  );
+}
+
+type AddressCardActionsProps = {
+  onEdit?: () => void;
+  onDelete?: () => void;
+  preventParentClick: boolean;
+  t: Translator;
+};
+
+function AddressCardActions({ onEdit, onDelete, preventParentClick, t }: AddressCardActionsProps) {
+  if (!(onEdit || onDelete)) {
+    return null;
+  }
+
+  const wrapHandler = (handler?: () => void) => (event: MouseEvent<HTMLButtonElement>) => {
+    if (preventParentClick) {
+      event.stopPropagation();
+    }
+    handler?.();
+  };
+
+  return (
+    <div className="flex gap-2">
+      {onEdit && (
+        <button
+          className="rounded-full border-2 border-[neutral-200] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
+          onClick={wrapHandler(onEdit)}
+          type="button"
+        >
+          {t("addressCard.editButton")}
+        </button>
+      )}
+      {onDelete && (
+        <button
+          className="rounded-full border-2 border-[neutral-500]/30 px-4 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
+          onClick={wrapHandler(onDelete)}
+          type="button"
+        >
+          {t("addressCard.deleteButton")}
+        </button>
+      )}
     </div>
   );
 }

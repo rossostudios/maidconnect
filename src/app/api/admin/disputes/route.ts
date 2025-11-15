@@ -1,13 +1,16 @@
 /**
  * Admin Disputes API
  * GET /api/admin/disputes - List disputes with filters
+ *
+ * Rate Limit: 5 requests per minute (dispute tier)
  */
 
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function GET(request: Request) {
+async function handleGetDisputes(request: Request) {
   try {
     await requireAdmin();
     const supabase = await createSupabaseServerClient();
@@ -72,3 +75,6 @@ export async function GET(request: Request) {
     );
   }
 }
+
+// Apply rate limiting: 5 requests per minute (dispute tier)
+export const GET = withRateLimit(handleGetDisputes, "dispute");

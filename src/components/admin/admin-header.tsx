@@ -30,129 +30,101 @@ export function AdminHeader({ userEmail, userName }: Props) {
 
   return (
     <>
-      <header className="flex h-20 items-center justify-between border-[#E5E5E5] border-b bg-white">
-        {/* Left: Mobile Menu + Breadcrumbs */}
-        <div className="flex min-w-0 flex-1 items-center gap-6 px-8">
-          {/* Mobile Menu */}
-          <div className="flex-shrink-0 lg:hidden">
-            <AdminMobileSidebar />
+      <header className="sticky top-0 z-30 border-neutral-200 border-b bg-white">
+        <div className="flex w-full items-center gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <div className="lg:hidden">
+              <AdminMobileSidebar />
+            </div>
+            <div className="flex items-center">
+              <Breadcrumbs />
+            </div>
           </div>
 
-          {/* Breadcrumbs - Desktop - Vertically centered */}
-          <div className="hidden h-full items-center lg:flex">
-            <Breadcrumbs />
-          </div>
-        </div>
-
-        {/* Right: Actions */}
-        <div className="flex flex-shrink-0 items-center gap-3">
-          {/* Search Button - Wider */}
           <button
             aria-label="Search"
-            className="group flex w-64 items-center gap-2 rounded-lg border border-[#E5E5E5] bg-[#FAFAF9] px-4 py-2 transition-colors hover:bg-white"
+            className="group hidden w-full max-w-sm items-center gap-2 rounded border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-neutral-500 text-xs transition hover:border-neutral-300 hover:bg-white md:flex"
             onClick={openCommandPalette}
             type="button"
           >
-            <HugeiconsIcon
-              className="h-4 w-4 flex-shrink-0 text-[#737373] group-hover:text-[#171717]"
-              icon={Search01Icon}
-            />
-            <span className="flex-1 text-left text-[#737373] text-sm group-hover:text-[#171717]">
-              Search
-            </span>
-            <kbd className="inline-flex flex-shrink-0 items-center gap-1 rounded border border-[#E5E5E5] bg-white px-1.5 py-0.5 font-mono text-[#A3A3A3] text-[10px]">
+            <HugeiconsIcon className="h-3.5 w-3.5 flex-shrink-0" icon={Search01Icon} />
+            <span className="flex-1 text-left">Search</span>
+            <kbd className="inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-white px-1 py-0.5 font-mono text-[9px] text-neutral-500">
               ⌘K
             </kbd>
           </button>
 
-          {/* Notifications */}
-          <button
-            aria-label="Notifications"
-            className="group relative rounded-lg p-2.5 transition-colors hover:bg-[#F5F5F5]"
-            onClick={() => setShowNotifications(true)}
-            type="button"
-          >
-            <HugeiconsIcon
-              className="h-5 w-5 text-[#737373] group-hover:text-[#171717]"
-              icon={Notification02Icon}
-            />
-            {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E85D48] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E85D48]" />
-              </span>
-            )}
-          </button>
-
-          {/* Profile Dropdown */}
-          <div className="relative">
+          <div className="flex items-center gap-0.5">
             <button
-              aria-label="Profile menu"
-              className="group flex items-center gap-2.5 rounded-lg p-2 transition-colors hover:bg-[#F5F5F5]"
-              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              aria-label="Notifications"
+              className="group relative rounded p-1.5 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
+              onClick={() => setShowNotifications(true)}
               type="button"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E85D48]/10 transition-colors group-hover:bg-[#E85D48]/20">
-                <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={UserCircleIcon} />
-              </div>
-              <div className="hidden text-left md:block">
-                <p className="font-medium text-[#171717] text-sm">{userName || "Admin"}</p>
-                {userEmail && <p className="text-[#737373] text-xs">{userEmail}</p>}
-              </div>
+              <HugeiconsIcon className="h-4 w-4" icon={Notification02Icon} />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-orange-500" />
+                </span>
+              )}
             </button>
 
-            {/* Dropdown Menu */}
-            {showProfileMenu && (
-              <>
-                {/* Backdrop */}
-                <Backdrop
-                  aria-label="Close profile menu"
-                  onClose={() => setShowProfileMenu(false)}
-                />
+            <div className="relative flex items-center">
+              <button
+                aria-label="Profile menu"
+                className="group flex items-center gap-1.5 rounded px-2 py-1.5 text-xs transition hover:bg-neutral-100"
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                type="button"
+              >
+                <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={UserCircleIcon} />
+                <span className="hidden font-medium text-neutral-900 md:block">
+                  {userName || "Admin"}
+                </span>
+              </button>
 
-                {/* Menu */}
-                <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-lg">
-                  {/* User Info */}
-                  <div className="border-[#E5E5E5] border-b bg-[#FAFAF9] px-4 py-3">
-                    <p className="font-semibold text-[#171717] text-sm">
-                      {userName || "Admin User"}
-                    </p>
-                    {userEmail && <p className="mt-0.5 text-[#737373] text-xs">{userEmail}</p>}
+              {showProfileMenu && (
+                <>
+                  <Backdrop
+                    aria-label="Close profile menu"
+                    onClose={() => setShowProfileMenu(false)}
+                  />
+                  <div className="absolute top-full right-0 z-50 mt-1 w-48 border border-neutral-200 bg-white shadow-lg">
+                    <div className="border-neutral-200 border-b px-3 py-2">
+                      <p className="font-medium text-neutral-900 text-xs">
+                        {userName || "Admin User"}
+                      </p>
+                      {userEmail && (
+                        <p className="mt-0.5 text-[10px] text-neutral-500">{userEmail}</p>
+                      )}
+                    </div>
+                    <div className="py-0.5">
+                      <Link
+                        className="flex items-center gap-2 px-3 py-1.5 text-neutral-600 text-xs transition hover:bg-neutral-100 hover:text-neutral-900"
+                        href="/admin/settings"
+                        onClick={() => setShowProfileMenu(false)}
+                      >
+                        <HugeiconsIcon className="h-3.5 w-3.5" icon={Settings01Icon} />
+                        <span>Settings</span>
+                      </Link>
+                      <div className="my-0.5 border-neutral-200 border-t" />
+                      <Link
+                        className="flex items-center gap-2 px-3 py-1.5 text-neutral-600 text-xs transition hover:bg-neutral-900 hover:text-white"
+                        href="/auth/sign-out"
+                        onClick={() => setShowProfileMenu(false)}
+                      >
+                        <HugeiconsIcon className="h-3.5 w-3.5" icon={Logout01Icon} />
+                        <span>Sign out</span>
+                      </Link>
+                    </div>
                   </div>
-
-                  {/* Menu Items */}
-                  <div className="py-2">
-                    <Link
-                      className="flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-[#F5F5F5]"
-                      href="/admin/settings"
-                      onClick={() => setShowProfileMenu(false)}
-                    >
-                      <HugeiconsIcon className="h-5 w-5 text-[#525252]" icon={Settings01Icon} />
-                      <span className="text-[#525252] text-sm">Settings</span>
-                    </Link>
-
-                    <Link
-                      className="group flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-[#FEF2F2]"
-                      href="/auth/sign-out"
-                      onClick={() => setShowProfileMenu(false)}
-                    >
-                      <HugeiconsIcon
-                        className="h-5 w-5 text-[#525252] group-hover:text-[#E85D48]"
-                        icon={Logout01Icon}
-                      />
-                      <span className="text-[#525252] text-sm group-hover:text-[#E85D48]">
-                        Sign out
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-              </>
-            )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Notifications Sheet */}
       <NotificationsSheet isOpen={showNotifications} onClose={() => setShowNotifications(false)} />
     </>
   );

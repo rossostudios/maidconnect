@@ -1,0 +1,52 @@
+/**
+ * TimeRangeSelector - Time range filter buttons with Precision design
+ *
+ * Features:
+ * - Sharp rectangular buttons (no rounding)
+ * - Active: Orange border + orange text
+ * - Hover: Orange border transition
+ * - Geist Sans uppercase
+ * - Keyboard accessible
+ */
+
+"use client";
+
+import { geistSans } from "@/app/fonts";
+import type { TimeRange } from "@/hooks/useAnalytics";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  value: TimeRange;
+  onChange: (range: TimeRange) => void;
+};
+
+const TIME_RANGES: { value: TimeRange; label: string }[] = [
+  { value: "7d", label: "7 Days" },
+  { value: "30d", label: "30 Days" },
+  { value: "90d", label: "90 Days" },
+  { value: "all", label: "All Time" },
+];
+
+export function TimeRangeSelector({ value, onChange }: Props) {
+  return (
+    <div className="flex justify-end gap-1">
+      {TIME_RANGES.map((range) => (
+        <button
+          aria-label={`Filter analytics by ${range.label}`}
+          className={cn(
+            "border px-4 py-2.5 font-semibold text-xs uppercase tracking-wider transition-all",
+            geistSans.className,
+            value === range.value
+              ? "border-orange-500 bg-orange-50 text-orange-600"
+              : "border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:text-orange-600"
+          )}
+          key={range.value}
+          onClick={() => onChange(range.value)}
+          type="button"
+        >
+          {range.label}
+        </button>
+      ))}
+    </div>
+  );
+}

@@ -1,5 +1,13 @@
+/**
+ * Admin Security Password API
+ * POST /api/admin/settings/security/password - Change admin password
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const PasswordChangeSchema = z.object({
@@ -7,7 +15,7 @@ const PasswordChangeSchema = z.object({
   newPassword: z.string().min(8),
 });
 
-export async function POST(request: NextRequest) {
+async function handlePasswordChange(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -70,3 +78,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const POST = withRateLimit(handlePasswordChange, "admin");

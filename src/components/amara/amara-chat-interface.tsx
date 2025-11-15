@@ -69,14 +69,16 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
   const isLoading = status === "streaming" || status === "submitted";
 
-  // Set initial welcome message
+  // Set initial welcome message with timeline expectations
   useEffect(() => {
     if (messages.length === 0) {
+      const welcomeText = `${t("welcomeMessage")}\n\n**Response Times:**\n- Simple questions: Immediate\n- Booking assistance: Within 1 business day\n- Custom service requests: We'll send 3–5 matched professionals within 5 business days\n\n[Learn more about our service timelines →](/help/expectations-and-timelines)\n\nHow can I help you today?`;
+
       setMessages([
         {
           id: "welcome",
           role: "assistant",
-          parts: [{ type: "text", text: t("welcomeMessage") }],
+          parts: [{ type: "text", text: welcomeText }],
         },
       ]);
     }
@@ -256,7 +258,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             </button>
             <Link
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
-              href="/support/account-suspended"
+              href="/help"
             >
               <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={HelpCircleIcon} />
               <span className="font-medium text-neutral-600 text-xs">Help</span>

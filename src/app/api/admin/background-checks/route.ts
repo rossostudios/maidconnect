@@ -5,6 +5,8 @@
  * REFACTORED: Complexity 21 → <15
  * - Extracted transformation logic to background-checks-service.ts
  * - Route now focuses on orchestration
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -14,9 +16,10 @@ import {
   groupChecksByStatus,
   transformBackgroundCheck,
 } from "@/lib/admin/background-checks-service";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function GET(_request: NextRequest) {
+async function handleGetBackgroundChecks(_request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -96,3 +99,6 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const GET = withRateLimit(handleGetBackgroundChecks, "admin");

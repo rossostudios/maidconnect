@@ -141,7 +141,7 @@ function ErrorDisplay({ error }: { error: Error }) {
           </button>
           <button
             className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] px-4 py-3 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => window.location.assign("/")}
             type="button"
           >
             Go to Homepage

@@ -59,7 +59,7 @@ export function ChecksPerformedSection({ checks }: { checks: string[] }) {
       <div className="flex flex-wrap gap-3">
         {checks.map((checkType) => (
           <div
-            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
+            className="border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
             key={checkType}
           >
             <p className="font-medium text-neutral-800 text-sm dark:text-neutral-300">
@@ -89,7 +89,7 @@ export function CriminalRecordsSection({ records }: { records: CriminalRecord[] 
         Criminal Background Check
       </h3>
       {records.length === 0 ? (
-        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+        <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
               className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
@@ -104,7 +104,7 @@ export function CriminalRecordsSection({ records }: { records: CriminalRecord[] 
         <div className="space-y-4">
           {records.map((record, index) => (
             <div
-              className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950"
+              className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950"
               key={index}
             >
               <div className="mb-3 flex items-start justify-between">
@@ -116,7 +116,7 @@ export function CriminalRecordsSection({ records }: { records: CriminalRecord[] 
                   <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                     Record #{index + 1}
                     {record.severity && (
-                      <span className="ml-2 rounded bg-neutral-900 px-2 py-0.5 text-xs uppercase dark:bg-neutral-100/20">
+                      <span className="ml-2 bg-neutral-900 px-2 py-0.5 text-xs uppercase dark:bg-neutral-100/20">
                         {record.severity} severity
                       </span>
                     )}
@@ -134,7 +134,7 @@ export function CriminalRecordsSection({ records }: { records: CriminalRecord[] 
                   <summary className="cursor-pointer font-medium text-neutral-800 text-sm dark:text-neutral-300">
                     View full details
                   </summary>
-                  <pre className="mt-2 overflow-auto rounded bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                  <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                     {JSON.stringify(record.details, null, 2)}
                   </pre>
                 </details>
@@ -162,7 +162,7 @@ export function IdentityVerificationSection({ records }: { records: IdentityReco
         Identity Verification
       </h3>
       {records.length === 0 ? (
-        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
+        <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
               className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
@@ -177,7 +177,7 @@ export function IdentityVerificationSection({ records }: { records: IdentityReco
         <div className="space-y-4">
           {records.map((record, index) => (
             <div
-              className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
+              className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
               key={index}
             >
               <div className="flex items-center gap-2">
@@ -194,7 +194,7 @@ export function IdentityVerificationSection({ records }: { records: IdentityReco
                   <summary className="cursor-pointer font-medium text-neutral-800 text-sm dark:text-neutral-300">
                     View details
                   </summary>
-                  <pre className="mt-2 overflow-auto rounded bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                  <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                     {JSON.stringify(record.details, null, 2)}
                   </pre>
                 </details>
@@ -227,7 +227,7 @@ export function ActionButtonsSection({
     return (
       <div className="flex gap-4">
         <button
-          className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isProcessing}
           onClick={onApprove}
           type="button"
@@ -236,7 +236,7 @@ export function ActionButtonsSection({
           {isProcessing ? "Processing..." : "Approve Professional"}
         </button>
         <button
-          className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isProcessing}
           onClick={onReject}
           type="button"
@@ -250,7 +250,7 @@ export function ActionButtonsSection({
 
   if (status === "clear" && recommendation === "approved") {
     return (
-      <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+      <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
@@ -262,7 +262,7 @@ export function ActionButtonsSection({
             </p>
           </div>
           <button
-            className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             disabled={isProcessing}
             onClick={onApprove}
             type="button"
@@ -276,7 +276,7 @@ export function ActionButtonsSection({
 
   if (status === "suspended") {
     return (
-      <div className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
+      <div className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
         <div className="flex items-center gap-3">
           <HugeiconsIcon
             className="h-6 w-6 text-neutral-900 dark:text-neutral-100"

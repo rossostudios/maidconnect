@@ -2,7 +2,10 @@
 
 /**
  * PostHog Provider
- * Initializes PostHog and provides pageview tracking
+ * Initializes PostHog with CSP nonce support and provides pageview tracking
+ *
+ * Epic H-1: CSP Hardening
+ * Retrieves nonce from body data-attribute and passes to PostHog initialization
  */
 
 import { usePathname, useSearchParams } from "next/navigation";
@@ -31,11 +34,20 @@ function PostHogPageView() {
   return null;
 }
 
-export function PostHogProvider({ children }: { children: React.ReactNode }) {
-  // Initialize PostHog on mount
+type PostHogProviderProps = {
+  children: React.ReactNode;
+  nonce?: string;
+};
+
+export function PostHogProvider({ children, nonce }: PostHogProviderProps) {
+  // Initialize PostHog on mount with CSP nonce support
   useEffect(() => {
-    initPostHog();
-  }, []);
+    // Get nonce from body data-attribute if not passed as prop
+    // This provides a fallback for client-side access to the nonce
+    const nonceValue = nonce ?? document.body.getAttribute("data-nonce") ?? undefined;
+
+    initPostHog(nonceValue);
+  }, [nonce]);
 
   return (
     <>

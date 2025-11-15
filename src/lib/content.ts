@@ -167,21 +167,6 @@ export const testimonials = [
       { label: "Incidents avoided", value: "0" },
     ],
   },
-  {
-    name: "Villa Manager",
-    handle: "@casaoramanager",
-    location: "Coffee Region",
-    quote:
-      "Like having a luxury boutique instead of a department store. Smaller selection, but everything is exceptional quality.",
-    outcome: "Top 5% only",
-    role: "Hospitality director",
-    avatar:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=160&h=160&q=80",
-    metrics: [
-      { label: "Professionals retained", value: "8" },
-      { label: "Customer rating", value: "4.9★" },
-    ],
-  },
 ];
 
 export const productPillars = [

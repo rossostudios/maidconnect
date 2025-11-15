@@ -20,6 +20,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { errorResponse, handleCors, jsonResponse } from "../_shared/cors.ts";
 
+declare const Deno: {
+  serve: (handler: (req: Request) => Response | Promise<Response>) => void;
+  env: {
+    get(key: string): string | undefined;
+  };
+};
+
 /**
  * Example Edge Function
  *

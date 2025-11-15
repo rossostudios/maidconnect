@@ -1,24 +1,13 @@
 "use client";
 
-import {
-  ArrowDown01Icon,
-  ArrowLeft01Icon,
-  ArrowRight01Icon,
-  ArrowUp01Icon,
-  UserCircleIcon,
-} from "@hugeicons/core-free-icons";
+import { UserCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
-} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
-import { useState } from "react";
+import { geistMono, geistSans } from "@/app/fonts";
+import { PrecisionDataTable, PrecisionDataTableColumnHeader } from "@/components/admin/data-table";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 type UserRole = "customer" | "professional" | "admin";
 
@@ -49,20 +38,25 @@ type Pagination = {
 const getRoleBadgeColor = (role: UserRole) => {
   switch (role) {
     case "admin":
-      return "bg-[#E85D48] text-white";
+      return "bg-[#FF5200] text-white border border-[#FF5200]";
     case "professional":
-      return "bg-[#FFF4E6] text-[#FF8A00] border border-[#FFE0B2]";
+      return "bg-orange-50 text-orange-600 border border-orange-200";
     case "customer":
-      return "bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9]";
+      return "bg-green-50 text-green-700 border border-green-200";
     default:
-      return "bg-gray-100 text-gray-800";
+      return "bg-neutral-100 text-neutral-700 border border-neutral-200";
   }
 };
 
 const getSuspensionBadge = (suspension: UserSuspension | null) => {
   if (!suspension) {
     return (
-      <span className="inline-flex items-center rounded-lg border border-green-200 bg-green-50 px-2.5 py-1 font-medium text-green-700 text-xs">
+      <span
+        className={cn(
+          "inline-flex items-center border border-green-200 bg-green-50 px-2.5 py-1 font-semibold text-green-700 text-xs uppercase tracking-wider",
+          geistSans.className
+        )}
+      >
         Active
       </span>
     );
@@ -73,16 +67,23 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
   return (
     <div className="space-y-1">
       <span
-        className={`inline-flex items-center rounded-lg px-2.5 py-1 font-medium text-xs ${
+        className={cn(
+          "inline-flex items-center px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+          geistSans.className,
           isBanned
-            ? "border border-red-200 bg-[#E85D48]/10 text-red-700"
+            ? "border border-red-200 bg-red-50 text-red-700"
             : "border border-yellow-200 bg-yellow-50 text-yellow-700"
-        }`}
+        )}
       >
         {isBanned ? "Banned" : "Suspended"}
       </span>
       {suspension.expires_at && (
-        <p className="text-[#737373] text-xs">
+        <p
+          className={cn(
+            "font-normal text-neutral-700 text-xs tracking-tighter",
+            geistMono.className
+          )}
+        >
           Until {new Date(suspension.expires_at).toLocaleDateString()}
         </p>
       )}
@@ -93,7 +94,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: "full_name",
-    header: "User",
+    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="User" />,
     cell: ({ row }) => {
       const user = row.original;
       return (
@@ -102,59 +103,98 @@ const columns: ColumnDef<User>[] = [
             {user.avatar_url ? (
               <Image
                 alt={user.full_name || "User"}
-                className="h-10 w-10 rounded-full border-2 border-[#E5E5E5] object-cover"
+                className="h-10 w-10 border-2 border-neutral-200 object-cover"
                 height={40}
                 src={user.avatar_url}
                 width={40}
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
-                <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
+              <div className="flex h-10 w-10 items-center justify-center border-2 border-neutral-200 bg-orange-50">
+                <HugeiconsIcon className="h-6 w-6 text-[#FF5200]" icon={UserCircleIcon} />
               </div>
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate font-semibold text-[#171717] text-sm">
+            <p
+              className={cn("truncate font-semibold text-neutral-900 text-sm", geistSans.className)}
+            >
               {user.full_name || "Unnamed User"}
             </p>
-            <p className="truncate text-[#737373] text-xs">{user.email}</p>
+            <p
+              className={cn(
+                "truncate font-normal text-neutral-700 text-xs tracking-tighter",
+                geistMono.className
+              )}
+            >
+              {user.email}
+            </p>
           </div>
         </div>
       );
     },
+    enableSorting: true,
+    enableColumnFilter: true,
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Role" />,
     cell: ({ row }) => {
       const role = row.original.role;
       return (
         <span
-          className={`inline-flex items-center rounded-lg px-2.5 py-1 font-medium text-xs ${getRoleBadgeColor(role)}`}
+          className={cn(
+            "inline-flex items-center px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+            getRoleBadgeColor(role),
+            geistSans.className
+          )}
         >
           {role.charAt(0).toUpperCase() + role.slice(1)}
         </span>
       );
     },
+    enableSorting: true,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "city",
-    header: "City",
-    cell: ({ row }) => <p className="text-[#171717] text-sm">{row.original.city || "—"}</p>,
+    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="City" />,
+    cell: ({ row }) => (
+      <p className={cn("font-normal text-neutral-900 text-sm", geistSans.className)}>
+        {row.original.city || "—"}
+      </p>
+    ),
+    enableSorting: true,
+    enableColumnFilter: true,
   },
   {
     accessorKey: "suspension",
-    header: "Status",
+    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => getSuspensionBadge(row.original.suspension),
+    enableSorting: false,
+    filterFn: (row, id, value) => {
+      const suspension = row.getValue(id) as UserSuspension | null;
+      if (value === "active") return !suspension;
+      if (value === "suspended") return suspension?.type === "temporary";
+      if (value === "banned") return suspension?.type === "permanent";
+      return true;
+    },
   },
   {
     accessorKey: "created_at",
-    header: "Joined",
+    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Joined" />,
     cell: ({ row }) => (
-      <p className="text-[#737373] text-sm">
+      <p
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+      >
         {new Date(row.original.created_at).toLocaleDateString()}
       </p>
     ),
+    enableSorting: true,
+    sortingFn: (rowA, rowB) => {
+      const dateA = new Date(rowA.original.created_at).getTime();
+      const dateB = new Date(rowB.original.created_at).getTime();
+      return dateA - dateB;
+    },
   },
   {
     id: "actions",
@@ -162,158 +202,54 @@ const columns: ColumnDef<User>[] = [
     cell: ({ row }) => (
       <div className="text-right">
         <Link
-          className="inline-flex items-center rounded-lg bg-[#171717] px-3 py-1.5 font-medium text-sm text-white transition-colors hover:bg-[#404040]"
+          className={cn(
+            "inline-flex items-center border border-neutral-200 bg-white px-3 py-1.5 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-[#FF5200] hover:bg-[#FF5200] hover:text-white",
+            geistSans.className
+          )}
           href={`/admin/users/${row.original.id}`}
         >
           View
         </Link>
       </div>
     ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ];
 
 type Props = {
   users: User[];
   isLoading: boolean;
-  pagination: Pagination;
-  onPageChange: (page: number) => void;
 };
 
-export function UserManagementTable({ users, isLoading, pagination, onPageChange }: Props) {
-  const [sorting, setSorting] = useState<SortingState>([]);
-
-  const table = useReactTable({
-    data: users,
-    columns,
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-  });
-
-  if (isLoading) {
-    return (
-      <div className="rounded-lg border border-[#E5E5E5] bg-white">
-        <div className="flex min-h-[400px] items-center justify-center">
-          <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E85D48]" />
-            <p className="text-[#737373] text-sm">Loading users...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (users.length === 0) {
-    return (
-      <div className="rounded-lg border border-[#E5E5E5] bg-white">
-        <div className="flex min-h-[400px] items-center justify-center">
-          <div className="space-y-2 text-center">
-            <HugeiconsIcon className="mx-auto h-12 w-12 text-[#A3A3A3]" icon={UserCircleIcon} />
-            <p className="font-medium text-[#171717] text-sm">No users found</p>
-            <p className="text-[#737373] text-xs">Try adjusting your filters</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+/**
+ * UserManagementTable - Advanced user management with Precision design
+ *
+ * Features:
+ * - URL state synchronization for shareable links
+ * - Multi-column sorting and filtering
+ * - Global search across all user fields
+ * - Export to CSV/JSON
+ * - Column visibility control
+ * - Keyboard navigation
+ * - Loading skeletons and empty states
+ */
+export function UserManagementTable({ users, isLoading }: Props) {
   return (
-    <div className="space-y-4">
-      {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-[#E5E5E5] bg-white">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="border-[#E5E5E5] border-b bg-[#F5F5F5]">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      className="px-6 py-3 text-left font-semibold text-[#171717] text-xs uppercase tracking-wider"
-                      key={header.id}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
-                              : ""
-                          }
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            <span className="text-[#A3A3A3]">
-                              {header.column.getIsSorted() === "asc" ? (
-                                <HugeiconsIcon className="h-3 w-3" icon={ArrowUp01Icon} />
-                              ) : header.column.getIsSorted() === "desc" ? (
-                                <HugeiconsIcon className="h-3 w-3" icon={ArrowDown01Icon} />
-                              ) : (
-                                <div className="h-3 w-3" />
-                              )}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className="divide-y divide-[#E5E5E5] bg-white">
-              {table.getRowModel().rows.map((row) => (
-                <tr className="transition-colors hover:bg-[#F5F5F5]" key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td className="whitespace-nowrap px-6 py-4" key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Pagination */}
-      {pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between rounded-lg border border-[#E5E5E5] bg-white px-6 py-4">
-          <div className="text-[#737373] text-sm">
-            Showing{" "}
-            <span className="font-medium text-[#171717]">
-              {(pagination.page - 1) * pagination.limit + 1}
-            </span>{" "}
-            to{" "}
-            <span className="font-medium text-[#171717]">
-              {Math.min(pagination.page * pagination.limit, pagination.total)}
-            </span>{" "}
-            of <span className="font-medium text-[#171717]">{pagination.total}</span> users
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              className="inline-flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={pagination.page === 1}
-              onClick={() => onPageChange(pagination.page - 1)}
-            >
-              <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
-              Previous
-            </button>
-            <span className="px-3 font-medium text-[#171717] text-sm">
-              Page {pagination.page} of {pagination.totalPages}
-            </span>
-            <button
-              className="inline-flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={pagination.page === pagination.totalPages}
-              onClick={() => onPageChange(pagination.page + 1)}
-            >
-              Next
-              <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+    <PrecisionDataTable
+      columns={columns}
+      data={users}
+      emptyStateProps={{
+        icon: UserCircleIcon,
+        title: "No users found",
+        description: "Try adjusting your search or filter to find what you're looking for.",
+      }}
+      enableExport
+      enableGlobalFilter
+      enableUrlSync
+      exportFilename="casaora-users"
+      isLoading={isLoading}
+      pageSize={10}
+    />
   );
 }

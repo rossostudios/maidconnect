@@ -1,87 +1,119 @@
+import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Container } from "@/components/ui/container";
 import { testimonials } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 /**
- * TestimonialsSection - Swiss Design System
+ * TestimonialsSection - Aurius-inspired editorial layout
  *
- * Minimalist testimonials display following Swiss principles:
- * - Clean borders (no rounded corners)
- * - Orange quotation marks
- * - Satoshi for headings
- * - Simple avatar styling
- * - Neutral color palette
+ * - Centered badge + serif headline
+ * - Featured story with portrait on the left and quote on the right
+ * - Supporting quotes arranged in a bordered grid
+ * - Subtle dividers + neutral paper background
  */
 export function TestimonialsSection() {
-  // Don't render if no testimonials
   if (!testimonials || testimonials.length === 0) {
     return null;
   }
 
+  const [featured, ...supporting] = testimonials;
+  const formatMeta = (role?: string, location?: string) =>
+    [role, location].filter(Boolean).join(" · ");
+
   return (
-    <section className="bg-white py-24 md:py-32" id="testimonials">
-      <Container className="mx-auto max-w-7xl px-4">
-        {/* Section Header - Swiss Typography */}
-        <div className="mb-16">
-          <h2
-            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
-            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-          >
+    <section className="bg-neutral-50 py-24 md:py-32" id="testimonials">
+      <Container className="max-w-6xl px-4 md:px-8">
+        <div className="mx-auto max-w-4xl border border-neutral-200 px-6 py-12 text-center sm:px-12">
+          <div className="mb-4 flex items-center justify-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
+            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
+            Testimonials
+          </div>
+
+          <h2 className="font-bold text-3xl text-neutral-900 leading-tight sm:text-4xl md:text-5xl">
             What Our Clients Say
           </h2>
-          <div className="mt-4 h-1 w-16 bg-orange-500" />
-          <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
-            Real experiences from families we've helped.
+
+          <p className="mt-5 text-lg text-neutral-600">
+            Real stories from discerning households who trust Casaora to run their homes with
+            precision.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {testimonials.map((testimonial) => (
-            <div
-              className="border border-neutral-200 bg-white p-8 transition-all hover:border-neutral-300"
-              key={testimonial.handle}
-            >
-              {/* Orange Quotation Mark - Swiss Accent */}
-              <div className="mb-6">
-                <svg className="h-8 w-8 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-              </div>
+        <div className="mx-auto mt-12 h-px max-w-5xl bg-neutral-200" />
 
-              {/* Quote */}
-              <blockquote className="text-base text-neutral-700 leading-relaxed">
-                {testimonial.quote}
+        {/* Featured testimonial */}
+        {featured && (
+          <div className="mt-16 grid overflow-hidden border border-neutral-200 bg-white shadow-sm md:grid-cols-[minmax(0,320px)_1fr]">
+            <div className="relative aspect-[4/5] w-full bg-neutral-100 md:min-h-[420px]">
+              <Image
+                alt={featured.name}
+                className="object-cover"
+                fill
+                priority
+                sizes="(min-width: 768px) 320px, 100vw"
+                src={featured.avatar || "/placeholder-professional.jpg"}
+              />
+            </div>
+
+            <div className="flex flex-col gap-8 p-8 md:p-10">
+              <blockquote className="font-serif text-2xl text-neutral-900 leading-snug md:text-3xl">
+                “{featured.quote}”
               </blockquote>
 
-              {/* Orange Accent Bar */}
-              <div className="my-6 h-px w-12 bg-orange-500" />
-
-              {/* Author Info */}
-              <div className="flex items-center gap-4">
-                <Avatar className="h-12 w-12 border border-neutral-200">
-                  <AvatarImage
-                    alt={testimonial.name}
-                    src={testimonial.avatar || "/placeholder-professional.jpg"}
-                  />
-                  <AvatarFallback className="bg-neutral-100 text-neutral-600">
-                    {testimonial.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <p
-                    className="font-semibold text-neutral-900 tracking-tight"
-                    style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                  >
-                    {testimonial.name}
-                  </p>
-                  <p className="text-neutral-600 text-sm">{testimonial.location}</p>
-                </div>
+              <div>
+                <p className="font-semibold text-base text-neutral-900">{featured.name}</p>
+                <p className="text-neutral-500 text-xs uppercase tracking-[0.35em]">
+                  {formatMeta(featured.role, featured.location)}
+                </p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {/* Supporting testimonials */}
+        {supporting.length > 0 && (
+          <div className="mt-8 grid border border-neutral-200 bg-white sm:grid-cols-2">
+            {supporting.map((testimonial, index) => (
+              <div
+                className={cn(
+                  "border-neutral-200 p-8 sm:p-10",
+                  index > 0 && "border-t",
+                  index <= 1 && "sm:border-t-0",
+                  index >= 2 && "sm:border-t",
+                  index % 2 === 1 && "sm:border-l"
+                )}
+                key={testimonial.handle}
+              >
+                <blockquote className="font-serif text-neutral-900 text-xl leading-relaxed">
+                  “{testimonial.quote}”
+                </blockquote>
+
+                <div className="mt-8 flex items-center gap-4">
+                  <Avatar className="h-12 w-12 border border-neutral-200">
+                    <AvatarImage
+                      alt={testimonial.name}
+                      src={testimonial.avatar || "/placeholder-professional.jpg"}
+                    />
+                    <AvatarFallback className="bg-neutral-100 text-neutral-600">
+                      {testimonial.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div>
+                    <p className="font-semibold text-neutral-900">{testimonial.name}</p>
+                    <p className="text-neutral-500 text-xs uppercase tracking-[0.35em]">
+                      {formatMeta(testimonial.role, testimonial.location)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </Container>
+
+      <div className="mx-auto mt-20 h-px max-w-6xl bg-neutral-200" />
     </section>
   );
 }

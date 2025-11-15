@@ -5,6 +5,8 @@
  *
  * BEFORE: 211 lines
  * AFTER: 114 lines (46% reduction)
+ *
+ * Rate Limit: 5 requests per minute (dispute tier)
  */
 
 import { z } from "zod";
@@ -15,6 +17,7 @@ import {
   notifyAllAdmins,
   notifyProfessionalDisputeFiled,
 } from "@/lib/notifications";
+import { withRateLimit } from "@/lib/rate-limit";
 
 // Type for booking with joined profile data
 type BookingWithProfiles = {
@@ -33,17 +36,19 @@ const disputeSchema = z.object({
   description: z.string().min(20, "Description must be at least 20 characters"),
 });
 
-export const POST = withCustomer(async ({ user, supabase }, request: Request) => {
-  // Parse and validate request body
-  const body = await request.json();
-  const { bookingId, reason, description } = disputeSchema.parse(body);
+// Apply rate limiting: 5 requests per minute (dispute tier)
+export const POST = withRateLimit(
+  withCustomer(async ({ user, supabase }, request: Request) => {
+    // Parse and validate request body
+    const body = await request.json();
+    const { bookingId, reason, description } = disputeSchema.parse(body);
 
-  // Verify booking exists, belongs to user, is completed, and within 48-hour window
-  const booking = await requireCustomerOwnership<BookingWithProfiles>(
-    supabase,
-    user.id,
-    bookingId,
-    `
+    // Verify booking exists, belongs to user, is completed, and within 48-hour window
+    const booking = await requireCustomerOwnership<BookingWithProfiles>(
+      supabase,
+      user.id,
+      bookingId,
+      `
     id,
     status,
     customer_id,
@@ -52,102 +57,109 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     customer_profiles:profiles!bookings_customer_id_fkey(full_name),
     professional_profiles:profiles!bookings_professional_id_fkey(full_name)
   `
-  );
-
-  if (booking.status !== "completed") {
-    throw new InvalidBookingStatusError(booking.status, "dispute");
-  }
-
-  if (!booking.completed_at) {
-    throw new BusinessRuleError("Booking completion time not recorded", "MISSING_COMPLETION_TIME");
-  }
-
-  // Check 48-hour window
-  const completedAt = new Date(booking.completed_at);
-  const now = new Date();
-  const hoursSinceCompletion = (now.getTime() - completedAt.getTime()) / (1000 * 60 * 60);
-
-  if (hoursSinceCompletion > 48) {
-    throw new BusinessRuleError(
-      "Dispute window has closed (48 hours after completion)",
-      "DISPUTE_WINDOW_CLOSED"
     );
-  }
 
-  // Check if dispute already exists for this booking
-  const { data: existingDispute } = await supabase
-    .from("booking_disputes")
-    .select("id")
-    .eq("booking_id", bookingId)
-    .single();
+    if (booking.status !== "completed") {
+      throw new InvalidBookingStatusError(booking.status, "dispute");
+    }
 
-  if (existingDispute) {
-    throw new BusinessRuleError(
-      "A dispute has already been submitted for this booking",
-      "DISPUTE_EXISTS"
-    );
-  }
+    if (!booking.completed_at) {
+      throw new BusinessRuleError(
+        "Booking completion time not recorded",
+        "MISSING_COMPLETION_TIME"
+      );
+    }
 
-  // Create dispute
-  const { data: dispute, error: disputeError } = await supabase
-    .from("booking_disputes")
-    .insert({
-      booking_id: bookingId,
-      customer_id: user.id,
-      professional_id: booking.professional_id,
+    // Check 48-hour window
+    const completedAt = new Date(booking.completed_at);
+    const now = new Date();
+    const hoursSinceCompletion = (now.getTime() - completedAt.getTime()) / (1000 * 60 * 60);
+
+    if (hoursSinceCompletion > 48) {
+      throw new BusinessRuleError(
+        "Dispute window has closed (48 hours after completion)",
+        "DISPUTE_WINDOW_CLOSED"
+      );
+    }
+
+    // Check if dispute already exists for this booking
+    const { data: existingDispute } = await supabase
+      .from("booking_disputes")
+      .select("id")
+      .eq("booking_id", bookingId)
+      .single();
+
+    if (existingDispute) {
+      throw new BusinessRuleError(
+        "A dispute has already been submitted for this booking",
+        "DISPUTE_EXISTS"
+      );
+    }
+
+    // Create dispute
+    const { data: dispute, error: disputeError } = await supabase
+      .from("booking_disputes")
+      .insert({
+        booking_id: bookingId,
+        customer_id: user.id,
+        professional_id: booking.professional_id,
+        reason,
+        description: description.trim(),
+        status: "pending",
+      })
+      .select("id, created_at")
+      .single();
+
+    if (disputeError || !dispute) {
+      throw new ValidationError("Failed to create dispute");
+    }
+
+    // Notify professional about the dispute
+    const customerName = booking.customer_profiles?.full_name || "Customer";
+    await notifyProfessionalDisputeFiled(booking.professional_id, {
+      id: dispute.id,
+      bookingId: booking.id,
       reason,
-      description: description.trim(),
-      status: "pending",
-    })
-    .select("id, created_at")
-    .single();
+      customerName,
+    });
 
-  if (disputeError || !dispute) {
-    throw new ValidationError("Failed to create dispute");
-  }
+    // Notify all admins about new dispute requiring review
+    const professionalName = booking.professional_profiles?.full_name || "Professional";
+    await notifyAllAdmins(notifyAdminDisputeFiled, {
+      id: dispute.id,
+      bookingId: booking.id,
+      reason,
+      customerName,
+      professionalName,
+    });
 
-  // Notify professional about the dispute
-  const customerName = booking.customer_profiles?.full_name || "Customer";
-  await notifyProfessionalDisputeFiled(booking.professional_id, {
-    id: dispute.id,
-    bookingId: booking.id,
-    reason,
-    customerName,
-  });
-
-  // Notify all admins about new dispute requiring review
-  const professionalName = booking.professional_profiles?.full_name || "Professional";
-  await notifyAllAdmins(notifyAdminDisputeFiled, {
-    id: dispute.id,
-    bookingId: booking.id,
-    reason,
-    customerName,
-    professionalName,
-  });
-
-  return ok(
-    {
-      dispute: {
-        id: dispute.id,
-        created_at: dispute.created_at,
+    return ok(
+      {
+        dispute: {
+          id: dispute.id,
+          created_at: dispute.created_at,
+        },
       },
-    },
-    "Dispute submitted successfully"
-  );
-});
+      "Dispute submitted successfully"
+    );
+  }),
+  "dispute"
+);
 
-export const GET = withAuth(async ({ user, supabase }) => {
-  // Get disputes based on user role
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
+// Apply rate limiting: 5 requests per minute (dispute tier)
+export const GET = withRateLimit(
+  withAuth(async ({ user, supabase }) => {
+    // Get disputes based on user role
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
 
-  let query = supabase
-    .from("booking_disputes")
-    .select(
-      `
+    let query = supabase
+      .from("booking_disputes")
+      .select(
+        `
       id,
       booking_id,
       reason,
@@ -162,24 +174,26 @@ export const GET = withAuth(async ({ user, supabase }) => {
         completed_at
       )
     `
-    )
-    .order("created_at", { ascending: false });
+      )
+      .order("created_at", { ascending: false });
 
-  // Filter based on role
-  if (profile?.role === "admin") {
-    // Admins see all disputes
-  } else if (profile?.role === "professional") {
-    query = query.eq("professional_id", user.id);
-  } else {
-    // Customers see their own disputes
-    query = query.eq("customer_id", user.id);
-  }
+    // Filter based on role
+    if (profile?.role === "admin") {
+      // Admins see all disputes
+    } else if (profile?.role === "professional") {
+      query = query.eq("professional_id", user.id);
+    } else {
+      // Customers see their own disputes
+      query = query.eq("customer_id", user.id);
+    }
 
-  const { data: disputes, error } = await query;
+    const { data: disputes, error } = await query;
 
-  if (error) {
-    throw new ValidationError("Failed to fetch disputes");
-  }
+    if (error) {
+      throw new ValidationError("Failed to fetch disputes");
+    }
 
-  return ok({ disputes: disputes || [] });
-});
+    return ok({ disputes: disputes || [] });
+  }),
+  "dispute"
+);

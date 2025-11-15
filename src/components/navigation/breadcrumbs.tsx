@@ -1,13 +1,25 @@
 "use client";
 
-import { ChevronRight, Home } from "lucide-react";
+import { ArrowRight01Icon, Home01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { geistSans } from "@/app/fonts";
 import { Link, usePathname } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 type BreadcrumbItem = {
   label: string;
   href?: string;
 };
 
+/**
+ * Breadcrumbs - Precision Dashboard Design
+ *
+ * Matches the high-contrast admin dashboard aesthetic:
+ * - Geist Sans font with specific weights
+ * - Orange (#FF5200) hover states
+ * - Uppercase with tracking-wider
+ * - Clean, minimal style
+ */
 export function Breadcrumbs() {
   const pathname = usePathname();
 
@@ -53,25 +65,45 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm shadow-sm">
+      <ol className="flex items-center gap-2">
         <li>
           <Link
-            className="flex items-center gap-1.5 text-neutral-600 transition hover:text-neutral-900"
+            className={cn(
+              "flex items-center gap-2 font-normal text-neutral-700 text-xs uppercase tracking-wider transition-colors hover:text-[#FF5200]",
+              geistSans.className
+            )}
             href="/"
           >
-            <Home className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4 flex-shrink-0" icon={Home01Icon} />
             <span>Home</span>
           </Link>
         </li>
         {breadcrumbs.map((item, index) => (
           <li className="flex items-center gap-2" key={index}>
-            <ChevronRight aria-hidden="true" className="h-4 w-4 text-neutral-400" />
+            <HugeiconsIcon
+              aria-hidden="true"
+              className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400"
+              icon={ArrowRight01Icon}
+            />
             {item.href ? (
-              <Link className="text-neutral-600 transition hover:text-neutral-900" href={item.href}>
+              <Link
+                className={cn(
+                  "font-normal text-neutral-700 text-xs uppercase tracking-wider transition-colors hover:text-[#FF5200]",
+                  geistSans.className
+                )}
+                href={item.href}
+              >
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-neutral-900">{item.label}</span>
+              <span
+                className={cn(
+                  "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                  geistSans.className
+                )}
+              >
+                {item.label}
+              </span>
             )}
           </li>
         ))}

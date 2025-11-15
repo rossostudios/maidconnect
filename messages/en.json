@@ -1078,6 +1078,49 @@
     "becomeProfessional": "Join our network",
     "learnMore": "Learn more"
   },
+  "benefits": {
+    "badge": "WHY CASAORA",
+    "heading": "Premium Household Staffing Made Simple",
+    "description": "We connect expat families with Colombia's top domestic professionals through a platform built for trust and excellence.",
+    "englishSupport": {
+      "title": "English Support",
+      "description": "Bilingual platform and professionals who communicate fluently in English for seamless coordination."
+    },
+    "verifiedProfessionals": {
+      "title": "Verified Professionals",
+      "description": "Rigorous background checks and skill assessments ensure only the top 5% of candidates join our network."
+    },
+    "fullInsurance": {
+      "title": "Full Insurance",
+      "description": "Comprehensive liability coverage and worker protection for complete peace of mind."
+    },
+    "dedicatedSupport": {
+      "title": "Dedicated Support",
+      "description": "Personal account management and 24/7 assistance to ensure exceptional service delivery."
+    },
+    "tags": {
+      "primary": [
+        "Trial days scheduled in-app",
+        "Concierge interview prep",
+        "Background + reference dossiers",
+        "Insurance and payroll guidance",
+        "Bilingual coordination",
+        "Trusted expatriate network",
+        "Secure document vault",
+        "Performance check-ins"
+      ],
+      "secondary": [
+        "Chef, nanny and housekeeper sourcing",
+        "Live-in and part-time options",
+        "Same-week replacements",
+        "Contract and visa paperwork",
+        "Private chauffeur partners",
+        "Travel-ready support staff",
+        "On-call concierge team",
+        "Custom household playbooks"
+      ]
+    }
+  },
   "marketing": {
     "highlights": {
       "tagline": "TAILORED EXPERIENCE",

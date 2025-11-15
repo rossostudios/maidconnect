@@ -12,17 +12,17 @@ export const portableTextComponents: PortableTextComponents = {
   block: {
     // Headings
     h1: ({ children }) => (
-      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-bold text-neutral-900 text-4xl tracking-tight lg:text-5xl">
+      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 tracking-tight lg:text-5xl">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-10 mb-4 scroll-m-20 border-b border-neutral-200 pb-3 font-[family-name:var(--font-family-satoshi)] font-semibold text-neutral-900 text-3xl tracking-tight first:mt-0">
+      <h2 className="mt-10 mb-4 scroll-m-20 border-neutral-200 border-b pb-3 font-[family-name:var(--font-family-satoshi)] font-semibold text-3xl text-neutral-900 tracking-tight first:mt-0">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-semibold text-neutral-900 text-2xl tracking-tight">
+      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-semibold text-2xl text-neutral-900 tracking-tight">
         {children}
       </h3>
     ),
@@ -39,7 +39,7 @@ export const portableTextComponents: PortableTextComponents = {
     ),
     // Blockquote
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-l-4 border-orange-500 bg-orange-50 py-4 px-6 text-base text-neutral-700 italic leading-relaxed">
+      <blockquote className="my-8 border-orange-500 border-l-4 bg-orange-50 px-6 py-4 text-base text-neutral-700 italic leading-relaxed">
         {children}
       </blockquote>
     ),
@@ -65,12 +65,14 @@ export const portableTextComponents: PortableTextComponents = {
 
   marks: {
     // Strong/bold
-    strong: ({ children }) => <strong className="font-semibold text-neutral-900">{children}</strong>,
+    strong: ({ children }) => (
+      <strong className="font-semibold text-neutral-900">{children}</strong>
+    ),
     // Emphasis/italic
     em: ({ children }) => <em className="italic">{children}</em>,
     // Code
     code: ({ children }) => (
-      <code className="relative rounded bg-orange-50 px-[0.4rem] py-[0.2rem] font-mono font-medium text-orange-600 text-sm">
+      <code className="relative rounded bg-orange-50 px-[0.4rem] py-[0.2rem] font-medium font-mono text-orange-600 text-sm">
         {children}
       </code>
     ),
@@ -183,7 +185,9 @@ export const portableTextComponents: PortableTextComponents = {
               filename ? "rounded-b-lg" : "rounded-lg"
             } bg-neutral-900`}
           >
-            <code className={`font-mono text-neutral-100 text-sm language-${language || "plaintext"}`}>
+            <code
+              className={`font-mono text-neutral-100 text-sm language-${language || "plaintext"}`}
+            >
               {code}
             </code>
           </pre>

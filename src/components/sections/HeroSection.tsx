@@ -47,6 +47,7 @@ export function HeroSection() {
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const trustedCompanies = ["Biosynthesis", "Quotient", "Hourglass", "Command+R", "GlobalBank"];
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
@@ -65,6 +66,7 @@ export function HeroSection() {
                     ctaType: "concierge",
                     location: "banner",
                     ctaText: "Learn More",
+                    variant: "control",
                   })
                 }
               >
@@ -76,7 +78,7 @@ export function HeroSection() {
       </div>
 
       {/* Hero Section */}
-      <div className="py-24 md:py-32">
+      <div className="py-32 md:py-40">
         {/* Vertical Lines - Full height from navbar to bottom, aligned with container */}
         <div className="-translate-x-1/2 pointer-events-none fixed top-0 bottom-0 left-1/2 z-10 w-full max-w-[1320px]">
           <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
@@ -87,7 +89,7 @@ export function HeroSection() {
           {/* Hero Content - Swiss Grid Layout */}
           <motion.div
             animate="visible"
-            className="mb-20 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
+            className="mb-24 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
             initial="hidden"
             variants={stagger}
           >
@@ -121,7 +123,7 @@ export function HeroSection() {
 
               {/* CTA Buttons - Swiss Alignment */}
               <motion.div
-                className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
+                className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 md:flex-nowrap"
                 variants={fadeIn}
               >
                 <Link href="/brief">
@@ -132,6 +134,7 @@ export function HeroSection() {
                         ctaType: "start_brief",
                         location: "hero",
                         ctaText: t("cta.primary") || "Start Your Brief",
+                        variant: "control",
                       })
                     }
                     size="lg"
@@ -147,13 +150,20 @@ export function HeroSection() {
                         ctaType: "learn_more",
                         location: "hero",
                         ctaText: t("cta.secondary") || "Learn More",
+                        variant: "control",
                       })
                     }
                     size="lg"
-                    variant="outline"
+                    variant="ghost"
                   >
                     {t("cta.secondary") || "Learn More"}
                   </Button>
+                </Link>
+                <Link
+                  className="text-center font-semibold text-neutral-600 text-sm underline-offset-4 transition hover:text-neutral-900 hover:underline sm:text-base"
+                  href="/concierge"
+                >
+                  Speak with a concierge →
                 </Link>
               </motion.div>
             </div>
@@ -165,7 +175,7 @@ export function HeroSection() {
           {/* Hero Image */}
           <motion.div
             animate={{ opacity: 1, scale: 1 }}
-            className="relative"
+            className="relative mt-16"
             initial={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
@@ -186,72 +196,40 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Trusted By Section - Infinite Scroll */}
-          <div className="mt-20 overflow-hidden">
-            <p className="mb-8 text-center font-mono text-neutral-600 text-xs uppercase tracking-widest">
-              Trusted by households across Bogotá, Medellín, and Cartagena
-            </p>
+          {/* Trusted By Section - Marquee inside bordered card */}
+          <div className="mt-24">
+            <div className="rounded-3xl border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
+              <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
+                Trusted by households across Bogotá, Medellín, and Cartagena
+              </p>
 
-            {/* Infinite Scroll Container */}
-            <div className="relative">
-              {/* Gradient Overlays */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-neutral-50 to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-neutral-50 to-transparent" />
+              <div className="relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
 
-              {/* Scrolling Logos */}
-              <motion.div
-                animate={{
-                  x: [0, -1920], // Scroll distance (adjust based on content width)
-                }}
-                className="flex gap-16"
-                transition={{
-                  duration: 30,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "linear",
-                }}
-              >
-                {/* First set of logos */}
-                {[
-                  "Biosynthesis",
-                  "Quotient",
-                  "Hourglass",
-                  "Command+R",
-                  "GlobalBank",
-                  "Quotient",
-                  "Hourglass",
-                  "Command+R",
-                ].map((company, index) => (
-                  <div
-                    className="flex min-w-[180px] items-center justify-center"
-                    key={`${company}-${index}`}
-                  >
-                    <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
-                      {company}
-                    </span>
-                  </div>
-                ))}
-
-                {/* Duplicate set for seamless loop */}
-                {[
-                  "Biosynthesis",
-                  "Quotient",
-                  "Hourglass",
-                  "Command+R",
-                  "GlobalBank",
-                  "Quotient",
-                  "Hourglass",
-                  "Command+R",
-                ].map((company, index) => (
-                  <div
-                    className="flex min-w-[180px] items-center justify-center"
-                    key={`${company}-duplicate-${index}`}
-                  >
-                    <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
-                      {company}
-                    </span>
-                  </div>
-                ))}
-              </motion.div>
+                <motion.div
+                  animate={{
+                    x: [0, -960],
+                  }}
+                  className="flex gap-16 opacity-75"
+                  transition={{
+                    duration: 28,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "linear",
+                  }}
+                >
+                  {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
+                    <div
+                      className="flex min-w-[160px] items-center justify-center"
+                      key={`${company}-${index}`}
+                    >
+                      <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
+                        {company}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
             </div>
           </div>
         </Container>

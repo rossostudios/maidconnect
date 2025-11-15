@@ -26,7 +26,7 @@ export default async function AdminPagesContentPage() {
       </div>
 
       {/* Embedded Studio with deep link */}
-      <div className="overflow-hidden rounded-[20px] border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
+      <div className="-[20px] overflow-hidden border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
         <iframe
           className="h-[calc(100vh-280px)] min-h-[600px] w-full"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"

@@ -1,8 +1,19 @@
+/**
+ * Admin Background Check Approval API
+ * POST /api/admin/background-checks/[id]/approve - Approve professional background check
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { sendProfessionalApprovedEmail } from "@/lib/email/send";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function POST(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+async function handleApproveBackgroundCheck(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const { id } = await params;
     const supabase = await createSupabaseServerClient();
@@ -101,3 +112,6 @@ export async function POST(_request: NextRequest, { params }: { params: Promise<
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const POST = withRateLimit(handleApproveBackgroundCheck, "admin");

@@ -2,139 +2,72 @@ import { NextResponse } from "next/server";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-const EMAIL_VALIDATION_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type FeedbackPayload = {
+  feedback_type: string;
+  subject?: string;
+  message: string;
+  user_email?: string;
+  page_url: string;
+  page_path: string;
+  user_agent?: string;
+  viewport_size?: { width: number; height: number; pixelRatio: number };
+};
 
-/**
- * Submit user feedback
- * POST /api/feedback
- * Body: {
- *   feedback_type: 'bug' | 'feature_request' | 'improvement' | 'complaint' | 'praise' | 'other',
- *   subject?: string,
- *   message: string,
- *   user_email?: string, // For anonymous users
- *   page_url: string,
- *   page_path: string,
- *   user_agent?: string,
- *   viewport_size?: { width: number, height: number, pixelRatio: number }
- * }
- *
- * Rate limited to 5 submissions per hour
- */
+const EMAIL_VALIDATION_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
 async function handlePOST(request: Request) {
   const supabase = await createSupabaseServerClient();
-
-  // Get user (may be null for anonymous)
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   try {
-    const body = await request.json();
-    const {
-      feedback_type,
-      subject,
-      message,
-      user_email,
-      page_url,
-      page_path,
-      user_agent,
-      viewport_size,
-    } = body;
+    const rawBody = await request.json();
+    const payload: FeedbackPayload = {
+      feedback_type: rawBody.feedback_type,
+      subject: rawBody.subject,
+      message: rawBody.message,
+      user_email: rawBody.user_email,
+      page_url: rawBody.page_url,
+      page_path: rawBody.page_path,
+      user_agent: rawBody.user_agent,
+      viewport_size: rawBody.viewport_size,
+    };
 
-    // Validation
-    if (!(feedback_type && message && page_url && page_path)) {
-      return NextResponse.json(
-        {
-          error: "Missing required fields: feedback_type, message, page_url, page_path",
-        },
-        { status: 400 }
-      );
+    const validationError = validatePayload(payload);
+    if (validationError) {
+      return validationError;
     }
 
-    // Validate message length
-    if (message.length < 10 || message.length > 5000) {
-      return NextResponse.json(
-        { error: "Message must be between 10 and 5000 characters" },
-        { status: 400 }
-      );
+    const duplicateError = await ensureNoDuplicateFeedback(supabase, user?.id, payload.message);
+    if (duplicateError) {
+      return duplicateError;
     }
 
-    // Validate subject length if provided
-    if (subject && subject.length > 200) {
-      return NextResponse.json(
-        { error: "Subject must be less than 200 characters" },
-        { status: 400 }
-      );
-    }
-
-    // Validate email if provided
-    if (user_email && !EMAIL_VALIDATION_REGEX.test(user_email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
-    }
-
-    // Determine user role
-    let userRole = "anonymous";
-    if (user) {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-      userRole = profile?.role || "anonymous";
-    }
-
-    // Check for duplicate submission in last 24 hours
-    if (user) {
-      const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-      const { data: duplicates } = await supabase
-        .from("feedback_submissions")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("message", message)
-        .gte("created_at", oneDayAgo);
-
-      if (duplicates && duplicates.length > 0) {
-        return NextResponse.json(
-          {
-            error:
-              "Similar feedback already submitted recently. Please wait 24 hours before resubmitting.",
-          },
-          { status: 429 }
-        );
-      }
-    }
-
-    // Insert feedback
+    const userRole = await getUserRole(supabase, user?.id);
     const { data: feedback, error } = await supabase
       .from("feedback_submissions")
       .insert({
         user_id: user?.id || null,
-        user_email: user ? null : user_email,
+        user_email: user ? null : payload.user_email,
         user_role: userRole,
-        feedback_type,
-        subject,
-        message,
-        page_url,
-        page_path,
-        user_agent,
-        viewport_size,
+        feedback_type: payload.feedback_type,
+        subject: payload.subject,
+        message: payload.message,
+        page_url: payload.page_url,
+        page_path: payload.page_path,
+        user_agent: payload.user_agent,
+        viewport_size: payload.viewport_size,
         status: "new",
-        priority: (() => {
-          if (feedback_type === "bug") {
-            return "high";
-          }
-          if (feedback_type === "complaint") {
-            return "medium";
-          }
-          return "low";
-        })(),
+        priority: getPriority(payload.feedback_type),
       })
       .select()
       .single();
 
     if (error) {
       console.error("Error submitting feedback:", error);
-      return NextResponse.json({ error: "Failed to submit feedback" }, { status: 500 });
+      return createErrorResponse("Failed to submit feedback", 500);
     }
 
     return NextResponse.json({
@@ -144,8 +77,91 @@ async function handlePOST(request: Request) {
     });
   } catch (error) {
     console.error("Unexpected error submitting feedback:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return createErrorResponse("Internal server error", 500);
   }
+}
+
+function validatePayload(payload: FeedbackPayload) {
+  if (!(payload.feedback_type && payload.message && payload.page_url && payload.page_path)) {
+    return createErrorResponse(
+      "Missing required fields: feedback_type, message, page_url, page_path",
+      400
+    );
+  }
+
+  if (payload.message.length < 10 || payload.message.length > 5000) {
+    return createErrorResponse("Message must be between 10 and 5000 characters", 400);
+  }
+
+  if (payload.subject && payload.subject.length > 200) {
+    return createErrorResponse("Subject must be less than 200 characters", 400);
+  }
+
+  if (payload.user_email && !EMAIL_VALIDATION_REGEX.test(payload.user_email)) {
+    return createErrorResponse("Invalid email format", 400);
+  }
+
+  return null;
+}
+
+async function ensureNoDuplicateFeedback(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  userId: string | undefined,
+  message: string
+) {
+  if (!userId) {
+    return null;
+  }
+
+  const oneDayAgo = new Date(Date.now() - ONE_DAY_MS).toISOString();
+  const { data: duplicates } = await supabase
+    .from("feedback_submissions")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("message", message)
+    .gte("created_at", oneDayAgo);
+
+  if (duplicates && duplicates.length > 0) {
+    return createErrorResponse(
+      "Similar feedback already submitted recently. Please wait 24 hours before resubmitting.",
+      429
+    );
+  }
+
+  return null;
+}
+
+async function getUserRole(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  userId: string | undefined
+) {
+  if (!userId) {
+    return "anonymous";
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", userId)
+    .single();
+
+  return profile?.role || "anonymous";
+}
+
+function getPriority(feedbackType: string) {
+  if (feedbackType === "bug") {
+    return "high";
+  }
+
+  if (feedbackType === "complaint") {
+    return "medium";
+  }
+
+  return "low";
+}
+
+function createErrorResponse(message: string, status: number) {
+  return NextResponse.json({ error: message }, { status });
 }
 
 // Apply rate limiting: 5 submissions per hour

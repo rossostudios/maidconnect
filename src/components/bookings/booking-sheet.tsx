@@ -12,6 +12,7 @@ import {
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import { formatCOP } from "@/lib/format";
+import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -184,6 +185,14 @@ export function BookingSheet({
       }
 
       const result = await response.json();
+
+      // Track checkout started in PostHog
+      bookingTracking.checkoutStarted({
+        bookingId: result.bookingId,
+        amount: totalAmount,
+        currency: "COP",
+      });
+
       setBookingResult(result);
       setCurrentStep("payment");
     } catch (err) {

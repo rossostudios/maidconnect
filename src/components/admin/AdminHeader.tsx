@@ -49,7 +49,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
           {/* Search Button - Wider */}
           <button
             aria-label="Search"
-            className="group flex w-64 items-center gap-2 rounded-lg border border-[#E5E5E5] bg-[#FAFAF9] px-4 py-2 transition-colors hover:bg-white"
+            className="group flex w-64 items-center gap-2 border border-[#E5E5E5] bg-[#FAFAF9] px-4 py-2 transition-colors hover:bg-white"
             onClick={openCommandPalette}
             type="button"
           >
@@ -60,7 +60,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
             <span className="flex-1 text-left text-[#737373] text-sm group-hover:text-[#171717]">
               Search
             </span>
-            <kbd className="inline-flex flex-shrink-0 items-center gap-1 rounded border border-[#E5E5E5] bg-white px-1.5 py-0.5 font-mono text-[#A3A3A3] text-[10px]">
+            <kbd className="inline-flex flex-shrink-0 items-center gap-1 border border-[#E5E5E5] bg-white px-1.5 py-0.5 font-mono text-[#A3A3A3] text-[10px]">
               ⌘K
             </kbd>
           </button>
@@ -68,7 +68,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
           {/* Notifications */}
           <button
             aria-label="Notifications"
-            className="group relative rounded-lg p-2.5 transition-colors hover:bg-[#F5F5F5]"
+            className="group relative p-2.5 transition-colors hover:bg-[#F5F5F5]"
             onClick={() => setShowNotifications(true)}
             type="button"
           >
@@ -78,8 +78,8 @@ export function AdminHeader({ userEmail, userName }: Props) {
             />
             {unreadCount > 0 && (
               <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E85D48] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E85D48]" />
+                <span className="-full absolute inline-flex h-full w-full animate-ping bg-[#E85D48] opacity-75" />
+                <span className="-full relative inline-flex h-2 w-2 bg-[#E85D48]" />
               </span>
             )}
           </button>
@@ -88,11 +88,11 @@ export function AdminHeader({ userEmail, userName }: Props) {
           <div className="relative">
             <button
               aria-label="Profile menu"
-              className="group flex items-center gap-2.5 rounded-lg p-2 transition-colors hover:bg-[#F5F5F5]"
+              className="group flex items-center gap-2.5 p-2 transition-colors hover:bg-[#F5F5F5]"
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               type="button"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E85D48]/10 transition-colors group-hover:bg-[#E85D48]/20">
+              <div className="-full flex h-8 w-8 items-center justify-center bg-[#E85D48]/10 transition-colors group-hover:bg-[#E85D48]/20">
                 <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={UserCircleIcon} />
               </div>
               <div className="hidden text-left md:block">
@@ -111,7 +111,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
                 />
 
                 {/* Menu */}
-                <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-lg">
+                <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden border border-[#E5E5E5] bg-white shadow-lg">
                   {/* User Info */}
                   <div className="border-[#E5E5E5] border-b bg-[#FAFAF9] px-4 py-3">
                     <p className="font-semibold text-[#171717] text-sm">

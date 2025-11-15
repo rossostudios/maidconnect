@@ -121,13 +121,10 @@ export function ProfessionalVettingDashboard() {
       <div className="space-y-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div
-              className="h-48 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50"
-              key={i}
-            />
+            <div className="h-48 animate-pulse border border-neutral-200 bg-neutral-50" key={i} />
           ))}
         </div>
-        <div className="h-96 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
+        <div className="h-96 animate-pulse border border-neutral-200 bg-neutral-50" />
       </div>
     );
   }
@@ -138,7 +135,7 @@ export function ProfessionalVettingDashboard() {
         <CardContent className="p-8 text-center">
           <p className="mb-4 text-neutral-600 text-sm">{error}</p>
           <button
-            className="rounded-lg bg-neutral-600 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-600"
+            className="bg-neutral-600 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-600"
             onClick={fetchQueue}
             type="button"
           >
@@ -280,7 +277,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="needs_review">
               Needs Review
               {data.counts.application_in_review > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.application_in_review}
                 </span>
               )}
@@ -288,7 +285,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="approved">
               Approved
               {data.counts.approved > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.approved}
                 </span>
               )}
@@ -296,7 +293,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="incomplete">
               Incomplete
               {data.counts.application_pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
                   {data.counts.application_pending}
                 </span>
               )}
@@ -355,7 +352,7 @@ export function ProfessionalVettingDashboard() {
                         {/* Header */}
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-neutral-50 p-3">
+                            <div className="bg-neutral-50 p-3">
                               <HugeiconsIcon
                                 className="h-6 w-6 text-neutral-900"
                                 icon={UserAccountIcon}
@@ -447,17 +444,17 @@ export function ProfessionalVettingDashboard() {
                         {/* Tags */}
                         <div className="flex flex-wrap gap-2">
                           {professional.consent_background_check && (
-                            <span className="rounded-lg bg-neutral-600/10 px-3 py-1.5 font-medium text-neutral-600 text-xs">
+                            <span className="bg-neutral-600/10 px-3 py-1.5 font-medium text-neutral-600 text-xs">
                               ✓ Background check consent
                             </span>
                           )}
                           {professional.stripe_connect_account_id && (
-                            <span className="rounded-lg bg-neutral-600/10 px-3 py-1.5 font-medium text-neutral-600 text-xs">
+                            <span className="bg-neutral-600/10 px-3 py-1.5 font-medium text-neutral-600 text-xs">
                               ✓ Stripe connected
                             </span>
                           )}
                           {professional.languages && professional.languages.length > 0 && (
-                            <span className="rounded-lg bg-neutral-50 px-3 py-1.5 font-medium text-neutral-600 text-xs">
+                            <span className="bg-neutral-50 px-3 py-1.5 font-medium text-neutral-600 text-xs">
                               {professional.languages.join(", ")}
                             </span>
                           )}
@@ -465,7 +462,7 @@ export function ProfessionalVettingDashboard() {
 
                         {/* Latest Review */}
                         {professional.latestReview && (
-                          <div className="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+                          <div className="mt-6 border border-neutral-200 bg-neutral-50 p-4">
                             <p className="mb-2 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                               Latest Review
                             </p>
@@ -485,7 +482,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 rounded-lg bg-neutral-600 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-600"
+                        className="ml-6 bg-neutral-600 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-600"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -520,7 +517,7 @@ export function ProfessionalVettingDashboard() {
                         {/* Same card structure as needs_review but without Review button */}
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-neutral-600/10 p-3">
+                            <div className="bg-neutral-600/10 p-3">
                               <HugeiconsIcon
                                 className="h-6 w-6 text-neutral-600"
                                 icon={CheckmarkCircle02Icon}
@@ -609,7 +606,7 @@ export function ProfessionalVettingDashboard() {
                       </div>
 
                       <button
-                        className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-900"
+                        className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-900"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -643,7 +640,7 @@ export function ProfessionalVettingDashboard() {
                       <div className="flex-1">
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-neutral-50 p-3">
+                            <div className="bg-neutral-50 p-3">
                               <HugeiconsIcon
                                 className="h-6 w-6 text-neutral-500"
                                 icon={FileEditIcon}
@@ -732,7 +729,7 @@ export function ProfessionalVettingDashboard() {
                       </div>
 
                       <button
-                        className="ml-6 rounded-lg bg-neutral-500 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-500"
+                        className="ml-6 bg-neutral-500 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-500"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

@@ -13,6 +13,7 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  type Header,
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -88,7 +89,7 @@ const columns: ColumnDef<AuditLog>[] = [
       const config = getActionBadgeConfig(action);
       return (
         <span
-          className={`inline-flex items-center rounded-lg px-2.5 py-1 font-medium text-xs ${config.bg} ${config.text} border ${config.border}`}
+          className={`inline-flex items-center px-2.5 py-1 font-medium text-xs ${config.bg} ${config.text} border ${config.border}`}
         >
           {action.replace(/_/g, " ")}
         </span>
@@ -151,10 +152,10 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-[#E5E5E5] bg-white">
+      <div className="border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E85D48]" />
+            <div className="-full mx-auto h-8 w-8 animate-spin border-4 border-[#E5E5E5] border-t-[#E85D48]" />
             <p className="text-[#737373] text-sm">Loading audit logs...</p>
           </div>
         </div>
@@ -164,7 +165,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
 
   if (logs.length === 0) {
     return (
-      <div className="rounded-lg border border-[#E5E5E5] bg-white">
+      <div className="border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-2 text-center">
             <HugeiconsIcon className="mx-auto h-12 w-12 text-[#A3A3A3]" icon={LegalDocumentIcon} />
@@ -179,7 +180,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
   return (
     <div className="space-y-4">
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-[#E5E5E5] bg-white">
+      <div className="overflow-hidden border border-[#E5E5E5] bg-white">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="border-[#E5E5E5] border-b bg-[#F5F5F5]">
@@ -190,29 +191,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
                       className="px-6 py-3 text-left font-semibold text-[#171717] text-xs uppercase tracking-wider"
                       key={header.id}
                     >
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
-                              : ""
-                          }
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            <span className="text-[#A3A3A3]">
-                              {header.column.getIsSorted() === "asc" ? (
-                                <HugeiconsIcon className="h-3 w-3" icon={ArrowUp01Icon} />
-                              ) : header.column.getIsSorted() === "desc" ? (
-                                <HugeiconsIcon className="h-3 w-3" icon={ArrowDown01Icon} />
-                              ) : (
-                                <div className="h-3 w-3" />
-                              )}
-                            </span>
-                          )}
-                        </div>
-                      )}
+                      {header.isPlaceholder ? null : <SortableHeaderCell header={header} />}
                     </th>
                   ))}
                 </tr>
@@ -235,7 +214,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between rounded-lg border border-[#E5E5E5] bg-white px-6 py-4">
+        <div className="flex items-center justify-between border border-[#E5E5E5] bg-white px-6 py-4">
           <div className="text-[#737373] text-sm">
             Showing{" "}
             <span className="font-medium text-[#171717]">
@@ -249,9 +228,10 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="inline-flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={pagination.page === 1}
               onClick={() => onPageChange(pagination.page - 1)}
+              type="button"
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
               Previous
@@ -260,9 +240,10 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
               Page {pagination.page} of {pagination.totalPages}
             </span>
             <button
-              className="inline-flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={pagination.page === pagination.totalPages}
               onClick={() => onPageChange(pagination.page + 1)}
+              type="button"
             >
               Next
               <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
@@ -272,4 +253,45 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
       )}
     </div>
   );
+}
+
+function SortableHeaderCell({ header }: { header: Header<AuditLog, unknown> }) {
+  const sortable = header.column.getCanSort();
+  const sortingState = header.column.getIsSorted();
+  const indicator = sortable ? getSortIndicator(sortingState) : null;
+  const content = (
+    <>
+      {flexRender(header.column.columnDef.header, header.getContext())}
+      {indicator}
+    </>
+  );
+
+  if (!sortable) {
+    return <div className="flex items-center gap-2">{content}</div>;
+  }
+
+  return (
+    <button
+      className="flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
+      onClick={header.column.getToggleSortingHandler()}
+      type="button"
+    >
+      {content}
+    </button>
+  );
+}
+
+function getSortIndicator(state: false | "asc" | "desc") {
+  if (!state) {
+    return <span className="inline-flex h-3 w-3 text-[#A3A3A3]" />;
+  }
+
+  const icon =
+    state === "asc" ? (
+      <HugeiconsIcon className="h-3 w-3" icon={ArrowUp01Icon} />
+    ) : (
+      <HugeiconsIcon className="h-3 w-3" icon={ArrowDown01Icon} />
+    );
+
+  return <span className="text-[#A3A3A3]">{icon}</span>;
 }

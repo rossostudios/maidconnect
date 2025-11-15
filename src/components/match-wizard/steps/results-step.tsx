@@ -11,8 +11,9 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
+import { matchWizardTracking } from "@/lib/integrations/posthog";
 import type { WizardData } from "../match-wizard";
 
 type ResultsStepProps = {
@@ -40,10 +41,11 @@ type MatchedProfessional = {
   availableToday: boolean;
 };
 
-export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps) {
+export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
   const t = useTranslations("matchWizard.results");
   const [matches, setMatches] = useState<MatchedProfessional[]>([]);
   const [loading, setLoading] = useState(true);
+  const hasTrackedResultsRef = useRef(false);
 
   useEffect(() => {
     // Simulate API call to get matched professionals
@@ -117,10 +119,25 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
 
       setMatches(mockMatches);
       setLoading(false);
+
+      // Track results viewed
+      if (!hasTrackedResultsRef.current) {
+        matchWizardTracking.resultsViewed({
+          matchCount: mockMatches.length,
+          filters: {
+            city: data.city,
+            serviceType: data.serviceType,
+            budgetRange:
+              data.budgetMin && data.budgetMax ? `${data.budgetMin}-${data.budgetMax}` : undefined,
+            languagePreference: data.languagePreference,
+          },
+        });
+        hasTrackedResultsRef.current = true;
+      }
     };
 
     fetchMatches();
-  }, []);
+  }, [data]);
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat("es-CO", {
@@ -286,6 +303,15 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       <Link
                         className="inline-flex w-full items-center justify-center rounded-xl bg-[neutral-900] px-4 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-900]"
                         href={`/professionals/${match.id}`}
+                        onClick={() => {
+                          // Track match selection
+                          matchWizardTracking.matchSelected({
+                            professionalId: match.id,
+                            position: index + 1, // 1-indexed position
+                            matchScore: match.matchScore,
+                            serviceType: data.serviceType,
+                          });
+                        }}
                       >
                         {t("viewProfile", { defaultValue: "View Profile & Book" })}
                       </Link>
@@ -316,7 +342,14 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
           </button>
           <button
             className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
-            onClick={onRestart}
+            onClick={() => {
+              // Track wizard restart
+              matchWizardTracking.restarted({
+                fromStep: "results",
+                reason: "unsatisfied",
+              });
+              onRestart();
+            }}
             type="button"
           >
             {t("startOver", { defaultValue: "Start Over" })}

@@ -34,7 +34,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
             {/* Header */}
             <div className="mb-6 flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+                <div className="bg-white p-3 dark:bg-neutral-950">
                   <HugeiconsIcon
                     className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                     icon={UserAccountIcon}
@@ -136,7 +136,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div className="flex flex-wrap gap-2">
                 {check.checksPerformed.map((checkType: string) => (
                   <span
-                    className="rounded-lg bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
+                    className="bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
                     key={checkType}
                   >
                     {getCheckTypeLabel(checkType)}
@@ -147,7 +147,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
 
             {/* Criminal Records Warning */}
             {check.results.criminal && check.results.criminal.records.length > 0 && (
-              <div className="mt-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+              <div className="mt-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
                 <p className="mb-2 font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                   ⚠ Criminal Records Found
                 </p>
@@ -161,7 +161,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
 
           {/* View Details Button */}
           <button
-            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={onViewDetails}
             type="button"
           >

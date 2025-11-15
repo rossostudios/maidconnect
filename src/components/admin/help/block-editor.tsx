@@ -30,11 +30,11 @@ const editorTokens = {
   shell: "mx-auto w-full max-w-3xl px-4 sm:px-6 py-6",
   blockStack: "space-y-1",
   blockRow:
-    "group relative flex items-start gap-3 rounded-2xl pl-4 pr-16 py-1.5 transition hover:bg-white dark:bg-neutral-950",
+    "group relative flex items-start gap-3 -2xl pl-4 pr-16 py-1.5 transition hover:bg-white dark:bg-neutral-950",
   dragOver:
     "bg-white dark:bg-neutral-950 border border-dashed border-neutral-200 dark:border-neutral-800",
   handleRail:
-    "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white dark:bg-neutral-950/90 px-1 py-0.5 text-neutral-600 dark:text-neutral-400/70 opacity-0 shadow-sm ring-1 ring-[neutral-200] transition-all group-hover:opacity-100",
+    "absolute top-2 right-2 flex items-center gap-1 -full bg-white dark:bg-neutral-950/90 px-1 py-0.5 text-neutral-600 dark:text-neutral-400/70 opacity-0 shadow-sm ring-1 ring-[neutral-200] transition-all group-hover:opacity-100",
   handleButton:
     "rounded-full p-1 transition hover:bg-[neutral-200]/30 hover:text-neutral-600 dark:text-neutral-400 active:cursor-grabbing",
   deleteButton:
@@ -557,7 +557,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     <div className={cn("relative", editorTokens.shell)} ref={editorContainerRef}>
       {selectionToolbar.visible && (
         <div
-          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-neutral-200 bg-white px-2 py-1 text-neutral-600 shadow-xl dark:border-neutral-800 dark:bg-neutral-950/95 dark:text-neutral-400"
+          className="-full pointer-events-auto absolute z-40 flex items-center gap-1 border border-neutral-200 bg-white px-2 py-1 text-neutral-600 shadow-xl dark:border-neutral-800 dark:bg-neutral-950/95 dark:text-neutral-400"
           style={{
             left: selectionToolbar.x,
             top: selectionToolbar.y,
@@ -583,9 +583,9 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       )}
       {/* Empty state - Notion-style blank canvas */}
       {blocks.length === 0 && (
-        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-neutral-200 border-dashed bg-white text-center dark:border-neutral-800 dark:bg-neutral-950/70">
+        <div className="-3xl flex min-h-[320px] items-center justify-center border border-neutral-200 border-dashed bg-white text-center dark:border-neutral-800 dark:bg-neutral-950/70">
           <button
-            className="flex items-center gap-2 rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-neutral-600 shadow-sm transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
+            className="-2xl flex items-center gap-2 border border-neutral-200 bg-white px-4 py-3 text-neutral-600 shadow-sm transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
             onClick={() => {
               const newBlock: EditorBlock = {
                 id: crypto.randomUUID(),
@@ -902,7 +902,7 @@ function BlockComponent({
       {/* Block Menu - Minimal slash menu */}
       {showBlockMenu && (
         <div
-          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
+          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
           ref={menuRef}
         >
           {/* Search hint */}
@@ -932,7 +932,7 @@ function BlockComponent({
                   return (
                     <button
                       className={cn(
-                        "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
+                        "flex w-full items-center gap-3 px-2 py-2 text-left text-sm",
                         isSelected
                           ? "bg-[neutral-200]/30 text-neutral-900 dark:text-neutral-100"
                           : "text-neutral-600 dark:text-neutral-400"
@@ -945,7 +945,7 @@ function BlockComponent({
                       ref={isSelected ? selectedButtonRef : null}
                       type="button"
                     >
-                      <span className="flex h-8 w-8 items-center justify-center rounded border border-neutral-200 bg-white text-base dark:border-neutral-800 dark:bg-neutral-950">
+                      <span className="flex h-8 w-8 items-center justify-center border border-neutral-200 bg-white text-base dark:border-neutral-800 dark:bg-neutral-950">
                         <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                       </span>
                       <div className="flex-1">
@@ -978,7 +978,7 @@ function BlockComponent({
                     return (
                       <button
                         className={cn(
-                          "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
+                          "flex w-full items-center gap-3 px-2 py-2 text-left text-sm",
                           isSelected
                             ? "bg-[neutral-200]/30 text-neutral-900 dark:text-neutral-100"
                             : "text-neutral-600 dark:text-neutral-400"
@@ -991,7 +991,7 @@ function BlockComponent({
                         ref={isSelected ? selectedButtonRef : null}
                         type="button"
                       >
-                        <span className="flex h-8 w-8 items-center justify-center rounded border border-neutral-200 bg-white text-base dark:border-neutral-800 dark:bg-neutral-950">
+                        <span className="flex h-8 w-8 items-center justify-center border border-neutral-200 bg-white text-base dark:border-neutral-800 dark:bg-neutral-950">
                           <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                         </span>
                         <div className="flex-1">
@@ -1026,7 +1026,7 @@ function BlockComponent({
                 {locale === "es" ? "Acciones" : "Actions"}
               </p>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-neutral-600 text-sm dark:text-neutral-400"
+                className="flex w-full items-center gap-2 px-2 py-2 text-left text-neutral-600 text-sm dark:text-neutral-400"
                 onClick={() => {
                   moveBlock(block.id, "up");
                   toggleBlockMenu();
@@ -1037,7 +1037,7 @@ function BlockComponent({
                 <span>{locale === "es" ? "Mover arriba" : "Move up"}</span>
               </button>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-neutral-600 text-sm dark:text-neutral-400"
+                className="flex w-full items-center gap-2 px-2 py-2 text-left text-neutral-600 text-sm dark:text-neutral-400"
                 onClick={() => {
                   moveBlock(block.id, "down");
                   toggleBlockMenu();
@@ -1048,7 +1048,7 @@ function BlockComponent({
                 <span>{locale === "es" ? "Mover abajo" : "Move down"}</span>
               </button>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-red-700 text-sm dark:text-red-200"
+                className="flex w-full items-center gap-2 px-2 py-2 text-left text-red-700 text-sm dark:text-red-200"
                 onClick={() => {
                   deleteBlock(block.id);
                   toggleBlockMenu();
@@ -1130,7 +1130,7 @@ const BlockContent = ({
         <input
           aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
           checked={checked}
-          className="mt-1 h-4 w-4 flex-shrink-0 rounded border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
+          className="mt-1 h-4 w-4 flex-shrink-0 border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
           onChange={(e) =>
             updateBlock(block.id, {
               metadata: { ...block.metadata, checked: e.target.checked },
@@ -1195,24 +1195,24 @@ const BlockContent = ({
 
     return (
       <div
-        className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950"
+        className="-2xl flex flex-col gap-3 border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDropUpload}
       >
         {imageUrl ? (
           <img
             alt={caption || (locale === "es" ? "Imagen del artículo" : "Article image")}
-            className="max-h-96 w-full rounded-xl object-cover"
+            className="max-h-96 w-full object-cover"
             src={imageUrl}
           />
         ) : (
-          <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-neutral-400/40 border-dashed bg-white text-neutral-600 text-sm dark:border-neutral-500/40 dark:bg-neutral-950 dark:text-neutral-400/70">
+          <div className="flex h-48 flex-col items-center justify-center border border-neutral-400/40 border-dashed bg-white text-neutral-600 text-sm dark:border-neutral-500/40 dark:bg-neutral-950 dark:text-neutral-400/70">
             {locale === "es" ? "Agrega una imagen" : "Add an image"}
           </div>
         )}
         <div className="flex flex-wrap gap-2">
           <button
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs transition hover:border-neutral-400/40 dark:border-neutral-500/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+            className="inline-flex items-center gap-2 border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs transition hover:border-neutral-400/40 dark:border-neutral-500/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
             onClick={() => fileInputRef.current?.click()}
             type="button"
           >
@@ -1221,7 +1221,7 @@ const BlockContent = ({
           </button>
           {imageUrl && (
             <button
-              className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
+              className="inline-flex items-center gap-2 border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
               onClick={() =>
                 updateBlock(block.id, {
                   content: "",
@@ -1242,7 +1242,7 @@ const BlockContent = ({
             type="file"
           />
           <input
-            className="flex-1 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+            className="flex-1 border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-xs outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
             onChange={(e) =>
               updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
             }
@@ -1251,7 +1251,7 @@ const BlockContent = ({
           />
         </div>
         <input
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-sm outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+          className="w-full border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-sm outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
           onChange={(e) =>
             updateBlock(block.id, {
               content: e.target.value,
@@ -1372,10 +1372,10 @@ const BlockContent = ({
   // Code block - Clean minimal code block
   if (block.type === "code") {
     return (
-      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="overflow-hidden border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-center justify-between border-neutral-200 border-b bg-white px-3 py-2 dark:border-neutral-800 dark:bg-neutral-950">
           <select
-            className="rounded border-none bg-transparent px-2 py-1 text-neutral-600 text-xs outline-none dark:text-neutral-400"
+            className="border-none bg-transparent px-2 py-1 text-neutral-600 text-xs outline-none dark:text-neutral-400"
             onChange={(e) => updateBlock(block.id, { metadata: { language: e.target.value } })}
             value={block.metadata?.language ?? "plaintext"}
           >
@@ -1438,7 +1438,7 @@ const BlockContent = ({
         <div className="mb-2 flex items-center gap-2">
           <HugeiconsIcon className="h-4 w-4" icon={calloutConfig.iconComponent} />
           <select
-            className="rounded border-none bg-transparent px-2 py-0.5 text-neutral-600 text-xs outline-none dark:text-neutral-400"
+            className="border-none bg-transparent px-2 py-0.5 text-neutral-600 text-xs outline-none dark:text-neutral-400"
             onChange={(e) =>
               updateBlock(block.id, { metadata: { calloutType: e.target.value as CalloutType } })
             }

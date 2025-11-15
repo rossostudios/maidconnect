@@ -3,18 +3,21 @@ import { DisputeResolutionDashboard } from "@/components/admin/dispute-resolutio
 import { requireUser } from "@/lib/auth";
 
 export default async function AdminDisputesPage() {
-  unstable_noStore(); // Opt out of caching for dynamic page
-
+  unstable_noStore();
   await requireUser({ allowedRoles: ["admin"] });
 
   return (
-    <section className="space-y-8">
+    <div className="space-y-8">
+      {/* Page Header */}
       <div>
-        <h1 className="font-bold text-3xl text-[#116611616]">Dispute Resolution</h1>
-        <p className="mt-2 text-[#AA88AAAAC]">Manage and resolve booking disputes</p>
+        <h1 className="font-bold text-3xl text-neutral-900 tracking-tight">Dispute Resolution</h1>
+        <p className="mt-2 text-neutral-600">
+          Review and resolve booking disputes between users and professionals
+        </p>
       </div>
 
+      {/* Dashboard Content */}
       <DisputeResolutionDashboard />
-    </section>
+    </div>
   );
 }

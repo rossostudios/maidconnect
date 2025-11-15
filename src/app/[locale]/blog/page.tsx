@@ -1,8 +1,4 @@
-import {
-  BookOpen01Icon,
-  Calendar01Icon,
-  Time01Icon,
-} from "@hugeicons/core-free-icons";
+import { BookOpen01Icon, Calendar01Icon, Time01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { headers } from "next/headers";
@@ -83,10 +79,7 @@ async function BlogList({ locale }: { locale: string }) {
   if (!blogPosts || blogPosts.length === 0) {
     return (
       <div className="rounded-[28px] border border-neutral-200 bg-white p-12 text-center shadow-sm">
-        <HugeiconsIcon
-          className="mx-auto mb-4 h-12 w-12 text-neutral-600"
-          icon={BookOpen01Icon}
-        />
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-600" icon={BookOpen01Icon} />
         <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Posts Yet</h3>
         <p className="text-neutral-600">We'll publish our first blog post soon. Stay tuned!</p>
       </div>
@@ -204,7 +197,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             <h1 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl">
               {t("hero.title")}
             </h1>
-            <p className="mx-auto max-w-2xl text-neutral-700 text-lg sm:text-xl">
+            <p className="mx-auto max-w-2xl text-lg text-neutral-700 sm:text-xl">
               {t("hero.subtitle")}
             </p>
           </div>

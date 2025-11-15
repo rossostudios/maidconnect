@@ -2,13 +2,19 @@
  * Admin Dispute Detail API
  * GET /api/admin/disputes/[id] - Get dispute details
  * PATCH /api/admin/disputes/[id] - Update dispute (assign, change status)
+ *
+ * Rate Limit: 5 requests per minute (dispute tier)
  */
 
 import { NextResponse } from "next/server";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+async function handleGetDispute(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const { id } = await params;
     await requireAdmin();
@@ -39,7 +45,10 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   }
 }
 
-export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+async function handlePatchDispute(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const { id } = await params;
     const admin = await requireAdmin();
@@ -90,3 +99,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     );
   }
 }
+
+// Apply rate limiting: 5 requests per minute (dispute tier)
+export const GET = withRateLimit(handleGetDispute, "dispute");
+export const PATCH = withRateLimit(handlePatchDispute, "dispute");

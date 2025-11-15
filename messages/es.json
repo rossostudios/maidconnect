@@ -1078,6 +1078,49 @@
     "becomeProfessional": "Ser profesional",
     "learnMore": "Más información"
   },
+  "benefits": {
+    "badge": "POR QUÉ CASAORA",
+    "heading": "Servicio Doméstico Premium Simplificado",
+    "description": "Conectamos familias expatriadas con los mejores profesionales domésticos de Colombia a través de una plataforma construida para la confianza y excelencia.",
+    "englishSupport": {
+      "title": "Soporte en Inglés",
+      "description": "Plataforma bilingüe y profesionales que se comunican fluidamente en inglés para una coordinación sin problemas."
+    },
+    "verifiedProfessionals": {
+      "title": "Profesionales Verificados",
+      "description": "Rigurosas verificaciones de antecedentes y evaluaciones de habilidades aseguran que solo el 5% superior de candidatos se una a nuestra red."
+    },
+    "fullInsurance": {
+      "title": "Seguro Completo",
+      "description": "Cobertura integral de responsabilidad civil y protección laboral para completa tranquilidad."
+    },
+    "dedicatedSupport": {
+      "title": "Soporte Dedicado",
+      "description": "Gestión de cuenta personalizada y asistencia 24/7 para garantizar una prestación de servicio excepcional."
+    },
+    "tags": {
+      "primary": [
+        "Días de prueba agendados en la app",
+        "Preparación de entrevistas con concierge",
+        "Expedientes de referencias y antecedentes",
+        "Guía en seguros y nómina",
+        "Coordinación bilingüe",
+        "Red confiable de expatriados",
+        "Bóveda segura de documentos",
+        "Seguimiento de desempeño"
+      ],
+      "secondary": [
+        "Selección de chefs, niñeras y housekeepers",
+        "Opciones internas y medio tiempo",
+        "Reemplazos en la misma semana",
+        "Contratos y trámites de visa",
+        "Aliados de choferes privados",
+        "Equipo listo para viajar",
+        "Concierge disponible on-call",
+        "Manual personalizado del hogar"
+      ]
+    }
+  },
   "marketing": {
     "highlights": {
       "tagline": "EXPERIENCIA A MEDIDA",

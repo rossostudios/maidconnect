@@ -2,9 +2,9 @@ import { setRequestLocale } from "next-intl/server";
 import { FaqSection } from "@/components/marketing/faq-section";
 import { WelcomeTour } from "@/components/onboarding";
 import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
-import { HeroSection } from "@/components/sections/HeroSection";
+import { BenefitsSection } from "@/components/sections/BenefitsSection";
+import { HeroSectionWithABTest } from "@/components/sections/HeroSectionWithABTest";
 import { PricingSection } from "@/components/sections/PricingSection";
-import { ServicesTabs } from "@/components/sections/ServicesTabs";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
@@ -20,9 +20,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     <div className="relative min-h-screen bg-neutral-50 text-neutral-900">
       <SiteHeader />
       <main className="bg-neutral-50" data-tour="welcome">
-        <HeroSection />
+        <HeroSectionWithABTest />
+        <BenefitsSection />
         <BenefitsGrid />
-        <ServicesTabs />
         <TestimonialsSection />
         <PricingSection />
         <FaqSection />

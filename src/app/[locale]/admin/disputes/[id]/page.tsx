@@ -116,7 +116,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                   Resolution Action
                 </label>
                 <select
-                  className="w-full rounded-lg border border-[#EE44EE2E3] px-4 py-2"
+                  className="w-full border border-[#EE44EE2E3] px-4 py-2"
                   id="resolution-action"
                   onChange={(e) => setResolutionAction(e.target.value)}
                   value={resolutionAction}
@@ -133,7 +133,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                   Resolution Notes
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-[#EE44EE2E3] px-4 py-3"
+                  className="w-full border border-[#EE44EE2E3] px-4 py-3"
                   id="resolution-notes"
                   onChange={(e) => setResolutionNotes(e.target.value)}
                   placeholder="Explain the resolution decision..."
@@ -142,7 +142,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                 />
               </div>
               <button
-                className="type-ui-sm rounded-lg bg-[#FF4444A22] px-6 py-3 font-medium text-[#FFEEFF8E8] hover:bg-[#FF4444A22] disabled:opacity-50"
+                className="type-ui-sm bg-[#FF4444A22] px-6 py-3 font-medium text-[#FFEEFF8E8] hover:bg-[#FF4444A22] disabled:opacity-50"
                 disabled={!(resolutionAction && resolutionNotes)}
                 onClick={handleResolve}
                 type="button"

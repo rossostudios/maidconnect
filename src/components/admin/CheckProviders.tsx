@@ -73,7 +73,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
           <SelectContent>
             <SelectItem value="checkr">
               <div className="flex items-center gap-3">
-                <div className="rounded bg-white px-2 py-1 dark:bg-neutral-950">
+                <div className="bg-white px-2 py-1 dark:bg-neutral-950">
                   <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                     Checkr
                   </span>
@@ -85,7 +85,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
             </SelectItem>
             <SelectItem value="truora">
               <div className="flex items-center gap-3">
-                <div className="rounded bg-neutral-900 px-2 py-1 dark:bg-neutral-100/10">
+                <div className="bg-neutral-900 px-2 py-1 dark:bg-neutral-100/10">
                   <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                     Truora
                   </span>
@@ -106,14 +106,14 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
       <div className="grid gap-4 md:grid-cols-2">
         {/* Checkr Info */}
         <div
-          className={`rounded-lg border p-4 transition-all ${
+          className={`border p-4 transition-all ${
             settings.provider === "checkr"
               ? "border-neutral-900 bg-white dark:border-neutral-100 dark:bg-neutral-950"
               : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
           }`}
         >
           <div className="mb-3 flex items-center justify-between">
-            <div className="rounded bg-white px-3 py-1 dark:bg-neutral-950">
+            <div className="bg-white px-3 py-1 dark:bg-neutral-950">
               <span className="font-bold text-neutral-800 text-sm dark:text-neutral-300">
                 Checkr
               </span>
@@ -146,14 +146,14 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
 
         {/* Truora Info */}
         <div
-          className={`rounded-lg border p-4 transition-all ${
+          className={`border p-4 transition-all ${
             settings.provider === "truora"
               ? "border-neutral-900 bg-neutral-900 dark:border-neutral-100 dark:bg-neutral-100/10"
               : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
           }`}
         >
           <div className="mb-3 flex items-center justify-between">
-            <div className="rounded bg-neutral-900 px-3 py-1 dark:bg-neutral-100/10">
+            <div className="bg-neutral-900 px-3 py-1 dark:bg-neutral-100/10">
               <span className="font-bold text-neutral-800 text-sm dark:text-neutral-300">
                 Truora
               </span>
@@ -186,7 +186,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
       </div>
 
       {/* Enable Background Checks */}
-      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="flex items-center justify-between border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div>
           <p className="font-semibold text-neutral-800 text-sm dark:text-neutral-300">
             Enable Background Checks
@@ -202,12 +202,12 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
             onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer peer-checked:after:tranneutral-x-full h-6 w-11 rounded-full bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
+          <div className="peer peer-checked:after:tranneutral-x-full -full h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
       {/* Auto-Initiate Background Checks */}
-      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="flex items-center justify-between border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div>
           <p className="font-semibold text-neutral-800 text-sm dark:text-neutral-300">
             Auto-Initiate Checks
@@ -224,12 +224,12 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
             onChange={(e) => setSettings({ ...settings, auto_initiate: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer peer-checked:after:tranneutral-x-full h-6 w-11 rounded-full bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
+          <div className="peer peer-checked:after:tranneutral-x-full -full h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
       {/* Info Box */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start gap-3">
           <HugeiconsIcon
             className="mt-0.5 h-5 w-5 flex-shrink-0 text-neutral-900 dark:text-neutral-100"
@@ -252,14 +252,14 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
 
       {/* Error Display */}
       {error && (
-        <div className="rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+        <div className="border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
           <p className="text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
         </div>
       )}
 
       {/* Success Display */}
       {successMessage && (
-        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+        <div className="border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <p className="text-neutral-800 text-sm dark:text-neutral-300">{successMessage}</p>
         </div>
       )}
@@ -267,7 +267,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isSaving}
           onClick={handleSave}
           type="button"

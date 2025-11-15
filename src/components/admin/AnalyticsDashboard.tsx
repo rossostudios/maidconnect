@@ -10,6 +10,31 @@
 import { useCallback, useEffect, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browserClient";
 
+type TimeRange = "7d" | "30d" | "90d" | "all";
+type SupabaseBrowserClient = ReturnType<typeof createSupabaseBrowserClient>;
+const TIME_RANGE_OPTIONS: readonly TimeRange[] = ["7d", "30d", "90d", "all"];
+
+type BookingRecord = {
+  id: string;
+  status: string;
+  created_at: string;
+  scheduled_start: string | null;
+  customer_id: string | null;
+  professional_id: string | null;
+  amount_estimated: number | null;
+  service_category: string | null;
+  city: string | null;
+};
+
+type ProfessionalRecord = {
+  id: string;
+  approval_date: string | null;
+};
+
+type CustomerRecord = {
+  id: string;
+};
+
 type AnalyticsMetrics = {
   fillRate: number; // % of booking requests that were accepted
   avgTimeToFirstBooking: number; // Days from approval to first booking
@@ -28,6 +53,13 @@ type CityMetrics = {
   professionalCount: number;
 };
 
+type CityStats = {
+  total: number;
+  accepted: number;
+  professionals: Set<string>;
+  ttfbDays: number[];
+};
+
 type CategoryMetrics = {
   category: string;
   fillRate: number;
@@ -40,213 +72,23 @@ export function AnalyticsDashboard() {
   const [cityMetrics, setCityMetrics] = useState<CityMetrics[]>([]);
   const [categoryMetrics, setCategoryMetrics] = useState<CategoryMetrics[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedTimeRange, setSelectedTimeRange] = useState<"7d" | "30d" | "90d" | "all">("30d");
+  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>("30d");
 
   const loadAnalytics = useCallback(async () => {
     setIsLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
+      const startDate = getStartDate(selectedTimeRange);
+      const [bookings, professionals, customers] = await Promise.all([
+        fetchBookings(supabase, startDate),
+        fetchProfessionals(supabase),
+        fetchCustomers(supabase),
+      ]);
 
-      // Calculate date range
-      const now = new Date();
-      let startDate: Date | null = null;
-
-      if (selectedTimeRange !== "all") {
-        startDate = new Date(now);
-        const days = selectedTimeRange === "7d" ? 7 : selectedTimeRange === "30d" ? 30 : 90;
-        startDate.setDate(startDate.getDate() - days);
-      }
-
-      // Fetch bookings with filters
-      let bookingsQuery = supabase.from("bookings").select(`
-        id,
-        status,
-        created_at,
-        scheduled_start,
-        customer_id,
-        professional_id,
-        amount_estimated,
-        service_category,
-        city
-      `);
-
-      if (startDate) {
-        bookingsQuery = bookingsQuery.gte("created_at", startDate.toISOString());
-      }
-
-      const { data: bookings } = await bookingsQuery;
-
-      // Fetch professionals with approval dates
-      const { data: professionals } = await supabase
-        .from("profiles")
-        .select("id, role, created_at, approval_date")
-        .eq("role", "professional");
-
-      // Fetch all customers
-      const { data: customers } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("role", "customer");
-
-      // Calculate platform-wide metrics
-      const totalBookings = bookings?.length || 0;
-      const acceptedBookings =
-        bookings?.filter((b) => b.status !== "cancelled" && b.status !== "pending_payment")
-          .length || 0;
-      const fillRate = totalBookings > 0 ? (acceptedBookings / totalBookings) * 100 : 0;
-
-      // Calculate time to first booking
-      const proFirstBookings = professionals
-        ?.map((pro) => {
-          const firstBooking = bookings
-            ?.filter((b) => b.professional_id === pro.id && b.status !== "cancelled")
-            .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())[0];
-
-          if (!(firstBooking && pro.approval_date)) {
-            return null;
-          }
-
-          const approvalDate = new Date(pro.approval_date);
-          const firstBookingDate = new Date(firstBooking.created_at);
-          const daysDiff = Math.floor(
-            (firstBookingDate.getTime() - approvalDate.getTime()) / (1000 * 60 * 60 * 24)
-          );
-
-          return daysDiff >= 0 ? daysDiff : null;
-        })
-        .filter((days): days is number => days !== null);
-
-      const avgTimeToFirstBooking =
-        proFirstBookings && proFirstBookings.length > 0
-          ? proFirstBookings.reduce((sum, days) => sum + days, 0) / proFirstBookings.length
-          : 0;
-
-      // Calculate repeat booking rate
-      const customerBookingCounts = new Map<string, number>();
-      bookings?.forEach((booking) => {
-        if (booking.customer_id && booking.status !== "cancelled") {
-          customerBookingCounts.set(
-            booking.customer_id,
-            (customerBookingCounts.get(booking.customer_id) || 0) + 1
-          );
-        }
-      });
-
-      const customersWithMultipleBookings = Array.from(customerBookingCounts.values()).filter(
-        (count) => count >= 2
-      ).length;
-      const totalUniqueCustomers = customerBookingCounts.size;
-      const repeatBookingRate =
-        totalUniqueCustomers > 0 ? (customersWithMultipleBookings / totalUniqueCustomers) * 100 : 0;
-
-      // Calculate active professionals (bookings in last 30 days)
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      const activeProfessionalIds = new Set(
-        bookings
-          ?.filter((b) => new Date(b.created_at) >= thirtyDaysAgo && b.status !== "cancelled")
-          .map((b) => b.professional_id)
-      );
-
-      setMetrics({
-        fillRate,
-        avgTimeToFirstBooking,
-        repeatBookingRate,
-        totalBookings,
-        totalProfessionals: professionals?.length || 0,
-        totalCustomers: customers?.length || 0,
-        activeProfessionals: activeProfessionalIds.size,
-      });
-
-      // Calculate city-level metrics
-      const citiesMap = new Map<
-        string,
-        { total: number; accepted: number; professionals: Set<string>; ttfbDays: number[] }
-      >();
-
-      bookings?.forEach((booking) => {
-        const city = booking.city || "Unknown";
-        if (!citiesMap.has(city)) {
-          citiesMap.set(city, { total: 0, accepted: 0, professionals: new Set(), ttfbDays: [] });
-        }
-
-        const cityData = citiesMap.get(city)!;
-        cityData.total++;
-        if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-          cityData.accepted++;
-        }
-        if (booking.professional_id) {
-          cityData.professionals.add(booking.professional_id);
-        }
-      });
-
-      // Add TTFB data for cities
-      professionals?.forEach((pro) => {
-        const firstBooking = bookings
-          ?.filter((b) => b.professional_id === pro.id && b.status !== "cancelled")
-          .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())[0];
-
-        if (firstBooking && pro.approval_date && firstBooking.city) {
-          const approvalDate = new Date(pro.approval_date);
-          const firstBookingDate = new Date(firstBooking.created_at);
-          const daysDiff = Math.floor(
-            (firstBookingDate.getTime() - approvalDate.getTime()) / (1000 * 60 * 60 * 24)
-          );
-
-          if (daysDiff >= 0) {
-            const cityData = citiesMap.get(firstBooking.city);
-            if (cityData) {
-              cityData.ttfbDays.push(daysDiff);
-            }
-          }
-        }
-      });
-
-      const cityMetricsArray = Array.from(citiesMap.entries())
-        .map(([city, data]) => ({
-          city,
-          fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-          avgTimeToFirstBooking:
-            data.ttfbDays.length > 0
-              ? data.ttfbDays.reduce((sum, d) => sum + d, 0) / data.ttfbDays.length
-              : 0,
-          bookingCount: data.total,
-          professionalCount: data.professionals.size,
-        }))
-        .sort((a, b) => b.bookingCount - a.bookingCount);
-
-      setCityMetrics(cityMetricsArray);
-
-      // Calculate category-level metrics
-      const categoriesMap = new Map<
-        string,
-        { total: number; accepted: number; totalAmount: number }
-      >();
-
-      bookings?.forEach((booking) => {
-        const category = booking.service_category || "Unknown";
-        if (!categoriesMap.has(category)) {
-          categoriesMap.set(category, { total: 0, accepted: 0, totalAmount: 0 });
-        }
-
-        const categoryData = categoriesMap.get(category)!;
-        categoryData.total++;
-        if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-          categoryData.accepted++;
-          categoryData.totalAmount += booking.amount_estimated || 0;
-        }
-      });
-
-      const categoryMetricsArray = Array.from(categoriesMap.entries())
-        .map(([category, data]) => ({
-          category,
-          fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-          bookingCount: data.total,
-          avgPrice: data.accepted > 0 ? data.totalAmount / data.accepted : 0,
-        }))
-        .sort((a, b) => b.bookingCount - a.bookingCount);
-
-      setCategoryMetrics(categoryMetricsArray);
+      const bookingsByProfessional = groupBookingsByProfessional(bookings);
+      setMetrics(buildPlatformMetrics(bookings, professionals, customers, bookingsByProfessional));
+      setCityMetrics(buildCityMetrics(bookings, professionals, bookingsByProfessional));
+      setCategoryMetrics(buildCategoryMetrics(bookings));
     } catch (error) {
       console.error("Failed to load analytics:", error);
     } finally {
@@ -268,7 +110,7 @@ export function AnalyticsDashboard() {
 
   if (!metrics) {
     return (
-      <div className="rounded-lg border border-[#ebe5d8] bg-white p-8 text-center">
+      <div className="border border-[#ebe5d8] bg-white p-8 text-center">
         <p className="text-[#7d7566]">No analytics data available</p>
       </div>
     );
@@ -278,23 +120,18 @@ export function AnalyticsDashboard() {
     <div className="space-y-8">
       {/* Time Range Selector */}
       <div className="flex justify-end gap-2">
-        {(["7d", "30d", "90d", "all"] as const).map((range) => (
+        {TIME_RANGE_OPTIONS.map((range) => (
           <button
-            className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
+            className={`px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
                 ? "bg-[#E85D48] text-white"
                 : "border border-[#e5dfd4] text-gray-900 hover:border-[#E85D48]"
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
+            type="button"
           >
-            {range === "all"
-              ? "All Time"
-              : range === "7d"
-                ? "7 Days"
-                : range === "30d"
-                  ? "30 Days"
-                  : "90 Days"}
+            {formatRangeLabel(range)}
           </button>
         ))}
       </div>
@@ -304,31 +141,19 @@ export function AnalyticsDashboard() {
         <MetricCard
           description="Booking requests accepted"
           title="Fill Rate"
-          trend={metrics.fillRate >= 70 ? "good" : metrics.fillRate >= 50 ? "neutral" : "poor"}
+          trend={getFillRateTrend(metrics.fillRate)}
           value={`${metrics.fillRate.toFixed(1)}%`}
         />
         <MetricCard
           description="Avg. professional onboarding"
           title="Time to First Booking"
-          trend={
-            metrics.avgTimeToFirstBooking <= 7
-              ? "good"
-              : metrics.avgTimeToFirstBooking <= 14
-                ? "neutral"
-                : "poor"
-          }
+          trend={getTimeToFirstBookingTrend(metrics.avgTimeToFirstBooking)}
           value={`${metrics.avgTimeToFirstBooking.toFixed(1)} days`}
         />
         <MetricCard
           description="Customers with 2+ bookings"
           title="Repeat Booking Rate"
-          trend={
-            metrics.repeatBookingRate >= 40
-              ? "good"
-              : metrics.repeatBookingRate >= 25
-                ? "neutral"
-                : "poor"
-          }
+          trend={getRepeatBookingTrend(metrics.repeatBookingRate)}
           value={`${metrics.repeatBookingRate.toFixed(1)}%`}
         />
         <MetricCard
@@ -398,13 +223,9 @@ export function AnalyticsDashboard() {
                     <td className="px-6 py-4 font-medium text-gray-900">{city.city}</td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
-                          city.fillRate >= 70
-                            ? "bg-neutral-100 text-neutral-700"
-                            : city.fillRate >= 50
-                              ? "bg-neutral-100 text-neutral-600"
-                              : "bg-neutral-100 text-neutral-800"
-                        }`}
+                        className={`-full inline-flex px-3 py-1 font-semibold text-xs ${getFillRateBadgeClasses(
+                          city.fillRate
+                        )}`}
                       >
                         {city.fillRate.toFixed(1)}%
                       </span>
@@ -462,13 +283,9 @@ export function AnalyticsDashboard() {
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
-                          category.fillRate >= 70
-                            ? "bg-neutral-100 text-neutral-700"
-                            : category.fillRate >= 50
-                              ? "bg-neutral-100 text-neutral-600"
-                              : "bg-neutral-100 text-neutral-800"
-                        }`}
+                        className={`-full inline-flex px-3 py-1 font-semibold text-xs ${getFillRateBadgeClasses(
+                          category.fillRate
+                        )}`}
                       >
                         {category.fillRate.toFixed(1)}%
                       </span>
@@ -521,4 +338,376 @@ function MetricCard({ title, value, description, trend }: MetricCardProps) {
       <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );
+}
+
+function getFillRateTrend(fillRate: number): "good" | "neutral" | "poor" {
+  if (fillRate >= 70) {
+    return "good";
+  }
+  if (fillRate >= 50) {
+    return "neutral";
+  }
+  return "poor";
+}
+
+function getTimeToFirstBookingTrend(days: number): "good" | "neutral" | "poor" {
+  if (days <= 7) {
+    return "good";
+  }
+  if (days <= 14) {
+    return "neutral";
+  }
+  return "poor";
+}
+
+function getRepeatBookingTrend(rate: number): "good" | "neutral" | "poor" {
+  if (rate >= 40) {
+    return "good";
+  }
+  if (rate >= 25) {
+    return "neutral";
+  }
+  return "poor";
+}
+
+function getFillRateBadgeClasses(value: number): string {
+  if (value >= 70) {
+    return "bg-neutral-100 text-neutral-700";
+  }
+  if (value >= 50) {
+    return "bg-neutral-100 text-neutral-600";
+  }
+  return "bg-neutral-100 text-neutral-800";
+}
+
+const DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+function getStartDate(range: TimeRange): Date | null {
+  const days = getRangeInDays(range);
+  if (!days) {
+    return null;
+  }
+
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days);
+  return startDate;
+}
+
+function getRangeInDays(range: TimeRange): number | null {
+  switch (range) {
+    case "7d":
+      return 7;
+    case "30d":
+      return 30;
+    case "90d":
+      return 90;
+    default:
+      return null;
+  }
+}
+
+function formatRangeLabel(range: TimeRange): string {
+  switch (range) {
+    case "all":
+      return "All Time";
+    case "7d":
+      return "7 Days";
+    case "30d":
+      return "30 Days";
+    case "90d":
+      return "90 Days";
+    default:
+      return range;
+  }
+}
+
+async function fetchBookings(
+  supabase: SupabaseBrowserClient,
+  startDate: Date | null
+): Promise<BookingRecord[]> {
+  let query = supabase.from("bookings").select(`
+    id,
+    status,
+    created_at,
+    scheduled_start,
+    customer_id,
+    professional_id,
+    amount_estimated,
+    service_category,
+    city
+  `);
+
+  if (startDate) {
+    query = query.gte("created_at", startDate.toISOString());
+  }
+
+  const { data } = await query;
+  return (data ?? []) as BookingRecord[];
+}
+
+async function fetchProfessionals(supabase: SupabaseBrowserClient): Promise<ProfessionalRecord[]> {
+  const { data } = await supabase
+    .from("profiles")
+    .select("id, approval_date")
+    .eq("role", "professional");
+
+  return (data ?? []) as ProfessionalRecord[];
+}
+
+async function fetchCustomers(supabase: SupabaseBrowserClient): Promise<CustomerRecord[]> {
+  const { data } = await supabase.from("profiles").select("id").eq("role", "customer");
+  return (data ?? []) as CustomerRecord[];
+}
+
+function groupBookingsByProfessional(bookings: BookingRecord[]) {
+  const map = new Map<string, BookingRecord[]>();
+
+  for (const booking of bookings) {
+    if (!booking.professional_id || booking.status === "cancelled") {
+      continue;
+    }
+
+    const existing = map.get(booking.professional_id) ?? [];
+    existing.push(booking);
+    map.set(booking.professional_id, existing);
+  }
+
+  for (const bookingList of map.values()) {
+    bookingList.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+  }
+
+  return map;
+}
+
+function buildPlatformMetrics(
+  bookings: BookingRecord[],
+  professionals: ProfessionalRecord[],
+  customers: CustomerRecord[],
+  bookingsByProfessional: Map<string, BookingRecord[]>
+): AnalyticsMetrics {
+  return {
+    fillRate: calculateFillRate(bookings),
+    avgTimeToFirstBooking: calculateAverageTimeToFirstBooking(
+      bookingsByProfessional,
+      professionals
+    ),
+    repeatBookingRate: calculateRepeatBookingRate(bookings),
+    totalBookings: bookings.length,
+    totalProfessionals: professionals.length,
+    totalCustomers: customers.length,
+    activeProfessionals: calculateActiveProfessionals(bookings),
+  };
+}
+
+function calculateFillRate(bookings: BookingRecord[]): number {
+  if (bookings.length === 0) {
+    return 0;
+  }
+
+  let accepted = 0;
+  for (const booking of bookings) {
+    if (isAcceptedBooking(booking)) {
+      accepted += 1;
+    }
+  }
+
+  return (accepted / bookings.length) * 100;
+}
+
+function calculateAverageTimeToFirstBooking(
+  bookingsByProfessional: Map<string, BookingRecord[]>,
+  professionals: ProfessionalRecord[]
+) {
+  const daysToFirstBooking: number[] = [];
+
+  for (const professional of professionals) {
+    if (!professional.approval_date) {
+      continue;
+    }
+
+    const firstBooking = bookingsByProfessional.get(professional.id)?.[0];
+    if (!firstBooking) {
+      continue;
+    }
+
+    const diff = calculateDaysBetween(professional.approval_date, firstBooking.created_at);
+    if (diff >= 0) {
+      daysToFirstBooking.push(diff);
+    }
+  }
+
+  if (daysToFirstBooking.length === 0) {
+    return 0;
+  }
+
+  const total = daysToFirstBooking.reduce((sum, day) => sum + day, 0);
+  return total / daysToFirstBooking.length;
+}
+
+function calculateRepeatBookingRate(bookings: BookingRecord[]): number {
+  const customerBookingCounts = new Map<string, number>();
+
+  for (const booking of bookings) {
+    if (!booking.customer_id || booking.status === "cancelled") {
+      continue;
+    }
+
+    customerBookingCounts.set(
+      booking.customer_id,
+      (customerBookingCounts.get(booking.customer_id) ?? 0) + 1
+    );
+  }
+
+  if (customerBookingCounts.size === 0) {
+    return 0;
+  }
+
+  let customersWithMultipleBookings = 0;
+  for (const count of customerBookingCounts.values()) {
+    if (count >= 2) {
+      customersWithMultipleBookings += 1;
+    }
+  }
+
+  return (customersWithMultipleBookings / customerBookingCounts.size) * 100;
+}
+
+function calculateActiveProfessionals(bookings: BookingRecord[]): number {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const activeProfessionalIds = new Set<string>();
+
+  for (const booking of bookings) {
+    if (!booking.professional_id || booking.status === "cancelled") {
+      continue;
+    }
+
+    if (new Date(booking.created_at) >= thirtyDaysAgo) {
+      activeProfessionalIds.add(booking.professional_id);
+    }
+  }
+
+  return activeProfessionalIds.size;
+}
+
+function buildCityMetrics(
+  bookings: BookingRecord[],
+  professionals: ProfessionalRecord[],
+  bookingsByProfessional: Map<string, BookingRecord[]>
+): CityMetrics[] {
+  const cityStats = collectCityStats(bookings);
+  const approvalDates = mapProfessionalApprovals(professionals);
+  appendCityTtfbData(cityStats, bookingsByProfessional, approvalDates);
+  return mapCityStatsToMetrics(cityStats);
+}
+
+type CityStatsMap = Map<string, CityStats>;
+
+function collectCityStats(bookings: BookingRecord[]): CityStatsMap {
+  const cityStats: CityStatsMap = new Map();
+
+  for (const booking of bookings) {
+    const cityName = booking.city || "Unknown";
+    const cityData = cityStats.get(cityName) ?? createCityStatsEntry();
+    cityData.total += 1;
+    if (isAcceptedBooking(booking)) {
+      cityData.accepted += 1;
+    }
+    if (booking.professional_id) {
+      cityData.professionals.add(booking.professional_id);
+    }
+
+    cityStats.set(cityName, cityData);
+  }
+
+  return cityStats;
+}
+
+function createCityStatsEntry(): CityStats {
+  return {
+    total: 0,
+    accepted: 0,
+    professionals: new Set(),
+    ttfbDays: [],
+  };
+}
+
+function mapProfessionalApprovals(professionals: ProfessionalRecord[]) {
+  const approvals = new Map<string, string>();
+  for (const professional of professionals) {
+    if (professional.approval_date) {
+      approvals.set(professional.id, professional.approval_date);
+    }
+  }
+  return approvals;
+}
+
+function appendCityTtfbData(
+  cityStats: CityStatsMap,
+  bookingsByProfessional: Map<string, BookingRecord[]>,
+  approvalDates: Map<string, string>
+) {
+  for (const [professionalId, professionalBookings] of bookingsByProfessional.entries()) {
+    const approvalDate = approvalDates.get(professionalId);
+    const firstBooking = professionalBookings[0];
+    if (!(approvalDate && firstBooking?.city)) {
+      continue;
+    }
+
+    const diff = calculateDaysBetween(approvalDate, firstBooking.created_at);
+    if (diff >= 0) {
+      cityStats.get(firstBooking.city)?.ttfbDays.push(diff);
+    }
+  }
+}
+
+function mapCityStatsToMetrics(cityStats: CityStatsMap): CityMetrics[] {
+  return Array.from(cityStats.entries())
+    .map(([city, data]) => ({
+      city,
+      fillRate: data.total ? (data.accepted / data.total) * 100 : 0,
+      avgTimeToFirstBooking: data.ttfbDays.length
+        ? data.ttfbDays.reduce((sum, day) => sum + day, 0) / data.ttfbDays.length
+        : 0,
+      bookingCount: data.total,
+      professionalCount: data.professionals.size,
+    }))
+    .sort((a, b) => b.bookingCount - a.bookingCount);
+}
+
+function buildCategoryMetrics(bookings: BookingRecord[]): CategoryMetrics[] {
+  const categoryStats = new Map<string, { total: number; accepted: number; totalAmount: number }>();
+
+  for (const booking of bookings) {
+    const category = booking.service_category || "Unknown";
+    if (!categoryStats.has(category)) {
+      categoryStats.set(category, { total: 0, accepted: 0, totalAmount: 0 });
+    }
+
+    const categoryData = categoryStats.get(category)!;
+    categoryData.total += 1;
+    if (isAcceptedBooking(booking)) {
+      categoryData.accepted += 1;
+      categoryData.totalAmount += booking.amount_estimated ?? 0;
+    }
+  }
+
+  return Array.from(categoryStats.entries())
+    .map(([category, data]) => ({
+      category,
+      fillRate: data.total ? (data.accepted / data.total) * 100 : 0,
+      bookingCount: data.total,
+      avgPrice: data.accepted ? data.totalAmount / data.accepted : 0,
+    }))
+    .sort((a, b) => b.bookingCount - a.bookingCount);
+}
+
+function calculateDaysBetween(start: string, end: string): number {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  return Math.floor((endDate.getTime() - startDate.getTime()) / DAY_IN_MS);
+}
+
+function isAcceptedBooking(booking: BookingRecord): boolean {
+  return booking.status !== "cancelled" && booking.status !== "pending_payment";
 }

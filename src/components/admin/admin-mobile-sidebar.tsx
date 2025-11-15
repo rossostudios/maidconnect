@@ -1,12 +1,17 @@
 "use client";
 
-import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
+import { Cancel01Icon, MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { Backdrop } from "@/components/ui/backdrop";
-import { AdminSidebar } from "./admin-sidebar";
+import { PrecisionAdminSidebar } from "./precision-admin-sidebar";
 
-export function AdminMobileSidebar() {
+type Props = {
+  userEmail?: string;
+  userName?: string;
+};
+
+export function AdminMobileSidebar({ userEmail, userName }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Prevent body scroll when drawer is open
@@ -26,7 +31,7 @@ export function AdminMobileSidebar() {
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="rounded-lg p-2 text-neutral-900 transition-colors hover:bg-white hover:text-neutral-900 lg:hidden dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-100"
+        className="rounded-lg p-2 text-neutral-900 transition-colors hover:bg-neutral-100 lg:hidden"
         onClick={() => setIsOpen(true)}
         type="button"
       >
@@ -37,18 +42,31 @@ export function AdminMobileSidebar() {
       {isOpen && (
         <Backdrop
           aria-label="Close menu"
-          className="z-40 bg-neutral-900/50 lg:hidden dark:bg-neutral-100/50"
+          className="z-40 bg-neutral-900/50 lg:hidden"
           onClose={() => setIsOpen(false)}
         />
       )}
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 left-0 z-50 h-full transform transition-transform duration-300 lg:hidden ${
-          isOpen ? "tranneutral-x-0" : "-tranneutral-x-full"
+        className={`fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 lg:hidden ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <AdminSidebar onClose={() => setIsOpen(false)} />
+        <div className="relative h-full">
+          {/* Close Button */}
+          <button
+            aria-label="Close menu"
+            className="absolute top-4 right-4 z-10 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+            onClick={() => setIsOpen(false)}
+            type="button"
+          >
+            <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
+          </button>
+
+          {/* Sidebar Content */}
+          <PrecisionAdminSidebar userEmail={userEmail} userName={userName} />
+        </div>
       </div>
     </>
   );

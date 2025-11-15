@@ -1,5 +1,13 @@
+/**
+ * Admin Business Settings API
+ * PATCH /api/admin/settings/business - Update platform business settings
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const BusinessSettingsSchema = z.object({
@@ -25,7 +33,7 @@ const BusinessSettingsSchema = z.object({
   }),
 });
 
-export async function PATCH(request: NextRequest) {
+async function handlePatchBusiness(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -114,3 +122,6 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const PATCH = withRateLimit(handlePatchBusiness, "admin");

@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "@/i18n/routing";
+import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import { cn } from "@/lib/utils";
 
 type HeroSearchBarProps = {
@@ -27,6 +28,13 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Track booking search in PostHog
+    bookingTracking.started({
+      serviceType: serviceType || "any",
+      location: location || undefined,
+      source: "hero_search",
+    });
 
     // Build search params
     const params = new URLSearchParams();

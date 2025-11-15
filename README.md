@@ -19,6 +19,7 @@
 
 - 🔍 **Smart Professional Matching** - AI-powered recommendations based on your needs
 - 📅 **Real-time Booking** - Instant availability checking and booking confirmation
+- 🔄 **Repeat Booking** - One-click rebooking of favorite professionals and past services
 - 💳 **Secure Payments** - Integrated Stripe payment processing with Colombian payment methods
 - ⭐ **Reviews & Ratings** - Transparent feedback system with verified reviews
 - 🌐 **Bilingual Support** - Full English and Spanish localization

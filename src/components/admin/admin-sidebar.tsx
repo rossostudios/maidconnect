@@ -6,17 +6,17 @@ import {
   ClipboardIcon,
   DollarCircleIcon,
   FileIcon,
+  Home01Icon,
   MapsLocation01Icon,
-  MenuTwoLineIcon,
   Message01Icon,
   StarIcon,
   UserGroupIcon,
-  UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
+import Image from "next/image";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Link, usePathname } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 type NavItem = {
@@ -25,59 +25,21 @@ type NavItem = {
   icon: HugeIcon;
 };
 
-type NavSection = {
-  title: string;
-  items: NavItem[];
-};
-
-const navSections: NavSection[] = [
-  {
-    title: "Core",
-    items: [
-      { href: "/admin", label: "Vetting Queue", icon: UserMultiple02Icon },
-      { href: "/admin/users", label: "Users", icon: UserGroupIcon },
-      { href: "/admin/disputes", label: "Disputes", icon: Alert01Icon },
-      { href: "/admin/audit-logs", label: "Audit Logs", icon: ClipboardIcon },
-    ],
-  },
-  {
-    title: "Business",
-    items: [
-      { href: "/admin/analytics", label: "Analytics", icon: Analytics01Icon },
-      { href: "/admin/pricing", label: "Pricing", icon: DollarCircleIcon },
-    ],
-  },
-  {
-    title: "Content",
-    items: [{ href: "/admin/help/articles", label: "Help Articles", icon: FileIcon }],
-  },
-  {
-    title: "Community",
-    items: [
-      { href: "/admin/changelog", label: "Changelog", icon: StarIcon },
-      { href: "/admin/feedback", label: "Feedback", icon: Message01Icon },
-      { href: "/admin/roadmap", label: "Roadmap", icon: MapsLocation01Icon },
-    ],
-  },
+const navigation: NavItem[] = [
+  { href: "/admin", label: "Dashboard", icon: Home01Icon },
+  { href: "/admin/users", label: "Users", icon: UserGroupIcon },
+  { href: "/admin/disputes", label: "Disputes", icon: Alert01Icon },
+  { href: "/admin/audit-logs", label: "Audit Logs", icon: ClipboardIcon },
+  { href: "/admin/analytics", label: "Analytics", icon: Analytics01Icon },
+  { href: "/admin/pricing", label: "Pricing", icon: DollarCircleIcon },
+  { href: "/admin/help/articles", label: "Help Center", icon: FileIcon },
+  { href: "/admin/changelog", label: "Changelog", icon: StarIcon },
+  { href: "/admin/feedback", label: "Feedback", icon: Message01Icon },
+  { href: "/admin/roadmap", label: "Roadmap", icon: MapsLocation01Icon },
 ];
 
-type Props = {
-  isCollapsed?: boolean;
-  onToggleCollapse?: () => void;
-  onClose?: () => void;
-};
-
-export function AdminSidebar({
-  isCollapsed: controlledCollapsed,
-  onToggleCollapse,
-  onClose,
-}: Props) {
+export function AdminSidebar() {
   const pathname = usePathname();
-  const [internalCollapsed, setInternalCollapsed] = useState(false);
-
-  // Use controlled state if provided, otherwise use internal state
-  const isCollapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
-  const handleToggle = onToggleCollapse || (() => setInternalCollapsed(!internalCollapsed));
 
   const isActive = (href: string) => {
     if (href === "/admin") {
@@ -87,71 +49,51 @@ export function AdminSidebar({
   };
 
   return (
-    <aside
-      className={`flex h-screen flex-col border-[#E5E5E5] border-r bg-white transition-all duration-300 ${
-        isCollapsed ? "w-16" : "w-64"
-      }`}
-    >
-      {/* Header - More spacious */}
-      <div
-        className={`flex h-20 items-center border-[#E5E5E5] border-b px-6 ${
-          isCollapsed ? "justify-center" : "justify-between"
-        }`}
-      >
-        {!isCollapsed && (
-          <Link className="flex items-center" href="/">
-            <span className="font-bold text-[#171717] text-lg tracking-tight">CASAORA</span>
-          </Link>
-        )}
-        <button
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="rounded-lg p-2 text-[#737373] transition-colors hover:bg-[#F5F5F5] hover:text-[#171717]"
-          onClick={onClose || handleToggle}
-        >
-          <HugeiconsIcon className="h-5 w-5" icon={MenuTwoLineIcon} />
-        </button>
+    <div className="flex h-full flex-col border-neutral-200 border-r bg-white">
+      {/* Logo */}
+      <div className="flex h-16 items-center border-neutral-200 border-b px-6">
+        <Link className="flex items-center gap-3" href="/">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-200 bg-white shadow-sm">
+            <Image alt="Casaora" height={18} src="/isologo.svg" width={18} />
+          </div>
+          <span className="font-bold text-neutral-900 text-xl tracking-tight">Casaora</span>
+        </Link>
       </div>
 
-      {/* Navigation - Cleaner spacing */}
-      <nav className="flex-1 overflow-y-auto py-6">
-        {navSections.map((section, idx) => (
-          <div className={idx > 0 ? "mt-8" : ""} key={section.title}>
-            {!isCollapsed && (
-              <div className="mb-3 px-6">
-                <h3 className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
-                  {section.title}
-                </h3>
-              </div>
-            )}
-            <div className="space-y-1 px-3">
-              {section.items.map((item) => {
-                const active = isActive(item.href);
-                return (
-                  <Link
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
-                      active
-                        ? "bg-[#FEF2F2] text-[#E85D48]"
-                        : "text-[#525252] hover:bg-[#F5F5F5] hover:text-[#171717]"
-                    } ${isCollapsed ? "justify-center" : ""}`}
-                    href={item.href}
-                    key={item.href}
-                    onClick={onClose}
-                    title={isCollapsed ? item.label : undefined}
-                  >
-                    <HugeiconsIcon className="h-5 w-5 flex-shrink-0" icon={item.icon} />
-                    {!isCollapsed && <span>{item.label}</span>}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+        {navigation.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <Link
+              className={cn(
+                "group flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all",
+                active
+                  ? "bg-neutral-900 text-white shadow-sm"
+                  : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+              )}
+              href={item.href}
+              key={item.href}
+            >
+              <HugeiconsIcon
+                className={cn(
+                  "h-5 w-5 flex-shrink-0 transition-colors",
+                  active ? "text-white" : "text-neutral-500 group-hover:text-neutral-900"
+                )}
+                icon={item.icon}
+              />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
 
-      {/* Footer - Sign Out */}
-      <div className="border-[#E5E5E5] border-t p-3">
-        <SignOutButton isCollapsed={isCollapsed} showLabel={!isCollapsed} />
+      {/* User Section */}
+      <div className="border-neutral-200 border-t p-4">
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+          <SignOutButton showLabel />
+        </div>
       </div>
-    </aside>
+    </div>
   );
 }

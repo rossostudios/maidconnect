@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 import type { AppRole } from "@/lib/auth";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
@@ -10,6 +11,7 @@ type RouteRule = {
 
 const LOCALES = ["en", "es"];
 const DEFAULT_LOCALE = "en"; // English as global default
+const STATIC_ASSET_REGEX = /\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/i;
 
 // Spanish-speaking countries (ISO 3166-1 alpha-2 codes)
 const SPANISH_SPEAKING_COUNTRIES = [
@@ -107,11 +109,15 @@ function detectLocaleFromHeaders(request: NextRequest): string {
     .split(",")
     .map((lang) => {
       const [code, qPart] = lang.trim().split(";");
-      if (!code) return null;
+      if (!code) {
+        return null;
+      }
       const qualityStr = qPart?.split("=")[1];
       const quality = qualityStr ? Number.parseFloat(qualityStr) : 1.0;
       const langCode = code.split("-")[0]?.toLowerCase();
-      if (!langCode) return null;
+      if (!langCode) {
+        return null;
+      }
       return { code: langCode, quality };
     })
     .filter((item): item is { code: string; quality: number } => item !== null)
@@ -213,115 +219,107 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   return response;
 }
 
-export default async function proxy(request: NextRequest) {
-  ensureEnv();
-
-  // CSRF Protection: Validate origin/referer for state-changing operations
-  if (!validateCSRF(request)) {
-    return new NextResponse("Forbidden: CSRF validation failed", {
-      status: 403,
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-  }
-
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
-
-  // Add security headers to all responses
-  response = addSecurityHeaders(response);
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  // CRITICAL: Must use getUser() instead of getSession() to refresh session properly
-  // See: https://supabase.com/docs/guides/auth/server-side/nextjs
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const pathname = request.nextUrl.pathname;
-
-  // Detect locale: Cookie > Accept-Language > Default (Spanish)
-  const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
-  const detectedLocale = localeCookie || detectLocaleFromHeaders(request);
-  const locale = getLocaleFromPathname(pathname) || detectedLocale;
-
-  // Set/update locale cookie (1-year expiration)
-  if (!localeCookie || localeCookie !== locale) {
-    response.cookies.set("NEXT_LOCALE", locale, {
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-      path: "/",
-      sameSite: "lax",
-    });
-  }
-
-  // Redirect root path to detected locale (Spanish-first)
-  if (pathname === "/") {
-    return NextResponse.redirect(new URL(`/${locale}`, request.url));
-  }
-
-  // If path doesn't have a locale prefix and is not API/static, redirect to add it
-  const isApiOrStatic =
+function isApiOrStaticPath(pathname: string): boolean {
+  return (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/_vercel") ||
     pathname.startsWith("/studio") ||
-    pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
+    STATIC_ASSET_REGEX.test(pathname)
+  );
+}
 
-  if (!(getLocaleFromPathname(pathname) || isApiOrStatic)) {
-    const localizedPath = addLocaleToPath(pathname, locale);
-    const url = new URL(localizedPath, request.url);
-    // Preserve query params
-    url.search = request.nextUrl.search;
-    return NextResponse.redirect(url);
+function ensureLocaleCookie(
+  response: NextResponse,
+  localeCookie: string | undefined,
+  locale: string
+): void {
+  if (!localeCookie || localeCookie !== locale) {
+    response.cookies.set("NEXT_LOCALE", locale, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+}
+
+function maybeRedirectRoot(
+  pathname: string,
+  locale: string,
+  request: NextRequest
+): NextResponse | null {
+  if (pathname !== "/") {
+    return null;
+  }
+  return NextResponse.redirect(new URL(`/${locale}`, request.url));
+}
+
+function maybeRedirectMissingLocale(
+  pathname: string,
+  locale: string,
+  request: NextRequest
+): NextResponse | null {
+  if (getLocaleFromPathname(pathname) || isApiOrStaticPath(pathname)) {
+    return null;
+  }
+  const localizedPath = addLocaleToPath(pathname, locale);
+  const url = new URL(localizedPath, request.url);
+  url.search = request.nextUrl.search;
+  return NextResponse.redirect(url);
+}
+
+async function maybeRedirectAuthenticatedFromAuthRoutes({
+  pathname,
+  locale,
+  request,
+  user,
+  supabase,
+}: {
+  pathname: string;
+  locale: string;
+  request: NextRequest;
+  user: User | null;
+  supabase: SupabaseClient;
+}): Promise<NextResponse | null> {
+  if (!AUTH_ROUTES_PATTERN.test(pathname)) {
+    return null;
   }
 
-  const matchedRule = PROTECTED_ROUTES.find((rule) => rule.pattern.test(pathname));
-
-  if (!matchedRule) {
-    if (pathname.match(AUTH_ROUTES_PATTERN)) {
-      if (!user) {
-        return response;
-      }
-
-      const { data: userProfile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .maybeSingle();
-
-      if (userProfile?.role) {
-        const dashboardRoute = getDashboardRouteForRole(userProfile.role as AppRole);
-        const localizedRoute = addLocaleToPath(dashboardRoute, locale);
-        const redirectUrl = new URL(localizedRoute, request.url);
-        return NextResponse.redirect(redirectUrl);
-      }
-    }
-
-    return response;
+  if (!user) {
+    return null;
   }
 
-  // Protected route handling
+  const { data: userProfile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (!userProfile?.role) {
+    return null;
+  }
+
+  const dashboardRoute = getDashboardRouteForRole(userProfile.role as AppRole);
+  const localizedRoute = addLocaleToPath(dashboardRoute, locale);
+  const redirectUrl = new URL(localizedRoute, request.url);
+  return NextResponse.redirect(redirectUrl);
+}
+
+async function enforceProtectedRouteAccess({
+  matchedRule,
+  user,
+  locale,
+  pathname,
+  request,
+  supabase,
+}: {
+  matchedRule: RouteRule;
+  user: User | null;
+  locale: string;
+  pathname: string;
+  request: NextRequest;
+  supabase: SupabaseClient;
+}): Promise<NextResponse | null> {
   if (!user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = addLocaleToPath(AUTH_ROUTES.signIn, locale);
@@ -354,7 +352,99 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  return response;
+  return null;
+}
+
+export default async function proxy(request: NextRequest) {
+  ensureEnv();
+
+  // CSRF Protection: Validate origin/referer for state-changing operations
+  if (!validateCSRF(request)) {
+    return new NextResponse("Forbidden: CSRF validation failed", {
+      status: 403,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
+
+  // Add security headers to all responses
+  response = addSecurityHeaders(response);
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          for (const { name, value } of cookiesToSet) {
+            request.cookies.set(name, value);
+          }
+          for (const { name, value, options } of cookiesToSet) {
+            response.cookies.set(name, value, options);
+          }
+        },
+      },
+    }
+  );
+
+  // CRITICAL: Must use getUser() instead of getSession() to refresh session properly
+  // See: https://supabase.com/docs/guides/auth/server-side/nextjs
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const pathname = request.nextUrl.pathname;
+
+  // Detect locale: Cookie > Accept-Language > Default (Spanish)
+  const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
+  const detectedLocale = localeCookie || detectLocaleFromHeaders(request);
+  const locale = getLocaleFromPathname(pathname) || detectedLocale;
+
+  ensureLocaleCookie(response, localeCookie, locale);
+
+  const rootRedirect = maybeRedirectRoot(pathname, locale, request);
+  if (rootRedirect) {
+    return rootRedirect;
+  }
+
+  const localeRedirect = maybeRedirectMissingLocale(pathname, locale, request);
+  if (localeRedirect) {
+    return localeRedirect;
+  }
+
+  const matchedRule = PROTECTED_ROUTES.find((rule) => rule.pattern.test(pathname));
+
+  if (!matchedRule) {
+    const authRedirect = await maybeRedirectAuthenticatedFromAuthRoutes({
+      pathname,
+      locale,
+      request,
+      user,
+      supabase,
+    });
+    return authRedirect ?? response;
+  }
+
+  const protectedRedirect = await enforceProtectedRouteAccess({
+    matchedRule,
+    user,
+    locale,
+    pathname,
+    request,
+    supabase,
+  });
+
+  return protectedRedirect ?? response;
 }
 
 export const config = {

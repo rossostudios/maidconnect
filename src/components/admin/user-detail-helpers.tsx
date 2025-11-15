@@ -45,11 +45,11 @@ export function UserProfileHeader({
   return (
     <div className="mb-6 flex items-start justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+        <div className="-full flex h-16 w-16 items-center justify-center bg-[neutral-200]">
           {user.avatar_url ? (
             <Image
               alt={user.full_name || "User"}
-              className="h-16 w-16 rounded-full object-cover"
+              className="-full h-16 w-16 object-cover"
               height={64}
               src={user.avatar_url}
               width={64}
@@ -65,13 +65,13 @@ export function UserProfileHeader({
             {user.full_name || "Unnamed User"}
           </h2>
           <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.email}</p>
-          <span className="type-ui-sm mt-2 inline-block rounded-lg bg-neutral-900 px-3 py-1 font-medium text-white capitalize dark:bg-neutral-100/10 dark:text-neutral-100">
+          <span className="type-ui-sm mt-2 inline-block bg-neutral-900 px-3 py-1 font-medium text-white capitalize dark:bg-neutral-100/10 dark:text-neutral-100">
             {user.role}
           </span>
         </div>
       </div>
       <button
-        className="type-ui-sm rounded-lg bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+        className="type-ui-sm bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
         onClick={onManageSuspension}
         type="button"
       >
@@ -85,7 +85,7 @@ export function SuspensionAlert({ suspension }: { suspension: Suspension }) {
   const isPermanent = suspension.type === "permanent";
 
   return (
-    <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+    <div className="mb-6 border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
       <p className="type-ui-sm mb-2 font-medium text-neutral-900 dark:text-neutral-100">
         {isPermanent ? "Banned" : "Suspended"}
       </p>
@@ -158,13 +158,13 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
     : "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
   return (
-    <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
+    <div className="border border-neutral-200 p-4 dark:border-neutral-800">
       <div className="mb-2 flex items-center justify-between">
-        <span className={`rounded px-2 py-1 font-medium text-xs ${statusBgColor}`}>
+        <span className={`px-2 py-1 font-medium text-xs ${statusBgColor}`}>
           {isPermanent ? "Banned" : "Suspended"}
         </span>
         {suspension.lifted_at && (
-          <span className="rounded bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+          <span className="bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
             Lifted
           </span>
         )}

@@ -4,6 +4,8 @@
  * Scheduled to run every hour (recommended)
  * Sends email + push notifications to customers 24h or 72h after booking completion
  * A/B test: 50% get 24h nudge, 50% get 72h nudge
+ *
+ * Rate Limit: 1 request per 5 minutes (cron tier - prevents concurrent execution)
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -13,6 +15,7 @@ import { sendEmail } from "@/lib/email/send";
 import { rebookNudgeEmail } from "@/lib/email/templates";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { notifyCustomerRebookNudge } from "@/lib/notifications";
+import { withRateLimit } from "@/lib/rate-limit";
 
 type RebookVariant = "24h" | "72h";
 
@@ -321,7 +324,7 @@ async function processVariant(
   }
 }
 
-export async function GET(request: NextRequest) {
+async function handleRebookNudges(request: NextRequest) {
   try {
     // 1. Verify authentication
     if (!verifyCronAuth(request)) {
@@ -376,3 +379,6 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
+export const GET = withRateLimit(handleRebookNudges, "cron");

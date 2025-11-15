@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { LoadingCamper } from "@/components/ui/loading-camper";
 import {
   Select,
   SelectContent,
@@ -101,16 +102,8 @@ export function BackgroundCheckDashboard() {
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              className="h-48 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
-              key={i}
-            />
-          ))}
-        </div>
-        <div className="h-96 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950" />
+      <div className="flex min-h-[400px] items-center justify-center">
+        <LoadingCamper size="lg" text="Loading background checks..." />
       </div>
     );
   }
@@ -121,7 +114,7 @@ export function BackgroundCheckDashboard() {
         <CardContent className="p-8 text-center">
           <p className="mb-4 text-red-700 text-sm dark:text-red-200">{error}</p>
           <button
-            className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-neutral-200"
+            className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-neutral-200"
             onClick={fetchChecks}
             type="button"
           >
@@ -307,7 +300,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.pending}
                 </span>
               )}
@@ -315,7 +308,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="consider">
               Consider
               {data.counts.consider > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.consider}
                 </span>
               )}
@@ -323,7 +316,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="clear">
               Clear
               {data.counts.clear > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.clear}
                 </span>
               )}
@@ -331,7 +324,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="suspended">
               Suspended
               {data.counts.suspended > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.suspended}
                 </span>
               )}
@@ -381,7 +374,7 @@ export function BackgroundCheckDashboard() {
                           {/* Header */}
                           <div className="mb-6 flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+                              <div className="bg-white p-3 dark:bg-neutral-950">
                                 <HugeiconsIcon
                                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                                   icon={UserAccountIcon}
@@ -487,7 +480,7 @@ export function BackgroundCheckDashboard() {
                             <div className="flex flex-wrap gap-2">
                               {check.checksPerformed.map((checkType) => (
                                 <span
-                                  className="rounded-lg bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
+                                  className="bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
                                   key={checkType}
                                 >
                                   {checkType === "criminal" && "Criminal Background"}
@@ -500,7 +493,7 @@ export function BackgroundCheckDashboard() {
 
                           {/* Criminal Records Warning */}
                           {check.results.criminal && check.results.criminal.records.length > 0 && (
-                            <div className="mt-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+                            <div className="mt-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
                               <p className="mb-2 font-semibold text-red-700 text-sm dark:text-red-200">
                                 ⚠ Criminal Records Found
                               </p>
@@ -514,7 +507,7 @@ export function BackgroundCheckDashboard() {
 
                         {/* View Details Button */}
                         <button
-                          className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                          className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                           onClick={() => setSelectedCheck(check)}
                           type="button"
                         >

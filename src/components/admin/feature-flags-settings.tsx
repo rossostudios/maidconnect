@@ -112,13 +112,13 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+        <div className="border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
           <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+        <div className="border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <p className="text-red-700 text-sm dark:text-red-200">{successMessage}</p>
         </div>
       )}
@@ -126,7 +126,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
       <div className="space-y-4">
         {features.map((feature) => (
           <div
-            className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950"
+            className="flex items-center justify-between border border-neutral-200 bg-white p-4 transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950"
             key={feature.key}
           >
             <div className="flex-1">
@@ -147,7 +147,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
 
             <button
               aria-label={`Toggle ${feature.name}`}
-              className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+              className={`-full relative h-6 w-11 flex-shrink-0 transition-colors ${
                 flags[feature.key] ? "bg-neutral-900 dark:bg-neutral-100" : "bg-[neutral-200]"
               } ${isSaving ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
               disabled={isSaving}
@@ -155,7 +155,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
               type="button"
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-neutral-950 ${
+                className={`-full absolute top-0.5 left-0.5 h-5 w-5 bg-white transition-transform dark:bg-neutral-950 ${
                   flags[feature.key] ? "tranneutral-x-5" : "tranneutral-x-0"
                 }`}
               />
@@ -164,7 +164,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
+      <div className="border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
         <p className="text-red-700 text-sm dark:text-red-200">
           <strong>Note:</strong> Changes to feature flags take effect immediately across the entire
           platform. Use with caution in production.

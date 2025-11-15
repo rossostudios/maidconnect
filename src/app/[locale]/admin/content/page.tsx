@@ -169,7 +169,7 @@ export default async function AdminContentPage() {
             Manage all website content powered by Sanity CMS
           </p>
           <Link
-            className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:shadow-sm"
+            className="flex items-center gap-2 border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:shadow-sm"
             href="/studio"
             target="_blank"
           >
@@ -181,7 +181,7 @@ export default async function AdminContentPage() {
 
       {/* Quick Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
           <div className="mb-1 font-medium text-neutral-600 text-sm">Total Content</div>
           <div className="font-bold text-3xl text-neutral-900">
             {stats.helpArticles +
@@ -191,15 +191,15 @@ export default async function AdminContentPage() {
               stats.cityPages}
           </div>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
           <div className="mb-1 font-medium text-neutral-600 text-sm">Help Articles</div>
           <div className="font-bold text-3xl text-neutral-900">{stats.helpArticles}</div>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
           <div className="mb-1 font-medium text-neutral-600 text-sm">Published</div>
           <div className="font-bold text-3xl text-neutral-900">{stats.publishedArticles}</div>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
           <div className="mb-1 font-medium text-neutral-600 text-sm">Drafts</div>
           <div className="font-bold text-3xl text-neutral-900">{stats.draftArticles}</div>
         </div>
@@ -211,7 +211,7 @@ export default async function AdminContentPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {contentTypes.map((contentType) => (
             <div
-              className="group rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-neutral-300 hover:shadow-md"
+              className="group border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-neutral-300 hover:shadow-md"
               key={contentType.title}
             >
               {/* Header */}
@@ -234,7 +234,7 @@ export default async function AdminContentPage() {
               {/* Actions */}
               <div className="flex gap-2">
                 <Link
-                  className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50"
+                  className="flex flex-1 items-center justify-center gap-2 border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50"
                   href={contentType.studioPath}
                   target="_blank"
                 >
@@ -243,7 +243,7 @@ export default async function AdminContentPage() {
                 </Link>
                 <Link
                   aria-label={`Create new ${contentType.title}`}
-                  className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50"
+                  className="border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50"
                   href={`${contentType.studioPath};action=create`}
                   target="_blank"
                 >
@@ -260,12 +260,12 @@ export default async function AdminContentPage() {
         <h2 className="mb-4 font-bold text-2xl text-neutral-900">Recent Activity</h2>
         <div className="grid gap-4 lg:grid-cols-2">
           {/* Recent Articles */}
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+          <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
             <h3 className="mb-4 font-semibold text-base text-neutral-900">Recent Help Articles</h3>
             <div className="space-y-3">
               {recent.recentArticles.map((article: any) => (
                 <Link
-                  className="group flex items-start justify-between rounded-lg p-3 transition-colors hover:bg-neutral-50"
+                  className="group flex items-start justify-between p-3 transition-colors hover:bg-neutral-50"
                   href={`/studio/structure/helpArticle;${article._id}`}
                   key={article._id}
                   target="_blank"
@@ -279,11 +279,11 @@ export default async function AdminContentPage() {
                         {article.language.toUpperCase()}
                       </span>
                       {article.isPublished ? (
-                        <span className="rounded bg-green-100 px-2 py-0.5 text-green-700 text-xs">
+                        <span className="bg-green-100 px-2 py-0.5 text-green-700 text-xs">
                           Published
                         </span>
                       ) : (
-                        <span className="rounded bg-neutral-100 px-2 py-0.5 text-neutral-700 text-xs">
+                        <span className="bg-neutral-100 px-2 py-0.5 text-neutral-700 text-xs">
                           Draft
                         </span>
                       )}
@@ -299,14 +299,14 @@ export default async function AdminContentPage() {
           </div>
 
           {/* Recent Changelogs */}
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
+          <div className="border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5">
             <h3 className="mb-4 font-semibold text-base text-neutral-900">
               Recent Changelog Entries
             </h3>
             <div className="space-y-3">
               {recent.recentChangelogs.map((changelog: any) => (
                 <Link
-                  className="group flex items-start justify-between rounded-lg p-3 transition-colors hover:bg-neutral-50"
+                  className="group flex items-start justify-between p-3 transition-colors hover:bg-neutral-50"
                   href={`/studio/structure/changelog;${changelog._id}`}
                   key={changelog._id}
                   target="_blank"

@@ -12,8 +12,7 @@ import { clickButton, navigateTo } from "../utils/test-helpers";
  * - Dashboard access
  */
 
-const SIGNUP_URL_REGEX = /\/signup|\/sign-up/;
-const PRO_DASHBOARD_REGEX = /\/dashboard\/pro/;
+const PROFESSIONAL_ENTRY_REGEX = /signup|sign-up|professionals\/apply/;
 
 test.describe("Professional Onboarding", () => {
   test.describe("Professional Signup", () => {
@@ -30,7 +29,7 @@ test.describe("Professional Onboarding", () => {
         await page.waitForTimeout(500);
 
         // Should navigate to signup or dedicated professional page
-        await expect(page).toHaveURL(/signup|sign-up|professionals\/apply/);
+        await expect(page).toHaveURL(PROFESSIONAL_ENTRY_REGEX);
       }
     });
 

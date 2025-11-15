@@ -3,18 +3,21 @@ import { AuditLogsDashboard } from "@/components/admin/audit-logs-dashboard";
 import { requireUser } from "@/lib/auth";
 
 export default async function AuditLogsPage() {
-  unstable_noStore(); // Opt out of caching for dynamic page
-
+  unstable_noStore();
   await requireUser({ allowedRoles: ["admin"] });
 
   return (
-    <section className="space-y-8">
+    <div className="space-y-8">
+      {/* Page Header */}
       <div>
-        <h1 className="font-bold text-3xl text-[#116611616]">Audit Logs</h1>
-        <p className="mt-2 text-[#AA88AAAAC]">Track all administrative actions and changes</p>
+        <h1 className="font-bold text-3xl text-neutral-900 tracking-tight">Audit Logs</h1>
+        <p className="mt-2 text-neutral-600">
+          Complete history of administrative actions and system changes
+        </p>
       </div>
 
+      {/* Dashboard Content */}
       <AuditLogsDashboard />
-    </section>
+    </div>
   );
 }

@@ -6,8 +6,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { headers } from "next/headers";
-import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { SiteFooterActions } from "@/components/sections/SiteFooterActions";
 import { Badge } from "@/components/ui/badge";
@@ -173,25 +173,25 @@ export async function SiteFooter() {
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             <div className="flex flex-col items-center gap-2 text-center">
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-mono text-neutral-300 text-xs font-bold">PCI</span>
+                <span className="font-bold font-mono text-neutral-300 text-xs">PCI</span>
               </div>
               <span className="text-neutral-400 text-xs">PCI DSS</span>
             </div>
             <div className="flex flex-col items-center gap-2 text-center">
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-mono text-neutral-300 text-xs font-bold">SOC 2</span>
+                <span className="font-bold font-mono text-neutral-300 text-xs">SOC 2</span>
               </div>
               <span className="text-neutral-400 text-xs">Type II</span>
             </div>
             <div className="flex flex-col items-center gap-2 text-center">
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-mono text-neutral-300 text-xs font-bold">GDPR</span>
+                <span className="font-bold font-mono text-neutral-300 text-xs">GDPR</span>
               </div>
               <span className="text-neutral-400 text-xs">Compliant</span>
             </div>
             <div className="flex flex-col items-center gap-2 text-center">
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-mono text-neutral-300 text-xs font-bold">ISO</span>
+                <span className="font-bold font-mono text-neutral-300 text-xs">ISO</span>
               </div>
               <span className="text-neutral-400 text-xs">27001</span>
             </div>

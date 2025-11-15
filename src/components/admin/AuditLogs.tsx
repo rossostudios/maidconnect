@@ -90,7 +90,7 @@ export function AuditLogsDashboard() {
             icon={Search01Icon}
           />
           <input
-            className="w-full rounded-lg border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+            className="w-full border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search by admin name, target user, or notes..."
             type="text"
@@ -100,13 +100,14 @@ export function AuditLogsDashboard() {
 
         {/* Filter Toggle Button */}
         <button
-          className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5]"
+          className="flex items-center gap-2 border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5]"
           onClick={() => setShowFilters(!showFilters)}
+          type="button"
         >
           <HugeiconsIcon className="h-4 w-4" icon={FilterIcon} />
           Filters
           {activeFiltersCount > 0 && (
-            <span className="ml-1 rounded-full bg-[#E85D48] px-2 py-0.5 font-semibold text-white text-xs">
+            <span className="-full ml-1 bg-[#E85D48] px-2 py-0.5 font-semibold text-white text-xs">
               {activeFiltersCount}
             </span>
           )}
@@ -114,15 +115,19 @@ export function AuditLogsDashboard() {
 
         {/* Filters Panel */}
         {showFilters && (
-          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6">
+          <div className="border border-[#E5E5E5] bg-white p-6">
             <div className="grid grid-cols-1 gap-4">
               {/* Action Type Filter */}
               <div>
-                <label className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                <label
+                  className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+                  htmlFor="audit-action-filter"
+                >
                   Action Type
                 </label>
                 <select
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+                  className="w-full border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+                  id="audit-action-filter"
                   onChange={(e) => {
                     setActionFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, page: 1 }));
@@ -152,6 +157,7 @@ export function AuditLogsDashboard() {
                     setActionFilter("all");
                     setPagination((prev) => ({ ...prev, page: 1 }));
                   }}
+                  type="button"
                 >
                   Clear all filters
                 </button>

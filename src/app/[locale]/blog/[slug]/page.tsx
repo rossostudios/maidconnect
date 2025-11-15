@@ -1,9 +1,6 @@
-import {
-  ArrowLeft01Icon,
-  Calendar01Icon,
-  Time01Icon,
-} from "@hugeicons/core-free-icons";
+import { ArrowLeft01Icon, Calendar01Icon, Time01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Image from "next/image";
@@ -15,7 +12,6 @@ import { SiteHeader } from "@/components/sections/SiteHeader";
 import { serverClient } from "@/lib/integrations/sanity/client";
 import { getOptimizedImageUrl } from "@/lib/integrations/sanity/image";
 import { portableTextComponents } from "@/lib/integrations/sanity/PortableText";
-import { PortableText } from "@portabletext/react";
 
 type BlogPostData = {
   _id: string;
@@ -131,7 +127,7 @@ export default async function BlogPostPage({
           <div className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-10">
             {/* Back Link */}
             <Link
-              className="mb-8 inline-flex items-center gap-2 text-orange-600 text-sm font-medium transition hover:gap-3 hover:text-orange-700"
+              className="mb-8 inline-flex items-center gap-2 font-medium text-orange-600 text-sm transition hover:gap-3 hover:text-orange-700"
               href={`/${locale}/blog`}
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
@@ -154,7 +150,7 @@ export default async function BlogPostPage({
 
             {/* Excerpt */}
             {post.excerpt && (
-              <p className="mb-8 text-neutral-600 text-lg md:text-xl leading-relaxed">
+              <p className="mb-8 text-lg text-neutral-600 leading-relaxed md:text-xl">
                 {post.excerpt}
               </p>
             )}
@@ -227,7 +223,7 @@ export default async function BlogPostPage({
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
                       <span
-                        className="rounded-full bg-neutral-100 px-4 py-1.5 text-neutral-700 text-sm font-medium"
+                        className="rounded-full bg-neutral-100 px-4 py-1.5 font-medium text-neutral-700 text-sm"
                         key={tag}
                       >
                         #{tag}
@@ -241,7 +237,7 @@ export default async function BlogPostPage({
             {/* Back to Blog */}
             <div className="mt-12 text-center">
               <Link
-                className="inline-flex items-center gap-2 text-orange-600 font-medium transition hover:gap-3 hover:text-orange-700 hover:underline"
+                className="inline-flex items-center gap-2 font-medium text-orange-600 transition hover:gap-3 hover:text-orange-700 hover:underline"
                 href={`/${locale}/blog`}
               >
                 <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />

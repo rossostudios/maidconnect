@@ -137,9 +137,9 @@ export default defineType({
       const date = publishedAt ? new Date(publishedAt).toLocaleDateString() : "No date";
       const status = isPublished ? "✓" : "Draft";
       return {
-        title: title,
+        title,
         subtitle: `${status} | ${author} | ${date} | ${language?.toUpperCase() || "NO LANG"}`,
-        media: media,
+        media,
       };
     },
   },

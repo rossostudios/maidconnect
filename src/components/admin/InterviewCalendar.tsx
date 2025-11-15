@@ -99,7 +99,7 @@ export function InterviewCalendar() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
+              className="h-48 animate-pulse border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
               key={i}
             />
           ))}
@@ -114,7 +114,7 @@ export function InterviewCalendar() {
         <CardContent className="p-8 text-center">
           <p className="mb-4 text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
           <button
-            className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={fetchInterviews}
             type="button"
           >
@@ -222,7 +222,7 @@ export function InterviewCalendar() {
         <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+              <div className="bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={Calendar03Icon}
@@ -243,7 +243,7 @@ export function InterviewCalendar() {
         <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-neutral-900 p-3 dark:bg-neutral-100/10">
+              <div className="bg-neutral-900 p-3 dark:bg-neutral-100/10">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={CheckmarkCircle02Icon}
@@ -264,7 +264,7 @@ export function InterviewCalendar() {
         <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+              <div className="bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={Cancel01Icon}
@@ -285,7 +285,7 @@ export function InterviewCalendar() {
         <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+              <div className="bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-600 dark:text-neutral-400"
                   icon={TimeScheduleIcon}
@@ -310,7 +310,7 @@ export function InterviewCalendar() {
             <TabsTrigger value="scheduled">
               Scheduled
               {data.counts.scheduled > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-white px-2 py-0.5 font-semibold text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                <span className="-full ml-2 inline-flex items-center justify-center bg-white px-2 py-0.5 font-semibold text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                   {data.counts.scheduled}
                 </span>
               )}
@@ -368,7 +368,7 @@ export function InterviewCalendar() {
                           {/* Header */}
                           <div className="mb-6 flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
+                              <div className="bg-white p-3 dark:bg-neutral-950">
                                 <HugeiconsIcon
                                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                                   icon={UserAccountIcon}
@@ -448,7 +448,7 @@ export function InterviewCalendar() {
 
                           {/* Location Address */}
                           {interview.location_address && (
-                            <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+                            <div className="mb-6 border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
                               <p className="mb-1 font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                                 {interview.location_address.street}
                               </p>
@@ -465,7 +465,7 @@ export function InterviewCalendar() {
 
                           {/* Interview Notes */}
                           {interview.interview_notes && (
-                            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+                            <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
                               <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                 Interview Notes
                               </p>
@@ -479,7 +479,7 @@ export function InterviewCalendar() {
                         {/* Action Button */}
                         {interview.status === "scheduled" && (
                           <button
-                            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                            className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                             onClick={() => setSelectedInterview(interview)}
                             type="button"
                           >
@@ -488,7 +488,7 @@ export function InterviewCalendar() {
                         )}
                         {interview.status !== "scheduled" && (
                           <button
-                            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                            className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                             onClick={() => setSelectedInterview(interview)}
                             type="button"
                           >
@@ -508,9 +508,9 @@ export function InterviewCalendar() {
       {/* Interview Management Modal would go here */}
       {selectedInterview && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 p-4 dark:bg-neutral-100/50">
-          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-xl border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-auto border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
             <button
-              className="absolute top-6 right-6 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
+              className="absolute top-6 right-6 p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
               onClick={() => setSelectedInterview(null)}
               type="button"
             >

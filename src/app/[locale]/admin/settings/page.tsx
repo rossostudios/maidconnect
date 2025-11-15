@@ -136,7 +136,7 @@ export default async function AdminSettingsPage() {
       </div>
 
       {/* Tabbed Settings */}
-      <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8">
+      <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8">
         <AdminSettingsTabs
           defaultTab="profile"
           tabs={[

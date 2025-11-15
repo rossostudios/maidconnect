@@ -6,10 +6,41 @@
  * - '@/lib/integrations/posthog/server' for server tracking functions
  */
 
+// Feature flag configuration
+export {
+  FEATURE_FLAG_METADATA,
+  FEATURE_FLAGS,
+  type FeatureFlagKey,
+  type FeatureFlagMetadata,
+  type FeatureFlagValue,
+  getAllFeatureFlagKeys,
+  getFeatureFlagMetadata,
+  HERO_VARIANTS,
+  type HeroVariant,
+  isValidFeatureFlagKey,
+} from "@/lib/shared/config/feature-flags";
 // Client-side enhanced tracking modules
 export { bookingTracking } from "./booking-tracking-client";
 // Client-side core exports
 export { initPostHog, posthog } from "./client";
+// Type-safe feature flags (Epic G-1)
+export {
+  clearFeatureFlagOverrides,
+  getAllFeatureFlags,
+  getFeatureFlag,
+  getFeatureFlagInfo,
+  getFeatureFlagOrDefault,
+  getFeatureFlagWithDefault,
+  getHeroVariant,
+  isFeatureEnabled,
+  isFeatureEnabledOrDefault,
+  isMatchWizardEnabled,
+  isOneTapRebookEnabled,
+  overrideFeatureFlags,
+  reloadFeatureFlags,
+} from "./feature-flags";
+export { matchWizardTracking } from "./match-wizard-tracking";
+export { pmfTracking } from "./pmf-tracking-client";
 export {
   identifyAuthenticatedUser,
   trackEmailVerified,
@@ -24,9 +55,7 @@ export {
 export {
   bookingEvents,
   funnelEvents,
-  getFeatureFlag,
   identifyUser,
-  isFeatureEnabled,
   professionalEvents,
   resetUser,
   searchEvents,

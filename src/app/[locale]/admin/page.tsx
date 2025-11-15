@@ -1,102 +1,389 @@
-import { UserCircleIcon } from "@hugeicons/core-free-icons";
+import {
+  Alert01Icon,
+  Calendar03Icon,
+  ClockIcon,
+  DollarCircleIcon,
+  UserCircleIcon,
+  UserGroupIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
-import Image from "next/image";
-import { BackgroundCheckDashboard } from "@/components/admin/background-check-dashboard";
-import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
-import { BookingPipeline } from "@/components/dashboard/booking-pipeline";
-import { ExecutiveDashboard } from "@/components/dashboard/executive-dashboard";
+import { geistMono, geistSans } from "@/app/fonts";
+import {
+  PrecisionActivityFeed,
+  PrecisionButton,
+  PrecisionStatCard,
+} from "@/components/admin/precision-dashboard-components";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
+/**
+ * Admin Dashboard - Precision Design
+ *
+ * Inspired by Bloomberg Terminal + Swiss Design:
+ * - Ultra-high contrast for maximum readability (WCAG AAA)
+ * - Geist Sans for UI text, Geist Mono for data
+ * - Pure white backgrounds with deep black borders
+ * - Electric blue accents for primary actions
+ * - Sharp geometric design language
+ */
 export default async function AdminHomePage() {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const user = await requireUser({ allowedRoles: ["admin"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch user profile to get avatar and name
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("avatar_url, full_name")
+    .select("full_name")
     .eq("id", user.id)
     .maybeSingle();
 
-  const avatarUrl = profileData?.avatar_url;
-
-  // Determine greeting based on time of day
-  const hour = new Date().getHours();
-  let greeting = "Good evening";
-  if (hour < 12) {
-    greeting = "Good morning";
-  } else if (hour < 18) {
-    greeting = "Good afternoon";
-  }
-
   const userName = profileData?.full_name?.split(" ")[0] || "Admin";
 
-  return (
-    <>
-      {/* Greeting & Quick Stats */}
-      <section className="mb-8 min-h-[600px]">
-        <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Profile Photo Circle */}
-            <div className="flex-shrink-0">
-              {avatarUrl ? (
-                <Image
-                  alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-[#E4E2E3] object-cover"
-                  height={48}
-                  src={avatarUrl}
-                  width={48}
-                />
-              ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E4E2E3] bg-[#FEF8E8]">
-                  <HugeiconsIcon className="h-6 w-6 text-[#F44A22]" icon={UserCircleIcon} />
-                </div>
-              )}
-            </div>
+  // Fetch all metrics in parallel - focusing on TODAY's data
+  const today = new Date().toISOString().split("T")[0];
 
-            {/* Greeting Text */}
+  const [
+    { count: pendingBookingsCount },
+    { count: todayBookingsCount },
+    { count: pendingProfessionals },
+    { count: activeProfessionals },
+    { count: activeUsersCount },
+    { count: activeDisputesCount },
+    { data: todayRevenue },
+  ] = await Promise.all([
+    // Critical: Pending bookings needing approval
+    supabase
+      .from("bookings")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending"),
+
+    // Today's bookings
+    supabase
+      .from("bookings")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", today)
+      .in("status", ["confirmed", "pending", "in_progress"]),
+
+    // Pending professional reviews
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "professional")
+      .eq("onboarding_status", "pending_review"),
+
+    // Active professionals
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "professional")
+      .eq("professional_status", "active"),
+
+    // Active users (customers)
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "user")
+      .eq("account_status", "active"),
+
+    // Active disputes
+    supabase
+      .from("booking_disputes")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "open"),
+
+    // Today's revenue
+    supabase
+      .from("bookings")
+      .select("total_price_cop")
+      .gte("created_at", today)
+      .eq("status", "confirmed"),
+  ]);
+
+  // Calculate today's revenue
+  const todayRevenueTotal =
+    todayRevenue?.reduce((sum, booking) => sum + (booking.total_price_cop || 0), 0) || 0;
+
+  // Sample activity data
+  const recentActivity = [
+    {
+      id: "1",
+      user: "Sarah Chen",
+      action: "completed onboarding for Maria Rodriguez",
+      time: "2 minutes ago",
+      status: "success" as const,
+    },
+    {
+      id: "2",
+      user: "John Smith",
+      action: "flagged dispute #4821 for review",
+      time: "15 minutes ago",
+      status: "warning" as const,
+    },
+    {
+      id: "3",
+      user: "Emma Watson",
+      action: "approved professional verification",
+      time: "1 hour ago",
+      status: "success" as const,
+    },
+  ];
+
+  // Calculate action items count
+  const actionItemsCount =
+    (pendingBookingsCount ?? 0) + (pendingProfessionals ?? 0) + (activeDisputesCount ?? 0);
+
+  return (
+    <div className="space-y-8">
+      {/* Page Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1
+            className={cn(
+              "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+              geistSans.className
+            )}
+          >
+            Good morning, {userName}
+          </h1>
+          <p
+            className={cn(
+              "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+              geistSans.className
+            )}
+          >
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+        </div>
+
+        {/* Action Items Alert */}
+        {actionItemsCount > 0 && (
+          <div className="flex items-center gap-3 border border-[#FF5200] bg-orange-50 px-4 py-2.5">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center border border-[#FF5200] bg-[#FF5200]">
+              <HugeiconsIcon className="h-5 w-5 text-white" icon={Alert01Icon} />
+            </div>
             <div>
-              <h1 className="mb-1 font-bold text-3xl text-[#161616]">
-                {greeting}, {userName}
-              </h1>
-              <p className="text-[#A8AAAC]">Here's what's happening with your platform today</p>
+              <p
+                className={cn(
+                  "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                  geistSans.className
+                )}
+              >
+                {actionItemsCount} {actionItemsCount === 1 ? "Item" : "Items"} Need Attention
+              </p>
+              <p
+                className={cn(
+                  "mt-0.5 font-normal text-[10px] text-neutral-700 tracking-tighter",
+                  geistMono.className
+                )}
+              >
+                Review pending items below
+              </p>
             </div>
           </div>
-        </div>
+        )}
+      </div>
 
-        <ExecutiveDashboard />
-      </section>
-
-      {/* Booking Pipeline */}
-      <section className="mb-10 min-h-[800px]">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Booking Pipeline</h2>
-          <p className="text-[#A8AAAC] text-sm">Real-time view of bookings by lifecycle stage</p>
+      {/* Today's Snapshot - Most Important Metrics */}
+      <div>
+        <h2
+          className={cn(
+            "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+            geistSans.className
+          )}
+        >
+          Today's Snapshot
+        </h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <PrecisionStatCard
+            icon={Calendar03Icon}
+            subtitle="Created today"
+            title="Bookings"
+            value={String(todayBookingsCount ?? 0)}
+          />
+          <PrecisionStatCard
+            icon={DollarCircleIcon}
+            subtitle="Today's revenue"
+            title="Revenue"
+            unit="COP"
+            value={new Intl.NumberFormat("es-CO").format(todayRevenueTotal)}
+          />
+          <PrecisionStatCard
+            icon={UserCircleIcon}
+            subtitle="Active on platform"
+            title="Professionals"
+            value={String(activeProfessionals ?? 0)}
+          />
+          <PrecisionStatCard
+            icon={UserGroupIcon}
+            subtitle="Active customers"
+            title="Customers"
+            value={String(activeUsersCount ?? 0)}
+          />
         </div>
-        <BookingPipeline />
-      </section>
+      </div>
 
-      {/* Professional Vetting Queue */}
-      <section className="mb-10 min-h-[400px]">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Professional Vetting Queue</h2>
-          <p className="text-[#A8AAAC] text-sm">Review and approve professional applications</p>
-        </div>
-        <ProfessionalVettingDashboard />
-      </section>
+      {/* Action Required - Critical Tasks */}
+      {actionItemsCount > 0 && (
+        <div>
+          <h2
+            className={cn(
+              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
+            Action Required
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {/* Pending Bookings */}
+            {(pendingBookingsCount ?? 0) > 0 && (
+              <Link href="/admin/bookings?status=pending">
+                <div className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                      <HugeiconsIcon className="h-5 w-5 text-white" icon={Calendar03Icon} />
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center bg-[#FF5200]">
+                      <span
+                        className={cn(
+                          "font-semibold text-[10px] text-white tracking-tighter",
+                          geistMono.className
+                        )}
+                      >
+                        {pendingBookingsCount}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                    Pending Bookings
+                  </h3>
+                  <p
+                    className={cn(
+                      "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                      geistSans.className
+                    )}
+                  >
+                    Awaiting confirmation
+                  </p>
+                </div>
+              </Link>
+            )}
 
-      {/* Background Checks */}
-      <section className="mb-10 min-h-[400px]">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Background Checks</h2>
-          <p className="text-[#A8AAAC] text-sm">Monitor and review background check results</p>
+            {/* Pending Professionals */}
+            {(pendingProfessionals ?? 0) > 0 && (
+              <Link href="/admin/users?role=professional&status=pending">
+                <div className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                      <HugeiconsIcon className="h-5 w-5 text-white" icon={ClockIcon} />
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center bg-[#FF5200]">
+                      <span
+                        className={cn(
+                          "font-semibold text-[10px] text-white tracking-tighter",
+                          geistMono.className
+                        )}
+                      >
+                        {pendingProfessionals}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                    Pending Reviews
+                  </h3>
+                  <p
+                    className={cn(
+                      "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                      geistSans.className
+                    )}
+                  >
+                    Professional applications
+                  </p>
+                </div>
+              </Link>
+            )}
+
+            {/* Active Disputes */}
+            {(activeDisputesCount ?? 0) > 0 && (
+              <Link href="/admin/disputes">
+                <div className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                      <HugeiconsIcon className="h-5 w-5 text-white" icon={Alert01Icon} />
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center bg-[#FF5200]">
+                      <span
+                        className={cn(
+                          "font-semibold text-[10px] text-white tracking-tighter",
+                          geistMono.className
+                        )}
+                      >
+                        {activeDisputesCount}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                    Active Disputes
+                  </h3>
+                  <p
+                    className={cn(
+                      "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                      geistSans.className
+                    )}
+                  >
+                    Require resolution
+                  </p>
+                </div>
+              </Link>
+            )}
+          </div>
         </div>
-        <BackgroundCheckDashboard />
-      </section>
-    </>
+      )}
+
+      {/* Quick Actions */}
+      <div>
+        <h2
+          className={cn(
+            "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+            geistSans.className
+          )}
+        >
+          Quick Actions
+        </h2>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <Link href="/admin/users">
+            <PrecisionButton className="w-full" size="md" variant="secondary">
+              Manage Users
+            </PrecisionButton>
+          </Link>
+          <Link href="/admin/disputes">
+            <PrecisionButton className="w-full" size="md" variant="secondary">
+              View Disputes
+            </PrecisionButton>
+          </Link>
+          <Link href="/admin/analytics">
+            <PrecisionButton className="w-full" size="md" variant="secondary">
+              Analytics
+            </PrecisionButton>
+          </Link>
+          <Link href="/admin/settings">
+            <PrecisionButton className="w-full" size="md" variant="secondary">
+              Settings
+            </PrecisionButton>
+          </Link>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <PrecisionActivityFeed activities={recentActivity} />
+    </div>
   );
 }

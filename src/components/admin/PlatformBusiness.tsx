@@ -74,7 +74,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-neutral-300 bg-neutral-100 p-4 dark:border-red-800 dark:bg-red-950">
+        <div className="border border-neutral-300 bg-neutral-100 p-4 dark:border-red-800 dark:bg-red-950">
           <p className="text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
         </div>
       )}
@@ -86,12 +86,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         </h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="platform-commission"
+            >
               Platform Commission (%)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="platform-commission"
                 max={50}
                 min={0}
                 onChange={(e) =>
@@ -113,12 +117,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="customer-service-fee"
+            >
               Customer Service Fee ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="customer-service-fee"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -149,12 +157,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         </h3>
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="customer-cancellation-fee"
+            >
               Customer Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="customer-cancellation-fee"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -177,12 +189,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="professional-cancellation-fee"
+            >
               Professional Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="professional-cancellation-fee"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -205,12 +221,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="no-show-fee"
+            >
               No-Show Fee
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="no-show-fee"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -241,12 +261,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         </h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="min-advance-hours"
+            >
               Min Advance Notice (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="min-advance-hours"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -268,12 +292,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="max-duration-hours"
+            >
               Max Booking Duration (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="max-duration-hours"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -295,12 +323,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="min-booking-amount"
+            >
               Min Booking Amount ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="min-booking-amount"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -323,12 +355,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="max-service-radius"
+            >
               Max Service Radius (km)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="max-service-radius"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -358,12 +394,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         </h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="payout-schedule"
+            >
               Payout Schedule
             </label>
             {isEditing ? (
               <select
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="payout-schedule"
                 onChange={(e) =>
                   setSettings({
                     ...settings,
@@ -387,12 +427,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <label
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              htmlFor="min-payout-threshold"
+            >
               Min Payout Threshold ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                id="min-payout-threshold"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -421,7 +465,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={isSaving}
               onClick={handleSave}
               type="button"
@@ -430,7 +474,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
             <button
-              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+              className="flex items-center gap-2 border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               disabled={isSaving}
               onClick={handleCancel}
               type="button"
@@ -441,7 +485,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </>
         ) : (
           <button
-            className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={() => setIsEditing(true)}
             type="button"
           >

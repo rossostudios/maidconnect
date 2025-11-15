@@ -1,5 +1,13 @@
+/**
+ * Admin Feature Flags API
+ * PATCH /api/admin/settings/features - Toggle platform features
+ *
+ * Rate Limit: 10 requests per minute (admin tier)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const FeatureToggleSchema = z.object({
@@ -16,7 +24,7 @@ const FeatureToggleSchema = z.object({
   enabled: z.boolean(),
 });
 
-export async function PATCH(request: NextRequest) {
+async function handlePatchFeatures(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -75,3 +83,6 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 10 requests per minute (admin tier)
+export const PATCH = withRateLimit(handlePatchFeatures, "admin");

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withRateLimit } from "@/lib/rate-limit";
 
 /**
  * Automatic Payout Processing Cron Job
@@ -8,8 +9,10 @@ import { NextResponse } from "next/server";
  * "0 15 * * 2,5" (10 AM Colombia time = 3 PM UTC, on Tuesday and Friday)
  *
  * Protected by CRON_SECRET to ensure only Vercel can trigger it
+ *
+ * Rate Limit: 1 request per 5 minutes (cron tier - prevents concurrent execution)
  */
-export async function GET(request: Request) {
+async function handleCronPayouts(request: Request) {
   // Verify cron secret
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
@@ -82,3 +85,6 @@ function getDayName(dayOfWeek: number): string {
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   return days[dayOfWeek] || "Unknown";
 }
+
+// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
+export const GET = withRateLimit(handleCronPayouts, "cron");

@@ -146,7 +146,7 @@ export default async function HelpCenterAdminPage({
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+          className="inline-flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
           href="/admin/help-center/new"
         >
           <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
@@ -156,22 +156,22 @@ export default async function HelpCenterAdminPage({
 
       {/* Stats Cards */}
       <div className="mb-8 grid gap-6 md:grid-cols-4">
-        <div className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <div className="mb-2 text-[#AA88AAAAC] text-sm">Total Articles</div>
           <div className="font-bold text-3xl text-[#116611616]">{stats.total}</div>
         </div>
 
-        <div className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <div className="mb-2 text-[#AA88AAAAC] text-sm">Published</div>
           <div className="font-bold text-3xl text-[#FF4444A22]">{stats.published}</div>
         </div>
 
-        <div className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <div className="mb-2 text-[#AA88AAAAC] text-sm">Drafts</div>
           <div className="font-bold text-3xl text-[#FF4444A22]">{stats.draft}</div>
         </div>
 
-        <div className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <div className="mb-2 text-[#AA88AAAAC] text-sm">Total Views</div>
           <div className="font-bold text-3xl text-[#116611616]">{stats.views.toLocaleString()}</div>
         </div>
@@ -184,7 +184,7 @@ export default async function HelpCenterAdminPage({
           <span className="text-[#AA88AAAAC] text-sm">Category:</span>
           <div className="flex flex-wrap gap-2">
             <Link
-              className={`rounded-lg px-4 py-2 text-sm transition ${
+              className={`px-4 py-2 text-sm transition ${
                 params.category
                   ? "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
                   : "bg-[#FF4444A22] text-[#FFEEFF8E8]"
@@ -199,7 +199,7 @@ export default async function HelpCenterAdminPage({
 
               return (
                 <Link
-                  className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition ${
+                  className={`inline-flex items-center gap-2 px-4 py-2 text-sm transition ${
                     params.category === category.slug
                       ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
                       : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
@@ -219,7 +219,7 @@ export default async function HelpCenterAdminPage({
       <div className="mb-6 flex items-center gap-2">
         <span className="text-[#AA88AAAAC] text-sm">Status:</span>
         <Link
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             params.status
               ? "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
               : "bg-[#FF4444A22] text-[#FFEEFF8E8]"
@@ -230,7 +230,7 @@ export default async function HelpCenterAdminPage({
         </Link>
 
         <Link
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             params.status === "published"
               ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
               : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
@@ -241,7 +241,7 @@ export default async function HelpCenterAdminPage({
         </Link>
 
         <Link
-          className={`rounded-lg px-4 py-2 text-sm transition ${
+          className={`px-4 py-2 text-sm transition ${
             params.status === "draft"
               ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
               : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
@@ -253,7 +253,7 @@ export default async function HelpCenterAdminPage({
       </div>
 
       {/* Articles Table */}
-      <div className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
+      <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8]">
@@ -296,7 +296,7 @@ export default async function HelpCenterAdminPage({
 
                       {!(params.category || params.status) && (
                         <Link
-                          className="inline-flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+                          className="inline-flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
                           href="/admin/help-center/new"
                         >
                           <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
@@ -338,7 +338,7 @@ export default async function HelpCenterAdminPage({
 
                       {/* Category */}
                       <td className="px-6 py-4">
-                        <div className="inline-flex items-center gap-2 rounded-lg bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm">
+                        <div className="inline-flex items-center gap-2 bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm">
                           <HugeiconsIcon className="h-4 w-4" icon={Icon} />
                           {article.category.name_en}
                         </div>
@@ -347,13 +347,13 @@ export default async function HelpCenterAdminPage({
                       {/* Status */}
                       <td className="px-6 py-4">
                         {article.is_published ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
-                            <div className="h-1.5 w-1.5 rounded-full bg-[#FF4444A22]/100" />
+                          <span className="-full inline-flex items-center gap-1 bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
+                            <div className="-full h-1.5 w-1.5 bg-[#FF4444A22]/100" />
                             Published
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
-                            <div className="h-1.5 w-1.5 rounded-full bg-[#FF4444A22]/100" />
+                          <span className="-full inline-flex items-center gap-1 bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
+                            <div className="-full h-1.5 w-1.5 bg-[#FF4444A22]/100" />
                             Draft
                           </span>
                         )}

@@ -105,8 +105,9 @@ export function AdminSidebar({
         )}
         <button
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="rounded-lg p-2 text-[#737373] transition-colors hover:bg-[#F5F5F5] hover:text-[#171717]"
+          className="p-2 text-[#737373] transition-colors hover:bg-[#F5F5F5] hover:text-[#171717]"
           onClick={onClose || handleToggle}
+          type="button"
         >
           <HugeiconsIcon className="h-5 w-5" icon={MenuTwoLineIcon} />
         </button>
@@ -128,7 +129,7 @@ export function AdminSidebar({
                 const active = isActive(item.href);
                 return (
                   <Link
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
+                    className={`flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all ${
                       active
                         ? "bg-[#FEF2F2] text-[#E85D48]"
                         : "text-[#525252] hover:bg-[#F5F5F5] hover:text-[#171717]"

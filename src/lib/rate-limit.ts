@@ -19,6 +19,25 @@
  *   }
  *   // Your handler code
  * }
+ *
+ * Rate Limit Rejection Logging:
+ * When rate limits are exceeded, comprehensive logs are emitted with:
+ * - [RATE_LIMIT_REJECTED] tag for easy filtering
+ * - Client IP, path, method, and user agent
+ * - Rate limit type and tier configuration
+ * - Current limits (remaining, reset time, retry after)
+ *
+ * Example log:
+ * [RATE_LIMIT_REJECTED] {
+ *   timestamp: "2025-01-14T12:00:00.000Z",
+ *   ip: "192.168.1.1",
+ *   path: "/api/admin/users",
+ *   method: "POST",
+ *   rateLimitType: "admin",
+ *   tier: { maxRequests: 10, windowMs: 60000, windowMinutes: 1 },
+ *   current: { remaining: 0, limit: 10, reset: "...", retryAfter: 45 },
+ *   userAgent: "Mozilla/5.0..."
+ * }
  */
 
 import { Ratelimit } from "@upstash/ratelimit";
@@ -270,6 +289,66 @@ export const RateLimiters = {
     windowMs: 60 * 60 * 1000, // 1 hour
     message: "Too many feedback submissions. Please try again in 1 hour.",
   },
+
+  /**
+   * Strict rate limit for admin operations (user management, moderation)
+   * 10 requests per minute
+   */
+  admin: {
+    maxRequests: 10,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Too many admin requests. Please slow down.",
+  },
+
+  /**
+   * Moderate rate limit for payment operations (payment intents)
+   * 15 requests per minute
+   */
+  payment: {
+    maxRequests: 15,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Too many payment requests. Please try again shortly.",
+  },
+
+  /**
+   * Very strict rate limit for financial operations (payout processing)
+   * 1 request per minute
+   */
+  financial: {
+    maxRequests: 1,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Financial operations are rate limited to 1 request per minute.",
+  },
+
+  /**
+   * Strict rate limit for dispute creation
+   * 3 requests per hour
+   */
+  dispute: {
+    maxRequests: 3,
+    windowMs: 60 * 60 * 1000, // 1 hour
+    message: "Too many dispute requests. Please try again in 1 hour.",
+  },
+
+  /**
+   * Moderate rate limit for file uploads
+   * 5 requests per minute
+   */
+  upload: {
+    maxRequests: 5,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Too many upload requests. Please try again shortly.",
+  },
+
+  /**
+   * Very strict rate limit for cron jobs (prevents concurrent execution)
+   * 1 request per 5 minutes
+   */
+  cron: {
+    maxRequests: 1,
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    message: "Cron job rate limit exceeded. Operations must be at least 5 minutes apart.",
+  },
 } as const;
 
 // ============================================
@@ -287,6 +366,12 @@ let upstashLimiters: {
   messaging: Ratelimit | null;
   feedback: Ratelimit | null;
   sensitive: Ratelimit | null;
+  admin: Ratelimit | null;
+  payment: Ratelimit | null;
+  financial: Ratelimit | null;
+  dispute: Ratelimit | null;
+  upload: Ratelimit | null;
+  cron: Ratelimit | null;
 } = {
   auth: null,
   api: null,
@@ -294,6 +379,12 @@ let upstashLimiters: {
   messaging: null,
   feedback: null,
   sensitive: null,
+  admin: null,
+  payment: null,
+  financial: null,
+  dispute: null,
+  upload: null,
+  cron: null,
 };
 
 // Only initialize Upstash in production or if explicitly configured
@@ -352,6 +443,54 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         analytics: true,
         prefix: "casaora:ratelimit:sensitive",
       }),
+
+      // Admin: 10 requests per minute (admin operations)
+      admin: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(10, "1 m"),
+        analytics: true,
+        prefix: "casaora:ratelimit:admin",
+      }),
+
+      // Payment: 15 requests per minute (payment intents)
+      payment: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(15, "1 m"),
+        analytics: true,
+        prefix: "casaora:ratelimit:payment",
+      }),
+
+      // Financial: 1 request per minute (payout processing)
+      financial: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(1, "1 m"),
+        analytics: true,
+        prefix: "casaora:ratelimit:financial",
+      }),
+
+      // Dispute: 3 requests per hour (dispute creation)
+      dispute: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(3, "1 h"),
+        analytics: true,
+        prefix: "casaora:ratelimit:dispute",
+      }),
+
+      // Upload: 5 requests per minute (file uploads)
+      upload: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(5, "1 m"),
+        analytics: true,
+        prefix: "casaora:ratelimit:upload",
+      }),
+
+      // Cron: 1 request per 5 minutes (prevents concurrent execution)
+      cron: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(1, "5 m"),
+        analytics: true,
+        prefix: "casaora:ratelimit:cron",
+      }),
     };
 
     console.log("✓ Upstash Redis rate limiting initialized");
@@ -366,7 +505,19 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
  */
 export async function rateLimit(
   request: Request,
-  type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"
+  type:
+    | "auth"
+    | "api"
+    | "booking"
+    | "messaging"
+    | "feedback"
+    | "sensitive"
+    | "admin"
+    | "payment"
+    | "financial"
+    | "dispute"
+    | "upload"
+    | "cron" = "api"
 ): Promise<RateLimitResult> {
   const identifier = getClientIdentifier(request);
   const limiter = upstashLimiters[type];
@@ -442,12 +593,49 @@ export function withRateLimit<
   T extends (request: Request, ...args: unknown[]) => Promise<Response>,
 >(
   handler: T,
-  type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"
+  type:
+    | "auth"
+    | "api"
+    | "booking"
+    | "messaging"
+    | "feedback"
+    | "sensitive"
+    | "admin"
+    | "payment"
+    | "financial"
+    | "dispute"
+    | "upload"
+    | "cron" = "api"
 ): T {
   return (async (request: Request, ...args: unknown[]) => {
     const result = await rateLimit(request, type);
 
     if (!result.success) {
+      // Log rate limit rejection with comprehensive details
+      const identifier = getClientIdentifier(request);
+      const url = new URL(request.url);
+      const config = RateLimiters[type];
+
+      console.warn("[RATE_LIMIT_REJECTED]", {
+        timestamp: new Date().toISOString(),
+        ip: identifier,
+        path: url.pathname,
+        method: request.method,
+        rateLimitType: type,
+        tier: {
+          maxRequests: config.maxRequests,
+          windowMs: config.windowMs,
+          windowMinutes: Math.round(config.windowMs / 60_000),
+        },
+        current: {
+          remaining: result.remaining,
+          limit: result.limit,
+          reset: new Date(result.reset).toISOString(),
+          retryAfter: result.retryAfter,
+        },
+        userAgent: request.headers.get("user-agent") || "unknown",
+      });
+
       return createRateLimitResponse(result);
     }
 

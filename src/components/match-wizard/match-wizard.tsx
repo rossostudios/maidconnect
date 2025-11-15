@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { matchWizardTracking } from "@/lib/integrations/posthog";
 import { HomeDetailsStep } from "./steps/home-details-step";
 import { LocationStep } from "./steps/location-step";
 import { PreferencesStep } from "./steps/preferences-step";
@@ -52,6 +53,47 @@ export function MatchWizard() {
     serviceType: "",
   });
 
+  // Track start time for wizard completion analytics
+  const startTimeRef = useRef<number>(Date.now());
+  const hasTrackedStartRef = useRef<boolean>(false);
+  const stepsCompletedRef = useRef<number>(0);
+  const stepsSkippedRef = useRef<number>(0);
+
+  // Track wizard start on mount
+  useEffect(() => {
+    if (!hasTrackedStartRef.current) {
+      matchWizardTracking.started({ source: "direct" });
+      hasTrackedStartRef.current = true;
+    }
+  }, []);
+
+  // Track wizard exit on unmount (if not completed)
+  useEffect(() => {
+    return () => {
+      // Only track exit if user didn't complete the wizard
+      if (currentStep !== "results") {
+        const timeSpent = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        const steps: Step[] = [
+          "location",
+          "service",
+          "home-details",
+          "timing-budget",
+          "preferences",
+          "results",
+        ];
+        const stepNumber = steps.indexOf(currentStep) + 1;
+        const progress = (stepNumber / steps.length) * 100;
+
+        matchWizardTracking.exited({
+          lastStep: currentStep,
+          stepNumber,
+          progress,
+          timeSpent,
+        });
+      }
+    };
+  }, [currentStep]);
+
   const updateData = (data: Partial<WizardData>) => {
     setWizardData((prev) => ({ ...prev, ...data }));
   };
@@ -66,10 +108,38 @@ export function MatchWizard() {
       "results",
     ];
     const currentIndex = steps.indexOf(currentStep);
+
+    // Track step completion
+    stepsCompletedRef.current += 1;
+    matchWizardTracking.stepCompleted({
+      step: currentStep,
+      stepNumber: currentIndex + 1,
+      data: wizardData,
+    });
+
     if (currentIndex < steps.length - 1) {
       const nextStepValue = steps[currentIndex + 1];
       if (nextStepValue) {
         setCurrentStep(nextStepValue);
+
+        // Track wizard completion when reaching results
+        if (nextStepValue === "results") {
+          const timeSpent = Math.floor((Date.now() - startTimeRef.current) / 1000);
+          matchWizardTracking.completed({
+            totalStepsCompleted: stepsCompletedRef.current,
+            stepsSkipped: stepsSkippedRef.current,
+            timeSpent,
+            finalData: {
+              city: wizardData.city,
+              serviceType: wizardData.serviceType,
+              budgetRange:
+                wizardData.budgetMin && wizardData.budgetMax
+                  ? `${wizardData.budgetMin}-${wizardData.budgetMax}`
+                  : undefined,
+              languagePreference: wizardData.languagePreference,
+            },
+          });
+        }
       }
     }
   };
@@ -87,12 +157,35 @@ export function MatchWizard() {
     if (currentIndex > 0) {
       const prevStep = steps[currentIndex - 1];
       if (prevStep) {
+        // Track backward navigation
+        matchWizardTracking.stepBack({
+          fromStep: currentStep,
+          toStep: prevStep,
+          currentStepNumber: currentIndex + 1,
+        });
         setCurrentStep(prevStep);
       }
     }
   };
 
   const skipToResults = () => {
+    // Track that a step was skipped
+    const steps: Step[] = [
+      "location",
+      "service",
+      "home-details",
+      "timing-budget",
+      "preferences",
+      "results",
+    ];
+    const currentIndex = steps.indexOf(currentStep);
+
+    stepsSkippedRef.current += 1;
+    matchWizardTracking.stepSkipped({
+      step: currentStep as "home-details" | "timing-budget" | "preferences",
+      stepNumber: currentIndex + 1,
+    });
+
     setCurrentStep("results");
   };
 

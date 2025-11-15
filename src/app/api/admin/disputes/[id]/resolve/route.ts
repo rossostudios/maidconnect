@@ -1,10 +1,13 @@
 /**
  * Admin Dispute Resolution API
  * POST /api/admin/disputes/[id]/resolve - Resolve dispute with action
+ *
+ * Rate Limit: 5 requests per minute (dispute tier)
  */
 
 import { NextResponse } from "next/server";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
+import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ResolveBody = {
@@ -13,7 +16,10 @@ type ResolveBody = {
   refund_amount?: number;
 };
 
-export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+async function handleResolveDispute(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const { id } = await params;
     const admin = await requireAdmin();
@@ -66,3 +72,6 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     );
   }
 }
+
+// Apply rate limiting: 5 requests per minute (dispute tier)
+export const POST = withRateLimit(handleResolveDispute, "dispute");

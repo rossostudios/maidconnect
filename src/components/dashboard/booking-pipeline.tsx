@@ -289,31 +289,36 @@ export function BookingPipeline() {
 
         {/* Overview Tab */}
         <TabsContent value="overview">
-          {/* Stage Cards */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-            {stages.map((stage) => (
-              <Card
-                className="border-neutral-200 bg-white transition-shadow hover:shadow-lg"
-                key={stage.id}
-              >
-                <CardContent className="p-8">
-                  <div className="mb-6 flex items-center gap-3">
-                    <div className="rounded-xl p-3" style={{ backgroundColor: stage.bgColor }}>
-                      <HugeiconsIcon className={cn("h-6 w-6", stage.color)} icon={stage.icon} />
+          {/* Stage Cards - Horizontal scroll on mobile, comfortable card sizes */}
+          <div className="-mx-4 sm:-mx-6 overflow-x-auto px-4 sm:px-6">
+            <div className="flex min-w-min gap-4 pb-2">
+              {stages.map((stage) => (
+                <Card
+                  className="w-[160px] flex-shrink-0 border-neutral-200 bg-white transition-shadow hover:shadow-md sm:w-[180px]"
+                  key={stage.id}
+                >
+                  <CardContent className="p-4">
+                    <div className="mb-4 flex flex-col gap-3">
+                      <div
+                        className="w-fit rounded-lg p-2.5"
+                        style={{ backgroundColor: stage.bgColor }}
+                      >
+                        <HugeiconsIcon className={cn("h-5 w-5", stage.color)} icon={stage.icon} />
+                      </div>
+                      <p className="font-semibold text-[10px] text-neutral-500 uppercase leading-tight tracking-wider">
+                        {stage.label}
+                      </p>
                     </div>
-                    <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
-                      {stage.label}
+                    <p className="mb-2 font-bold text-3xl text-neutral-900">{stage.count}</p>
+                    <p className="text-neutral-500 text-xs leading-tight">
+                      {totalActive > 0
+                        ? `${((stage.count / totalActive) * 100).toFixed(0)}% of total`
+                        : "No bookings"}
                     </p>
-                  </div>
-                  <p className="mb-2 font-bold text-4xl text-neutral-900">{stage.count}</p>
-                  <p className="text-neutral-500 text-sm">
-                    {totalActive > 0
-                      ? `${((stage.count / totalActive) * 100).toFixed(0)}% of total`
-                      : "No bookings"}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
 
           {/* Charts Row */}

@@ -6,6 +6,10 @@
  */
 
 import type Stripe from "stripe";
+import {
+  trackBookingCancelledServer,
+  trackBookingCompletedServer,
+} from "@/lib/integrations/posthog/server";
 import { logger } from "@/lib/logger";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
@@ -24,14 +28,16 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
     return;
   }
 
-  const { error } = await supabaseAdmin
+  const { data: booking, error } = await supabaseAdmin
     .from("bookings")
     .update({
       status: "completed",
       amount_captured: intent.amount_received ?? intent.amount,
       stripe_payment_status: intent.status,
     })
-    .eq("id", bookingId);
+    .eq("id", bookingId)
+    .select("customer_id, professional_id, service_name, currency")
+    .single();
 
   if (error) {
     logger.error("[Stripe Webhook] Failed to update booking on payment success", {
@@ -47,6 +53,16 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
       intentId: intent.id,
       amountCaptured: intent.amount_received ?? intent.amount,
     });
+
+    // Track booking completion in PostHog
+    if (booking) {
+      await trackBookingCompletedServer(booking.customer_id, {
+        bookingId,
+        professionalId: booking.professional_id,
+        totalAmount: (intent.amount_received ?? intent.amount) / 100, // Convert from cents
+        currency: booking.currency,
+      });
+    }
   }
 }
 
@@ -62,13 +78,15 @@ export async function handlePaymentCancellation(event: Stripe.Event): Promise<vo
     return;
   }
 
-  const { error } = await supabaseAdmin
+  const { data: booking, error } = await supabaseAdmin
     .from("bookings")
     .update({
       status: "canceled",
       stripe_payment_status: intent.status,
     })
-    .eq("id", bookingId);
+    .eq("id", bookingId)
+    .select("customer_id")
+    .single();
 
   if (error) {
     logger.error("[Stripe Webhook] Failed to update booking on payment cancellation", {
@@ -82,6 +100,15 @@ export async function handlePaymentCancellation(event: Stripe.Event): Promise<vo
       bookingId,
       intentId: intent.id,
     });
+
+    // Track booking cancellation in PostHog
+    if (booking) {
+      await trackBookingCancelledServer(booking.customer_id, {
+        bookingId,
+        cancelledBy: "customer",
+        reason: intent.cancellation_reason || "Payment canceled",
+      });
+    }
   }
 }
 
