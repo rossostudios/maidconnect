@@ -1,248 +1,113 @@
 /**
- * Pricing System Types
+ * Pricing Types & Constants
  *
- * Type definitions for pricing plans and FAQs
+ * Centralized type definitions and constants for pricing rules management.
+ * Used across admin pricing controls, validation, and data transformation.
  */
 
-import { type Currency, formatCurrency } from "@/lib/format";
-
-// =============================================
-// Pricing Plan Types
-// =============================================
-
-export type BillingPeriod = "monthly" | "annual" | "custom";
-
-export type PricingAudience = "customer" | "professional" | "both";
-
-export type PricingFaqCategory = "billing" | "security" | "features" | "general" | "support";
-
-export type PricingFeatureItem = {
-  name: string;
-  included: boolean;
-  limit?: string | null; // e.g., "Up to 10 users", "5GB storage"
-  tooltip?: string; // Optional explanation
-};
-
-export type PricingFeatureCategory = {
-  category: string; // e.g., "Core Features", "Advanced", "Support"
-  items: PricingFeatureItem[];
-};
-
-export type PricingPlan = {
+/**
+ * Database pricing rule entity
+ */
+export type PricingRule = {
   id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price_monthly: number | null;
-  price_annual: number | null;
-  currency: Currency;
-  billing_period: BillingPeriod;
-  features: PricingFeatureCategory[];
-  highlight_as_popular: boolean;
-  recommended_for: string | null;
-  cta_text: string;
-  cta_url: string | null;
-  target_audience: PricingAudience;
-  display_order: number;
-  is_visible: boolean;
-  metadata: Record<string, unknown>;
+  service_category: string | null;
+  city: string | null;
+  country: string;
+  commission_rate: number;
+  background_check_fee_cop: number;
+  min_price_cop: number | null;
+  max_price_cop: number | null;
+  deposit_percentage: number | null;
+  late_cancel_hours: number;
+  late_cancel_fee_percentage: number;
+  effective_from: string;
+  effective_until: string | null;
+  is_active: boolean;
+  notes: string | null;
   created_at: string;
-  updated_at: string;
 };
-
-export type PricingPlanInput = {
-  name: string;
-  slug: string;
-  description: string;
-  price_monthly?: number | null;
-  price_annual?: number | null;
-  currency?: Currency;
-  billing_period?: BillingPeriod;
-  features: PricingFeatureCategory[];
-  highlight_as_popular?: boolean;
-  recommended_for?: string | null;
-  cta_text?: string;
-  cta_url?: string | null;
-  target_audience?: PricingAudience;
-  display_order?: number;
-  is_visible?: boolean;
-  metadata?: Record<string, unknown>;
-};
-
-// =============================================
-// Pricing FAQ Types
-// =============================================
-
-export type PricingFaq = {
-  id: string;
-  question: string;
-  answer: string;
-  category: PricingFaqCategory;
-  display_order: number;
-  is_visible: boolean;
-  created_at: string;
-  updated_at: string;
-};
-
-export type PricingFaqInput = {
-  question: string;
-  answer: string;
-  category?: PricingFaqCategory;
-  display_order?: number;
-  is_visible?: boolean;
-};
-
-// =============================================
-// API Response Types
-// =============================================
-
-export type PricingPlansResponse = {
-  success: boolean;
-  data: PricingPlan[];
-};
-
-export type PricingFaqsResponse = {
-  success: boolean;
-  data: PricingFaq[];
-};
-
-// =============================================
-// Helper Types for UI
-// =============================================
-
-export type PricingToggleOption = {
-  value: "monthly" | "annual";
-  label: string;
-  discount?: string; // e.g., "Save 20%"
-};
-
-export type PricingCardProps = {
-  plan: PricingPlan;
-  billingPeriod: "monthly" | "annual";
-  isHighlighted?: boolean;
-};
-
-// =============================================
-// Constants
-// =============================================
-
-export const PRICING_TOGGLE_OPTIONS: PricingToggleOption[] = [
-  { value: "monthly", label: "Monthly" },
-  { value: "annual", label: "Annual", discount: "Save 20%" },
-];
-
-export const FAQ_CATEGORIES: Record<PricingFaqCategory, { label: string; icon: string }> = {
-  billing: { label: "Billing & Payments", icon: "💳" },
-  security: { label: "Security & Privacy", icon: "🔒" },
-  features: { label: "Features", icon: "✨" },
-  general: { label: "General", icon: "❓" },
-  support: { label: "Support", icon: "💬" },
-};
-
-// =============================================
-// Helper Functions
-// =============================================
 
 /**
- * Calculate savings percentage for annual billing
+ * Form data structure for creating/editing pricing rules
  */
-export function calculateSavingsPercentage(
-  monthlyPrice: number | null,
-  annualPrice: number | null
-): number {
-  if (!(monthlyPrice && annualPrice)) {
-    return 0;
-  }
-
-  const monthlyTotal = monthlyPrice * 12;
-  const savings = monthlyTotal - annualPrice;
-  const percentage = (savings / monthlyTotal) * 100;
-
-  return Math.round(percentage);
-}
+export type PricingRuleFormData = {
+  service_category: string;
+  city: string;
+  commission_rate: number;
+  background_check_fee_cop: number;
+  min_price_cop: number | null;
+  max_price_cop: number | null;
+  deposit_percentage: number | null;
+  late_cancel_hours: number;
+  late_cancel_fee_percentage: number;
+  effective_from: string;
+  effective_until: string;
+  notes: string;
+};
 
 /**
- * Get display price based on billing period
+ * Field update helper type for form state management
  */
-export function getDisplayPrice(
-  plan: PricingPlan,
-  billingPeriod: "monthly" | "annual"
-): { price: number | null; period: string; perMonth?: number } {
-  if (billingPeriod === "annual" && plan.price_annual !== null) {
-    return {
-      price: plan.price_annual,
-      period: "year",
-      perMonth: Math.round((plan.price_annual / 12) * 100) / 100,
-    };
-  }
-
-  return {
-    price: plan.price_monthly,
-    period: "month",
-  };
-}
+export type FieldUpdateFn = <K extends keyof PricingRuleFormData>(
+  field: K,
+  value: PricingRuleFormData[K]
+) => void;
 
 /**
- * Format price for display
+ * Available service categories for pricing rules
  */
-export function formatPrice(
-  price: number | null,
-  currency: Currency = "USD",
-  showDecimals = true
-): string {
-  if (price === null) {
-    return "Custom";
-  }
-
-  return formatCurrency(price, {
-    locale: "en-US",
-    currency,
-    minimumFractionDigits: showDecimals ? 2 : 0,
-    maximumFractionDigits: showDecimals ? 2 : 0,
-  });
-}
+export const SERVICE_CATEGORIES = [
+  "cleaning",
+  "cooking",
+  "childcare",
+  "elderly_care",
+  "pet_care",
+  "gardening",
+  "laundry",
+] as const;
 
 /**
- * Generate slug from plan name
+ * Service category type (union of all possible values)
  */
-export function generatePricingSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .trim();
-}
+export type ServiceCategory = (typeof SERVICE_CATEGORIES)[number];
 
 /**
- * Get all features from a plan as a flat list
+ * Available cities for pricing rules
  */
-export function getAllFeatures(plan: PricingPlan): PricingFeatureItem[] {
-  return plan.features.flatMap((category) => category.items);
-}
+export const CITIES = [
+  "Bogotá",
+  "Medellín",
+  "Cali",
+  "Barranquilla",
+  "Cartagena",
+  "Bucaramanga",
+  "Pereira",
+] as const;
 
 /**
- * Check if a specific feature is included in a plan
+ * City type (union of all possible values)
  */
-export function hasFeature(plan: PricingPlan, featureName: string): boolean {
-  return getAllFeatures(plan).some((feature) => feature.name === featureName && feature.included);
-}
+export type City = (typeof CITIES)[number];
 
 /**
- * Group FAQs by category
+ * Pricing rule scope (for display/filtering)
  */
-export function groupFaqsByCategory(faqs: PricingFaq[]): Record<PricingFaqCategory, PricingFaq[]> {
-  const grouped = {
-    billing: [],
-    security: [],
-    features: [],
-    general: [],
-    support: [],
-  } as Record<PricingFaqCategory, PricingFaq[]>;
+export type PricingRuleScope = {
+  category: string | null;
+  city: string | null;
+};
 
-  for (const faq of faqs) {
-    grouped[faq.category].push(faq);
-  }
-
-  return grouped;
-}
+/**
+ * Form validation error structure
+ */
+export type PricingRuleValidationErrors = {
+  commission_rate?: string;
+  background_check_fee_cop?: string;
+  min_price_cop?: string;
+  max_price_cop?: string;
+  deposit_percentage?: string;
+  late_cancel_hours?: string;
+  late_cancel_fee_percentage?: string;
+  effective_from?: string;
+  effective_until?: string;
+};
