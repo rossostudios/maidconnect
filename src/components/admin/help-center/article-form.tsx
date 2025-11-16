@@ -2,11 +2,29 @@
 
 import { BookOpen01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { BlockEditor } from "@/components/admin/help/block-editor";
 import { createArticle, updateArticle } from "./article-actions";
+
+// Code split BlockEditor (1499 LOC) - lazy load on demand
+const BlockEditor = dynamic(
+  () => import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
+  {
+    loading: () => (
+      <div className="min-h-96 animate-pulse border border-neutral-200 bg-neutral-50 p-8">
+        <div className="mb-4 h-10 w-48 bg-neutral-200" />
+        <div className="space-y-3">
+          <div className="h-4 w-full bg-neutral-200" />
+          <div className="h-4 w-5/6 bg-neutral-200" />
+          <div className="h-4 w-4/6 bg-neutral-200" />
+        </div>
+      </div>
+    ),
+    ssr: false, // BlockEditor is client-only
+  }
+);
 
 type Category = {
   id: string;

@@ -77,7 +77,7 @@ export function AdminSecuritySettings() {
       <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="-full flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
+            <div className="flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
               <HugeiconsIcon
                 className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
                 icon={LockPasswordIcon}
@@ -191,7 +191,7 @@ export function AdminSecuritySettings() {
       <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="-full flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
+            <div className="flex h-10 w-10 items-center justify-center bg-neutral-900 dark:bg-neutral-100/10">
               <HugeiconsIcon
                 className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
                 icon={Shield01Icon}

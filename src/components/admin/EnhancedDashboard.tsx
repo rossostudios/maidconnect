@@ -73,7 +73,7 @@ type CategoryMetrics = {
 
 type TimeRange = "7d" | "30d" | "90d";
 
-const COLORS = ["#E85D48", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
+const COLORS = ["#FF5200", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
 const TIME_RANGE_OPTIONS: readonly TimeRange[] = ["7d", "30d", "90d"];
 
 export function EnhancedAnalyticsDashboard() {
@@ -197,8 +197,8 @@ export function EnhancedAnalyticsDashboard() {
           <button
             className={`px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
-                ? "bg-[#E85D48] text-white"
-                : "border border-[#E5E5E5] text-[#171717] hover:border-[#E85D48]"
+                ? "bg-[#FF5200] text-white"
+                : "border border-[#E5E5E5] text-[#171717] hover:border-[#FF5200]"
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
@@ -253,7 +253,7 @@ export function EnhancedAnalyticsDashboard() {
           <CardContent>
             <ChartContainer
               config={{
-                bookings: { label: "Bookings", color: "#E85D48" },
+                bookings: { label: "Bookings", color: "#FF5200" },
               }}
             >
               <LineChart data={trendData} height={300}>
@@ -268,8 +268,8 @@ export function EnhancedAnalyticsDashboard() {
                 <Line
                   activeDot={{ r: 6 }}
                   dataKey="bookings"
-                  dot={{ fill: "#E85D48", r: 4 }}
-                  stroke="#E85D48"
+                  dot={{ fill: "#FF5200", r: 4 }}
+                  stroke="#FF5200"
                   strokeWidth={2}
                   type="monotone"
                 />
@@ -325,7 +325,7 @@ export function EnhancedAnalyticsDashboard() {
         <CardContent>
           <ChartContainer
             config={{
-              bookings: { label: "Bookings", color: "#E85D48" },
+              bookings: { label: "Bookings", color: "#FF5200" },
             }}
           >
             <BarChart data={cityMetrics} height={300}>
@@ -337,7 +337,7 @@ export function EnhancedAnalyticsDashboard() {
               />
               <YAxis axisLine={{ stroke: "#E5E5E5" }} tick={{ fill: "#737373", fontSize: 12 }} />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="bookingCount" fill="#E85D48" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="bookingCount" fill="#FF5200" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ChartContainer>
         </CardContent>
@@ -375,7 +375,7 @@ export function EnhancedAnalyticsDashboard() {
               {categoryMetrics.map((category, index) => (
                 <div className="flex items-center gap-3" key={category.category}>
                   <div
-                    className="-full h-3 w-3"
+                    className="rounded-full h-3 w-3"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
                   <span className="flex-1 text-[#171717] text-sm">{category.category}</span>

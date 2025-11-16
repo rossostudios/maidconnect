@@ -8,8 +8,6 @@
  * - WCAG AAA contrast-safe gray tones
  */
 
-"use client";
-
 export function AnalyticsDashboardSkeleton() {
   return (
     <div className="animate-pulse space-y-8">

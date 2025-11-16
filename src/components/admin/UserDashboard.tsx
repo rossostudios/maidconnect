@@ -105,7 +105,7 @@ export function UserManagementDashboard() {
             icon={Search01Icon}
           />
           <input
-            className="w-full border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+            className="w-full border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search by name or email..."
             type="text"
@@ -122,7 +122,7 @@ export function UserManagementDashboard() {
           <HugeiconsIcon className="h-4 w-4" icon={FilterIcon} />
           Filters
           {activeFiltersCount > 0 && (
-            <span className="-full ml-1 bg-[#E85D48] px-2 py-0.5 font-semibold text-white text-xs">
+            <span className="rounded-full ml-1 bg-[#FF5200] px-2 py-0.5 font-semibold text-white text-xs">
               {activeFiltersCount}
             </span>
           )}
@@ -141,7 +141,7 @@ export function UserManagementDashboard() {
                   Role
                 </label>
                 <select
-                  className="w-full border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+                  className="w-full border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
                   id="user-role-filter"
                   onChange={(e) => {
                     setRoleFilter(e.target.value as UserRole | "all");
@@ -165,7 +165,7 @@ export function UserManagementDashboard() {
                   Account Status
                 </label>
                 <select
-                  className="w-full border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
+                  className="w-full border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
                   id="user-status-filter"
                   onChange={(e) => {
                     setSuspensionFilter(e.target.value as SuspensionFilter);
@@ -185,7 +185,7 @@ export function UserManagementDashboard() {
             {activeFiltersCount > 0 && (
               <div className="mt-4 border-[#E5E5E5] border-t pt-4">
                 <button
-                  className="font-medium text-[#E85D48] text-sm transition-colors hover:text-[#D32F40]"
+                  className="font-medium text-[#FF5200] text-sm transition-colors hover:text-[#E64A00]"
                   onClick={() => {
                     setRoleFilter("all");
                     setSuspensionFilter("all");

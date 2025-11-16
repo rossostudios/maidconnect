@@ -54,7 +54,7 @@ type UserHeader = Header<User, unknown>;
 const getRoleBadgeColor = (role: UserRole) => {
   switch (role) {
     case "admin":
-      return "bg-[#E85D48] text-white";
+      return "bg-[#FF5200] text-white";
     case "professional":
       return "bg-[#FFF4E6] text-[#FF8A00] border border-[#FFE0B2]";
     case "customer":
@@ -80,7 +80,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
       <span
         className={`inline-flex items-center px-2.5 py-1 font-medium text-xs ${
           isBanned
-            ? "border border-neutral-300 bg-[#E85D48]/10 text-neutral-800"
+            ? "border border-neutral-300 bg-[#FF5200]/10 text-neutral-800"
             : "border border-neutral-300 bg-neutral-100 text-neutral-600"
         }`}
       >
@@ -107,14 +107,14 @@ const columns: ColumnDef<User>[] = [
             {user.avatar_url ? (
               <Image
                 alt={user.full_name || "User"}
-                className="-full h-10 w-10 border-2 border-[#E5E5E5] object-cover"
+                className="h-10 w-10 border-2 border-[#E5E5E5] object-cover"
                 height={40}
                 src={user.avatar_url}
                 width={40}
               />
             ) : (
-              <div className="-full flex h-10 w-10 items-center justify-center border-2 border-[#E5E5E5] bg-[#E85D48]/10">
-                <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
+              <div className="flex h-10 w-10 items-center justify-center border-2 border-[#E5E5E5] bg-[#FF5200]/10">
+                <HugeiconsIcon className="h-6 w-6 text-[#FF5200]" icon={UserCircleIcon} />
               </div>
             )}
           </div>
@@ -203,7 +203,7 @@ export function UserManagementTable({ users, isLoading, pagination, onPageChange
       <div className="border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-3 text-center">
-            <div className="-full mx-auto h-8 w-8 animate-spin border-4 border-[#E5E5E5] border-t-[#E85D48]" />
+            <div className="mx-auto h-8 w-8 animate-spin border-4 border-[#E5E5E5] border-t-[#FF5200]" />
             <p className="text-[#737373] text-sm">Loading users...</p>
           </div>
         </div>
@@ -318,7 +318,7 @@ function SortableHeaderContent({ header }: { header: UserHeader }) {
 
   return (
     <button
-      className="flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
+      className="flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#FF5200]"
       onClick={header.column.getToggleSortingHandler()}
       type="button"
     >

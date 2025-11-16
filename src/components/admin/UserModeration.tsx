@@ -118,7 +118,7 @@ function UserSummaryCard({ user }: { user: User }) {
   return (
     <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
       <div className="flex items-center gap-3">
-        <div className="-full flex h-12 w-12 items-center justify-center bg-[neutral-200]">
+        <div className="rounded-full flex h-12 w-12 items-center justify-center bg-[neutral-200]">
           <span className="type-ui-md font-medium text-neutral-600 dark:text-neutral-400">
             {((user.full_name || "?").charAt(0) || "?").toUpperCase()}
           </span>
@@ -349,7 +349,7 @@ function ModerationFooter({
   return (
     <div className="flex gap-3 pt-4">
       <button
-        className="type-ui-sm -full flex-1 border-2 border-neutral-200 px-6 py-3 font-semibold text-neutral-900 transition hover:border-neutral-900 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100"
+        className="type-ui-sm flex-1 border-2 border-neutral-200 px-6 py-3 font-semibold text-neutral-900 transition hover:border-neutral-900 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100"
         disabled={isLoading}
         onClick={onCancel}
         type="button"
@@ -357,7 +357,7 @@ function ModerationFooter({
         Cancel
       </button>
       <button
-        className="type-ui-sm -full flex-1 bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-950"
+        className="type-ui-sm flex-1 bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-950"
         disabled={isLoading}
         onClick={onSubmit}
         type="button"

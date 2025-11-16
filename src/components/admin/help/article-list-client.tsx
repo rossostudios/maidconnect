@@ -132,7 +132,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         accessorKey: "category.name",
         header: locale === "es" ? "Categoría" : "Category",
         cell: ({ row }) => (
-          <span className="-full inline-flex items-center bg-[neutral-200]/30 px-2.5 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
+          <span className="rounded-full inline-flex items-center bg-[neutral-200]/30 px-2.5 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
             {row.original.category.name}
           </span>
         ),
@@ -142,7 +142,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         header: locale === "es" ? "Estado" : "Status",
         cell: ({ row }) => (
           <button
-            className={`-full inline-flex items-center gap-1.5 px-3 py-1 font-medium text-xs transition ${
+            className={`rounded-full inline-flex items-center gap-1.5 px-3 py-1 font-medium text-xs transition ${
               row.original.is_published
                 ? "bg-neutral-100 text-neutral-900 hover:bg-neutral-900 dark:bg-neutral-100/10 dark:bg-neutral-800 dark:text-neutral-100"
                 : "bg-[neutral-200]/30 text-neutral-600 hover:bg-[neutral-200] dark:text-neutral-400"

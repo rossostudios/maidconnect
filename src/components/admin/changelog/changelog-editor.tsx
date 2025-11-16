@@ -10,9 +10,27 @@ import {
   Shield01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { BlockEditor } from "@/components/admin/help/block-editor";
+
+// Code split BlockEditor (1499 LOC) - lazy load on demand
+const BlockEditor = dynamic(
+  () => import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
+  {
+    loading: () => (
+      <div className="min-h-96 animate-pulse border border-neutral-200 bg-neutral-50 p-8">
+        <div className="mb-4 h-10 w-48 bg-neutral-200" />
+        <div className="space-y-3">
+          <div className="h-4 w-full bg-neutral-200" />
+          <div className="h-4 w-5/6 bg-neutral-200" />
+          <div className="h-4 w-4/6 bg-neutral-200" />
+        </div>
+      </div>
+    ),
+    ssr: false, // BlockEditor is client-only
+  }
+);
 
 type ChangelogFormData = {
   sprint_number: number;
@@ -324,7 +342,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
               return (
                 <button
-                  className={`-full flex items-center gap-2 border-2 px-4 py-2 font-medium text-sm transition ${
+                  className={`rounded-full flex items-center gap-2 border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
                       ? "border-orange-500 bg-orange-500 text-white dark:border-orange-600 dark:bg-orange-600"
                       : "border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:text-neutral-400 dark:hover:border-orange-400 dark:hover:text-orange-400"
@@ -426,7 +444,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           <div className="flex gap-3">
             <button
-              className="-full flex items-center gap-2 border-2 border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 transition hover:border-neutral-900 disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
+              className="rounded-full flex items-center gap-2 border-2 border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 transition hover:border-neutral-900 disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "draft")}
               type="button"
@@ -445,7 +463,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             </button>
 
             <button
-              className="-full flex items-center gap-2 bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50 dark:bg-orange-600 dark:hover:bg-orange-700"
+              className="rounded-full flex items-center gap-2 bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50 dark:bg-orange-600 dark:hover:bg-orange-700"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "published")}
               type="button"

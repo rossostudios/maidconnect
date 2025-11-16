@@ -269,7 +269,7 @@ export function CheckDashboard() {
               <TabsTrigger key={tab.value} value={tab.value}>
                 {tab.label}
                 {data.counts[tab.value] > 0 && (
-                  <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                  <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                     {data.counts[tab.value]}
                   </span>
                 )}

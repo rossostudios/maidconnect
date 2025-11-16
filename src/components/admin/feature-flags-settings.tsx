@@ -147,7 +147,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
 
             <button
               aria-label={`Toggle ${feature.name}`}
-              className={`-full relative h-6 w-11 flex-shrink-0 transition-colors ${
+              className={`rounded-full relative h-6 w-11 flex-shrink-0 transition-colors ${
                 flags[feature.key] ? "bg-neutral-900 dark:bg-neutral-100" : "bg-[neutral-200]"
               } ${isSaving ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
               disabled={isSaving}
@@ -155,7 +155,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
               type="button"
             >
               <span
-                className={`-full absolute top-0.5 left-0.5 h-5 w-5 bg-white transition-transform dark:bg-neutral-950 ${
+                className={`rounded-full absolute top-0.5 left-0.5 h-5 w-5 bg-white transition-transform dark:bg-neutral-950 ${
                   flags[feature.key] ? "translate-x-5" : "translate-x-0"
                 }`}
               />

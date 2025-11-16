@@ -273,7 +273,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="needs_review">
               Needs Review
               {data.counts.application_in_review > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.application_in_review}
                 </span>
               )}
@@ -281,7 +281,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="approved">
               Approved
               {data.counts.approved > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.approved}
                 </span>
               )}
@@ -289,7 +289,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="incomplete">
               Incomplete
               {data.counts.application_pending > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
                   {data.counts.application_pending}
                 </span>
               )}

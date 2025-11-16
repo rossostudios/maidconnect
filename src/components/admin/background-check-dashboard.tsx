@@ -300,7 +300,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.pending}
                 </span>
               )}
@@ -308,7 +308,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="consider">
               Consider
               {data.counts.consider > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.consider}
                 </span>
               )}
@@ -316,7 +316,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="clear">
               Clear
               {data.counts.clear > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.clear}
                 </span>
               )}
@@ -324,7 +324,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="suspended">
               Suspended
               {data.counts.suspended > 0 && (
-                <span className="-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="rounded-full ml-2 inline-flex items-center justify-center bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.suspended}
                 </span>
               )}

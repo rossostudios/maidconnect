@@ -200,7 +200,7 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer -full after: h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
+          <div className="peer h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
@@ -222,7 +222,7 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, auto_initiate: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer -full after: h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
+          <div className="peer h-6 w-11 bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
