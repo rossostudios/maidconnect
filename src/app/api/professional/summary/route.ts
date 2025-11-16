@@ -9,7 +9,7 @@ export async function GET() {
 
     // Fetch professional profile
     const { data: professional } = await supabase
-      .from("professionals")
+      .from("professional_profiles")
       .select("*, profile:profiles!inner(*)")
       .eq("profile_id", user.id)
       .single();

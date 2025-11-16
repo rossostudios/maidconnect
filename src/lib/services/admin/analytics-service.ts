@@ -121,9 +121,9 @@ async function fetchAnalyticsData(startDate: string, endDate: string) {
 
   // Fetch customers data
   const { data: customers } = await supabase
-    .from("users")
+    .from("profiles")
     .select("id, created_at")
-    .eq("role", "customer")
+    .eq("role", "user")
     .gte("created_at", startDate)
     .lte("created_at", endDate);
 
