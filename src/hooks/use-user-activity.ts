@@ -49,7 +49,7 @@ type UserActivityStats = {
   activeProfessionals: number;
   recentBookings: number;
   recentActivity: ActivityEvent[];
-  lastUpdated: string;
+  lastUpdated: string | null;
 };
 
 type UseUserActivityOptions = {
@@ -87,7 +87,7 @@ export function useUserActivity(options: UseUserActivityOptions = {}) {
     activeProfessionals: 0,
     recentBookings: 0,
     recentActivity: [],
-    lastUpdated: new Date().toISOString(),
+    lastUpdated: null,
   });
 
   const [onlineUsers, setOnlineUsers] = useState<PresenceUser[]>([]);
@@ -229,7 +229,9 @@ export function useUserActivity(options: UseUserActivityOptions = {}) {
    */
   const addActivity = useCallback(
     (event: ActivityEvent | null) => {
-      if (!event) return;
+      if (!event) {
+        return;
+      }
 
       setStats((prev) => {
         const updated = [event, ...prev.recentActivity];
@@ -247,7 +249,9 @@ export function useUserActivity(options: UseUserActivityOptions = {}) {
    * Subscribe to presence channel for online users
    */
   useEffect(() => {
-    if (!(enabled && currentUserId)) return;
+    if (!(enabled && currentUserId)) {
+      return;
+    }
 
     presenceRef.current = subscribeToPresence("online_admins", currentUserId, {
       role: "admin",
@@ -285,7 +289,9 @@ export function useUserActivity(options: UseUserActivityOptions = {}) {
    * Subscribe to activity events
    */
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     activityRef.current = subscribeToTables([
       // Monitor new bookings
