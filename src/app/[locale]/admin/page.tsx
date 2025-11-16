@@ -100,14 +100,14 @@ export default async function AdminHomePage() {
     // Today's revenue
     supabase
       .from("bookings")
-      .select("amount_captured")
+      .select("amount_estimated")
       .gte("created_at", today)
       .eq("status", "completed"),
   ]);
 
   // Calculate today's revenue
   const todayRevenueTotal =
-    todayRevenue?.reduce((sum, booking) => sum + (booking.amount_captured || 0), 0) || 0;
+    todayRevenue?.reduce((sum, booking) => sum + (booking.amount_estimated || 0), 0) || 0;
 
   // Sample activity data
   const recentActivity = [

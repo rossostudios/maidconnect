@@ -143,7 +143,7 @@ async function fetchAnalyticsData(startDate: string, endDate: string) {
   const totalRevenue =
     bookings
       ?.filter((b) => b.status === "completed")
-      .reduce((sum, b) => sum + (b.amount_captured || 0), 0) || 0;
+      .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) || 0;
 
   const averageBookingValue = completedBookings > 0 ? totalRevenue / completedBookings : 0;
 

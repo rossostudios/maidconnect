@@ -82,16 +82,12 @@ ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 -- Indexes for Performance (if not exists)
 -- ============================================================================
 
--- Indexes on foreign keys used in RLS policies
-CREATE INDEX IF NOT EXISTS idx_bookings_customer_id ON bookings(customer_id);
-CREATE INDEX IF NOT EXISTS idx_bookings_professional_id ON bookings(professional_id);
-CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
+-- Note: Removed indexes on amount_captured - column may not exist in current schema
+-- Note: Other indexes likely already exist from previous migrations (20251111160100, 20251114160000)
 
--- Index on amount_captured for revenue queries
-CREATE INDEX IF NOT EXISTS idx_bookings_amount_captured ON bookings(amount_captured) WHERE amount_captured IS NOT NULL;
-
--- Composite index for admin dashboard queries
-CREATE INDEX IF NOT EXISTS idx_bookings_created_status ON bookings(created_at DESC, status);
+-- Indexes on foreign keys used in RLS policies (if not already created)
+CREATE INDEX IF NOT EXISTS idx_bookings_customer_id_rls ON bookings(customer_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_professional_id_rls ON bookings(professional_id);
 
 -- ============================================================================
 -- Comments for Documentation
