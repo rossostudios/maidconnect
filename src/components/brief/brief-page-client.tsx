@@ -33,8 +33,8 @@ export function BriefPageClient() {
               Tell Us What You Need
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-              Answer a few questions and we'll connect you with 3–5 thoroughly vetted
-              professionals who match your needs — usually within 5 business days.
+              Answer a few questions and we'll connect you with 3–5 thoroughly vetted professionals
+              who match your needs — usually within 5 business days.
             </p>
 
             {/* Trust Indicators */}

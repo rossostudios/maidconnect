@@ -17,7 +17,7 @@ import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
-import { AnnouncementBanner } from "@/components/sections/AnnouncementBanner";
+import { ConditionalAnnouncementBanner } from "@/components/sections/ConditionalAnnouncementBanner";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
@@ -113,7 +113,7 @@ export default async function RootLayout({
             <PostHogProvider nonce={nonce}>
               <FeedbackProvider>
                 <UnifiedCommandPaletteWrapper>
-                  <AnnouncementBanner />
+                  <ConditionalAnnouncementBanner />
                   <ChangelogBanner />
                   <Suspense fallback={<div>Loading...</div>}>
                     <SupabaseProvider>

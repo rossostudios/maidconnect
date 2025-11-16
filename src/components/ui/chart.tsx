@@ -8,7 +8,7 @@
 "use client";
 
 import * as React from "react";
-import * as RechartsPrimitive from "recharts";
+import { Legend, ResponsiveContainer, Tooltip } from "recharts";
 import { cn } from "@/lib/utils";
 
 // Chart container with responsive wrapper
@@ -20,19 +20,19 @@ const ChartContainer = ({
   ...props
 }: React.ComponentProps<"div"> & {
   config: Record<string, { label: string; color?: string; icon?: React.ComponentType }>;
-  children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"];
+  children: React.ComponentProps<typeof ResponsiveContainer>["children"];
 } & { ref?: React.RefObject<HTMLDivElement | null> }) => (
   <div className={cn("w-full", className)} ref={ref} {...props}>
-    <RechartsPrimitive.ResponsiveContainer height="100%" width="100%">
+    <ResponsiveContainer height="100%" width="100%">
       {children}
-    </RechartsPrimitive.ResponsiveContainer>
+    </ResponsiveContainer>
   </div>
 );
 
 ChartContainer.displayName = "ChartContainer";
 
 // Chart tooltip with custom styling
-const ChartTooltip = RechartsPrimitive.Tooltip;
+const ChartTooltip = Tooltip;
 
 // Custom tooltip content
 const ChartTooltipContent = ({
@@ -99,7 +99,7 @@ const ChartTooltipContent = ({
 ChartTooltipContent.displayName = "ChartTooltipContent";
 
 // Chart legend
-const ChartLegend = RechartsPrimitive.Legend;
+const ChartLegend = Legend;
 
 // Custom legend content
 const ChartLegendContent = ({

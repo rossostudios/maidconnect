@@ -6,8 +6,8 @@
  * Chat conversation container with scroll management, empty states, and Geist Sans typography.
  */
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { ButtonHTMLAttributes, ComponentProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
@@ -90,7 +90,7 @@ export const ConversationScrollButton = ({
       type="button"
       {...props}
     >
-      <HugeiconsIcon icon={ArrowDown01Icon} className="size-4" size={16} />
+      <HugeiconsIcon className="size-4" icon={ArrowDown01Icon} size={16} />
       Scroll to newest
     </button>
   );

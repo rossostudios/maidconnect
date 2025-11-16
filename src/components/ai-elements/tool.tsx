@@ -6,9 +6,9 @@
  * AI tool call displays with Geist Sans/Mono typography, sharp borders, and state indicators.
  */
 
-import type { ToolUIPart } from "ai";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon, ToolsIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { ToolUIPart } from "ai";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export const ToolCall = ({ part, title }: ToolProps) => {
         type="button"
       >
         <div className="flex items-center gap-2">
-          <HugeiconsIcon icon={ToolsIcon} className="size-4 text-neutral-600" size={16} />
+          <HugeiconsIcon className="size-4 text-neutral-600" icon={ToolsIcon} size={16} />
           <span className="text-neutral-900">{header}</span>
           <span
             className={cn(
@@ -55,8 +55,8 @@ export const ToolCall = ({ part, title }: ToolProps) => {
           </span>
         </div>
         <HugeiconsIcon
-          icon={ArrowDown01Icon}
           className={cn("size-4 text-neutral-600 transition-transform", open && "rotate-180")}
+          icon={ArrowDown01Icon}
           size={16}
         />
       </button>

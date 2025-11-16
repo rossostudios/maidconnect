@@ -118,7 +118,7 @@ function UserSummaryCard({ user }: { user: User }) {
   return (
     <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
       <div className="flex items-center gap-3">
-        <div className="rounded-full flex h-12 w-12 items-center justify-center bg-[neutral-200]">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-200]">
           <span className="type-ui-md font-medium text-neutral-600 dark:text-neutral-400">
             {((user.full_name || "?").charAt(0) || "?").toUpperCase()}
           </span>

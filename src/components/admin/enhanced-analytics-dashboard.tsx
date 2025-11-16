@@ -488,7 +488,7 @@ export function EnhancedAnalyticsDashboard() {
               {categoryMetrics.map((category, index) => (
                 <div className="flex items-center gap-3" key={category.category}>
                   <div
-                    className="rounded-full h-3 w-3"
+                    className="h-3 w-3 rounded-full"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
                   <span className="flex-1 text-[#171717] text-sm">{category.category}</span>

@@ -351,3 +351,55 @@ These components MUST remain client-side due to interactive table features:
 
 **Implementation Completed:** 2025-01-16 (Phase 1 & 2)
 
+---
+
+## 10. Week 2 Phase 1 Implementation (2025-01-16)
+
+### Additional Code Splitting Audit
+
+**Components Reviewed:**
+- ✅ `pricing-controls-manager.tsx` (634 LOC)
+- ✅ `CheckDashboard.tsx` (560 LOC)
+- ✅ `background-check-dashboard.tsx` (537 LOC)
+
+### Findings
+
+**Already Optimized (Week 1 or earlier):**
+- ✅ `CheckDashboard.tsx` - Dynamic import for CheckDetailModal (lines 29-31)
+- ✅ `background-check-dashboard.tsx` - Dynamic import for BackgroundCheckDetailModal (lines 30-33)
+
+**Newly Optimized:**
+- ✅ `pricing-controls-manager.tsx` - Extracted PricingRuleModal (385 LOC)
+  - Created: `/src/components/admin/pricing-rule-modal.tsx`
+  - Implemented: Dynamic import with `next/dynamic`
+  - Added: `PricingRuleModalSkeleton` loading component
+  - Pattern: Modal loads only when user clicks "Create New Rule" or "Edit"
+
+### Week 2 Phase 1 Results
+
+| Metric | Result |
+|--------|--------|
+| Components Audited | 3 components |
+| Already Optimized | 2 components |
+| Newly Optimized | 1 component (PricingRuleModal) |
+| Code Split | 385 LOC |
+| Original Estimate | 1,731 LOC |
+| Variance Explanation | 2/3 components already had dynamic imports from previous work |
+
+### Files Modified (Week 2 Phase 1)
+
+1. `/src/components/admin/pricing-rule-modal.tsx` - Created (385 LOC)
+2. `/src/components/admin/pricing-controls-manager.tsx` - Modified (dynamic import added, 350 LOC reduction)
+3. `/docs/week-2-dashboard-improvements-plan.md` - Updated with actual results
+
+### Cumulative Optimization Impact
+
+| Phase | LOC Optimized | Bundle Impact |
+|-------|---------------|---------------|
+| Week 1 Phase 1 | 163 LOC (server components) | ~5% |
+| Week 1 Phase 2 | 1,499 LOC (block-editor) | ~15% |
+| Week 2 Phase 1 | 385 LOC (pricing modal) | ~3-5% |
+| **Total** | **~2,047 LOC** | **~20-25%** |
+
+**Status:** Week 2 Phase 1 completed, ready for Phase 2 (Route-Level Loading States)
+

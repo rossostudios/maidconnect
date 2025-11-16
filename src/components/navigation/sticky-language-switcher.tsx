@@ -1,7 +1,7 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon, GlobeIcon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 import { type Locale } from "@/i18n";
@@ -44,13 +44,13 @@ export function StickyLanguageSwitcher() {
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
-          <HugeiconsIcon icon={GlobeIcon} className="h-4 w-4" size={16} />
+          <HugeiconsIcon className="h-4 w-4" icon={GlobeIcon} size={16} />
           <span className="hidden sm:inline">{currentLanguage.flag}</span>
           <span className="hidden sm:inline">{currentLanguage.name}</span>
           <span className="sm:hidden">{currentLanguage.code.toUpperCase()}</span>
           <HugeiconsIcon
-            icon={ArrowDown01Icon}
             className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            icon={ArrowDown01Icon}
             size={16}
           />
         </button>
@@ -85,7 +85,11 @@ export function StickyLanguageSwitcher() {
                   <span className="text-2xl">{lang.flag}</span>
                   <span className="text-neutral-900 text-sm">{lang.name}</span>
                   {lang.code === locale && (
-                    <HugeiconsIcon icon={Tick02Icon} className="ml-auto h-5 w-5 text-neutral-700" size={20} />
+                    <HugeiconsIcon
+                      className="ml-auto h-5 w-5 text-neutral-700"
+                      icon={Tick02Icon}
+                      size={20}
+                    />
                   )}
                 </button>
               ))}

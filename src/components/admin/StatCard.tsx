@@ -43,6 +43,7 @@ type Props = {
   status: StatusLevel;
   sparklineData?: SparklineData[];
   featured?: boolean; // If true, shows orange gradient bottom border
+  isLive?: boolean; // If true, shows live indicator with pulsing animation
 };
 
 /**
@@ -91,6 +92,7 @@ export function StatCard({
   status,
   sparklineData,
   featured = false,
+  isLive = false,
 }: Props) {
   return (
     <div
@@ -99,16 +101,34 @@ export function StatCard({
         featured && "border-b-2 border-b-orange-500"
       )}
     >
-      {/* Header: Title + Sparkline */}
+      {/* Header: Title + Live Indicator + Sparkline */}
       <div className="mb-4 flex items-start justify-between">
-        <h3
-          className={cn(
-            "font-semibold text-neutral-700 text-xs uppercase tracking-wider",
-            geistSans.className
+        <div className="flex items-center gap-2">
+          <h3
+            className={cn(
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
+            {title}
+          </h3>
+          {isLive && (
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping bg-orange-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 bg-orange-500" />
+              </span>
+              <span
+                className={cn(
+                  "font-medium text-[10px] text-orange-600 uppercase tracking-wider",
+                  geistSans.className
+                )}
+              >
+                Live
+              </span>
+            </div>
           )}
-        >
-          {title}
-        </h3>
+        </div>
         {sparklineData && sparklineData.length > 0 && (
           <div className="w-24">
             <MiniSparkline data={sparklineData} />

@@ -557,7 +557,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     <div className={cn("relative", editorTokens.shell)} ref={editorContainerRef}>
       {selectionToolbar.visible && (
         <div
-          className="rounded-full pointer-events-auto absolute z-40 flex items-center gap-1 border border-neutral-200 bg-white px-2 py-1 text-neutral-600 shadow-xl dark:border-neutral-800 dark:bg-neutral-950/95 dark:text-neutral-400"
+          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-neutral-200 bg-white px-2 py-1 text-neutral-600 shadow-xl dark:border-neutral-800 dark:bg-neutral-950/95 dark:text-neutral-400"
           style={{
             left: selectionToolbar.x,
             top: selectionToolbar.y,

@@ -1,7 +1,7 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
@@ -22,7 +22,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
       >
         {/* Success Icon */}
         <div className="mx-auto flex h-20 w-20 items-center justify-center bg-green-100">
-          <HugeiconsIcon icon={Tick02Icon} className="h-12 w-12 text-green-600" size={48} />
+          <HugeiconsIcon className="h-12 w-12 text-green-600" icon={Tick02Icon} size={48} />
         </div>
 
         {/* Heading */}

@@ -1,7 +1,7 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Clock01Icon, Location01Icon, Navigation01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -185,7 +185,7 @@ export function ArrivalWindowTracker({
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 items-center justify-center bg-neutral-100">
-            <HugeiconsIcon icon={Icon} className="h-6 w-6 text-neutral-700" size={24} />
+            <HugeiconsIcon className="h-6 w-6 text-neutral-700" icon={Icon} size={24} />
           </div>
 
           <div className="flex-1 space-y-3">
@@ -196,7 +196,7 @@ export function ArrivalWindowTracker({
 
             {timeDisplay && (
               <div className="flex items-center gap-2 text-base text-neutral-700">
-                <HugeiconsIcon icon={Clock01Icon} className="h-4 w-4" size={16} />
+                <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} size={16} />
                 <span className="font-medium">{timeDisplay}</span>
               </div>
             )}

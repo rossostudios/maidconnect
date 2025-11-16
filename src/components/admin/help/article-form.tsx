@@ -18,7 +18,8 @@ import { cn } from "@/lib/utils";
 
 // Code split BlockEditor (1499 LOC) - lazy load on demand
 const BlockEditor = dynamic(
-  () => import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
+  () =>
+    import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
   {
     loading: () => (
       <div className="min-h-96 animate-pulse border border-neutral-200 bg-neutral-50 p-8">
@@ -105,7 +106,7 @@ function TranslationHealthBadge({
   if (isEmpty && !otherIsEmpty) {
     // This field is empty but other language has content
     return (
-      <span className="rounded-full ml-2 inline-flex items-center gap-1 bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
         {locale === "es" ? "Falta traducción" : "Missing translation"}
       </span>
@@ -115,7 +116,7 @@ function TranslationHealthBadge({
   if (!(isEmpty || otherIsEmpty)) {
     // Both have content - show healthy status
     return (
-      <span className="rounded-full ml-2 inline-flex items-center gap-1 bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle01Icon} />
         {locale === "es" ? "Completo" : "Complete"}
       </span>
@@ -710,7 +711,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                       }
                       return (
                         <span
-                          className="rounded-full inline-flex items-center gap-1 bg-[neutral-200]/30 px-2 py-1 text-neutral-600 text-xs dark:text-neutral-400"
+                          className="inline-flex items-center gap-1 rounded-full bg-[neutral-200]/30 px-2 py-1 text-neutral-600 text-xs dark:text-neutral-400"
                           key={tagId}
                         >
                           <span>{locale === "es" ? tag.name_es : tag.name_en}</span>
@@ -782,7 +783,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                     <label className="inline-flex cursor-pointer items-center gap-2">
                       <input
                         checked={isPublished}
-                        className="rounded-full h-5 w-10 cursor-pointer border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                        className="h-5 w-10 cursor-pointer rounded-full border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
                         onChange={(e) => setIsPublished(e.target.checked)}
                         type="checkbox"
                       />

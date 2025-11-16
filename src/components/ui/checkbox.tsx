@@ -1,8 +1,8 @@
 "use client";
 
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ const Checkbox = ({
     {...props}
   >
     <CheckboxPrimitive.Indicator className={cn("grid place-content-center text-current")}>
-      <HugeiconsIcon icon={Tick02Icon} className="h-4 w-4" size={16} />
+      <HugeiconsIcon className="h-4 w-4" icon={Tick02Icon} size={16} />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 );

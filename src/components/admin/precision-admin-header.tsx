@@ -5,6 +5,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { geistMono, geistSans } from "@/app/fonts";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
+import { ConnectionStatusIndicator } from "@/components/admin/connection-status-indicator";
+import { NotificationBell } from "@/components/admin/notification-bell";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
@@ -69,7 +71,13 @@ export function PrecisionAdminHeader({ userEmail, userName }: Props) {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-1">
-            {/* Notifications */}
+            {/* Connection Status */}
+            <ConnectionStatusIndicator compact />
+
+            {/* Real-time Admin Alerts */}
+            <NotificationBell />
+
+            {/* Persistent Notifications */}
             <button
               aria-label="Notifications"
               className="group relative border border-transparent bg-white p-2 text-neutral-900 transition-all hover:border-neutral-200 hover:bg-neutral-50"

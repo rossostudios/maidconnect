@@ -3,13 +3,13 @@
  *
  * Tests all 5 structured output integrations:
  * 1. Booking intent detection
- * 2. Document extraction  
+ * 2. Document extraction
  * 3. Review analysis
  * 4. Professional matching
  * 5. Admin analytics
  */
 
-import { describe, it, expect, beforeAll } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
 // Test configuration
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

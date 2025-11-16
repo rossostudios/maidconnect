@@ -14,6 +14,8 @@ import {
   PrecisionButton,
   PrecisionStatCard,
 } from "@/components/admin/precision-dashboard-components";
+import { RealtimeStatsPanel } from "@/components/admin/realtime-stats-panel";
+import { UserActivityPanel } from "@/components/admin/user-activity-panel";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -230,6 +232,12 @@ export default async function AdminHomePage() {
           />
         </div>
       </div>
+
+      {/* Real-time Platform Metrics */}
+      <RealtimeStatsPanel />
+
+      {/* Live User Activity */}
+      <UserActivityPanel currentUserId={user.id} />
 
       {/* Action Required - Critical Tasks */}
       {actionItemsCount > 0 && (

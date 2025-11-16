@@ -10,7 +10,8 @@ import { createArticle, updateArticle } from "./article-actions";
 
 // Code split BlockEditor (1499 LOC) - lazy load on demand
 const BlockEditor = dynamic(
-  () => import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
+  () =>
+    import("@/components/admin/help/block-editor").then((mod) => ({ default: mod.BlockEditor })),
   {
     loading: () => (
       <div className="min-h-96 animate-pulse border border-neutral-200 bg-neutral-50 p-8">
