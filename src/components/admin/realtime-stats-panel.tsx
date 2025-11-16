@@ -74,32 +74,52 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
   // Determine status levels based on typical benchmarks
   const getBookingStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 100) return "good";
-    if (count >= 50) return "neutral";
+    if (count >= 100) {
+      return "good";
+    }
+    if (count >= 50) {
+      return "neutral";
+    }
     return "poor";
   };
 
   const getPendingStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count <= 5) return "good";
-    if (count <= 15) return "neutral";
+    if (count <= 5) {
+      return "good";
+    }
+    if (count <= 15) {
+      return "neutral";
+    }
     return "poor";
   };
 
   const getUsersStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 1000) return "good";
-    if (count >= 500) return "neutral";
+    if (count >= 1000) {
+      return "good";
+    }
+    if (count >= 500) {
+      return "neutral";
+    }
     return "poor";
   };
 
   const getRevenueStatus = (amount: number): "good" | "neutral" | "poor" => {
-    if (amount >= 10_000_000) return "good"; // 10M COP
-    if (amount >= 5_000_000) return "neutral"; // 5M COP
+    if (amount >= 10_000_000) {
+      return "good"; // 10M COP
+    }
+    if (amount >= 5_000_000) {
+      return "neutral"; // 5M COP
+    }
     return "poor";
   };
 
   const getProfessionalsStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 20) return "good";
-    if (count >= 10) return "neutral";
+    if (count >= 20) {
+      return "good";
+    }
+    if (count >= 10) {
+      return "neutral";
+    }
     return "poor";
   };
 
@@ -116,7 +136,6 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
         <StatCard
           description="All bookings in system"
           featured
-          isLive={enabled}
           status={getBookingStatus(stats.totalBookings)}
           title="Total Bookings"
           value={stats.totalBookings.toString()}
@@ -124,7 +143,6 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
         <StatCard
           description="Awaiting confirmation"
-          isLive={enabled}
           status={getPendingStatus(stats.pendingBookings)}
           title="Pending Bookings"
           value={stats.pendingBookings.toString()}
@@ -132,7 +150,6 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
         <StatCard
           description="Registered platform users"
-          isLive={enabled}
           status={getUsersStatus(stats.activeUsers)}
           title="Active Users"
           value={stats.activeUsers.toString()}
@@ -140,7 +157,6 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
         <StatCard
           description="Completed bookings"
-          isLive={enabled}
           status={getRevenueStatus(stats.totalRevenue)}
           title="Total Revenue"
           value={formatCurrency(stats.totalRevenue, "COP")}
@@ -148,7 +164,6 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
         <StatCard
           description="Last 30 days"
-          isLive={enabled}
           status={getProfessionalsStatus(stats.newProfessionals)}
           title="New Professionals"
           value={stats.newProfessionals.toString()}

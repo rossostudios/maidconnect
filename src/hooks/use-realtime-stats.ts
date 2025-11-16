@@ -78,7 +78,7 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
             .select("id, created_at")
             .eq("role", "professional")
             .gte("created_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()),
-          supabase.from("bookings").select("amount_estimated").eq("status", "completed"),
+          supabase.from("bookings").select("final_amount_captured").eq("status", "completed"),
           supabase
             .from("bookings")
             .select("id", { count: "exact", head: true })
@@ -104,12 +104,14 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
         }
         if (pendingBookingsResult.error) {
           console.error("Pending bookings query failed:", pendingBookingsResult.error);
-          throw new Error(`Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`);
+          throw new Error(
+            `Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`
+          );
         }
 
         // Calculate total revenue
         const totalRevenue =
-          revenueResult.data?.reduce((sum, b) => sum + (b.amount_estimated || 0), 0) || 0;
+          revenueResult.data?.reduce((sum, b) => sum + (b.final_amount_captured || 0), 0) || 0;
 
         setStats({
           totalBookings: bookingsResult.count || 0,
@@ -177,9 +179,9 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
           if (
             oldStatus !== "completed" &&
             newStatus === "completed" &&
-            payload.new.amount_estimated
+            payload.new.final_amount_captured
           ) {
-            totalRevenue = totalRevenue + payload.new.amount_estimated;
+            totalRevenue = totalRevenue + payload.new.final_amount_captured;
           }
 
           return {
