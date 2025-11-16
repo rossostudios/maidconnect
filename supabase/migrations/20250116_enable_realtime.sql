@@ -12,13 +12,41 @@
 -- - notifications: Admin notification queue
 
 -- Enable realtime for bookings table
-ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS bookings;
+-- Using DO block for idempotency (won't fail if table already in publication)
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE bookings;
+  EXCEPTION WHEN duplicate_object THEN
+    -- Table already in publication, ignore
+    NULL;
+  END;
+END
+$$;
 
 -- Enable realtime for profiles table (for both users and professionals)
-ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS profiles;
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE profiles;
+  EXCEPTION WHEN duplicate_object THEN
+    -- Table already in publication, ignore
+    NULL;
+  END;
+END
+$$;
 
 -- Enable realtime for reviews table
-ALTER PUBLICATION supabase_realtime ADD TABLE reviews;
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE reviews;
+  EXCEPTION WHEN duplicate_object THEN
+    -- Table already in publication, ignore
+    NULL;
+  END;
+END
+$$;
 
 -- Enable realtime for disputes table (if exists)
 -- Note: Disputes table may not exist yet, so we use DO block to conditionally add it
