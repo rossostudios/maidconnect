@@ -1,6 +1,7 @@
 "use client";
 
-import { Search, Sparkles, Users } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { MagicWand01Icon, Search01Icon, UserMultiple02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
@@ -15,7 +16,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
     return (
       <div className="flex min-h-[400px] flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
         <div className="mb-4 flex h-16 w-16 items-center justify-center bg-neutral-200">
-          <Search className="h-8 w-8 text-neutral-400" />
+          <HugeiconsIcon icon={Search01Icon} className="h-8 w-8 text-neutral-400" size={32} />
         </div>
 
         <h3 className="mb-2 font-semibold text-neutral-900 text-xl">
@@ -33,7 +34,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
           )}
           <Link href="/brief">
             <Button>
-              <Sparkles className="mr-2 h-4 w-4" />
+              <HugeiconsIcon icon={MagicWand01Icon} className="mr-2 h-4 w-4" size={16} />
               Start Your Brief
             </Button>
           </Link>
@@ -53,7 +54,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
   return (
     <div className="flex min-h-[500px] flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
       <div className="mb-6 flex h-20 w-20 items-center justify-center bg-orange-100">
-        <Users className="h-10 w-10 text-orange-600" />
+        <HugeiconsIcon icon={UserMultiple02Icon} className="h-10 w-10 text-orange-600" size={40} />
       </div>
 
       <h3 className="mb-3 font-bold text-2xl text-neutral-900">
@@ -67,7 +68,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
       <div className="mb-8 grid gap-4 sm:grid-cols-2">
         <Link className="w-full" href="/brief">
           <Button className="w-full" size="lg">
-            <Sparkles className="mr-2 h-5 w-5" />
+            <HugeiconsIcon icon={MagicWand01Icon} className="mr-2 h-5 w-5" size={20} />
             Tell Us Your Needs
           </Button>
         </Link>

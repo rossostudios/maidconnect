@@ -7,7 +7,8 @@
  */
 
 import type { ToolUIPart } from "ai";
-import { ChevronDownIcon, WrenchIcon } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowDown01Icon, ToolsIcon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +39,7 @@ export const ToolCall = ({ part, title }: ToolProps) => {
         type="button"
       >
         <div className="flex items-center gap-2">
-          <WrenchIcon className="size-4 text-neutral-600" />
+          <HugeiconsIcon icon={ToolsIcon} className="size-4 text-neutral-600" size={16} />
           <span className="text-neutral-900">{header}</span>
           <span
             className={cn(
@@ -53,8 +54,10 @@ export const ToolCall = ({ part, title }: ToolProps) => {
             {STATE_LABEL[part.state]}
           </span>
         </div>
-        <ChevronDownIcon
+        <HugeiconsIcon
+          icon={ArrowDown01Icon}
           className={cn("size-4 text-neutral-600 transition-transform", open && "rotate-180")}
+          size={16}
         />
       </button>
       {open && (

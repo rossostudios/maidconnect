@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock, MapPin, Navigation } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Clock01Icon, Location01Icon, Navigation01Icon } from "@hugeicons/core-free-icons";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -110,31 +111,31 @@ export function ArrivalWindowTracker({
 
   const statusConfig = {
     en_route: {
-      icon: Navigation,
+      icon: Navigation01Icon,
       title: t("status.enRoute.title", { name: professionalName }),
       description: t("status.enRoute.description"),
       variant: "secondary" as const,
     },
     arriving_soon: {
-      icon: MapPin,
+      icon: Location01Icon,
       title: t("status.arrivingSoon.title", { name: professionalName }),
       description: t("status.arrivingSoon.description"),
       variant: "default" as const,
     },
     arrived: {
-      icon: MapPin,
+      icon: Location01Icon,
       title: t("status.arrived.title", { name: professionalName }),
       description: t("status.arrived.description"),
       variant: "default" as const,
     },
     scheduled: {
-      icon: Clock,
+      icon: Clock01Icon,
       title: "",
       description: "",
       variant: "outline" as const,
     },
     in_progress: {
-      icon: Clock,
+      icon: Clock01Icon,
       title: "",
       description: "",
       variant: "outline" as const,
@@ -184,7 +185,7 @@ export function ArrivalWindowTracker({
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 items-center justify-center bg-neutral-100">
-            <Icon className="h-6 w-6 text-neutral-700" />
+            <HugeiconsIcon icon={Icon} className="h-6 w-6 text-neutral-700" size={24} />
           </div>
 
           <div className="flex-1 space-y-3">
@@ -195,7 +196,7 @@ export function ArrivalWindowTracker({
 
             {timeDisplay && (
               <div className="flex items-center gap-2 text-base text-neutral-700">
-                <Clock className="h-4 w-4" />
+                <HugeiconsIcon icon={Clock01Icon} className="h-4 w-4" size={16} />
                 <span className="font-medium">{timeDisplay}</span>
               </div>
             )}

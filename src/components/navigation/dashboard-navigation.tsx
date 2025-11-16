@@ -1,8 +1,7 @@
 "use client";
 
-import { Logout01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Bell, MessageCircle } from "lucide-react";
+import { Logout01Icon, Message01Icon, Notification01Icon } from "@hugeicons/core-free-icons";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { DashboardMobileNav } from "@/components/navigation/dashboard-mobile-nav";
@@ -88,7 +87,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           }`}
           href={messagesHref}
         >
-          <MessageCircle className="h-5 w-5" />
+          <HugeiconsIcon icon={Message01Icon} className="h-5 w-5" size={20} />
           {unreadCount > 0 && (
             <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-[10px] text-white">
               {unreadCount > 9 ? "9+" : unreadCount}
@@ -103,7 +102,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           onClick={() => setIsNotificationsOpen(true)}
           type="button"
         >
-          <Bell className="h-5 w-5" />
+          <HugeiconsIcon icon={Notification01Icon} className="h-5 w-5" size={20} />
           {notificationUnreadCount > 0 && (
             <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-[10px] text-white">
               {notificationUnreadCount > 9 ? "9+" : notificationUnreadCount}

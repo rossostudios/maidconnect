@@ -92,43 +92,6 @@ const TagMarquee = ({ items, direction, label, speed = 28 }: TagMarqueeProps) =>
           </span>
         ))}
       </div>
-
-      <style jsx>{`
-				.marquee-row {
-					animation-timing-function: linear;
-					animation-iteration-count: infinite;
-					min-width: max-content;
-				}
-				.marquee-rtl {
-					animation-name: marquee-rtl;
-				}
-				.marquee-ltr {
-					animation-name: marquee-ltr;
-				}
-				@keyframes marquee-rtl {
-					from {
-						transform: translateX(0);
-					}
-					to {
-						transform: translateX(-50%);
-					}
-				}
-				@keyframes marquee-ltr {
-					from {
-						transform: translateX(-50%);
-					}
-					to {
-						transform: translateX(0);
-					}
-				}
-				@media (prefers-reduced-motion: reduce) {
-					.marquee-row {
-						animation-duration: 0.01ms !important;
-						animation-iteration-count: 1 !important;
-						transform: translateX(0) !important;
-					}
-				}
-			`}</style>
     </div>
   );
 };

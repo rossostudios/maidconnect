@@ -10,7 +10,12 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   // Output standalone for Vercel deployment with proper NFT file generation
   // This ensures middleware and API routes have dependency traces for serverless functions
-  output: "standalone",
+  // NOTE: Temporarily disabled due to Next.js 16.0.2 middleware.js.nft.json issue
+  // TODO: Re-enable when Next.js fixes the NFT generation bug
+  // output: "standalone",
+
+  // Enable React Compiler for automatic memoization (Next.js 16)
+  reactCompiler: true,
 
   // Skip TypeScript checking during build (already verified locally)
   // This prevents hanging builds on Vercel and speeds up deployments
@@ -39,7 +44,7 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  // Disable cacheComponents - incompatible with dynamic auth routes
+  // Note: cacheComponents (PPR) is currently disabled - incompatible with dynamic auth routes
   // TODO: Re-enable when Next.js improves compatibility with protected routes
   // cacheComponents: true,
   experimental: {
@@ -47,7 +52,15 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "6mb",
     },
     // Optimize package imports to reduce bundle size
-    optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
+    optimizePackageImports: [
+      "@hugeicons/react",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-select",
+      "@tanstack/react-query",
+      "motion",
+      "date-fns",
+      "recharts",
+    ],
     // Memory optimizations to prevent SIGABRT errors during build
     webpackMemoryOptimizations: true,
   },

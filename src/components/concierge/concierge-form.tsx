@@ -1,7 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Clock, Globe, Shield, Sparkles, Users } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Clock01Icon,
+  GlobeIcon,
+  MagicWand01Icon,
+  Shield01Icon,
+  Tick02Icon,
+  UserMultiple02Icon,
+} from "@hugeicons/core-free-icons";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -79,7 +87,7 @@ export function ConciergeForm() {
       >
         <div className="border border-neutral-200 bg-white p-12 shadow-sm">
           <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center bg-green-100">
-            <CheckCircle2 className="h-12 w-12 text-green-600" />
+            <HugeiconsIcon icon={Tick02Icon} className="h-12 w-12 text-green-600" size={48} />
           </div>
 
           <h2 className="mb-4 font-bold text-3xl text-neutral-900">Request Received!</h2>
@@ -113,7 +121,7 @@ export function ConciergeForm() {
       {/* Hero Section */}
       <div className="mb-16 text-center">
         <div className="mb-3 inline-flex items-center gap-2 bg-orange-100 px-4 py-1 font-medium text-orange-600 text-sm">
-          <Sparkles className="h-4 w-4" />
+          <HugeiconsIcon icon={MagicWand01Icon} className="h-4 w-4" size={16} />
           White-Glove Service
         </div>
         <h1 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
@@ -129,7 +137,7 @@ export function ConciergeForm() {
       <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <Users className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={UserMultiple02Icon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Personal Coordinator</h3>
           <p className="text-neutral-600 text-sm">
@@ -140,7 +148,7 @@ export function ConciergeForm() {
 
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <Shield className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={Shield01Icon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Curated Matches</h3>
           <p className="text-neutral-600 text-sm">
@@ -151,7 +159,7 @@ export function ConciergeForm() {
 
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <Clock className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={Clock01Icon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">5-Day Guarantee</h3>
           <p className="text-neutral-600 text-sm">
@@ -162,7 +170,7 @@ export function ConciergeForm() {
 
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <Globe className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={GlobeIcon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Bilingual Support</h3>
           <p className="text-neutral-600 text-sm">
@@ -172,7 +180,7 @@ export function ConciergeForm() {
 
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <CheckCircle2 className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={Tick02Icon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Interview Coordination</h3>
           <p className="text-neutral-600 text-sm">
@@ -183,7 +191,7 @@ export function ConciergeForm() {
 
         <div className="border border-neutral-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-            <Sparkles className="h-6 w-6 text-orange-600" />
+            <HugeiconsIcon icon={MagicWand01Icon} className="h-6 w-6 text-orange-600" size={24} />
           </div>
           <h3 className="mb-2 font-semibold text-neutral-900">Ongoing Support</h3>
           <p className="text-neutral-600 text-sm">
@@ -219,7 +227,7 @@ export function ConciergeForm() {
               <tr>
                 <td className="p-4 text-neutral-700">Browse and search professionals</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-green-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-green-600" size={20} />
                 </td>
                 <td className="p-4 text-center text-neutral-400">—</td>
               </tr>
@@ -227,35 +235,35 @@ export function ConciergeForm() {
                 <td className="p-4 text-neutral-700">Personal coordinator</td>
                 <td className="p-4 text-center text-neutral-400">—</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-orange-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-orange-600" size={20} />
                 </td>
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Curated matches delivered to you</td>
                 <td className="p-4 text-center text-neutral-400">—</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-orange-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-orange-600" size={20} />
                 </td>
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Interview scheduling assistance</td>
                 <td className="p-4 text-center text-neutral-400">—</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-orange-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-orange-600" size={20} />
                 </td>
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Contract & payment setup help</td>
                 <td className="p-4 text-center text-neutral-400">—</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-orange-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-orange-600" size={20} />
                 </td>
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Ongoing support after hiring</td>
                 <td className="p-4 text-center text-neutral-400">—</td>
                 <td className="p-4 text-center">
-                  <CheckCircle2 className="mx-auto h-5 w-5 text-orange-600" />
+                  <HugeiconsIcon icon={Tick02Icon} className="mx-auto h-5 w-5 text-orange-600" size={20} />
                 </td>
               </tr>
               <tr>
