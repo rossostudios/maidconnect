@@ -72,10 +72,11 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
           pendingBookingsResult,
         ] = await Promise.all([
           supabase.from("bookings").select("id, status", { count: "exact", head: true }),
-          supabase.from("users").select("id", { count: "exact", head: true }),
+          supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "user"),
           supabase
-            .from("professionals")
+            .from("profiles")
             .select("id, created_at")
+            .eq("role", "professional")
             .gte("created_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()),
           supabase.from("bookings").select("total_price_cop").eq("status", "completed"),
           supabase
@@ -84,12 +85,27 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
             .eq("status", "pending"),
         ]);
 
-        // Check for errors
-        if (bookingsResult.error) throw bookingsResult.error;
-        if (usersResult.error) throw usersResult.error;
-        if (professionalsResult.error) throw professionalsResult.error;
-        if (revenueResult.error) throw revenueResult.error;
-        if (pendingBookingsResult.error) throw pendingBookingsResult.error;
+        // Check for errors with detailed logging
+        if (bookingsResult.error) {
+          console.error("Bookings query failed:", bookingsResult.error);
+          throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
+        }
+        if (usersResult.error) {
+          console.error("Users query failed:", usersResult.error);
+          throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
+        }
+        if (professionalsResult.error) {
+          console.error("Professionals query failed:", professionalsResult.error);
+          throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
+        }
+        if (revenueResult.error) {
+          console.error("Revenue query failed:", revenueResult.error);
+          throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
+        }
+        if (pendingBookingsResult.error) {
+          console.error("Pending bookings query failed:", pendingBookingsResult.error);
+          throw new Error(`Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`);
+        }
 
         // Calculate total revenue
         const totalRevenue =
@@ -106,8 +122,13 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
 
         setIsLoading(false);
       } catch (err) {
-        console.error("Failed to fetch initial stats:", err);
-        setError(err instanceof Error ? err.message : "Failed to fetch stats");
+        const errorMessage = err instanceof Error ? err.message : "Unknown error fetching stats";
+        console.error("Failed to fetch initial stats:", {
+          error: err,
+          message: errorMessage,
+          timestamp: new Date().toISOString(),
+        });
+        setError(errorMessage);
         setIsLoading(false);
       }
     }
@@ -173,13 +194,13 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
     { event: "*", enabled }
   );
 
-  // Subscribe to real-time updates for users
+  // Subscribe to real-time updates for users (profiles with role='user')
   useRealtimeTable(
-    "users",
+    "profiles",
     (payload) => {
       if (!stats) return;
 
-      if (payload.eventType === "INSERT") {
+      if (payload.eventType === "INSERT" && payload.new.role === "user") {
         setStats((prev) =>
           prev
             ? {
@@ -191,16 +212,16 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
         );
       }
     },
-    { event: "INSERT", enabled }
+    { event: "INSERT", filter: "role=eq.user", enabled }
   );
 
-  // Subscribe to real-time updates for professionals
+  // Subscribe to real-time updates for professionals (profiles with role='professional')
   useRealtimeTable(
-    "professionals",
+    "profiles",
     (payload) => {
       if (!stats) return;
 
-      if (payload.eventType === "INSERT") {
+      if (payload.eventType === "INSERT" && payload.new.role === "professional") {
         setStats((prev) =>
           prev
             ? {
@@ -212,7 +233,7 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
         );
       }
     },
-    { event: "INSERT", enabled }
+    { event: "INSERT", filter: "role=eq.professional", enabled }
   );
 
   return {

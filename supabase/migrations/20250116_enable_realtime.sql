@@ -6,20 +6,16 @@
 --
 -- Tables enabled:
 -- - bookings: Track booking status changes
--- - users: Monitor user registrations and profile updates
--- - professionals: Watch professional application status
+-- - profiles: Monitor user/professional registrations and profile updates (replaces users/professionals)
 -- - reviews: New review submissions
 -- - disputes: Dispute creation and resolution
 -- - notifications: Admin notification queue
 
 -- Enable realtime for bookings table
-ALTER PUBLICATION supabase_realtime ADD TABLE bookings;
+ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS bookings;
 
--- Enable realtime for users table
-ALTER PUBLICATION supabase_realtime ADD TABLE users;
-
--- Enable realtime for professionals table
-ALTER PUBLICATION supabase_realtime ADD TABLE professionals;
+-- Enable realtime for profiles table (for both users and professionals)
+ALTER PUBLICATION supabase_realtime ADD TABLE IF NOT EXISTS profiles;
 
 -- Enable realtime for reviews table
 ALTER PUBLICATION supabase_realtime ADD TABLE reviews;
@@ -46,17 +42,20 @@ $$;
 -- Create index on created_at for efficient realtime filtering
 -- This improves performance when filtering by recent changes
 CREATE INDEX IF NOT EXISTS bookings_created_at_idx ON bookings(created_at DESC);
-CREATE INDEX IF NOT EXISTS users_created_at_idx ON users(created_at DESC);
-CREATE INDEX IF NOT EXISTS professionals_created_at_idx ON professionals(created_at DESC);
+CREATE INDEX IF NOT EXISTS profiles_created_at_idx ON profiles(created_at DESC);
 CREATE INDEX IF NOT EXISTS reviews_created_at_idx ON reviews(created_at DESC);
 
 -- Create index on status for efficient realtime filtering
 -- Useful for subscribing to specific booking statuses
 CREATE INDEX IF NOT EXISTS bookings_status_idx ON bookings(status);
 
+-- Create index on role for efficient realtime filtering on profiles
+-- Useful for subscribing to user vs professional events separately
+CREATE INDEX IF NOT EXISTS profiles_role_idx ON profiles(role);
+
 -- Create index on updated_at for tracking changes
 CREATE INDEX IF NOT EXISTS bookings_updated_at_idx ON bookings(updated_at DESC);
-CREATE INDEX IF NOT EXISTS professionals_updated_at_idx ON professionals(updated_at DESC);
+CREATE INDEX IF NOT EXISTS profiles_updated_at_idx ON profiles(updated_at DESC);
 
 -- Verify realtime is enabled (for debugging)
 -- To check which tables have realtime enabled, run:
