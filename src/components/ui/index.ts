@@ -4,7 +4,7 @@
  * Central export point for all Lia Design System primitives.
  * Import components using: `import { Button, Card, Input } from '@/components/ui'`
  *
- * @see docs/LIA_DESIGN_SYSTEM.md for component documentation
+ * @see docs/lia/primitives.md for component documentation
  */
 
 // ============================================================================

@@ -368,4 +368,4 @@ Available MCP tools:
 
 - Check the example function in `supabase/functions/example-function/`
 - Ask Claude Code for help with Edge Functions
-- See [Supabase MCP Guide](../../docs/supabase-mcp-guide.md)
+- Ask the platform team (or Claude via MCP) for the latest Supabase MCP instructions if you need help.

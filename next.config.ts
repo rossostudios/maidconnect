@@ -57,7 +57,6 @@ const nextConfig: NextConfig = {
   // Epic H-1: CSP Hardening
   // Content Security Policy (CSP) is now handled in middleware.ts with nonce-based script protection.
   // The middleware generates cryptographically secure nonces per-request for enhanced XSS protection.
-  // See: /middleware.ts and /docs/security/nonce-based-csp-research.md
   async headers() {
     return [
       {

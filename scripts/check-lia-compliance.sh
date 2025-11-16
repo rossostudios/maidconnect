@@ -122,12 +122,9 @@ else
   echo -e "${RED}❌ Lia Design System violations found${NC}"
   echo ""
   echo "📋 See compliance checklists:"
-  echo "  - docs/precision-checklist-marketing.md"
-  echo "  - docs/precision-checklist-dashboard.md"
-  echo "  - docs/precision-checklist-admin.md"
-  echo "  - docs/precision-checklist-error.md"
+  echo "  - docs/lia/checklists.md"
   echo ""
   echo "📖 Design system reference:"
-  echo "  - docs/precision-design-system-reference.md"
+  echo "  - docs/lia/foundations.md"
   exit 1
 fi

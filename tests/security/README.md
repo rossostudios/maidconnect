@@ -190,8 +190,6 @@ See [`webhooks/README.md`](./webhooks/README.md) for details.
 - [ ] Add rate limit bypass testing (IP allowlisting)
 - [ ] Performance benchmarking for rate limit middleware overhead
 
-## Related Documentation
+## Related Resources
 
 - [Rate Limit Implementation](../../src/lib/rate-limit.ts)
-- [Security Audit - Rate Limiting](../../docs/security/h3-1-endpoint-audit-complete.md)
-- [API Route Protection Guide](../../docs/security/api-protection.md)

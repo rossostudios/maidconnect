@@ -83,15 +83,6 @@ bun run check:all
 **Integration:**
 This script runs automatically in CI/CD pipelines and can be added to pre-commit hooks for local enforcement.
 
-**Related Documentation:**
-- [Precision Design System Reference](../docs/precision-design-system-reference.md)
-- [Marketing Pages Checklist](../docs/precision-checklist-marketing.md)
-- [Dashboard Pages Checklist](../docs/precision-checklist-dashboard.md)
-- [Admin Pages Checklist](../docs/precision-checklist-admin.md)
-- [Error Pages Checklist](../docs/precision-checklist-error.md)
-
----
-
 ## Other Scripts
 
 ### `should-deploy.sh`
@@ -169,7 +160,7 @@ The `check:all` command runs in CI/CD to enforce both code quality (Biome) and d
 When violations are found:
 
 1. **Review the output** - The script shows file paths and line numbers
-2. **Consult checklists** - See `docs/precision-checklist-*.md` for patterns
+2. **Consult checklists** - See the Lia handbook in `docs/lia/` for current patterns.
 3. **Fix manually** - Replace violations with compliant patterns
 4. **Re-run checks** - Verify fixes with `bun run check:precision`
 
@@ -230,7 +221,7 @@ The script uses `grep` for fast pattern matching. For large codebases:
 
 ## Additional Resources
 
-- [Precision Design System Reference](../docs/precision-design-system-reference.md)
+- Lia tokens and patterns live in `docs/lia/`
 - [Biome Documentation](https://biomejs.dev)
 - [Tailwind CSS Documentation](https://tailwindcss.com)
 - [Geist Font Documentation](https://vercel.com/font)

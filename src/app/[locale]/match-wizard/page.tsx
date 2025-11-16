@@ -16,8 +16,6 @@ import { isMatchWizardEnabled } from "@/lib/integrations/posthog";
  * Feature Flag: match_wizard_enabled
  * - true → Show Match Wizard
  * - false → Redirect to /professionals
- *
- * @see docs/experiments/match-wizard-rollout.md for rollout documentation
  */
 export default function MatchWizardPage() {
   const router = useRouter();

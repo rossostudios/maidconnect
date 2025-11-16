@@ -121,7 +121,7 @@ Available models:
 
 ## Examples
 
-See [docs/STRUCTURED_OUTPUTS.md](../../../docs/STRUCTURED_OUTPUTS.md) for comprehensive examples and use cases.
+Structured output usage is embedded directly in this README and the accompanying service files so you don't need external docs.
 
 ## Testing
 
@@ -157,9 +157,8 @@ Typical operation costs:
 ## Support
 
 For questions or issues:
-1. Check [docs/STRUCTURED_OUTPUTS.md](../../../docs/STRUCTURED_OUTPUTS.md)
-2. Review existing schemas in [schemas.ts](./schemas.ts)
-3. Contact engineering team
+1. Review existing schemas in [schemas.ts](./schemas.ts)
+2. Contact engineering team
 
 ## Changelog
 

@@ -384,11 +384,8 @@ echo $SUPABASE_SERVICE_ROLE_KEY | head -c 20
 # Should start with: eyJhbGciOiJIUzI1NiI...
 ```
 
-## Related Documentation
+## Related Resources
 
-- [H-2.1: Stripe Webhook Audit](../../../docs/security/h2-1-stripe-webhook-audit.md)
-- [H-2.2: Sanity Webhook Audit](../../../docs/security/h2-2-sanity-webhook-audit.md)
-- [H-2.3: Idempotency Implementation](../../../docs/security/h2-3-webhook-idempotency-implementation.md)
 - [Stripe Webhook Handler](../../../src/app/api/webhooks/stripe/route.ts)
 - [Sanity Webhook Handler](../../../src/app/api/webhooks/sanity/route.ts)
 

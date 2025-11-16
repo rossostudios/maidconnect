@@ -22,7 +22,7 @@ CREATE INDEX IF NOT EXISTS idx_bookings_customer_status_created
   ON bookings(customer_id, status, created_at DESC);
 
 -- ============================================================================
--- Additional Indexes from docs/improvements-2025-01-11.md
+-- Additional indexes from the January 2025 performance review
 -- ============================================================================
 
 -- Note: Most indexes from improvements doc already exist in migration 20251111160100

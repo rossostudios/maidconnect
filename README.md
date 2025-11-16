@@ -107,7 +107,8 @@ casaora/
 │   ├── migrations/            # Database migrations
 │   └── functions/             # Edge functions
 ├── scripts/                   # Automation scripts
-├── docs/                      # Documentation
+├── docs/
+│   └── lia/                   # Lia design system handbook
 └── tests/                     # E2E tests (Playwright)
 ```
 
@@ -275,7 +276,7 @@ The script automatically:
 - **Minor (v1.X.0):** New features, enhancements
 - **Major (vX.0.0):** Breaking changes
 
-**See:** [docs/release-strategy.md](docs/release-strategy.md) for complete guide.
+Release notes are tracked inline in pull requests; the `scripts/create-release.sh` helper keeps this process consistent without an external runbook.
 
 ---
 
@@ -363,11 +364,9 @@ We've optimized deployment frequency:
 ## 📚 Documentation
 
 - **[CLAUDE.md](CLAUDE.md)** - AI development guide
-- **[docs/release-strategy.md](docs/release-strategy.md)** - Release process
+- **[docs/lia/README.md](docs/lia/README.md)** - Lia design system handbook (tokens, primitives, patterns)
 - **[scripts/README.md](scripts/README.md)** - Automation scripts
 - **[src/lib/integrations/posthog/IMPLEMENTATION_GUIDE.md](src/lib/integrations/posthog/IMPLEMENTATION_GUIDE.md)** - PostHog analytics guide
-- **[docs/radix-to-react-aria-audit.md](docs/radix-to-react-aria-audit.md)** - UI migration plan
-- **[docs/design-system-8px-grid.md](docs/design-system-8px-grid.md)** - Design system
 
 ---
 
@@ -503,7 +502,7 @@ Built with these amazing open-source projects:
 
 - **Website:** [casaora.com](https://casaora.com)
 - **Email:** support@casaora.com
-- **Documentation:** [docs/](docs/)
+- **Documentation:** [Lia design system](docs/lia/README.md)
 - **Issues:** [GitHub Issues](https://github.com/rossostudios/casaora/issues)
 
 ---

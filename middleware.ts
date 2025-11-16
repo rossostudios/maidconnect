@@ -15,9 +15,6 @@ import { NextResponse } from "next/server";
  * - ✅ H-1.2: Configured middleware to emit nonces
  * - ✅ H-1.3: Updated all inline scripts (extracted to external files)
  * - ✅ H-1.4: Removed 'unsafe-inline' from production CSP
- *
- * @see /docs/security/nonce-based-csp-research.md
- * @see /docs/security/csp-inline-script-audit.md
  */
 export function middleware(request: NextRequest) {
   // Generate cryptographically secure random nonce (number used once)

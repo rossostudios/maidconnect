@@ -25,8 +25,6 @@ import { HeroVariantA } from "./HeroVariantA";
  *   return <HeroSectionWithABTest />;
  * }
  * ```
- *
- * @see docs/experiments/hero-ab-test.md for A/B test design documentation
  */
 export function HeroSectionWithABTest() {
   // Get the current hero variant from PostHog feature flag
