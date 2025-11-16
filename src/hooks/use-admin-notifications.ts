@@ -223,7 +223,7 @@ export function useAdminNotifications(options: NotificationOptions = {}) {
           userId: payload.new.user_id,
           professionalId: payload.new.professional_id,
           status: payload.new.status,
-          totalPrice: payload.new.total_price_cop,
+          totalPrice: payload.new.amount_captured || payload.new.amount_authorized,
           serviceName: payload.new.service_name,
         });
         addNotification(notification);

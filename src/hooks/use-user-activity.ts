@@ -110,7 +110,7 @@ export function useUserActivity(options: UseUserActivityOptions = {}) {
           metadata: {
             bookingId: booking.id,
             status: booking.status,
-            totalPrice: booking.total_price_cop,
+            totalPrice: booking.amount_captured || booking.amount_authorized,
           },
         };
       }
