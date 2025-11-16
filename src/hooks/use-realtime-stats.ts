@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browser-client";
+import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import { useRealtimeTable } from "./use-realtime";
 
 /**

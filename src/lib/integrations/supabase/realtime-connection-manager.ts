@@ -11,7 +11,7 @@
  */
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import { createSupabaseBrowserClient } from "./browser-client";
+import { createSupabaseBrowserClient } from "./browserClient";
 
 /**
  * Connection state
