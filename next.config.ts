@@ -48,6 +48,8 @@ const nextConfig: NextConfig = {
     },
     // Optimize package imports to reduce bundle size
     optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
+    // Memory optimizations to prevent SIGABRT errors during build
+    webpackMemoryOptimizations: true,
   },
   // Security headers
   //
