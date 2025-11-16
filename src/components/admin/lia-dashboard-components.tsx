@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 /**
- * Precision Dashboard Components
+ * Lia Dashboard Components
  *
  * Ultra-high contrast design for maximum readability.
  * Inspired by Bloomberg Terminal + Swiss Design.
@@ -40,12 +40,12 @@ type ActivityItem = {
 };
 
 /**
- * PrecisionStatCard
+ * LiaStatCard
  *
  * High-contrast stat card with Geist Mono numbers.
  * Numbers are the hero - large, bold, impossible to miss.
  */
-export function PrecisionStatCard({
+export function LiaStatCard({
   title,
   value,
   change,
@@ -65,6 +65,16 @@ export function PrecisionStatCard({
     down: "bg-red-50",
     neutral: "bg-neutral-50",
   };
+
+  const trendIcon = (() => {
+    if (trend === "up") {
+      return "↑";
+    }
+    if (trend === "down") {
+      return "↓";
+    }
+    return "—";
+  })();
 
   return (
     <div className="group relative border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm">
@@ -125,7 +135,7 @@ export function PrecisionStatCard({
               geistMono.className
             )}
           >
-            <span>{trend === "up" ? "↑" : trend === "down" ? "↓" : "—"}</span>
+            <span>{trendIcon}</span>
             <span>{Math.abs(change)}%</span>
           </div>
           <span
@@ -143,12 +153,12 @@ export function PrecisionStatCard({
 }
 
 /**
- * PrecisionActivityFeed
+ * LiaActivityFeed
  *
  * Timeline-based activity feed with status indicators.
  * Clean, scannable, high-information density.
  */
-export function PrecisionActivityFeed({ activities }: { activities: ActivityItem[] }) {
+export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) {
   const statusStyles = {
     success: {
       bg: "bg-emerald-600",
@@ -233,12 +243,12 @@ export function PrecisionActivityFeed({ activities }: { activities: ActivityItem
 }
 
 /**
- * PrecisionCard
+ * LiaCard
  *
  * Generic container for dashboard content.
  * Sharp borders, high contrast, clean layout.
  */
-export function PrecisionCard({
+export function LiaCard({
   title,
   description,
   action,
@@ -283,12 +293,12 @@ export function PrecisionCard({
 }
 
 /**
- * PrecisionTable
+ * LiaTable
  *
  * Data table with Geist Mono for numbers.
  * High contrast, easy to scan, grid-based layout.
  */
-export function PrecisionTable<T extends Record<string, unknown>>({
+export function LiaTable<T extends Record<string, unknown>>({
   title,
   description,
   columns,
@@ -373,11 +383,11 @@ export function PrecisionTable<T extends Record<string, unknown>>({
 }
 
 /**
- * PrecisionEmptyState
+ * LiaEmptyState
  *
  * Empty state with sharp borders and clear messaging.
  */
-export function PrecisionEmptyState({
+export function LiaEmptyState({
   icon,
   title,
   description,
@@ -410,11 +420,11 @@ export function PrecisionEmptyState({
 }
 
 /**
- * PrecisionButton
+ * LiaButton
  *
  * High-contrast button with sharp edges.
  */
-export function PrecisionButton({
+export function LiaButton({
   variant = "primary",
   size = "md",
   children,

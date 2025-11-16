@@ -12,7 +12,7 @@ type BreadcrumbItem = {
 };
 
 /**
- * Breadcrumbs - Precision Dashboard Design
+ * Breadcrumbs - Lia Design System
  *
  * Matches the high-contrast admin dashboard aesthetic:
  * - Geist Sans font with specific weights
@@ -65,8 +65,8 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2">
-        <li>
+      <ol className="m-0 flex list-none items-center gap-2 p-0">
+        <li className="m-0 p-0">
           <Link
             className={cn(
               "flex items-center gap-2 font-normal text-neutral-700 text-xs uppercase tracking-wider transition-colors hover:text-[#FF5200]",
@@ -79,7 +79,7 @@ export function Breadcrumbs() {
           </Link>
         </li>
         {breadcrumbs.map((item, index) => (
-          <li className="flex items-center gap-2" key={index}>
+          <li className="m-0 flex items-center gap-2 p-0" key={index}>
             <HugeiconsIcon
               aria-hidden="true"
               className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400"

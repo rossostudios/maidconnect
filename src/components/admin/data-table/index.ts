@@ -1,25 +1,25 @@
 /**
- * PrecisionDataTable - Universal data table components
+ * LiaDataTable - Universal data table components
  *
  * A comprehensive data table system built on TanStack Table v8 with Lia design.
  *
  * @example
  * ```tsx
- * import { PrecisionDataTable, PrecisionDataTableColumnHeader } from '@/components/admin/data-table';
+ * import { LiaDataTable, LiaDataTableColumnHeader } from '@/components/admin/data-table';
  * import type { ColumnDef } from '@tanstack/react-table';
  *
  * const columns: ColumnDef<User>[] = [
  *   {
  *     accessorKey: 'name',
  *     header: ({ column }) => (
- *       <PrecisionDataTableColumnHeader column={column} title="Name" />
+ *       <LiaDataTableColumnHeader column={column} title="Name" />
  *     ),
  *   },
  * ];
  *
  * function UsersTable() {
  *   return (
- *     <PrecisionDataTable
+ *     <LiaDataTable
  *       columns={columns}
  *       data={users}
  *       enableExport
@@ -31,13 +31,13 @@
  */
 
 // Sub-components
-export { PrecisionDataTableColumnHeader } from "./column-header";
-export { PrecisionDataTableExportMenu } from "./export-menu";
+export { LiaDataTableColumnHeader } from "./column-header";
+export { LiaDataTableExportMenu } from "./export-menu";
 export { useTableExport } from "./hooks/use-table-export";
 // Hooks
 export { useTableState } from "./hooks/use-table-state";
-export { PrecisionDataTablePagination } from "./pagination";
 // Main component
-export { PrecisionDataTable } from "./precision-data-table";
-export { PrecisionDataTableEmptyState } from "./table-empty-state";
-export { PrecisionDataTableSkeleton } from "./table-skeleton";
+export { LiaDataTable } from "./lia-data-table";
+export { LiaDataTablePagination } from "./pagination";
+export { LiaDataTableEmptyState } from "./table-empty-state";
+export { LiaDataTableSkeleton } from "./table-skeleton";

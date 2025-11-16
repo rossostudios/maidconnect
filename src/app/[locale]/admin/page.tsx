@@ -2,7 +2,7 @@ import { Alert01Icon, Calendar03Icon, ClockIcon } from "@hugeicons/core-free-ico
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import { geistMono, geistSans } from "@/app/fonts";
-import { PrecisionButton } from "@/components/admin/precision-dashboard-components";
+import { LiaButton } from "@/components/admin/lia-dashboard-components";
 import { RealtimeStatsPanel } from "@/components/admin/realtime-stats-panel";
 import { UserActivityPanel } from "@/components/admin/user-activity-panel";
 import { Link } from "@/i18n/routing";
@@ -11,7 +11,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
 
 /**
- * Admin Dashboard - Lia Design
+ * Admin Dashboard - Lia Design System
  *
  * Inspired by Bloomberg Terminal + Swiss Design:
  * - Ultra-high contrast for maximum readability (WCAG AAA)
@@ -35,21 +35,30 @@ export default async function AdminHomePage() {
   const userName = profileData?.full_name?.split(" ")[0] || "Admin";
 
   // Fetch critical metrics for action items
-  const [{ count: pendingBookingsCount }, { count: pendingProfessionals }, { count: activeDisputesCount }] =
-    await Promise.all([
-      // Critical: Pending bookings needing approval
-      supabase.from("bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
+  const [
+    { count: pendingBookingsCount },
+    { count: pendingProfessionals },
+    { count: activeDisputesCount },
+  ] = await Promise.all([
+    // Critical: Pending bookings needing approval
+    supabase
+      .from("bookings")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending"),
 
-      // Pending professional reviews
-      supabase
-        .from("profiles")
-        .select("id", { count: "exact", head: true })
-        .eq("role", "professional")
-        .eq("onboarding_status", "pending_review"),
+    // Pending professional reviews
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "professional")
+      .eq("onboarding_status", "pending_review"),
 
-      // Active disputes
-      supabase.from("booking_disputes").select("id", { count: "exact", head: true }).eq("status", "open"),
-    ]);
+    // Active disputes
+    supabase
+      .from("booking_disputes")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "open"),
+  ]);
 
   // Calculate action items count
   const actionItemsCount =
@@ -246,24 +255,24 @@ export default async function AdminHomePage() {
         </h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <Link href="/admin/users">
-            <PrecisionButton className="w-full" size="md" variant="secondary">
+            <LiaButton className="w-full" size="md" variant="secondary">
               Manage Users
-            </PrecisionButton>
+            </LiaButton>
           </Link>
           <Link href="/admin/disputes">
-            <PrecisionButton className="w-full" size="md" variant="secondary">
+            <LiaButton className="w-full" size="md" variant="secondary">
               View Disputes
-            </PrecisionButton>
+            </LiaButton>
           </Link>
           <Link href="/admin/analytics">
-            <PrecisionButton className="w-full" size="md" variant="secondary">
+            <LiaButton className="w-full" size="md" variant="secondary">
               Analytics
-            </PrecisionButton>
+            </LiaButton>
           </Link>
           <Link href="/admin/settings">
-            <PrecisionButton className="w-full" size="md" variant="secondary">
+            <LiaButton className="w-full" size="md" variant="secondary">
               Settings
-            </PrecisionButton>
+            </LiaButton>
           </Link>
         </div>
       </div>

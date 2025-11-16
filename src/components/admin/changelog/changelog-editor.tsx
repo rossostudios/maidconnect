@@ -93,28 +93,72 @@ const audienceOptions = [
   { value: "admin", label: "Admins" },
 ];
 
+type SaveChangelogArgs = {
+  formData: ChangelogFormData;
+  visibility: "draft" | "published";
+  mode: "create" | "edit";
+  changelogId?: string;
+};
+
+async function saveChangelog({ formData, visibility, mode, changelogId }: SaveChangelogArgs) {
+  const tagsArray = formData.tags
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
+  const payload = {
+    ...formData,
+    tags: tagsArray,
+    visibility,
+    published_at: new Date(formData.published_at).toISOString(),
+  };
+
+  const url = mode === "create" ? "/api/admin/changelog" : `/api/admin/changelog/${changelogId}`;
+  const method = mode === "create" ? "POST" : "PATCH";
+
+  const response = await fetch(url, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.error || "Failed to save changelog");
+  }
+}
+
+const buildInitialFormData = (initialData?: Partial<ChangelogFormData>): ChangelogFormData => ({
+  sprint_number: initialData?.sprint_number || 1,
+  title: initialData?.title || "",
+  slug: initialData?.slug || "",
+  summary: initialData?.summary || "",
+  content: initialData?.content || "",
+  published_at: initialData?.published_at
+    ? new Date(initialData.published_at).toISOString().split("T")[0] || ""
+    : new Date().toISOString().split("T")[0] || "",
+  categories: initialData?.categories || [],
+  tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : initialData?.tags || "",
+  target_audience: initialData?.target_audience || ["all"],
+  featured_image_url: initialData?.featured_image_url || "",
+  visibility: initialData?.visibility || "draft",
+});
+
 export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEditorProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<ChangelogFormData>(() =>
+    buildInitialFormData(initialData)
+  );
 
-  const [formData, setFormData] = useState<ChangelogFormData>({
-    sprint_number: initialData?.sprint_number || 1,
-    title: initialData?.title || "",
-    slug: initialData?.slug || "",
-    summary: initialData?.summary || "",
-    content: initialData?.content || "",
-    published_at: initialData?.published_at
-      ? new Date(initialData.published_at).toISOString().split("T")[0] || ""
-      : new Date().toISOString().split("T")[0] || "",
-    categories: initialData?.categories || [],
-    tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : initialData?.tags || "",
-    target_audience: initialData?.target_audience || ["all"],
-    featured_image_url: initialData?.featured_image_url || "",
-    visibility: initialData?.visibility || "draft",
-  });
+  const updateFormData = useCallback((updates: Partial<ChangelogFormData>) => {
+    setFormData((prev) => ({
+      ...prev,
+      ...updates,
+    }));
+  }, []);
 
-  // Auto-generate slug from title
   const generateSlug = useCallback(
     (title: string) =>
       title
@@ -125,11 +169,10 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
   );
 
   const handleTitleChange = (title: string) => {
-    setFormData((prev) => ({
-      ...prev,
+    updateFormData({
       title,
       slug: generateSlug(title),
-    }));
+    });
   };
 
   const handleCategoryToggle = (category: string) => {
@@ -156,36 +199,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
     setSaving(true);
 
     try {
-      // Prepare data
-      const tagsArray = formData.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean);
-
-      const payload = {
-        ...formData,
-        tags: tagsArray,
-        visibility,
-        published_at: new Date(formData.published_at).toISOString(),
-      };
-
-      const url =
-        mode === "create" ? "/api/admin/changelog" : `/api/admin/changelog/${changelogId}`;
-
-      const method = mode === "create" ? "POST" : "PATCH";
-
-      const response = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to save changelog");
-      }
-
-      // Redirect to list or show success
+      await saveChangelog({ formData, visibility, mode, changelogId });
       router.push("/admin/changelog");
       router.refresh();
     } catch (err) {
@@ -204,155 +218,190 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
       )}
 
       <form className="space-y-6">
-        {/* Basic Info */}
-        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-            Basic Information
-          </h3>
+        <BasicInfoSection
+          formData={formData}
+          onChange={updateFormData}
+          onTitleChange={handleTitleChange}
+        />
 
-          <div className="space-y-4">
-            {/* Sprint Number */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="sprint_number"
-              >
-                Sprint Number *
-              </label>
-              <input
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="sprint_number"
-                min="1"
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    sprint_number: Number.parseInt(e.target.value, 10) || 1,
-                  })
-                }
-                required
-                type="number"
-                value={formData.sprint_number}
-              />
-            </div>
+        <ContentSection formData={formData} onChange={updateFormData} />
 
-            {/* Title */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="title"
-              >
-                Title *
-              </label>
-              <input
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="title"
-                onChange={(e) => handleTitleChange(e.target.value)}
-                placeholder="e.g., Enhanced Search and New Dashboard Features"
-                required
-                type="text"
-                value={formData.title}
-              />
-            </div>
+        <CategoriesSection categories={formData.categories} onToggle={handleCategoryToggle} />
 
-            {/* Slug */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="slug"
-              >
-                Slug *
-              </label>
-              <input
-                className="w-full border border-neutral-200 bg-white px-4 py-3 font-mono text-neutral-600 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400 dark:focus:ring-neutral-400/20"
-                id="slug"
-                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                placeholder="auto-generated-from-title"
-                required
-                type="text"
-                value={formData.slug}
-              />
-              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
-                URL-friendly version of the title (auto-generated)
-              </p>
-            </div>
+        <MetadataSection
+          formData={formData}
+          onAudienceToggle={handleAudienceToggle}
+          onChange={updateFormData}
+        />
 
-            {/* Summary */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="summary"
-              >
-                Summary
-              </label>
-              <textarea
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="summary"
-                onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                placeholder="Brief overview of this update (shown in list view)"
-                rows={3}
-                value={formData.summary}
-              />
-            </div>
+        <ActionsSection onCancel={() => router.back()} onSubmit={handleSubmit} saving={saving} />
+      </form>
+    </div>
+  );
+}
 
-            {/* Published Date */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="published_at"
-              >
-                Published Date *
-              </label>
-              <input
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="published_at"
-                onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
-                required
-                type="date"
-                value={formData.published_at}
-              />
-            </div>
+type BasicInfoSectionProps = {
+  formData: ChangelogFormData;
+  onChange: (updates: Partial<ChangelogFormData>) => void;
+  onTitleChange: (title: string) => void;
+};
+
+function BasicInfoSection({ formData, onChange, onTitleChange }: BasicInfoSectionProps) {
+  return (
+    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
+        Basic Information
+      </h3>
+
+      <div className="space-y-4">
+        <LabeledInput
+          id="sprint_number"
+          label="Sprint Number *"
+          onChange={(value) =>
+            onChange({
+              sprint_number: Number.parseInt(value, 10) || 1,
+            })
+          }
+          type="number"
+          value={formData.sprint_number}
+        />
+
+        <LabeledInput
+          id="title"
+          label="Title *"
+          onChange={onTitleChange}
+          placeholder="e.g., Enhanced Search and New Dashboard Features"
+          value={formData.title}
+        />
+
+        <LabeledInput
+          helperText="URL-friendly version of the title (auto-generated)"
+          id="slug"
+          inputClassName="bg-white font-mono text-neutral-600 text-sm dark:bg-neutral-950 dark:text-neutral-400"
+          label="Slug *"
+          onChange={(value) => onChange({ slug: value })}
+          placeholder="auto-generated-from-title"
+          value={formData.slug}
+        />
+
+        <LabeledTextarea
+          id="summary"
+          label="Summary"
+          onChange={(value) => onChange({ summary: value })}
+          placeholder="Brief overview of this update (shown in list view)"
+          value={formData.summary}
+        />
+
+        <LabeledInput
+          id="published_at"
+          label="Published Date *"
+          onChange={(value) => onChange({ published_at: value })}
+          type="date"
+          value={formData.published_at}
+        />
+      </div>
+    </div>
+  );
+}
+
+type ContentSectionProps = {
+  formData: ChangelogFormData;
+  onChange: (updates: Partial<ChangelogFormData>) => void;
+};
+
+function ContentSection({ formData, onChange }: ContentSectionProps) {
+  return (
+    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">Content *</h3>
+
+      <BlockEditor
+        initialContent={formData.content}
+        locale="en"
+        onChange={(markdown) => onChange({ content: markdown })}
+        placeholder="Start writing your changelog content..."
+      />
+
+      <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
+        Use the editor shortcuts: / for block menu, Enter for new block
+      </p>
+    </div>
+  );
+}
+
+type CategoriesSectionProps = {
+  categories: string[];
+  onToggle: (category: string) => void;
+};
+
+function CategoriesSection({ categories, onToggle }: CategoriesSectionProps) {
+  return (
+    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">Categories</h3>
+
+      <div className="flex flex-wrap gap-3">
+        {categoryOptions.map((option) => {
+          const isSelected = categories.includes(option.value);
+
+          return (
+            <button
+              className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
+                isSelected
+                  ? "border-orange-500 bg-orange-500 text-white dark:border-orange-600 dark:bg-orange-600"
+                  : "border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:text-neutral-400 dark:hover:border-orange-400 dark:hover:text-orange-400"
+              }`}
+              key={option.value}
+              onClick={() => onToggle(option.value)}
+              type="button"
+            >
+              <HugeiconsIcon className="h-4 w-4" icon={option.icon} />
+              {option.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+type MetadataSectionProps = {
+  formData: ChangelogFormData;
+  onChange: (updates: Partial<ChangelogFormData>) => void;
+  onAudienceToggle: (audience: string) => void;
+};
+
+function MetadataSection({ formData, onChange, onAudienceToggle }: MetadataSectionProps) {
+  return (
+    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">Metadata</h3>
+
+      <div className="space-y-4">
+        <LabeledInput
+          id="tags"
+          label="Tags"
+          onChange={(value) => onChange({ tags: value })}
+          placeholder="performance, ui, mobile (comma-separated)"
+          value={formData.tags}
+        />
+
+        <div>
+          <div className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400">
+            Target Audience
           </div>
-        </div>
-
-        {/* Content */}
-        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-            Content *
-          </h3>
-
-          <BlockEditor
-            initialContent={formData.content}
-            locale="en"
-            onChange={(markdown) => setFormData({ ...formData, content: markdown })}
-            placeholder="Start writing your changelog content..."
-          />
-
-          <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
-            Use the editor shortcuts: / for block menu, Enter for new block
-          </p>
-        </div>
-
-        {/* Categories */}
-        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-            Categories
-          </h3>
-          <div className="flex flex-wrap gap-3">
-            {categoryOptions.map((option) => {
-              const isSelected = formData.categories.includes(option.value);
+          <div className="flex flex-wrap gap-2">
+            {audienceOptions.map((option) => {
+              const isSelected = formData.target_audience.includes(option.value);
 
               return (
                 <button
-                  className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
+                  className={`border-2 px-3 py-1.5 font-medium text-sm transition ${
                     isSelected
-                      ? "border-orange-500 bg-orange-500 text-white dark:border-orange-600 dark:bg-orange-600"
-                      : "border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:text-neutral-400 dark:hover:border-orange-400 dark:hover:text-orange-400"
+                      ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                      : "border-neutral-200 text-neutral-600 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
                   }`}
                   key={option.value}
-                  onClick={() => handleCategoryToggle(option.value)}
+                  onClick={() => onAudienceToggle(option.value)}
                   type="button"
                 >
-                  <HugeiconsIcon className="h-4 w-4" icon={option.icon} />
                   {option.label}
                 </button>
               );
@@ -360,130 +409,149 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           </div>
         </div>
 
-        {/* Tags & Audience */}
-        <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-            Metadata
-          </h3>
+        <LabeledInput
+          id="featured_image_url"
+          label="Featured Image URL"
+          onChange={(value) => onChange({ featured_image_url: value })}
+          placeholder="https://example.com/image.jpg"
+          type="url"
+          value={formData.featured_image_url}
+        />
+      </div>
+    </div>
+  );
+}
 
-          <div className="space-y-4">
-            {/* Tags */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="tags"
-              >
-                Tags
-              </label>
-              <input
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="tags"
-                onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                placeholder="performance, ui, mobile (comma-separated)"
-                type="text"
-                value={formData.tags}
-              />
-            </div>
+type ActionsSectionProps = {
+  saving: boolean;
+  onCancel: () => void;
+  onSubmit: (e: React.FormEvent, visibility: "draft" | "published") => Promise<void>;
+};
 
-            {/* Target Audience */}
-            <div>
-              <div className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400">
-                Target Audience
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {audienceOptions.map((option) => {
-                  const isSelected = formData.target_audience.includes(option.value);
+function ActionsSection({ saving, onCancel, onSubmit }: ActionsSectionProps) {
+  return (
+    <div className="-2xl flex items-center justify-between gap-4 border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <button
+        className="border border-neutral-200 px-6 py-2.5 font-semibold text-neutral-600 transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
+        disabled={saving}
+        onClick={onCancel}
+        type="button"
+      >
+        Cancel
+      </button>
 
-                  return (
-                    <button
-                      className={`border-2 px-3 py-1.5 font-medium text-sm transition ${
-                        isSelected
-                          ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-                          : "border-neutral-200 text-neutral-600 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
-                      }`}
-                      key={option.value}
-                      onClick={() => handleAudienceToggle(option.value)}
-                      type="button"
-                    >
-                      {option.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+      <div className="flex gap-3">
+        <button
+          className="flex items-center gap-2 rounded-full border-2 border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 transition hover:border-neutral-900 disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
+          disabled={saving}
+          onClick={(e) => onSubmit(e, "draft")}
+          type="button"
+        >
+          {saving ? (
+            <>
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
+              Saving...
+            </>
+          ) : (
+            <>
+              <HugeiconsIcon className="h-4 w-4" icon={FloppyDiskIcon} />
+              Save Draft
+            </>
+          )}
+        </button>
 
-            {/* Featured Image URL */}
-            <div>
-              <label
-                className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
-                htmlFor="featured_image_url"
-              >
-                Featured Image URL
-              </label>
-              <input
-                className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
-                id="featured_image_url"
-                onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
-                placeholder="https://example.com/image.jpg"
-                type="url"
-                value={formData.featured_image_url}
-              />
-            </div>
-          </div>
-        </div>
+        <button
+          className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50 dark:bg-orange-600 dark:hover:bg-orange-700"
+          disabled={saving}
+          onClick={(e) => onSubmit(e, "published")}
+          type="button"
+        >
+          {saving ? (
+            <>
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
+              Publishing...
+            </>
+          ) : (
+            <>
+              <HugeiconsIcon className="h-4 w-4" icon={MagicWand01Icon} />
+              Publish
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
 
-        {/* Actions */}
-        <div className="-2xl flex items-center justify-between gap-4 border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-          <button
-            className="border border-neutral-200 px-6 py-2.5 font-semibold text-neutral-600 transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
-            disabled={saving}
-            onClick={() => router.back()}
-            type="button"
-          >
-            Cancel
-          </button>
+type LabeledInputProps = {
+  id: string;
+  label: string;
+  value: string | number;
+  onChange: (value: string) => void;
+  type?: string;
+  placeholder?: string;
+  helperText?: string;
+  inputClassName?: string;
+};
 
-          <div className="flex gap-3">
-            <button
-              className="flex items-center gap-2 rounded-full border-2 border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 transition hover:border-neutral-900 disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
-              disabled={saving}
-              onClick={(e) => handleSubmit(e, "draft")}
-              type="button"
-            >
-              {saving ? (
-                <>
-                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <HugeiconsIcon className="h-4 w-4" icon={FloppyDiskIcon} />
-                  Save Draft
-                </>
-              )}
-            </button>
+function LabeledInput({
+  id,
+  label,
+  value,
+  onChange,
+  type = "text",
+  placeholder,
+  helperText,
+  inputClassName = "",
+}: LabeledInputProps) {
+  return (
+    <div>
+      <label
+        className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
+        htmlFor={id}
+      >
+        {label}
+      </label>
+      <input
+        className={`w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20 ${inputClassName}`}
+        id={id}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+      {helperText && (
+        <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">{helperText}</p>
+      )}
+    </div>
+  );
+}
 
-            <button
-              className="flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50 dark:bg-orange-600 dark:hover:bg-orange-700"
-              disabled={saving}
-              onClick={(e) => handleSubmit(e, "published")}
-              type="button"
-            >
-              {saving ? (
-                <>
-                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
-                  Publishing...
-                </>
-              ) : (
-                <>
-                  <HugeiconsIcon className="h-4 w-4" icon={MagicWand01Icon} />
-                  Publish
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </form>
+type LabeledTextareaProps = {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+};
+
+function LabeledTextarea({ id, label, value, onChange, placeholder }: LabeledTextareaProps) {
+  return (
+    <div>
+      <label
+        className="mb-2 block font-medium text-orange-600 text-sm dark:text-orange-400"
+        htmlFor={id}
+      >
+        {label}
+      </label>
+      <textarea
+        className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
+        id={id}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        rows={3}
+        value={value}
+      />
     </div>
   );
 }

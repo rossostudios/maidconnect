@@ -3,7 +3,7 @@
 import { LegalDocumentIcon } from "@hugeicons/core-free-icons";
 import type { ColumnDef } from "@tanstack/react-table";
 import { geistMono, geistSans } from "@/app/fonts";
-import { PrecisionDataTable, PrecisionDataTableColumnHeader } from "@/components/admin/data-table";
+import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { cn } from "@/lib/utils";
 
 export type AuditLog = {
@@ -44,7 +44,7 @@ const getActionBadge = (action: string) => {
 const columns: ColumnDef<AuditLog>[] = [
   {
     accessorKey: "created_at",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Date & Time" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Date & Time" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -67,14 +67,14 @@ const columns: ColumnDef<AuditLog>[] = [
   },
   {
     accessorKey: "action_type",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Action" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Action" />,
     cell: ({ row }) => getActionBadge(row.original.action_type),
     enableSorting: true,
     enableColumnFilter: true,
   },
   {
     accessorKey: "admin.full_name",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Admin" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Admin" />,
     cell: ({ row }) => (
       <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
         {row.original.admin.full_name || "Admin"}
@@ -85,7 +85,7 @@ const columns: ColumnDef<AuditLog>[] = [
   },
   {
     accessorKey: "target_user.full_name",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Target User" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Target User" />,
     cell: ({ row }) => {
       const target = row.original.target_user;
       return (
@@ -111,7 +111,7 @@ const columns: ColumnDef<AuditLog>[] = [
   },
   {
     accessorKey: "notes",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Notes" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Notes" />,
     cell: ({ row }) => (
       <p
         className={cn(
@@ -145,7 +145,7 @@ type Props = {
  */
 export function AuditLogsTable({ logs, isLoading }: Props) {
   return (
-    <PrecisionDataTable
+    <LiaDataTable
       columns={columns}
       data={logs}
       emptyStateDescription="Try adjusting your search or filter to find what you're looking for."

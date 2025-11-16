@@ -12,16 +12,16 @@ import {
   type RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { geistMono, geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
-import { PrecisionDataTableExportMenu } from "./export-menu";
+import { LiaDataTableExportMenu } from "./export-menu";
 import { useTableExport } from "./hooks/use-table-export";
 import { useTableState } from "./hooks/use-table-state";
-import { PrecisionDataTablePagination } from "./pagination";
-import { PrecisionDataTableEmptyState } from "./table-empty-state";
-import { PrecisionDataTableSkeleton } from "./table-skeleton";
+import { LiaDataTablePagination } from "./pagination";
+import { LiaDataTableEmptyState } from "./table-empty-state";
+import { LiaDataTableSkeleton } from "./table-skeleton";
 
 type Props<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -41,7 +41,7 @@ type Props<TData, TValue> = {
 };
 
 /**
- * PrecisionDataTable - Universal data table component with Lia design
+ * LiaDataTable - Universal data table component with Lia design
  *
  * Features:
  * - Built on TanStack Table v8
@@ -61,7 +61,7 @@ type Props<TData, TValue> = {
  * - Sharp geometric shapes
  * - Orange (#FF5200) accents
  */
-export function PrecisionDataTable<TData, TValue>({
+export function LiaDataTable<TData, TValue>({
   columns,
   data,
   pageSize = 10,
@@ -127,19 +127,26 @@ export function PrecisionDataTable<TData, TValue>({
   const { exportData, canExport } = useTableExport({ table, filename: exportFilename });
 
   // Notify parent of selection changes
-  if (onRowSelectionChange && enableRowSelection) {
+  useEffect(() => {
+    if (!(onRowSelectionChange && enableRowSelection)) {
+      return;
+    }
+
+    const selectionCount = Object.keys(rowSelection).length;
+    if (selectionCount === 0) {
+      onRowSelectionChange([]);
+      return;
+    }
+
     const selectedRows = table.getFilteredSelectedRowModel().rows.map((row) => row.original);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useState(() => {
-      onRowSelectionChange(selectedRows);
-    });
-  }
+    onRowSelectionChange(selectedRows);
+  }, [enableRowSelection, onRowSelectionChange, rowSelection, table]);
 
   // Loading state
   if (isLoading) {
     return (
       <div className={cn("w-full overflow-hidden border border-neutral-200 bg-white", className)}>
-        <PrecisionDataTableSkeleton columns={columns.length} rows={pageSize} />
+        <LiaDataTableSkeleton columns={columns.length} rows={pageSize} />
         <div className="border-neutral-200 border-t px-6 py-4">
           <div className="h-8 w-64 animate-pulse bg-neutral-200" />
         </div>
@@ -200,9 +207,7 @@ export function PrecisionDataTable<TData, TValue>({
         {/* Right: Actions */}
         <div className="flex items-center gap-2">
           {/* Export menu */}
-          {enableExport && (
-            <PrecisionDataTableExportMenu disabled={!canExport} onExport={exportData} />
-          )}
+          {enableExport && <LiaDataTableExportMenu disabled={!canExport} onExport={exportData} />}
         </div>
       </div>
 
@@ -257,7 +262,7 @@ export function PrecisionDataTable<TData, TValue>({
 
       {/* Empty state */}
       {isEmpty && (
-        <PrecisionDataTableEmptyState
+        <LiaDataTableEmptyState
           action={emptyStateAction}
           description={emptyStateDescription}
           hasFilters={hasFilters}
@@ -268,7 +273,7 @@ export function PrecisionDataTable<TData, TValue>({
       )}
 
       {/* Pagination */}
-      {!isEmpty && <PrecisionDataTablePagination table={table} />}
+      {!isEmpty && <LiaDataTablePagination table={table} />}
     </div>
   );
 }

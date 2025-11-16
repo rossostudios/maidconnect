@@ -2,6 +2,39 @@ import { NextResponse } from "next/server";
 import { analyzeReview } from "@/lib/services/reviews/review-analysis-service";
 import { withAuth } from "@/lib/shared/api/middleware";
 
+type ReviewAnalysisPayload = {
+  reviewText: string;
+  rating?: number;
+  locale: "en" | "es";
+};
+
+const validationError = (message: string, status = 400) =>
+  NextResponse.json({ error: message }, { status });
+
+const validatePayload = (body: any): { payload?: ReviewAnalysisPayload; error?: NextResponse } => {
+  const { reviewText, rating, locale = "en" } = body ?? {};
+
+  if (!reviewText || typeof reviewText !== "string") {
+    return { error: validationError("reviewText is required and must be a string") };
+  }
+
+  if (reviewText.length > 5000) {
+    return { error: validationError("reviewText must be 5000 characters or less") };
+  }
+
+  if (rating !== undefined && (rating < 1 || rating > 5)) {
+    return { error: validationError("rating must be between 1 and 5") };
+  }
+
+  return {
+    payload: {
+      reviewText,
+      rating,
+      locale: locale === "es" ? "es" : "en",
+    },
+  };
+};
+
 /**
  * POST /api/admin/reviews/analyze
  *
@@ -11,7 +44,7 @@ import { withAuth } from "@/lib/shared/api/middleware";
  * @body { reviewText: string, rating?: number, locale?: "en" | "es" }
  * @returns ReviewAnalysis with sentiment, categories, flags, severity, and recommendations
  */
-export async function POST(request: Request) {
+export function POST(request: Request) {
   return withAuth(request, async (user) => {
     // Verify admin role
     if (user.role !== "admin") {
@@ -20,29 +53,13 @@ export async function POST(request: Request) {
 
     try {
       const body = await request.json();
-      const { reviewText, rating, locale = "en" } = body;
-
-      // Validate input
-      if (!reviewText || typeof reviewText !== "string") {
-        return NextResponse.json(
-          { error: "reviewText is required and must be a string" },
-          { status: 400 }
-        );
-      }
-
-      if (reviewText.length > 5000) {
-        return NextResponse.json(
-          { error: "reviewText must be 5000 characters or less" },
-          { status: 400 }
-        );
-      }
-
-      if (rating !== undefined && (rating < 1 || rating > 5)) {
-        return NextResponse.json({ error: "rating must be between 1 and 5" }, { status: 400 });
+      const { error, payload } = validatePayload(body);
+      if (error || !payload) {
+        return error;
       }
 
       // Analyze review using Claude
-      const analysis = await analyzeReview(reviewText, rating, locale as "en" | "es");
+      const analysis = await analyzeReview(payload.reviewText, payload.rating, payload.locale);
 
       return NextResponse.json(analysis);
     } catch (error) {

@@ -50,6 +50,59 @@ type ArticleFormProps = {
   };
 };
 
+type FormState = {
+  categoryId: string;
+  slug: string;
+  titleEn: string;
+  titleEs: string;
+  contentEn: string;
+  contentEs: string;
+};
+
+const buildSlugFromTitle = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const getFormValidationError = ({
+  categoryId,
+  slug,
+  titleEn,
+  titleEs,
+  contentEn,
+  contentEs,
+}: FormState) => {
+  if (!categoryId) {
+    return "Please select a category";
+  }
+  if (!slug) {
+    return "Slug is required";
+  }
+  if (!(titleEn && titleEs)) {
+    return "Title is required in both languages";
+  }
+  if (!(contentEn && contentEs)) {
+    return "Content is required in both languages";
+  }
+  return null;
+};
+
+const getHeaderTitle = (isEditing: boolean) => (isEditing ? "Edit Article" : "Create New Article");
+
+const getHeaderSubtitle = (isEditing: boolean) =>
+  isEditing ? "Update the article content and settings" : "Write a new help center article";
+
+const getSubmitButtonLabel = (isEditing: boolean, submitting: boolean) => {
+  if (submitting) {
+    return "Saving...";
+  }
+  return isEditing ? "Update Article" : "Create Article";
+};
+
+const getSuccessToastMessage = (isEditing: boolean) =>
+  isEditing ? "Article updated successfully" : "Article created successfully";
+
 export function ArticleForm({ categories, article }: ArticleFormProps) {
   const router = useRouter();
   const isEditing = !!article;
@@ -73,12 +126,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
   const handleTitleEnChange = (value: string) => {
     setTitleEn(value);
     if (!isEditing) {
-      // Only auto-generate slug for new articles
-      const autoSlug = value
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-      setSlug(autoSlug);
+      setSlug(buildSlugFromTitle(value));
     }
   };
 
@@ -86,21 +134,17 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
-    if (!categoryId) {
-      toast.error("Please select a category");
-      return;
-    }
-    if (!slug) {
-      toast.error("Slug is required");
-      return;
-    }
-    if (!(titleEn && titleEs)) {
-      toast.error("Title is required in both languages");
-      return;
-    }
-    if (!(contentEn && contentEs)) {
-      toast.error("Content is required in both languages");
+    const validationError = getFormValidationError({
+      categoryId,
+      slug,
+      titleEn,
+      titleEs,
+      contentEn,
+      contentEs,
+    });
+
+    if (validationError) {
+      toast.error(validationError);
       return;
     }
 
@@ -121,11 +165,11 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
       if (isEditing) {
         await updateArticle(article.id, formData);
-        toast.success("Article updated successfully");
       } else {
         await createArticle(formData);
-        toast.success("Article created successfully");
       }
+
+      toast.success(getSuccessToastMessage(isEditing));
 
       router.push("/admin/help-center");
       router.refresh();
@@ -143,13 +187,9 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="mb-2 font-bold text-3xl text-neutral-900 dark:text-neutral-100">
-            {isEditing ? "Edit Article" : "Create New Article"}
+            {getHeaderTitle(isEditing)}
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            {isEditing
-              ? "Update the article content and settings"
-              : "Write a new help center article"}
-          </p>
+          <p className="text-neutral-600 dark:text-neutral-400">{getHeaderSubtitle(isEditing)}</p>
         </div>
 
         <div className="flex gap-3">
@@ -166,7 +206,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             type="submit"
           >
             <HugeiconsIcon className="h-5 w-5" icon={BookOpen01Icon} />
-            {submitting ? "Saving..." : isEditing ? "Update Article" : "Create Article"}
+            {getSubmitButtonLabel(isEditing, submitting)}
           </button>
         </div>
       </div>

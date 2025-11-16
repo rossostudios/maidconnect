@@ -9,7 +9,7 @@
  * Week 2: Route-Level Loading States
  */
 
-import { PrecisionDataTableSkeleton } from "./data-table/table-skeleton";
+import { LiaDataTableSkeleton } from "./data-table/table-skeleton";
 
 export function UserManagementSkeleton() {
   return (
@@ -28,7 +28,7 @@ export function UserManagementSkeleton() {
       </div>
 
       {/* Table Skeleton - 7 columns for user management */}
-      <PrecisionDataTableSkeleton columns={7} rows={10} showHeader />
+      <LiaDataTableSkeleton columns={7} rows={10} showHeader />
     </div>
   );
 }

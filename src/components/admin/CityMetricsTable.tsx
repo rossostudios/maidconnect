@@ -2,7 +2,7 @@
  * CityMetricsTable - City-level analytics table with Lia design
  *
  * Features:
- * - PrecisionDataTable integration (sorting, filtering, export)
+ * - LiaDataTable integration (sorting, filtering, export)
  * - City, Fill Rate, Avg TTFB, Bookings, Professionals columns
  * - Border-only badges for fill rate status (Lia design)
  * - Geist Mono for numeric data (Bloomberg aesthetic)
@@ -17,8 +17,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { geistMono, geistSans } from "@/app/fonts";
 import type { CityMetrics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
-import { PrecisionDataTableColumnHeader } from "./data-table/column-header";
-import { PrecisionDataTable } from "./data-table/precision-data-table";
+import { LiaDataTableColumnHeader } from "./data-table/column-header";
+import { LiaDataTable } from "./data-table/lia-data-table";
 
 type Props = {
   data: CityMetrics[];
@@ -26,7 +26,7 @@ type Props = {
 };
 
 /**
- * Get fill rate badge with border-only design (Precision aesthetic)
+ * Get fill rate badge with border-only design (Lia aesthetic)
  * Uses semantic colors: green (≥70%), yellow (50-69%), red (<50%)
  */
 function getFillRateBadge(fillRate: number) {
@@ -57,7 +57,7 @@ function getFillRateBadge(fillRate: number) {
 const columns: ColumnDef<CityMetrics>[] = [
   {
     accessorKey: "city",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="City" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="City" />,
     cell: ({ row }) => (
       <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
         {row.original.city}
@@ -68,14 +68,14 @@ const columns: ColumnDef<CityMetrics>[] = [
   },
   {
     accessorKey: "fillRate",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Fill Rate" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Fill Rate" />,
     cell: ({ row }) => getFillRateBadge(row.original.fillRate),
     enableSorting: true,
     sortingFn: (rowA, rowB) => rowA.original.fillRate - rowB.original.fillRate,
   },
   {
     accessorKey: "avgTimeToFirstBooking",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Avg. TTFB" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Avg. TTFB" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -91,7 +91,7 @@ const columns: ColumnDef<CityMetrics>[] = [
   },
   {
     accessorKey: "bookingCount",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Bookings" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Bookings" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -104,9 +104,7 @@ const columns: ColumnDef<CityMetrics>[] = [
   },
   {
     accessorKey: "professionalCount",
-    header: ({ column }) => (
-      <PrecisionDataTableColumnHeader column={column} title="Professionals" />
-    ),
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Professionals" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -133,7 +131,7 @@ export function CityMetricsTable({ data, isLoading = false }: Props) {
       </h2>
 
       {/* Table */}
-      <PrecisionDataTable
+      <LiaDataTable
         columns={columns}
         data={data}
         emptyStateDescription="City metrics will appear here once bookings are created."

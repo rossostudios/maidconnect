@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { geistMono, geistSans } from "@/app/fonts";
-import { PrecisionDataTable, PrecisionDataTableColumnHeader } from "@/components/admin/data-table";
+import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -87,7 +87,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: "full_name",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="User" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="User" />,
     cell: ({ row }) => {
       const user = row.original;
       return (
@@ -130,7 +130,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "role",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Role" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Role" />,
     cell: ({ row }) => {
       const role = row.original.role;
       return (
@@ -150,7 +150,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "city",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="City" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="City" />,
     cell: ({ row }) => (
       <p className={cn("font-normal text-neutral-900 text-sm", geistSans.className)}>
         {row.original.city || "—"}
@@ -161,7 +161,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "suspension",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Status" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => getSuspensionBadge(row.original.suspension),
     enableSorting: false,
     filterFn: (row, id, value) => {
@@ -180,7 +180,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "created_at",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Joined" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Joined" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -235,7 +235,7 @@ type Props = {
  */
 export function UserManagementTable({ users, isLoading }: Props) {
   return (
-    <PrecisionDataTable
+    <LiaDataTable
       columns={columns}
       data={users}
       emptyStateDescription="Try adjusting your search or filter to find what you're looking for."

@@ -2,7 +2,7 @@
  * CategoryMetricsTable - Service category analytics table with Lia design
  *
  * Features:
- * - PrecisionDataTable integration (sorting, filtering, export)
+ * - LiaDataTable integration (sorting, filtering, export)
  * - Category, Fill Rate, Bookings, Avg Price columns
  * - Border-only badges for fill rate status (Lia design)
  * - Geist Mono for numeric data (Bloomberg aesthetic)
@@ -17,8 +17,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { geistMono, geistSans } from "@/app/fonts";
 import type { CategoryMetrics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
-import { PrecisionDataTableColumnHeader } from "./data-table/column-header";
-import { PrecisionDataTable } from "./data-table/precision-data-table";
+import { LiaDataTableColumnHeader } from "./data-table/column-header";
+import { LiaDataTable } from "./data-table/lia-data-table";
 
 type Props = {
   data: CategoryMetrics[];
@@ -26,7 +26,7 @@ type Props = {
 };
 
 /**
- * Get fill rate badge with border-only design (Precision aesthetic)
+ * Get fill rate badge with border-only design (Lia aesthetic)
  * Uses semantic colors: green (≥70%), yellow (50-69%), red (<50%)
  */
 function getFillRateBadge(fillRate: number) {
@@ -64,7 +64,7 @@ function formatCategoryName(category: string): string {
 const columns: ColumnDef<CategoryMetrics>[] = [
   {
     accessorKey: "category",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Category" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Category" />,
     cell: ({ row }) => (
       <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
         {formatCategoryName(row.original.category)}
@@ -75,14 +75,14 @@ const columns: ColumnDef<CategoryMetrics>[] = [
   },
   {
     accessorKey: "fillRate",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Fill Rate" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Fill Rate" />,
     cell: ({ row }) => getFillRateBadge(row.original.fillRate),
     enableSorting: true,
     sortingFn: (rowA, rowB) => rowA.original.fillRate - rowB.original.fillRate,
   },
   {
     accessorKey: "bookingCount",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Bookings" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Bookings" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -95,7 +95,7 @@ const columns: ColumnDef<CategoryMetrics>[] = [
   },
   {
     accessorKey: "avgPrice",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Avg. Price" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Avg. Price" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -122,7 +122,7 @@ export function CategoryMetricsTable({ data, isLoading = false }: Props) {
       </h2>
 
       {/* Table */}
-      <PrecisionDataTable
+      <LiaDataTable
         columns={columns}
         data={data}
         emptyStateDescription="Category metrics will appear here once bookings are created."

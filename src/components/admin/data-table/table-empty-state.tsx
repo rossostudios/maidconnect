@@ -16,14 +16,14 @@ type Props = {
 };
 
 /**
- * PrecisionDataTableEmptyState - Empty state for tables
+ * LiaDataTableEmptyState - Empty state for tables
  *
  * Features:
  * - Contextual messaging
  * - Optional CTA button
  * - Filter reset suggestion
  */
-export function PrecisionDataTableEmptyState({
+export function LiaDataTableEmptyState({
   title = "No results found",
   description = "Try adjusting your search or filter to find what you're looking for.",
   icon: Icon = SearchList01Icon,

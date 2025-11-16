@@ -13,7 +13,7 @@ type Props<TData, TValue> = {
 };
 
 /**
- * PrecisionDataTableColumnHeader - Sortable column header with Lia design
+ * LiaDataTableColumnHeader - Sortable column header with Lia design
  *
  * Features:
  * - Click to sort (asc → desc → none)
@@ -21,7 +21,7 @@ type Props<TData, TValue> = {
  * - Hover states
  * - Keyboard accessible
  */
-export function PrecisionDataTableColumnHeader<TData, TValue>({
+export function LiaDataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
@@ -42,15 +42,19 @@ export function PrecisionDataTableColumnHeader<TData, TValue>({
 
   const sorted = column.getIsSorted();
 
+  const getSortAnnouncement = (direction: typeof sorted) => {
+    if (direction === "desc") {
+      return "Sorted descending. Click to sort ascending.";
+    }
+    if (direction === "asc") {
+      return "Sorted ascending. Click to remove sorting.";
+    }
+    return "Not sorted. Click to sort descending.";
+  };
+
   return (
     <button
-      aria-label={
-        sorted === "desc"
-          ? "Sorted descending. Click to sort ascending."
-          : sorted === "asc"
-            ? "Sorted ascending. Click to remove sorting."
-            : "Not sorted. Click to sort descending."
-      }
+      aria-label={getSortAnnouncement(sorted)}
       className={cn(
         "group flex items-center gap-2 border border-transparent bg-white font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-neutral-200 hover:bg-neutral-50",
         geistSans.className,

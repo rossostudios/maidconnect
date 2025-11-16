@@ -4,7 +4,7 @@ import { Alert02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { geistMono, geistSans } from "@/app/fonts";
-import { PrecisionDataTable, PrecisionDataTableColumnHeader } from "@/components/admin/data-table";
+import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -85,7 +85,7 @@ const getStatusBadge = (status: string) => {
 const columns: ColumnDef<Dispute>[] = [
   {
     accessorKey: "dispute_type",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Type" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Type" />,
     cell: ({ row }) => {
       const type = row.original.dispute_type;
       return (
@@ -106,7 +106,7 @@ const columns: ColumnDef<Dispute>[] = [
   },
   {
     accessorKey: "opener.full_name",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Opened By" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Opened By" />,
     cell: ({ row }) => {
       const opener = row.original.opener;
       return (
@@ -130,7 +130,7 @@ const columns: ColumnDef<Dispute>[] = [
   },
   {
     accessorKey: "booking.service_category",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Service" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Service" />,
     cell: ({ row }) => {
       const booking = row.original.booking;
       return (
@@ -144,21 +144,21 @@ const columns: ColumnDef<Dispute>[] = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Status" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => getStatusBadge(row.original.status),
     enableSorting: true,
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "priority",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Priority" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Priority" />,
     cell: ({ row }) => getPriorityBadge(row.original.priority),
     enableSorting: true,
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "created_at",
-    header: ({ column }) => <PrecisionDataTableColumnHeader column={column} title="Date Opened" />,
+    header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Date Opened" />,
     cell: ({ row }) => (
       <p
         className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
@@ -211,7 +211,7 @@ type Props = {
  */
 export function DisputesTable({ disputes, isLoading }: Props) {
   return (
-    <PrecisionDataTable
+    <LiaDataTable
       columns={columns}
       data={disputes}
       emptyStateDescription="Try adjusting your search or filter to find what you're looking for."

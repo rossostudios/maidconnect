@@ -15,14 +15,14 @@ type Props = {
 };
 
 /**
- * PrecisionDataTableExportMenu - Export data menu
+ * LiaDataTableExportMenu - Export data menu
  *
  * Features:
  * - CSV export
  * - JSON export
  * - Dropdown menu
  */
-export function PrecisionDataTableExportMenu({ onExport, disabled = false }: Props) {
+export function LiaDataTableExportMenu({ onExport, disabled = false }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleExport = (format: ExportFormat) => {

@@ -11,7 +11,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { LoadingCamper } from "@/components/ui/loading-camper";
@@ -62,6 +62,183 @@ type BackgroundCheckDashboardData = {
 };
 
 type SortOption = "waiting_time" | "recent" | "provider";
+
+const statusBadgeMap: Record<string, string> = {
+  pending: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
+  clear: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
+  consider: "bg-neutral-900 dark:bg-neutral-100/5 text-white dark:text-neutral-100",
+  suspended: "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100",
+  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400",
+};
+
+const providerBadgeMap: Record<string, string> = {
+  checkr: "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100",
+  truora: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
+  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400",
+};
+
+const getStatusBadge = (status: string) => statusBadgeMap[status] ?? statusBadgeMap.default;
+const getProviderBadge = (provider: string) =>
+  providerBadgeMap[provider.toLowerCase()] ?? providerBadgeMap.default;
+
+type BackgroundCheckCardProps = {
+  check: BackgroundCheckWithProfile;
+  onViewDetails: (check: BackgroundCheckWithProfile) => void;
+};
+
+function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCardProps) {
+  return (
+    <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
+      <CardContent className="p-8">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            {/* Header */}
+            <div className="mb-6 flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-3 dark:bg-neutral-950">
+                  <HugeiconsIcon
+                    className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
+                    icon={UserAccountIcon}
+                  />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+                    {check.professional.full_name || "Unnamed Professional"}
+                  </h4>
+                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                    {check.professional.city && check.professional.country
+                      ? `${check.professional.city}, ${check.professional.country}`
+                      : check.professional.email || "No contact info"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className={`px-3 py-1 font-semibold text-sm ${getStatusBadge(check.status)}`}>
+                  {check.status}
+                </span>
+                <span
+                  className={`px-3 py-1 font-semibold text-sm ${getProviderBadge(check.provider)}`}
+                >
+                  {check.provider}
+                </span>
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <BackgroundCheckStats check={check} />
+
+            {/* Checks Performed Tags */}
+            {check.checksPerformed && check.checksPerformed.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {check.checksPerformed.map((checkType) => (
+                  <span
+                    className="bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
+                    key={checkType}
+                  >
+                    {checkType === "criminal" && "Criminal Background"}
+                    {checkType === "identity" && "Identity Verification"}
+                    {checkType === "disciplinary" && "Disciplinary Records"}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* Criminal Records Warning */}
+            {check.results.criminal && check.results.criminal.records.length > 0 && (
+              <div className="mt-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+                <p className="mb-2 font-semibold text-red-700 text-sm dark:text-red-200">
+                  ⚠ Criminal Records Found
+                </p>
+                <p className="text-red-700 text-sm dark:text-red-200">
+                  {check.results.criminal.records.length} record(s) found. Click "View Details" to
+                  review.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* View Details Button */}
+          <button
+            className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            onClick={() => onViewDetails(check)}
+            type="button"
+          >
+            <HugeiconsIcon className="mr-2 inline h-4 w-4" icon={ViewIcon} />
+            View Details
+          </button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+type BackgroundCheckStatsProps = {
+  check: BackgroundCheckWithProfile;
+};
+
+function BackgroundCheckStats({ check }: BackgroundCheckStatsProps) {
+  return (
+    <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
+      <BackgroundCheckStat
+        icon={TimeScheduleIcon}
+        label="Waiting Time"
+        value={
+          <>
+            {check.daysWaiting}
+            <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
+              days
+            </span>
+          </>
+        }
+      />
+      <BackgroundCheckStat
+        icon={SecurityCheckIcon}
+        label="Checks Performed"
+        value={check.checksPerformed?.length || 0}
+      />
+      <BackgroundCheckStat
+        icon={CheckmarkCircle02Icon}
+        label="Recommendation"
+        value={
+          <span className="font-bold text-red-700 text-sm dark:text-red-200">
+            {check.recommendation === "approved" && "✓ Approved"}
+            {check.recommendation === "review_required" && "⚠ Review Required"}
+            {check.recommendation === "rejected" && "✗ Rejected"}
+          </span>
+        }
+      />
+      <BackgroundCheckStat
+        icon={TimeScheduleIcon}
+        label="Completed"
+        value={
+          <span className="text-red-700 text-sm dark:text-red-200">
+            {check.completedAt ? new Date(check.completedAt).toLocaleDateString() : "Pending"}
+          </span>
+        }
+      />
+    </div>
+  );
+}
+
+type BackgroundCheckStatProps = {
+  icon: typeof TimeScheduleIcon;
+  label: string;
+  value: ReactNode;
+};
+
+function BackgroundCheckStat({ icon, label, value }: BackgroundCheckStatProps) {
+  return (
+    <div>
+      <div className="mb-1 flex items-center gap-2">
+        <HugeiconsIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" icon={icon} />
+        <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+          {label}
+        </span>
+      </div>
+      <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">{value}</p>
+    </div>
+  );
+}
 
 export function BackgroundCheckDashboard() {
   const [data, setData] = useState<BackgroundCheckDashboardData | null>(null);
@@ -187,34 +364,6 @@ export function BackgroundCheckDashboard() {
   };
 
   const activeChecks = getActiveChecks();
-
-  // Helper function to get status badge styling
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
-      case "clear":
-        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
-      case "consider":
-        return "bg-neutral-900 dark:bg-neutral-100/5 text-white dark:text-neutral-100";
-      case "suspended":
-        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
-      default:
-        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
-    }
-  };
-
-  // Helper function to get provider badge color
-  const getProviderBadge = (provider: string) => {
-    switch (provider.toLowerCase()) {
-      case "checkr":
-        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
-      case "truora":
-        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
-      default:
-        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
-    }
-  };
 
   return (
     <div className="space-y-8">
@@ -364,159 +513,11 @@ export function BackgroundCheckDashboard() {
             ) : (
               <div className="space-y-6">
                 {activeChecks.map((check) => (
-                  <Card
-                    className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
+                  <BackgroundCheckCard
+                    check={check}
                     key={check.id}
-                  >
-                    <CardContent className="p-8">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          {/* Header */}
-                          <div className="mb-6 flex items-center gap-4">
-                            <div className="flex items-center gap-3">
-                              <div className="bg-white p-3 dark:bg-neutral-950">
-                                <HugeiconsIcon
-                                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
-                                  icon={UserAccountIcon}
-                                />
-                              </div>
-                              <div>
-                                <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-                                  {check.professional.full_name || "Unnamed Professional"}
-                                </h4>
-                                <p className="text-neutral-600 text-sm dark:text-neutral-400">
-                                  {check.professional.city && check.professional.country
-                                    ? `${check.professional.city}, ${check.professional.country}`
-                                    : check.professional.email || "No contact info"}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <span
-                                className={`px-3 py-1 font-semibold text-sm ${getStatusBadge(check.status)}`}
-                              >
-                                {check.status}
-                              </span>
-                              <span
-                                className={`px-3 py-1 font-semibold text-sm ${getProviderBadge(check.provider)}`}
-                              >
-                                {check.provider}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Stats Grid */}
-                          <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
-                            <div>
-                              <div className="mb-1 flex items-center gap-2">
-                                <HugeiconsIcon
-                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
-                                  icon={TimeScheduleIcon}
-                                />
-                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
-                                  Waiting Time
-                                </span>
-                              </div>
-                              <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-                                {check.daysWaiting}
-                                <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
-                                  days
-                                </span>
-                              </p>
-                            </div>
-
-                            <div>
-                              <div className="mb-1 flex items-center gap-2">
-                                <HugeiconsIcon
-                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
-                                  icon={SecurityCheckIcon}
-                                />
-                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
-                                  Checks Performed
-                                </span>
-                              </div>
-                              <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-                                {check.checksPerformed?.length || 0}
-                              </p>
-                            </div>
-
-                            <div>
-                              <div className="mb-1 flex items-center gap-2">
-                                <HugeiconsIcon
-                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
-                                  icon={CheckmarkCircle02Icon}
-                                />
-                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
-                                  Recommendation
-                                </span>
-                              </div>
-                              <p className="font-bold text-red-700 text-sm dark:text-red-200">
-                                {check.recommendation === "approved" && "✓ Approved"}
-                                {check.recommendation === "review_required" && "⚠ Review Required"}
-                                {check.recommendation === "rejected" && "✗ Rejected"}
-                              </p>
-                            </div>
-
-                            <div>
-                              <div className="mb-1 flex items-center gap-2">
-                                <HugeiconsIcon
-                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
-                                  icon={TimeScheduleIcon}
-                                />
-                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
-                                  Completed
-                                </span>
-                              </div>
-                              <p className="text-red-700 text-sm dark:text-red-200">
-                                {check.completedAt
-                                  ? new Date(check.completedAt).toLocaleDateString()
-                                  : "Pending"}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Checks Performed Tags */}
-                          {check.checksPerformed && check.checksPerformed.length > 0 && (
-                            <div className="flex flex-wrap gap-2">
-                              {check.checksPerformed.map((checkType) => (
-                                <span
-                                  className="bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
-                                  key={checkType}
-                                >
-                                  {checkType === "criminal" && "Criminal Background"}
-                                  {checkType === "identity" && "Identity Verification"}
-                                  {checkType === "disciplinary" && "Disciplinary Records"}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          {/* Criminal Records Warning */}
-                          {check.results.criminal && check.results.criminal.records.length > 0 && (
-                            <div className="mt-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
-                              <p className="mb-2 font-semibold text-red-700 text-sm dark:text-red-200">
-                                ⚠ Criminal Records Found
-                              </p>
-                              <p className="text-red-700 text-sm dark:text-red-200">
-                                {check.results.criminal.records.length} record(s) found. Click "View
-                                Details" to review.
-                              </p>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* View Details Button */}
-                        <button
-                          className="ml-6 bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
-                          onClick={() => setSelectedCheck(check)}
-                          type="button"
-                        >
-                          <HugeiconsIcon className="mr-2 inline h-4 w-4" icon={ViewIcon} />
-                          View Details
-                        </button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                    onViewDetails={setSelectedCheck}
+                  />
                 ))}
               </div>
             )}

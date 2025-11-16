@@ -65,6 +65,192 @@ type CategoryMetrics = {
 
 const COLORS = ["#FF5200", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
 
+const getDaysForRange = (range: "7d" | "30d" | "90d") => {
+  switch (range) {
+    case "7d":
+      return 7;
+    case "30d":
+      return 30;
+    default:
+      return 90;
+  }
+};
+
+const getRangeLabel = (range: "7d" | "30d" | "90d") => {
+  switch (range) {
+    case "7d":
+      return "7 Days";
+    case "30d":
+      return "30 Days";
+    default:
+      return "90 Days";
+  }
+};
+
+const getFillRateTrend = (value: number) => {
+  if (value >= 70) {
+    return "up";
+  }
+  if (value >= 50) {
+    return "neutral";
+  }
+  return "down";
+};
+
+const getFillRateVariant = (value: number) => {
+  if (value >= 70) {
+    return "green";
+  }
+  if (value >= 50) {
+    return "orange";
+  }
+  return "pink";
+};
+
+const getAvgTimeVariant = (value: number) => {
+  if (value <= 7) {
+    return "green";
+  }
+  if (value <= 14) {
+    return "orange";
+  }
+  return "pink";
+};
+
+const getRepeatVariant = (value: number) => {
+  if (value >= 40) {
+    return "green";
+  }
+  if (value >= 25) {
+    return "orange";
+  }
+  return "pink";
+};
+
+const calculateRepeatBookingRate = (bookings: any[] | null | undefined) => {
+  const customerBookingCounts = new Map<string, number>();
+
+  for (const booking of bookings ?? []) {
+    if (booking.customer_id && booking.status !== "cancelled") {
+      customerBookingCounts.set(
+        booking.customer_id,
+        (customerBookingCounts.get(booking.customer_id) || 0) + 1
+      );
+    }
+  }
+
+  const customersWithMultipleBookings = Array.from(customerBookingCounts.values()).filter(
+    (count) => count >= 2
+  ).length;
+  const totalUniqueCustomers = customerBookingCounts.size;
+
+  if (totalUniqueCustomers === 0) {
+    return 0;
+  }
+
+  return (customersWithMultipleBookings / totalUniqueCustomers) * 100;
+};
+
+const calculateActiveProfessionalCount = (bookings: any[] | null | undefined) => {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const activeProfessionalIds = new Set(
+    (bookings ?? [])
+      .filter((b) => new Date(b.created_at) >= thirtyDaysAgo && b.status !== "cancelled")
+      .map((b) => b.professional_id)
+  );
+
+  return activeProfessionalIds.size;
+};
+
+const generateTrendData = (bookings: any[] | null | undefined, days: number, now: Date) => {
+  const trendDataArray: TrendData[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+    const dayBookings = bookings?.filter((b) => {
+      const bookingDate = new Date(b.created_at);
+      return bookingDate.toDateString() === date.toDateString();
+    });
+
+    const dayRevenue =
+      dayBookings
+        ?.filter((b) => b.status !== "cancelled")
+        .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) || 0;
+
+    trendDataArray.push({
+      date: dateStr,
+      bookings: dayBookings?.length || 0,
+      revenue: dayRevenue / 100,
+    });
+  }
+  return trendDataArray;
+};
+
+const computeCityMetrics = (bookings: any[] | null | undefined): CityMetrics[] => {
+  const citiesMap = new Map<
+    string,
+    { total: number; accepted: number; professionals: Set<string>; ttfbDays: number[] }
+  >();
+
+  for (const booking of bookings ?? []) {
+    const city = booking.city || "Unknown";
+    if (!citiesMap.has(city)) {
+      citiesMap.set(city, { total: 0, accepted: 0, professionals: new Set(), ttfbDays: [] });
+    }
+
+    const cityData = citiesMap.get(city)!;
+    cityData.total++;
+    if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
+      cityData.accepted++;
+    }
+    if (booking.professional_id) {
+      cityData.professionals.add(booking.professional_id);
+    }
+  }
+
+  return Array.from(citiesMap.entries())
+    .map(([city, data]) => ({
+      city,
+      fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
+      avgTimeToFirstBooking: 0,
+      bookingCount: data.total,
+      professionalCount: data.professionals.size,
+    }))
+    .sort((a, b) => b.bookingCount - a.bookingCount)
+    .slice(0, 5);
+};
+
+const computeCategoryMetrics = (bookings: any[] | null | undefined) => {
+  const categoriesMap = new Map<string, { total: number; accepted: number; totalAmount: number }>();
+
+  for (const booking of bookings ?? []) {
+    const category = booking.service_category || "Unknown";
+    if (!categoriesMap.has(category)) {
+      categoriesMap.set(category, { total: 0, accepted: 0, totalAmount: 0 });
+    }
+
+    const categoryData = categoriesMap.get(category)!;
+    categoryData.total++;
+    if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
+      categoryData.accepted++;
+      categoryData.totalAmount += booking.amount_estimated || 0;
+    }
+  }
+
+  return Array.from(categoriesMap.entries())
+    .map(([category, data]) => ({
+      category: category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+      fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
+      bookingCount: data.total,
+      avgPrice: data.accepted > 0 ? data.totalAmount / data.accepted : 0,
+    }))
+    .sort((a, b) => b.bookingCount - a.bookingCount);
+};
+
 export function EnhancedAnalyticsDashboard() {
   const [metrics, setMetrics] = useState<AnalyticsMetrics | null>(null);
   const [trendData, setTrendData] = useState<TrendData[]>([]);
@@ -81,7 +267,7 @@ export function EnhancedAnalyticsDashboard() {
       // Calculate date range
       const now = new Date();
       const startDate = new Date(now);
-      const days = selectedTimeRange === "7d" ? 7 : selectedTimeRange === "30d" ? 30 : 90;
+      const days = getDaysForRange(selectedTimeRange);
       startDate.setDate(startDate.getDate() - days);
 
       // Fetch bookings
@@ -137,39 +323,16 @@ export function EnhancedAnalyticsDashboard() {
 
           return daysDiff >= 0 ? daysDiff : null;
         })
-        .filter((days): days is number => days !== null);
+        .filter((dayValue): dayValue is number => dayValue !== null);
 
       const avgTimeToFirstBooking =
         proFirstBookings && proFirstBookings.length > 0
-          ? proFirstBookings.reduce((sum, days) => sum + days, 0) / proFirstBookings.length
+          ? proFirstBookings.reduce((sum, dayValue) => sum + dayValue, 0) / proFirstBookings.length
           : 0;
 
       // Calculate repeat booking rate
-      const customerBookingCounts = new Map<string, number>();
-      bookings?.forEach((booking) => {
-        if (booking.customer_id && booking.status !== "cancelled") {
-          customerBookingCounts.set(
-            booking.customer_id,
-            (customerBookingCounts.get(booking.customer_id) || 0) + 1
-          );
-        }
-      });
-
-      const customersWithMultipleBookings = Array.from(customerBookingCounts.values()).filter(
-        (count) => count >= 2
-      ).length;
-      const totalUniqueCustomers = customerBookingCounts.size;
-      const repeatBookingRate =
-        totalUniqueCustomers > 0 ? (customersWithMultipleBookings / totalUniqueCustomers) * 100 : 0;
-
-      // Calculate active professionals
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      const activeProfessionalIds = new Set(
-        bookings
-          ?.filter((b) => new Date(b.created_at) >= thirtyDaysAgo && b.status !== "cancelled")
-          .map((b) => b.professional_id)
-      );
+      const repeatBookingRate = calculateRepeatBookingRate(bookings);
+      const activeProfessionalCount = calculateActiveProfessionalCount(bookings);
 
       setMetrics({
         fillRate,
@@ -178,100 +341,12 @@ export function EnhancedAnalyticsDashboard() {
         totalBookings,
         totalProfessionals: professionals?.length || 0,
         totalCustomers: customers?.length || 0,
-        activeProfessionals: activeProfessionalIds.size,
+        activeProfessionals: activeProfessionalCount,
       });
 
-      // Generate trend data (last N days)
-      const trendDays = days;
-      const trendDataArray: TrendData[] = [];
-      for (let i = trendDays - 1; i >= 0; i--) {
-        const date = new Date(now);
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-        const dayBookings = bookings?.filter((b) => {
-          const bookingDate = new Date(b.created_at);
-          return bookingDate.toDateString() === date.toDateString();
-        });
-
-        const dayRevenue =
-          dayBookings
-            ?.filter((b) => b.status !== "cancelled")
-            .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) || 0;
-
-        trendDataArray.push({
-          date: dateStr,
-          bookings: dayBookings?.length || 0,
-          revenue: dayRevenue / 100, // Convert to dollars
-        });
-      }
-      setTrendData(trendDataArray);
-
-      // Calculate city metrics
-      const citiesMap = new Map<
-        string,
-        { total: number; accepted: number; professionals: Set<string>; ttfbDays: number[] }
-      >();
-
-      bookings?.forEach((booking) => {
-        const city = booking.city || "Unknown";
-        if (!citiesMap.has(city)) {
-          citiesMap.set(city, { total: 0, accepted: 0, professionals: new Set(), ttfbDays: [] });
-        }
-
-        const cityData = citiesMap.get(city)!;
-        cityData.total++;
-        if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-          cityData.accepted++;
-        }
-        if (booking.professional_id) {
-          cityData.professionals.add(booking.professional_id);
-        }
-      });
-
-      const cityMetricsArray = Array.from(citiesMap.entries())
-        .map(([city, data]) => ({
-          city,
-          fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-          avgTimeToFirstBooking: 0,
-          bookingCount: data.total,
-          professionalCount: data.professionals.size,
-        }))
-        .sort((a, b) => b.bookingCount - a.bookingCount)
-        .slice(0, 5); // Top 5 cities
-
-      setCityMetrics(cityMetricsArray);
-
-      // Calculate category metrics
-      const categoriesMap = new Map<
-        string,
-        { total: number; accepted: number; totalAmount: number }
-      >();
-
-      bookings?.forEach((booking) => {
-        const category = booking.service_category || "Unknown";
-        if (!categoriesMap.has(category)) {
-          categoriesMap.set(category, { total: 0, accepted: 0, totalAmount: 0 });
-        }
-
-        const categoryData = categoriesMap.get(category)!;
-        categoryData.total++;
-        if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-          categoryData.accepted++;
-          categoryData.totalAmount += booking.amount_estimated || 0;
-        }
-      });
-
-      const categoryMetricsArray = Array.from(categoriesMap.entries())
-        .map(([category, data]) => ({
-          category: category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-          fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-          bookingCount: data.total,
-          avgPrice: data.accepted > 0 ? data.totalAmount / data.accepted : 0,
-        }))
-        .sort((a, b) => b.bookingCount - a.bookingCount);
-
-      setCategoryMetrics(categoryMetricsArray);
+      setTrendData(generateTrendData(bookings, days, now));
+      setCityMetrics(computeCityMetrics(bookings));
+      setCategoryMetrics(computeCategoryMetrics(bookings));
     } catch (error) {
       console.error("Failed to load analytics:", error);
     } finally {
@@ -304,8 +379,9 @@ export function EnhancedAnalyticsDashboard() {
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
+            type="button"
           >
-            {range === "7d" ? "7 Days" : range === "30d" ? "30 Days" : "90 Days"}
+            {getRangeLabel(range)}
           </button>
         ))}
       </div>
@@ -316,36 +392,24 @@ export function EnhancedAnalyticsDashboard() {
           description="Booking requests accepted"
           icon={Analytics01Icon}
           title="Fill Rate"
-          trend={metrics.fillRate >= 70 ? "up" : metrics.fillRate >= 50 ? "neutral" : "down"}
+          trend={getFillRateTrend(metrics.fillRate)}
           trendValue={`${metrics.fillRate.toFixed(0)}%`}
           value={`${metrics.fillRate.toFixed(1)}%`}
-          variant={metrics.fillRate >= 70 ? "green" : metrics.fillRate >= 50 ? "orange" : "pink"}
+          variant={getFillRateVariant(metrics.fillRate)}
         />
         <MetricCard
           description="Days (avg. professional)"
           icon={TimeScheduleIcon}
           title="Time to First Booking"
           value={`${metrics.avgTimeToFirstBooking.toFixed(1)}`}
-          variant={
-            metrics.avgTimeToFirstBooking <= 7
-              ? "green"
-              : metrics.avgTimeToFirstBooking <= 14
-                ? "orange"
-                : "pink"
-          }
+          variant={getAvgTimeVariant(metrics.avgTimeToFirstBooking)}
         />
         <MetricCard
           description="Customers with 2+ bookings"
           icon={RepeatIcon}
           title="Repeat Booking Rate"
           value={`${metrics.repeatBookingRate.toFixed(1)}%`}
-          variant={
-            metrics.repeatBookingRate >= 40
-              ? "green"
-              : metrics.repeatBookingRate >= 25
-                ? "orange"
-                : "pink"
-          }
+          variant={getRepeatVariant(metrics.repeatBookingRate)}
         />
         <MetricCard
           description="With bookings (30 days)"

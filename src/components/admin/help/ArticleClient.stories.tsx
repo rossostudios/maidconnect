@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
-import { ArticleListClient } from "./ArticleClient";
+import { ArticleListClient } from "./article-list-client";
 
 const meta = {
   title: "Admin/Article List Client",

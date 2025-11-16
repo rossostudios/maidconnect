@@ -104,49 +104,17 @@ export function useTableState(options: UseTableStateOptions = {}) {
     }
   });
 
-  // Sync table state to URL
-  useEffect(() => {
+  const syncUrlParams = useCallback(() => {
     if (!enableUrlSync) {
       return;
     }
 
     const params = new URLSearchParams(searchParams);
 
-    // Pagination
-    if (pagination.pageIndex > 0) {
-      params.set("page", String(pagination.pageIndex + 1));
-    } else {
-      params.delete("page");
-    }
-
-    if (pagination.pageSize !== pageSize) {
-      params.set("pageSize", String(pagination.pageSize));
-    } else {
-      params.delete("pageSize");
-    }
-
-    // Sorting
-    if (sorting.length > 0) {
-      params.set("sortBy", sorting[0]!.id);
-      params.set("sortOrder", sorting[0]!.desc ? "desc" : "asc");
-    } else {
-      params.delete("sortBy");
-      params.delete("sortOrder");
-    }
-
-    // Filters
-    if (columnFilters.length > 0) {
-      params.set("filters", encodeURIComponent(JSON.stringify(columnFilters)));
-    } else {
-      params.delete("filters");
-    }
-
-    // Global search
-    if (globalFilter) {
-      params.set("search", globalFilter);
-    } else {
-      params.delete("search");
-    }
+    updatePaginationParams(params, pagination, pageSize);
+    updateSortingParams(params, sorting);
+    updateFilterParams(params, columnFilters);
+    updateSearchParam(params, globalFilter);
 
     // Update URL without navigation
     const newUrl = `${pathname}?${params.toString()}`;
@@ -154,16 +122,21 @@ export function useTableState(options: UseTableStateOptions = {}) {
       router.replace(newUrl, { scroll: false });
     }
   }, [
-    pagination,
-    sorting,
     columnFilters,
+    enableUrlSync,
     globalFilter,
+    pageSize,
+    pagination,
     pathname,
     router,
     searchParams,
-    enableUrlSync,
-    pageSize,
+    sorting,
   ]);
+
+  // Sync table state to URL
+  useEffect(() => {
+    syncUrlParams();
+  }, [syncUrlParams]);
 
   // Persist column visibility to local storage
   useEffect(() => {
@@ -219,3 +192,47 @@ export function useTableState(options: UseTableStateOptions = {}) {
     hasSorting: sorting.length > 0,
   };
 }
+
+const updatePaginationParams = (
+  params: URLSearchParams,
+  pagination: PaginationState,
+  defaultPageSize: number
+) => {
+  if (pagination.pageIndex > 0) {
+    params.set("page", String(pagination.pageIndex + 1));
+  } else {
+    params.delete("page");
+  }
+
+  if (pagination.pageSize !== defaultPageSize) {
+    params.set("pageSize", String(pagination.pageSize));
+  } else {
+    params.delete("pageSize");
+  }
+};
+
+const updateSortingParams = (params: URLSearchParams, sorting: SortingState) => {
+  if (sorting.length > 0) {
+    params.set("sortBy", sorting[0]!.id);
+    params.set("sortOrder", sorting[0]!.desc ? "desc" : "asc");
+  } else {
+    params.delete("sortBy");
+    params.delete("sortOrder");
+  }
+};
+
+const updateFilterParams = (params: URLSearchParams, columnFilters: ColumnFiltersState) => {
+  if (columnFilters.length > 0) {
+    params.set("filters", encodeURIComponent(JSON.stringify(columnFilters)));
+  } else {
+    params.delete("filters");
+  }
+};
+
+const updateSearchParam = (params: URLSearchParams, globalFilter: string) => {
+  if (globalFilter) {
+    params.set("search", globalFilter);
+  } else {
+    params.delete("search");
+  }
+};

@@ -10,7 +10,7 @@ import { withAuth } from "@/lib/shared/api/middleware";
  * @auth Admin only
  * @returns Array of pending reviews with professional and customer info
  */
-export async function GET(request: Request) {
+export function GET(request: Request) {
   return withAuth(request, async (user) => {
     // Verify admin role
     if (user.role !== "admin") {

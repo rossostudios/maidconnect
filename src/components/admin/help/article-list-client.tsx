@@ -13,9 +13,10 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { deleteHelpArticle, toggleArticlePublished } from "@/app/actions/help-articles-actions";
+import { confirm as showConfirm } from "@/lib/toast";
 
 type Article = {
   id: string;
@@ -38,6 +39,82 @@ type ArticleListClientProps = {
   locale: "en" | "es";
 };
 
+type DeleteArticleArgs = {
+  articleId: string;
+  locale: "en" | "es";
+  router: ReturnType<typeof useRouter>;
+};
+
+type ToggleArticleArgs = {
+  articleId: string;
+  isPublished: boolean;
+  locale: "en" | "es";
+  router: ReturnType<typeof useRouter>;
+};
+
+const deleteArticleWithToast = async ({ articleId, locale, router }: DeleteArticleArgs) => {
+  try {
+    const result = await deleteHelpArticle(articleId);
+
+    if (result.success) {
+      toast.success(locale === "es" ? "Artículo eliminado" : "Article deleted");
+      router.refresh();
+      return;
+    }
+
+    toast.error(result.error ?? (locale === "es" ? "Error al eliminar" : "Failed to delete"));
+  } catch (error) {
+    console.error("[Delete Error]", error);
+    toast.error(locale === "es" ? "Error al eliminar artículo" : "Failed to delete article");
+  }
+};
+
+const toggleArticleWithToast = async ({
+  articleId,
+  isPublished,
+  locale,
+  router,
+}: ToggleArticleArgs) => {
+  try {
+    const result = await toggleArticlePublished(articleId, !isPublished);
+
+    if (result.success) {
+      toast.success(getToggleToastMessage(locale, isPublished));
+      router.refresh();
+      return;
+    }
+
+    toast.error(result.error ?? (locale === "es" ? "Error al actualizar" : "Failed to update"));
+  } catch (error) {
+    console.error("[Toggle Published Error]", error);
+    toast.error(locale === "es" ? "Error al actualizar estado" : "Failed to update status");
+  }
+};
+
+const getDeleteConfirmMessage = (locale: "en" | "es", title: string) =>
+  locale === "es"
+    ? `¿Eliminar "${title}"? Esta acción no se puede deshacer.`
+    : `Delete "${title}"? This action cannot be undone.`;
+
+const getToggleToastMessage = (locale: "en" | "es", wasPublished: boolean) => {
+  if (wasPublished) {
+    return locale === "es" ? "Artículo despublicado" : "Article unpublished";
+  }
+  return locale === "es" ? "Artículo publicado" : "Article published";
+};
+
+const getStatusLabel = (locale: "en" | "es", isPublished: boolean) => {
+  if (isPublished) {
+    return locale === "es" ? "Publicado" : "Published";
+  }
+  return locale === "es" ? "Borrador" : "Draft";
+};
+
+const getStatusButtonClasses = (isPublished: boolean) =>
+  isPublished
+    ? "bg-neutral-100 text-neutral-900 hover:bg-neutral-900 dark:bg-neutral-100/10 dark:bg-neutral-800 dark:text-neutral-100"
+    : "bg-[neutral-200]/30 text-neutral-600 hover:bg-[neutral-200] dark:text-neutral-400";
+
 export function ArticleListClient({ articles, locale }: ArticleListClientProps) {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -45,72 +122,49 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const handleDelete = async (article: Article) => {
-    const confirmed = confirm(
-      locale === "es"
-        ? `¿Eliminar "${article.title}"? Esta acción no se puede deshacer.`
-        : `Delete "${article.title}"? This action cannot be undone.`
-    );
+  const formatDate = useCallback(
+    (dateString: string) => {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat(locale, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }).format(date);
+    },
+    [locale]
+  );
 
-    if (!confirmed) {
-      return;
-    }
+  const handleDelete = useCallback(
+    async (article: Article) => {
+      const confirmed = await showConfirm(
+        getDeleteConfirmMessage(locale, article.title),
+        locale === "es" ? "Confirmar" : "Confirm"
+      );
 
-    setDeletingId(article.id);
-
-    try {
-      const result = await deleteHelpArticle(article.id);
-
-      if (result.success) {
-        toast.success(locale === "es" ? "Artículo eliminado" : "Article deleted");
-        router.refresh();
-      } else {
-        toast.error(result.error ?? (locale === "es" ? "Error al eliminar" : "Failed to delete"));
+      if (!confirmed) {
+        return;
       }
-    } catch (error) {
-      console.error("[Delete Error]", error);
-      toast.error(locale === "es" ? "Error al eliminar artículo" : "Failed to delete article");
-    } finally {
+
+      setDeletingId(article.id);
+      await deleteArticleWithToast({ articleId: article.id, locale, router });
       setDeletingId(null);
-    }
-  };
+    },
+    [locale, router]
+  );
 
-  const handleTogglePublished = async (article: Article) => {
-    setTogglingId(article.id);
-
-    try {
-      const result = await toggleArticlePublished(article.id, !article.is_published);
-
-      if (result.success) {
-        toast.success(
-          article.is_published
-            ? locale === "es"
-              ? "Artículo despublicado"
-              : "Article unpublished"
-            : locale === "es"
-              ? "Artículo publicado"
-              : "Article published"
-        );
-        router.refresh();
-      } else {
-        toast.error(result.error ?? (locale === "es" ? "Error al actualizar" : "Failed to update"));
-      }
-    } catch (error) {
-      console.error("[Toggle Published Error]", error);
-      toast.error(locale === "es" ? "Error al actualizar estado" : "Failed to update status");
-    } finally {
+  const handleTogglePublished = useCallback(
+    async (article: Article) => {
+      setTogglingId(article.id);
+      await toggleArticleWithToast({
+        articleId: article.id,
+        isPublished: article.is_published,
+        locale,
+        router,
+      });
       setTogglingId(null);
-    }
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    }).format(date);
-  };
+    },
+    [locale, router]
+  );
 
   const columns = useMemo<ColumnDef<Article>[]>(
     () => [
@@ -142,11 +196,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         header: locale === "es" ? "Estado" : "Status",
         cell: ({ row }) => (
           <button
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium text-xs transition ${
-              row.original.is_published
-                ? "bg-neutral-100 text-neutral-900 hover:bg-neutral-900 dark:bg-neutral-100/10 dark:bg-neutral-800 dark:text-neutral-100"
-                : "bg-[neutral-200]/30 text-neutral-600 hover:bg-[neutral-200] dark:text-neutral-400"
-            }`}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium text-xs transition ${getStatusButtonClasses(row.original.is_published)}`}
             disabled={togglingId === row.original.id}
             onClick={() => handleTogglePublished(row.original)}
             type="button"
@@ -157,13 +207,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
             />
             {togglingId === row.original.id
               ? "..."
-              : row.original.is_published
-                ? locale === "es"
-                  ? "Publicado"
-                  : "Published"
-                : locale === "es"
-                  ? "Borrador"
-                  : "Draft"}
+              : getStatusLabel(locale, row.original.is_published)}
           </button>
         ),
         enableSorting: true,
@@ -315,13 +359,15 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
                     key={header.id}
                   >
                     {header.isPlaceholder ? null : (
-                      <div
+                      <button
                         className={
                           header.column.getCanSort()
                             ? "flex cursor-pointer select-none items-center gap-2 hover:text-neutral-900 dark:text-neutral-100"
                             : ""
                         }
+                        disabled={!header.column.getCanSort()}
                         onClick={header.column.getToggleSortingHandler()}
+                        type="button"
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {header.column.getCanSort() && (
@@ -332,7 +378,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
                             }[header.column.getIsSorted() as string] ?? "↕"}
                           </span>
                         )}
-                      </div>
+                      </button>
                     )}
                   </th>
                 ))}

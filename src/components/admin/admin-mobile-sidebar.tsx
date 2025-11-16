@@ -4,14 +4,15 @@ import { Cancel01Icon, MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { Backdrop } from "@/components/ui/backdrop";
-import { PrecisionAdminSidebar } from "./precision-admin-sidebar";
+import { LiaAdminSidebar } from "./lia-admin-sidebar";
 
 type Props = {
   userEmail?: string;
   userName?: string;
+  userAvatarUrl?: string;
 };
 
-export function AdminMobileSidebar({ userEmail, userName }: Props) {
+export function AdminMobileSidebar({ userEmail, userName, userAvatarUrl }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Prevent body scroll when drawer is open
@@ -65,7 +66,11 @@ export function AdminMobileSidebar({ userEmail, userName }: Props) {
           </button>
 
           {/* Sidebar Content */}
-          <PrecisionAdminSidebar userEmail={userEmail} userName={userName} />
+          <LiaAdminSidebar
+            userAvatarUrl={userAvatarUrl}
+            userEmail={userEmail}
+            userName={userName}
+          />
         </div>
       </div>
     </>

@@ -84,11 +84,11 @@ export function useTableExport<TData>({ filename = "data", table }: UseTableExpo
     const data = table.getFilteredRowModel().rows.map((row) => {
       const obj: Record<string, unknown> = {};
 
-      visibleColumns.forEach((col) => {
+      for (const col of visibleColumns) {
         const header = col.columnDef.header;
         const key = typeof header === "string" ? header : col.id;
         obj[key] = row.getValue(col.id);
-      });
+      }
 
       return obj;
     });

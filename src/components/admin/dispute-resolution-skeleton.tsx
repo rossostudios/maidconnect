@@ -9,7 +9,7 @@
  * Week 2: Route-Level Loading States
  */
 
-import { PrecisionDataTableSkeleton } from "./data-table/table-skeleton";
+import { LiaDataTableSkeleton } from "./data-table/table-skeleton";
 
 export function DisputeResolutionSkeleton() {
   return (
@@ -28,7 +28,7 @@ export function DisputeResolutionSkeleton() {
       </div>
 
       {/* Table Skeleton - 6 columns for dispute management */}
-      <PrecisionDataTableSkeleton columns={6} rows={10} showHeader />
+      <LiaDataTableSkeleton columns={6} rows={10} showHeader />
     </div>
   );
 }

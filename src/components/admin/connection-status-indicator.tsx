@@ -14,7 +14,7 @@
 
 import { Loading03Icon, Wifi01Icon, WifiOff02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import { geistMono, geistSans } from "@/app/fonts";
 import {
   type ConnectionHealth,
@@ -40,161 +40,134 @@ type ConnectionStatusIndicatorProps = {
 /**
  * Get status color and icon
  */
-function getStatusInfo(state: ConnectionState): {
-  color: string;
-  bgColor: string;
-  icon: typeof Wifi01Icon;
-  label: string;
-} {
-  switch (state) {
-    case "connected":
-      return {
-        color: "text-green-600",
-        bgColor: "bg-green-500",
-        icon: Wifi01Icon,
-        label: "Connected",
-      };
-    case "connecting":
-      return {
-        color: "text-blue-600",
-        bgColor: "bg-blue-500",
-        icon: Loading03Icon,
-        label: "Connecting...",
-      };
-    case "reconnecting":
-      return {
-        color: "text-orange-600",
-        bgColor: "bg-[#FF5200]",
-        icon: Loading03Icon,
-        label: "Reconnecting...",
-      };
-    case "disconnected":
-      return {
-        color: "text-neutral-500",
-        bgColor: "bg-neutral-400",
-        icon: WifiOff02Icon,
-        label: "Disconnected",
-      };
-    case "error":
-      return {
-        color: "text-red-600",
-        bgColor: "bg-red-500",
-        icon: WifiOff02Icon,
-        label: "Connection Error",
-      };
+const statusInfoMap: Record<
+  ConnectionState,
+  {
+    color: string;
+    bgColor: string;
+    icon: typeof Wifi01Icon;
+    label: string;
   }
+> = {
+  connected: {
+    color: "text-green-600",
+    bgColor: "bg-green-500",
+    icon: Wifi01Icon,
+    label: "Connected",
+  },
+  connecting: {
+    color: "text-blue-600",
+    bgColor: "bg-blue-500",
+    icon: Loading03Icon,
+    label: "Connecting...",
+  },
+  reconnecting: {
+    color: "text-orange-600",
+    bgColor: "bg-[#FF5200]",
+    icon: Loading03Icon,
+    label: "Reconnecting...",
+  },
+  disconnected: {
+    color: "text-neutral-500",
+    bgColor: "bg-neutral-400",
+    icon: WifiOff02Icon,
+    label: "Disconnected",
+  },
+  error: {
+    color: "text-red-600",
+    bgColor: "bg-red-500",
+    icon: WifiOff02Icon,
+    label: "Connection Error",
+  },
+};
+
+function getStatusInfo(state: ConnectionState) {
+  return statusInfoMap[state] ?? statusInfoMap.disconnected;
 }
 
-/**
- * Connection status indicator
- *
- * @example
- * ```tsx
- * // Compact mode (icon only) in header
- * <ConnectionStatusIndicator compact />
- *
- * // Full mode with details
- * <ConnectionStatusIndicator showDetails />
- * ```
- */
-export function ConnectionStatusIndicator({
-  showDetails = false,
-  compact = false,
-}: ConnectionStatusIndicatorProps) {
-  const [health, setHealth] = useState<ConnectionHealth | null>(null);
-  const [showTooltip, setShowTooltip] = useState(false);
+type ConnectionStatusCompactProps = {
+  health: ConnectionHealth;
+  statusInfo: ReturnType<typeof getStatusInfo>;
+  showTooltip: boolean;
+  setShowTooltip: Dispatch<SetStateAction<boolean>>;
+};
 
-  useEffect(() => {
-    const manager = getConnectionManager();
-
-    // Subscribe to connection changes
-    const unsubscribe = manager.onConnectionChange((newHealth) => {
-      setHealth(newHealth);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  if (!health) {
-    return null;
-  }
-
-  const statusInfo = getStatusInfo(health.state);
-
-  // Compact mode - icon only
-  if (compact) {
-    return (
-      <div
-        className="relative"
+function ConnectionStatusCompact({
+  health,
+  statusInfo,
+  showTooltip,
+  setShowTooltip,
+}: ConnectionStatusCompactProps) {
+  return (
+    <div className="relative">
+      <button
+        aria-label={`Connection status: ${statusInfo.label}`}
+        className="group relative flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white transition-all hover:border-[#FF5200] hover:bg-orange-50"
+        onBlur={() => setShowTooltip(false)}
+        onFocus={() => setShowTooltip(true)}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
+        type="button"
       >
-        <button
-          aria-label={`Connection status: ${statusInfo.label}`}
-          className="group relative flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white transition-all hover:border-[#FF5200] hover:bg-orange-50"
-          type="button"
-        >
-          <HugeiconsIcon
+        <HugeiconsIcon
+          className={cn(
+            "h-5 w-5 transition-colors",
+            statusInfo.color,
+            (health.state === "connecting" || health.state === "reconnecting") && "animate-spin"
+          )}
+          icon={statusInfo.icon}
+        />
+
+        {/* Status Indicator Dot */}
+        <span
+          className={cn(
+            "-right-1 -top-1 absolute h-3 w-3 border-2 border-white",
+            statusInfo.bgColor,
+            health.state === "connected" && "animate-pulse"
+          )}
+        />
+      </button>
+
+      {/* Tooltip */}
+      {showTooltip && (
+        <div className="absolute top-full right-0 z-50 mt-2 w-48 border border-neutral-200 bg-white p-3 shadow-lg">
+          <p
             className={cn(
-              "h-5 w-5 transition-colors",
+              "font-semibold text-xs uppercase tracking-wider",
               statusInfo.color,
-              (health.state === "connecting" || health.state === "reconnecting") && "animate-spin"
+              geistSans.className
             )}
-            icon={statusInfo.icon}
-          />
-
-          {/* Status Indicator Dot */}
-          <span
-            className={cn(
-              "-right-1 -top-1 absolute h-3 w-3 border-2 border-white",
-              statusInfo.bgColor,
-              health.state === "connected" && "animate-pulse"
-            )}
-          />
-        </button>
-
-        {/* Tooltip */}
-        {showTooltip && (
-          <div className="absolute top-full right-0 z-50 mt-2 w-48 border border-neutral-200 bg-white p-3 shadow-lg">
+          >
+            {statusInfo.label}
+          </p>
+          {health.subscriptionCount > 0 && (
             <p
-              className={cn(
-                "font-semibold text-xs uppercase tracking-wider",
-                statusInfo.color,
-                geistSans.className
-              )}
+              className={cn("mt-1 text-[10px] text-neutral-600 tracking-wide", geistMono.className)}
             >
-              {statusInfo.label}
+              {health.subscriptionCount} active{" "}
+              {health.subscriptionCount === 1 ? "subscription" : "subscriptions"}
             </p>
-            {health.subscriptionCount > 0 && (
-              <p
-                className={cn(
-                  "mt-1 text-[10px] text-neutral-600 tracking-wide",
-                  geistMono.className
-                )}
-              >
-                {health.subscriptionCount} active{" "}
-                {health.subscriptionCount === 1 ? "subscription" : "subscriptions"}
-              </p>
-            )}
-            {health.reconnectAttempts > 0 && (
-              <p
-                className={cn(
-                  "mt-1 text-[10px] text-orange-600 tracking-wide",
-                  geistMono.className
-                )}
-              >
-                Reconnect attempt {health.reconnectAttempts}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  }
+          )}
+          {health.reconnectAttempts > 0 && (
+            <p
+              className={cn("mt-1 text-[10px] text-orange-600 tracking-wide", geistMono.className)}
+            >
+              Reconnect attempt {health.reconnectAttempts}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
-  // Full mode
+type ConnectionStatusDetailProps = {
+  health: ConnectionHealth;
+  statusInfo: ReturnType<typeof getStatusInfo>;
+  showDetails: boolean;
+};
+
+function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionStatusDetailProps) {
   return (
     <div className="border border-neutral-200 bg-white p-4">
       {/* Header */}
@@ -305,5 +278,59 @@ export function ConnectionStatusIndicator({
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Connection status indicator
+ *
+ * @example
+ * ```tsx
+ * // Compact mode (icon only) in header
+ * <ConnectionStatusIndicator compact />
+ *
+ * // Full mode with details
+ * <ConnectionStatusIndicator showDetails />
+ * ```
+ */
+export function ConnectionStatusIndicator({
+  showDetails = false,
+  compact = false,
+}: ConnectionStatusIndicatorProps) {
+  const [health, setHealth] = useState<ConnectionHealth | null>(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  useEffect(() => {
+    const manager = getConnectionManager();
+
+    // Subscribe to connection changes
+    const unsubscribe = manager.onConnectionChange((newHealth) => {
+      setHealth(newHealth);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  if (!health) {
+    return null;
+  }
+
+  const statusInfo = getStatusInfo(health.state);
+
+  if (compact) {
+    return (
+      <ConnectionStatusCompact
+        health={health}
+        setShowTooltip={setShowTooltip}
+        showTooltip={showTooltip}
+        statusInfo={statusInfo}
+      />
+    );
+  }
+
+  return (
+    <ConnectionStatusDetail health={health} showDetails={showDetails} statusInfo={statusInfo} />
   );
 }

@@ -13,7 +13,7 @@ type Props<TData> = {
 };
 
 /**
- * PrecisionDataTablePagination - Pagination controls with Lia design
+ * LiaDataTablePagination - Pagination controls with Lia design
  *
  * Features:
  * - First/Previous/Next/Last navigation
@@ -21,7 +21,7 @@ type Props<TData> = {
  * - Row count display
  * - Keyboard accessible
  */
-export function PrecisionDataTablePagination<TData>({
+export function LiaDataTablePagination<TData>({
   table,
   showPageSizeSelector = true,
   pageSizeOptions = [10, 25, 50, 100],

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { geistSans } from "@/app/fonts";
-import { PrecisionAdminHeader } from "@/components/admin/precision-admin-header";
-import { PrecisionAdminSidebar } from "@/components/admin/precision-admin-sidebar";
+import { LiaAdminHeader } from "@/components/admin/lia-admin-header";
+import { LiaAdminSidebar } from "@/components/admin/lia-admin-sidebar";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * Admin Layout - Precision Dashboard Design
+ * Admin Layout - Lia Design System
  *
  * Inspired by Bloomberg Terminal + Swiss Design:
  * - Ultra-high contrast for readability (WCAG AAA)
@@ -35,7 +35,8 @@ export default async function AdminLayout({ children }: Props) {
     <div className={cn("flex h-screen overflow-hidden bg-white", geistSans.className)}>
       {/* Sidebar - Fixed on desktop */}
       <div className="hidden lg:flex lg:w-64 lg:flex-col">
-        <PrecisionAdminSidebar
+        <LiaAdminSidebar
+          userAvatarUrl={profile?.avatar_url ?? undefined}
           userEmail={user.email ?? undefined}
           userName={profile?.full_name ?? undefined}
         />
@@ -43,7 +44,8 @@ export default async function AdminLayout({ children }: Props) {
 
       {/* Main Content Area */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <PrecisionAdminHeader
+        <LiaAdminHeader
+          userAvatarUrl={profile?.avatar_url ?? undefined}
           userEmail={user.email ?? undefined}
           userName={profile?.full_name ?? undefined}
         />
