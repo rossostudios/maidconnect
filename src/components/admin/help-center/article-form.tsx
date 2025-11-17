@@ -218,7 +218,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           {/* Category */}
           <div>
             <label
-              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
               htmlFor="category"
             >
               Category
@@ -242,13 +242,13 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           {/* Slug */}
           <div>
             <label
-              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
               htmlFor="slug"
             >
               Slug (URL)
             </label>
             <input
-              className="w-full border border-neutral-200 bg-white px-4 py-3 font-mono text-orange-600 text-sm transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-orange-400 dark:focus:ring-neutral-400/20"
+              className="w-full border border-neutral-200 bg-white px-4 py-3 font-mono text-orange-600 text-sm transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-orange-500 dark:focus:ring-neutral-400/20"
               id="slug"
               onChange={(e) => setSlug(e.target.value)}
               placeholder="your-article-slug"
@@ -265,7 +265,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
             <label className="flex items-center justify-between">
               <div>
-                <div className="font-semibold text-orange-600 text-sm dark:text-orange-400">
+                <div className="font-semibold text-orange-600 text-sm dark:text-orange-500">
                   Published
                 </div>
                 <div className="text-neutral-600 text-xs dark:text-neutral-400">
@@ -274,7 +274,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               </div>
               <input
                 checked={isPublished}
-                className="h-5 w-5 border-neutral-200 text-orange-600 focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:text-orange-400 dark:focus:ring-orange-400/20"
+                className="h-5 w-5 border-neutral-200 text-orange-600 focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:text-orange-500 dark:focus:ring-orange-400/20"
                 onChange={(e) => setIsPublished(e.target.checked)}
                 type="checkbox"
               />
@@ -283,7 +283,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
           {/* Editor Shortcuts Guide */}
           <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h3 className="mb-3 font-semibold text-orange-600 text-sm dark:text-orange-400">
+            <h3 className="mb-3 font-semibold text-orange-600 text-sm dark:text-orange-500">
               Editor Shortcuts
             </h3>
             <div className="space-y-2 text-neutral-600 text-xs dark:text-neutral-400">
@@ -337,7 +337,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Title EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="title_en"
                 >
                   Title (English)
@@ -356,7 +356,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Excerpt EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="excerpt_en"
                 >
                   Excerpt (English)
@@ -377,7 +377,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Content EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="content_en"
                 >
                   Content (English)
@@ -398,7 +398,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Title ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="title_es"
                 >
                   Título (Español)
@@ -417,7 +417,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Excerpt ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="excerpt_es"
                 >
                   Extracto (Español)
@@ -438,7 +438,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Content ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-400"
+                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
                   htmlFor="content_es"
                 >
                   Contenido (Español)

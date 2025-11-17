@@ -306,7 +306,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full border border-neutral-200 bg-white px-4 py-3 text-[15px] text-neutral-900 transition placeholder:text-neutral-400 focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+              className="w-full border border-neutral-200 bg-white px-4 py-3 text-[15px] text-neutral-900 transition placeholder:text-neutral-600 focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
               disabled={isLoading}
               maxLength={500}
               name="message"

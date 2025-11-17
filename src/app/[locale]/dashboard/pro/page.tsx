@@ -190,7 +190,7 @@ export default async function ProfessionalDashboardPage() {
               <h1 className="mb-1 font-bold text-3xl text-neutral-900">
                 {greeting}, {userName}
               </h1>
-              <p className="text-neutral-500">Here's your business overview for today</p>
+              <p className="text-neutral-700">Here's your business overview for today</p>
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@ export default async function ProfessionalDashboardPage() {
         <section className="mb-8">
           <div className="mb-6">
             <h2 className="mb-2 font-bold text-2xl text-neutral-900">Pending Customer Ratings</h2>
-            <p className="text-neutral-500 text-sm">Request feedback from recent customers</p>
+            <p className="text-neutral-700 text-sm">Request feedback from recent customers</p>
           </div>
           <Suspense fallback={<PendingRatingsSkeleton />}>
             <PendingRatingsList completedBookings={completedBookings} />
@@ -241,7 +241,7 @@ export default async function ProfessionalDashboardPage() {
       <section className="mb-8">
         <div className="mb-6">
           <h2 className="mb-2 font-bold text-2xl text-neutral-900">Booking Calendar</h2>
-          <p className="text-neutral-500 text-sm">Manage your schedule and upcoming bookings</p>
+          <p className="text-neutral-700 text-sm">Manage your schedule and upcoming bookings</p>
         </div>
         <div className="border border-neutral-200 bg-neutral-50 p-6">
           <Suspense fallback={<BookingCalendarSkeleton />}>
@@ -264,7 +264,7 @@ export default async function ProfessionalDashboardPage() {
       <section className="mb-8">
         <div className="mb-6">
           <h2 className="mb-2 font-bold text-2xl text-neutral-900">Quick Actions</h2>
-          <p className="text-neutral-500 text-sm">Manage your professional profile and settings</p>
+          <p className="text-neutral-700 text-sm">Manage your professional profile and settings</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -274,10 +274,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Calendar03Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Calendar03Icon} />
               <h3 className="font-semibold text-base text-neutral-900">View All Bookings</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               See your complete booking history and manage upcoming appointments
             </p>
           </Link>
@@ -288,10 +288,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/availability"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Clock01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Clock01Icon} />
               <h3 className="font-semibold text-base text-neutral-900">Manage Availability</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Update your schedule and set when you're available for bookings
             </p>
           </Link>
@@ -302,10 +302,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/portfolio"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Image02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Image02Icon} />
               <h3 className="font-semibold text-base text-neutral-900">Portfolio</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Showcase your best work with photos and descriptions
             </p>
           </Link>
@@ -316,10 +316,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/finances"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={DollarCircleIcon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={DollarCircleIcon} />
               <h3 className="font-semibold text-base text-neutral-900">Finances</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Track your earnings and manage payout settings
             </p>
           </Link>
@@ -330,10 +330,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/documents"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={FileAttachmentIcon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FileAttachmentIcon} />
               <h3 className="font-semibold text-base text-neutral-900">Documents</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Upload and manage your verification documents
             </p>
           </Link>
@@ -344,10 +344,10 @@ export default async function ProfessionalDashboardPage() {
             href="/dashboard/pro/onboarding"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Settings02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
               <h3 className="font-semibold text-base text-neutral-900">Profile Settings</h3>
             </div>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Update your profile, services, and account settings
             </p>
           </Link>
@@ -369,7 +369,7 @@ function MetricCard({
   color?: "default" | "primary" | "success" | "warning" | "info";
 }) {
   const colorClasses = {
-    default: "bg-neutral-50 text-neutral-500",
+    default: "bg-neutral-50 text-neutral-700",
     primary: "bg-orange-500/10 text-orange-500",
     success: "bg-orange-500/10 text-orange-500",
     warning: "bg-orange-500/10 text-orange-500",
@@ -383,7 +383,7 @@ function MetricCard({
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>
-      <dt className="text-neutral-500 text-sm">{label}</dt>
+      <dt className="text-neutral-700 text-sm">{label}</dt>
       <dd className="mt-1 font-bold text-2xl text-neutral-900">{value}</dd>
     </div>
   );
