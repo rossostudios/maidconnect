@@ -114,9 +114,9 @@ async function ChangelogList({ locale }: { locale: string }) {
   if (!changelogs || changelogs.length === 0) {
     return (
       <div className="border border-neutral-200 bg-neutral-50 p-12 text-center">
-        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-500" icon={MagicWand01Icon} />
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-700" icon={MagicWand01Icon} />
         <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Updates Yet</h3>
-        <p className="text-neutral-500">We'll post our first changelog soon. Stay tuned!</p>
+        <p className="text-neutral-700">We'll post our first changelog soon. Stay tuned!</p>
       </div>
     );
   }

@@ -68,13 +68,13 @@ const statusBadgeMap: Record<string, string> = {
   clear: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
   consider: "bg-neutral-900 dark:bg-neutral-100/5 text-white dark:text-neutral-100",
   suspended: "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100",
-  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400",
+  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-300",
 };
 
 const providerBadgeMap: Record<string, string> = {
   checkr: "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100",
   truora: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
-  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400",
+  default: "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-300",
 };
 
 const getStatusBadge = (status: string) => statusBadgeMap[status] ?? statusBadgeMap.default;
@@ -105,7 +105,7 @@ function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCardProps)
                   <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                     {check.professional.full_name || "Unnamed Professional"}
                   </h4>
-                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-300">
                     {check.professional.city && check.professional.country
                       ? `${check.professional.city}, ${check.professional.country}`
                       : check.professional.email || "No contact info"}
@@ -185,7 +185,7 @@ function BackgroundCheckStats({ check }: BackgroundCheckStatsProps) {
         value={
           <>
             {check.daysWaiting}
-            <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
+            <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-300">
               days
             </span>
           </>
@@ -230,8 +230,8 @@ function BackgroundCheckStat({ icon, label, value }: BackgroundCheckStatProps) {
   return (
     <div>
       <div className="mb-1 flex items-center gap-2">
-        <HugeiconsIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" icon={icon} />
-        <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+        <HugeiconsIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-300" icon={icon} />
+        <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
           {label}
         </span>
       </div>
@@ -410,10 +410,10 @@ export function BackgroundCheckDashboard() {
       <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <p className="mb-1 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <p className="mb-1 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
               Check Distribution
             </p>
-            <p className="text-neutral-600 text-sm dark:text-neutral-400">
+            <p className="text-neutral-600 text-sm dark:text-neutral-300">
               Background checks by status
             </p>
           </div>
@@ -483,7 +483,7 @@ export function BackgroundCheckDashboard() {
           {/* Sort Filter */}
           <div className="flex items-center gap-3">
             <HugeiconsIcon
-              className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+              className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
               icon={FilterIcon}
             />
             <Select onValueChange={(value) => setSortBy(value as SortOption)} value={sortBy}>
@@ -505,7 +505,7 @@ export function BackgroundCheckDashboard() {
             {activeChecks.length === 0 ? (
               <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
                 <CardContent className="flex min-h-[400px] items-center justify-center">
-                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-300">
                     No {tabValue} background checks found.
                   </p>
                 </CardContent>

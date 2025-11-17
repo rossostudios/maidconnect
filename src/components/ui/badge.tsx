@@ -31,7 +31,7 @@ const badgeVariants = cva(
         default: "border border-neutral-200 bg-white text-neutral-900",
         secondary: "border border-neutral-200 bg-neutral-100 text-neutral-700",
         primary: "border border-orange-200 bg-orange-50 text-orange-600",
-        muted: "border border-neutral-100 bg-neutral-50 text-neutral-600",
+        muted: "border border-neutral-100 bg-neutral-50 text-neutral-700",
         outline: "border border-neutral-300 bg-transparent text-neutral-700",
         // Status variants using Precision neutral + orange palette
         pending: "border border-orange-200 bg-orange-50 text-orange-600",

@@ -245,7 +245,7 @@ export default async function CustomerDashboardPage() {
                     {booking.professional?.full_name || "Professional"}
                   </p>
                   {booking.scheduled_start && (
-                    <p className="mt-2 text-neutral-500 text-xs">
+                    <p className="mt-2 text-neutral-700 text-xs">
                       {new Date(booking.scheduled_start).toLocaleDateString()}
                     </p>
                   )}

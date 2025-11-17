@@ -100,7 +100,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
     <section className="space-y-6">
       <div>
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Summary Cards */}
@@ -187,7 +187,7 @@ function MetricCard({
 }) {
   return (
     <div className="bg-neutral-50 p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-      <dt className="font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">{label}</dt>
+      <dt className="font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">{label}</dt>
       <dd className="mt-3 font-semibold text-3xl text-neutral-900">{value}</dd>
       <p className="mt-1 text-neutral-500 text-sm">{description}</p>
     </div>

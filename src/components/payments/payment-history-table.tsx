@@ -115,10 +115,10 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => {
           const id = info.getValue();
           if (!id) {
-            return <span className="text-neutral-500">—</span>;
+            return <span className="text-neutral-700">—</span>;
           }
           return (
-            <span className="font-mono text-neutral-500 text-xs">{id.substring(0, 20)}...</span>
+            <span className="font-mono text-neutral-700 text-xs">{id.substring(0, 20)}...</span>
           );
         },
       }),
@@ -151,7 +151,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
           <div className="mb-4 flex justify-center">
             <div className="flex h-12 w-12 items-center justify-center bg-neutral-100">
               <svg
-                className="h-6 w-6 text-neutral-500"
+                className="h-6 w-6 text-neutral-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -196,7 +196,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
                           type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span className="text-neutral-400">
+                          <span className="text-neutral-600">
                             {{
                               asc: "↑",
                               desc: "↓",

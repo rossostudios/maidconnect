@@ -201,7 +201,7 @@ export function ArrivalWindowTracker({
               </div>
             )}
 
-            {lastUpdateDisplay && <p className="text-neutral-500 text-sm">{lastUpdateDisplay}</p>}
+            {lastUpdateDisplay && <p className="text-neutral-700 text-sm">{lastUpdateDisplay}</p>}
           </div>
 
           {/* Animated pulse indicator */}

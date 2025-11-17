@@ -189,7 +189,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
         ))}
       </div>
 
-      <p className="mt-3 text-center text-neutral-500 text-xs">
+      <p className="mt-3 text-center text-neutral-700 text-xs">
         Click a template to insert it into your message. You can edit it before sending.
       </p>
     </div>

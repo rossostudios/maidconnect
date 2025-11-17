@@ -33,13 +33,13 @@ export async function ConciergeSection() {
             </Button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 text-neutral-400 text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-8 text-neutral-600 text-sm">
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-400" icon={Location01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Location01Icon} />
               {t("cities")}
             </span>
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-400" icon={TranslateIcon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={TranslateIcon} />
               {t("languages")}
             </span>
           </div>

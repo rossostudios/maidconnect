@@ -52,7 +52,7 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
       {/* Icon with loading animation */}
       <div
         className={cn(
-          "relative flex h-10 w-10 items-center justify-center bg-neutral-100 text-neutral-500 transition-colors group-hover:bg-orange-50 group-hover:text-orange-600",
+          "relative flex h-10 w-10 items-center justify-center bg-neutral-100 text-neutral-700 transition-colors group-hover:bg-orange-50 group-hover:text-orange-600",
           isLoading && "bg-orange-50 text-orange-600"
         )}
       >

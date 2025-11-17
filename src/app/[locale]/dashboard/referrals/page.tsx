@@ -25,7 +25,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
       <section className="space-y-6">
         <div>
           <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-neutral-500 leading-relaxed">
+          <p className="mt-2 text-base text-neutral-700 leading-relaxed">
             This feature is coming soon!
           </p>
         </div>
@@ -81,7 +81,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
       {/* Header */}
       <div>
         <h1 className="font-semibold text-3xl text-neutral-900">Refer & Earn</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">
           Share Casaora with friends and earn rewards when they book their first service
         </p>
       </div>
@@ -92,7 +92,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-500">
             <HugeiconsIcon className="h-6 w-6 text-white" icon={GiftIcon} />
           </div>
-          <div className="mb-1 text-neutral-500 text-sm">Total Earnings</div>
+          <div className="mb-1 text-neutral-700 text-sm">Total Earnings</div>
           <div className="font-bold text-3xl text-neutral-900">
             {new Intl.NumberFormat("es-CO", {
               style: "currency",
@@ -106,7 +106,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-neutral-200">
             <HugeiconsIcon className="h-6 w-6 text-neutral-900" icon={UserGroupIcon} />
           </div>
-          <div className="mb-1 text-neutral-500 text-sm">Successful Referrals</div>
+          <div className="mb-1 text-neutral-700 text-sm">Successful Referrals</div>
           <div className="font-bold text-3xl text-neutral-900">{rewardedReferrals}</div>
         </div>
 
@@ -114,7 +114,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           <div className="mb-4 flex h-12 w-12 items-center justify-center bg-neutral-200">
             <HugeiconsIcon className="h-6 w-6 text-neutral-900" icon={AnalyticsUpIcon} />
           </div>
-          <div className="mb-1 text-neutral-500 text-sm">Pending</div>
+          <div className="mb-1 text-neutral-700 text-sm">Pending</div>
           <div className="font-bold text-3xl text-neutral-900">{pendingReferrals}</div>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           <div className="border border-neutral-200 bg-neutral-50 p-8 text-center shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-orange-500" icon={GiftIcon} />
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl">Get Your Referral Code</h3>
-            <p className="mb-6 text-neutral-500">
+            <p className="mb-6 text-neutral-700">
               Generate your unique referral code to start earning rewards
             </p>
             <form action="/api/referrals/generate-code" method="POST">
@@ -164,7 +164,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
                   </div>
                   <div>
                     <div className="font-medium text-neutral-900 text-sm">New Referral</div>
-                    <div className="text-neutral-500 text-xs">
+                    <div className="text-neutral-700 text-xs">
                       {new Date(referral.created_at).toLocaleDateString()}
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
                     </span>
                   )}
                   {referral.status === "expired" && (
-                    <span className="bg-neutral-200/30 px-3 py-1 text-neutral-500 text-xs">
+                    <span className="bg-neutral-200/30 px-3 py-1 text-neutral-700 text-xs">
                       Expired
                     </span>
                   )}

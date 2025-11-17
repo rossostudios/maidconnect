@@ -87,7 +87,7 @@ export function AdminSecuritySettings() {
               <h3 className="font-semibold text-base text-neutral-900 dark:text-neutral-100">
                 Password
               </h3>
-              <p className="mt-0.5 text-neutral-600 text-sm dark:text-neutral-400">
+              <p className="mt-0.5 text-neutral-600 text-sm dark:text-neutral-300">
                 Update your password to keep your account secure
               </p>
             </div>
@@ -108,7 +108,7 @@ export function AdminSecuritySettings() {
           <form className="mt-6 space-y-4" onSubmit={handlePasswordChange}>
             <div>
               <label
-                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
                 htmlFor="current-password"
               >
                 Current Password
@@ -125,7 +125,7 @@ export function AdminSecuritySettings() {
 
             <div>
               <label
-                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
                 htmlFor="new-password"
               >
                 New Password
@@ -139,14 +139,14 @@ export function AdminSecuritySettings() {
                 type="password"
                 value={passwords.new}
               />
-              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
+              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
                 Must be at least 8 characters long
               </p>
             </div>
 
             <div>
               <label
-                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+                className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
                 htmlFor="confirm-password"
               >
                 Confirm New Password
@@ -171,7 +171,7 @@ export function AdminSecuritySettings() {
                 {isSaving ? "Updating..." : "Update Password"}
               </button>
               <button
-                className="border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+                className="border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-300"
                 disabled={isSaving}
                 onClick={() => {
                   setIsChangingPassword(false);
@@ -206,14 +206,14 @@ export function AdminSecuritySettings() {
                   COMING SOON
                 </span>
               </div>
-              <p className="mt-0.5 text-neutral-600 text-sm dark:text-neutral-400">
+              <p className="mt-0.5 text-neutral-600 text-sm dark:text-neutral-300">
                 Add an extra layer of security to your admin account
               </p>
             </div>
           </div>
 
           <button
-            className="cursor-not-allowed border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-600 text-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+            className="cursor-not-allowed border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-600 text-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
             disabled
             type="button"
           >
@@ -235,7 +235,7 @@ export function AdminSecuritySettings() {
         <h3 className="mb-3 font-semibold text-base text-neutral-900 dark:text-neutral-100">
           Security Best Practices
         </h3>
-        <ul className="space-y-2 text-neutral-600 text-sm dark:text-neutral-400">
+        <ul className="space-y-2 text-neutral-600 text-sm dark:text-neutral-300">
           <li className="flex items-start gap-2">
             <span className="text-neutral-900 dark:text-neutral-100">•</span>
             <span>Use a strong, unique password that you don't use on other websites</span>

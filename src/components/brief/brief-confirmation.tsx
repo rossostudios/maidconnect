@@ -122,7 +122,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
 
         {/* Support Link */}
         <div className="pt-6">
-          <p className="text-neutral-500 text-sm">
+          <p className="text-neutral-700 text-sm">
             Have questions?{" "}
             <Link className="text-orange-600" href="/contact">
               Contact our support team

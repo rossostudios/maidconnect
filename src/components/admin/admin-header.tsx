@@ -43,13 +43,13 @@ export function AdminHeader({ userEmail, userName }: Props) {
 
           <button
             aria-label="Search"
-            className="group hidden w-full max-w-sm items-center gap-2 rounded border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-neutral-500 text-xs transition hover:border-neutral-300 hover:bg-white md:flex"
+            className="group hidden w-full max-w-sm items-center gap-2 rounded border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-neutral-700 text-xs transition hover:border-neutral-300 hover:bg-white md:flex"
             onClick={openCommandPalette}
             type="button"
           >
             <HugeiconsIcon className="h-3.5 w-3.5 flex-shrink-0" icon={Search01Icon} />
             <span className="flex-1 text-left">Search</span>
-            <kbd className="inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-white px-1 py-0.5 font-mono text-[9px] text-neutral-500">
+            <kbd className="inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-white px-1 py-0.5 font-mono text-[9px] text-neutral-700">
               ⌘K
             </kbd>
           </button>
@@ -57,7 +57,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
           <div className="flex items-center gap-0.5">
             <button
               aria-label="Notifications"
-              className="group relative rounded p-1.5 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
+              className="group relative rounded p-1.5 text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900"
               onClick={() => setShowNotifications(true)}
               type="button"
             >
@@ -77,7 +77,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={UserCircleIcon} />
+                <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={UserCircleIcon} />
                 <span className="hidden font-medium text-neutral-900 md:block">
                   {userName || "Admin"}
                 </span>
@@ -95,7 +95,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
                         {userName || "Admin User"}
                       </p>
                       {userEmail && (
-                        <p className="mt-0.5 text-[10px] text-neutral-500">{userEmail}</p>
+                        <p className="mt-0.5 text-[10px] text-neutral-700">{userEmail}</p>
                       )}
                     </div>
                     <div className="py-0.5">

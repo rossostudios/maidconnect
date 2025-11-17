@@ -153,8 +153,8 @@ export default async function HelpCategoryPage({
           <Container>
             <div className="mx-auto max-w-4xl">
               {/* Breadcrumb */}
-              <nav className="mb-6 flex items-center gap-2 text-neutral-500 text-sm">
-                <Link className="hover:text-orange-500" href={`/${locale}/help`}>
+              <nav className="mb-6 flex items-center gap-2 text-neutral-700 text-sm">
+                <Link className="hover:text-orange-600" href={`/${locale}/help`}>
                   {t("breadcrumb.home")}
                 </Link>
                 <span>/</span>
@@ -165,7 +165,7 @@ export default async function HelpCategoryPage({
                 {category.name}
               </h1>
               {category.description && (
-                <p className="text-lg text-neutral-500">{category.description}</p>
+                <p className="text-lg text-neutral-700">{category.description}</p>
               )}
 
               {/* Search Bar */}
@@ -199,20 +199,20 @@ export default async function HelpCategoryPage({
 
                   return (
                     <Link
-                      className="group block border border-neutral-200 bg-neutral-50 p-6 transition hover:border-orange-500 hover:shadow-md"
+                      className="group block border border-neutral-200 bg-neutral-50 p-6 transition hover:border-orange-600 hover:shadow-md"
                       href={`/${locale}/help/${categorySlug}/${article.slug}`}
                       key={article._id}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
-                          <h3 className="mb-2 font-semibold text-lg text-neutral-900 group-hover:text-orange-500">
+                          <h3 className="mb-2 font-semibold text-lg text-neutral-900 group-hover:text-orange-600">
                             {article.title}
                           </h3>
                           {article.excerpt && (
-                            <p className="mb-3 text-neutral-500 text-sm">{article.excerpt}</p>
+                            <p className="mb-3 text-neutral-700 text-sm">{article.excerpt}</p>
                           )}
 
-                          <div className="flex flex-wrap items-center gap-4 text-neutral-500 text-xs">
+                          <div className="flex flex-wrap items-center gap-4 text-neutral-700 text-xs">
                             <span>
                               {article.view_count}{" "}
                               {article.view_count === 1 ? t("category.view") : t("category.views")}
@@ -222,7 +222,7 @@ export default async function HelpCategoryPage({
                               <span className="flex items-center gap-1">
                                 <span
                                   className={
-                                    helpfulPercentage >= 70 ? "text-orange-500" : "text-neutral-500"
+                                    helpfulPercentage >= 70 ? "text-orange-600" : "text-neutral-700"
                                   }
                                 >
                                   {helpfulPercentage}% {t("category.helpful")}
@@ -233,7 +233,7 @@ export default async function HelpCategoryPage({
                         </div>
 
                         <div className="flex-shrink-0">
-                          <div className="flex h-10 w-10 items-center justify-center bg-neutral-50 text-neutral-500/70 transition group-hover:bg-orange-500/10 group-hover:text-orange-500">
+                          <div className="flex h-10 w-10 items-center justify-center bg-white text-neutral-700 transition group-hover:bg-orange-500/10 group-hover:text-orange-600">
                             <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
                           </div>
                         </div>
@@ -246,15 +246,15 @@ export default async function HelpCategoryPage({
           ) : (
             <div className="mx-auto max-w-4xl border border-neutral-200 bg-neutral-50 p-12 text-center">
               <HugeiconsIcon
-                className="mx-auto mb-4 h-12 w-12 text-neutral-500/70"
+                className="mx-auto mb-4 h-12 w-12 text-neutral-700"
                 icon={BookOpen01Icon}
               />
               <h3 className="mb-2 font-semibold text-lg text-neutral-900">
                 {t("category.noArticles.title")}
               </h3>
-              <p className="mb-6 text-neutral-500">{t("category.noArticles.description")}</p>
+              <p className="mb-6 text-neutral-700">{t("category.noArticles.description")}</p>
               <Link
-                className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
+                className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
                 href={`/${locale}/help`}
               >
                 {t("category.noArticles.button")}
@@ -266,7 +266,7 @@ export default async function HelpCategoryPage({
           {/* Back to Categories */}
           <div className="mx-auto mt-12 max-w-4xl text-center">
             <Link
-              className="inline-flex items-center gap-2 text-orange-500"
+              className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700"
               href={`/${locale}/help`}
             >
               <HugeiconsIcon className="h-4 w-4 rotate-180" icon={ArrowRight01Icon} />

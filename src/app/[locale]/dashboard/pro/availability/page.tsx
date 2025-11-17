@@ -50,7 +50,7 @@ export default async function ProAvailabilityPage({
       {/* Header */}
       <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Availability Editor */}
@@ -61,7 +61,7 @@ export default async function ProAvailabilityPage({
       {/* Help Section */}
       <div className="border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
         <h3 className="font-semibold text-lg text-neutral-900">{t("tips.title")}</h3>
-        <ul className="mt-4 space-y-3 text-base text-neutral-500">
+        <ul className="mt-4 space-y-3 text-base text-neutral-700">
           <li className="flex gap-3">
             <span className="flex-shrink-0 text-orange-500">•</span>
             <span>

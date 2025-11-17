@@ -56,7 +56,7 @@ export function LanguageSwitcher() {
         >
           EN
         </button>
-        <span aria-hidden="true" className="text-neutral-400">
+        <span aria-hidden="true" className="text-neutral-600">
           /
         </span>
         <button

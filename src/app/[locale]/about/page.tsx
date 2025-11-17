@@ -93,7 +93,7 @@ function TrustIndicators() {
     <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
       <Container>
         <div className="mb-16 text-center">
-          <p className="tagline text-neutral-500">WHY CHOOSE US</p>
+          <p className="tagline text-neutral-700">WHY CHOOSE US</p>
           <h2 className="serif-display-lg mt-6 text-neutral-900">{t("title")}</h2>
           <p className="lead mx-auto mt-6 max-w-2xl text-neutral-900/70">{t("subtitle")}</p>
         </div>

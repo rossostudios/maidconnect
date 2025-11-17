@@ -140,7 +140,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
+              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
                 {feature.description}
               </p>
             </div>

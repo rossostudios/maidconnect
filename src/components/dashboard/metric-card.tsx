@@ -54,27 +54,27 @@ export type MetricCardProps = {
 const colorVariants = {
   blue: {
     accent: "border-blue-200 dark:border-blue-900",
-    trend: "text-blue-600 dark:text-blue-400",
+    trend: "text-blue-600 dark:text-blue-500",
   },
   green: {
     accent: "border-green-200 dark:border-green-900",
-    trend: "text-green-600 dark:text-green-400",
+    trend: "text-green-600 dark:text-green-500",
   },
   orange: {
     accent: "border-orange-200 dark:border-orange-900",
-    trend: "text-orange-600 dark:text-orange-400",
+    trend: "text-orange-600 dark:text-orange-500",
   },
   pink: {
     accent: "border-pink-200 dark:border-pink-900",
-    trend: "text-pink-600 dark:text-pink-400",
+    trend: "text-pink-600 dark:text-pink-500",
   },
   purple: {
     accent: "border-purple-200 dark:border-purple-900",
-    trend: "text-purple-600 dark:text-purple-400",
+    trend: "text-purple-600 dark:text-purple-500",
   },
   default: {
     accent: "border-neutral-200 dark:border-neutral-800",
-    trend: "text-neutral-600 dark:text-neutral-400",
+    trend: "text-neutral-600 dark:text-neutral-500",
   },
 };
 

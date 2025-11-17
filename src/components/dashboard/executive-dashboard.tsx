@@ -431,13 +431,13 @@ export function ExecutiveDashboard() {
                     <HugeiconsIcon className="h-7 w-7 text-neutral-600" icon={DollarCircleIcon} />
                   </div>
                   <div>
-                    <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                    <p className="mb-1 font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                       Revenue Trend
                     </p>
                     <p className="font-bold text-3xl text-neutral-900">
                       ${(metrics.todayRevenue / 100).toLocaleString()}
                     </p>
-                    <p className="mt-1 text-neutral-500 text-sm">Today's revenue</p>
+                    <p className="mt-1 text-neutral-700 text-sm">Today's revenue</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -446,21 +446,21 @@ export function ExecutiveDashboard() {
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-200"
                     onClick={() => alert("Edit revenue tracking settings - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Edit02Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Edit02Icon} />
                   </button>
                   <button
                     aria-label="Maximize chart"
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-200"
                     onClick={() => alert("Expand revenue chart - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Maximize01Icon} />
                   </button>
                   <button
                     aria-label="More options"
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-200"
                     onClick={() => alert("Export CSV, Download PDF, Share - Coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={MoreVerticalIcon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={MoreVerticalIcon} />
                   </button>
                 </div>
               </CardHeader>
@@ -511,14 +511,14 @@ export function ExecutiveDashboard() {
                     <div className="bg-neutral-600/5 p-3">
                       <HugeiconsIcon className="h-6 w-6 text-neutral-600" icon={TimeScheduleIcon} />
                     </div>
-                    <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                    <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                       Pending Bookings
                     </p>
                   </div>
                   <p className="mb-2 font-bold text-4xl text-neutral-900">
                     {metrics.pendingBookings}
                   </p>
-                  <p className="text-neutral-500 text-sm">Awaiting acceptance</p>
+                  <p className="text-neutral-700 text-sm">Awaiting acceptance</p>
                 </CardContent>
               </Card>
 
@@ -532,14 +532,14 @@ export function ExecutiveDashboard() {
                         icon={CheckmarkCircle02Icon}
                       />
                     </div>
-                    <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                    <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                       Active Bookings
                     </p>
                   </div>
                   <p className="mb-2 font-bold text-4xl text-neutral-900">
                     {metrics.activeBookings}
                   </p>
-                  <p className="text-neutral-500 text-sm">In progress</p>
+                  <p className="text-neutral-700 text-sm">In progress</p>
                 </CardContent>
               </Card>
             </div>
@@ -555,7 +555,7 @@ export function ExecutiveDashboard() {
                     <HugeiconsIcon className="h-6 w-6 text-neutral-900" icon={UserMultiple02Icon} />
                   </div>
                   <div>
-                    <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                    <p className="mb-1 font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                       Professional Utilization
                     </p>
                     <p className="font-bold text-2xl text-neutral-900">
@@ -574,7 +574,7 @@ export function ExecutiveDashboard() {
                       alert("Expand professional utilization view - Feature coming soon!")
                     }
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Maximize01Icon} />
                   </button>
                 </div>
               </CardHeader>
@@ -614,10 +614,10 @@ export function ExecutiveDashboard() {
             <Card className="border-neutral-200 bg-white shadow-sm ring-1 ring-black/5 transition-shadow hover:shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between pb-6">
                 <div>
-                  <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                  <p className="mb-1 font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                     Booking Funnel
                   </p>
-                  <p className="text-neutral-500 text-sm">Conversion pipeline</p>
+                  <p className="text-neutral-700 text-sm">Conversion pipeline</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -625,7 +625,7 @@ export function ExecutiveDashboard() {
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-200"
                     onClick={() => alert("Expand booking funnel analysis - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Maximize01Icon} />
                   </button>
                 </div>
               </CardHeader>

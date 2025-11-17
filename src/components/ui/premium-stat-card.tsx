@@ -25,7 +25,7 @@ const colorVariants = {
     iconBg: "bg-orange-500/10",
     border: "border-orange-200/50",
     trendPositive: "text-orange-600",
-    trendNegative: "text-orange-400",
+    trendNegative: "text-orange-600",
   },
   green: {
     gradient: "from-emerald-50/80 to-emerald-100/40",
@@ -33,7 +33,7 @@ const colorVariants = {
     iconBg: "bg-emerald-500/10",
     border: "border-emerald-200/50",
     trendPositive: "text-emerald-600",
-    trendNegative: "text-emerald-400",
+    trendNegative: "text-emerald-600",
   },
   pink: {
     gradient: "from-pink-50/80 to-pink-100/40",
@@ -41,7 +41,7 @@ const colorVariants = {
     iconBg: "bg-pink-500/10",
     border: "border-pink-200/50",
     trendPositive: "text-pink-600",
-    trendNegative: "text-pink-400",
+    trendNegative: "text-pink-600",
   },
   blue: {
     gradient: "from-blue-50/80 to-blue-100/40",
@@ -49,7 +49,7 @@ const colorVariants = {
     iconBg: "bg-blue-500/10",
     border: "border-blue-200/50",
     trendPositive: "text-blue-600",
-    trendNegative: "text-blue-400",
+    trendNegative: "text-blue-600",
   },
   purple: {
     gradient: "from-purple-50/80 to-purple-100/40",
@@ -57,7 +57,7 @@ const colorVariants = {
     iconBg: "bg-purple-500/10",
     border: "border-purple-200/50",
     trendPositive: "text-purple-600",
-    trendNegative: "text-purple-400",
+    trendNegative: "text-purple-600",
   },
 };
 

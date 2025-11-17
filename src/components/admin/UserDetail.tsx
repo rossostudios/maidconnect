@@ -55,7 +55,7 @@ export function UserProfileHeader({
               width={64}
             />
           ) : (
-            <span className="type-ui-lg font-medium text-neutral-600 dark:text-neutral-400">
+            <span className="type-ui-lg font-medium text-neutral-600 dark:text-neutral-300">
               {(user.full_name || "?").charAt(0).toUpperCase()}
             </span>
           )}
@@ -64,7 +64,7 @@ export function UserProfileHeader({
           <h2 className="type-ui-md font-semibold text-neutral-900 dark:text-neutral-100">
             {user.full_name || "Unnamed User"}
           </h2>
-          <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.email}</p>
+          <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.email}</p>
           <span className="type-ui-sm mt-2 inline-block bg-neutral-900 px-3 py-1 font-medium text-white capitalize dark:bg-neutral-100/10 dark:text-neutral-100">
             {user.role}
           </span>
@@ -109,21 +109,21 @@ export function UserDetailsGrid({ user }: { user: User }) {
     <div className="grid grid-cols-2 gap-4">
       <div>
         <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Phone</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.phone || "—"}</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.phone || "—"}</p>
       </div>
       <div>
         <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">City</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.city || "—"}</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.city || "—"}</p>
       </div>
       <div>
         <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">
           Address
         </p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.address || "—"}</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.address || "—"}</p>
       </div>
       <div>
         <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Joined</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
           {new Date(user.created_at).toLocaleDateString()}
         </p>
       </div>
@@ -138,7 +138,7 @@ export function SuspensionHistoryList({
 }) {
   if (suspensionHistory.length === 0) {
     return (
-      <p className="type-body-sm text-neutral-600 dark:text-neutral-400">No suspension history</p>
+      <p className="type-body-sm text-neutral-600 dark:text-neutral-300">No suspension history</p>
     );
   }
 
@@ -172,11 +172,11 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
       <p className="type-body-sm mb-1 text-neutral-900 dark:text-neutral-100">
         Reason: {suspension.reason}
       </p>
-      <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
+      <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
         Date: {new Date(suspension.suspended_at).toLocaleDateString()}
       </p>
       {suspension.lifted_at && (
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
           Lifted: {new Date(suspension.lifted_at).toLocaleDateString()}
         </p>
       )}

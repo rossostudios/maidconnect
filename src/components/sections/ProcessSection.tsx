@@ -59,7 +59,7 @@ export async function ProcessSection() {
                   {step.number}
                 </div>
                 {/* Label - Uppercase */}
-                <div className="mt-2 font-mono text-neutral-400 text-xs uppercase tracking-wider">
+                <div className="mt-2 font-mono text-neutral-600 text-xs uppercase tracking-wider">
                   {step.label}
                 </div>
               </div>

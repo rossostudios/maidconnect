@@ -134,7 +134,7 @@ export default async function AdminUsersPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -214,7 +214,7 @@ export default async function AdminUsersPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                     geistSans.className
                   )}
                 >
@@ -262,7 +262,7 @@ export default async function AdminUsersPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -280,7 +280,7 @@ export default async function AdminUsersPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500",
+                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
                   geistSans.className
                 )}
               >
@@ -311,7 +311,7 @@ export default async function AdminUsersPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -332,7 +332,7 @@ export default async function AdminUsersPage() {
                 <div>
                   <p
                     className={cn(
-                      "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                      "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                       geistSans.className
                     )}
                   >

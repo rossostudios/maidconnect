@@ -164,7 +164,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
                   ? "border-orange-500 bg-orange-500 text-white"
                   : step.id < currentStep
                     ? "border-orange-500 bg-orange-50 text-orange-600"
-                    : "border-neutral-300 bg-white text-neutral-400"
+                    : "border-neutral-300 bg-white text-neutral-600"
               }`}
               key={step.id}
             >
@@ -376,7 +376,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               placeholder="E.g., must speak English fluently, experience with infants, cooking skills, pet-friendly..."
               rows={6}
             />
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-700 text-sm">
               Tell us about any specific needs, scheduling preferences, or qualifications you're
               looking for.
             </p>
@@ -409,7 +409,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
 
       {/* Save for Later */}
       <div className="mt-6 text-center">
-        <p className="text-neutral-500 text-sm">
+        <p className="text-neutral-700 text-sm">
           Your progress is automatically saved. You can return to this page anytime to continue.
         </p>
       </div>

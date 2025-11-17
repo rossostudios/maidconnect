@@ -47,12 +47,12 @@ export function PerformanceMetrics({
   // Helper to determine badge variant based on rate
   const getRateBadgeClass = (rate: number | undefined) => {
     if (rate === undefined || rate < 75) {
-      return "bg-neutral-100 text-neutral-500";
-    }
-    if (rate < 90) {
       return "bg-neutral-100 text-neutral-700";
     }
-    return "bg-neutral-100 text-neutral-900";
+    if (rate < 90) {
+      return "bg-neutral-100 text-neutral-900";
+    }
+    return "bg-orange-500/10 text-orange-600";
   };
 
   const onTimeBadgeClass = getRateBadgeClass(onTimeRate);
@@ -112,7 +112,7 @@ export function PerformanceMetrics({
                 <p className="text-neutral-600 text-xs">On-Time Arrival</p>
               </div>
             </div>
-            <p className="mt-2 text-neutral-500 text-xs">
+            <p className="mt-2 text-neutral-700 text-xs">
               {(() => {
                 if (onTimeRate >= 90) {
                   return "Consistently arrives within 15 minutes of scheduled time";
@@ -136,7 +136,7 @@ export function PerformanceMetrics({
                 <p className="text-neutral-600 text-xs">Acceptance Rate</p>
               </div>
             </div>
-            <p className="mt-2 text-neutral-500 text-xs">
+            <p className="mt-2 text-neutral-700 text-xs">
               {(() => {
                 if (acceptanceRate >= 90) {
                   return "Highly responsive and reliable";

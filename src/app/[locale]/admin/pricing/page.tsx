@@ -107,7 +107,7 @@ export default async function AdminPricingPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -166,7 +166,7 @@ export default async function AdminPricingPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                     geistSans.className
                   )}
                 >
@@ -209,7 +209,7 @@ export default async function AdminPricingPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -227,7 +227,7 @@ export default async function AdminPricingPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500",
+                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
                   geistSans.className
                 )}
               >
@@ -291,7 +291,7 @@ export default async function AdminPricingPage() {
                         </div>
                       </div>
                       <HugeiconsIcon
-                        className="h-4 w-4 text-neutral-500"
+                        className="h-4 w-4 text-neutral-700"
                         icon={entry.isActive ? Shield01Icon : MoneyBag02Icon}
                       />
                     </div>

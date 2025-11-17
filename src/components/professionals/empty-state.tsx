@@ -16,7 +16,7 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
     return (
       <div className="flex min-h-[400px] flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 p-12 text-center">
         <div className="mb-4 flex h-16 w-16 items-center justify-center bg-neutral-200">
-          <HugeiconsIcon className="h-8 w-8 text-neutral-400" icon={Search01Icon} size={32} />
+          <HugeiconsIcon className="h-8 w-8 text-neutral-600" icon={Search01Icon} size={32} />
         </div>
 
         <h3 className="mb-2 font-semibold text-neutral-900 text-xl">

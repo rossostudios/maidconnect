@@ -101,13 +101,13 @@ export default async function ProfessionalOnboardingPage({
     <section className="flex-1 space-y-10">
       <header className="flex items-start justify-between">
         <div>
-          <p className="font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+          <p className="font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
             {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
           <h1 className="type-serif-lg mt-4 text-neutral-900">
             {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-neutral-500 leading-relaxed">
+          <p className="mt-4 max-w-2xl text-lg text-neutral-700 leading-relaxed">
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
@@ -151,7 +151,7 @@ export default async function ProfessionalOnboardingPage({
                       );
                     }
                     return (
-                      <span className="bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-xs">
+                      <span className="bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-700 text-xs">
                         {t("status.pending")}
                       </span>
                     );
@@ -160,7 +160,7 @@ export default async function ProfessionalOnboardingPage({
                 <h2 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t(`steps.${stepId}.title`)}
                 </h2>
-                <p className="mt-3 text-base text-neutral-500 leading-relaxed">
+                <p className="mt-3 text-base text-neutral-700 leading-relaxed">
                   {t(`steps.${stepId}.description`)}
                 </p>
               </li>
@@ -242,7 +242,7 @@ export default async function ProfessionalOnboardingPage({
                   <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("sections.uploadDocuments.required")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                  <ul className="mt-4 space-y-3 text-base text-neutral-700">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 bg-orange-500" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
@@ -256,7 +256,7 @@ export default async function ProfessionalOnboardingPage({
                   <h3 className="mt-8 font-semibold text-neutral-900 text-xl">
                     {t("sections.uploadDocuments.optional")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                  <ul className="mt-4 space-y-3 text-base text-neutral-700">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 bg-neutral-500" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
@@ -268,7 +268,7 @@ export default async function ProfessionalOnboardingPage({
                   </ul>
 
                   <div className="mt-8 border border-neutral-200 bg-neutral-50 p-6">
-                    <p className="text-neutral-500 text-sm leading-relaxed">
+                    <p className="text-neutral-700 text-sm leading-relaxed">
                       <strong className="text-neutral-900">
                         {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
@@ -347,7 +347,7 @@ function SectionWrapper({
     <section className="border border-neutral-200 bg-neutral-50 p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       <header className="mb-8">
         <h2 className="font-semibold text-3xl text-neutral-900">{title}</h2>
-        <p className="mt-3 text-base text-neutral-500 leading-relaxed">{subtitle}</p>
+        <p className="mt-3 text-base text-neutral-700 leading-relaxed">{subtitle}</p>
       </header>
       {children}
     </section>

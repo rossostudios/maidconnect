@@ -128,12 +128,12 @@ function ProfessionalInfoSection({ professional }: { professional: ProfessionalI
       </div>
       {professional.bio && (
         <div className="mt-4">
-          <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">Bio</div>
+          <div className="font-medium text-neutral-600 text-xs dark:text-neutral-300">Bio</div>
           <p className="mt-1 text-neutral-800 text-sm dark:text-neutral-300">{professional.bio}</p>
         </div>
       )}
       <div className="mt-4">
-        <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">Services</div>
+        <div className="font-medium text-neutral-600 text-xs dark:text-neutral-300">Services</div>
         <div className="mt-1 flex flex-wrap gap-2">
           {professional.primary_services?.length ? (
             professional.primary_services.map((service, idx) => (
@@ -145,7 +145,7 @@ function ProfessionalInfoSection({ professional }: { professional: ProfessionalI
               </span>
             ))
           ) : (
-            <p className="text-neutral-600 text-sm dark:text-neutral-400">None listed</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-300">None listed</p>
           )}
         </div>
       </div>
@@ -156,7 +156,7 @@ function ProfessionalInfoSection({ professional }: { professional: ProfessionalI
 function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">{label}</div>
+      <div className="font-medium text-neutral-600 text-xs dark:text-neutral-300">{label}</div>
       <p className="text-neutral-800 text-sm dark:text-neutral-300">{value}</p>
     </div>
   );
@@ -178,12 +178,12 @@ function ProfessionalReferencesSection({ professional }: { professional: Profess
               <p className="font-medium text-neutral-800 text-sm dark:text-neutral-300">
                 {ref.name || "Unnamed"}
               </p>
-              <p className="text-neutral-600 text-xs dark:text-neutral-400">{ref.contact || "—"}</p>
+              <p className="text-neutral-600 text-xs dark:text-neutral-300">{ref.contact || "—"}</p>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-neutral-600 text-sm dark:text-neutral-400">No references provided</p>
+        <p className="text-neutral-600 text-sm dark:text-neutral-300">No references provided</p>
       )}
     </section>
   );
@@ -206,7 +206,7 @@ function ProfessionalDocumentsSection({ professional }: { professional: Professi
                 <p className="font-medium text-neutral-800 text-sm dark:text-neutral-300">
                   {doc.document_type}
                 </p>
-                <p className="text-neutral-600 text-xs dark:text-neutral-400">
+                <p className="text-neutral-600 text-xs dark:text-neutral-300">
                   Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
                 </p>
               </div>
@@ -215,7 +215,7 @@ function ProfessionalDocumentsSection({ professional }: { professional: Professi
           ))}
         </div>
       ) : (
-        <p className="text-neutral-600 text-sm dark:text-neutral-400">No documents uploaded</p>
+        <p className="text-neutral-600 text-sm dark:text-neutral-300">No documents uploaded</p>
       )}
     </section>
   );
@@ -259,7 +259,7 @@ function ReviewActionButtons({
           className={`flex-1 border-2 px-4 py-2 font-semibold text-sm transition ${
             action === btn.value
               ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-              : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+              : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
           }`}
           key={btn.value}
           onClick={() => updateField("action", btn.value)}

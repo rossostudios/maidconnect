@@ -1,19 +1,44 @@
 import type { NextRequest } from "next/server";
 import Stripe from "stripe";
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2025-10-29.clover";
 
-if (!STRIPE_SECRET_KEY) {
-  throw new Error(
-    "STRIPE_SECRET_KEY is not set. Add it to your environment to enable Stripe integration."
-  );
+// Lazy initialization to avoid throwing errors during build time
+let stripeInstance: Stripe | null = null;
+
+function getStripeInstance(): Stripe {
+  // During build/SSG, skip initialization to avoid errors
+  // The stripe client is only needed at runtime for API routes
+  if (typeof window === "undefined" && !process.env.STRIPE_SECRET_KEY) {
+    // Return a mock stripe instance during build
+    return {
+      _isMock: true,
+    } as unknown as Stripe;
+  }
+
+  if (!stripeInstance) {
+    const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+    if (!STRIPE_SECRET_KEY) {
+      throw new Error(
+        "STRIPE_SECRET_KEY is not set. Add it to your environment to enable Stripe integration."
+      );
+    }
+    stripeInstance = new Stripe(STRIPE_SECRET_KEY, {
+      apiVersion: STRIPE_API_VERSION,
+      timeout: 15_000, // 15 seconds - prevents hanging requests
+      maxNetworkRetries: 2, // Retry failed requests up to 2 times (total 3 attempts)
+    });
+  }
+  return stripeInstance;
 }
 
-export const stripe = new Stripe(STRIPE_SECRET_KEY, {
-  apiVersion: STRIPE_API_VERSION,
-  timeout: 15_000, // 15 seconds - prevents hanging requests
-  maxNetworkRetries: 2, // Retry failed requests up to 2 times (total 3 attempts)
+// Export a proxy object that lazily initializes Stripe on first access
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    const instance = getStripeInstance();
+    const value = instance[prop as keyof Stripe];
+    return typeof value === "function" ? value.bind(instance) : value;
+  },
 });
 
 export function getStripePublishableKey() {

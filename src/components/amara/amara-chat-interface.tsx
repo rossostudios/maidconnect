@@ -185,7 +185,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
     <>
       {/* Backdrop - Click to dismiss */}
       <div
-        aria-hidden="true"
+        aria-label="Close chat"
         className="fixed inset-0 z-60 bg-neutral-900/50 transition-opacity sm:bg-neutral-900/30"
         onClick={onClose}
         onKeyDown={(e) => {
@@ -530,7 +530,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
           <div className="mb-3 flex items-end gap-2 sm:gap-3">
             <div className="relative flex-1">
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-3 font-[family-name:var(--font-geist-sans)] text-[15px] text-neutral-900 transition-all placeholder:text-neutral-400 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full border border-neutral-200 bg-white px-4 py-3 font-[family-name:var(--font-geist-sans)] text-[15px] text-neutral-900 transition-all placeholder:text-neutral-600 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/25"
                 disabled={isLoading}
                 maxLength={500}
                 name="message"

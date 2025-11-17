@@ -46,7 +46,7 @@ export function ArticleRowActions({
       <div className="flex items-center justify-end gap-2">
         {/* View */}
         <Link
-          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-400"
+          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-300"
           href={`/help/${categorySlug}/${articleSlug}`}
           target="_blank"
           title="View article"
@@ -56,7 +56,7 @@ export function ArticleRowActions({
 
         {/* Edit */}
         <Link
-          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-400"
+          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-300"
           href={`/admin/help-center/${articleId}`}
           title="Edit article"
         >
@@ -65,7 +65,7 @@ export function ArticleRowActions({
 
         {/* Delete */}
         <button
-          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-400"
+          className="inline-flex h-9 w-9 items-center justify-center border border-neutral-200 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:text-neutral-300"
           onClick={() => setShowDeleteConfirm(true)}
           title="Delete article"
           type="button"
@@ -81,7 +81,7 @@ export function ArticleRowActions({
             <h3 className="mb-2 font-bold text-neutral-900 text-xl dark:text-neutral-100">
               Delete Article
             </h3>
-            <p className="mb-6 text-neutral-600 dark:text-neutral-400">
+            <p className="mb-6 text-neutral-600 dark:text-neutral-300">
               Are you sure you want to delete <strong>"{articleTitle}"</strong>? This action cannot
               be undone.
             </p>

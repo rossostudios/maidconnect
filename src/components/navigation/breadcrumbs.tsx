@@ -82,7 +82,7 @@ export function Breadcrumbs() {
           <li className="m-0 flex items-center gap-2 p-0" key={index}>
             <HugeiconsIcon
               aria-hidden="true"
-              className="h-3.5 w-3.5 flex-shrink-0 text-neutral-400"
+              className="h-3.5 w-3.5 flex-shrink-0 text-neutral-600"
               icon={ArrowRight01Icon}
             />
             {item.href ? (

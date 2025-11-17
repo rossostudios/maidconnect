@@ -64,7 +64,7 @@ export function TestimonialsSection() {
 
               <div>
                 <p className="font-semibold text-base text-neutral-900">{featured.name}</p>
-                <p className="text-neutral-500 text-xs uppercase tracking-[0.35em]">
+                <p className="text-neutral-700 text-xs uppercase tracking-[0.35em]">
                   {formatMeta(featured.role, featured.location)}
                 </p>
               </div>
@@ -103,7 +103,7 @@ export function TestimonialsSection() {
 
                   <div>
                     <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                    <p className="text-neutral-500 text-xs uppercase tracking-[0.35em]">
+                    <p className="text-neutral-700 text-xs uppercase tracking-[0.35em]">
                       {formatMeta(testimonial.role, testimonial.location)}
                     </p>
                   </div>

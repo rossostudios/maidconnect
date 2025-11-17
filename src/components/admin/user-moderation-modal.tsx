@@ -94,7 +94,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-200]">
-              <span className="type-ui-md font-medium text-neutral-600 dark:text-neutral-400">
+              <span className="type-ui-md font-medium text-neutral-600 dark:text-neutral-300">
                 {((user.full_name || "?").charAt(0) || "?").toUpperCase()}
               </span>
             </div>
@@ -102,8 +102,8 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
               <p className="type-ui-sm font-semibold text-neutral-900 dark:text-neutral-100">
                 {user.full_name || "Unnamed User"}
               </p>
-              <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.email}</p>
-              <p className="type-body-sm text-neutral-600 capitalize dark:text-neutral-400">
+              <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.email}</p>
+              <p className="type-body-sm text-neutral-600 capitalize dark:text-neutral-300">
                 Role: {user.role}
               </p>
             </div>
@@ -114,15 +114,15 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
               <p className="type-ui-sm mb-2 font-medium text-neutral-900 dark:text-neutral-100">
                 Current Suspension:
               </p>
-              <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
+              <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
                 Type:{" "}
                 {user.suspension.type === "permanent" ? "Permanent Ban" : "Temporary Suspension"}
               </p>
-              <p className="type-body-sm mt-1 text-neutral-600 dark:text-neutral-400">
+              <p className="type-body-sm mt-1 text-neutral-600 dark:text-neutral-300">
                 Reason: {user.suspension.reason}
               </p>
               {user.suspension.expires_at && (
-                <p className="type-body-sm mt-1 text-neutral-600 dark:text-neutral-400">
+                <p className="type-body-sm mt-1 text-neutral-600 dark:text-neutral-300">
                   Expires: {new Date(user.suspension.expires_at).toLocaleDateString()}
                 </p>
               )}

@@ -277,7 +277,7 @@ export default async function HelpCenterPage({
           {/* Contact CTA */}
           <section className="mt-16 border border-neutral-200 bg-gradient-to-br from-white to-white p-8 text-center md:p-12">
             <h2 className="mb-4 font-bold text-2xl text-neutral-900">{t("contact.title")}</h2>
-            <p className="mb-6 text-lg text-neutral-500">{t("contact.description")}</p>
+            <p className="mb-6 text-lg text-neutral-700">{t("contact.description")}</p>
             <Link
               className="inline-flex items-center gap-2 bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-500"
               href={`/${locale}/contact`}

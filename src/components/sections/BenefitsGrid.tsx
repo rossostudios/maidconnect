@@ -104,7 +104,7 @@ export function BenefitsGrid() {
                           </svg>
                         </div>
                         <div>
-                          <div className="text-neutral-500 text-xs uppercase tracking-wider">
+                          <div className="text-neutral-700 text-xs uppercase tracking-wider">
                             Trigger
                           </div>
                           <div className="font-semibold text-lg text-neutral-900">
@@ -135,7 +135,7 @@ export function BenefitsGrid() {
                           </svg>
                         </div>
                         <div>
-                          <div className="text-neutral-500 text-xs uppercase tracking-wider">
+                          <div className="text-neutral-700 text-xs uppercase tracking-wider">
                             Action
                           </div>
                           <div className="font-semibold text-lg text-neutral-900">
@@ -216,7 +216,7 @@ export function BenefitsGrid() {
                       <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 font-semibold text-neutral-900">
                         {step.number}
                       </div>
-                      <div className="font-semibold text-neutral-400 text-xs uppercase tracking-[0.35em]">
+                      <div className="font-semibold text-neutral-600 text-xs uppercase tracking-[0.35em]">
                         {step.label}
                       </div>
                     </div>

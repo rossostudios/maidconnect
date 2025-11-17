@@ -86,7 +86,7 @@ export default async function ProDocumentsPage({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+          <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
         </div>
         <Link
           className="inline-flex items-center justify-center bg-orange-500 px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500"
