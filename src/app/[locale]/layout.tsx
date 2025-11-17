@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { draftMode, headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Suspense } from "react";
@@ -138,6 +140,8 @@ export default async function RootLayout({
             />
           </NextIntlClientProvider>
         </ErrorBoundary>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
