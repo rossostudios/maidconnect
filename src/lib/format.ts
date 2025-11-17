@@ -65,18 +65,22 @@ export function formatCurrency(
   const {
     locale = "es-CO",
     currency = "COP",
-    minimumFractionDigits = 0,
+    minimumFractionDigits = currency === "USD" ? 2 : 0,
     maximumFractionDigits = currency === "COP" ? 0 : 2,
   } = options;
 
   // Handle null/undefined/NaN
   const safeAmount = amount ?? 0;
+
+  // Ensure maximumFractionDigits is at least as large as minimumFractionDigits
+  const resolvedMaxDigits = Math.max(maximumFractionDigits, minimumFractionDigits);
+
   if (!Number.isFinite(safeAmount)) {
     return new Intl.NumberFormat(locale, {
       style: "currency",
       currency,
       minimumFractionDigits,
-      maximumFractionDigits,
+      maximumFractionDigits: resolvedMaxDigits,
     }).format(0);
   }
 
@@ -84,7 +88,7 @@ export function formatCurrency(
     style: "currency",
     currency,
     minimumFractionDigits,
-    maximumFractionDigits,
+    maximumFractionDigits: resolvedMaxDigits,
   }).format(safeAmount);
 }
 
@@ -192,10 +196,28 @@ export function formatDate(
  * ```
  */
 export function formatDateShort(date: Date | string | null | undefined): string {
-  return formatDate(date, {
-    month: "short",
-    day: "numeric",
-  });
+  if (!date) {
+    return "";
+  }
+
+  const locale = "en-US";
+
+  try {
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+
+    // Check for invalid date
+    if (!dateObj || Number.isNaN(dateObj.getTime())) {
+      return "";
+    }
+
+    return dateObj.toLocaleDateString(locale, {
+      month: "short",
+      day: "numeric",
+      // Explicitly exclude year by not passing it
+    });
+  } catch {
+    return "";
+  }
 }
 
 /**
@@ -485,9 +507,12 @@ export function formatPercentage(
     return "0%";
   }
 
+  // Ensure maximumFractionDigits is at least as large as minimumFractionDigits
+  const resolvedMaxDigits = Math.max(maximumFractionDigits, minimumFractionDigits);
+
   return new Intl.NumberFormat(locale, {
     style: "percent",
     minimumFractionDigits,
-    maximumFractionDigits,
+    maximumFractionDigits: resolvedMaxDigits,
   }).format(safeValue);
 }
