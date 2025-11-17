@@ -1,3 +1,4 @@
+import { codeInput } from "@sanity/code-input";
 import { documentInternationalization } from "@sanity/document-internationalization";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
@@ -22,6 +23,7 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool(),
+    codeInput(),
     presentationTool({
       resolve: {
         locations: locate,

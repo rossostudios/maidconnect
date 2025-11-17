@@ -1,20 +1,14 @@
-/**
- * Pricing Controls Manager Component
- *
- * Admin interface for managing pricing rules
- * Supports creating, editing, and deactivating rules
- *
- * Sprint 2: Supply & Ops
- * Week 2 Optimization: Dynamic import for PricingRuleModal
- */
-
 "use client";
 
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { geistMono, geistSans } from "@/app/fonts";
 import { formatCurrency } from "@/lib/format";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { toast } from "@/lib/toast";
+import { cn } from "@/lib/utils";
 
 // Dynamic import for modal (lazy load on demand)
 const PricingRuleModal = dynamic(
@@ -70,117 +64,140 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
     toast.success(currentState ? "Rule deactivated" : "Rule activated");
   };
 
+  const activeCount = rules.filter((rule) => rule.is_active).length;
+
   return (
-    <div className="space-y-6">
-      {/* Header Actions */}
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-[#7d7566] text-sm">
-            {rules.filter((r) => r.is_active).length} active rules · {rules.length} total
-          </p>
-        </div>
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p
+          className={cn(
+            "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+            geistSans.className
+          )}
+        >
+          {activeCount} active rules · {rules.length} total
+        </p>
         <button
-          className="bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+          className={cn(
+            "inline-flex items-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+            geistSans.className
+          )}
           onClick={() => setIsCreating(true)}
         >
-          + Create New Rule
+          <HugeiconsIcon className="h-4 w-4" icon={ArrowUpRight01Icon} />
+          Create Rule
         </button>
       </div>
 
-      {/* Rules Table */}
-      <div className="-2xl overflow-hidden border border-[#ebe5d8] bg-white">
+      <div className="overflow-x-auto border border-neutral-200 bg-white">
         <table className="w-full">
-          <thead className="bg-[#fbfafa]">
+          <thead className="bg-neutral-50">
             <tr>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">Scope</th>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
-                Commission
-              </th>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
-                Price Range
-              </th>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">Effective</th>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">Status</th>
-              <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">Actions</th>
+              {[
+                "Scope",
+                "Commission",
+                "Price Range",
+                "Effective",
+                "Status",
+                "Actions",
+              ].map((heading) => (
+                <th
+                  className={cn(
+                    "px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-600",
+                    geistSans.className
+                  )}
+                  key={heading}
+                >
+                  {heading}
+                </th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#ebe5d8]">
+          <tbody className="divide-y divide-neutral-200">
             {rules.length === 0 ? (
               <tr>
-                <td className="px-6 py-12 text-center text-[#7d7566]" colSpan={6}>
-                  No pricing rules configured
+                <td className="px-6 py-10 text-center" colSpan={6}>
+                  <p className={cn("text-sm text-neutral-600", geistSans.className)}>
+                    No pricing rules configured yet.
+                  </p>
                 </td>
               </tr>
             ) : (
               rules.map((rule) => (
-                <tr className={rule.is_active ? "" : "opacity-50"} key={rule.id}>
-                  <td className="px-6 py-4">
-                    <div className="text-sm">
-                      <div className="font-medium text-gray-900">
-                        {rule.service_category || (
-                          <span className="text-[#9d9383]">All Categories</span>
-                        )}
-                      </div>
-                      <div className="text-[#7d7566]">
-                        {rule.city || <span className="text-[#9d9383]">All Cities</span>}
-                      </div>
-                    </div>
+                <tr className={rule.is_active ? "" : "opacity-60"} key={rule.id}>
+                  <td className="px-6 py-4 align-top">
+                    <p className={cn("text-sm font-medium text-neutral-900", geistSans.className)}>
+                      {rule.service_category || "All Categories"}
+                    </p>
+                    <p className={cn("text-xs text-neutral-600", geistSans.className)}>
+                      {rule.city || "All Cities"}
+                    </p>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm">
-                      <div className="font-semibold text-[#FF5200]">
-                        {(rule.commission_rate * 100).toFixed(1)}%
-                      </div>
-                      {rule.background_check_fee_cop > 0 && (
-                        <div className="text-[#7d7566]">
-                          +{formatCurrency(rule.background_check_fee_cop, { currency: "COP" })} BG
-                          check
-                        </div>
-                      )}
-                    </div>
+                  <td className="px-6 py-4 align-top">
+                    <p className={cn("text-lg text-neutral-900", geistMono.className)}>
+                      {(rule.commission_rate * 100).toFixed(1)}%
+                    </p>
+                    {rule.background_check_fee_cop > 0 && (
+                      <p className={cn("text-xs text-neutral-600", geistSans.className)}>
+                        +{formatCurrency(rule.background_check_fee_cop, { currency: "COP" })} BG
+                        check
+                      </p>
+                    )}
                   </td>
-                  <td className="px-6 py-4 text-[#7d7566] text-sm">
+                  <td className="px-6 py-4 align-top">
                     {rule.min_price_cop || rule.max_price_cop ? (
-                      <>
+                      <p className={cn("text-sm text-neutral-900", geistSans.className)}>
                         {rule.min_price_cop
                           ? formatCurrency(rule.min_price_cop, { currency: "COP" })
-                          : "—"}{" "}
-                        to{" "}
+                          : "—"}
+                        <span className="mx-2 text-neutral-500">to</span>
                         {rule.max_price_cop
                           ? formatCurrency(rule.max_price_cop, { currency: "COP" })
                           : "—"}
-                      </>
+                      </p>
                     ) : (
-                      <span className="text-[#9d9383]">No limits</span>
+                      <p className={cn("text-sm text-neutral-500", geistSans.className)}>No limits</p>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-[#7d7566] text-sm">
-                    <div>{new Date(rule.effective_from).toLocaleDateString()}</div>
+                  <td className="px-6 py-4 align-top">
+                    <p className={cn("text-sm text-neutral-900", geistSans.className)}>
+                      {new Date(rule.effective_from).toLocaleDateString()}
+                    </p>
                     {rule.effective_until && (
-                      <div className="text-xs">
+                      <p className={cn("text-xs text-neutral-600", geistSans.className)}>
                         until {new Date(rule.effective_until).toLocaleDateString()}
-                      </div>
+                      </p>
                     )}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 align-top">
                     <span
-                      className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
-                        rule.is_active ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
-                      }`}
+                      className={cn(
+                        "inline-flex items-center border px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em]",
+                        geistSans.className,
+                        rule.is_active
+                          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                          : "border-neutral-200 bg-neutral-100 text-neutral-600"
+                      )}
                     >
                       {rule.is_active ? "Active" : "Inactive"}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex gap-2">
+                  <td className="px-6 py-4 align-top">
+                    <div className="flex flex-col gap-2 text-left">
                       <button
-                        className="font-medium text-[#FF5200] text-sm"
+                        className={cn(
+                          "text-xs font-semibold uppercase tracking-[0.3em] text-neutral-900 underline-offset-2 hover:underline",
+                          geistSans.className
+                        )}
                         onClick={() => setEditingRule(rule)}
                       >
                         Edit
                       </button>
                       <button
-                        className="font-medium text-[#7d7566] text-sm"
+                        className={cn(
+                          "text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500 underline-offset-2 hover:underline",
+                          geistSans.className
+                        )}
                         onClick={() => handleToggleActive(rule.id, rule.is_active)}
                       >
                         {rule.is_active ? "Deactivate" : "Activate"}
@@ -194,42 +211,58 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         </table>
       </div>
 
-      {/* Info Cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-2 font-semibold text-gray-900">Rule Priority</h3>
-          <ol className="list-inside list-decimal space-y-1 text-[#7d7566] text-sm">
+        <div className="border border-neutral-200 bg-white p-6">
+          <p
+            className={cn(
+              "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+              geistSans.className
+            )}
+          >
+            Rule Priority
+          </p>
+          <ol
+            className={cn(
+              "mt-3 list-inside list-decimal space-y-1 text-sm text-neutral-700",
+              geistSans.className
+            )}
+          >
             <li>Category + City match</li>
             <li>Category only</li>
             <li>City only</li>
             <li>Default (all)</li>
           </ol>
         </div>
-
-        <div className="border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-2 font-semibold text-gray-900">Commission Range</h3>
-          <p className="text-[#7d7566] text-sm">
+        <div className="border border-neutral-200 bg-white p-6">
+          <p
+            className={cn(
+              "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+              geistSans.className
+            )}
+          >
+            Commission Range
+          </p>
+          <p className={cn("mt-3 text-sm text-neutral-700", geistSans.className)}>
             Platform standard: 15-20%
-            <br />
-            Current default: 18%
-            <br />
-            Allowed: 10-30%
+            <br />Current default: 18%
+            <br />Allowed band: 10-30%
           </p>
         </div>
-
-        <div className="border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-2 font-semibold text-gray-900">Late Cancel Policy</h3>
-          <p className="text-[#7d7566] text-sm">
-            Default: 24 hours
-            <br />
-            Fee: 50% of booking
-            <br />
-            Configurable per rule
+        <div className="border border-neutral-200 bg-white p-6">
+          <p
+            className={cn(
+              "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+              geistSans.className
+            )}
+          >
+            Late Cancel Policy
+          </p>
+          <p className={cn("mt-3 text-sm text-neutral-700", geistSans.className)}>
+            Default: 24 hours notice · Fee: 50% of booking · Override per rule.
           </p>
         </div>
       </div>
 
-      {/* Create/Edit Modal - Dynamically loaded */}
       {(isCreating || editingRule) && (
         <PricingRuleModal
           onClose={() => {
@@ -252,19 +285,14 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
   );
 }
 
-/**
- * Loading skeleton for PricingRuleModal
- * Shown while modal component is being lazy-loaded
- */
 function PricingRuleModalSkeleton() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
-      <div className="my-8 w-full max-w-3xl border border-[#ebe5d8] bg-white p-8">
+      <div className="my-8 w-full max-w-3xl border border-neutral-200 bg-white p-8">
         <div className="mb-6 h-8 w-48 animate-pulse bg-neutral-200" />
         <div className="space-y-6">
-          {/* Form sections skeleton */}
           {[1, 2, 3, 4, 5].map((i) => (
-            <div className="border border-[#ebe5d8] bg-[#fbfafa] p-6" key={i}>
+            <div className="border border-neutral-200 bg-neutral-50 p-6" key={i}>
               <div className="mb-4 h-5 w-32 animate-pulse bg-neutral-200" />
               <div className="grid grid-cols-2 gap-4">
                 <div className="h-12 animate-pulse bg-neutral-200" />
@@ -272,7 +300,6 @@ function PricingRuleModalSkeleton() {
               </div>
             </div>
           ))}
-          {/* Buttons skeleton */}
           <div className="flex justify-end gap-3 pt-4">
             <div className="h-12 w-24 animate-pulse bg-neutral-200" />
             <div className="h-12 w-32 animate-pulse bg-neutral-200" />

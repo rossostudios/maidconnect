@@ -8,10 +8,14 @@
  */
 
 import { DisputeResolutionSkeleton } from "@/components/admin/dispute-resolution-skeleton";
+import { LoadingCamper } from "@/components/ui/loading-camper";
 
 export default function DisputesLoading() {
   return (
     <div className="space-y-8">
+      <div className="flex justify-center">
+        <LoadingCamper size="lg" text="Reviewing disputes" />
+      </div>
       {/* Page Header Skeleton */}
       <div>
         <div className="mb-1.5 h-9 w-64 animate-pulse bg-neutral-200" />

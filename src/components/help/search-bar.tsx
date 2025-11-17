@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { trackEvent } from "@/lib/integrations/posthog";
 
 type SearchResult = {
   id: string;
@@ -81,27 +81,16 @@ export function HelpSearchBar({
     [escapeHTML]
   );
 
-  // Track search analytics
+  // Track search analytics with PostHog
   const trackSearch = useCallback(
-    async (searchQuery: string, resultCount: number) => {
+    (searchQuery: string, resultCount: number) => {
       try {
-        const supabase = createSupabaseBrowserClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        let sessionId = localStorage.getItem("help_session_id");
-        if (!sessionId) {
-          sessionId = crypto.randomUUID();
-          localStorage.setItem("help_session_id", sessionId);
-        }
-
-        await supabase.from("help_search_analytics").insert({
+        trackEvent("Help Search Performed", {
           query: searchQuery.trim(),
           locale,
-          result_count: resultCount,
-          user_id: user?.id || null,
-          session_id: user ? null : sessionId,
+          resultCount,
+          hasResults: resultCount > 0,
+          queryLength: searchQuery.trim().length,
         });
       } catch (error) {
         // Silent fail - don't disrupt user experience
@@ -181,25 +170,19 @@ export function HelpSearchBar({
     });
   }, [debouncedQuery, searchArticles]);
 
-  const handleResultClick = async (result: SearchResult) => {
-    // Track the click in analytics
+  const handleResultClick = (result: SearchResult) => {
+    // Track the click in PostHog analytics
     try {
-      const supabase = createSupabaseBrowserClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      const sessionId = localStorage.getItem("help_session_id");
-
-      await supabase
-        .from("help_search_analytics")
-        .update({ clicked_article_id: result.id })
-        .match({
-          query: query.trim(),
-          locale,
-          ...(user ? { user_id: user.id } : { session_id: sessionId }),
-        })
-        .order("created_at", { ascending: false })
-        .limit(1);
+      trackEvent("Help Search Result Clicked", {
+        query: query.trim(),
+        locale,
+        articleId: result.id,
+        articleTitle: result.title,
+        articleSlug: result.slug,
+        categoryName: result.category_name,
+        categorySlug: result.category_slug,
+        resultPosition: results.findIndex((r) => r.id === result.id) + 1,
+      });
     } catch (error) {
       console.error("Click tracking failed:", error);
     }

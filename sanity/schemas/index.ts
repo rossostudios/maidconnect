@@ -12,7 +12,9 @@ import roadmapItem from "./documents/roadmap-item";
 
 // Object types
 import blockContent from "./objects/block-content";
+import callout from "./objects/callout";
 import ctaSection from "./objects/cta-section";
+import divider from "./objects/divider";
 import faqSection from "./objects/faq-section";
 import featuresSection from "./objects/features-section";
 import heroSection from "./objects/hero-section";
@@ -21,24 +23,26 @@ import statsSection from "./objects/stats-section";
 import testimonialsSection from "./objects/testimonials-section";
 
 export const schemaTypes = [
-  // Documents
-  helpArticle,
-  helpCategory,
-  helpTag,
-  changelog,
-  roadmapItem,
-  page,
-  cityPage,
-  blogCategory,
-  blogPost,
+	// Documents
+	helpArticle,
+	helpCategory,
+	helpTag,
+	changelog,
+	roadmapItem,
+	page,
+	cityPage,
+	blogCategory,
+	blogPost,
 
-  // Objects
-  blockContent,
-  seoMetadata,
-  heroSection,
-  featuresSection,
-  statsSection,
-  testimonialsSection,
-  ctaSection,
-  faqSection,
+	// Objects
+	blockContent,
+	callout,
+	divider,
+	seoMetadata,
+	heroSection,
+	featuresSection,
+	statsSection,
+	testimonialsSection,
+	ctaSection,
+	faqSection,
 ];

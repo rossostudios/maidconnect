@@ -25,11 +25,46 @@ save = true
 print = "yarn"
 
 [test]
-# Use the default test runner
+# Test runner configuration
 runner = "bun"
 
-# Code coverage
-coverage = false
+# Only run unit tests in src/ directory, exclude E2E and integration tests
+root = "./src"
+
+# Code coverage settings
+coverage = true
+coverageThreshold = { lines = 0.8, functions = 0.8, statements = 0.8, branches = 0.75 }
+coverageReporter = ["text", "lcov"]
+coverageDir = "./coverage"
+coverageSkipTestFiles = true
+
+# Patterns to exclude from test runs
+ignore = [
+  "**/*.spec.ts",            # Playwright E2E tests (use bun playwright test)
+  "**/tests/api/**",         # API integration tests
+  "**/tests/playwright/**",  # Playwright E2E tests
+  "**/*.stories.tsx",        # Storybook stories
+  "**/__mocks__/**",         # Mock files (imported by tests, not run directly)
+]
+
+# Patterns to exclude from coverage
+coveragePathIgnorePatterns = [
+  "**/*.spec.ts",           # Playwright E2E tests
+  "**/*.stories.tsx",       # Storybook stories
+  "**/__mocks__/**",        # Mock files
+  "**/node_modules/**",     # Dependencies
+  "**/.next/**",            # Next.js build
+  "**/dist/**",             # Build output
+  "**/coverage/**",         # Coverage reports
+  "**/playwright-report/**", # Playwright reports
+  "**/tests/**"             # Test utilities and setup
+]
+
+# Global test setup
+preload = ["./tests/setup.ts"]
+
+# Test timeout (30 seconds)
+timeout = 30000
 
 [run]
 # Use Bun's faster JavaScript runtime when available

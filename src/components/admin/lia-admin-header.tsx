@@ -1,6 +1,6 @@
 "use client";
 
-import { Search01Icon } from "@hugeicons/core-free-icons";
+import { MenuTwoLineIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { geistMono, geistSans } from "@/app/fonts";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
@@ -14,6 +14,8 @@ type Props = {
   userEmail?: string;
   userName?: string;
   userAvatarUrl?: string;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
 };
 
 /**
@@ -26,7 +28,13 @@ type Props = {
  * - Sharp geometric shapes (no rounded corners)
  * - Electric blue accents for active states
  */
-export function LiaAdminHeader({ userEmail, userName, userAvatarUrl }: Props) {
+export function LiaAdminHeader({
+  userEmail,
+  userName,
+  userAvatarUrl,
+  onToggleSidebar,
+  isSidebarCollapsed,
+}: Props) {
   const { openCommandPalette } = useKeyboardShortcuts();
 
   return (
@@ -41,6 +49,16 @@ export function LiaAdminHeader({ userEmail, userName, userAvatarUrl }: Props) {
               userName={userName}
             />
           </div>
+          {onToggleSidebar && (
+            <button
+              aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              className="hidden border border-neutral-200 bg-white p-2 text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-50 lg:flex"
+              onClick={onToggleSidebar}
+              type="button"
+            >
+              <HugeiconsIcon className="h-5 w-5" icon={MenuTwoLineIcon} />
+            </button>
+          )}
           <Breadcrumbs />
         </div>
 

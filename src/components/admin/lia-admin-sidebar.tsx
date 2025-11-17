@@ -42,8 +42,7 @@ const navigation: NavItem[] = [
   { href: "/admin/audit-logs", label: "Audit Logs", icon: ClipboardIcon },
   { href: "/admin/analytics", label: "Analytics", icon: Analytics01Icon },
   { href: "/admin/pricing", label: "Pricing", icon: DollarCircleIcon },
-  { href: "/admin/help/articles", label: "Help Center", icon: FileIcon },
-  { href: "/admin/changelog", label: "Changelog", icon: StarIcon },
+  { href: "/admin/content", label: "Content", icon: FileIcon },
   { href: "/admin/feedback", label: "Feedback", icon: Message01Icon },
   { href: "/admin/roadmap", label: "Roadmap", icon: MapsLocation01Icon },
 ];
