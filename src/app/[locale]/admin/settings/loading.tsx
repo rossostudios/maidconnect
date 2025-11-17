@@ -8,10 +8,14 @@
  */
 
 import { AdminSettingsSkeleton } from "@/components/admin/admin-settings-skeleton";
+import { LoadingCamper } from "@/components/ui/loading-camper";
 
 export default function SettingsLoading() {
   return (
     <section className="space-y-8">
+      <div className="flex justify-center">
+        <LoadingCamper size="lg" text="Syncing settings" />
+      </div>
       {/* Page Header Skeleton */}
       <div>
         <div className="mb-2 h-9 w-48 animate-pulse bg-neutral-200" />

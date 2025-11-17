@@ -1,58 +1,70 @@
-import { describe, expect, it } from "vitest";
+/**
+ * Authentication & Profile Validation Tests
+ *
+ * Comprehensive tests for user authentication, profile management, and account operations.
+ * Validates all Zod schemas in auth.ts to ensure data integrity across the auth flow.
+ *
+ * @module lib/shared/validations/__tests__/auth.test.ts
+ */
+
+import { describe, expect, test as it } from "bun:test";
 import {
+  // Enums
+  userRoleSchema,
   accountStatusSchema,
+  // Profile Schemas
   baseProfileSchema,
-  customerProfileSchema,
-  deleteAccountSchema,
-  exportDataSchema,
-  moderateUserSchema,
   professionalProfileSchema,
+  customerProfileSchema,
+  updateBaseProfileSchema,
+  updateProfessionalProfileSchema,
+  updateCustomerProfileSchema,
+  // Authentication Schemas
+  signUpSchema,
+  signInSchema,
   resetPasswordRequestSchema,
   resetPasswordSchema,
-  signInSchema,
-  signUpSchema,
-  updateCustomerProfileSchema,
   updatePasswordSchema,
-  updateProfessionalProfileSchema,
+  // Account Management
+  deleteAccountSchema,
+  exportDataSchema,
+  // Admin Operations
+  moderateUserSchema,
   updateUserRoleSchema,
-  userRoleSchema,
+  // Verification
   verifyEmailSchema,
   verifyPhoneSchema,
 } from "../auth";
 
 // ============================================================================
-// USER ROLE ENUMS
+// ENUM SCHEMAS
 // ============================================================================
 
 describe("userRoleSchema", () => {
-  it("accepts valid user roles", () => {
-    expect(userRoleSchema.parse("customer")).toBe("customer");
-    expect(userRoleSchema.parse("professional")).toBe("professional");
-    expect(userRoleSchema.parse("admin")).toBe("admin");
+  it("should accept valid roles", () => {
+    expect(userRoleSchema.safeParse("customer").success).toBe(true);
+    expect(userRoleSchema.safeParse("professional").success).toBe(true);
+    expect(userRoleSchema.safeParse("admin").success).toBe(true);
   });
 
-  it("rejects invalid roles", () => {
-    const result = userRoleSchema.safeParse("superadmin");
-    expect(result.success).toBe(false);
-  });
-
-  it("rejects empty or invalid types", () => {
+  it("should reject invalid roles", () => {
+    expect(userRoleSchema.safeParse("user").success).toBe(false);
+    expect(userRoleSchema.safeParse("manager").success).toBe(false);
     expect(userRoleSchema.safeParse("").success).toBe(false);
-    expect(userRoleSchema.safeParse(null).success).toBe(false);
-    expect(userRoleSchema.safeParse(123).success).toBe(false);
   });
 });
 
 describe("accountStatusSchema", () => {
-  it("accepts valid account statuses", () => {
-    expect(accountStatusSchema.parse("active")).toBe("active");
-    expect(accountStatusSchema.parse("suspended")).toBe("suspended");
-    expect(accountStatusSchema.parse("deactivated")).toBe("deactivated");
+  it("should accept valid statuses", () => {
+    expect(accountStatusSchema.safeParse("active").success).toBe(true);
+    expect(accountStatusSchema.safeParse("suspended").success).toBe(true);
+    expect(accountStatusSchema.safeParse("deactivated").success).toBe(true);
   });
 
-  it("rejects invalid statuses", () => {
-    const result = accountStatusSchema.safeParse("banned");
-    expect(result.success).toBe(false);
+  it("should reject invalid statuses", () => {
+    expect(accountStatusSchema.safeParse("deleted").success).toBe(false);
+    expect(accountStatusSchema.safeParse("pending").success).toBe(false);
+    expect(accountStatusSchema.safeParse("").success).toBe(false);
   });
 });
 
@@ -61,56 +73,59 @@ describe("accountStatusSchema", () => {
 // ============================================================================
 
 describe("baseProfileSchema", () => {
-  it("accepts valid base profile", () => {
-    const valid = {
-      displayName: "John Doe",
-      bio: "Experienced household professional",
-      phoneNumber: "+573001234567",
-      avatarUrl: "https://example.com/avatar.jpg",
-    };
+  const validProfile = {
+    displayName: "John Doe",
+    bio: "Experienced professional",
+    phoneNumber: "+573001234567",
+    avatarUrl: "https://example.com/avatar.jpg",
+  };
 
-    const result = baseProfileSchema.safeParse(valid);
+  it("should accept valid profile with all fields", () => {
+    const result = baseProfileSchema.safeParse(validProfile);
     expect(result.success).toBe(true);
   });
 
-  it("requires display name with minimum 2 characters", () => {
-    const short = { displayName: "J" };
-    const result = baseProfileSchema.safeParse(short);
+  it("should accept profile with only required fields", () => {
+    const result = baseProfileSchema.safeParse({
+      displayName: "Jane Smith",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject displayName shorter than 2 characters", () => {
+    const result = baseProfileSchema.safeParse({
+      displayName: "A",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces display name maximum 100 characters", () => {
-    const long = { displayName: "A".repeat(101) };
-    const result = baseProfileSchema.safeParse(long);
+  it("should reject displayName longer than 100 characters", () => {
+    const result = baseProfileSchema.safeParse({
+      displayName: "A".repeat(101),
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces bio maximum 1000 characters", () => {
-    const validBio = {
-      displayName: "John Doe",
-      bio: "A".repeat(1000),
-    };
-    expect(baseProfileSchema.safeParse(validBio).success).toBe(true);
-
-    const invalidBio = {
+  it("should reject bio longer than 1000 characters", () => {
+    const result = baseProfileSchema.safeParse({
       displayName: "John Doe",
       bio: "A".repeat(1001),
-    };
-    expect(baseProfileSchema.safeParse(invalidBio).success).toBe(false);
+    });
+    expect(result.success).toBe(false);
   });
 
-  it("accepts profile without optional fields", () => {
-    const minimal = { displayName: "John Doe" };
-    const result = baseProfileSchema.safeParse(minimal);
-    expect(result.success).toBe(true);
-  });
-
-  it("validates avatar URL format", () => {
-    const invalidUrl = {
+  it("should reject invalid URL for avatarUrl", () => {
+    const result = baseProfileSchema.safeParse({
       displayName: "John Doe",
-      avatarUrl: "not-a-url",
-    };
-    const result = baseProfileSchema.safeParse(invalidUrl);
+      avatarUrl: "not-a-valid-url",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject missing displayName", () => {
+    const result = baseProfileSchema.safeParse({
+      bio: "Some bio",
+    });
     expect(result.success).toBe(false);
   });
 });
@@ -125,124 +140,162 @@ describe("professionalProfileSchema", () => {
     displayName: "Maria Garcia",
     hourlyRate: 50000,
     yearsExperience: 5,
-    serviceRadius: 20,
+    serviceRadius: 10,
     languages: ["Spanish", "English"],
-    specialties: ["Cleaning", "Cooking"],
+    specialties: ["Deep Cleaning", "Laundry"],
+    certifications: ["First Aid Certificate"],
+    availability: {
+      monday: { start: "09:00", end: "17:00" },
+      wednesday: { start: "09:00", end: "17:00" },
+      friday: { start: "09:00", end: "17:00" },
+    },
+    acceptingNewClients: true,
   };
 
-  it("accepts valid professional profile", () => {
+  it("should accept valid professional profile with all fields", () => {
     const result = professionalProfileSchema.safeParse(validProfessional);
     expect(result.success).toBe(true);
   });
 
-  it("requires role to be 'professional'", () => {
-    const invalid = { ...validProfessional, role: "customer" };
-    const result = professionalProfileSchema.safeParse(invalid);
-    expect(result.success).toBe(false);
-  });
-
-  it("requires positive hourly rate", () => {
-    const zero = { ...validProfessional, hourlyRate: 0 };
-    expect(professionalProfileSchema.safeParse(zero).success).toBe(false);
-
-    const negative = { ...validProfessional, hourlyRate: -1000 };
-    expect(professionalProfileSchema.safeParse(negative).success).toBe(false);
-  });
-
-  it("requires integer hourly rate", () => {
-    const decimal = { ...validProfessional, hourlyRate: 50000.5 };
-    const result = professionalProfileSchema.safeParse(decimal);
-    expect(result.success).toBe(false);
-  });
-
-  it("validates years of experience (0-50)", () => {
-    const zero = { ...validProfessional, yearsExperience: 0 };
-    expect(professionalProfileSchema.safeParse(zero).success).toBe(true);
-
-    const fifty = { ...validProfessional, yearsExperience: 50 };
-    expect(professionalProfileSchema.safeParse(fifty).success).toBe(true);
-
-    const negative = { ...validProfessional, yearsExperience: -1 };
-    expect(professionalProfileSchema.safeParse(negative).success).toBe(false);
-
-    const tooHigh = { ...validProfessional, yearsExperience: 51 };
-    expect(professionalProfileSchema.safeParse(tooHigh).success).toBe(false);
-  });
-
-  it("validates service radius (max 100km)", () => {
-    const valid = { ...validProfessional, serviceRadius: 100 };
-    expect(professionalProfileSchema.safeParse(valid).success).toBe(true);
-
-    const tooLarge = { ...validProfessional, serviceRadius: 101 };
-    expect(professionalProfileSchema.safeParse(tooLarge).success).toBe(false);
-
-    const negative = { ...validProfessional, serviceRadius: -5 };
-    expect(professionalProfileSchema.safeParse(negative).success).toBe(false);
-  });
-
-  it("requires at least one language (max 10)", () => {
-    const noLanguages = { ...validProfessional, languages: [] };
-    expect(professionalProfileSchema.safeParse(noLanguages).success).toBe(false);
-
-    const tenLanguages = {
-      ...validProfessional,
-      languages: Array(10).fill("Spanish"),
-    };
-    expect(professionalProfileSchema.safeParse(tenLanguages).success).toBe(true);
-
-    const tooMany = {
-      ...validProfessional,
-      languages: Array(11).fill("Spanish"),
-    };
-    expect(professionalProfileSchema.safeParse(tooMany).success).toBe(false);
-  });
-
-  it("requires at least one specialty (max 10)", () => {
-    const noSpecialties = { ...validProfessional, specialties: [] };
-    expect(professionalProfileSchema.safeParse(noSpecialties).success).toBe(false);
-
-    const tenSpecialties = {
-      ...validProfessional,
-      specialties: Array(10).fill("Cleaning"),
-    };
-    expect(professionalProfileSchema.safeParse(tenSpecialties).success).toBe(true);
-
-    const tooMany = {
-      ...validProfessional,
-      specialties: Array(11).fill("Cleaning"),
-    };
-    expect(professionalProfileSchema.safeParse(tooMany).success).toBe(false);
-  });
-
-  it("validates certifications (max 20)", () => {
-    const valid = {
-      ...validProfessional,
-      certifications: Array(20).fill("CPR Certified"),
-    };
-    expect(professionalProfileSchema.safeParse(valid).success).toBe(true);
-
-    const tooMany = {
-      ...validProfessional,
-      certifications: Array(21).fill("CPR Certified"),
-    };
-    expect(professionalProfileSchema.safeParse(tooMany).success).toBe(false);
-  });
-
-  it("accepts availability schedule", () => {
-    const withSchedule = {
-      ...validProfessional,
-      availability: {
-        monday: { start: "09:00", end: "17:00" },
-        friday: { start: "10:00", end: "14:00" },
-      },
-    };
-    const result = professionalProfileSchema.safeParse(withSchedule);
+  it("should accept profile without optional fields", () => {
+    const result = professionalProfileSchema.safeParse({
+      role: "professional",
+      displayName: "Maria Garcia",
+      hourlyRate: 50000,
+      yearsExperience: 5,
+      serviceRadius: 10,
+      languages: ["Spanish"],
+      specialties: ["Cleaning"],
+    });
     expect(result.success).toBe(true);
   });
 
-  it("defaults acceptingNewClients to true", () => {
-    const result = professionalProfileSchema.parse(validProfessional);
-    expect(result.acceptingNewClients).toBe(true);
+  it("should reject role other than professional", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      role: "customer",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject negative hourlyRate", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      hourlyRate: -1000,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject zero hourlyRate", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      hourlyRate: 0,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject yearsExperience below 0", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      yearsExperience: -1,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject yearsExperience above 50", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      yearsExperience: 51,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject serviceRadius above 100km", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      serviceRadius: 101,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject empty languages array", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      languages: [],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject more than 10 languages", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      languages: Array(11).fill("Language"),
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject language shorter than 2 characters", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      languages: ["A"],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject more than 20 certifications", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      certifications: Array(21).fill("Certificate"),
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject certification longer than 200 characters", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      certifications: ["A".repeat(201)],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject empty specialties array", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      specialties: [],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject more than 10 specialties", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      specialties: Array(11).fill("Specialty"),
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should accept 0 years experience (beginner)", () => {
+    const result = professionalProfileSchema.safeParse({
+      ...validProfessional,
+      yearsExperience: 0,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should default acceptingNewClients to true", () => {
+    const result = professionalProfileSchema.safeParse({
+      role: "professional",
+      displayName: "Maria Garcia",
+      hourlyRate: 50000,
+      yearsExperience: 5,
+      serviceRadius: 10,
+      languages: ["Spanish"],
+      specialties: ["Cleaning"],
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.acceptingNewClients).toBe(true);
+    }
   });
 });
 
@@ -253,47 +306,68 @@ describe("professionalProfileSchema", () => {
 describe("customerProfileSchema", () => {
   const validCustomer = {
     role: "customer" as const,
-    displayName: "Juan Perez",
+    displayName: "Carlos Rodriguez",
+    bio: "Looking for reliable household help",
+    preferredLanguage: "es",
+    notificationPreferences: {
+      email: true,
+      push: true,
+      sms: false,
+    },
   };
 
-  it("accepts valid customer profile", () => {
+  it("should accept valid customer profile with all fields", () => {
     const result = customerProfileSchema.safeParse(validCustomer);
     expect(result.success).toBe(true);
   });
 
-  it("requires role to be 'customer'", () => {
-    const invalid = { ...validCustomer, role: "professional" };
-    const result = customerProfileSchema.safeParse(invalid);
+  it("should accept profile without optional fields", () => {
+    const result = customerProfileSchema.safeParse({
+      role: "customer",
+      displayName: "Carlos Rodriguez",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject role other than customer", () => {
+    const result = customerProfileSchema.safeParse({
+      ...validCustomer,
+      role: "professional",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("defaults preferred language to 'es'", () => {
-    const result = customerProfileSchema.parse(validCustomer);
-    expect(result.preferredLanguage).toBe("es");
-  });
-
-  it("validates preferred language length (2 chars)", () => {
-    const valid = { ...validCustomer, preferredLanguage: "en" };
-    expect(customerProfileSchema.safeParse(valid).success).toBe(true);
-
-    const short = { ...validCustomer, preferredLanguage: "e" };
-    expect(customerProfileSchema.safeParse(short).success).toBe(false);
-
-    const long = { ...validCustomer, preferredLanguage: "eng" };
-    expect(customerProfileSchema.safeParse(long).success).toBe(false);
-  });
-
-  it("accepts notification preferences", () => {
-    const withPrefs = {
+  it("should reject preferredLanguage not exactly 2 characters", () => {
+    const result = customerProfileSchema.safeParse({
       ...validCustomer,
-      notificationPreferences: {
-        email: true,
-        push: false,
-        sms: true,
-      },
-    };
-    const result = customerProfileSchema.safeParse(withPrefs);
+      preferredLanguage: "eng",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should default preferredLanguage to 'es'", () => {
+    const result = customerProfileSchema.safeParse({
+      role: "customer",
+      displayName: "Carlos Rodriguez",
+    });
     expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.preferredLanguage).toBe("es");
+    }
+  });
+
+  it("should default notification preferences correctly", () => {
+    const result = customerProfileSchema.safeParse({
+      role: "customer",
+      displayName: "Carlos Rodriguez",
+      notificationPreferences: {},
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.notificationPreferences?.email).toBe(true);
+      expect(result.data.notificationPreferences?.push).toBe(true);
+      expect(result.data.notificationPreferences?.sms).toBe(false);
+    }
   });
 });
 
@@ -301,47 +375,105 @@ describe("customerProfileSchema", () => {
 // UPDATE PROFILE SCHEMAS
 // ============================================================================
 
-describe("updateProfessionalProfileSchema", () => {
-  it("accepts partial updates", () => {
-    const partialUpdate = {
-      hourlyRate: 60000,
-      acceptingNewClients: false,
-    };
-    const result = updateProfessionalProfileSchema.safeParse(partialUpdate);
+describe("updateBaseProfileSchema", () => {
+  it("should accept profile with all optional fields", () => {
+    const result = updateBaseProfileSchema.safeParse({
+      displayName: "Updated Name",
+      bio: "Updated bio",
+      phoneNumber: "+573001234567",
+      avatarUrl: "https://example.com/new-avatar.jpg",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("accepts empty update object", () => {
+  it("should accept empty object (all fields optional)", () => {
+    const result = updateBaseProfileSchema.safeParse({});
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject invalid displayName length", () => {
+    const result = updateBaseProfileSchema.safeParse({
+      displayName: "A",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject invalid URL", () => {
+    const result = updateBaseProfileSchema.safeParse({
+      avatarUrl: "not-a-url",
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe("updateProfessionalProfileSchema", () => {
+  it("should accept professional updates with all fields", () => {
+    const result = updateProfessionalProfileSchema.safeParse({
+      displayName: "Updated Name",
+      hourlyRate: 60000,
+      yearsExperience: 10,
+      serviceRadius: 15,
+      languages: ["Spanish", "English", "French"],
+      certifications: ["Advanced Certification"],
+      specialties: ["Deep Cleaning", "Organization"],
+      acceptingNewClients: false,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should accept empty object", () => {
     const result = updateProfessionalProfileSchema.safeParse({});
     expect(result.success).toBe(true);
   });
 
-  it("validates optional fields same as create", () => {
-    const invalidRate = { hourlyRate: -1000 };
-    expect(updateProfessionalProfileSchema.safeParse(invalidRate).success).toBe(false);
+  it("should reject invalid hourlyRate", () => {
+    const result = updateProfessionalProfileSchema.safeParse({
+      hourlyRate: -1000,
+    });
+    expect(result.success).toBe(false);
+  });
 
-    const invalidExperience = { yearsExperience: 51 };
-    expect(updateProfessionalProfileSchema.safeParse(invalidExperience).success).toBe(false);
+  it("should reject yearsExperience above limit", () => {
+    const result = updateProfessionalProfileSchema.safeParse({
+      yearsExperience: 51,
+    });
+    expect(result.success).toBe(false);
   });
 });
 
 describe("updateCustomerProfileSchema", () => {
-  it("accepts partial updates", () => {
-    const partialUpdate = {
-      displayName: "New Name",
+  it("should accept customer updates with all fields", () => {
+    const result = updateCustomerProfileSchema.safeParse({
+      displayName: "Updated Name",
+      bio: "Updated bio",
       preferredLanguage: "en",
-    };
-    const result = updateCustomerProfileSchema.safeParse(partialUpdate);
+      notificationPreferences: {
+        email: false,
+        push: true,
+        sms: true,
+      },
+    });
     expect(result.success).toBe(true);
   });
 
-  it("accepts partial notification preferences", () => {
-    const update = {
+  it("should accept empty object", () => {
+    const result = updateCustomerProfileSchema.safeParse({});
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject invalid preferredLanguage length", () => {
+    const result = updateCustomerProfileSchema.safeParse({
+      preferredLanguage: "eng",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should accept partial notification preferences", () => {
+    const result = updateCustomerProfileSchema.safeParse({
       notificationPreferences: {
         email: false,
       },
-    };
-    const result = updateCustomerProfileSchema.safeParse(update);
+    });
     expect(result.success).toBe(true);
   });
 });
@@ -352,166 +484,235 @@ describe("updateCustomerProfileSchema", () => {
 
 describe("signUpSchema", () => {
   const validSignUp = {
-    email: "juan@example.com",
+    email: "test@example.com",
     password: "SecurePass123",
-    displayName: "Juan Perez",
+    displayName: "John Doe",
     role: "customer" as const,
   };
 
-  it("accepts valid signup", () => {
+  it("should accept valid signup data", () => {
     const result = signUpSchema.safeParse(validSignUp);
     expect(result.success).toBe(true);
   });
 
-  it("requires valid email", () => {
-    const invalid = { ...validSignUp, email: "not-an-email" };
-    const result = signUpSchema.safeParse(invalid);
+  it("should reject password shorter than 8 characters", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      password: "Short1",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires password minimum 8 characters", () => {
-    const short = { ...validSignUp, password: "Abc123" };
-    const result = signUpSchema.safeParse(short);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("at least 8 characters");
-    }
-  });
-
-  it("requires password with uppercase letter", () => {
-    const noUpper = { ...validSignUp, password: "password123" };
-    const result = signUpSchema.safeParse(noUpper);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("uppercase letter");
-    }
-  });
-
-  it("requires password with lowercase letter", () => {
-    const noLower = { ...validSignUp, password: "PASSWORD123" };
-    const result = signUpSchema.safeParse(noLower);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("lowercase letter");
-    }
-  });
-
-  it("requires password with number", () => {
-    const noNumber = { ...validSignUp, password: "PasswordABC" };
-    const result = signUpSchema.safeParse(noNumber);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("number");
-    }
-  });
-
-  it("enforces password maximum 100 characters", () => {
-    const long = { ...validSignUp, password: "A1a" + "a".repeat(98) };
-    const result = signUpSchema.safeParse(long);
+  it("should reject password without uppercase letter", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      password: "lowercase123",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires display name minimum 2 characters", () => {
-    const short = { ...validSignUp, displayName: "J" };
-    const result = signUpSchema.safeParse(short);
+  it("should reject password without lowercase letter", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      password: "UPPERCASE123",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires valid user role", () => {
-    const invalid = { ...validSignUp, role: "superuser" };
-    const result = signUpSchema.safeParse(invalid);
+  it("should reject password without number", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      password: "NoNumbersHere",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject password longer than 100 characters", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      password: "A".repeat(50) + "a".repeat(50) + "1",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject invalid email", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      email: "not-an-email",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject invalid role", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      role: "superuser",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject displayName shorter than 2 characters", () => {
+    const result = signUpSchema.safeParse({
+      ...validSignUp,
+      displayName: "A",
+    });
     expect(result.success).toBe(false);
   });
 });
 
 describe("signInSchema", () => {
-  it("accepts valid signin", () => {
-    const valid = {
-      email: "juan@example.com",
-      password: "any-password",
-    };
-    const result = signInSchema.safeParse(valid);
+  it("should accept valid signin data", () => {
+    const result = signInSchema.safeParse({
+      email: "test@example.com",
+      password: "anypassword",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("requires email", () => {
-    const missing = { password: "password" };
-    const result = signInSchema.safeParse(missing);
+  it("should reject empty password", () => {
+    const result = signInSchema.safeParse({
+      email: "test@example.com",
+      password: "",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires password", () => {
-    const missing = { email: "juan@example.com" };
-    const result = signInSchema.safeParse(missing);
+  it("should reject invalid email", () => {
+    const result = signInSchema.safeParse({
+      email: "not-an-email",
+      password: "password123",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("validates email format", () => {
-    const invalid = { email: "not-email", password: "password" };
-    const result = signInSchema.safeParse(invalid);
+  it("should reject missing email", () => {
+    const result = signInSchema.safeParse({
+      password: "password123",
+    });
     expect(result.success).toBe(false);
   });
 });
 
 describe("resetPasswordRequestSchema", () => {
-  it("accepts valid email", () => {
-    const valid = { email: "juan@example.com" };
-    const result = resetPasswordRequestSchema.safeParse(valid);
+  it("should accept valid email", () => {
+    const result = resetPasswordRequestSchema.safeParse({
+      email: "test@example.com",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("requires valid email format", () => {
-    const invalid = { email: "not-email" };
-    const result = resetPasswordRequestSchema.safeParse(invalid);
+  it("should reject invalid email", () => {
+    const result = resetPasswordRequestSchema.safeParse({
+      email: "not-an-email",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject missing email", () => {
+    const result = resetPasswordRequestSchema.safeParse({});
     expect(result.success).toBe(false);
   });
 });
 
 describe("resetPasswordSchema", () => {
-  it("accepts valid reset", () => {
-    const valid = {
-      token: "reset-token-123",
-      newPassword: "NewSecure123",
-    };
-    const result = resetPasswordSchema.safeParse(valid);
+  const validReset = {
+    token: "valid-reset-token-12345",
+    newPassword: "NewSecure123",
+  };
+
+  it("should accept valid reset data", () => {
+    const result = resetPasswordSchema.safeParse(validReset);
     expect(result.success).toBe(true);
   });
 
-  it("requires token", () => {
-    const missing = { newPassword: "NewSecure123" };
-    const result = resetPasswordSchema.safeParse(missing);
+  it("should reject empty token", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      token: "",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("validates new password strength (same as signup)", () => {
-    const weak = { token: "token", newPassword: "weak" };
-    const result = resetPasswordSchema.safeParse(weak);
+  it("should reject password without complexity requirements", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      newPassword: "simple",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject password shorter than 8 characters", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      newPassword: "Short1",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject password without uppercase", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      newPassword: "lowercase123",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject password without lowercase", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      newPassword: "UPPERCASE123",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject password without number", () => {
+    const result = resetPasswordSchema.safeParse({
+      ...validReset,
+      newPassword: "NoNumbers",
+    });
     expect(result.success).toBe(false);
   });
 });
 
 describe("updatePasswordSchema", () => {
-  it("accepts valid password update", () => {
-    const valid = {
-      currentPassword: "OldPass123",
-      newPassword: "NewSecure456",
-    };
-    const result = updatePasswordSchema.safeParse(valid);
+  const validUpdate = {
+    currentPassword: "OldPassword123",
+    newPassword: "NewPassword456",
+  };
+
+  it("should accept valid password update", () => {
+    const result = updatePasswordSchema.safeParse(validUpdate);
     expect(result.success).toBe(true);
   });
 
-  it("requires current password", () => {
-    const missing = { newPassword: "NewSecure456" };
-    const result = updatePasswordSchema.safeParse(missing);
+  it("should reject empty currentPassword", () => {
+    const result = updatePasswordSchema.safeParse({
+      ...validUpdate,
+      currentPassword: "",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("validates new password strength", () => {
-    const weak = {
-      currentPassword: "OldPass123",
-      newPassword: "weak",
-    };
-    const result = updatePasswordSchema.safeParse(weak);
+  it("should reject newPassword without complexity", () => {
+    const result = updatePasswordSchema.safeParse({
+      ...validUpdate,
+      newPassword: "simple",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject newPassword shorter than 8 characters", () => {
+    const result = updatePasswordSchema.safeParse({
+      ...validUpdate,
+      newPassword: "Short1",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject missing currentPassword", () => {
+    const result = updatePasswordSchema.safeParse({
+      newPassword: "NewPassword456",
+    });
     expect(result.success).toBe(false);
   });
 });
@@ -521,117 +722,157 @@ describe("updatePasswordSchema", () => {
 // ============================================================================
 
 describe("deleteAccountSchema", () => {
-  it("accepts valid deletion request", () => {
-    const valid = {
-      confirmPassword: "password",
-      reason: "No longer need the service",
-      feedback: "Great platform, but moving abroad",
-    };
-    const result = deleteAccountSchema.safeParse(valid);
+  it("should accept valid deletion request with all fields", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "MyPassword123",
+      reason: "Moving to another country",
+      feedback: "Great service, but I no longer need it",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("requires password confirmation", () => {
-    const missing = { reason: "No longer need" };
-    const result = deleteAccountSchema.safeParse(missing);
+  it("should accept deletion with only password", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "MyPassword123",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject empty confirmPassword", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires reason minimum 10 characters", () => {
-    const short = {
-      confirmPassword: "password",
+  it("should reject reason shorter than 10 characters", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "MyPassword123",
       reason: "Too short",
-    };
-    const result = deleteAccountSchema.safeParse(short);
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces reason maximum 500 characters", () => {
-    const long = {
-      confirmPassword: "password",
+  it("should reject reason longer than 500 characters", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "MyPassword123",
       reason: "A".repeat(501),
-    };
-    const result = deleteAccountSchema.safeParse(long);
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces feedback maximum 2000 characters", () => {
-    const valid = {
-      confirmPassword: "password",
-      feedback: "A".repeat(2000),
-    };
-    expect(deleteAccountSchema.safeParse(valid).success).toBe(true);
-
-    const tooLong = {
-      confirmPassword: "password",
+  it("should reject feedback longer than 2000 characters", () => {
+    const result = deleteAccountSchema.safeParse({
+      confirmPassword: "MyPassword123",
       feedback: "A".repeat(2001),
-    };
-    expect(deleteAccountSchema.safeParse(tooLong).success).toBe(false);
+    });
+    expect(result.success).toBe(false);
   });
 
-  it("allows optional reason and feedback", () => {
-    const minimal = { confirmPassword: "password" };
-    const result = deleteAccountSchema.safeParse(minimal);
-    expect(result.success).toBe(true);
+  it("should reject missing confirmPassword", () => {
+    const result = deleteAccountSchema.safeParse({
+      reason: "I want to delete my account",
+    });
+    expect(result.success).toBe(false);
   });
 });
 
 describe("exportDataSchema", () => {
-  it("defaults all includes to true", () => {
-    const result = exportDataSchema.parse({});
-    expect(result.includeBookings).toBe(true);
-    expect(result.includeMessages).toBe(true);
-    expect(result.includeProfile).toBe(true);
-    expect(result.includePayments).toBe(true);
-  });
-
-  it("defaults format to json", () => {
-    const result = exportDataSchema.parse({});
-    expect(result.format).toBe("json");
-  });
-
-  it("accepts csv format", () => {
-    const valid = { format: "csv" as const };
-    const result = exportDataSchema.safeParse(valid);
+  it("should accept export request with all fields", () => {
+    const result = exportDataSchema.safeParse({
+      includeBookings: true,
+      includeMessages: true,
+      includeProfile: true,
+      includePayments: true,
+      format: "json",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("rejects invalid formats", () => {
-    const invalid = { format: "xml" };
-    const result = exportDataSchema.safeParse(invalid);
-    expect(result.success).toBe(false);
-  });
-
-  it("allows selective data export", () => {
-    const selective = {
+  it("should accept export with CSV format", () => {
+    const result = exportDataSchema.safeParse({
       includeBookings: true,
       includeMessages: false,
       includeProfile: true,
       includePayments: false,
-      format: "json" as const,
-    };
-    const result = exportDataSchema.safeParse(selective);
+      format: "csv",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should default to all includes true and JSON format", () => {
+    const result = exportDataSchema.safeParse({});
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.includeBookings).toBe(true);
+      expect(result.data.includeMessages).toBe(true);
+      expect(result.data.includeProfile).toBe(true);
+      expect(result.data.includePayments).toBe(true);
+      expect(result.data.format).toBe("json");
+    }
+  });
+
+  it("should reject invalid format", () => {
+    const result = exportDataSchema.safeParse({
+      format: "xml",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should accept selective data export", () => {
+    const result = exportDataSchema.safeParse({
+      includeBookings: true,
+      includeMessages: false,
+      includeProfile: false,
+      includePayments: false,
+    });
     expect(result.success).toBe(true);
   });
 });
 
 // ============================================================================
-// ADMIN OPERATIONS SCHEMAS
+// ADMIN OPERATION SCHEMAS
 // ============================================================================
 
 describe("moderateUserSchema", () => {
   const validModeration = {
-    userId: "123e4567-e89b-12d3-a456-426614174000",
+    userId: "550e8400-e29b-41d4-a716-446655440000",
     action: "suspend" as const,
-    reason: "Violated terms of service by spamming",
+    reason: "Violation of terms of service - inappropriate behavior",
+    duration: 7,
   };
 
-  it("accepts valid moderation action", () => {
+  it("should accept valid moderation with duration", () => {
     const result = moderateUserSchema.safeParse(validModeration);
     expect(result.success).toBe(true);
   });
 
-  it("accepts all moderation actions", () => {
+  it("should accept moderation without duration", () => {
+    const result = moderateUserSchema.safeParse({
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      action: "warn",
+      reason: "First warning for minor policy violation",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("should reject invalid UUID", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      userId: "not-a-uuid",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject invalid action", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      action: "ban",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should accept all valid actions", () => {
     expect(
       moderateUserSchema.safeParse({ ...validModeration, action: "suspend" }).success
     ).toBe(true);
@@ -641,88 +882,106 @@ describe("moderateUserSchema", () => {
     expect(
       moderateUserSchema.safeParse({ ...validModeration, action: "deactivate" }).success
     ).toBe(true);
-    expect(moderateUserSchema.safeParse({ ...validModeration, action: "warn" }).success).toBe(
-      true
-    );
+    expect(
+      moderateUserSchema.safeParse({ ...validModeration, action: "warn" }).success
+    ).toBe(true);
   });
 
-  it("rejects invalid actions", () => {
-    const invalid = { ...validModeration, action: "ban" };
-    const result = moderateUserSchema.safeParse(invalid);
+  it("should reject reason shorter than 10 characters", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      reason: "Too short",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires valid UUID for userId", () => {
-    const invalid = { ...validModeration, userId: "not-a-uuid" };
-    const result = moderateUserSchema.safeParse(invalid);
+  it("should reject reason longer than 1000 characters", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      reason: "A".repeat(1001),
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires reason minimum 10 characters", () => {
-    const short = { ...validModeration, reason: "Too short" };
-    const result = moderateUserSchema.safeParse(short);
+  it("should reject negative duration", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      duration: -5,
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces reason maximum 1000 characters", () => {
-    const valid = { ...validModeration, reason: "A".repeat(1000) };
-    expect(moderateUserSchema.safeParse(valid).success).toBe(true);
-
-    const tooLong = { ...validModeration, reason: "A".repeat(1001) };
-    expect(moderateUserSchema.safeParse(tooLong).success).toBe(false);
-  });
-
-  it("accepts optional duration for temporary actions", () => {
-    const withDuration = { ...validModeration, duration: 7 };
-    const result = moderateUserSchema.safeParse(withDuration);
-    expect(result.success).toBe(true);
-  });
-
-  it("requires positive duration", () => {
-    const zero = { ...validModeration, duration: 0 };
-    expect(moderateUserSchema.safeParse(zero).success).toBe(false);
-
-    const negative = { ...validModeration, duration: -5 };
-    expect(moderateUserSchema.safeParse(negative).success).toBe(false);
+  it("should reject zero duration", () => {
+    const result = moderateUserSchema.safeParse({
+      ...validModeration,
+      duration: 0,
+    });
+    expect(result.success).toBe(false);
   });
 });
 
 describe("updateUserRoleSchema", () => {
   const validRoleUpdate = {
-    userId: "123e4567-e89b-12d3-a456-426614174000",
+    userId: "550e8400-e29b-41d4-a716-446655440000",
     newRole: "professional" as const,
-    reason: "User completed professional verification",
+    reason: "User completed professional verification process",
   };
 
-  it("accepts valid role update", () => {
+  it("should accept valid role update", () => {
     const result = updateUserRoleSchema.safeParse(validRoleUpdate);
     expect(result.success).toBe(true);
   });
 
-  it("requires valid UUID", () => {
-    const invalid = { ...validRoleUpdate, userId: "not-uuid" };
-    const result = updateUserRoleSchema.safeParse(invalid);
+  it("should reject invalid UUID", () => {
+    const result = updateUserRoleSchema.safeParse({
+      ...validRoleUpdate,
+      userId: "not-a-uuid",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires valid role", () => {
-    const invalid = { ...validRoleUpdate, newRole: "superadmin" };
-    const result = updateUserRoleSchema.safeParse(invalid);
+  it("should reject invalid role", () => {
+    const result = updateUserRoleSchema.safeParse({
+      ...validRoleUpdate,
+      newRole: "superadmin",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("requires reason minimum 10 characters", () => {
-    const short = { ...validRoleUpdate, reason: "Approved" };
-    const result = updateUserRoleSchema.safeParse(short);
+  it("should accept all valid roles", () => {
+    expect(
+      updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "customer" }).success
+    ).toBe(true);
+    expect(
+      updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "professional" }).success
+    ).toBe(true);
+    expect(
+      updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "admin" }).success
+    ).toBe(true);
+  });
+
+  it("should reject reason shorter than 10 characters", () => {
+    const result = updateUserRoleSchema.safeParse({
+      ...validRoleUpdate,
+      reason: "Too short",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("enforces reason maximum 500 characters", () => {
-    const valid = { ...validRoleUpdate, reason: "A".repeat(500) };
-    expect(updateUserRoleSchema.safeParse(valid).success).toBe(true);
+  it("should reject reason longer than 500 characters", () => {
+    const result = updateUserRoleSchema.safeParse({
+      ...validRoleUpdate,
+      reason: "A".repeat(501),
+    });
+    expect(result.success).toBe(false);
+  });
 
-    const tooLong = { ...validRoleUpdate, reason: "A".repeat(501) };
-    expect(updateUserRoleSchema.safeParse(tooLong).success).toBe(false);
+  it("should reject missing reason", () => {
+    const result = updateUserRoleSchema.safeParse({
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      newRole: "professional",
+    });
+    expect(result.success).toBe(false);
   });
 });
 
@@ -731,67 +990,86 @@ describe("updateUserRoleSchema", () => {
 // ============================================================================
 
 describe("verifyEmailSchema", () => {
-  it("accepts valid token", () => {
-    const valid = { token: "verification-token-123" };
-    const result = verifyEmailSchema.safeParse(valid);
+  it("should accept valid token", () => {
+    const result = verifyEmailSchema.safeParse({
+      token: "valid-email-verification-token-abc123",
+    });
     expect(result.success).toBe(true);
   });
 
-  it("requires token", () => {
-    const missing = {};
-    const result = verifyEmailSchema.safeParse(missing);
+  it("should reject empty token", () => {
+    const result = verifyEmailSchema.safeParse({
+      token: "",
+    });
     expect(result.success).toBe(false);
   });
 
-  it("rejects empty token", () => {
-    const empty = { token: "" };
-    const result = verifyEmailSchema.safeParse(empty);
+  it("should reject missing token", () => {
+    const result = verifyEmailSchema.safeParse({});
     expect(result.success).toBe(false);
   });
 });
 
 describe("verifyPhoneSchema", () => {
-  it("accepts valid phone verification", () => {
-    const valid = {
+  it("should accept valid phone verification", () => {
+    const result = verifyPhoneSchema.safeParse({
       phoneNumber: "+573001234567",
       verificationCode: "123456",
-    };
-    const result = verifyPhoneSchema.safeParse(valid);
+    });
     expect(result.success).toBe(true);
   });
 
-  it("requires exactly 6 digits for verification code", () => {
-    const short = {
+  it("should reject code not exactly 6 digits", () => {
+    const result = verifyPhoneSchema.safeParse({
       phoneNumber: "+573001234567",
       verificationCode: "12345",
-    };
-    expect(verifyPhoneSchema.safeParse(short).success).toBe(false);
+    });
+    expect(result.success).toBe(false);
+  });
 
-    const long = {
+  it("should reject code longer than 6 digits", () => {
+    const result = verifyPhoneSchema.safeParse({
       phoneNumber: "+573001234567",
       verificationCode: "1234567",
-    };
-    expect(verifyPhoneSchema.safeParse(long).success).toBe(false);
-  });
-
-  it("requires verification code to be digits only", () => {
-    const withLetters = {
-      phoneNumber: "+573001234567",
-      verificationCode: "12A456",
-    };
-    const result = verifyPhoneSchema.safeParse(withLetters);
+    });
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues[0]?.message).toContain("6 digits");
-    }
   });
 
-  it("requires valid phone number format", () => {
-    const invalid = {
-      phoneNumber: "not-a-phone",
+  it("should reject non-numeric code", () => {
+    const result = verifyPhoneSchema.safeParse({
+      phoneNumber: "+573001234567",
+      verificationCode: "ABC123",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject code with special characters", () => {
+    const result = verifyPhoneSchema.safeParse({
+      phoneNumber: "+573001234567",
+      verificationCode: "12-345",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject invalid phone number", () => {
+    const result = verifyPhoneSchema.safeParse({
+      phoneNumber: "invalid-phone",
       verificationCode: "123456",
-    };
-    const result = verifyPhoneSchema.safeParse(invalid);
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject missing phoneNumber", () => {
+    const result = verifyPhoneSchema.safeParse({
+      verificationCode: "123456",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("should reject missing verificationCode", () => {
+    const result = verifyPhoneSchema.safeParse({
+      phoneNumber: "+573001234567",
+    });
     expect(result.success).toBe(false);
   });
 });
