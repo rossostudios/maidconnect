@@ -49,7 +49,7 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
     <section className="space-y-6">
       <div>
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       <FinancesOverview bookings={bookings} payouts={payouts} />

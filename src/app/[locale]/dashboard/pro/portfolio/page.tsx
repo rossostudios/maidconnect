@@ -34,7 +34,7 @@ export default async function ProPortfolioPage({
       {/* Header */}
       <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Portfolio Manager */}

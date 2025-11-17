@@ -170,7 +170,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
                 <div className="flex h-8 w-8 items-center justify-center bg-orange-500 font-semibold text-sm text-white">
                   {index}
                 </div>
-                <p className="font-semibold text-neutral-500 text-sm uppercase tracking-[0.2em]">
+                <p className="font-semibold text-neutral-700 text-sm uppercase tracking-[0.2em]">
                   {t("references.referenceLabel", { number: index })}
                 </p>
               </div>
@@ -214,7 +214,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <div className="flex flex-col gap-4 border-neutral-200 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-neutral-500 text-sm">{t("footer.note")}</p>
+        <p className="text-neutral-700 text-sm">{t("footer.note")}</p>
         <button
           className={cn(
             "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
@@ -302,7 +302,7 @@ function FormField({ label, children, helper, error, className }: FormFieldProps
       <label className="block font-semibold text-base text-neutral-900" htmlFor={childId}>
         {label}
       </label>
-      {helper ? <p className="text-neutral-500 text-sm">{helper}</p> : null}
+      {helper ? <p className="text-neutral-700 text-sm">{helper}</p> : null}
       {children}
       {error ? (
         <p className="flex items-center gap-2 text-orange-500 text-sm">

@@ -189,7 +189,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           <h1 className="mb-2 font-bold text-3xl text-neutral-900 dark:text-neutral-100">
             {getHeaderTitle(isEditing)}
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">{getHeaderSubtitle(isEditing)}</p>
+          <p className="text-neutral-600 dark:text-neutral-300">{getHeaderSubtitle(isEditing)}</p>
         </div>
 
         <div className="flex gap-3">
@@ -256,7 +256,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               type="text"
               value={slug}
             />
-            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
+            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
               Used in URL: /help/category/<strong>{slug || "slug"}</strong>
             </p>
           </div>
@@ -268,7 +268,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                 <div className="font-semibold text-orange-600 text-sm dark:text-orange-500">
                   Published
                 </div>
-                <div className="text-neutral-600 text-xs dark:text-neutral-400">
+                <div className="text-neutral-600 text-xs dark:text-neutral-300">
                   Make this article visible to users
                 </div>
               </div>
@@ -286,7 +286,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             <h3 className="mb-3 font-semibold text-orange-600 text-sm dark:text-orange-500">
               Editor Shortcuts
             </h3>
-            <div className="space-y-2 text-neutral-600 text-xs dark:text-neutral-400">
+            <div className="space-y-2 text-neutral-600 text-xs dark:text-neutral-300">
               <div>
                 <kbd className="bg-neutral-100 px-1 dark:bg-neutral-800">/</kbd> Open block menu
               </div>
@@ -311,7 +311,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               className={`px-4 py-2 font-semibold text-sm transition ${
                 activeTab === "en"
                   ? "bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
-                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
               }`}
               onClick={() => setActiveTab("en")}
               type="button"
@@ -322,7 +322,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               className={`px-4 py-2 font-semibold text-sm transition ${
                 activeTab === "es"
                   ? "bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
-                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
+                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
               }`}
               onClick={() => setActiveTab("es")}
               type="button"
@@ -360,7 +360,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                   htmlFor="excerpt_en"
                 >
                   Excerpt (English)
-                  <span className="ml-2 font-normal text-neutral-600 dark:text-neutral-400">
+                  <span className="ml-2 font-normal text-neutral-600 dark:text-neutral-300">
                     Optional
                   </span>
                 </label>
@@ -421,7 +421,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                   htmlFor="excerpt_es"
                 >
                   Extracto (Español)
-                  <span className="ml-2 font-normal text-neutral-600 dark:text-neutral-400">
+                  <span className="ml-2 font-normal text-neutral-600 dark:text-neutral-300">
                     Opcional
                   </span>
                 </label>

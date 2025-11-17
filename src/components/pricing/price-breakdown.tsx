@@ -37,7 +37,7 @@ export function PriceBreakdown({
           <div className="flex items-start justify-between text-sm">
             <div className="flex flex-col">
               <span className="text-neutral-600">Service</span>
-              <span className="text-neutral-500 text-xs">
+              <span className="text-neutral-700 text-xs">
                 {formatCOP(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
               </span>
             </div>

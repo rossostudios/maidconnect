@@ -23,7 +23,7 @@ export function LogoCloud() {
     <section className="w-full border-neutral-200 border-y bg-white py-12">
       <Container className="mx-auto max-w-7xl px-4">
         <div className="mb-8 text-center">
-          <p className="font-mono text-neutral-400 text-xs uppercase tracking-widest">
+          <p className="font-mono text-neutral-600 text-xs uppercase tracking-widest">
             As Featured In
           </p>
         </div>

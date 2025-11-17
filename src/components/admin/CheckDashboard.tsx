@@ -229,10 +229,10 @@ export function CheckDashboard() {
       <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <p className="mb-1 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+            <p className="mb-1 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
               Check Distribution
             </p>
-            <p className="text-neutral-600 text-sm dark:text-neutral-400">
+            <p className="text-neutral-600 text-sm dark:text-neutral-300">
               Background checks by status
             </p>
           </div>
@@ -280,7 +280,7 @@ export function CheckDashboard() {
           {/* Sort Filter */}
           <div className="flex items-center gap-3">
             <HugeiconsIcon
-              className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+              className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
               icon={FilterIcon}
             />
             <Select onValueChange={(value) => setSortBy(value as SortOption)} value={sortBy}>
@@ -334,7 +334,7 @@ function CheckTabPanel({ checks, tabValue, onSelectCheck }: CheckTabPanelProps) 
     return (
       <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
         <CardContent className="flex min-h-[400px] items-center justify-center">
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">
+          <p className="text-neutral-600 text-sm dark:text-neutral-300">
             No {tabValue} background checks found.
           </p>
         </CardContent>
@@ -393,7 +393,7 @@ function CheckCardHeader({ check }: { check: BackgroundCheckWithProfile }) {
           <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
             {check.professional.full_name || "Unnamed Professional"}
           </h4>
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">{location}</p>
+          <p className="text-neutral-600 text-sm dark:text-neutral-300">{location}</p>
         </div>
       </div>
       <div className="flex gap-2">
@@ -410,7 +410,7 @@ function CheckStatsGrid({ check }: { check: BackgroundCheckWithProfile }) {
       <CheckStat icon={TimeScheduleIcon} label="Waiting Time">
         <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
           {check.daysWaiting}
-          <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
+          <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-300">
             days
           </span>
         </p>
@@ -446,8 +446,8 @@ function CheckStat({ icon, label, children }: CheckStatProps) {
   return (
     <div>
       <div className="mb-1 flex items-center gap-2">
-        <HugeiconsIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" icon={icon} />
-        <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+        <HugeiconsIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-300" icon={icon} />
+        <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
           {label}
         </span>
       </div>
@@ -543,7 +543,7 @@ const statusBadgeClasses: Record<string, string> = {
 function getStatusBadgeClass(status: string) {
   return (
     statusBadgeClasses[status] ||
-    "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400"
+    "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-300"
   );
 }
 
@@ -555,6 +555,6 @@ const providerBadgeClasses: Record<string, string> = {
 function getProviderBadgeClass(provider: string) {
   return (
     providerBadgeClasses[provider.toLowerCase()] ||
-    "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400"
+    "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-300"
   );
 }

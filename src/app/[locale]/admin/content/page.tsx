@@ -220,7 +220,7 @@ export default async function AdminContentPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -253,7 +253,7 @@ export default async function AdminContentPage() {
               >
                 <span
                   className={cn(
-                    "text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                    "text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                     geistSans.className
                   )}
                 >
@@ -287,7 +287,7 @@ export default async function AdminContentPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                     geistSans.className
                   )}
                 >
@@ -336,7 +336,7 @@ export default async function AdminContentPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -354,7 +354,7 @@ export default async function AdminContentPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500",
+                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
                   geistSans.className
                 )}
               >
@@ -385,7 +385,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -405,7 +405,7 @@ export default async function AdminContentPage() {
                 <div>
                   <p
                     className={cn(
-                      "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                      "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                       geistSans.className
                     )}
                   >
@@ -471,7 +471,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >

@@ -111,7 +111,7 @@ export function SiteFooter() {
             >
               {/* Email */}
               <a
-                className="group flex items-center gap-3 font-[family-name:var(--font-geist-sans)] text-base text-neutral-200 transition-colors hover:text-orange-500"
+                className="group flex items-center gap-3 font-[family-name:var(--font-geist-sans)] text-base text-neutral-200 transition-colors hover:text-orange-600"
                 href="mailto:hello@casaora.com"
               >
                 <div className="flex h-10 w-10 items-center justify-center border border-neutral-700 bg-neutral-800 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500">
@@ -126,7 +126,7 @@ export function SiteFooter() {
 
               {/* Social Links */}
               <div className="flex flex-col gap-3">
-                <h4 className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
+                <h4 className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-xs uppercase tracking-widest">
                   Follow Us
                 </h4>
                 <div className="flex items-center gap-2">
@@ -164,7 +164,7 @@ export function SiteFooter() {
             >
               {footerColumns.map((column, _idx) => (
                 <div className="flex flex-col gap-6" key={column.title}>
-                  <h3 className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
+                  <h3 className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-xs uppercase tracking-widest">
                     {column.title}
                   </h3>
 
@@ -172,7 +172,7 @@ export function SiteFooter() {
                     {column.links.map((link) => (
                       <li key={link.label}>
                         <Link
-                          className="group inline-flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-base text-neutral-400 transition-colors hover:text-orange-500"
+                          className="group inline-flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-base text-neutral-600 transition-colors hover:text-orange-600"
                           data-tour={link.href === "/help" ? "help" : undefined}
                           href={link.href}
                         >
@@ -209,7 +209,7 @@ export function SiteFooter() {
           viewport={{ once: true }}
           whileInView={{ opacity: 1, y: 0 }}
         >
-          <h3 className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
+          <h3 className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-700 text-xs uppercase tracking-widest">
             Security & Compliance
           </h3>
 
@@ -230,18 +230,18 @@ export function SiteFooter() {
                 whileInView={{ opacity: 1, y: 0 }}
               >
                 <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500/10">
-                  <span className="font-[family-name:var(--font-geist-mono)] font-bold text-neutral-300 text-xs transition-colors group-hover:text-orange-500">
+                  <span className="font-[family-name:var(--font-geist-mono)] font-bold text-neutral-300 text-xs transition-colors group-hover:text-orange-600">
                     {badge.label}
                   </span>
                 </div>
-                <span className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+                <span className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-700 text-xs">
                   {badge.sublabel}
                 </span>
               </motion.div>
             ))}
           </div>
 
-          <p className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+          <p className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-700 text-xs">
             Payments secured by Stripe. Infrastructure certified by Supabase & Vercel.
           </p>
         </motion.div>
@@ -250,7 +250,7 @@ export function SiteFooter() {
 
         {/* Bottom Section */}
         <motion.div
-          className="flex flex-col gap-6 font-[family-name:var(--font-geist-sans)] text-neutral-400 text-sm sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-6 font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm sm:flex-row sm:items-center sm:justify-between"
           initial={{ opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
           viewport={{ once: true }}
@@ -260,7 +260,7 @@ export function SiteFooter() {
             <p>
               © {year} Casaora. {t("allRightsReserved")}
             </p>
-            <p className="font-[family-name:var(--font-geist-mono)] text-neutral-500 text-xs">
+            <p className="font-[family-name:var(--font-geist-mono)] text-neutral-700 text-xs">
               {t("remoteCompany")}
             </p>
           </div>

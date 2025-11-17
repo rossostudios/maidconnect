@@ -47,10 +47,10 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
       <h1 className="mb-4 font-bold text-4xl text-neutral-900">
         Política de Privacidad y Protección de Datos Personales
       </h1>
-      <p className="mb-2 text-neutral-500">
+      <p className="mb-2 text-neutral-700">
         <strong>Última actualización:</strong> {lastUpdated}
       </p>
-      <p className="mb-8 text-neutral-500">
+      <p className="mb-8 text-neutral-700">
         <strong>Conforme a la Ley 1581 de 2012 de Colombia</strong>
       </p>
 
@@ -80,7 +80,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Teléfono:</strong> [Por completar]
             </p>
           </div>
-          <p className="text-neutral-500">
+          <p className="text-neutral-700">
             Casaora actúa como responsable del tratamiento de sus datos personales conforme a lo
             establecido en la Ley 1581 de 2012 y el Decreto 1377 de 2013.
           </p>
@@ -95,7 +95,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             2.1 Datos de Identificación
           </h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Nombre completo</li>
             <li>Correo electrónico</li>
             <li>Número de teléfono</li>
@@ -104,7 +104,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </ul>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">2.2 Datos de Ubicación</h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Coordenadas GPS durante check-in y check-out de servicios</li>
             <li>
               <strong>Finalidad:</strong> Verificar la presencia del profesional en la ubicación del
@@ -116,7 +116,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </ul>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">2.3 Datos Financieros</h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Historial de pagos y transacciones</li>
             <li>Información de cuenta bancaria (solo para profesionales que reciben pagos)</li>
             <li>
@@ -128,7 +128,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             2.4 Datos de Uso y Comunicaciones
           </h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Historial de servicios contratados</li>
             <li>Mensajes entre clientes y profesionales (solo a través de la plataforma)</li>
             <li>Calificaciones y reseñas</li>
@@ -142,14 +142,14 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             3. Finalidades del Tratamiento
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Sus datos personales son utilizados para las siguientes finalidades:
           </p>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             3.1 Finalidades Principales (Esenciales para el Servicio)
           </h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Prestación del servicio:</strong> Conectar clientes con profesionales del
               hogar
@@ -176,7 +176,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             3.2 Finalidades Secundarias (Opcionales)
           </h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Marketing:</strong> Enviar promociones, ofertas especiales y noticias
               (requiere consentimiento específico)
@@ -193,11 +193,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             4. Derechos del Titular (Artículo 8, Ley 1581)
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Como titular de datos personales, usted tiene los siguientes derechos:
           </p>
 
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Conocer, actualizar y rectificar</strong> sus datos personales frente al
               Responsable del Tratamiento
@@ -226,11 +226,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
           <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">¿Cómo Ejercer Sus Derechos?</h3>
-            <p className="mb-2 text-neutral-500">
+            <p className="mb-2 text-neutral-700">
               Para ejercer cualquiera de estos derechos, puede contactarnos por los siguientes
               medios:
             </p>
-            <ul className="ml-6 list-disc text-neutral-500">
+            <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Correo electrónico:</strong>{" "}
                 <a className="text-orange-500" href="mailto:privacy@casaora.com">
@@ -241,11 +241,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
                 <strong>Dentro de la plataforma:</strong> Menú → Mi Cuenta → Mis Datos Personales
               </li>
             </ul>
-            <p className="mt-2 text-neutral-500">
+            <p className="mt-2 text-neutral-700">
               <strong>Tiempo de respuesta:</strong> Máximo 15 días hábiles desde la recepción de su
               solicitud
             </p>
-            <p className="text-neutral-500">
+            <p className="text-neutral-700">
               <strong>Costo:</strong> Gratuito
             </p>
           </div>
@@ -256,7 +256,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             5. Autorización y Consentimiento
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             El tratamiento de sus datos personales requiere su autorización previa, expresa e
             informada, conforme al Artículo 9 de la Ley 1581 de 2012.
           </p>
@@ -264,8 +264,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             5.1 Mecanismos de Autorización
           </h3>
-          <p className="mb-4 text-neutral-500">La autorización se obtiene mediante:</p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <p className="mb-4 text-neutral-700">La autorización se obtiene mediante:</p>
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Casillas de consentimiento al momento del registro</li>
             <li>Aceptación de estos términos al usar la plataforma</li>
             <li>Consentimiento específico para finalidades secundarias (marketing, análisis)</li>
@@ -274,7 +274,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">
             5.2 Revocación del Consentimiento
           </h3>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Puede revocar su autorización en cualquier momento contactando a privacy@casaora.com. La
             revocación no tendrá efectos retroactivos.
           </p>
@@ -285,7 +285,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             6. Compartir Datos con Terceros
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Compartimos sus datos personales únicamente en las siguientes circunstancias:
           </p>
 
@@ -314,11 +314,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </div>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">6.2 Entre Usuarios</h3>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Para facilitar la prestación del servicio, compartimos información entre clientes y
             profesionales:
           </p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Nombre, foto de perfil y calificaciones</li>
             <li>Información de contacto (solo después de aceptar una reserva)</li>
             <li>Dirección del servicio (solo para el profesional asignado)</li>
@@ -332,10 +332,10 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Section 7 */}
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">7. Medidas de Seguridad</h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Implementamos medidas técnicas, humanas y administrativas para proteger sus datos:
           </p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Cifrado:</strong> HTTPS (TLS 1.3) para todas las comunicaciones
             </li>
@@ -360,10 +360,10 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Section 8 */}
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">8. Retención de Datos</h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Conservamos sus datos personales durante los siguientes períodos:
           </p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Cuentas activas:</strong> Mientras su cuenta esté activa
             </li>
@@ -382,7 +382,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Logs de seguridad:</strong> 1 año
             </li>
           </ul>
-          <p className="text-neutral-500">
+          <p className="text-neutral-700">
             Después de estos períodos, los datos son eliminados o anonimizados de forma
             irreversible.
           </p>
@@ -393,11 +393,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             9. Transferencia Internacional de Datos
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Algunos de nuestros proveedores de servicios están ubicados en Estados Unidos. La
             transferencia de datos a estos países se realiza con las siguientes garantías:
           </p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               Todos los proveedores cumplen con estándares internacionales de protección de datos
             </li>
@@ -411,8 +411,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             10. Cookies y Tecnologías Similares
           </h2>
-          <p className="mb-4 text-neutral-500">Utilizamos cookies y tecnologías similares para:</p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <p className="mb-4 text-neutral-700">Utilizamos cookies y tecnologías similares para:</p>
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Esenciales:</strong> Mantener su sesión activa (no se pueden desactivar)
             </li>
@@ -423,7 +423,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Análisis:</strong> Entender cómo usa la plataforma (opcional)
             </li>
           </ul>
-          <p className="text-neutral-500">
+          <p className="text-neutral-700">
             Puede gestionar sus preferencias de cookies en cualquier momento desde su navegador.
           </p>
         </section>
@@ -431,7 +431,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Section 11 */}
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">11. Menores de Edad</h2>
-          <p className="text-neutral-500">
+          <p className="text-neutral-700">
             Casaora está dirigido a personas mayores de 18 años. No recopilamos intencionalmente
             información de menores de edad. Si detectamos que hemos recopilado datos de un menor,
             procederemos a eliminarlos inmediatamente.
@@ -443,11 +443,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             12. Modificaciones a Esta Política
           </h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Podemos actualizar esta Política de Privacidad ocasionalmente. En caso de cambios
             materiales:
           </p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Notificaremos por correo electrónico con 30 días de anticipación</li>
             <li>Publicaremos un aviso destacado en la plataforma</li>
             <li>Solicitaremos su consentimiento nuevamente si es requerido por ley</li>
@@ -457,19 +457,19 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Section 13 */}
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">13. Autoridades de Control</h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Si considera que sus derechos no han sido respetados, puede presentar una queja ante:
           </p>
           <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 font-semibold text-neutral-900">
               Superintendencia de Industria y Comercio (SIC)
             </p>
-            <p className="mb-1 text-neutral-500">Delegatura de Protección de Datos Personales</p>
-            <p className="mb-1 text-neutral-500">
+            <p className="mb-1 text-neutral-700">Delegatura de Protección de Datos Personales</p>
+            <p className="mb-1 text-neutral-700">
               Carrera 13 No. 27 - 00, Pisos 3 y 4, Bogotá D.C., Colombia
             </p>
-            <p className="mb-1 text-neutral-500">Tel: (+57) 601 5870000</p>
-            <p className="text-neutral-500">
+            <p className="mb-1 text-neutral-700">Tel: (+57) 601 5870000</p>
+            <p className="text-neutral-700">
               Web:{" "}
               <a
                 className="text-orange-500"
@@ -486,7 +486,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Section 14 */}
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">14. Contacto</h2>
-          <p className="mb-4 text-neutral-500">
+          <p className="mb-4 text-neutral-700">
             Para preguntas, solicitudes o inquietudes sobre esta Política de Privacidad o el
             tratamiento de sus datos personales:
           </p>
@@ -509,8 +509,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         {/* Legal Declaration */}
         <section className="border-2 border-orange-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Declaración de Consentimiento</h2>
-          <p className="text-neutral-500">Al registrarse y usar Casaora, usted declara que:</p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <p className="text-neutral-700">Al registrarse y usar Casaora, usted declara que:</p>
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Ha leído y entendido esta Política de Privacidad</li>
             <li>Autoriza el tratamiento de sus datos personales conforme a lo aquí establecido</li>
             <li>Conoce sus derechos y los medios para ejercerlos</li>
@@ -532,10 +532,10 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
       <h1 className="mb-4 font-bold text-4xl text-neutral-900">
         Privacy Policy & Personal Data Protection
       </h1>
-      <p className="mb-2 text-neutral-500">
+      <p className="mb-2 text-neutral-700">
         <strong>Last Updated:</strong> {lastUpdated}
       </p>
-      <p className="mb-8 text-neutral-500">
+      <p className="mb-8 text-neutral-700">
         <strong>In compliance with Colombian Law 1581 of 2012</strong>
       </p>
 
@@ -562,7 +562,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Phone:</strong> [To be completed]
             </p>
           </div>
-          <p className="text-neutral-500">
+          <p className="text-neutral-700">
             Casaora acts as the data controller for your personal data in accordance with Colombian
             Law 1581 of 2012 and Decree 1377 of 2013.
           </p>
@@ -572,14 +572,14 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">2. Personal Data We Collect</h2>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">2.1 Identification Data</h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Full name, email address, phone number</li>
             <li>Physical address (for service delivery)</li>
             <li>Identity document (professionals only)</li>
           </ul>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">2.2 Location Data</h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>GPS coordinates during service check-in/check-out</li>
             <li>
               <strong>Purpose:</strong> Verify professional presence at service location
@@ -587,7 +587,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </ul>
 
           <h3 className="mb-3 font-semibold text-neutral-900 text-xl">2.3 Financial Data</h3>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>Payment history and transactions</li>
             <li>Bank account information (professionals receiving payments)</li>
             <li>
@@ -601,8 +601,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             3. Your Rights (Article 8, Law 1581)
           </h2>
-          <p className="mb-4 text-neutral-500">As a data subject, you have the following rights:</p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <p className="mb-4 text-neutral-700">As a data subject, you have the following rights:</p>
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Access:</strong> Know, update, and rectify your personal data
             </li>
@@ -625,8 +625,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
           <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">How to Exercise Your Rights</h3>
-            <p className="mb-2 text-neutral-500">Contact us at:</p>
-            <ul className="ml-6 list-disc text-neutral-500">
+            <p className="mb-2 text-neutral-700">Contact us at:</p>
+            <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Email:</strong>{" "}
                 <a className="text-orange-500" href="mailto:privacy@casaora.com">
@@ -647,7 +647,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">
             4. Data Sharing with Third Parties
           </h2>
-          <p className="mb-4 text-neutral-500">We share your data only with:</p>
+          <p className="mb-4 text-neutral-700">We share your data only with:</p>
           <div className="mb-4 space-y-2">
             <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Stripe Inc. (USA)</p>
@@ -675,7 +675,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">5. Security Measures</h2>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Encryption:</strong> HTTPS (TLS 1.3) for all communications
             </li>
@@ -699,7 +699,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">6. Data Retention</h2>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>
               <strong>Active accounts:</strong> While account is active
             </li>
@@ -735,8 +735,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         <section className="border-2 border-orange-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Consent Declaration</h2>
-          <p className="text-neutral-500">By registering and using Casaora, you declare that:</p>
-          <ul className="mb-4 ml-6 list-disc text-neutral-500">
+          <p className="text-neutral-700">By registering and using Casaora, you declare that:</p>
+          <ul className="mb-4 ml-6 list-disc text-neutral-700">
             <li>You have read and understood this Privacy Policy</li>
             <li>You authorize the processing of your personal data as established herein</li>
             <li>You know your rights and how to exercise them</li>

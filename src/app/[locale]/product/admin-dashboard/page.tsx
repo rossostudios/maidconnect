@@ -173,7 +173,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">
+                <p className="text-base text-neutral-700">
                   {t("capabilities.professionalManagement")}
                 </p>
               </div>
@@ -182,35 +182,35 @@ export default async function AdminDashboardPage({ params }: Props) {
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">{t("capabilities.bookingReview")}</p>
+                <p className="text-base text-neutral-700">{t("capabilities.bookingReview")}</p>
               </div>
               <div className="flex items-start gap-4 border border-neutral-200 bg-neutral-50 p-6">
                 <HugeiconsIcon
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">{t("capabilities.payoutControl")}</p>
+                <p className="text-base text-neutral-700">{t("capabilities.payoutControl")}</p>
               </div>
               <div className="flex items-start gap-4 border border-neutral-200 bg-neutral-50 p-6">
                 <HugeiconsIcon
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">{t("capabilities.disputeResolution")}</p>
+                <p className="text-base text-neutral-700">{t("capabilities.disputeResolution")}</p>
               </div>
               <div className="flex items-start gap-4 border border-neutral-200 bg-neutral-50 p-6">
                 <HugeiconsIcon
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">{t("capabilities.userModeration")}</p>
+                <p className="text-base text-neutral-700">{t("capabilities.userModeration")}</p>
               </div>
               <div className="flex items-start gap-4 border border-neutral-200 bg-neutral-50 p-6">
                 <HugeiconsIcon
                   className="mt-0.5 h-6 w-6 flex-shrink-0 text-orange-500"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-neutral-500">{t("capabilities.analytics")}</p>
+                <p className="text-base text-neutral-700">{t("capabilities.analytics")}</p>
               </div>
             </div>
           </div>

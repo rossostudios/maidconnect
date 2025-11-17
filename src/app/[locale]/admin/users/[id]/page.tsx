@@ -79,7 +79,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-neutral-500">Loading user data...</p>
+        <p className="type-body-sm text-neutral-700">Loading user data...</p>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (!userData) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-neutral-500">User not found</p>
+        <p className="type-body-sm text-neutral-700">User not found</p>
       </div>
     );
   }

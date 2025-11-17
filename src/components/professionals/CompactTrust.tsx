@@ -86,7 +86,7 @@ export function CompactTrustBadge({
           >
             {badge}
           </Badge>
-          {index < badges.length - 1 && <span className="mx-2 text-neutral-400">·</span>}
+          {index < badges.length - 1 && <span className="mx-2 text-neutral-600">·</span>}
         </span>
       ))}
     </div>

@@ -44,7 +44,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
                   <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                     {check.professional.full_name || "Unnamed Professional"}
                   </h4>
-                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-300">
                     {check.professional.city && check.professional.country
                       ? `${check.professional.city}, ${check.professional.country}`
                       : check.professional.email || "No contact info"}
@@ -68,16 +68,16 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
                     icon={TimeScheduleIcon}
                   />
-                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
                     Waiting Time
                   </span>
                 </div>
                 <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                   {check.daysWaiting}
-                  <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
+                  <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-300">
                     days
                   </span>
                 </p>
@@ -86,10 +86,10 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
                     icon={SecurityCheckIcon}
                   />
-                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
                     Checks Performed
                   </span>
                 </div>
@@ -101,10 +101,10 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
                     icon={CheckmarkCircle02Icon}
                   />
-                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
                     Recommendation
                   </span>
                 </div>
@@ -116,10 +116,10 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
                     icon={TimeScheduleIcon}
                   />
-                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
                     Completed
                   </span>
                 </div>

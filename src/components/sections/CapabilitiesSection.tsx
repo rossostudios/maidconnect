@@ -11,13 +11,13 @@ export function CapabilitiesSection() {
         <Card className="border-neutral-800 bg-neutral-900 p-10 text-neutral-50 shadow-2xl md:p-14">
           <div className="grid gap-12 lg:grid-cols-[1.05fr_minmax(0,_1fr)]">
             <div className="flex flex-col gap-6">
-              <p className="font-semibold text-neutral-400 text-xs uppercase tracking-[0.15em]">
+              <p className="font-semibold text-neutral-600 text-xs uppercase tracking-[0.15em]">
                 Product pillars
               </p>
               <h2 className="font-semibold text-3xl leading-tight sm:text-4xl">
                 A single platform connecting household needs with trusted talent
               </h2>
-              <p className="text-base text-neutral-400">
+              <p className="text-base text-neutral-600">
                 These modules map directly to the PRD—and guide what our engineering, product, and
                 concierge teams prioritize across each release.
               </p>
@@ -31,9 +31,9 @@ export function CapabilitiesSection() {
                   )}
                   key={pillar.title}
                 >
-                  <HugeiconsIcon className="h-6 w-6 text-neutral-400" icon={pillar.icon} />
+                  <HugeiconsIcon className="h-6 w-6 text-neutral-600" icon={pillar.icon} />
                   <h3 className="font-semibold text-lg text-neutral-50">{pillar.title}</h3>
-                  <p className="text-neutral-400 text-sm">{pillar.description}</p>
+                  <p className="text-neutral-600 text-sm">{pillar.description}</p>
                 </Card>
               ))}
             </div>

@@ -159,7 +159,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-neutral-500 text-sm">
+      <p className="mt-3 text-neutral-700 text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,

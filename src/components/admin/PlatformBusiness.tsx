@@ -87,7 +87,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="platform-commission"
             >
               Platform Commission (%)
@@ -111,14 +111,14 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
             ) : (
               <p className="text-neutral-900 dark:text-neutral-100">{settings.commission_rate}%</p>
             )}
-            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
+            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
               Commission charged to professionals per booking
             </p>
           </div>
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="customer-service-fee"
             >
               Customer Service Fee ($)
@@ -143,7 +143,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 ${settings.service_fee.toFixed(2)}
               </p>
             )}
-            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
+            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
               Fixed fee charged to customers per booking
             </p>
           </div>
@@ -158,7 +158,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="customer-cancellation-fee"
             >
               Customer Cancellation
@@ -190,7 +190,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="professional-cancellation-fee"
             >
               Professional Cancellation
@@ -222,7 +222,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="no-show-fee"
             >
               No-Show Fee
@@ -262,7 +262,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="min-advance-hours"
             >
               Min Advance Notice (hours)
@@ -293,7 +293,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="max-duration-hours"
             >
               Max Booking Duration (hours)
@@ -324,7 +324,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="min-booking-amount"
             >
               Min Booking Amount ($)
@@ -356,7 +356,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="max-service-radius"
             >
               Max Service Radius (km)
@@ -395,7 +395,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="payout-schedule"
             >
               Payout Schedule
@@ -428,7 +428,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400"
+              className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300"
               htmlFor="min-payout-threshold"
             >
               Min Payout Threshold ($)
@@ -474,7 +474,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
             <button
-              className="flex items-center gap-2 border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
+              className="flex items-center gap-2 border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-300"
               disabled={isSaving}
               onClick={handleCancel}
               type="button"

@@ -53,7 +53,7 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+          <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
         </div>
         <Link
           className="inline-flex items-center justify-center border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"

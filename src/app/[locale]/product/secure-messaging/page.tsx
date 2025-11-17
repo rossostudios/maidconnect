@@ -235,7 +235,7 @@ export default async function SecureMessagingPage({ params }: Props) {
                 <h3 className="font-semibold text-2xl text-neutral-900">
                   {t("useCases.beforeService.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                <ul className="mt-4 space-y-3 text-base text-neutral-700">
                   <li className="flex items-start gap-2">
                     <span className="text-orange-500">•</span>
                     <span>{t("useCases.beforeService.items.access")}</span>
@@ -259,7 +259,7 @@ export default async function SecureMessagingPage({ params }: Props) {
                 <h3 className="font-semibold text-2xl text-neutral-900">
                   {t("useCases.duringService.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                <ul className="mt-4 space-y-3 text-base text-neutral-700">
                   <li className="flex items-start gap-2">
                     <span className="text-orange-500">•</span>
                     <span>{t("useCases.duringService.items.updates")}</span>

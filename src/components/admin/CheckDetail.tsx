@@ -144,7 +144,7 @@ function CheckDetailHeader({
           <h2 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
             Background Check Details
           </h2>
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">
+          <p className="text-neutral-600 text-sm dark:text-neutral-300">
             {check.provider.toUpperCase()} • Check ID: {check.providerCheckId}
           </p>
         </div>
@@ -161,11 +161,11 @@ function CheckDetailHeader({
             <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
               {check.professional.full_name || "Unnamed Professional"}
             </h3>
-            <p className="text-neutral-600 text-sm dark:text-neutral-400">
+            <p className="text-neutral-600 text-sm dark:text-neutral-300">
               {check.professional.email} • {check.professional.phone}
             </p>
             {check.professional.city && check.professional.country && (
-              <p className="text-neutral-600 text-sm dark:text-neutral-400">
+              <p className="text-neutral-600 text-sm dark:text-neutral-300">
                 {check.professional.city}, {check.professional.country}
               </p>
             )}
@@ -206,7 +206,7 @@ function CheckSummaryGrid({ check }: { check: BackgroundCheckWithProfile }) {
 function SummaryCard({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-      <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+      <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
         {label}
       </p>
       {children}

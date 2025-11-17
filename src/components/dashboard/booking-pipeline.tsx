@@ -272,7 +272,7 @@ export function BookingPipeline() {
 
           {/* Status Filter */}
           <div className="flex items-center gap-3">
-            <HugeiconsIcon className="h-4 w-4 text-neutral-400" icon={FilterIcon} />
+            <HugeiconsIcon className="h-4 w-4 text-neutral-600" icon={FilterIcon} />
             <Select onValueChange={(value) => setFilter(value as FilterStatus)} value={filter}>
               <SelectTrigger className="w-40">
                 <SelectValue />
@@ -307,7 +307,7 @@ export function BookingPipeline() {
                       </p>
                     </div>
                     <p className="mb-2 font-bold text-3xl text-neutral-900">{stage.count}</p>
-                    <p className="text-neutral-500 text-xs leading-tight">
+                    <p className="text-neutral-700 text-xs leading-tight">
                       {totalActive > 0
                         ? `${((stage.count / totalActive) * 100).toFixed(0)}% of total`
                         : "No bookings"}
@@ -324,10 +324,10 @@ export function BookingPipeline() {
             <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between pb-6">
                 <div>
-                  <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                  <p className="mb-1 font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                     Stage Distribution
                   </p>
-                  <p className="text-neutral-500 text-sm">Bookings by lifecycle stage</p>
+                  <p className="text-neutral-700 text-sm">Bookings by lifecycle stage</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -335,14 +335,14 @@ export function BookingPipeline() {
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Expand chart view - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Maximize01Icon} />
                   </button>
                   <button
                     aria-label="More options"
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Export data, Refresh, Settings - Coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={MoreVerticalIcon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={MoreVerticalIcon} />
                   </button>
                 </div>
               </CardHeader>
@@ -374,10 +374,10 @@ export function BookingPipeline() {
             <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between pb-6">
                 <div>
-                  <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
+                  <p className="mb-1 font-semibold text-neutral-700 text-xs uppercase tracking-wider">
                     Pipeline Health
                   </p>
-                  <p className="text-neutral-500 text-sm">Current conversion metrics</p>
+                  <p className="text-neutral-700 text-sm">Current conversion metrics</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -385,7 +385,7 @@ export function BookingPipeline() {
                     className="bg-neutral-50 p-2 transition-colors hover:bg-neutral-100"
                     onClick={() => alert("Expand metrics view - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Maximize01Icon} />
                   </button>
                 </div>
               </CardHeader>
@@ -394,7 +394,7 @@ export function BookingPipeline() {
                   {/* Conversion Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-neutral-500 text-sm">Conversion Rate</span>
+                      <span className="text-neutral-700 text-sm">Conversion Rate</span>
                       <span className="font-bold text-lg text-neutral-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "completed")?.count || 0) / totalActive) * 100).toFixed(1)}%`
@@ -417,7 +417,7 @@ export function BookingPipeline() {
                   {/* Pending Acceptance Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-neutral-500 text-sm">Pending Acceptance</span>
+                      <span className="text-neutral-700 text-sm">Pending Acceptance</span>
                       <span className="font-bold text-lg text-neutral-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "pending")?.count || 0) / totalActive) * 100).toFixed(1)}%`
@@ -440,7 +440,7 @@ export function BookingPipeline() {
                   {/* In Progress Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-neutral-500 text-sm">In Progress</span>
+                      <span className="text-neutral-700 text-sm">In Progress</span>
                       <span className="font-bold text-lg text-neutral-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "in_progress")?.count || 0) / totalActive) * 100).toFixed(1)}%`

@@ -202,7 +202,7 @@ export function ProfileBuildForm({
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label
-                          className="mb-2 block font-medium text-neutral-500 text-sm"
+                          className="mb-2 block font-medium text-neutral-700 text-sm"
                           htmlFor={`service_rate_${service.name}`}
                         >
                           {t("services.hourlyRate")}
@@ -219,7 +219,7 @@ export function ProfileBuildForm({
                       </div>
                       <div className="sm:col-span-2">
                         <label
-                          className="mb-2 block font-medium text-neutral-500 text-sm"
+                          className="mb-2 block font-medium text-neutral-700 text-sm"
                           htmlFor={`service_description_${service.name}`}
                         >
                           {t("services.serviceDescription")}
@@ -252,7 +252,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_start`}
                   >
                     {t("availability.start")}
@@ -267,7 +267,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_end`}
                   >
                     {t("availability.end")}
@@ -282,7 +282,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_notes`}
                   >
                     {t("availability.notes")}
@@ -303,7 +303,7 @@ export function ProfileBuildForm({
       </FormField>
 
       <div className="flex flex-col gap-4 border-neutral-200 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-neutral-500 text-sm">{defaultFootnote}</p>
+        <p className="text-neutral-700 text-sm">{defaultFootnote}</p>
         <button
           className={cn(
             "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
@@ -394,12 +394,12 @@ function FormField({ label, children, helper, error, characterCount }: FormField
           {label}
         </label>
         {characterCount !== undefined ? (
-          <span className="text-neutral-500 text-sm">
+          <span className="text-neutral-700 text-sm">
             {t("characterCount", { count: characterCount })}
           </span>
         ) : null}
       </div>
-      {helper ? <p className="text-neutral-500 text-sm">{helper}</p> : null}
+      {helper ? <p className="text-neutral-700 text-sm">{helper}</p> : null}
       {children}
       {error ? (
         <p className="flex items-center gap-2 text-orange-500 text-sm">

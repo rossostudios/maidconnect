@@ -316,7 +316,7 @@ function ServiceDetailsStep({
       <div>
         <div className="mb-2 block font-medium text-neutral-900 text-sm">Select Date & Time *</div>
         <div className="border-2 border-neutral-200 bg-white p-4">
-          <p className="text-neutral-500 text-sm">Calendar integration coming soon</p>
+          <p className="text-neutral-700 text-sm">Calendar integration coming soon</p>
         </div>
         {/* <AvailabilityCalendar
           durationHours={bookingData.durationHours}

@@ -132,7 +132,7 @@ export default async function AdminSettingsPage() {
     <section className="space-y-8">
       <div>
         <h1 className="font-bold text-3xl text-neutral-900">Settings</h1>
-        <p className="mt-2 text-neutral-500">Manage your account and platform settings</p>
+        <p className="mt-2 text-neutral-700">Manage your account and platform settings</p>
       </div>
 
       {/* Tabbed Settings */}

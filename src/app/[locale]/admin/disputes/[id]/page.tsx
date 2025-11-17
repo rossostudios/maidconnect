@@ -82,7 +82,7 @@ export default function DisputeDetailPage({ params }: { params: Promise<{ id: st
             </div>
             <div>
               <p className="type-ui-sm font-medium text-neutral-900">Opened By</p>
-              <p className="type-body-sm text-neutral-500">
+              <p className="type-body-sm text-neutral-700">
                 {dispute.opener?.full_name || dispute.opener?.email}
               </p>
             </div>

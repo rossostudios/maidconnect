@@ -137,7 +137,7 @@ export default async function AdminAnalyticsPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -202,7 +202,7 @@ export default async function AdminAnalyticsPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500",
+                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
                     geistSans.className
                   )}
                 >
@@ -247,7 +247,7 @@ export default async function AdminAnalyticsPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -265,7 +265,7 @@ export default async function AdminAnalyticsPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500",
+                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
                   geistSans.className
                 )}
               >
@@ -291,7 +291,7 @@ export default async function AdminAnalyticsPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-500",
+              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
               geistSans.className
             )}
           >
@@ -306,7 +306,7 @@ export default async function AdminAnalyticsPage() {
             <div className="border border-neutral-200 bg-white p-4 shadow-sm" key={stat.label}>
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500",
+                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
                   geistSans.className
                 )}
               >

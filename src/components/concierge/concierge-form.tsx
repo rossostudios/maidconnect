@@ -219,7 +219,7 @@ export function ConciergeForm() {
                 <th className="p-4 text-left font-semibold text-neutral-700">Feature</th>
                 <th className="p-4 text-center font-semibold text-neutral-700">
                   Marketplace
-                  <div className="mt-1 font-normal text-neutral-500 text-xs">15% fee</div>
+                  <div className="mt-1 font-normal text-neutral-700 text-xs">15% fee</div>
                 </th>
                 <th className="p-4 text-center font-semibold text-orange-600">
                   Concierge
@@ -237,11 +237,11 @@ export function ConciergeForm() {
                     size={20}
                   />
                 </td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Personal coordinator</td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
                 <td className="p-4 text-center">
                   <HugeiconsIcon
                     className="mx-auto h-5 w-5 text-orange-600"
@@ -252,7 +252,7 @@ export function ConciergeForm() {
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Curated matches delivered to you</td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
                 <td className="p-4 text-center">
                   <HugeiconsIcon
                     className="mx-auto h-5 w-5 text-orange-600"
@@ -263,7 +263,7 @@ export function ConciergeForm() {
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Interview scheduling assistance</td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
                 <td className="p-4 text-center">
                   <HugeiconsIcon
                     className="mx-auto h-5 w-5 text-orange-600"
@@ -274,7 +274,7 @@ export function ConciergeForm() {
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Contract & payment setup help</td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
                 <td className="p-4 text-center">
                   <HugeiconsIcon
                     className="mx-auto h-5 w-5 text-orange-600"
@@ -285,7 +285,7 @@ export function ConciergeForm() {
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Ongoing support after hiring</td>
-                <td className="p-4 text-center text-neutral-400">—</td>
+                <td className="p-4 text-center text-neutral-600">—</td>
                 <td className="p-4 text-center">
                   <HugeiconsIcon
                     className="mx-auto h-5 w-5 text-orange-600"

@@ -175,7 +175,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                 <h3 className="mt-6 font-semibold text-2xl text-neutral-900">
                   {t("categories.forProfessionals.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                <ul className="mt-4 space-y-3 text-base text-neutral-700">
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
                       className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500"
@@ -214,7 +214,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                 <h3 className="mt-6 font-semibold text-2xl text-neutral-900">
                   {t("categories.forCustomers.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-neutral-500">
+                <ul className="mt-4 space-y-3 text-base text-neutral-700">
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
                       className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-500"

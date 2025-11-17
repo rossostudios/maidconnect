@@ -91,7 +91,7 @@ export function BackgroundCheckDetailModal({
       <div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
         {/* Close Button */}
         <button
-          className="absolute top-6 right-6 p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
+          className="absolute top-6 right-6 p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-300"
           disabled={isProcessing}
           onClick={onClose}
           type="button"
@@ -112,7 +112,7 @@ export function BackgroundCheckDetailModal({
               <h2 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                 Background Check Details
               </h2>
-              <p className="text-neutral-600 text-sm dark:text-neutral-400">
+              <p className="text-neutral-600 text-sm dark:text-neutral-300">
                 {check.provider.toUpperCase()} • Check ID: {check.providerCheckId}
               </p>
             </div>
@@ -131,11 +131,11 @@ export function BackgroundCheckDetailModal({
                 <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                   {check.professional.full_name || "Unnamed Professional"}
                 </h3>
-                <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                <p className="text-neutral-600 text-sm dark:text-neutral-300">
                   {check.professional.email} • {check.professional.phone}
                 </p>
                 {check.professional.city && check.professional.country && (
-                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-300">
                     {check.professional.city}, {check.professional.country}
                   </p>
                 )}
@@ -174,7 +174,7 @@ function StatusSummary({ check }: { check: BackgroundCheckWithProfile }) {
   return (
     <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
       <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
           Status
         </p>
         <div className="flex items-center gap-2">
@@ -203,7 +203,7 @@ function StatusSummary({ check }: { check: BackgroundCheckWithProfile }) {
       </div>
 
       <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
           Recommendation
         </p>
         <p className="font-bold text-neutral-900 text-xl dark:text-neutral-100">
@@ -214,7 +214,7 @@ function StatusSummary({ check }: { check: BackgroundCheckWithProfile }) {
       </div>
 
       <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
+        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
           Completed
         </p>
         <p className="font-bold text-neutral-900 text-xl dark:text-neutral-100">

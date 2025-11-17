@@ -223,7 +223,7 @@ function PageHeader() {
   return (
     <div>
       <h1 className="mb-2 font-bold text-3xl text-neutral-900">Your Data Rights</h1>
-      <p className="text-neutral-500">
+      <p className="text-neutral-700">
         Under Colombian Law (Ley 1581 de 2012), you have the right to access, export, and delete
         your personal data.
       </p>

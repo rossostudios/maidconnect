@@ -19,7 +19,7 @@ export default async function AdminPagesContentPage() {
       {/* Header */}
       <div className="border-2 border-neutral-200 bg-neutral-50 p-6">
         <h1 className="mb-2 font-bold text-2xl text-neutral-900">Marketing Pages</h1>
-        <p className="text-neutral-500">
+        <p className="text-neutral-700">
           Build and manage custom landing pages, about pages, pricing pages, and more using the page
           builder.
         </p>

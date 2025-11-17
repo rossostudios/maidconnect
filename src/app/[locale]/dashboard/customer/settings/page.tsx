@@ -55,7 +55,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
     <section className="space-y-6">
       <div>
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Profile Information */}
@@ -64,13 +64,13 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
         <div className="space-y-6">
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <div className="mb-2 block font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
                 {t("profile.fullName")}
               </div>
               <p className="text-neutral-900">{profile?.full_name || "—"}</p>
             </div>
             <div>
-              <div className="mb-2 block font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
                 {t("profile.email")}
               </div>
               <p className="text-neutral-900">{user.email || "—"}</p>
@@ -79,13 +79,13 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
 
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <div className="mb-2 block font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
                 {t("profile.phone")}
               </div>
               <p className="text-neutral-900">{profile?.phone || "—"}</p>
             </div>
             <div>
-              <div className="mb-2 block font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
                 {t("profile.city")}
               </div>
               <p className="text-neutral-900">{profile?.city || "—"}</p>
@@ -106,7 +106,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
         <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("preferences.title")}</h2>
         <div className="space-y-4">
           <div>
-            <div className="mb-2 block font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
+            <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
               {t("preferences.propertyType")}
             </div>
             <p className="text-neutral-900">

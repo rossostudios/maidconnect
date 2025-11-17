@@ -19,7 +19,7 @@ export default async function AdminStudioPage() {
       {/* Header */}
       <div className="border-2 border-neutral-200 bg-neutral-50 p-6">
         <h1 className="mb-2 font-bold text-2xl text-neutral-900">Sanity Studio</h1>
-        <p className="text-neutral-500">
+        <p className="text-neutral-700">
           Full content management interface with all features and tools
         </p>
       </div>

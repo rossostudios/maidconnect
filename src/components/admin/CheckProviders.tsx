@@ -78,7 +78,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
                     Checkr
                   </span>
                 </div>
-                <span className="text-neutral-600 text-sm dark:text-neutral-400">
+                <span className="text-neutral-600 text-sm dark:text-neutral-300">
                   Industry leader, US & Colombia coverage
                 </span>
               </div>
@@ -90,14 +90,14 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
                     Truora
                   </span>
                 </div>
-                <span className="text-neutral-600 text-sm dark:text-neutral-400">
+                <span className="text-neutral-600 text-sm dark:text-neutral-300">
                   Latin America specialist, real-time checks
                 </span>
               </div>
             </SelectItem>
           </SelectContent>
         </Select>
-        <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
+        <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-300">
           Choose which provider to use for background checks. Both support Colombia.
         </p>
       </div>
@@ -191,7 +191,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
           <p className="font-semibold text-neutral-800 text-sm dark:text-neutral-300">
             Enable Background Checks
           </p>
-          <p className="text-neutral-600 text-xs dark:text-neutral-400">
+          <p className="text-neutral-600 text-xs dark:text-neutral-300">
             Require background checks for all professional applications
           </p>
         </div>
@@ -212,7 +212,7 @@ export function CheckProviders({ initialSettings }: CheckProvidersProps) {
           <p className="font-semibold text-neutral-800 text-sm dark:text-neutral-300">
             Auto-Initiate Checks
           </p>
-          <p className="text-neutral-600 text-xs dark:text-neutral-400">
+          <p className="text-neutral-600 text-xs dark:text-neutral-300">
             Automatically start background checks when applications are submitted
           </p>
         </div>

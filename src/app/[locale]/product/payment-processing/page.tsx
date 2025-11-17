@@ -307,7 +307,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.creditCards.title")}
                 </h3>
-                <p className="mt-3 text-base text-neutral-500">
+                <p className="mt-3 text-base text-neutral-700">
                   {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.debitCards.title")}
                 </h3>
-                <p className="mt-3 text-base text-neutral-500">
+                <p className="mt-3 text-base text-neutral-700">
                   {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
@@ -331,7 +331,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
-                <p className="mt-3 text-base text-neutral-500">
+                <p className="mt-3 text-base text-neutral-700">
                   {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
