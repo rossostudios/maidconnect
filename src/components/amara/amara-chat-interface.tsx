@@ -185,7 +185,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
     <>
       {/* Backdrop - Click to dismiss */}
       <div
-        aria-hidden="true"
+        aria-label="Close chat"
         className="fixed inset-0 z-60 bg-neutral-900/50 transition-opacity sm:bg-neutral-900/30"
         onClick={onClose}
         onKeyDown={(e) => {
