@@ -7,6 +7,15 @@ const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2025-10-29.clover";
 let stripeInstance: Stripe | null = null;
 
 function getStripeInstance(): Stripe {
+  // During build/SSG, skip initialization to avoid errors
+  // The stripe client is only needed at runtime for API routes
+  if (typeof window === "undefined" && !process.env.STRIPE_SECRET_KEY) {
+    // Return a mock stripe instance during build
+    return {
+      _isMock: true,
+    } as unknown as Stripe;
+  }
+
   if (!stripeInstance) {
     const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
     if (!STRIPE_SECRET_KEY) {
