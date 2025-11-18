@@ -36,7 +36,7 @@
     }
   },
   "features": {
-    "title": "Why choose Casaora",
+    "title": "Why choose Casaora®",
     "verifiedProfessionals": {
       "title": "Verified professionals",
       "description": "Every professional undergoes background checks and identity verification"
@@ -58,7 +58,7 @@
     "pricing": {
       "badge": "Transparent Pricing",
       "title": "Simple, transparent pricing",
-      "subtitle": "Choose how you want to hire. Marketplace or Concierge — both with clear, upfront pricing.",
+      "subtitle": "Clear, upfront concierge service pricing. We match you with thoroughly vetted professionals and handle everything.",
       "platformFee": "Platform Fee",
       "addedToServiceCost": "Added to service cost",
       "popularBadge": "Most Popular",
@@ -263,136 +263,128 @@
         }
       },
       "applicationForm": {
-        "fields": {
-          "fullName": {
-            "label": "Full name",
-            "placeholder": "María Rodríguez"
-          },
-          "idNumber": {
-            "label": "ID number",
-            "placeholder": "CC 1234567890"
-          },
-          "phoneNumber": {
-            "label": "Phone number",
-            "placeholder": "+57 300 123 4567"
-          },
-          "country": {
-            "label": "Country",
-            "options": {
-              "colombia": "Colombia",
-              "unitedStates": "United States",
-              "canada": "Canada",
-              "unitedKingdom": "United Kingdom",
-              "mexico": "Mexico",
-              "other": "Other"
-            }
-          },
-          "city": {
-            "label": "City",
-            "placeholder": "Medellín"
-          },
-          "services": {
-            "label": "Services offered",
-            "helper": "Select all services you can confidently provide.",
-            "options": {
-              "houseCleaning": "House cleaning",
-              "laundry": "Laundry",
-              "cooking": "Cooking",
-              "organization": "Organization",
-              "childcare": "Childcare",
-              "petCare": "Pet care",
-              "errandRunning": "Errand running"
-            }
-          },
-          "experience": {
-            "label": "Years of experience",
-            "placeholder": "5"
-          },
-          "rate": {
-            "label": "Rate expectations (per hour)",
-            "helper": "COP/hour",
-            "placeholder": "40000"
-          },
-          "availability": {
-            "label": "Availability",
-            "helper": "Example: Monday to Friday 8am - 4pm. Mention weekends or flexible hours if applicable.",
-            "placeholder": "Example: Monday to Friday 8am - 4pm"
-          },
-          "references": {
-            "label": "Professional references",
-            "helper": "Provide two references we can contact.",
-            "referenceLabel": "Reference {index}",
-            "namePlaceholder": "Name",
-            "relationshipPlaceholder": "Relationship",
-            "contactPlaceholder": "Phone or email"
-          },
-          "backgroundCheck": {
-            "label": "Background check consent",
-            "checkboxLabel": "I authorize Casaora to conduct identity and background verifications for onboarding."
+        "fullName": {
+          "label": "Full name",
+          "placeholder": "María Rodríguez"
+        },
+        "idNumber": {
+          "label": "ID number",
+          "placeholder": "CC 1234567890"
+        },
+        "phone": {
+          "label": "Phone number",
+          "placeholder": "+57 300 123 4567"
+        },
+        "country": {
+          "label": "Country",
+          "options": {
+            "colombia": "Colombia",
+            "unitedStates": "United States",
+            "canada": "Canada",
+            "unitedKingdom": "United Kingdom",
+            "mexico": "Mexico",
+            "other": "Other"
           }
         },
-        "infoText": "Submitting this application triggers our review team to start verification. You can still edit details later.",
-        "submitting": "Submitting…",
-        "submit": "Submit application"
+        "city": {
+          "label": "City",
+          "placeholder": "Medellín"
+        },
+        "services": {
+          "label": "Services offered",
+          "helper": "Select all services you can confidently provide.",
+          "options": {
+            "houseCleaning": "House cleaning",
+            "laundry": "Laundry",
+            "cooking": "Cooking",
+            "organization": "Organization",
+            "childcare": "Childcare",
+            "petCare": "Pet care",
+            "errandRunning": "Errand running"
+          }
+        },
+        "experienceYears": {
+          "label": "Years of experience",
+          "placeholder": "5"
+        },
+        "rate": {
+          "label": "Rate expectations (per hour)",
+          "helper": "COP/hour",
+          "placeholder": "40000"
+        },
+        "availability": {
+          "label": "Availability",
+          "helper": "Example: Monday to Friday 8am - 4pm. Mention weekends or flexible hours if applicable.",
+          "placeholder": "Example: Monday to Friday 8am - 4pm"
+        },
+        "references": {
+          "label": "Professional references",
+          "helper": "Provide two references we can contact.",
+          "referenceLabel": "Reference {number}",
+          "namePlaceholder": "Name",
+          "relationshipPlaceholder": "Relationship",
+          "contactPlaceholder": "Phone or email"
+        },
+        "consent": {
+          "label": "Background check consent",
+          "text": "I authorize Casaora to conduct identity and background verifications for onboarding."
+        },
+        "footer": {
+          "note": "Submitting this application triggers our review team to start verification. You can still edit details later.",
+          "submitting": "Submitting…",
+          "submit": "Submit application"
+        }
       },
       "documentUploadForm": {
         "badges": {
           "required": "Required",
           "optional": "Optional"
         },
-        "uploadDescription": "Upload {required, select, true {a clear} other {an optional}} scan or photo (PDF, JPG, PNG, max 5MB).",
-        "acceptedTypes": "PDF, JPG, PNG",
-        "validation": {
-          "fileSize": "File must be 5MB or smaller.",
+        "uploadInstruction": {
+          "required": "Upload a clear scan or photo. Accepted formats: {formats}. Max file size: {maxSize}.",
+          "optional": "Upload an optional scan or photo. Accepted formats: {formats}. Max file size: {maxSize}."
+        },
+        "errors": {
+          "fileSize": "File must be {size} or smaller.",
           "fileType": "Only PDF, JPG, or PNG files are supported."
         },
-        "notesPlaceholder": "Notes (passwords, expiry date, issuing organization)",
-        "selected": "Selected:",
-        "submitting": "Submitting…",
-        "submit": "Submit documents"
+        "notePlaceholder": "Notes (passwords, expiry date, issuing organization)",
+        "selectedFile": "Selected: {name} ({size})",
+        "footer": {
+          "submitting": "Submitting…",
+          "submit": "Submit documents"
+        }
       },
       "profileBuildForm": {
-        "fields": {
-          "bio": {
-            "label": "Professional bio",
-            "placeholder": "Share your background, specialties, and why customers love working with you."
-          },
-          "languages": {
-            "label": "Languages"
-          },
-          "services": {
-            "label": "Services & rates",
-            "helper": "Tell customers what to expect for each service."
-          },
-          "hourlyRate": {
-            "label": "Hourly rate (COP)",
-            "placeholder": "40000"
-          },
-          "serviceDescription": {
-            "label": "Service description",
-            "placeholder": "Describe what's included in this service"
-          },
-          "availability": {
-            "label": "Weekly availability",
-            "helper": "Set your typical working hours for each day.",
-            "start": "Start",
-            "end": "End"
-          },
-          "notes": {
-            "label": "Notes (optional)",
-            "placeholder": "e.g., Flexible"
-          }
+        "bio": {
+          "label": "Professional bio",
+          "placeholder": "Share your background, specialties, and why customers love working with you."
         },
-        "buttons": {
-          "submitForReview": "Submit profile for review",
-          "saveProfile": "Save profile",
+        "languages": {
+          "label": "Languages"
+        },
+        "services": {
+          "label": "Services & rates",
+          "helper": "Tell customers what to expect for each service.",
+          "hourlyRate": "Hourly rate (COP)",
+          "ratePlaceholder": "40000",
+          "serviceDescription": "Service description",
+          "descriptionPlaceholder": "Describe what's included in this service"
+        },
+        "availability": {
+          "label": "Weekly availability",
+          "helper": "Set your typical working hours for each day.",
+          "start": "Start",
+          "end": "End",
+          "notes": "Notes (optional)",
+          "notesPlaceholder": "e.g., Flexible"
+        },
+        "footer": {
+          "submitDefault": "Submit profile for review",
+          "footnoteDefault": "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
           "saving": "Saving…"
         },
-        "footnotes": {
-          "submitForReview": "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
-          "saveProfile": "Your changes update instantly on your public listing."
-        },
-        "characters": "characters"
+        "characterCount": "{count} characters"
       },
       "bookingCalendar": {
         "days": {
@@ -1047,14 +1039,20 @@
     }
   },
   "hero": {
-    "badge": "Domestic staffing for expats in Colombia",
-    "overline": "Premium household staff in Medellín",
-    "title": "Hire vetted household staff in Colombia — entirely in English.",
-    "subtitle": "Casaora helps expat and local families in Medellín (and soon other major Colombian cities) hire trusted housekeepers, nannies, and estate staff. We vet every professional and guide you through the process in English or Spanish.",
-    "description": "Start with a short brief, receive a curated shortlist of professionals, and let us handle contracts, payments, and support so your home is cared for with confidence.",
+    "tagline": "Household Happiness",
+    "ribbon": "Medellín's only boutique household staffing agency",
+    "title": "Hire trusted nannies, housekeepers & private staff in Medellín",
+    "titleHighlight": "all in English, vetted in 5 days or less",
+    "subtitle": "We're the boutique agency that saves you months of stress. Every candidate is background-checked, reference-verified, and hand-matched to your family.",
+    "trustLines": {
+      "backgroundChecks": "Full background & reference checks",
+      "englishFluent": "English-fluent professionals",
+      "quickMatching": "Personal matching in 5 days or less"
+    },
     "cta": {
-      "primary": "Start your brief",
-      "secondary": "How Casaora works"
+      "primary": "Tell Us What You Need",
+      "howItWorks": "How Casaora Works",
+      "bookCall": "Book a Free Call"
     },
     "trust": {
       "verified": "Vetted professionals",
@@ -2204,7 +2202,7 @@
   "professionalsDirectory": {
     "header": {
       "title": "Casaora professionals",
-      "subtitle": "Browse a curated, growing network of vetted professionals — starting in Medellín. If you don’t see the perfect match, start a brief and we’ll hand-match you."
+      "subtitle": "We're building a curated network of vetted professionals in Medellín. Share your needs via our concierge service, and we'll notify you when we have the perfect matches."
     },
     "filters": {
       "search": "Search by name, service, or neighbourhood",
@@ -2243,7 +2241,7 @@
     "step": "Step",
     "of": "of",
     "complete": "complete",
-    "exit": "Exit wizard and browse all professionals",
+    "exit": "Exit wizard and speak with concierge",
     "location": {
       "title": "Where do you need help?",
       "description": "Select your city and neighborhood to find nearby professionals",
@@ -2402,20 +2400,6 @@
       "platformFee": "Platform Service Fee",
       "addedToServiceCost": "added to service cost",
       "bestFor": "Best for:",
-      "marketplace": {
-        "title": "Marketplace",
-        "subtitle": "Browse and book yourself",
-        "features": [
-          "Search and filter professionals",
-          "View profiles and reviews",
-          "Book instantly or request approval",
-          "Direct messaging with professionals",
-          "Secure payment protection",
-          "Background-checked professionals"
-        ],
-        "cta": "Browse Professionals",
-        "bestFor": "locals, repeat customers, those who know what they want"
-      },
       "concierge": {
         "title": "Concierge",
         "subtitle": "We match you with the perfect professional",
@@ -2425,7 +2409,7 @@
           "Priority booking and faster response",
           "Satisfaction guarantee",
           "Perfect for first-time visitors",
-          "All marketplace features included"
+          "Comprehensive vetting and background checks"
         ],
         "cta": "Get Concierge Service",
         "bestFor": "foreigners, expats, first-timers, busy professionals"
@@ -2434,9 +2418,6 @@
     "calculator": {
       "title": "Estimate Your Cost",
       "subtitle": "See exactly what you'll pay before booking. No surprises, no hidden fees.",
-      "serviceType": "Service Type",
-      "marketplace": "Marketplace",
-      "concierge": "Concierge",
       "selectService": "Select Service",
       "services": {
         "cleaning": "Housekeeping / Cleaning",
@@ -2503,7 +2484,7 @@
         },
         "priorityBooking": {
           "title": "Priority Booking",
-          "description": "Get faster response times and access to our top-rated professionals before marketplace users."
+          "description": "Get faster response times and access to our top-rated, thoroughly vetted professionals."
         },
         "qualityGuarantee": {
           "title": "Satisfaction Guarantee",
@@ -2529,31 +2510,7 @@
         ]
       },
       "cta": "Request Concierge Matching",
-      "ctaSubtext": "Response within 2 hours · English & Spanish support",
-      "comparison": {
-        "title": "Marketplace vs. Concierge",
-        "platformFee": "Platform fee",
-        "marketplace": {
-          "title": "Marketplace",
-          "features": [
-            "Browse professionals yourself",
-            "Instant booking",
-            "Direct messaging",
-            "Standard support"
-          ]
-        },
-        "concierge": {
-          "title": "Concierge",
-          "features": [
-            "Expert matching service",
-            "English-speaking coordinator",
-            "Priority booking",
-            "Satisfaction guarantee",
-            "Highly-vetted professionals",
-            "Dedicated support"
-          ]
-        }
-      }
+      "ctaSubtext": "Response within 2 hours · English & Spanish support"
     },
     "customer": {
       "howItWorks": {
@@ -2582,9 +2539,9 @@
         "description": "Select your service, hours, and see the full breakdown instantly."
       },
       "cta": {
-        "title": "Ready to Find Your Perfect Professional?",
+        "title": "Ready to Get Started?",
         "subtitle": "Join hundreds of satisfied customers who trust Casaora for verified, background-checked household services.",
-        "primary": "Browse Professionals",
+        "primary": "Submit Your Request",
         "secondary": "Get Concierge Service"
       }
     },
@@ -2677,7 +2634,7 @@
       },
       "cta": {
         "title": "Start Earning on Your Own Terms",
-        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Colombia's most trusted marketplace.",
+        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Colombia's most trusted concierge service.",
         "button": "Become a Professional",
         "subtext": "Free to join · No hidden fees · Weekly payouts"
       }
@@ -2723,9 +2680,9 @@
           "question": "Why is there a platform fee?",
           "answer": "The platform fee covers background checks, insurance, payment processing, 24/7 support, and the technology that keeps Casaora safe and reliable. It ensures you're working with verified professionals."
         },
-        "conciergeVsMarketplace": {
-          "question": "What's the difference between marketplace and concierge?",
-          "answer": "Marketplace: You browse and book professionals yourself. Concierge: Our team matches you with the right professional, provides English-speaking coordinators, priority booking, and a satisfaction guarantee. It’s designed especially for foreigners, expats, and first-time users."
+        "conciergeService": {
+          "question": "How does the concierge matching service work?",
+          "answer": "Our concierge team matches you with thoroughly vetted professionals based on your needs. We provide English-speaking coordinators, handle all communication, offer priority booking, and include a satisfaction guarantee. We're currently building our professional network in Medellín — share your needs and we'll notify you when we have perfect matches ready."
         },
         "professionalKeepsRate": {
           "question": "Do professionals really keep 100% of their rate?",
@@ -2793,11 +2750,11 @@
   "about": {
     "meta": {
       "title": "About Us - Our Story | Casaora",
-      "description": "Learn about Casaora's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge-led marketplace."
+      "description": "Learn about Casaora's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge matching service."
     },
     "story": {
       "title": "Bridging Cultures, Building Trust",
-      "subtitle": "We're building the trusted marketplace that connects foreigners in Colombia with verified, bilingual domestic service professionals.",
+      "subtitle": "We're building a trusted concierge service that connects foreigners in Colombia with verified, bilingual domestic service professionals.",
       "problem": {
         "title": "The Challenge We're Solving",
         "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Colombia face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
@@ -2805,7 +2762,7 @@
       },
       "solution": {
         "title": "Our Solution",
-        "paragraph1": "Casaora is the first concierge-led marketplace designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
+        "paragraph1": "Casaora is a concierge service designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
         "feature1": {
           "title": "Verified Professionals",
           "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
@@ -2829,7 +2786,7 @@
       "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
       "mission": {
         "title": "Our Mission",
-        "description": "To connect foreigners living in Colombia with verified, bilingual domestic service professionals through a secure, transparent marketplace powered by concierge support and modern technology."
+        "description": "To connect foreigners living in Colombia with verified, bilingual domestic service professionals through a secure, transparent concierge service powered by modern technology."
       },
       "vision": {
         "title": "Our Vision",
@@ -2925,11 +2882,11 @@
   "howItWorks": {
     "meta": {
       "title": "How It Works - Simple Steps to Quality Service | Casaora",
-      "description": "Discover how Casaora helps expat and local families in Medellín hire trusted domestic service professionals through a concierge-first matching process, with clear steps and support at every stage."
+      "description": "Discover how Casaora helps expat and local families in Medellín hire trusted domestic service professionals through our concierge-only matching process, with clear steps and support at every stage."
     },
     "hero": {
       "title": "How Casaora Works",
-      "subtitle": "We start in Medellín with a concierge-first approach: you share what your home needs, we curate professionals, and together we build long-term, trusted relationships."
+      "subtitle": "We're building our professional network in Medellín with a concierge-only approach: you share what your home needs, we vet and curate professionals, then notify you when we have perfect matches ready."
     },
     "customer": {
       "title": "For Customers",
@@ -3022,7 +2979,7 @@
     "cta": {
       "title": "Ready to Get Started?",
       "subtitle": "Join thousands of customers and professionals who trust Casaora.",
-      "browseButton": "Browse Professionals",
+      "browseButton": "Start Your Request",
       "signUpButton": "Sign Up Free"
     }
   },

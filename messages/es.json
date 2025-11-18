@@ -36,7 +36,7 @@
     }
   },
   "features": {
-    "title": "Por qué elegir Casaora",
+    "title": "Por qué elegir Casaora®",
     "verifiedProfessionals": {
       "title": "Profesionales verificados",
       "description": "Cada profesional se somete a verificación de antecedentes e identidad"
@@ -263,136 +263,111 @@
         }
       },
       "applicationForm": {
-        "fields": {
-          "fullName": {
-            "label": "Nombre completo",
-            "placeholder": "María Rodríguez"
-          },
-          "idNumber": {
-            "label": "Número de identificación",
-            "placeholder": "CC 1234567890"
-          },
-          "phoneNumber": {
-            "label": "Número de teléfono",
-            "placeholder": "+57 300 123 4567"
-          },
-          "country": {
-            "label": "País",
-            "options": {
-              "colombia": "Colombia",
-              "unitedStates": "Estados Unidos",
-              "canada": "Canadá",
-              "unitedKingdom": "Reino Unido",
-              "mexico": "México",
-              "other": "Otro"
-            }
-          },
-          "city": {
-            "label": "Ciudad",
-            "placeholder": "Medellín"
-          },
-          "services": {
-            "label": "Servicios ofrecidos",
-            "helper": "Seleccione todos los servicios que puede proporcionar con confianza.",
-            "options": {
-              "houseCleaning": "Limpieza del hogar",
-              "laundry": "Lavandería",
-              "cooking": "Cocina",
-              "organization": "Organización",
-              "childcare": "Cuidado de niños",
-              "petCare": "Cuidado de mascotas",
-              "errandRunning": "Encargos"
-            }
-          },
-          "experience": {
-            "label": "Años de experiencia",
-            "placeholder": "5"
-          },
-          "rate": {
-            "label": "Expectativas de tarifa (por hora)",
-            "helper": "COP/hora",
-            "placeholder": "40000"
-          },
-          "availability": {
-            "label": "Disponibilidad",
-            "helper": "Ejemplo: Lunes a viernes 8am - 4pm. Menciona fines de semana u horas flexibles si aplica.",
-            "placeholder": "Ejemplo: Lunes a viernes 8am - 4pm"
-          },
-          "references": {
-            "label": "Referencias profesionales",
-            "helper": "Proporciona dos referencias que podamos contactar.",
-            "referenceLabel": "Referencia {index}",
-            "namePlaceholder": "Nombre",
-            "relationshipPlaceholder": "Relación",
-            "contactPlaceholder": "Teléfono o correo"
-          },
-          "backgroundCheck": {
-            "label": "Consentimiento de verificación de antecedentes",
-            "checkboxLabel": "Autorizo a Casaora a realizar verificaciones de identidad y antecedentes para la incorporación."
-          }
+        "fullName": {
+          "label": "Nombre completo",
+          "placeholder": "María Rodríguez"
         },
-        "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puede editar detalles más tarde.",
-        "submitting": "Enviando…",
-        "submit": "Enviar solicitud"
+        "idNumber": {
+          "label": "Número de identificación",
+          "placeholder": "CC 1234567890"
+        },
+        "phone": {
+          "label": "Número de teléfono",
+          "placeholder": "+57 300 123 4567"
+        },
+        "country": {
+          "label": "País"
+        },
+        "city": {
+          "label": "Ciudad",
+          "placeholder": "Medellín"
+        },
+        "services": {
+          "label": "Servicios ofrecidos",
+          "helper": "Seleccione todos los servicios que puede proporcionar con confianza."
+        },
+        "experienceYears": {
+          "label": "Años de experiencia",
+          "placeholder": "5"
+        },
+        "rate": {
+          "label": "Expectativas de tarifa (por hora)",
+          "helper": "COP/hora",
+          "placeholder": "40000"
+        },
+        "availability": {
+          "label": "Disponibilidad",
+          "helper": "Ejemplo: Lunes a viernes 8am - 4pm. Menciona fines de semana u horas flexibles si aplica.",
+          "placeholder": "Ejemplo: Lunes a viernes 8am - 4pm"
+        },
+        "references": {
+          "label": "Referencias profesionales",
+          "helper": "Proporciona dos referencias que podamos contactar.",
+          "referenceLabel": "Referencia {number}",
+          "namePlaceholder": "Nombre",
+          "relationshipPlaceholder": "Relación",
+          "contactPlaceholder": "Teléfono o correo"
+        },
+        "consent": {
+          "label": "Consentimiento de verificación de antecedentes",
+          "text": "Autorizo a Casaora a realizar verificaciones de identidad y antecedentes para la incorporación."
+        },
+        "footer": {
+          "note": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puede editar detalles más tarde.",
+          "submitting": "Enviando…",
+          "submit": "Enviar solicitud"
+        }
       },
       "documentUploadForm": {
         "badges": {
           "required": "Requerido",
           "optional": "Opcional"
         },
-        "uploadDescription": "Cargar {required, select, true {un escaneo claro} other {un}} escaneo o foto opcional (PDF, JPG, PNG, máx 5MB).",
-        "acceptedTypes": "PDF, JPG, PNG",
-        "validation": {
-          "fileSize": "El archivo debe ser de 5MB o menos.",
+        "uploadInstruction": {
+          "required": "Cargar un escaneo o foto clara. Formatos aceptados: {formats}. Tamaño máximo: {maxSize}.",
+          "optional": "Cargar un escaneo o foto opcional. Formatos aceptados: {formats}. Tamaño máximo: {maxSize}."
+        },
+        "errors": {
+          "fileSize": "El archivo debe ser de {size} o menos.",
           "fileType": "Solo se admiten archivos PDF, JPG o PNG."
         },
-        "notesPlaceholder": "Notas (contraseñas, fecha de vencimiento, organización emisora)",
-        "selected": "Seleccionado:",
-        "submitting": "Enviando…",
-        "submit": "Enviar documentos"
+        "notePlaceholder": "Notas (contraseñas, fecha de vencimiento, organización emisora)",
+        "selectedFile": "Seleccionado: {name} ({size})",
+        "footer": {
+          "submitting": "Enviando…",
+          "submit": "Enviar documentos"
+        }
       },
       "profileBuildForm": {
-        "fields": {
-          "bio": {
-            "label": "Biografía profesional",
-            "placeholder": "Cuenta tu trayectoria, especialidades y por qué a los clientes les encanta trabajar contigo."
-          },
-          "languages": {
-            "label": "Idiomas"
-          },
-          "services": {
-            "label": "Servicios y tarifas",
-            "helper": "Dile a los clientes qué esperar de cada servicio."
-          },
-          "hourlyRate": {
-            "label": "Tarifa por hora (COP)",
-            "placeholder": "40000"
-          },
-          "serviceDescription": {
-            "label": "Descripción del servicio",
-            "placeholder": "Describa qué está incluido en este servicio"
-          },
-          "availability": {
-            "label": "Disponibilidad semanal",
-            "helper": "Establece tus horarios de trabajo típicos para cada día.",
-            "start": "Inicio",
-            "end": "Fin"
-          },
-          "notes": {
-            "label": "Notas (opcional)",
-            "placeholder": "ej., Flexible"
-          }
+        "bio": {
+          "label": "Biografía profesional",
+          "placeholder": "Cuenta tu trayectoria, especialidades y por qué a los clientes les encanta trabajar contigo."
         },
-        "buttons": {
-          "submitForReview": "Enviar perfil para revisión",
-          "saveProfile": "Guardar perfil",
+        "languages": {
+          "label": "Idiomas"
+        },
+        "services": {
+          "label": "Servicios y tarifas",
+          "helper": "Dile a los clientes qué esperar de cada servicio.",
+          "hourlyRate": "Tarifa por hora (COP)",
+          "ratePlaceholder": "40000",
+          "serviceDescription": "Descripción del servicio",
+          "descriptionPlaceholder": "Describa qué está incluido en este servicio"
+        },
+        "availability": {
+          "label": "Disponibilidad semanal",
+          "helper": "Establece tus horarios de trabajo típicos para cada día.",
+          "start": "Inicio",
+          "end": "Fin",
+          "notes": "Notas (opcional)",
+          "notesPlaceholder": "ej., Flexible"
+        },
+        "footer": {
+          "submitDefault": "Enviar perfil para revisión",
+          "footnoteDefault": "Una vez aprobado, tu perfil se activa en 24 horas. Puedes continuar refinando detalles en cualquier momento.",
           "saving": "Guardando…"
         },
-        "footnotes": {
-          "submitForReview": "Una vez aprobado, tu perfil se activa en 24 horas. Puedes continuar refinando detalles en cualquier momento.",
-          "saveProfile": "Tus cambios se actualizan instantáneamente en tu listado público."
-        },
-        "characters": "caracteres"
+        "characterCount": "{count} caracteres"
       },
       "bookingCalendar": {
         "days": {
@@ -1047,14 +1022,20 @@
     }
   },
   "hero": {
-    "badge": "Servicio doméstico para expatriados en Colombia",
-    "overline": "Personal doméstico premium en Medellín",
-    "title": "Contrata personal doméstico verificado en Colombia, totalmente en inglés.",
-    "subtitle": "Casaora ayuda a familias extranjeras y locales en Medellín (y pronto en las principales ciudades de Colombia) a encontrar empleadas domésticas, niñeras y personal de servicio de confianza. Verificamos a cada profesional y te acompañamos en español o en inglés.",
-    "description": "Empieza con una breve solicitud, recibe una lista curada de profesionales y deja que nosotros nos encarguemos de contratos, pagos y soporte para que tu hogar esté en buenas manos.",
+    "tagline": "Felicidad en el Hogar",
+    "ribbon": "La única agencia boutique de personal doméstico en Medellín",
+    "title": "Contrata niñeras, empleadas domésticas y personal privado de confianza en Medellín",
+    "titleHighlight": "todo en inglés, verificado en 5 días o menos",
+    "subtitle": "Somos la agencia boutique que te ahorra meses de estrés. Cada candidato tiene verificación de antecedentes, referencias verificadas y es emparejado personalmente con tu familia.",
+    "trustLines": {
+      "backgroundChecks": "Verificación completa de antecedentes y referencias",
+      "englishFluent": "Profesionales con inglés fluido",
+      "quickMatching": "Emparejamiento personal en 5 días o menos"
+    },
     "cta": {
-      "primary": "Comenzar tu solicitud",
-      "secondary": "Cómo funciona Casaora"
+      "primary": "Cuéntanos Qué Necesitas",
+      "howItWorks": "Cómo Funciona Casaora",
+      "bookCall": "Reserva una Llamada Gratuita"
     },
     "trust": {
       "verified": "Profesionales verificados",
@@ -2683,7 +2664,7 @@
     "cta": {
       "title": "¿Listo para Comenzar?",
       "subtitle": "Únete a miles de clientes y profesionales que confían en Casaora.",
-      "browseButton": "Explorar Profesionales",
+      "browseButton": "Comenzar Su Solicitud",
       "signUpButton": "Regístrate Gratis"
     }
   },
