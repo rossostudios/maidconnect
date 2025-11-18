@@ -4,7 +4,6 @@ import {
   FavouriteIcon,
   Home09Icon,
   Location01Icon,
-  Search01Icon,
   Settings02Icon,
   UserCircleIcon,
 } from "@hugeicons/core-free-icons";
@@ -12,6 +11,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { Suspense } from "react";
+import { geistSans } from "@/app/fonts";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { RebookButton } from "@/components/bookings/rebook-button";
 import { FavoritesList } from "@/components/favorites/favorites-list";
@@ -23,6 +23,7 @@ import {
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type BookingData = {
   id: string;
@@ -160,13 +161,13 @@ export default async function CustomerDashboardPage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 border-2 border-neutral-200 object-cover"
+                  className="h-12 w-12 rounded-lg border-2 border-neutral-200 object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center border-2 border-neutral-200 bg-orange-50">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-orange-200 bg-orange-50">
                   <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={UserCircleIcon} />
                 </div>
               )}
@@ -174,7 +175,7 @@ export default async function CustomerDashboardPage() {
 
             {/* Greeting Text */}
             <div>
-              <h1 className="mb-1 font-bold text-3xl text-neutral-900">
+              <h1 className={cn("mb-1 font-bold text-3xl text-neutral-900", geistSans.className)}>
                 {greeting}, {userName}
               </h1>
               <p className="text-neutral-600">Manage your bookings and home services</p>
@@ -234,7 +235,7 @@ export default async function CustomerDashboardPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {completedBookingsList.map((booking) => (
               <div
-                className="group border border-neutral-200 bg-white p-6 transition hover:shadow-md"
+                className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
                 key={booking.id}
               >
                 <div className="mb-4">
@@ -263,7 +264,7 @@ export default async function CustomerDashboardPage() {
           <h2 className="mb-2 font-bold text-2xl text-neutral-900">Favorite Professionals</h2>
           <p className="text-neutral-600 text-sm">Your trusted service providers</p>
         </div>
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <Suspense fallback={<FavoritesListSkeleton />}>
             <FavoritesList />
           </Suspense>
@@ -278,23 +279,23 @@ export default async function CustomerDashboardPage() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {/* Book a Professional */}
+          {/* Request Service */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
-            href="/professionals"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            href="/brief"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Search01Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Book a Professional</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Home09Icon} />
+              <h3 className="font-semibold text-base text-neutral-900">Request Service</h3>
             </div>
             <p className="text-neutral-600 text-sm">
-              Find and book trusted home cleaning professionals
+              Submit a service request and get matched with vetted professionals
             </p>
           </Link>
 
           {/* View All Bookings */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -308,7 +309,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Manage Addresses */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/addresses"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -320,7 +321,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Manage Payments */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/payments"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -334,7 +335,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Favorites */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/favorites"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -346,7 +347,7 @@ export default async function CustomerDashboardPage() {
 
           {/* Settings */}
           <Link
-            className="group border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
             href="/dashboard/customer/settings"
           >
             <div className="mb-2 flex items-center gap-3">
@@ -374,21 +375,25 @@ function MetricCard({
 }) {
   const colorClasses = {
     default: "bg-neutral-100 text-neutral-600",
-    primary: "bg-orange-50 text-orange-600",
-    success: "bg-green-50 text-green-600",
-    warning: "bg-yellow-50 text-yellow-600",
-    info: "bg-blue-50 text-blue-600",
+    primary: "bg-orange-50 text-orange-600 border-orange-200",
+    success: "bg-green-50 text-green-600 border-green-200",
+    warning: "bg-yellow-50 text-yellow-600 border-yellow-200",
+    info: "bg-blue-50 text-blue-600 border-blue-200",
   };
 
   return (
-    <div className="border border-neutral-200 bg-white p-6 transition hover:shadow-md">
+    <div className="rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
       <div className="mb-3 flex items-center justify-between">
-        <div className={`flex h-10 w-10 items-center justify-center ${colorClasses[color]}`}>
+        <div
+          className={`flex h-10 w-10 items-center justify-center rounded-lg border ${colorClasses[color]}`}
+        >
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>
       <dt className="text-neutral-600 text-sm">{label}</dt>
-      <dd className="mt-1 font-bold text-2xl text-neutral-900">{value}</dd>
+      <dd className={cn("mt-1 font-bold text-2xl text-neutral-900", geistSans.className)}>
+        {value}
+      </dd>
     </div>
   );
 }

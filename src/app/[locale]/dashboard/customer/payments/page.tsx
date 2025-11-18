@@ -1,9 +1,11 @@
 import { unstable_noStore } from "next/cache";
 import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
+import { geistSans } from "@/app/fonts";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 // Dynamically import TanStack Table component (reduces initial bundle size)
 const PaymentHistoryTable = dynamic(
@@ -99,7 +101,9 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
+        <h1 className={cn("font-semibold text-3xl text-neutral-900", geistSans.className)}>
+          {t("title")}
+        </h1>
         <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
@@ -124,18 +128,18 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
 
       {/* Payment Methods */}
       {paymentMethods.length > 0 && (
-        <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-          <h2 className="mb-4 font-semibold text-neutral-900 text-xl">
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+          <h2 className={cn("mb-4 font-semibold text-neutral-900 text-xl", geistSans.className)}>
             {t("paymentMethods.title")}
           </h2>
           <div className="space-y-3">
             {paymentMethods.map((method) => (
               <div
-                className="flex items-center justify-between border border-neutral-200 p-4"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 p-4"
                 key={method.id}
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center bg-neutral-200">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-200">
                     <svg
                       aria-label="Credit card icon"
                       className="h-5 w-5 text-neutral-900"
@@ -168,8 +172,10 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
       )}
 
       {/* Payment History */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-        <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("paymentHistory.title")}</h2>
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+        <h2 className={cn("mb-6 font-semibold text-neutral-900 text-xl", geistSans.className)}>
+          {t("paymentHistory.title")}
+        </h2>
         <PaymentHistoryTable bookings={bookings} />
       </div>
     </section>
@@ -186,9 +192,11 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <div className="bg-neutral-50 p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-      <dt className="font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-3 font-semibold text-3xl text-neutral-900">{value}</dd>
+    <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+      <dt className="font-semibold text-neutral-700 text-xs uppercase tracking-wider">{label}</dt>
+      <dd className={cn("mt-3 font-semibold text-3xl text-neutral-900", geistSans.className)}>
+        {value}
+      </dd>
       <p className="mt-1 text-neutral-500 text-sm">{description}</p>
     </div>
   );
