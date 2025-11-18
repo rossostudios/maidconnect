@@ -142,7 +142,7 @@ function ConnectionStatusCompact({
           </p>
           {health.subscriptionCount > 0 && (
             <p
-              className={cn("mt-1 text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
+              className={cn("mt-1 text-neutral-600 text-xs tracking-wide", geistSans.className)}
             >
               {health.subscriptionCount} active{" "}
               {health.subscriptionCount === 1 ? "subscription" : "subscriptions"}
@@ -150,7 +150,7 @@ function ConnectionStatusCompact({
           )}
           {health.reconnectAttempts > 0 && (
             <p
-              className={cn("mt-1 text-[10px] text-orange-600 tracking-wide", geistSans.className)}
+              className={cn("mt-1 text-orange-600 text-xs tracking-wide", geistSans.className)}
             >
               Reconnect attempt {health.reconnectAttempts}
             </p>
@@ -204,7 +204,7 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
         <div className="space-y-2 border-neutral-200 border-t pt-3">
           {/* Subscription Count */}
           <div className="flex items-center justify-between">
-            <span className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}>
+            <span className={cn("text-neutral-600 text-xs tracking-wide", geistSans.className)}>
               Active Subscriptions
             </span>
             <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
@@ -216,7 +216,7 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.reconnectAttempts > 0 && (
             <div className="flex items-center justify-between">
               <span
-                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
+                className={cn("text-neutral-600 text-xs tracking-wide", geistSans.className)}
               >
                 Reconnect Attempts
               </span>
@@ -230,11 +230,11 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.lastConnected && (
             <div className="flex items-center justify-between">
               <span
-                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
+                className={cn("text-neutral-600 text-xs tracking-wide", geistSans.className)}
               >
                 Last Connected
               </span>
-              <span className={cn("text-[10px] text-neutral-700", geistSans.className)}>
+              <span className={cn("text-neutral-700 text-xs", geistSans.className)}>
                 {new Date(health.lastConnected).toLocaleTimeString()}
               </span>
             </div>
@@ -244,13 +244,13 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.errors.length > 0 && (
             <div className="mt-3 space-y-1 border-neutral-200 border-t pt-3">
               <span
-                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
+                className={cn("text-neutral-600 text-xs tracking-wide", geistSans.className)}
               >
                 Recent Errors
               </span>
               {health.errors.slice(-3).map((error, index) => (
                 <p
-                  className={cn("text-[10px] text-red-600 leading-relaxed", geistSans.className)}
+                  className={cn("text-red-600 text-xs leading-relaxed", geistSans.className)}
                   key={index}
                 >
                   {error}

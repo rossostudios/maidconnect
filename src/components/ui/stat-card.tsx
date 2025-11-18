@@ -59,7 +59,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
             <div className="mt-2 flex items-center gap-1.5">
               <span
                 className={cn(
-                  "inline-flex items-center gap-0.5 px-1.5 py-0.5 font-medium text-[10px]",
+                  "inline-flex items-center gap-0.5 px-1.5 py-0.5 font-medium text-xs",
                   trend.isPositive !== false
                     ? "bg-green-50 text-green-700"
                     : "bg-red-50 text-red-700"
@@ -69,7 +69,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
                 <span>{Math.abs(trend.value)}%</span>
               </span>
               {trend.label && (
-                <span className="truncate text-[10px] text-neutral-500">{trend.label}</span>
+                <span className="truncate text-neutral-500 text-xs">{trend.label}</span>
               )}
             </div>
           )}

@@ -487,6 +487,12 @@ export type Database = {
           amount_estimated: number | null;
           amount_final: number | null;
           auto_declined_at: string | null;
+          booking_type: string | null;
+          booking_source: string | null;
+          source_details: Json | null;
+          first_touch_source: string | null;
+          last_touch_source: string | null;
+          touch_points: number | null;
           checked_in_at: string | null;
           checked_out_at: string | null;
           created_at: string;
@@ -495,6 +501,8 @@ export type Database = {
           declined_reason: string | null;
           deposit_amount: number | null;
           deposit_captured_at: string | null;
+          direct_hire_completed_at: string | null;
+          direct_hire_fee_paid: boolean | null;
           duration_minutes: number | null;
           final_amount_captured: number | null;
           guest_session_id: string | null;
@@ -524,6 +532,12 @@ export type Database = {
           amount_estimated?: number | null;
           amount_final?: number | null;
           auto_declined_at?: string | null;
+          booking_type?: string | null;
+          booking_source?: string | null;
+          source_details?: Json | null;
+          first_touch_source?: string | null;
+          last_touch_source?: string | null;
+          touch_points?: number | null;
           checked_in_at?: string | null;
           checked_out_at?: string | null;
           created_at?: string;
@@ -532,6 +546,8 @@ export type Database = {
           declined_reason?: string | null;
           deposit_amount?: number | null;
           deposit_captured_at?: string | null;
+          direct_hire_completed_at?: string | null;
+          direct_hire_fee_paid?: boolean | null;
           duration_minutes?: number | null;
           final_amount_captured?: number | null;
           guest_session_id?: string | null;
@@ -561,6 +577,12 @@ export type Database = {
           amount_estimated?: number | null;
           amount_final?: number | null;
           auto_declined_at?: string | null;
+          booking_type?: string | null;
+          booking_source?: string | null;
+          source_details?: Json | null;
+          first_touch_source?: string | null;
+          last_touch_source?: string | null;
+          touch_points?: number | null;
           checked_in_at?: string | null;
           checked_out_at?: string | null;
           created_at?: string;
@@ -569,6 +591,8 @@ export type Database = {
           declined_reason?: string | null;
           deposit_amount?: number | null;
           deposit_captured_at?: string | null;
+          direct_hire_completed_at?: string | null;
+          direct_hire_fee_paid?: boolean | null;
           duration_minutes?: number | null;
           final_amount_captured?: number | null;
           guest_session_id?: string | null;
@@ -2284,6 +2308,7 @@ export type Database = {
           consent_background_check: boolean | null;
           country: string | null;
           created_at: string;
+          direct_hire_fee_cop: number | null;
           emergency_contact: Json | null;
           experience_years: number | null;
           featured_work: string | null;
@@ -2324,6 +2349,7 @@ export type Database = {
           consent_background_check?: boolean | null;
           country?: string | null;
           created_at?: string;
+          direct_hire_fee_cop?: number | null;
           emergency_contact?: Json | null;
           experience_years?: number | null;
           featured_work?: string | null;
@@ -2364,6 +2390,7 @@ export type Database = {
           consent_background_check?: boolean | null;
           country?: string | null;
           created_at?: string;
+          direct_hire_fee_cop?: number | null;
           emergency_contact?: Json | null;
           experience_years?: number | null;
           featured_work?: string | null;

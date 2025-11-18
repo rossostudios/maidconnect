@@ -44,7 +44,7 @@ export function ProsHeroSection() {
             variants={staggerContainer}
           >
             <motion.div
-              className="mb-4 inline-flex w-fit items-center gap-2 border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-700 text-sm"
+              className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-700 text-sm"
               variants={fadeInUp}
             >
               <HugeiconsIcon className="h-4 w-4" icon={Award01Icon} />
@@ -55,12 +55,12 @@ export function ProsHeroSection() {
               className="mb-6 font-bold text-5xl text-neutral-900 leading-tight lg:text-6xl"
               variants={fadeInUp}
             >
-              Join Colombia's top household staffing platform
+              Your talent, respected. Your rates, protected.
             </motion.h1>
 
             <motion.p className="mb-8 text-neutral-700 text-xl leading-relaxed" variants={fadeInUp}>
-              Connect with quality expat families who value professional domestic staff. Set your
-              own rates, build long-term relationships, and grow your income.
+              Join the only platform where you keep 100% of your earnings and find families who
+              value professional careers, not just temporary help.
             </motion.p>
 
             <motion.div className="flex flex-col gap-4 sm:flex-row" variants={fadeInUp}>
@@ -115,10 +115,10 @@ export function ProsHeroSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="w-full max-w-md border border-neutral-200 bg-white p-8 shadow-lg">
+            <div className="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-8 shadow-lg">
               <div className="mb-6 flex items-center gap-3">
                 <motion.div
-                  className="flex h-12 w-12 items-center justify-center bg-green-100"
+                  className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
@@ -132,7 +132,7 @@ export function ProsHeroSection() {
 
               <div className="space-y-4">
                 <motion.div
-                  className="bg-neutral-50 p-4"
+                  className="rounded-lg bg-neutral-50 p-4"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.02 }}
                 >
@@ -142,7 +142,7 @@ export function ProsHeroSection() {
                 </motion.div>
 
                 <motion.div
-                  className="bg-orange-50 p-4"
+                  className="rounded-lg bg-orange-50 p-4"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.02 }}
                 >

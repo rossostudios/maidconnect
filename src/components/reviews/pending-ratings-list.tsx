@@ -48,7 +48,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
         </h3>
         <p
           className={cn(
-            "mt-1 font-normal text-[10px] text-neutral-700 tracking-tighter",
+            "mt-1 font-normal text-neutral-700 text-xs tracking-tighter",
             geistSans.className
           )}
         >

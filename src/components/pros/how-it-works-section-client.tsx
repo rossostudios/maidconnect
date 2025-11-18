@@ -16,9 +16,9 @@ const howItWorksSteps = [
   },
   {
     step: "2",
-    title: "Get Verified",
+    title: "Earn Your Badges",
     description:
-      "We'll review your profile and may request references or a background check (at no cost to you).",
+      "Upload your ID and references to earn your Verified Pro badge. Add a background check to unlock the Trust Shield. Profiles with badges get 3x more bookings.",
   },
   {
     step: "3",
@@ -95,7 +95,7 @@ export function ProsHowItWorksSection() {
 
               <div className="relative flex flex-col items-center text-center">
                 <motion.div
-                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center border-4 border-white bg-orange-500 font-bold text-2xl text-white shadow-md"
+                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-orange-500 font-bold text-2xl text-white shadow-md"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.15, rotate: 10 }}
                 >

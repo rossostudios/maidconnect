@@ -27,10 +27,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { geistSans } from "@/app/fonts";
+import { AnalyticsEmptyState } from "@/components/admin/analytics-empty-state";
 import { MetricCard } from "@/components/dashboard/metric-card";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { cn } from "@/lib/utils/core";
 
 type AnalyticsMetrics = {
   fillRate: number;
@@ -361,9 +364,14 @@ export function EnhancedAnalyticsDashboard() {
   if (isLoading || !metrics) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-[#737373]">Loading analytics...</div>
+        <div className={cn("text-neutral-500", geistSans.className)}>Loading analytics...</div>
       </div>
     );
+  }
+
+  // Show empty state when no bookings exist
+  if (metrics.totalBookings === 0) {
+    return <AnalyticsEmptyState />;
   }
 
   return (
@@ -372,11 +380,13 @@ export function EnhancedAnalyticsDashboard() {
       <div className="flex justify-end gap-2">
         {(["7d", "30d", "90d"] as const).map((range) => (
           <button
-            className={`px-4 py-2 font-medium text-sm transition ${
+            className={cn(
+              "rounded-lg px-4 py-2 font-semibold text-sm transition-all",
+              geistSans.className,
               selectedTimeRange === range
-                ? "bg-[#FF5200] text-white"
-                : "border border-[#E5E5E5] text-[#171717] hover:border-[#FF5200]"
-            }`}
+                ? "bg-orange-500 text-white shadow-sm"
+                : "border border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:bg-orange-50"
+            )}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
             type="button"
@@ -424,8 +434,12 @@ export function EnhancedAnalyticsDashboard() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <h3 className="font-semibold text-[#171717] text-lg">Booking Trend</h3>
-            <p className="text-[#737373] text-sm">Daily bookings over time</p>
+            <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+              Booking Trend
+            </h3>
+            <p className={cn("text-neutral-500 text-sm", geistSans.className)}>
+              Daily bookings over time
+            </p>
           </CardHeader>
           <CardContent>
             <ChartContainer
@@ -457,8 +471,12 @@ export function EnhancedAnalyticsDashboard() {
 
         <Card>
           <CardHeader>
-            <h3 className="font-semibold text-[#171717] text-lg">Revenue Trend</h3>
-            <p className="text-[#737373] text-sm">Daily revenue (COP)</p>
+            <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+              Revenue Trend
+            </h3>
+            <p className={cn("text-neutral-500 text-sm", geistSans.className)}>
+              Daily revenue (COP)
+            </p>
           </CardHeader>
           <CardContent>
             <ChartContainer
@@ -496,8 +514,12 @@ export function EnhancedAnalyticsDashboard() {
       {/* City Performance */}
       <Card>
         <CardHeader>
-          <h3 className="font-semibold text-[#1A1A1A] text-lg">Top Cities by Bookings</h3>
-          <p className="text-[#6A6A6A] text-sm">Performance by location</p>
+          <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+            Top Cities by Bookings
+          </h3>
+          <p className={cn("text-neutral-500 text-sm", geistSans.className)}>
+            Performance by location
+          </p>
         </CardHeader>
         <CardContent>
           <ChartContainer
@@ -523,8 +545,12 @@ export function EnhancedAnalyticsDashboard() {
       {/* Category Distribution */}
       <Card>
         <CardHeader>
-          <h3 className="font-semibold text-[#1A1A1A] text-lg">Service Category Distribution</h3>
-          <p className="text-[#6A6A6A] text-sm">Bookings by service type</p>
+          <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+            Service Category Distribution
+          </h3>
+          <p className={cn("text-neutral-500 text-sm", geistSans.className)}>
+            Bookings by service type
+          </p>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-8 lg:flex-row">
@@ -552,11 +578,15 @@ export function EnhancedAnalyticsDashboard() {
               {categoryMetrics.map((category, index) => (
                 <div className="flex items-center gap-3" key={category.category}>
                   <div
-                    className="h-3 w-3"
+                    className="h-3 w-3 rounded-sm"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
-                  <span className="flex-1 text-[#171717] text-sm">{category.category}</span>
-                  <span className="font-semibold text-[#1A1A1A] text-sm">
+                  <span className={cn("flex-1 text-neutral-900 text-sm", geistSans.className)}>
+                    {category.category}
+                  </span>
+                  <span
+                    className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}
+                  >
                     {category.bookingCount}
                   </span>
                 </div>

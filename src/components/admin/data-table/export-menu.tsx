@@ -65,7 +65,7 @@ export function LiaDataTableExportMenu({ onExport, disabled = false }: Props) {
                 <HugeiconsIcon className="h-4 w-4" icon={File01Icon} />
                 <div className="flex-1 text-left">
                   <div className="font-medium">CSV</div>
-                  <div className="font-normal text-[10px] text-neutral-600">Excel compatible</div>
+                  <div className="font-normal text-neutral-600 text-xs">Excel compatible</div>
                 </div>
               </button>
 
@@ -81,7 +81,7 @@ export function LiaDataTableExportMenu({ onExport, disabled = false }: Props) {
                 <HugeiconsIcon className="h-4 w-4" icon={File01Icon} />
                 <div className="flex-1 text-left">
                   <div className="font-medium">JSON</div>
-                  <div className="font-normal text-[10px] text-neutral-600">Developer friendly</div>
+                  <div className="font-normal text-neutral-600 text-xs">Developer friendly</div>
                 </div>
               </button>
             </div>

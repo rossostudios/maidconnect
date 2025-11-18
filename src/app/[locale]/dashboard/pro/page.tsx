@@ -271,7 +271,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -293,7 +293,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -315,7 +315,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -337,7 +337,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -359,7 +359,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -381,7 +381,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >

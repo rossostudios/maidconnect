@@ -81,7 +81,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
           </p>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 tracking-tighter",
+              "mt-1 font-normal text-neutral-700 text-xs tracking-tighter",
               geistSans.className
             )}
           >
@@ -98,7 +98,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
               </div>
               <p
                 className={cn(
-                  "mt-1 text-right font-semibold text-[10px] text-neutral-700 tracking-tighter",
+                  "mt-1 text-right font-semibold text-neutral-700 text-xs tracking-tighter",
                   geistSans.className
                 )}
               >

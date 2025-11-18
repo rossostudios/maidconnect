@@ -125,7 +125,7 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
 
                   {/* Date label (show every 5th day for 30-day view) */}
                   {(index % 5 === 0 || index === trend.length - 1) && (
-                    <p className="mt-2 text-[10px] text-[neutral-400]">
+                    <p className="mt-2 text-[neutral-400] text-xs">
                       {date.getDate()}/{date.getMonth() + 1}
                     </p>
                   )}

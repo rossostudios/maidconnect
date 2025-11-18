@@ -1040,18 +1040,18 @@
   },
   "hero": {
     "tagline": "Household Happiness",
-    "ribbon": "Medellín's only boutique household staffing agency",
-    "title": "Hire trusted nannies, housekeepers & private staff in Medellín",
-    "titleHighlight": "all in English, vetted in 5 days or less",
-    "subtitle": "We're the boutique agency that saves you months of stress. Every candidate is background-checked, reference-verified, and hand-matched to your family.",
+    "ribbon": "The hybrid household staffing platform for expats in Colombia",
+    "title": "Book instantly with Amara AI or hire permanently with our concierge",
+    "titleHighlight": "Trusted help for tomorrow or a full-time nanny with a legal contract",
+    "subtitle": "Whether you need a cleaner for tomorrow or a full-time nanny, Casaora provides the vetting, payments, and legal framework to hire with confidence.",
     "trustLines": {
-      "backgroundChecks": "Full background & reference checks",
-      "englishFluent": "English-fluent professionals",
-      "quickMatching": "Personal matching in 5 days or less"
+      "backgroundChecks": "ID & Background Verified",
+      "englishFluent": "Instant or Permanent Hire",
+      "quickMatching": "$299 Direct Hire Fee"
     },
     "cta": {
-      "primary": "Tell Us What You Need",
-      "howItWorks": "How Casaora Works",
+      "primary": "Chat with Amara AI",
+      "howItWorks": "How It Works",
       "bookCall": "Book a Free Call"
     },
     "trust": {
@@ -2396,23 +2396,40 @@
       }
     },
     "comparison": {
-      "popularBadge": "Perfect for Foreigners",
+      "popularBadge": "Most Popular",
+      "premiumBadge": "Permanent Hire",
       "platformFee": "Platform Service Fee",
+      "oneTimeFee": "One-Time Placement Fee",
+      "forPermanentPlacement": "for permanent placement",
       "addedToServiceCost": "added to service cost",
       "bestFor": "Best for:",
-      "concierge": {
-        "title": "Concierge",
-        "subtitle": "We match you with the perfect professional",
+      "marketplace": {
+        "title": "Amara Instant Book",
+        "subtitle": "Book vetted professionals in under 2 minutes",
         "features": [
-          "Expert human matching based on your needs",
-          "English-speaking coordinators",
-          "Priority booking and faster response",
-          "Satisfaction guarantee",
-          "Perfect for first-time visitors",
-          "Comprehensive vetting and background checks"
+          "Chat with Amara AI to book instantly",
+          "ID & background verified pros",
+          "15% platform fee on hourly rate",
+          "Perfect for one-time or recurring jobs",
+          "Direct messaging after booking",
+          "Zero commission for professionals"
         ],
-        "cta": "Get Concierge Service",
-        "bestFor": "foreigners, expats, first-timers, busy professionals"
+        "cta": "Chat with Amara AI",
+        "bestFor": "quick bookings, recurring tasks, hourly help"
+      },
+      "concierge": {
+        "title": "Direct Hire Program",
+        "subtitle": "Permanent placement with legal contracts",
+        "features": [
+          "$299 one-time placement fee",
+          "Legal employment contract (EN/ES)",
+          "30-day replacement guarantee",
+          "Direct contact information",
+          "White-glove concierge matching",
+          "Zero ongoing platform fees"
+        ],
+        "cta": "Get Direct Hire Service",
+        "bestFor": "full-time staff, permanent placements, nannies"
       }
     },
     "calculator": {
@@ -2881,35 +2898,35 @@
   },
   "howItWorks": {
     "meta": {
-      "title": "How It Works - Simple Steps to Quality Service | Casaora",
-      "description": "Discover how Casaora helps expat and local families in Medellín hire trusted domestic service professionals through our concierge-only matching process, with clear steps and support at every stage."
+      "title": "How It Works - Instant Booking or Permanent Hire | Casaora",
+      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program ($299) for permanent placements with legal contracts and guarantees."
     },
     "hero": {
       "title": "How Casaora Works",
-      "subtitle": "We're building our professional network in Medellín with a concierge-only approach: you share what your home needs, we vet and curate professionals, then notify you when we have perfect matches ready."
+      "subtitle": "Two ways to hire: Chat with Amara AI for instant bookings, or use our concierge for permanent placements with legal contracts and a 30-day guarantee."
     },
     "customer": {
       "title": "For Customers",
-      "subtitle": "From a short brief to a trusted professional in a few simple steps",
+      "subtitle": "Amara Instant Book (15% fee) or Direct Hire Program ($299 one-time)",
       "steps": {
         "search": {
-          "title": "Start with a brief",
-          "description": "Tell us about your home, the help you need in Medellín, your schedule, language preference, and budget. It takes about 3 minutes."
+          "title": "Choose your hiring path",
+          "description": "Need help tomorrow? Chat with Amara AI. Hiring full-time? Use our Direct Hire Program with legal contracts and a $299 one-time fee."
         },
         "book": {
-          "title": "We vet & curate matches",
-          "description": "We review your brief, select professionals who fit your needs, and share a small shortlist. Each professional has been vetted by Casaora."
+          "title": "Get matched instantly or through concierge",
+          "description": "Amara books you in 2 minutes. Our concierge curates candidates for permanent roles, complete with background checks and interviews."
         },
         "service": {
-          "title": "You meet & choose",
-          "description": "You review profiles, chat with candidates, and decide who feels right for your home. We help with any questions along the way."
+          "title": "Book or hire with confidence",
+          "description": "Hourly bookings include messaging and ratings. Direct hires get legal contracts (EN/ES), direct contact, and a 30-day replacement guarantee."
         },
         "review": {
-          "title": "We support the relationship",
-          "description": "Once you’ve chosen your professional, we help with agreements, payments, and any adjustments. When things go well, rebooking is simple."
+          "title": "Zero commission for professionals",
+          "description": "Professionals keep 100% of their hourly rate. We charge customers a 15% platform fee or a $299 placement fee for direct hires."
         }
       },
-      "cta": "Start your brief"
+      "cta": "Chat with Amara AI"
     },
     "professional": {
       "title": "For Professionals",
@@ -2932,8 +2949,8 @@
           "description": "Show up on time, provide excellent service, and build your reputation through customer reviews and ratings."
         },
         "earn": {
-          "title": "Earn & Grow",
-          "description": "Get paid securely after each job. Build a loyal client base, earn more through repeat bookings, and grow your business."
+          "title": "Keep 100% of Your Rate",
+          "description": "Unlike apps that take 20-30%, Casaora charges customers a separate fee. If you charge 20,000 COP, you keep 20,000 COP. This is why the best talent works with us."
         }
       },
       "cta": "Apply as a Professional"
@@ -2979,8 +2996,66 @@
     "cta": {
       "title": "Ready to Get Started?",
       "subtitle": "Join thousands of customers and professionals who trust Casaora.",
-      "browseButton": "Start Your Request",
+      "browseButton": "Browse Professionals",
       "signUpButton": "Sign Up Free"
+    },
+    "serviceOptions": {
+      "title": "Choose Your Path",
+      "subtitle": "Select the service level that fits your needs—instant booking for quick jobs or white-glove concierge for permanent placements.",
+      "instantBook": {
+        "title": "Option A: Instant Book (Marketplace)",
+        "description": "Perfect for cleaning, babysitting, one-off help, and short-term projects.",
+        "speed": "Book in 2 minutes",
+        "process": "AI Matching & Real-Time Availability",
+        "cost": "Hourly Rate + 15% Service Fee",
+        "features": [
+          "Browse 100+ verified professionals",
+          "See availability and book instantly",
+          "Secure payment after service",
+          "Perfect for one-time or occasional needs"
+        ],
+        "cta": "Browse Professionals"
+      },
+      "concierge": {
+        "title": "Option B: Concierge Search (Direct Hire)",
+        "description": "Best for full-time nannies, chefs, house managers, and permanent staff.",
+        "speed": "Curated matches in 48 hours",
+        "process": "Human Interviews & Expert Vetting",
+        "cost": "$299 Direct Hire Fee + Legal Contracts",
+        "features": [
+          "Personal coordinator who understands expats",
+          "3-5 handpicked, vetted candidates",
+          "Interview scheduling & negotiation help",
+          "30-day replacement guarantee"
+        ],
+        "cta": "Start Concierge Brief"
+      }
+    },
+    "directHireValue": {
+      "title": "Hiring Full-Time? Here's What the Direct Hire Fee Covers",
+      "subtitle": "Our $299 Direct Hire Fee isn't just a charge—it's comprehensive protection and peace of mind for permanent placements.",
+      "benefits": [
+        {
+          "icon": "legal",
+          "title": "Legal Safety",
+          "description": "Bilingual contract templates compliant with Colombian labor law. Protect yourself and your employee."
+        },
+        {
+          "icon": "background",
+          "title": "Background Check",
+          "description": "Full judicial & disciplinary records report. Know exactly who you're hiring."
+        },
+        {
+          "icon": "medical",
+          "title": "Medical & Pension Setup",
+          "description": "Step-by-step 'Pila' setup guide for Colombian social security compliance."
+        },
+        {
+          "icon": "guarantee",
+          "title": "30-Day Guarantee",
+          "description": "If it doesn't work out, we replace them for free. Zero risk for you."
+        }
+      ]
     }
   },
   "help": {
@@ -3282,6 +3357,40 @@
       "retry": "Retry",
       "noBookings": "No bookings found",
       "noBookingsDescription": "When you book services or receive bookings, they will appear here"
+    },
+    "serviceSelectionWidget": {
+      "title": "How can we help you today?",
+      "description": "Choose between instant booking with Amara AI or permanent hiring with our concierge",
+      "quickJob": {
+        "title": "Amara Instant Book",
+        "description": "Need help for tomorrow? Chat with our AI to book vetted professionals in under 2 minutes.",
+        "feature1": "Book in under 2 minutes",
+        "feature2": "ID & background verified pros",
+        "feature3": "15% platform fee on hourly rate",
+        "cta": "Chat with Amara AI"
+      },
+      "longTermHire": {
+        "title": "Direct Hire Program",
+        "description": "Hiring full-time staff? Get legal contracts, a 30-day guarantee, and direct contact for a one-time $299 fee.",
+        "feature1": "$299 one-time placement fee",
+        "feature2": "Legal contracts & guarantees",
+        "feature3": "30-day replacement guarantee",
+        "cta": "Talk to Concierge"
+      },
+      "helpText": "Zero commission for professionals on hourly bookings. Full support for both options."
+    },
+    "directHireCard": {
+      "title": "Direct Hire Program — $299 One-Time Fee",
+      "description": "Hire this professional permanently with a legal contract, 30-day replacement guarantee, and direct contact information.",
+      "benefit1": "Legal employment contract (EN/ES)",
+      "benefit2": "30-day replacement guarantee",
+      "benefit3": "Direct contact information",
+      "benefit4": "Zero ongoing platform fees",
+      "ctaButton": "Hire Permanently for $299",
+      "trustBadge": "ID & Background Verified",
+      "detailsTitle": "What's included in the $299 fee:",
+      "detailsCollapse": "Show details",
+      "detailsExpand": "Hide details"
     }
   },
   "datePicker": {
@@ -3385,6 +3494,25 @@
         "label": "Go to Settings",
         "description": "Manage your account settings"
       }
+    }
+  },
+  "prosLanding": {
+    "threeWaysToEarn": {
+      "title": "Build Your Career Ladder",
+      "subtitle": "Start with gigs, grow to regulars, land full-time — 100% commission-free at every level",
+      "instantBookings": {
+        "title": "Level 1: Instant Bookings",
+        "description": "Fill gaps in your schedule with one-time gigs. Keep 100% of your hourly rate — we charge families a 15% platform fee, never you."
+      },
+      "recurringRegulars": {
+        "title": "Level 2: Recurring Regulars",
+        "description": "Build steady weekly income with families who book you repeatedly. Zero commission, just reliable paychecks."
+      },
+      "directPlacement": {
+        "title": "Level 3: Full-Time Placement",
+        "description": "Ready for stability? Families pay us a $299 finder's fee for permanent placements — you pay nothing and get legal contracts."
+      },
+      "ctaText": "Interested in full-time? Check \"Open to Full-Time\" on your profile to appear in premium family searches."
     }
   }
 }

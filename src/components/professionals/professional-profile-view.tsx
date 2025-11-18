@@ -28,6 +28,7 @@ import type {
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
+import type { VerificationData } from "@/components/professionals/verification-badges-grid";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
@@ -53,6 +54,8 @@ export type ProfessionalProfileDetail = {
   bookings: ProfessionalBookingSummary[];
   reviews: ProfessionalReviewSummary[];
   portfolioImages: ProfessionalPortfolioImage[];
+  directHireFeeCOP?: number | null;
+  verification?: VerificationData;
 };
 
 type ProfessionalProfileViewProps = {
@@ -202,7 +205,10 @@ export function ProfessionalProfileView({
                 onTimeRate={95} // TODO: Get from professional data when available
                 rating={averageRating}
                 reviewCount={professional.reviews.length}
-                verificationLevel="background-check" // TODO: Get from professional.verification_level
+                verificationLevel={
+                  (professional.verification?.level as any) ?? "background-check"
+                }
+                verification={professional.verification}
               />
             </div>
           </div>
@@ -214,7 +220,10 @@ export function ProfessionalProfileView({
             onTimeRate={95} // TODO: Get from professional data when available
             rating={averageRating}
             reviewCount={professional.reviews.length}
-            verificationLevel="background-check" // TODO: Get from professional.verification_level
+            verificationLevel={
+              (professional.verification?.level as any) ?? "background-check"
+            }
+            verification={professional.verification}
           />
         </div>
 

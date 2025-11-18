@@ -119,7 +119,7 @@ export function StatCard({
               </span>
               <span
                 className={cn(
-                  "font-medium text-[10px] text-orange-600 tracking-wider",
+                  "font-medium text-orange-600 text-xs tracking-wider",
                   geistSans.className
                 )}
               >

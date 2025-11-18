@@ -115,3 +115,67 @@ export async function calculateBookingPricing(
 
   return { success: true, pricing };
 }
+
+/**
+ * Direct Hire Fee Types
+ */
+export type DirectHireFeeData = {
+  feeCOP: number;
+  feeUSD: number;
+  professionalName: string;
+  professionalId: string;
+};
+
+type DirectHireFeeResult =
+  | { success: true; feeData: DirectHireFeeData }
+  | { success: false; error: string };
+
+/**
+ * Fetch direct hire fee for a professional (server-side only, never trust client)
+ * Default fee: 2,000,000 COP (~$500 USD at ~4,000 COP/USD)
+ */
+export async function calculateDirectHireFee(
+  supabase: SupabaseClient,
+  professionalId: string
+): Promise<DirectHireFeeResult> {
+  // Fetch professional profile with direct hire fee
+  const { data: profile, error } = await supabase
+    .from("professional_profiles")
+    .select("direct_hire_fee_cop, full_name, profile_id")
+    .eq("profile_id", professionalId)
+    .single();
+
+  if (error || !profile) {
+    return { success: false, error: "Professional profile not found" };
+  }
+
+  const feeCOP = profile.direct_hire_fee_cop ?? 2000000; // Default 2M COP
+  const feeUSD = Math.round(feeCOP / 4000); // Approximate USD conversion
+
+  return {
+    success: true,
+    feeData: {
+      feeCOP,
+      feeUSD,
+      professionalName: profile.full_name ?? "Professional",
+      professionalId: profile.profile_id,
+    },
+  };
+}
+
+/**
+ * Verify if a professional has direct hire enabled
+ */
+export async function isDirectHireEnabled(
+  supabase: SupabaseClient,
+  professionalId: string
+): Promise<boolean> {
+  const { data: profile } = await supabase
+    .from("professional_profiles")
+    .select("direct_hire_fee_cop")
+    .eq("profile_id", professionalId)
+    .single();
+
+  // Direct hire is enabled if fee is set and greater than 0
+  return (profile?.direct_hire_fee_cop ?? 0) > 0;
+}

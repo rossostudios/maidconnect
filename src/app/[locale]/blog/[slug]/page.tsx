@@ -137,7 +137,7 @@ export default async function BlogPostPage({
             {/* Category Badge */}
             {post.category && (
               <div className="mb-6">
-                <span className="inline-block bg-orange-50 px-4 py-1.5 font-medium text-orange-600 text-sm">
+                <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-600 text-sm">
                   {post.category.name}
                 </span>
               </div>
@@ -160,7 +160,7 @@ export default async function BlogPostPage({
               {/* Author */}
               {post.author && (
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center bg-orange-100">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
                     <span className="font-semibold text-orange-600">
                       {post.author
                         .split(" ")
@@ -196,7 +196,7 @@ export default async function BlogPostPage({
         {/* Main Content */}
         <main className="py-16 md:py-20">
           <div className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-10">
-            <article className="overflow-hidden border border-neutral-200 bg-white shadow-sm">
+            <article className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
               {/* Featured Image */}
               {post.featuredImage?.asset && (
                 <div className="overflow-hidden">
@@ -223,7 +223,7 @@ export default async function BlogPostPage({
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
                       <span
-                        className="bg-neutral-100 px-4 py-1.5 font-medium text-neutral-700 text-sm"
+                        className="rounded-full border border-neutral-200 bg-neutral-100 px-4 py-1.5 font-medium text-neutral-700 text-sm"
                         key={tag}
                       >
                         #{tag}

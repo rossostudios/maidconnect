@@ -708,25 +708,25 @@ export function UnifiedCommandPalette({
       {/* Footer */}
       <div className="flex items-center gap-4 border-neutral-200/60 border-t bg-neutral-50 px-4 py-3 text-neutral-600 text-xs dark:border-neutral-700/60">
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-neutral-700 text-xs shadow-sm dark:border-neutral-700/60">
             ↑↓
           </kbd>
           <span>Navigate</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-neutral-700 text-xs shadow-sm dark:border-neutral-700/60">
             ↵
           </kbd>
           <span>Select</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-neutral-700 text-xs shadow-sm dark:border-neutral-700/60">
             Esc
           </kbd>
           <span>Close</span>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
-          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-neutral-700 text-xs shadow-sm dark:border-neutral-700/60">
             ⌘K
           </kbd>
           <span>to open</span>

@@ -134,7 +134,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </h2>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-600 tracking-wide",
+              "mt-1 font-normal text-neutral-600 text-xs tracking-wide",
               geistSans.className
             )}
           >
@@ -148,7 +148,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
             <div className="h-2 w-2 animate-pulse bg-green-500" />
             <span
               className={cn(
-                "font-medium text-[10px] text-neutral-700 tracking-wider",
+                "font-medium text-neutral-700 text-xs tracking-wider",
                 geistSans.className
               )}
             >
@@ -170,7 +170,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
+              "mt-1 font-normal text-neutral-700 text-xs tracking-wide",
               geistSans.className
             )}
           >
@@ -188,7 +188,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
+              "mt-1 font-normal text-neutral-700 text-xs tracking-wide",
               geistSans.className
             )}
           >
@@ -206,7 +206,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
+              "mt-1 font-normal text-neutral-700 text-xs tracking-wide",
               geistSans.className
             )}
           >
@@ -224,7 +224,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
+              "mt-1 font-normal text-neutral-700 text-xs tracking-wide",
               geistSans.className
             )}
           >
@@ -260,7 +260,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
               </p>
               <p
                 className={cn(
-                  "mt-1 text-[10px] text-neutral-400 tracking-wider",
+                  "mt-1 text-neutral-400 text-xs tracking-wider",
                   geistSans.className
                 )}
               >
@@ -297,7 +297,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                     </p>
                     <p
                       className={cn(
-                        "font-normal text-[10px] text-neutral-500 tracking-wide",
+                        "font-normal text-neutral-500 text-xs tracking-wide",
                         geistSans.className
                       )}
                     >
@@ -309,7 +309,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                   <div className="flex-shrink-0">
                     <span
                       className={cn(
-                        "rounded-lg border border-neutral-200 bg-neutral-50 px-2 py-1 font-medium text-[10px] tracking-wider",
+                        "rounded-lg border border-neutral-200 bg-neutral-50 px-2 py-1 font-medium text-xs tracking-wider",
                         geistSans.className
                       )}
                     >
@@ -324,7 +324,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
 
         {/* Footer - Last Updated */}
         <div className="rounded-b-lg border-neutral-200 border-t px-6 py-3">
-          <p className={cn("text-[10px] text-neutral-500 tracking-wide", geistSans.className)}>
+          <p className={cn("text-neutral-500 text-xs tracking-wide", geistSans.className)}>
             Last updated:{" "}
             {stats.lastUpdated ? (
               <time dateTime={stats.lastUpdated}>
@@ -357,7 +357,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                 </span>
                 <span
                   className={cn(
-                    "ml-auto text-[10px] text-neutral-500 tracking-wide",
+                    "ml-auto text-neutral-500 text-xs tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -368,7 +368,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
             {onlineUsers.length > 5 && (
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-500 tracking-wide",
+                  "mt-2 text-neutral-500 text-xs tracking-wide",
                   geistSans.className
                 )}
               >

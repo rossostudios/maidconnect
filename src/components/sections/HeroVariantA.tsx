@@ -109,8 +109,7 @@ export function HeroVariantA() {
 
               {/* Display Heading - Variant A Messaging */}
               <motion.h1
-                className="font-normal text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
-                className="font-[family-name:var(--font-geist-sans)]"
+                className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
                 variants={fadeIn}
               >
                 Trusted household staff, matched to your needs.
@@ -184,25 +183,20 @@ export function HeroVariantA() {
             initial={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <motion.div className="relative aspect-[16/9] overflow-hidden" style={{ y: y1 }}>
+            <motion.div className="relative aspect-[16/9] overflow-hidden rounded-2xl" style={{ y: y1 }}>
               <Image
-                alt="Colombia - Casaora service coverage"
-                className="object-contain"
+                alt="Casaora - Professional household staff in Medellín"
+                className="object-cover"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 1200px"
-                src="/colombia.svg"
+                src="/casaora-hero.jpg"
               />
-              {/* Elegant fade to blend into background - top, right, bottom */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50 via-transparent to-transparent" />
+              {/* Elegant fade to blend into background - subtle blend */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50/30 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50/40" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50/20 via-transparent to-transparent" />
             </motion.div>
-
-            {/* Location Badge - Positioned over Medellín */}
-            <div className="absolute top-[35%] left-[20%] rounded-lg border border-neutral-200 bg-white px-5 py-3 shadow-xl">
-              <p className="font-semibold text-neutral-900 text-sm">Medellín, Colombia</p>
-            </div>
           </motion.div>
 
           {/* Trusted By Section - Marquee inside bordered card */}

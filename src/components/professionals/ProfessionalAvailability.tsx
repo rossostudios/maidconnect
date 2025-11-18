@@ -300,7 +300,7 @@ function CustomDayContent({
         </span>
       )}
       {bookingsCount > 0 && (
-        <span className="mt-1 font-medium text-[11px] text-[neutral-400]">
+        <span className="mt-1 font-medium text-[neutral-400] text-xs">
           {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
         </span>
       )}

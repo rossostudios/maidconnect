@@ -76,7 +76,7 @@ export function ProHeader({
             >
               <HugeiconsIcon className="h-4 w-4" icon={Message01Icon} />
               {unreadMessagesCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center bg-[#FF5200] px-1 font-semibold text-[10px] text-white">
+                <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center bg-[#FF5200] px-1 font-semibold text-white text-xs">
                   {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
                 </span>
               )}
@@ -125,7 +125,7 @@ export function ProHeader({
                         {userName || "Professional"}
                       </p>
                       {userEmail && (
-                        <p className="mt-0.5 text-[10px] text-neutral-700">{userEmail}</p>
+                        <p className="mt-0.5 text-neutral-700 text-xs">{userEmail}</p>
                       )}
                     </div>
                     <div className="py-0.5">

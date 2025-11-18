@@ -39,15 +39,15 @@ const benefits = [
   },
   {
     icon: Message01Icon,
-    title: "Bilingual Support",
+    title: "No English? No Problem.",
     description:
-      "Our English-speaking team helps you communicate seamlessly with international clients.",
+      "Our platform translates messages automatically. You focus on your work; Amara handles the communication with high-paying expat families.",
   },
   {
     icon: Shield01Icon,
-    title: "Safety & Verification",
+    title: "Safety First",
     description:
-      "We verify all families and provide secure bookings so you can work with confidence.",
+      "We verify every family just like we verify you. Zero tolerance for disrespect. If a client is rude or unsafe, we block them.",
   },
 ];
 
@@ -101,14 +101,14 @@ export function ProsBenefitsSection() {
             const Icon = benefit.icon;
             return (
               <motion.div
-                className="flex flex-col items-start gap-4 border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
+                className="flex flex-col items-start gap-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 key={benefit.title}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 variants={fadeInUp}
                 whileHover={{ y: -4 }}
               >
                 <motion.div
-                  className="flex h-12 w-12 items-center justify-center bg-orange-100"
+                  className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.15, rotate: 10 }}
                 >

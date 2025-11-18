@@ -12,9 +12,11 @@ import {
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { CustomerFlowSectionClient } from "./customer-flow-section-client";
+import { DirectHireValueSectionClient } from "./direct-hire-value-section-client";
 import { HeroSectionClient } from "./hero-section-client";
 import { ProfessionalFlowSectionClient } from "./professional-flow-section-client";
 import { SafetyTrustSectionClient } from "./safety-trust-section-client";
+import { ServiceOptionsSectionClient } from "./service-options-section-client";
 
 export default async function HowItWorksPage() {
   return (
@@ -22,6 +24,8 @@ export default async function HowItWorksPage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+        <ServiceOptionsSection />
+        <DirectHireValueSection />
         <CustomerFlowSectionClient />
         <ProfessionalFlowSectionClient />
         <SafetyTrustSectionClient />
@@ -78,6 +82,51 @@ async function FAQSection() {
   );
 }
 
+async function ServiceOptionsSection() {
+  const t = await getTranslations("howItWorks.serviceOptions");
+
+  return (
+    <ServiceOptionsSectionClient
+      concierge={{
+        title: t("concierge.title"),
+        description: t("concierge.description"),
+        speed: t("concierge.speed"),
+        process: t("concierge.process"),
+        cost: t("concierge.cost"),
+        features: t.raw("concierge.features") as string[],
+        cta: t("concierge.cta"),
+      }}
+      instantBook={{
+        title: t("instantBook.title"),
+        description: t("instantBook.description"),
+        speed: t("instantBook.speed"),
+        process: t("instantBook.process"),
+        cost: t("instantBook.cost"),
+        features: t.raw("instantBook.features") as string[],
+        cta: t("instantBook.cta"),
+      }}
+      subtitle={t("subtitle")}
+      title={t("title")}
+    />
+  );
+}
+
+async function DirectHireValueSection() {
+  const t = await getTranslations("howItWorks.directHireValue");
+
+  return (
+    <DirectHireValueSectionClient
+      benefits={t.raw("benefits") as Array<{
+        icon: "legal" | "background" | "medical" | "guarantee";
+        title: string;
+        description: string;
+      }>}
+      subtitle={t("subtitle")}
+      title={t("title")}
+    />
+  );
+}
+
 async function CTASection() {
   const t = await getTranslations("howItWorks.cta");
 
@@ -89,14 +138,14 @@ async function CTASection() {
           <p className="mt-6 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
-              href="/brief"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
+              href="/professionals"
             >
               {t("browseButton")}
             </Link>
             <Link
-              className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
-              href="/auth/sign-up"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
+              href="/concierge"
             >
               {t("signUpButton")}
             </Link>

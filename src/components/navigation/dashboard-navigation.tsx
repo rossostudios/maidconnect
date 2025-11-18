@@ -89,7 +89,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         >
           <HugeiconsIcon className="h-5 w-5" icon={Message01Icon} size={20} />
           {unreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-white text-xs">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
@@ -104,7 +104,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         >
           <HugeiconsIcon className="h-5 w-5" icon={Notification01Icon} size={20} />
           {notificationUnreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 font-bold text-white text-xs">
               {notificationUnreadCount > 9 ? "9+" : notificationUnreadCount}
             </span>
           )}

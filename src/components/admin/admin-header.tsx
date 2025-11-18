@@ -49,7 +49,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
           >
             <HugeiconsIcon className="h-3.5 w-3.5 flex-shrink-0" icon={Search01Icon} />
             <span className="flex-1 text-left">Search</span>
-            <kbd className="inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-white px-1 py-0.5 font-mono text-[9px] text-neutral-700">
+            <kbd className="inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-white px-1 py-0.5 font-mono text-neutral-700 text-xs">
               ⌘K
             </kbd>
           </button>
@@ -95,7 +95,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
                         {userName || "Admin User"}
                       </p>
                       {userEmail && (
-                        <p className="mt-0.5 text-[10px] text-neutral-700">{userEmail}</p>
+                        <p className="mt-0.5 text-neutral-700 text-xs">{userEmail}</p>
                       )}
                     </div>
                     <div className="py-0.5">

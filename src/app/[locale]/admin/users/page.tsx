@@ -128,7 +128,7 @@ export default async function AdminUsersPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-medium text-[11px] text-neutral-700 tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -152,7 +152,7 @@ export default async function AdminUsersPage() {
             <div className="rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-1.5">
               <span
                 className={cn(
-                  "font-medium text-[10px] text-white tracking-[0.3em]",
+                  "font-medium text-white text-xs tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -162,7 +162,7 @@ export default async function AdminUsersPage() {
             <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
               <span
                 className={cn(
-                  "font-medium text-[10px] text-neutral-600 tracking-[0.3em]",
+                  "font-medium text-neutral-600 text-xs tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -175,7 +175,7 @@ export default async function AdminUsersPage() {
             <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
               <span
                 className={cn(
-                  "font-medium text-[10px] text-neutral-600 tracking-[0.3em]",
+                  "font-medium text-neutral-600 text-xs tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -193,7 +193,7 @@ export default async function AdminUsersPage() {
               <div>
                 <p
                   className={cn(
-                    "font-medium text-[11px] text-neutral-700 tracking-[0.3em]",
+                    "font-medium text-neutral-700 text-xs tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -241,7 +241,7 @@ export default async function AdminUsersPage() {
         <div>
           <h2
             className={cn(
-              "font-medium text-[11px] text-neutral-700 tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -259,7 +259,7 @@ export default async function AdminUsersPage() {
             >
               <p
                 className={cn(
-                  "font-medium text-[11px] text-neutral-700 tracking-[0.25em]",
+                  "font-medium text-neutral-700 text-xs tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -272,7 +272,7 @@ export default async function AdminUsersPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-600 tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -287,7 +287,7 @@ export default async function AdminUsersPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-medium text-[11px] text-neutral-700 tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -308,7 +308,7 @@ export default async function AdminUsersPage() {
                 <div>
                   <p
                     className={cn(
-                      "font-medium text-[11px] text-neutral-700 tracking-[0.3em]",
+                      "font-medium text-neutral-700 text-xs tracking-[0.3em]",
                       geistSans.className
                     )}
                   >
@@ -341,7 +341,7 @@ export default async function AdminUsersPage() {
           <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
-                "font-medium text-[11px] text-neutral-600 tracking-[0.3em]",
+                "font-medium text-neutral-600 text-xs tracking-[0.3em]",
                 geistSans.className
               )}
             >

@@ -1,8 +1,10 @@
 # Casaora
 
-> Connecting expats in Colombia with trusted domestic service professionals
+> The hybrid household staffing platform for expats in Colombia
 
-**Casaora** is a concierge service that connects foreigners living in Colombia with thoroughly vetted, professional domestic service providers. We personally match you with the perfect professionals — no browsing, no guesswork. Built for trust, transparency, and seamless service delivery.
+**Casaora** is the hybrid household staffing platform for expats in Colombia. We combine **Amara AI** for instant bookings with a **White-Glove Concierge** for permanent placements.
+
+Whether you need a cleaner for tomorrow or a full-time nanny with a legal contract, Casaora provides the vetting, payments, and legal framework to hire with confidence.
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
@@ -17,23 +19,24 @@
 
 ### For Customers
 
-- 🤝 **Personal Concierge Matching** - We hand-select professionals based on your specific needs
-- 🏆 **Thoroughly Vetted Professionals** - Every professional passes background checks and interviews
-- 📋 **Simple Brief System** - Share your needs once, we handle the rest
-- 💬 **English-Speaking Coordinators** - Bilingual support team for seamless communication
-- 💳 **Secure Payments** - Integrated Stripe payment processing with Colombian payment methods
-- ⭐ **Quality Guarantee** - Satisfaction guaranteed with responsive support
+- 🤖 **Amara Instant Book** - Chat with our AI to book vetted help in under 2 minutes
+- 💼 **Direct Hire Program** - Permanently hire staff with legal contracts & a 30-day replacement guarantee
+- 🛡️ **Verified Trust Badges** - See exactly who is ID-checked, background-checked, and interviewed
+- 💰 **Transparent Fees** - Clear distinction between hourly booking fees and one-time hiring fees ($299 placement)
+- 💬 **English-First Support** - Bilingual contracts and coordinators for seamless communication
+- 💳 **Secure Payments** - Integrated Stripe processing for both hourly gigs and placement fees
+- ⭐ **Quality Guarantee** - Satisfaction guaranteed with responsive support and 30-day replacement for direct hires
 - 🌐 **Bilingual Platform** - Full English and Spanish support throughout
-- 🔔 **Match Notifications** - We notify you when we have perfect matches ready
 
 ### For Professionals
 
-- 📊 **Professional Dashboard** - Manage concierge assignments, availability, and earnings
-- ✅ **Rigorous Vetting Process** - Background checks, interviews, and skills verification
-- 💰 **Transparent Pricing** - Set your own rates and keep 100% of what you charge
-- 🎯 **Curated Assignments** - Receive hand-matched bookings from our concierge team
-- 🗓️ **Calendar Management** - Integrated availability and scheduling system
+- 🚀 **Career Ladder** - Start with hourly gigs and graduate to full-time direct employment
+- 💯 **Zero Commission** - You keep 100% of your hourly rate; we charge the client
+- 🏅 **Profile Badges** - Earn visual distinctions for skills, reliability, and vetting status
+- 🔒 **Client Vetting** - We verify families to ensure your safety and respect
+- 🗓️ **Smart Calendar** - Manage availability for both instant bookings and long-term interviews
 - 💬 **Secure Messaging** - Direct communication with customers and coordinators
+- 📊 **Professional Dashboard** - Track earnings, bookings, and career progression
 
 ### For Admins
 
@@ -276,6 +279,10 @@ NEXT_PUBLIC_LOGTAIL_TOKEN=
 # Optional: Rate Limiting
 UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
+
+# Business Logic
+NEXT_PUBLIC_DIRECT_HIRE_FEE_AMOUNT=29900  # Cent value (e.g., $299.00 USD)
+NEXT_PUBLIC_ENABLE_DIRECT_HIRE=true       # Feature flag for Direct Hire system
 ```
 
 See [`.env.example`](.env.example) for complete list.
@@ -349,6 +356,7 @@ Release notes are tracked inline in pull requests; the `scripts/create-release.s
 
 ### Key Principles
 
+- **Hybrid Booking Engine:** Distinct logic flows for Hourly (Transactional) vs Direct Hire (Escrow/Fee-based) bookings
 - **Separation of Concerns:** Clear boundaries between layers
 - **Type Safety:** End-to-end TypeScript with strict mode
 - **Server Components:** Leverage React Server Components for performance
@@ -554,12 +562,12 @@ See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for up
 
 **Current Focus (Q1 2025):**
 - ✅ **Product Analytics** - PostHog integration complete (feature flags, session recording, funnels)
-- 🏗️ **Professional Network Building** - Growing our thoroughly vetted professional network in Medellín
-- 🔄 **React Aria Migration** - Better accessibility with React Aria Components
-- 📱 **Mobile App** - React Native for iOS and Android
-- 🌎 **City Expansion** - Medellín first, then Cartagena and Cali
-- 🤝 **Enhanced Concierge Tools** - Better matching algorithms and coordinator workflows
-- 📊 **Analytics Dashboards** - Real-time metrics for admins and professionals
+- 💎 **Direct Hire System** - Implementation of $299 placement fee, contract generation, and 30-day guarantees
+- 🛡️ **Trust & Safety V2** - Visual verification badges and enhanced background check integration
+- 🤖 **Amara AI Evolution** - Transitioning from simple chat to full "Instant Booking" intent handling
+- 🏗️ **Professional Network** - Scaling the "Top 5%" supply in Medellín
+- 📱 **Mobile App** - React Native for iOS and Android (In Progress)
+- 🔄 **React Aria Migration** - Better accessibility with React Aria Components (In Progress)
 
 ---
 

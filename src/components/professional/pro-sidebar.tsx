@@ -152,7 +152,7 @@ export function ProSidebar({
               </span>
               <span
                 className={cn(
-                  "block font-normal text-[10px] text-neutral-500 uppercase tracking-wider",
+                  "block font-normal text-neutral-500 text-xs uppercase tracking-wider",
                   geistSans.className
                 )}
               >
@@ -273,7 +273,7 @@ export function ProSidebar({
             <div className="inline-flex items-center border border-neutral-200 bg-neutral-50 px-2 py-1">
               <span
                 className={cn(
-                  "font-semibold text-[10px] text-neutral-900 uppercase tracking-wider",
+                  "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
                   geistSans.className
                 )}
               >

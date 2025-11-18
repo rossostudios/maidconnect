@@ -46,7 +46,7 @@ export function CustomerHeader({ unreadMessagesCount = 0 }: Props) {
               icon={Message01Icon}
             />
             {unreadMessagesCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full border border-orange-200 bg-orange-500/10 px-1 font-semibold text-[10px] text-orange-600">
+              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full border border-orange-200 bg-orange-500/10 px-1 font-semibold text-orange-600 text-xs">
                 {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
               </span>
             )}

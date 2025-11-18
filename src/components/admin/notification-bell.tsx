@@ -126,7 +126,7 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
         {/* Unread Badge */}
         {unreadCount > 0 && (
           <span className="-right-1 -top-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-orange-500">
-            <span className={cn("font-medium text-[10px] text-white", geistSans.className)}>
+            <span className={cn("font-medium text-white text-xs", geistSans.className)}>
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           </span>
@@ -150,7 +150,7 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
             {notifications.length > 0 && (
               <button
                 className={cn(
-                  "font-medium text-[10px] text-neutral-600 tracking-wider hover:text-orange-600",
+                  "font-medium text-neutral-600 text-xs tracking-wider hover:text-orange-600",
                   geistSans.className
                 )}
                 onClick={() => clearNotifications()}
@@ -174,7 +174,7 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
                 </p>
                 <p
                   className={cn(
-                    "mt-1 text-[10px] text-neutral-400 tracking-wider",
+                    "mt-1 text-neutral-400 text-xs tracking-wider",
                     geistSans.className
                   )}
                 >
@@ -236,7 +236,7 @@ function NotificationItem({
           </p>
           <p
             className={cn(
-              "font-normal text-[10px] text-neutral-500 tracking-wide",
+              "font-normal text-neutral-500 text-xs tracking-wide",
               geistSans.className
             )}
           >

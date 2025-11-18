@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const kbdVariants = cva(
-  "pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium font-mono text-[10px] text-muted-foreground opacity-100",
+  "pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium font-mono text-muted-foreground text-xs opacity-100",
   {
     variants: {
       variant: {
@@ -11,8 +11,8 @@ const kbdVariants = cva(
         outline: "border-input bg-background",
       },
       size: {
-        default: "h-5 text-[10px]",
-        sm: "h-4 text-[9px]",
+        default: "h-5 text-xs",
+        sm: "h-4 text-xs",
         lg: "h-6 text-xs",
       },
     },

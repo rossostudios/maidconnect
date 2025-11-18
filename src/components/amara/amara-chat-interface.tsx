@@ -472,6 +472,26 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
         {/* Action Buttons - Precision Grid */}
         {messages.length === 1 && (
           <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
+            {/* Concierge CTA Banner */}
+            <div className="mb-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  <p className="font-[family-name:var(--font-geist-sans)] font-semibold text-blue-900 text-sm">
+                    Need help with long-term hiring or complex requirements?
+                  </p>
+                  <p className="mt-1 font-[family-name:var(--font-geist-sans)] text-blue-700 text-xs">
+                    Talk to our human concierge team for personalized assistance.
+                  </p>
+                </div>
+                <Link
+                  className="flex-shrink-0 rounded-lg border border-blue-600 bg-blue-600 px-4 py-2 font-[family-name:var(--font-geist-sans)] font-semibold text-white text-xs transition-all hover:border-blue-700 hover:bg-blue-700 active:scale-95"
+                  href="/concierge"
+                >
+                  Contact Concierge
+                </Link>
+              </div>
+            </div>
+
             <div className="grid grid-cols-4 gap-2">
               <Link
                 className="group flex min-h-[68px] flex-col items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"

@@ -109,7 +109,7 @@ export function DashboardMobileNav({
                     icon={IconComponent}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center bg-neutral-900 px-1.5 font-bold text-[10px] text-white">
+                    <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center bg-neutral-900 px-1.5 font-bold text-white text-xs">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
@@ -136,7 +136,7 @@ export function DashboardMobileNav({
                   icon={IconComponent}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center bg-neutral-900 px-1.5 font-bold text-[10px] text-white">
+                  <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center bg-neutral-900 px-1.5 font-bold text-white text-xs">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}

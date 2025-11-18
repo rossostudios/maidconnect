@@ -265,29 +265,24 @@ export function HeroSection() {
               initial="hidden"
               variants={fadeInScale}
             >
-              {/* Colombia SVG with Elegant Fade */}
+              {/* Hero Image with Elegant Fade */}
               <motion.div
-                className="relative aspect-[4/5] overflow-hidden"
+                className="relative aspect-[4/5] overflow-hidden rounded-2xl"
                 style={{ y: imageY, scale: imageScale }}
               >
                 <Image
-                  alt="Colombia - Casaora service coverage"
-                  className="object-contain"
+                  alt="Casaora - Professional household staff in Medellín"
+                  className="object-cover"
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  src="/colombia.svg"
+                  src="/casaora-hero.jpg"
                 />
-                {/* Elegant fade to blend into background - top, right, bottom */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50 via-transparent to-transparent" />
+                {/* Elegant fade to blend into background - subtle blend */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50/30 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50/40" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50/20 via-transparent to-transparent" />
               </motion.div>
-
-              {/* Location Badge - Positioned over Medellín */}
-              <div className="absolute top-[35%] left-[20%] rounded-lg border border-neutral-200 bg-white px-5 py-3 shadow-xl">
-                <p className="font-semibold text-neutral-900 text-sm">Medellín, Colombia</p>
-              </div>
             </motion.div>
           </div>
         </Container>

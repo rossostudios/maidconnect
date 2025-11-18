@@ -76,7 +76,7 @@ export function LiaAdminHeader({
           <span className="flex-1 text-left">Search</span>
           <kbd
             className={cn(
-              "inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-medium text-[10px] text-neutral-900 tracking-tighter group-hover:border-white group-hover:bg-white group-hover:text-orange-500",
+              "inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-medium text-neutral-900 text-xs tracking-tighter group-hover:border-white group-hover:bg-white group-hover:text-orange-500",
               geistSans.className
             )}
           >

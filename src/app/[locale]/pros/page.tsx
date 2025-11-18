@@ -3,6 +3,7 @@ import { ProsBenefitsSection } from "@/components/pros/benefits-section-client";
 import { ProsFaqCtaSection } from "@/components/pros/faq-cta-section-client";
 import { ProsHeroSection } from "@/components/pros/hero-section-client";
 import { ProsHowItWorksSection } from "@/components/pros/how-it-works-section-client";
+import { ProsThreeWaysToEarnSection } from "@/components/pros/three-ways-to-earn-section-client";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 
@@ -27,6 +28,9 @@ export default async function ProsPage({ params }: { params: Promise<{ locale: s
 
         {/* Benefits Section */}
         <ProsBenefitsSection />
+
+        {/* Three Ways to Earn */}
+        <ProsThreeWaysToEarnSection />
 
         {/* How It Works */}
         <ProsHowItWorksSection />

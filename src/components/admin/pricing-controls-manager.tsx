@@ -71,7 +71,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p
           className={cn(
-            "font-medium text-[11px] text-neutral-500 tracking-[0.3em]",
+            "font-medium text-neutral-500 text-xs tracking-[0.3em]",
             geistSans.className
           )}
         >
@@ -97,7 +97,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
                 (heading) => (
                   <th
                     className={cn(
-                      "px-6 py-4 text-left font-medium text-[11px] text-neutral-600 tracking-[0.3em]",
+                      "px-6 py-4 text-left font-medium text-neutral-600 text-xs tracking-[0.3em]",
                       geistSans.className
                     )}
                     key={heading}
@@ -212,7 +212,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <p
             className={cn(
-              "font-medium text-[11px] text-neutral-500 tracking-[0.3em]",
+              "font-medium text-neutral-500 text-xs tracking-[0.3em]",
               geistSans.className
             )}
           >
@@ -233,7 +233,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <p
             className={cn(
-              "font-medium text-[11px] text-neutral-500 tracking-[0.3em]",
+              "font-medium text-neutral-500 text-xs tracking-[0.3em]",
               geistSans.className
             )}
           >
@@ -250,7 +250,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <p
             className={cn(
-              "font-medium text-[11px] text-neutral-500 tracking-[0.3em]",
+              "font-medium text-neutral-500 text-xs tracking-[0.3em]",
               geistSans.className
             )}
           >

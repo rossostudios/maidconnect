@@ -110,7 +110,7 @@ export default async function AdminPricingPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -134,7 +134,7 @@ export default async function AdminPricingPage() {
             <div className="border border-neutral-900 bg-neutral-900 px-4 py-1.5">
               <span
                 className={cn(
-                  "font-semibold text-[10px] text-white uppercase tracking-[0.3em]",
+                  "font-semibold text-white text-xs uppercase tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -145,7 +145,7 @@ export default async function AdminPricingPage() {
               <div className="border border-neutral-200 bg-white px-3 py-1.5">
                 <span
                   className={cn(
-                    "font-semibold text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -165,7 +165,7 @@ export default async function AdminPricingPage() {
               <div>
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -214,7 +214,7 @@ export default async function AdminPricingPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -232,7 +232,7 @@ export default async function AdminPricingPage() {
             >
               <p
                 className={cn(
-                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -245,7 +245,7 @@ export default async function AdminPricingPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -263,7 +263,7 @@ export default async function AdminPricingPage() {
               <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -289,7 +289,7 @@ export default async function AdminPricingPage() {
                         >
                           {entry.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-[0.25em]">
                           <span>{dateFormatter.format(new Date(entry.effectiveFrom))}</span>
                           <span>•</span>
                           <span>{entry.commission}</span>
@@ -318,7 +318,7 @@ export default async function AdminPricingPage() {
               <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >

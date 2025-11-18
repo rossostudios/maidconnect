@@ -1,13 +1,12 @@
 /**
- * Metric Card Component - 8px Grid Design System
+ * Metric Card Component - Anthropic Lia Design System
  *
- * Following 2025/2026 best practices:
- * - 8px grid spacing system
- * - Consistent icon backgrounds (lightest stone)
- * - Proper visual hierarchy
+ * Following Anthropic design principles:
+ * - 4px grid spacing system
+ * - Thoughtful rounded corners (rounded-lg)
+ * - Geist Sans typography
+ * - Warm neutral palette with orange accents
  * - Smooth animations with motion.dev
- * - 8px rounded corners ()
- * - Icon has 24px top margin (3 × 8px grid)
  */
 
 "use client";
@@ -15,8 +14,8 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { type ReactNode } from "react";
+import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
-import { CARD_LAYOUT, ICON_CONTAINER } from "@/lib/design-system";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
@@ -48,33 +47,45 @@ export type MetricCardProps = {
 };
 
 /**
- * Color variants - Following 8px Grid Design System
- * Icons now use consistent slate background, color only for accents
+ * Color variants - Anthropic Lia Design System
+ * Using warm neutrals with orange, blue, and green accents
  */
 const colorVariants = {
   blue: {
-    accent: "border-blue-200 dark:border-blue-900",
-    trend: "text-blue-600 dark:text-blue-500",
+    accent: "border-blue-500",
+    iconBg: "bg-blue-50",
+    iconColor: "text-blue-500",
+    trend: "text-blue-500",
   },
   green: {
-    accent: "border-green-200 dark:border-green-900",
-    trend: "text-green-600 dark:text-green-500",
+    accent: "border-green-500",
+    iconBg: "bg-green-50",
+    iconColor: "text-green-500",
+    trend: "text-green-500",
   },
   orange: {
-    accent: "border-orange-200 dark:border-orange-900",
-    trend: "text-orange-600 dark:text-orange-500",
+    accent: "border-orange-500",
+    iconBg: "bg-orange-50",
+    iconColor: "text-orange-500",
+    trend: "text-orange-500",
   },
   pink: {
-    accent: "border-pink-200 dark:border-pink-900",
-    trend: "text-pink-600 dark:text-pink-500",
+    accent: "border-pink-500",
+    iconBg: "bg-pink-50",
+    iconColor: "text-pink-500",
+    trend: "text-pink-500",
   },
   purple: {
-    accent: "border-purple-200 dark:border-purple-900",
-    trend: "text-purple-600 dark:text-purple-500",
+    accent: "border-purple-500",
+    iconBg: "bg-purple-50",
+    iconColor: "text-purple-500",
+    trend: "text-purple-500",
   },
   default: {
-    accent: "border-neutral-200 dark:border-neutral-800",
-    trend: "text-neutral-600 dark:text-neutral-500",
+    accent: "border-neutral-200",
+    iconBg: "bg-neutral-50",
+    iconColor: "text-neutral-500",
+    trend: "text-neutral-500",
   },
 };
 
@@ -162,27 +173,18 @@ export function MetricCard({
     return (
       <div
         className={cn(
-          "border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
-          "animate-pulse",
+          "animate-pulse rounded-lg border border-neutral-200 bg-white p-6 shadow-sm",
           className
         )}
       >
-        <div className={cn("flex flex-col", CARD_LAYOUT.sectionGap)}>
-          {/* Icon skeleton - Following 8px grid with top spacing */}
-          <div className={CARD_LAYOUT.iconTopMargin}>
-            <div
-              className={cn(
-                ICON_CONTAINER.containerSize,
-                ICON_CONTAINER.borderRadius,
-                "bg-neutral-100 dark:bg-neutral-900"
-              )}
-            />
-          </div>
+        <div className="flex flex-col gap-4">
+          {/* Icon skeleton */}
+          <div className="h-10 w-10 rounded-lg bg-neutral-100" />
           {/* Content skeleton */}
           <div className="flex flex-col gap-2">
-            <div className="h-4 w-24 rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-8 w-32 rounded bg-neutral-200 dark:bg-neutral-800" />
-            {trendValue && <div className="h-6 w-28 bg-neutral-200 dark:bg-neutral-800" />}
+            <div className="h-4 w-24 rounded bg-neutral-200" />
+            <div className="h-8 w-32 rounded bg-neutral-200" />
+            {trendValue && <div className="h-6 w-28 rounded bg-neutral-200" />}
           </div>
         </div>
       </div>
@@ -199,11 +201,10 @@ export function MetricCard({
     >
       <div
         className={cn(
-          // Base styles - 8px grid system with proper spacing
-          "border bg-white shadow-sm dark:bg-neutral-950",
-          CARD_LAYOUT.padding,
+          // Base styles - Anthropic Lia rounded corners
+          "rounded-lg border bg-white p-6 shadow-sm",
           // Border color from variant
-          variant !== "default" ? colors.accent : "border-neutral-200 dark:border-neutral-800",
+          variant !== "default" ? colors.accent : "border-neutral-200",
           // Interactive styles
           onClick && "cursor-pointer hover:shadow-md",
           // Smooth transitions
@@ -211,38 +212,27 @@ export function MetricCard({
         )}
         onClick={onClick}
       >
-        <div className={cn("flex flex-col", CARD_LAYOUT.sectionGap)}>
-          {/* Icon Container - Following 8px grid with top spacing */}
+        <div className="flex flex-col gap-4">
+          {/* Icon Container - Anthropic Lia Design */}
           {icon && (
-            <motion.div
-              animate="visible"
-              className={CARD_LAYOUT.iconTopMargin}
-              initial="hidden"
-              variants={iconVariants}
-            >
+            <motion.div animate="visible" initial="hidden" variants={iconVariants}>
               <div
                 className={cn(
-                  "inline-flex items-center justify-center",
-                  ICON_CONTAINER.containerSize,
-                  ICON_CONTAINER.borderRadius,
-                  ICON_CONTAINER.background,
-                  ICON_CONTAINER.padding
+                  "inline-flex h-10 w-10 items-center justify-center rounded-lg",
+                  colors.iconBg
                 )}
               >
-                <HugeiconsIcon
-                  className={cn(ICON_CONTAINER.iconSize, ICON_CONTAINER.iconColor)}
-                  icon={icon}
-                />
+                <HugeiconsIcon className={cn("h-5 w-5", colors.iconColor)} icon={icon} />
               </div>
             </motion.div>
           )}
 
           {/* Title */}
-          <h3 className="font-medium text-neutral-600 text-sm uppercase tracking-wide dark:text-neutral-400">
+          <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
             {title}
           </h3>
 
-          {/* Value and Trend - 16px spacing (2 × 8px) */}
+          {/* Value and Trend */}
           <div className="flex flex-col gap-2">
             <motion.div
               animate="visible"
@@ -250,7 +240,14 @@ export function MetricCard({
               initial="hidden"
               variants={valueVariants}
             >
-              <p className="font-bold text-3xl text-neutral-900 dark:text-neutral-100">{value}</p>
+              <p
+                className={cn(
+                  "font-semibold text-4xl text-neutral-900 tracking-tight",
+                  geistSans.className
+                )}
+              >
+                {value}
+              </p>
               {trend && trendValue && (
                 <Badge
                   className="font-semibold"
@@ -264,7 +261,7 @@ export function MetricCard({
 
             {/* Description */}
             {description && (
-              <p className="text-neutral-600 text-sm dark:text-neutral-400">{description}</p>
+              <p className={cn("text-neutral-500 text-sm", geistSans.className)}>{description}</p>
             )}
           </div>
 

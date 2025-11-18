@@ -254,7 +254,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
       <div className="flex w-60 flex-col border-neutral-200 border-r bg-white">
         {/* Category Header */}
         <div className="border-neutral-200 border-b bg-white px-4 py-4">
-          <div className="flex items-start gap-3">
+          <div className="flex items-center gap-3">
             {selectedCategoryData && (
               <>
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
@@ -263,16 +263,16 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                     icon={selectedCategoryData.icon}
                   />
                 </div>
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 flex flex-col">
                   <h2
                     className={cn(
-                      "font-semibold text-neutral-900 text-sm leading-tight",
+                      "font-semibold text-neutral-900 text-sm leading-none",
                       geistSans.className
                     )}
                   >
                     {selectedCategoryData.label}
                   </h2>
-                  <p className="mt-1 text-neutral-500 text-xs leading-tight">
+                  <p className="text-neutral-500 text-xs leading-none">
                     {selectedCategoryData.description}
                   </p>
                 </div>
@@ -421,7 +421,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                 <div className="mb-2 flex items-center justify-between">
                   <span
                     className={cn(
-                      "font-semibold text-[9px] text-neutral-500 tracking-wider",
+                      "font-semibold text-neutral-500 text-xs tracking-wider",
                       geistSans.className
                     )}
                   >
@@ -429,7 +429,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                   </span>
                   <span
                     className={cn(
-                      "rounded-full border border-neutral-900 bg-neutral-900 px-2 py-0.5 font-semibold text-[9px] text-white tracking-wider",
+                      "rounded-full border border-neutral-900 bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs tracking-wider",
                       geistSans.className
                     )}
                   >

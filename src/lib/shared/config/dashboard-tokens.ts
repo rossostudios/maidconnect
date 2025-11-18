@@ -60,8 +60,8 @@ export const DASHBOARD = {
     bodyMedium: "text-sm font-medium",
 
     // Label text (uppercase badges)
-    label: "text-[11px] font-medium uppercase tracking-wide",
-    labelTight: "text-[10px] font-medium uppercase tracking-[0.1em]",
+    label: "text-xs font-medium uppercase tracking-wide",
+    labelTight: "text-xs font-medium uppercase tracking-wider",
 
     // Helper text
     helper: "text-xs text-neutral-600",

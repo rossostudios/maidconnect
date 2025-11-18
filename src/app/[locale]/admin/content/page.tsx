@@ -220,7 +220,7 @@ export default async function AdminContentPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -248,7 +248,7 @@ export default async function AdminContentPage() {
               >
                 <span
                   className={cn(
-                    "font-semibold text-[10px] text-neutral-700 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -264,7 +264,7 @@ export default async function AdminContentPage() {
             <div className="border border-neutral-900 bg-neutral-900 px-3 py-1.5">
               <span
                 className={cn(
-                  "font-semibold text-[10px] text-white uppercase tracking-[0.3em]",
+                  "font-semibold text-white text-xs uppercase tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -279,7 +279,7 @@ export default async function AdminContentPage() {
               <div>
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -328,7 +328,7 @@ export default async function AdminContentPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -346,7 +346,7 @@ export default async function AdminContentPage() {
             >
               <p
                 className={cn(
-                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -359,7 +359,7 @@ export default async function AdminContentPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -374,7 +374,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -394,7 +394,7 @@ export default async function AdminContentPage() {
                 <div>
                   <p
                     className={cn(
-                      "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
+                      "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
                       geistSans.className
                     )}
                   >
@@ -413,7 +413,7 @@ export default async function AdminContentPage() {
                   <div className="flex items-center justify-between" key={stat.label}>
                     <span
                       className={cn(
-                        "text-[11px] text-neutral-600 uppercase tracking-[0.25em]",
+                        "text-neutral-600 text-xs uppercase tracking-[0.25em]",
                         geistSans.className
                       )}
                     >
@@ -458,7 +458,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -474,7 +474,7 @@ export default async function AdminContentPage() {
               <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -503,7 +503,7 @@ export default async function AdminContentPage() {
                         <p className="truncate font-medium text-neutral-900 text-sm">
                           {article.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-[0.25em]">
                           <span>{article.category || "Uncategorized"}</span>
                           <span>•</span>
                           <span>{article.language.toUpperCase()}</span>
@@ -512,11 +512,11 @@ export default async function AdminContentPage() {
                         </div>
                         <div className="mt-2">
                           {article.isPublished ? (
-                            <span className="bg-emerald-600 px-2 py-0.5 font-semibold text-[10px] text-white uppercase tracking-[0.3em]">
+                            <span className="bg-emerald-600 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-[0.3em]">
                               Published
                             </span>
                           ) : (
-                            <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-[10px] text-white uppercase tracking-[0.3em]">
+                            <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-[0.3em]">
                               Draft
                             </span>
                           )}
@@ -543,7 +543,7 @@ export default async function AdminContentPage() {
               <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -572,7 +572,7 @@ export default async function AdminContentPage() {
                         <p className="truncate font-medium text-neutral-900 text-sm">
                           {changelog.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-[0.25em]">
                           <span>Sprint {changelog.sprintNumber}</span>
                           <span>•</span>
                           <span>{changelog.language.toUpperCase()}</span>

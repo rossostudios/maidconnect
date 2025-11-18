@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { ServiceSelectionWidget } from "@/components/homepage/service-selection-widget";
 import { FaqSection } from "@/components/marketing/faq-section";
 import { WelcomeTour } from "@/components/onboarding";
 import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
@@ -21,6 +22,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <SiteHeader />
       <main className="bg-neutral-50" data-tour="welcome" id="main-content" tabIndex={-1}>
         <HeroSectionWithABTest />
+        <ServiceSelectionWidget />
         <BenefitsSection />
         <BenefitsGrid />
         <TestimonialsSection />

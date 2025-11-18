@@ -96,7 +96,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
             </span>
             <span
               className={cn(
-                "block font-normal text-[10px] text-neutral-500 uppercase tracking-wider",
+                "block font-normal text-neutral-500 text-xs uppercase tracking-wider",
                 geistSans.className
               )}
             >
@@ -176,7 +176,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 </p>
                 <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
                 {!showProfileMenu && (
-                  <span className="inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-[9px] text-white tracking-wider">
+                  <span className="inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs tracking-wider">
                     {accountRole}
                   </span>
                 )}
@@ -200,10 +200,10 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
             id="admin-account-dropdown"
           >
             <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3">
-              <p className="mb-1 font-medium text-[10px] text-neutral-500 tracking-wider">
+              <p className="mb-1 font-medium text-neutral-500 text-xs tracking-wider">
                 Workspace Role
               </p>
-              <span className="inline-flex items-center rounded-full border border-neutral-900 bg-neutral-900 px-2.5 py-0.5 font-medium text-[10px] text-white tracking-wider">
+              <span className="inline-flex items-center rounded-full border border-neutral-900 bg-neutral-900 px-2.5 py-0.5 font-medium text-white text-xs tracking-wider">
                 {accountRole}
               </span>
             </div>

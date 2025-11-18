@@ -128,7 +128,7 @@ export default async function AdminDisputesPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -152,7 +152,7 @@ export default async function AdminDisputesPage() {
               <div className="border border-neutral-200 bg-white px-3 py-1.5" key={status.label}>
                 <span
                   className={cn(
-                    "font-semibold text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -171,7 +171,7 @@ export default async function AdminDisputesPage() {
               <div>
                 <p
                   className={cn(
-                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -195,7 +195,7 @@ export default async function AdminDisputesPage() {
               <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
-                    "text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -208,7 +208,7 @@ export default async function AdminDisputesPage() {
               <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
-                    "text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
@@ -227,7 +227,7 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -245,7 +245,7 @@ export default async function AdminDisputesPage() {
             >
               <p
                 className={cn(
-                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -256,7 +256,7 @@ export default async function AdminDisputesPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -271,7 +271,7 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -286,7 +286,7 @@ export default async function AdminDisputesPage() {
             <div className="border border-neutral-200 bg-white p-4 shadow-sm" key={insight.label}>
               <p
                 className={cn(
-                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -297,7 +297,7 @@ export default async function AdminDisputesPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -313,7 +313,7 @@ export default async function AdminDisputesPage() {
           <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
-                "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
+                "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
                 geistSans.className
               )}
             >

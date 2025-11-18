@@ -41,6 +41,11 @@ type ListActiveProfessionalRow = {
   total_completed_bookings?: number | null;
   total_earnings?: number | null;
   favorites_count?: number | null;
+  // Enhanced verification data from admin_professional_reviews
+  background_check_passed?: boolean | null;
+  documents_verified?: boolean | null;
+  references_verified?: boolean | null;
+  interview_completed?: boolean | null;
 };
 
 const DEFAULT_PRO_PHOTO =
@@ -76,6 +81,13 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     totalCompletedBookings: row.total_completed_bookings ?? 0,
     totalEarnings: row.total_earnings ?? 0,
     favoritesCount: row.favorites_count ?? 0,
+    // Enhanced verification data
+    verification: {
+      backgroundCheckPassed: row.background_check_passed ?? undefined,
+      documentsVerified: row.documents_verified ?? undefined,
+      interviewCompleted: row.interview_completed ?? undefined,
+      referencesVerified: row.references_verified ?? undefined,
+    },
   };
 }
 

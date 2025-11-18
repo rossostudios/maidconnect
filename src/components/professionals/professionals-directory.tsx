@@ -56,6 +56,13 @@ export type DirectoryProfessional = {
   totalCompletedBookings?: number;
   totalEarnings?: number; // in COP cents
   favoritesCount?: number;
+  // Enhanced verification data (detailed badges)
+  verification?: {
+    backgroundCheckPassed?: boolean;
+    documentsVerified?: boolean;
+    interviewCompleted?: boolean;
+    referencesVerified?: boolean;
+  };
 };
 
 // Moved outside component - no dependencies on component state (React 19 best practice)
@@ -622,27 +629,50 @@ const ProfessionalsDirectoryComponent = memo(
                     className="mt-4 flex flex-wrap items-center gap-2 text-xs"
                     suppressHydrationWarning
                   >
-                    {showEnhancedTrustBadges &&
+                    {showEnhancedTrustBadges && professional.verification ? (
+                      <>
+                        {/* Show individual verification badges */}
+                        {professional.verification.backgroundCheckPassed && (
+                          <VerificationBadge level="background-check" size="sm" />
+                        )}
+                        {professional.verification.documentsVerified && (
+                          <VerificationBadge level="document-verified" size="sm" />
+                        )}
+                        {professional.verification.interviewCompleted && (
+                          <VerificationBadge level="interview-completed" size="sm" />
+                        )}
+                        {professional.verification.referencesVerified && (
+                          <VerificationBadge level="reference-checked" size="sm" />
+                        )}
+                        {/* Fallback to basic badge if no detailed verification data */}
+                        {!professional.verification.backgroundCheckPassed &&
+                          !professional.verification.documentsVerified &&
+                          !professional.verification.interviewCompleted &&
+                          !professional.verification.referencesVerified &&
+                          professional.verificationLevel &&
+                          professional.verificationLevel !== "none" && (
+                            <VerificationBadge level={professional.verificationLevel} size="sm" />
+                          )}
+                      </>
+                    ) : showEnhancedTrustBadges &&
                       professional.verificationLevel &&
-                      professional.verificationLevel !== "none" && (
-                        <VerificationBadge level={professional.verificationLevel} size="sm" />
-                      )}
-
-                    {!showEnhancedTrustBadges && (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
+                      professional.verificationLevel !== "none" ? (
+                      <VerificationBadge level={professional.verificationLevel} size="sm" />
+                    ) : !showEnhancedTrustBadges ? (
+                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900] rounded-lg">
                         <HugeiconsIcon className="h-3.5 w-3.5 text-[neutral-900]" icon={StarIcon} />
                         {t("card.newBadge")}
                       </span>
-                    )}
+                    ) : null}
 
                     {professional.languages.length > 0 && (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900] rounded-lg">
                         {professional.languages.join(" / ")}
                       </span>
                     )}
 
                     {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50]">
+                      <span className="inline-flex items-center gap-1 bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50] rounded-lg">
                         {t("filters.availableToday")}
                       </span>
                     )}

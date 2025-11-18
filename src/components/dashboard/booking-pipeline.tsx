@@ -302,7 +302,7 @@ export function BookingPipeline() {
                       <div className="w-fit p-2.5" style={{ backgroundColor: stage.bgColor }}>
                         <HugeiconsIcon className={cn("h-5 w-5", stage.color)} icon={stage.icon} />
                       </div>
-                      <p className="font-semibold text-[10px] text-neutral-500 uppercase leading-tight tracking-wider">
+                      <p className="font-semibold text-neutral-500 text-xs uppercase leading-tight tracking-wider">
                         {stage.label}
                       </p>
                     </div>

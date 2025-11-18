@@ -30,7 +30,7 @@ export function DashboardFooter() {
             <Link className="relative transition hover:text-neutral-900" href="/changelog">
               {t("whatsNew")}
               {unreadCount > 0 && (
-                <span className="-right-2 -top-1 absolute flex h-4 w-4 items-center justify-center bg-neutral-900 font-bold text-[10px] text-white">
+                <span className="-right-2 -top-1 absolute flex h-4 w-4 items-center justify-center bg-neutral-900 font-bold text-white text-xs">
                   {unreadCount}
                 </span>
               )}

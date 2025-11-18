@@ -72,6 +72,13 @@ type GetProfessionalRow = {
   portfolio_images: unknown;
   city: string | null;
   country: string | null;
+  verification_level?: string | null;
+  interview_completed?: boolean | null;
+  direct_hire_fee_cop?: number | null;
+  // Verification data from admin_professional_reviews (joined)
+  background_check_passed?: boolean | null;
+  documents_verified?: boolean | null;
+  references_verified?: boolean | null;
 };
 
 function isValidUuid(value: string) {
@@ -110,6 +117,15 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     bookings: [],
     reviews: [],
     portfolioImages,
+    directHireFeeCOP: row.direct_hire_fee_cop ?? null,
+    // Enhanced verification data
+    verification: {
+      level: (row.verification_level as any) ?? "none",
+      backgroundCheckPassed: row.background_check_passed ?? undefined,
+      documentsVerified: row.documents_verified ?? undefined,
+      interviewCompleted: row.interview_completed ?? undefined,
+      referencesVerified: row.references_verified ?? undefined,
+    },
   };
 }
 
