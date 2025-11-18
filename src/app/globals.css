@@ -2,32 +2,56 @@
 @import "tw-animate-css";
 
 @theme {
-  /* Colors - Neutral + Orange Palette (Warm, Premium Design System) */
+  /* Colors - Anthropic-Inspired Palette (Lia Design System) */
 
-  /* Neutral Palette - Warm Cream/Beige (using hex for reliability) */
-  --color-neutral-50: #fffdfc;   /* #FFFDFC - Off-white cream background */
-  --color-neutral-100: #faf8f6;  /* #FAF8F6 - Lightest cream */
-  --color-neutral-200: #e6e5e5;  /* #E6E5E5 - Borders, subtle dividers */
-  --color-neutral-300: #dcdad7;  /* #DCD6D7 - Light gray-cream */
-  --color-neutral-400: #bebbb7;  /* #BEBBB7 - Medium-light */
-  --color-neutral-500: #b8b6b3;  /* #B8B6B3 - Mid-tone */
-  --color-neutral-600: #8c8985;  /* #8C8985 - Medium-dark, secondary text */
-  --color-neutral-700: #64615d;  /* #64615D - Dark gray, body text */
-  --color-neutral-800: #3c3935;  /* #3C3935 - Darker text */
-  --color-neutral-900: #181818;  /* #181818 - Headings, primary text */
-  --color-neutral-950: #0c0a09;  /* #0C0A09 - Deepest black */
+  /* Neutral Palette - Anthropic Cool Grays */
+  --color-neutral-50: #faf9f5;   /* #FAF9F5 - Light background (Anthropic) */
+  --color-neutral-100: #f5f4f0;  /* Lightest gray */
+  --color-neutral-200: #e8e6dc;  /* #E8E6DC - Borders, dividers (Anthropic light-gray) */
+  --color-neutral-300: #d8d6cc;  /* Light gray */
+  --color-neutral-400: #c8c6bc;  /* Medium-light */
+  --color-neutral-500: #b0aea5;  /* #B0AEA5 - Mid-gray (Anthropic) */
+  --color-neutral-600: #8e8c83;  /* Medium-dark, secondary text */
+  --color-neutral-700: #6e6c63;  /* Dark gray, body text */
+  --color-neutral-800: #4e4c43;  /* Darker text */
+  --color-neutral-900: #141413;  /* #141413 - Headings, primary text (Anthropic dark) */
+  --color-neutral-950: #0a0a09;  /* Deepest black */
 
-  /* Orange Palette - Energy & Action (using hex for reliability) */
-  --color-orange-50: #fff7f0;    /* #FFF7F0 - Lightest orange tint */
-  --color-orange-100: #ffebdc;   /* #FFEBDC - Very light orange */
-  --color-orange-200: #ffd7b9;   /* #FFD7B9 - Light orange */
-  --color-orange-300: #ffb98c;   /* #FFB98C - Medium-light orange */
-  --color-orange-400: #ff8746;   /* #FF8746 - Medium orange, highlights */
-  --color-orange-500: #ff5200;   /* #FF5200 - Primary CTA */
-  --color-orange-600: #e64a00;   /* #E64A00 - Hover state, links (WCAG AA) */
-  --color-orange-700: #c84000;   /* #C84000 - Active state, dark accents */
-  --color-orange-800: #aa3600;   /* #AA3600 - Pressed state */
-  --color-orange-900: #8c2c00;   /* #8C2C00 - Darkest orange */
+  /* Orange Palette - Anthropic Orange (Brand Color) */
+  --color-orange-50: #fff7f0;    /* Lightest orange tint */
+  --color-orange-100: #ffebdc;   /* Very light orange */
+  --color-orange-200: #ffd7b9;   /* Light orange */
+  --color-orange-300: #ffb98c;   /* Medium-light orange */
+  --color-orange-400: #ff8746;   /* Medium orange, highlights */
+  --color-orange-500: #d97757;   /* #D97757 - Primary CTA (Anthropic) */
+  --color-orange-600: #c56847;   /* #C56847 - Hover state (Anthropic) */
+  --color-orange-700: #b05837;   /* Active state */
+  --color-orange-800: #9a4827;   /* Pressed state */
+  --color-orange-900: #853817;   /* Darkest orange */
+
+  /* Blue Palette - Anthropic Secondary Accent */
+  --color-blue-50: #f0f7fc;      /* Lightest blue tint */
+  --color-blue-100: #dceeff;     /* Very light blue */
+  --color-blue-200: #b9ddff;     /* Light blue */
+  --color-blue-300: #8cc5ff;     /* Medium-light blue */
+  --color-blue-400: #6a9bcc;     /* #6A9BCC - Medium blue (Anthropic) */
+  --color-blue-500: #6a9bcc;     /* #6A9BCC - Primary blue (Anthropic) */
+  --color-blue-600: #5a8bbc;     /* #5A8BBC - Blue hover (Anthropic) */
+  --color-blue-700: #4a7bac;     /* Active state */
+  --color-blue-800: #3a6b9c;     /* Pressed state */
+  --color-blue-900: #2a5b8c;     /* Darkest blue */
+
+  /* Green Palette - Anthropic Success/Accent */
+  --color-green-50: #f7faf5;     /* Lightest green tint */
+  --color-green-100: #eef5ea;    /* Very light green */
+  --color-green-200: #ddebd5;    /* Light green */
+  --color-green-300: #c5ddb8;    /* Medium-light green */
+  --color-green-400: #9fbd85;    /* Medium green */
+  --color-green-500: #788c5d;    /* #788C5D - Primary green (Anthropic) */
+  --color-green-600: #687c4d;    /* #687C4D - Green hover (Anthropic) */
+  --color-green-700: #586c3d;    /* Active state */
+  --color-green-800: #485c2d;    /* Pressed state */
+  --color-green-900: #384c1d;    /* Darkest green */
 
   /* Legacy: Keep white for compatibility */
   --color-white: #ffffff;
@@ -37,36 +61,29 @@
   --font-family-geist-mono: var(--font-geist-mono), 'Courier New', monospace;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
 
-  /* 8px Grid Design System - 2025/2026 Best Practice
-   * Following industry standards for consistent spacing
-   * All spacing follows 8px increments for visual harmony
-   * Use: gap-grid-* or p-grid-* or m-grid-* utilities
-   */
-  --spacing-grid-0: 0px;       /* 0 × 8px */
-  --spacing-grid-1: 4px;       /* 0.5 × 8px - micro adjustments */
-  --spacing-grid-2: 8px;       /* 1 × 8px - base unit */
-  --spacing-grid-3: 12px;      /* 1.5 × 8px - tight spacing */
-  --spacing-grid-4: 16px;      /* 2 × 8px - standard spacing */
-  --spacing-grid-5: 20px;      /* 2.5 × 8px - medium-tight */
-  --spacing-grid-6: 24px;      /* 3 × 8px - medium spacing */
-  --spacing-grid-8: 32px;      /* 4 × 8px - large spacing */
-  --spacing-grid-10: 40px;     /* 5 × 8px - extra large */
-  --spacing-grid-12: 48px;     /* 6 × 8px - section spacing */
-  --spacing-grid-14: 56px;     /* 7 × 8px - major sections */
-  --spacing-grid-16: 64px;     /* 8 × 8px - hero spacing */
-  --spacing-grid-20: 80px;     /* 10 × 8px - maximum spacing */
-  --spacing-grid-24: 96px;     /* 12 × 8px - ultra spacing */
+  /* Spacing System - Anthropic 4px Base Grid */
+  --spacing-1: 0.25rem;        /* 4px */
+  --spacing-2: 0.5rem;         /* 8px */
+  --spacing-3: 0.75rem;        /* 12px */
+  --spacing-4: 1rem;           /* 16px */
+  --spacing-5: 1.25rem;        /* 20px */
+  --spacing-6: 1.5rem;         /* 24px */
+  --spacing-8: 2rem;           /* 32px */
+  --spacing-10: 2.5rem;        /* 40px */
+  --spacing-12: 3rem;          /* 48px */
 
-  /* Border Radius - Lia Design System (Zero Rounded Corners) */
-  --radius-xl: 0px;            /* Sharp, precise edges */
-  --radius-lg: 0px;            /* No rounding */
-  --radius-md: 0px;            /* Mathematical precision */
-  --radius-sm: 0px;            /* Zero radius */
+  /* Border Radius - Anthropic Rounded Design */
+  --radius-sm: 0.25rem;        /* 4px - Small elements */
+  --radius-md: 0.5rem;         /* 8px - Inputs, buttons */
+  --radius-lg: 0.75rem;        /* 12px - Cards, containers */
+  --radius-xl: 1rem;           /* 16px - Large elements */
+  --radius-full: 9999px;       /* Pills, badges */
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  /* Shadows - Anthropic Shadow System */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
   /* Swiss Grid System (Josef Müller-Brockmann)
    * Mathematical precision for modular design
@@ -83,7 +100,7 @@
 
 @layer base {
   :root {
-    /* Spacing Scale */
+    /* Spacing Scale - Anthropic */
     --spacing-xs: 4px;
     --spacing-s: 8px;
     --spacing-m: 16px;
@@ -91,36 +108,36 @@
     --spacing-xl: 32px;
     --spacing-2xl: 48px;
 
-    /* Shadcn UI Variables - Neutral + Orange Palette (WCAG AA Compliant) */
-    --background: 255 253 252; /* neutral-50 - Warm cream background */
-    --foreground: 24 24 24; /* neutral-900 - Headings & primary text (16:1 contrast ✅) */
+    /* Shadcn UI Variables - Anthropic Palette (WCAG AA Compliant) */
+    --background: 250 249 245; /* neutral-50 - #FAF9F5 Light background (Anthropic) */
+    --foreground: 20 20 19; /* neutral-900 - #141413 Headings & primary text (Anthropic) */
 
     --card: 255 255 255; /* white - Card surfaces */
-    --card-foreground: 24 24 24; /* neutral-900 (21:1 contrast ✅) */
+    --card-foreground: 20 20 19; /* neutral-900 (21:1 contrast ✅) */
 
     --popover: 255 255 255; /* white */
-    --popover-foreground: 24 24 24; /* neutral-900 (21:1 contrast ✅) */
+    --popover-foreground: 20 20 19; /* neutral-900 (21:1 contrast ✅) */
 
-    --primary: 255 82 0; /* orange-500 - Primary CTA color */
-    --primary-foreground: 255 255 255; /* white text on orange (3.5:1 contrast ✅ for large text) */
+    --primary: 217 119 87; /* orange-500 - #D97757 Primary CTA (Anthropic) */
+    --primary-foreground: 255 255 255; /* white text on orange */
 
-    --secondary: 230 229 229; /* neutral-200 - Secondary surfaces */
-    --secondary-foreground: 24 24 24; /* neutral-900 (12.5:1 contrast ✅) */
+    --secondary: 232 230 220; /* neutral-200 - #E8E6DC Secondary surfaces (Anthropic) */
+    --secondary-foreground: 20 20 19; /* neutral-900 */
 
-    --muted: 250 248 246; /* neutral-100 - Muted backgrounds */
-    --muted-foreground: 140 137 133; /* neutral-600 - Secondary text (5.2:1 contrast ✅) */
+    --muted: 245 244 240; /* neutral-100 - Muted backgrounds */
+    --muted-foreground: 142 140 131; /* neutral-600 - Secondary text */
 
-    --accent: 255 82 0; /* orange-500 - Accent highlights */
-    --accent-foreground: 255 255 255; /* white (3.5:1 contrast ✅ for large text/buttons) */
+    --accent: 217 119 87; /* orange-500 - #D97757 Accent highlights (Anthropic) */
+    --accent-foreground: 255 255 255; /* white */
 
-    --destructive: 200 64 0; /* orange-700 - Destructive actions */
-    --destructive-foreground: 255 255 255; /* white (4.8:1 contrast ✅) */
+    --destructive: 176 88 55; /* orange-700 - Destructive actions */
+    --destructive-foreground: 255 255 255; /* white */
 
-    --border: 230 229 229; /* neutral-200 - Soft cream borders */
-    --input: 230 229 229; /* neutral-200 - Input borders */
-    --ring: 255 82 0; /* orange-500 - Focus rings */
+    --border: 232 230 220; /* neutral-200 - #E8E6DC Borders (Anthropic) */
+    --input: 232 230 220; /* neutral-200 - #E8E6DC Input borders (Anthropic) */
+    --ring: 217 119 87; /* orange-500 - #D97757 Focus rings (Anthropic) */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* 12px - Anthropic default */
   }
 }
 
@@ -156,7 +173,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Form Controls */
+  /* Form Controls - Anthropic Rounded Style */
   input,
   textarea,
   select {
@@ -166,22 +183,22 @@
   input:focus,
   textarea:focus,
   select:focus {
-    @apply outline-none ring-2 ring-orange-500/25 border-orange-500;
+    @apply outline-none ring-2 ring-orange-500/20 border-orange-500;
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-neutral-600;
-    /* WCAG AA: neutral-600 provides 5.2:1 contrast on white backgrounds */
+    @apply text-neutral-500;
+    /* Anthropic mid-gray for placeholders */
   }
 
-  /* Links - Neutral color like Aurius */
+  /* Links - Anthropic Orange Style */
   a {
-    @apply text-neutral-900 transition-colors duration-200 no-underline;
+    @apply text-orange-500 transition-colors duration-200 no-underline;
   }
 
   a:hover {
-    @apply text-neutral-900;
+    @apply text-orange-600;
     text-decoration: none;
   }
 

@@ -72,13 +72,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // Professional Directory
-    {
-      url: `${baseUrl}/professionals`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
+    // Professional Directory - REMOVED for concierge-only migration
+    // /professionals now redirects to /concierge via 301 in next.config.ts
+    // Individual professional profiles remain viewable only by admins for vetting
 
     // Contact
     {
