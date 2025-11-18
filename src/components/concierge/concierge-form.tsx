@@ -85,18 +85,18 @@ export function ConciergeForm() {
         className="mx-auto max-w-2xl text-center"
         initial={{ opacity: 0, scale: 0.95 }}
       >
-        <div className="border border-neutral-200 bg-white p-12 shadow-sm">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center bg-green-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-12 shadow-lg">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100 shadow-sm">
             <HugeiconsIcon className="h-12 w-12 text-green-600" icon={Tick02Icon} size={48} />
           </div>
 
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900">Request Received!</h2>
-          <p className="mb-8 text-lg text-neutral-600">
-            Thank you for choosing Casaora Concierge. Our team will review your request and reach
-            out within 2 hours during business hours (Mon-Fri, 9am-6pm COT).
+          <h2 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">Request Received!</h2>
+          <p className="mb-8 text-lg text-neutral-600 leading-relaxed">
+            Thank you for choosing Casaora Direct Hire. Our team will review your request and reach
+            out within 2 hours during business hours (Mon-Fri, 9am-6pm COT). $299 one-time fee for permanent placement with legal contracts.
           </p>
 
-          <div className="mb-8 border border-blue-200 bg-blue-50 p-4">
+          <div className="mb-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
             <p className="text-blue-900 text-sm">
               📧 Check your email for a confirmation message. If you don't see it, please check your
               spam folder.
@@ -120,85 +120,84 @@ export function ConciergeForm() {
     <>
       {/* Hero Section */}
       <div className="mb-16 text-center">
-        <div className="mb-3 inline-flex items-center gap-2 bg-orange-100 px-4 py-1 font-medium text-orange-600 text-sm">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-1 font-[family-name:var(--font-geist-sans)] font-semibold text-orange-600 text-sm shadow-sm">
           <HugeiconsIcon className="h-4 w-4" icon={MagicWand01Icon} size={16} />
-          White-Glove Service
+          Direct Hire Program
         </div>
-        <h1 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
-          Concierge Domestic Staffing
+        <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 sm:text-5xl">
+          Permanent Placement with Legal Contracts
         </h1>
-        <p className="mx-auto max-w-3xl text-lg text-neutral-600">
-          Let our expert team handle everything. We'll personally match you with the perfect
-          household professional — no browsing required.
+        <p className="mx-auto max-w-3xl text-lg text-neutral-600 leading-relaxed">
+          $299 one-time fee for full-time placements. Our white-glove team handles everything from matching to legal contracts and 30-day replacement guarantee.
         </p>
       </div>
 
       {/* Features Grid */}
       <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon
               className="h-6 w-6 text-orange-600"
               icon={UserMultiple02Icon}
               size={24}
             />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">Personal Coordinator</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">Personal Coordinator</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             Dedicated English-speaking coordinator who understands expat needs and manages your
             entire search.
           </p>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Shield01Icon} size={24} />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">Curated Matches</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">Curated Matches</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             We handpick 3–5 thoroughly vetted professionals who perfectly match your specific
             requirements.
           </p>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Clock01Icon} size={24} />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">5-Day Guarantee</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">5-Day Guarantee</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             Receive detailed professional profiles with bios, references, and availability within 5
             business days.
           </p>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={GlobeIcon} size={24} />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">Bilingual Support</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">Bilingual Support</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             Communicate entirely in English throughout the entire process — from search to hiring.
           </p>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Tick02Icon} size={24} />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">Interview Coordination</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">Interview Coordination</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             We schedule and facilitate video or in-person interviews, and help negotiate terms in
             English or Spanish.
           </p>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 shadow-sm">
             <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={MagicWand01Icon} size={24} />
           </div>
-          <h3 className="mb-2 font-semibold text-neutral-900">Ongoing Support</h3>
-          <p className="text-neutral-600 text-sm">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900">Ongoing Support</h3>
+          <p className="text-neutral-600 text-sm leading-relaxed">
             Continued assistance after hiring with contract templates, payment setup, and any issues
             that arise.
           </p>
@@ -206,10 +205,10 @@ export function ConciergeForm() {
       </div>
 
       {/* Comparison Table */}
-      <div className="mb-16 overflow-hidden border border-neutral-200 bg-white shadow-sm">
+      <div className="mb-16 overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-lg">
         <div className="bg-neutral-50 p-6">
-          <h2 className="text-center font-bold text-2xl text-neutral-900">
-            Concierge vs. Marketplace
+          <h2 className="text-center font-[family-name:var(--font-geist-sans)] font-bold text-2xl text-neutral-900">
+            Direct Hire vs. Instant Book
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -218,12 +217,12 @@ export function ConciergeForm() {
               <tr>
                 <th className="p-4 text-left font-semibold text-neutral-700">Feature</th>
                 <th className="p-4 text-center font-semibold text-neutral-700">
-                  Marketplace
-                  <div className="mt-1 font-normal text-neutral-700 text-xs">15% fee</div>
+                  Instant Book
+                  <div className="mt-1 font-normal text-neutral-700 text-xs">15% fee on hourly jobs</div>
                 </th>
                 <th className="p-4 text-center font-semibold text-orange-600">
-                  Concierge
-                  <div className="mt-1 font-normal text-orange-500 text-xs">25% fee</div>
+                  Direct Hire
+                  <div className="mt-1 font-normal text-orange-500 text-xs">$299 one-time fee</div>
                 </th>
               </tr>
             </thead>
@@ -296,9 +295,9 @@ export function ConciergeForm() {
               </tr>
               <tr>
                 <td className="p-4 text-neutral-700">Best for</td>
-                <td className="p-4 text-center text-neutral-600 text-sm">Locals & repeat users</td>
+                <td className="p-4 text-center text-neutral-600 text-sm">One-time jobs, recurring tasks, hourly help</td>
                 <td className="p-4 text-center text-orange-600 text-sm">
-                  Expats & first-time hirers
+                  Full-time staff, permanent placements, live-in nannies
                 </td>
               </tr>
             </tbody>
@@ -307,11 +306,11 @@ export function ConciergeForm() {
       </div>
 
       {/* Request Form */}
-      <div className="border border-neutral-200 bg-white p-8 shadow-sm sm:p-12">
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-lg sm:p-12">
         <div className="mb-8 text-center">
-          <h2 className="mb-2 font-bold text-3xl text-neutral-900">Request Concierge Service</h2>
-          <p className="text-neutral-600">
-            Fill out this short form and we'll respond within 2 hours (during business hours)
+          <h2 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">Request Direct Hire Service</h2>
+          <p className="text-neutral-600 leading-relaxed">
+            Fill out this short form and we'll respond within 2 hours (during business hours). $299 one-time fee for permanent placements.
           </p>
         </div>
 
@@ -384,7 +383,7 @@ export function ConciergeForm() {
 
           {errorMessage && (
             <div
-              className="border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm"
+              className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm"
               role="alert"
             >
               {errorMessage}
@@ -392,8 +391,13 @@ export function ConciergeForm() {
           )}
 
           <div className="pt-4">
-            <Button className="w-full" disabled={isSubmitting} size="lg" type="submit">
-              {isSubmitting ? "Submitting..." : "Request Concierge Service"}
+            <Button
+              className="w-full font-[family-name:var(--font-geist-sans)] font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+              disabled={isSubmitting}
+              size="lg"
+              type="submit"
+            >
+              {isSubmitting ? "Submitting..." : "Request Direct Hire Service"}
             </Button>
           </div>
 
