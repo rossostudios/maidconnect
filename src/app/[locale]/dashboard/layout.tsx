@@ -50,8 +50,8 @@ export default async function DashboardLayout({ children }: Props) {
         <header className="bg-neutral-50 py-4">
           <Container className="flex items-center justify-between gap-4">
             <Link className="flex items-center" href="/">
-              <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 uppercase leading-[24px] tracking-[0.08em]">
-                CASAORA
+              <span className="font-[family-name:var(--font-geist-sans)] font-medium text-[24px] text-neutral-900 uppercase leading-[24px] tracking-[0.08em]">
+                CASAORA®
               </span>
             </Link>
             <DashboardNavigation navLinks={navLinks} userRole={userRole} />

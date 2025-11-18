@@ -1,8 +1,8 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { draftMode, headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Suspense } from "react";
@@ -23,7 +23,7 @@ import { ConditionalAnnouncementBanner } from "@/components/sections/Conditional
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
-import { geistMono, geistSans } from "../fonts";
+import { geistSans } from "../fonts";
 
 // Font configuration - Lia Design System
 // - Geist Sans: Primary UI and marketing font (all text)
@@ -32,13 +32,13 @@ import { geistMono, geistSans } from "../fonts";
 export const metadata: Metadata = {
   metadataBase: new URL("https://casaora.com"),
   title: {
-    default: "Casaora · The Art of Home",
-    template: "%s · Casaora",
+    default: "Casaora® · The Art of Home",
+    template: "%s · Casaora®",
   },
   description:
     "Casaora is Colombia's premier boutique domestic staffing agency. Browse our curated network of exceptional household professionals—only the top 5% make it onto our platform. Pre-vetted excellence for discerning homes.",
   keywords: [
-    "Casaora",
+    "Casaora®",
     "luxury domestic staffing Colombia",
     "private household staff Bogotá",
     "boutique staffing agency",
@@ -54,17 +54,17 @@ export const metadata: Metadata = {
     apple: [{ url: "/isologo.svg", type: "image/svg+xml" }],
   },
   openGraph: {
-    title: "Casaora · The Art of Home",
+    title: "Casaora® · The Art of Home",
     description:
       "Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
     url: "https://casaora.com",
-    siteName: "Casaora",
+    siteName: "Casaora®",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Casaora · The Art of Home",
+    title: "Casaora® · The Art of Home",
     description:
       "Browse Colombia's most exceptional household professionals. Pre-vetted, curated excellence. The Art of Home.",
   },
@@ -102,7 +102,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistSans.variable} antialiased`}
         data-nonce={nonce}
       >
         <ErrorBoundary>

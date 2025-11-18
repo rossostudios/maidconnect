@@ -4,6 +4,8 @@
  * Displays all published roadmap items with filtering and voting
  */
 
+import { Loading03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -45,7 +47,10 @@ export default function RoadmapPage() {
           <Suspense
             fallback={
               <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin border-4 border-orange-500 border-t-transparent" />
+                <HugeiconsIcon
+                  className="h-8 w-8 animate-spin text-orange-500"
+                  icon={Loading03Icon}
+                />
               </div>
             }
           >
