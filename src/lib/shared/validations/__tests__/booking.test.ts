@@ -62,7 +62,7 @@ describe("addressSchema", () => {
     state: "Cundinamarca",
     postalCode: "110111",
     country: "CO",
-    latitude: 4.7110,
+    latitude: 4.711,
     longitude: -74.0721,
     additionalInfo: "Apartamento 501, Torre B",
   };
@@ -161,12 +161,12 @@ describe("addressSchema", () => {
 describe("createBookingSchema", () => {
   const validBooking = {
     professionalId: "550e8400-e29b-41d4-a716-446655440000",
-    amount: 100000,
+    amount: 100_000,
     currency: "cop",
     scheduledStart: "2025-12-31T10:00:00Z",
     scheduledEnd: "2025-12-31T14:00:00Z",
     serviceName: "Deep Cleaning",
-    serviceHourlyRate: 50000,
+    serviceHourlyRate: 50_000,
     specialInstructions: "Please bring eco-friendly products",
     address: {
       street: "Calle 123 #45-67",
@@ -182,7 +182,7 @@ describe("createBookingSchema", () => {
   it("should accept minimal booking (professionalId and amount only)", () => {
     const minimalBooking = {
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 50000,
+      amount: 50_000,
     };
 
     const result = createBookingSchema.safeParse(minimalBooking);
@@ -299,7 +299,7 @@ describe("createBookingSchema", () => {
   it("should accept scheduledStart with durationMinutes", () => {
     const result = createBookingSchema.safeParse({
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 100000,
+      amount: 100_000,
       scheduledStart: "2025-12-31T10:00:00Z",
       durationMinutes: 240,
     });
@@ -309,7 +309,7 @@ describe("createBookingSchema", () => {
   it("should accept scheduledStart with scheduledEnd", () => {
     const result = createBookingSchema.safeParse({
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 100000,
+      amount: 100_000,
       scheduledStart: "2025-12-31T10:00:00Z",
       scheduledEnd: "2025-12-31T14:00:00Z",
     });
@@ -319,7 +319,7 @@ describe("createBookingSchema", () => {
   it("should reject scheduledStart without durationMinutes or scheduledEnd", () => {
     const result = createBookingSchema.safeParse({
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 100000,
+      amount: 100_000,
       scheduledStart: "2025-12-31T10:00:00Z",
     });
     expect(result.success).toBe(false);
@@ -331,7 +331,7 @@ describe("createBookingSchema", () => {
   it("should reject scheduledEnd before scheduledStart", () => {
     const result = createBookingSchema.safeParse({
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 100000,
+      amount: 100_000,
       scheduledStart: "2025-12-31T14:00:00Z",
       scheduledEnd: "2025-12-31T10:00:00Z", // Earlier than start
     });
@@ -344,7 +344,7 @@ describe("createBookingSchema", () => {
   it("should reject scheduledEnd equal to scheduledStart", () => {
     const result = createBookingSchema.safeParse({
       professionalId: "550e8400-e29b-41d4-a716-446655440000",
-      amount: 100000,
+      amount: 100_000,
       scheduledStart: "2025-12-31T10:00:00Z",
       scheduledEnd: "2025-12-31T10:00:00Z", // Same time
     });
@@ -434,8 +434,8 @@ describe("bookingFilterSchema", () => {
       customerId: "660e8400-e29b-41d4-a716-446655440001",
       startDate: "2025-01-01",
       endDate: "2025-12-31",
-      minAmount: 50000,
-      maxAmount: 200000,
+      minAmount: 50_000,
+      maxAmount: 200_000,
     });
     expect(result.success).toBe(true);
   });
@@ -495,7 +495,7 @@ describe("cancelBookingSchema", () => {
   const validCancel = {
     bookingId: "550e8400-e29b-41d4-a716-446655440000",
     reason: "Unable to make it on the scheduled date, need to reschedule",
-    refundAmount: 50000,
+    refundAmount: 50_000,
   };
 
   it("should accept valid cancellation", () => {
@@ -578,7 +578,7 @@ describe("completeBookingSchema", () => {
   const validComplete = {
     bookingId: "550e8400-e29b-41d4-a716-446655440000",
     actualEnd: "2025-12-31T14:30:00Z",
-    finalAmount: 125000,
+    finalAmount: 125_000,
     professionalNotes: "Service completed successfully, client was satisfied",
   };
 

@@ -33,7 +33,7 @@ describe("sanitizeHTML", () => {
     });
 
     it("should remove inline event handlers", () => {
-      const malicious = '<p onclick="alert(\'XSS\')">Click me</p>';
+      const malicious = "<p onclick=\"alert('XSS')\">Click me</p>";
       const safe = sanitizeHTML(malicious);
 
       expect(safe).not.toContain("onclick");
@@ -49,7 +49,7 @@ describe("sanitizeHTML", () => {
     });
 
     it("should remove onload attributes", () => {
-      const malicious = '<body onload="alert(\'XSS\')">Content</body>';
+      const malicious = "<body onload=\"alert('XSS')\">Content</body>";
       const safe = sanitizeHTML(malicious);
 
       expect(safe).not.toContain("onload");
@@ -212,7 +212,7 @@ describe("sanitizeRichContent", () => {
   });
 
   it("should still block event handlers in admin content", () => {
-    const malicious = '<p onclick="alert(\'XSS\')">Click</p>';
+    const malicious = "<p onclick=\"alert('XSS')\">Click</p>";
     const safe = sanitizeRichContent(malicious);
 
     expect(safe).not.toContain("onclick");
@@ -468,16 +468,16 @@ describe("XSS Attack Vectors", () => {
 
     // Event handlers
     '<img src="x" onerror="alert(\'XSS\')" />',
-    '<body onload="alert(\'XSS\')">',
+    "<body onload=\"alert('XSS')\">",
     '<input type="text" onfocus="alert(\'XSS\')" />',
-    '<p onmouseover="alert(\'XSS\')">Hover</p>',
+    "<p onmouseover=\"alert('XSS')\">Hover</p>",
 
     // SVG attacks
-    '<svg onload="alert(\'XSS\')"></svg>',
+    "<svg onload=\"alert('XSS')\"></svg>",
 
     // Object/Embed attacks
-    '<object data="javascript:alert(\'XSS\')"></object>',
-    '<embed src="javascript:alert(\'XSS\')" />',
+    "<object data=\"javascript:alert('XSS')\"></object>",
+    "<embed src=\"javascript:alert('XSS')\" />",
   ];
 
   xssVectors.forEach((vector, index) => {
@@ -507,7 +507,7 @@ describe("XSS Attack Vectors", () => {
 
   // Special case: Data URIs
   it("should safely handle data URIs in img src", () => {
-    const dataUri = '<img src="data:text/html,<script>alert(\'XSS\')</script>" />';
+    const dataUri = "<img src=\"data:text/html,<script>alert('XSS')</script>\" />";
     const safe = sanitizeHTML(dataUri);
 
     // DOMPurify allows img tags with data: URIs
@@ -519,7 +519,7 @@ describe("XSS Attack Vectors", () => {
     // and there's no script tag in the actual HTML structure (outside attributes)
     // Script tags inside quoted attributes are just text, not executable
     const hasStandaloneScriptTag = /<script\b[^>]*>/.test(
-      safe.replace(/src="[^"]*"/g, "")  // Remove src attribute to check structure
+      safe.replace(/src="[^"]*"/g, "") // Remove src attribute to check structure
     );
     expect(hasStandaloneScriptTag).toBe(false);
   });

@@ -14,7 +14,6 @@ import {
   getTierDescription,
   getTierDiscountLabel,
   shouldRecommendSubscription,
-  type SubscriptionTier,
 } from "../subscriptionPricing";
 
 // ============================================================================
@@ -40,10 +39,10 @@ describe("calculateSubscriptionPricing", () => {
 
       expect(result.basePrice).toBe(100_000);
       expect(result.discountPercent).toBe(5);
-      expect(result.discountAmount).toBe(5_000);
+      expect(result.discountAmount).toBe(5000);
       expect(result.finalPrice).toBe(95_000);
       expect(result.tier).toBe("monthly");
-      expect(result.savingsPerBooking).toBe(5_000);
+      expect(result.savingsPerBooking).toBe(5000);
       // 1 booking/month × 3 months × 5,000 savings = 15,000
       expect(result.totalSavingsEstimate).toBe(15_000);
     });
@@ -79,7 +78,7 @@ describe("calculateSubscriptionPricing", () => {
     it("rounds discount amounts correctly", () => {
       // 5% of 50,123 = 2,506.15 → should round to 2,506
       const result = calculateSubscriptionPricing(50_123, "monthly");
-      expect(result.discountAmount).toBe(2_506);
+      expect(result.discountAmount).toBe(2506);
       expect(result.finalPrice).toBe(47_617);
     });
 

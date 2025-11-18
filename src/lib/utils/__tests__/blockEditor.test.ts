@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { blocksToMarkdown, getBlockPlaceholder, markdownToBlocks } from "../blockEditor";
 import type { EditorBlock } from "@/types/blockEditor";
+import { blocksToMarkdown, getBlockPlaceholder, markdownToBlocks } from "../blockEditor";
 
 // Use deterministic IDs for testing
 const parseOptions = { deterministic: true, seed: "test" };

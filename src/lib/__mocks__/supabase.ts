@@ -55,7 +55,9 @@ export type MockQueryBuilder = {
   maybeSingle: () => MockQueryBuilder;
   // Result methods
   then: <TResult1 = unknown, TResult2 = never>(
-    onfulfilled?: ((value: { data: unknown; error: null }) => TResult1 | PromiseLike<TResult1>) | null,
+    onfulfilled?:
+      | ((value: { data: unknown; error: null }) => TResult1 | PromiseLike<TResult1>)
+      | null,
     onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null
   ) => Promise<TResult1 | TResult2>;
 };
@@ -151,7 +153,9 @@ export function createMockQueryBuilder(
       return builder;
     },
     in: (column, values) => {
-      queryState.filters.push(`in(${column}, [${values.map((v) => JSON.stringify(v)).join(", ")}])`);
+      queryState.filters.push(
+        `in(${column}, [${values.map((v) => JSON.stringify(v)).join(", ")}])`
+      );
       return builder;
     },
     is: (column, value) => {
@@ -203,9 +207,7 @@ export function createMockQueryBuilder(
       queryState.filters.push("maybeSingle()");
       return builder;
     },
-    then: (onfulfilled) => {
-      return Promise.resolve(queryState.response).then(onfulfilled);
-    },
+    then: (onfulfilled) => Promise.resolve(queryState.response).then(onfulfilled),
   };
 
   return builder;
@@ -225,9 +227,7 @@ export function mockSupabaseQuery(
   response: { data: unknown; error: Error | null }
 ): void {
   // Override the then method to return the mocked response
-  queryBuilder.then = (onfulfilled) => {
-    return Promise.resolve(response).then(onfulfilled);
-  };
+  queryBuilder.then = (onfulfilled) => Promise.resolve(response).then(onfulfilled);
 }
 
 // ============================================================================
@@ -341,11 +341,12 @@ export function createMockSupabaseClient(): MockSupabaseClient {
     } as any,
 
     // Realtime
-    channel: () => ({
-      on: () => ({}),
-      subscribe: () => ({}),
-      unsubscribe: async () => {},
-    }) as any,
+    channel: () =>
+      ({
+        on: () => ({}),
+        subscribe: () => ({}),
+        unsubscribe: async () => {},
+      }) as any,
 
     // RPC (Remote Procedure Call)
     rpc: async () => ({
@@ -366,13 +367,15 @@ export function createMockSupabaseClient(): MockSupabaseClient {
 /**
  * Creates mock user data
  */
-export function createMockUser(overrides?: Partial<{
-  id: string;
-  email: string;
-  role: string;
-  created_at: string;
-  [key: string]: unknown;
-}>) {
+export function createMockUser(
+  overrides?: Partial<{
+    id: string;
+    email: string;
+    role: string;
+    created_at: string;
+    [key: string]: unknown;
+  }>
+) {
   return {
     id: "mock-user-123",
     email: "test@example.com",
@@ -391,7 +394,7 @@ export function createMockProfessional(overrides?: Record<string, unknown>) {
     user_id: "mock-user-123",
     first_name: "Jane",
     last_name: "Doe",
-    hourly_rate: 50000,
+    hourly_rate: 50_000,
     services: ["cleaning", "cooking"],
     rating: 4.8,
     total_reviews: 24,
@@ -412,7 +415,7 @@ export function createMockBooking(overrides?: Record<string, unknown>) {
     status: "pending",
     start_time: new Date().toISOString(),
     end_time: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-    total_amount: 100000,
+    total_amount: 100_000,
     created_at: new Date().toISOString(),
     ...overrides,
   };
@@ -444,8 +447,8 @@ export function createMockAuthResponse(
     data: {
       user: user
         ? {
-            id: user.id as string || "mock-user-123",
-            email: user.email as string || "test@example.com",
+            id: (user.id as string) || "mock-user-123",
+            email: (user.email as string) || "test@example.com",
             ...user,
           }
         : null,
@@ -453,7 +456,7 @@ export function createMockAuthResponse(
         ? {
             access_token: "mock-access-token",
             refresh_token: "mock-refresh-token",
-            expires_at: Date.now() + 3600000,
+            expires_at: Date.now() + 3_600_000,
           }
         : null,
     },

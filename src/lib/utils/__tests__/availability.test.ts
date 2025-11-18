@@ -14,6 +14,7 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  type AvailabilitySettings,
   calculateDayStatus,
   canInstantBook,
   formatDate,
@@ -21,10 +22,9 @@ import {
   getAvailabilityForRange,
   getNextAvailableDate,
   getWorkingHoursForDate,
+  type InstantBookingSettings,
   isDateBlocked,
   isSlotAvailable,
-  type AvailabilitySettings,
-  type InstantBookingSettings,
   type WorkingHours,
 } from "../availability";
 
@@ -564,7 +564,7 @@ describe("getNextAvailableDate", () => {
       // Should be at least 2 days ahead (skipped tomorrow)
       const twoDaysAhead = new Date();
       twoDaysAhead.setDate(twoDaysAhead.getDate() + 2);
-      expect(nextDate.getTime()).toBeGreaterThanOrEqual(twoDaysAhead.getTime() - 86400000);
+      expect(nextDate.getTime()).toBeGreaterThanOrEqual(twoDaysAhead.getTime() - 86_400_000);
     }
   });
 
@@ -635,7 +635,13 @@ describe("getAvailabilityForRange", () => {
       },
     ];
 
-    const availability = getAvailabilityForRange(start, end, standardSettings, existingBookings, []);
+    const availability = getAvailabilityForRange(
+      start,
+      end,
+      standardSettings,
+      existingBookings,
+      []
+    );
 
     expect(availability[0].bookingCount).toBe(2);
   });

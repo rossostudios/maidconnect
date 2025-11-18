@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import type { AppRole } from "@/lib/shared/auth";
 import {
   CATEGORY_LABELS,
   formatShortcut,
@@ -9,7 +10,6 @@ import {
   KEYBOARD_SHORTCUTS,
   type ShortcutCategory,
 } from "../keyboardShortcuts";
-import type { AppRole } from "@/lib/shared/auth";
 
 // ============================================================================
 // PLATFORM DETECTION (SSR-SAFE)

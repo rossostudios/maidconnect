@@ -35,9 +35,7 @@ describe("chatMessageSchema", () => {
 
     it("accepts all valid roles", () => {
       expect(chatMessageSchema.safeParse({ role: "user", content: "Hi" }).success).toBe(true);
-      expect(chatMessageSchema.safeParse({ role: "assistant", content: "Hi" }).success).toBe(
-        true
-      );
+      expect(chatMessageSchema.safeParse({ role: "assistant", content: "Hi" }).success).toBe(true);
       expect(chatMessageSchema.safeParse({ role: "system", content: "Hi" }).success).toBe(true);
     });
 
@@ -592,7 +590,7 @@ describe("createMessageSchema", () => {
       const invalid = {
         conversationId: validConversationId,
         role: "user" as const,
-        content: "A".repeat(10001),
+        content: "A".repeat(10_001),
       };
 
       const result = createMessageSchema.safeParse(invalid);
@@ -603,7 +601,7 @@ describe("createMessageSchema", () => {
       const valid = {
         conversationId: validConversationId,
         role: "user" as const,
-        content: "A".repeat(10000),
+        content: "A".repeat(10_000),
       };
 
       const result = createMessageSchema.safeParse(valid);

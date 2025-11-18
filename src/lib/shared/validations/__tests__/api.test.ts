@@ -440,8 +440,8 @@ describe("dateRangeSchema", () => {
 describe("priceRangeSchema", () => {
   it("accepts valid price range", () => {
     const valid = {
-      minPrice: 50000,
-      maxPrice: 200000,
+      minPrice: 50_000,
+      maxPrice: 200_000,
     };
     const result = priceRangeSchema.safeParse(valid);
     expect(result.success).toBe(true);
@@ -452,14 +452,14 @@ describe("priceRangeSchema", () => {
       minPrice: "50000",
       maxPrice: "200000",
     });
-    expect(result.minPrice).toBe(50000);
-    expect(result.maxPrice).toBe(200000);
+    expect(result.minPrice).toBe(50_000);
+    expect(result.maxPrice).toBe(200_000);
   });
 
   it("requires non-negative prices", () => {
     const negative = {
       minPrice: -1000,
-      maxPrice: 200000,
+      maxPrice: 200_000,
     };
     expect(priceRangeSchema.safeParse(negative).success).toBe(false);
   });
@@ -467,7 +467,7 @@ describe("priceRangeSchema", () => {
   it("accepts zero for minPrice", () => {
     const valid = {
       minPrice: 0,
-      maxPrice: 100000,
+      maxPrice: 100_000,
     };
     expect(priceRangeSchema.safeParse(valid).success).toBe(true);
   });

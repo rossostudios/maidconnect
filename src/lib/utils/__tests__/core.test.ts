@@ -67,7 +67,7 @@ describe("cn (className utility)", () => {
       variant === "secondary" && "bg-neutral-100",
       size === "sm" && "px-4 py-2",
       size === "lg" && "px-8 py-4",
-      disabled && "opacity-50 cursor-not-allowed"
+      disabled && "cursor-not-allowed opacity-50"
     );
 
     expect(result).toBe("button bg-orange-500 px-8 py-4");
@@ -94,7 +94,12 @@ describe("cn (className utility)", () => {
   });
 
   it("handles hover and focus states", () => {
-    const result = cn("bg-orange-500", "hover:bg-orange-600", "focus:ring-2", "focus:ring-orange-500/25");
+    const result = cn(
+      "bg-orange-500",
+      "hover:bg-orange-600",
+      "focus:ring-2",
+      "focus:ring-orange-500/25"
+    );
     expect(result).toBe("bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-orange-500/25");
   });
 });

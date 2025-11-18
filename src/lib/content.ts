@@ -137,36 +137,6 @@ export const testimonials = [
       { label: "Time to hire", value: "72h" },
     ],
   },
-  {
-    name: "International Family",
-    handle: "@casaorafamily",
-    location: "El Poblado, Medellín",
-    quote:
-      "I appreciated being able to filter by English fluency and childcare certifications. Every profile I viewed was impressive—it made choosing actually enjoyable.",
-    outcome: "Verified quality",
-    role: "Relocated from NYC",
-    avatar:
-      "https://images.unsplash.com/photo-1544723795-432537846b81?auto=format&fit=crop&w=160&h=160&q=80",
-    metrics: [
-      { label: "Matches reviewed", value: "6" },
-      { label: "Languages covered", value: "3" },
-    ],
-  },
-  {
-    name: "Estate Owner",
-    handle: "@casaoravilla",
-    location: "Cartagena",
-    quote:
-      "Casaora's vetting gave me confidence to browse independently. I could focus on personality fit and schedule, knowing the skills were already verified.",
-    outcome: "Peace of mind",
-    role: "Luxury villa host",
-    avatar:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&h=160&q=80",
-    metrics: [
-      { label: "Portfolio visits", value: "24" },
-      { label: "Incidents avoided", value: "0" },
-    ],
-  },
 ];
 
 export const productPillars = [

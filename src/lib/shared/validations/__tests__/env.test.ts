@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {clientEnvSchema, serverEnvSchema } from "../env";
+import { clientEnvSchema, serverEnvSchema } from "../env";
 
 // ============================================================================
 // SERVER ENVIRONMENT SCHEMA

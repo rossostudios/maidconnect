@@ -219,41 +219,42 @@ export const portableTextComponents: PortableTextComponents = {
     callout: ({ value }) => {
       const { type = "info", title, content } = value || {};
 
-      const styles = {
-        info: {
-          container: "border-blue-200 bg-blue-50",
-          icon: "ℹ️",
-          title: "text-blue-900",
-          text: "text-blue-800",
-        },
-        success: {
-          container: "border-green-200 bg-green-50",
-          icon: "✅",
-          title: "text-green-900",
-          text: "text-green-800",
-        },
-        warning: {
-          container: "border-orange-200 bg-orange-50",
-          icon: "⚠️",
-          title: "text-orange-900",
-          text: "text-orange-800",
-        },
-        error: {
-          container: "border-red-200 bg-red-50",
-          icon: "❌",
-          title: "text-red-900",
-          text: "text-red-800",
-        },
-        tip: {
-          container: "border-purple-200 bg-purple-50",
-          icon: "💡",
-          title: "text-purple-900",
-          text: "text-purple-800",
-        },
-      }[type] || styles.info;
+      const styles =
+        {
+          info: {
+            container: "border-blue-200 bg-blue-50",
+            icon: "ℹ️",
+            title: "text-blue-900",
+            text: "text-blue-800",
+          },
+          success: {
+            container: "border-green-200 bg-green-50",
+            icon: "✅",
+            title: "text-green-900",
+            text: "text-green-800",
+          },
+          warning: {
+            container: "border-orange-200 bg-orange-50",
+            icon: "⚠️",
+            title: "text-orange-900",
+            text: "text-orange-800",
+          },
+          error: {
+            container: "border-red-200 bg-red-50",
+            icon: "❌",
+            title: "text-red-900",
+            text: "text-red-800",
+          },
+          tip: {
+            container: "border-purple-200 bg-purple-50",
+            icon: "💡",
+            title: "text-purple-900",
+            text: "text-purple-800",
+          },
+        }[type] || styles.info;
 
       return (
-        <div className={`my-6 border-l-4 border ${styles.container} p-6`}>
+        <div className={`my-6 border border-l-4 ${styles.container} p-6`}>
           <div className="flex items-start gap-3">
             <span className="text-xl" role="img">
               {styles.icon}
@@ -283,9 +284,7 @@ export const portableTextComponents: PortableTextComponents = {
       }[style];
 
       if (style === "stars") {
-        return (
-          <div className="my-10 text-center text-2xl text-neutral-300">* * * * *</div>
-        );
+        return <div className="my-10 text-center text-2xl text-neutral-300">* * * * *</div>;
       }
 
       return <hr className={`my-10 ${dividerStyles}`} />;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { mapServiceInputToUpdateData } from "../service";
 import type { ServiceInput } from "@/types";
+import { mapServiceInputToUpdateData } from "../service";
 
 describe("mapServiceInputToUpdateData", () => {
   describe("required fields", () => {
@@ -78,13 +78,13 @@ describe("mapServiceInputToUpdateData", () => {
 
     it("maps basePriceCop to base_price_cop", () => {
       const input: Partial<ServiceInput> = {
-        basePriceCop: 50000,
+        basePriceCop: 50_000,
       };
 
       const result = mapServiceInputToUpdateData(input);
 
       expect(result).toEqual({
-        base_price_cop: 50000,
+        base_price_cop: 50_000,
       });
     });
   });
@@ -228,7 +228,7 @@ describe("mapServiceInputToUpdateData", () => {
         description: "Professional deep cleaning service",
         categoryId: "cat-cleaning-001",
         serviceType: "cleaning",
-        basePriceCop: 80000,
+        basePriceCop: 80_000,
         pricingUnit: "hourly",
         estimatedDurationMinutes: 180,
         minDurationMinutes: 120,
@@ -247,7 +247,7 @@ describe("mapServiceInputToUpdateData", () => {
         description: "Professional deep cleaning service",
         category_id: "cat-cleaning-001",
         service_type: "cleaning",
-        base_price_cop: 80000,
+        base_price_cop: 80_000,
         pricing_unit: "hourly",
         estimated_duration_minutes: 180,
         min_duration_minutes: 120,
@@ -265,14 +265,14 @@ describe("mapServiceInputToUpdateData", () => {
     it("only includes provided fields", () => {
       const input: Partial<ServiceInput> = {
         name: "Updated Service Name",
-        basePriceCop: 60000,
+        basePriceCop: 60_000,
       };
 
       const result = mapServiceInputToUpdateData(input);
 
       expect(result).toEqual({
         name: "Updated Service Name",
-        base_price_cop: 60000,
+        base_price_cop: 60_000,
       });
     });
 
@@ -386,7 +386,7 @@ describe("mapServiceInputToUpdateData", () => {
   describe("data type preservation", () => {
     it("preserves number types", () => {
       const input: Partial<ServiceInput> = {
-        basePriceCop: 50000,
+        basePriceCop: 50_000,
         estimatedDurationMinutes: 120,
         advanceBookingHours: 24,
         maxBookingDaysAhead: 30,

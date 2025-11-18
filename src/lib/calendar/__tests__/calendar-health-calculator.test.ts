@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+  type CalendarHealthMetrics,
   calculateCalendarHealth,
   calculateHealthMetrics,
   calculateHealthScore,
   generateRecommendations,
-  type CalendarHealthMetrics,
   type TravelBufferData,
   type WorkingHoursData,
 } from "../calendar-health-calculator";
@@ -400,7 +400,9 @@ describe("generateRecommendations", () => {
       };
       const recommendations = generateRecommendations(metrics);
 
-      expect(recommendations).toContain("Add more available days to increase booking opportunities");
+      expect(recommendations).toContain(
+        "Add more available days to increase booking opportunities"
+      );
     });
 
     it("does not recommend more days when 5 or more", () => {
@@ -432,7 +434,9 @@ describe("generateRecommendations", () => {
       };
       const recommendations = generateRecommendations(metrics);
 
-      expect(recommendations).toContain("Add more available days to increase booking opportunities");
+      expect(recommendations).toContain(
+        "Add more available days to increase booking opportunities"
+      );
     });
   });
 
@@ -456,7 +460,9 @@ describe("generateRecommendations", () => {
       expect(recommendations).toContain(
         "Set travel buffers to prevent double-bookings and account for travel time"
       );
-      expect(recommendations).toContain("Add more available days to increase booking opportunities");
+      expect(recommendations).toContain(
+        "Add more available days to increase booking opportunities"
+      );
     });
 
     it("returns empty array for perfect calendar", () => {
@@ -484,7 +490,9 @@ describe("generateRecommendations", () => {
       expect(recommendations).toContain(
         "Define your service area to appear in location-based searches"
       );
-      expect(recommendations).toContain("Add more available days to increase booking opportunities");
+      expect(recommendations).toContain(
+        "Add more available days to increase booking opportunities"
+      );
     });
   });
 });
@@ -528,7 +536,9 @@ describe("calculateCalendarHealth", () => {
     expect(result.recommendations).toContain(
       "Set travel buffers to prevent double-bookings and account for travel time"
     );
-    expect(result.recommendations).toContain("Add more available days to increase booking opportunities");
+    expect(result.recommendations).toContain(
+      "Add more available days to increase booking opportunities"
+    );
   });
 
   it("combines all metrics, score, and recommendations", () => {
@@ -573,7 +583,9 @@ describe("Edge cases", () => {
 
     const result = calculateCalendarHealth(singleDay, null);
     expect(result.availableDaysCount).toBe(1);
-    expect(result.recommendations).toContain("Add more available days to increase booking opportunities");
+    expect(result.recommendations).toContain(
+      "Add more available days to increase booking opportunities"
+    );
   });
 
   it("handles very large service radius", () => {
@@ -614,6 +626,8 @@ describe("Edge cases", () => {
 
     const result = calculateCalendarHealth(fourDays, null);
     expect(result.availableDaysCount).toBe(4);
-    expect(result.recommendations).toContain("Add more available days to increase booking opportunities");
+    expect(result.recommendations).toContain(
+      "Add more available days to increase booking opportunities"
+    );
   });
 });

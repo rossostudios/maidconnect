@@ -47,9 +47,15 @@ describe("formatCurrency", () => {
   });
 
   it("formats USD currency correctly", () => {
-    expect(formatCurrency(50_000, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe("$50,000.00");
-    expect(formatCurrency(1500.5, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe("$1,500.50");
-    expect(formatCurrency(100, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe("$100.00");
+    expect(
+      formatCurrency(50_000, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })
+    ).toBe("$50,000.00");
+    expect(
+      formatCurrency(1500.5, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })
+    ).toBe("$1,500.50");
+    expect(
+      formatCurrency(100, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })
+    ).toBe("$100.00");
   });
 
   it("handles null and undefined", () => {
@@ -59,12 +65,16 @@ describe("formatCurrency", () => {
 
   it("handles zero", () => {
     expect(formatCurrency(0, { locale: "en-US" })).toMatch(/0/);
-    expect(formatCurrency(0, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe("$0.00");
+    expect(formatCurrency(0, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe(
+      "$0.00"
+    );
   });
 
   it("handles negative numbers", () => {
     expect(formatCurrency(-50_000, { locale: "en-US" })).toMatch(/-.*50,000/);
-    expect(formatCurrency(-1500.5, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })).toBe("-$1,500.50");
+    expect(
+      formatCurrency(-1500.5, { currency: "USD", locale: "en-US", minimumFractionDigits: 2 })
+    ).toBe("-$1,500.50");
   });
 
   it("handles NaN", () => {
@@ -78,9 +88,19 @@ describe("formatCurrency", () => {
   });
 
   it("respects custom fraction digits", () => {
-    expect(formatCurrency(50_000, { minimumFractionDigits: 2, maximumFractionDigits: 2, locale: "en-US" })).toMatch(/50,000\.00/);
-    expect(formatCurrency(50_000.5, { maximumFractionDigits: 0, locale: "en-US" })).toMatch(/50,001/);
-    expect(formatCurrency(50_000.123, { maximumFractionDigits: 2, locale: "en-US" })).toMatch(/50,000\.12/);
+    expect(
+      formatCurrency(50_000, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        locale: "en-US",
+      })
+    ).toMatch(/50,000\.00/);
+    expect(formatCurrency(50_000.5, { maximumFractionDigits: 0, locale: "en-US" })).toMatch(
+      /50,001/
+    );
+    expect(formatCurrency(50_000.123, { maximumFractionDigits: 2, locale: "en-US" })).toMatch(
+      /50,000\.12/
+    );
   });
 
   it("uses different locales", () => {
@@ -105,20 +125,20 @@ describe("formatCOP", () => {
     const result50k = formatCOP(50_000);
     const result1500 = formatCOP(1500);
     // Use regex to handle different locales ($ 50.000 or $50,000)
-    expect(result50k).toMatch(/50[\.,\s]*000/);
-    expect(result1500).toMatch(/1[\.,\s]*500/);
+    expect(result50k).toMatch(/50[.,\s]*000/);
+    expect(result1500).toMatch(/1[.,\s]*500/);
   });
 
   it("handles edge cases", () => {
     expect(formatCOP(null)).toMatch(/\$\s*0/);
     expect(formatCOP(undefined)).toMatch(/\$\s*0/);
     expect(formatCOP(0)).toMatch(/\$\s*0/);
-    expect(formatCOP(-1000)).toMatch(/-.*1[\.,\s]*000/);
+    expect(formatCOP(-1000)).toMatch(/-.*1[.,\s]*000/);
   });
 
   it("does not show decimals", () => {
-    expect(formatCOP(1500.99)).toMatch(/1[\.,\s]*501/);
-    expect(formatCOP(1500.01)).toMatch(/1[\.,\s]*500/);
+    expect(formatCOP(1500.99)).toMatch(/1[.,\s]*501/);
+    expect(formatCOP(1500.01)).toMatch(/1[.,\s]*500/);
   });
 });
 
@@ -448,7 +468,9 @@ describe("formatPercentage", () => {
   });
 
   it("respects fraction digits options", () => {
-    expect(formatPercentage(0.123, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toBe("12.30%");
+    expect(formatPercentage(0.123, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toBe(
+      "12.30%"
+    );
     expect(formatPercentage(0.123_45, { maximumFractionDigits: 2 })).toBe("12.35%");
   });
 

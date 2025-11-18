@@ -9,28 +9,28 @@
 
 import { describe, expect, test as it } from "bun:test";
 import {
-  // Enums
-  userRoleSchema,
   accountStatusSchema,
   // Profile Schemas
   baseProfileSchema,
-  professionalProfileSchema,
   customerProfileSchema,
-  updateBaseProfileSchema,
-  updateProfessionalProfileSchema,
-  updateCustomerProfileSchema,
-  // Authentication Schemas
-  signUpSchema,
-  signInSchema,
-  resetPasswordRequestSchema,
-  resetPasswordSchema,
-  updatePasswordSchema,
   // Account Management
   deleteAccountSchema,
   exportDataSchema,
   // Admin Operations
   moderateUserSchema,
+  professionalProfileSchema,
+  resetPasswordRequestSchema,
+  resetPasswordSchema,
+  signInSchema,
+  // Authentication Schemas
+  signUpSchema,
+  updateBaseProfileSchema,
+  updateCustomerProfileSchema,
+  updatePasswordSchema,
+  updateProfessionalProfileSchema,
   updateUserRoleSchema,
+  // Enums
+  userRoleSchema,
   // Verification
   verifyEmailSchema,
   verifyPhoneSchema,
@@ -138,7 +138,7 @@ describe("professionalProfileSchema", () => {
   const validProfessional = {
     role: "professional" as const,
     displayName: "Maria Garcia",
-    hourlyRate: 50000,
+    hourlyRate: 50_000,
     yearsExperience: 5,
     serviceRadius: 10,
     languages: ["Spanish", "English"],
@@ -161,7 +161,7 @@ describe("professionalProfileSchema", () => {
     const result = professionalProfileSchema.safeParse({
       role: "professional",
       displayName: "Maria Garcia",
-      hourlyRate: 50000,
+      hourlyRate: 50_000,
       yearsExperience: 5,
       serviceRadius: 10,
       languages: ["Spanish"],
@@ -286,7 +286,7 @@ describe("professionalProfileSchema", () => {
     const result = professionalProfileSchema.safeParse({
       role: "professional",
       displayName: "Maria Garcia",
-      hourlyRate: 50000,
+      hourlyRate: 50_000,
       yearsExperience: 5,
       serviceRadius: 10,
       languages: ["Spanish"],
@@ -410,7 +410,7 @@ describe("updateProfessionalProfileSchema", () => {
   it("should accept professional updates with all fields", () => {
     const result = updateProfessionalProfileSchema.safeParse({
       displayName: "Updated Name",
-      hourlyRate: 60000,
+      hourlyRate: 60_000,
       yearsExperience: 10,
       serviceRadius: 15,
       languages: ["Spanish", "English", "French"],
@@ -873,18 +873,16 @@ describe("moderateUserSchema", () => {
   });
 
   it("should accept all valid actions", () => {
-    expect(
-      moderateUserSchema.safeParse({ ...validModeration, action: "suspend" }).success
-    ).toBe(true);
-    expect(
-      moderateUserSchema.safeParse({ ...validModeration, action: "activate" }).success
-    ).toBe(true);
-    expect(
-      moderateUserSchema.safeParse({ ...validModeration, action: "deactivate" }).success
-    ).toBe(true);
-    expect(
-      moderateUserSchema.safeParse({ ...validModeration, action: "warn" }).success
-    ).toBe(true);
+    expect(moderateUserSchema.safeParse({ ...validModeration, action: "suspend" }).success).toBe(
+      true
+    );
+    expect(moderateUserSchema.safeParse({ ...validModeration, action: "activate" }).success).toBe(
+      true
+    );
+    expect(moderateUserSchema.safeParse({ ...validModeration, action: "deactivate" }).success).toBe(
+      true
+    );
+    expect(moderateUserSchema.safeParse({ ...validModeration, action: "warn" }).success).toBe(true);
   });
 
   it("should reject reason shorter than 10 characters", () => {
@@ -955,9 +953,9 @@ describe("updateUserRoleSchema", () => {
     expect(
       updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "professional" }).success
     ).toBe(true);
-    expect(
-      updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "admin" }).success
-    ).toBe(true);
+    expect(updateUserRoleSchema.safeParse({ ...validRoleUpdate, newRole: "admin" }).success).toBe(
+      true
+    );
   });
 
   it("should reject reason shorter than 10 characters", () => {

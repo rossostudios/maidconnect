@@ -253,34 +253,34 @@ describe("calculateCancellationPolicy", () => {
 
 describe("calculateRefundAmount", () => {
   it("calculates 100% refund correctly", () => {
-    const authorizedAmount = 100000; // 100,000 COP
+    const authorizedAmount = 100_000; // 100,000 COP
     const refundPercentage = 100;
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
 
-    expect(refundAmount).toBe(100000);
+    expect(refundAmount).toBe(100_000);
   });
 
   it("calculates 50% refund correctly", () => {
-    const authorizedAmount = 100000; // 100,000 COP
+    const authorizedAmount = 100_000; // 100,000 COP
     const refundPercentage = 50;
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
 
-    expect(refundAmount).toBe(50000);
+    expect(refundAmount).toBe(50_000);
   });
 
   it("calculates 25% refund correctly", () => {
-    const authorizedAmount = 100000; // 100,000 COP
+    const authorizedAmount = 100_000; // 100,000 COP
     const refundPercentage = 25;
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
 
-    expect(refundAmount).toBe(25000);
+    expect(refundAmount).toBe(25_000);
   });
 
   it("calculates 0% refund correctly", () => {
-    const authorizedAmount = 100000; // 100,000 COP
+    const authorizedAmount = 100_000; // 100,000 COP
     const refundPercentage = 0;
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
@@ -298,7 +298,7 @@ describe("calculateRefundAmount", () => {
   });
 
   it("rounds fractional amounts correctly", () => {
-    const authorizedAmount = 10000; // 10,000 COP
+    const authorizedAmount = 10_000; // 10,000 COP
     const refundPercentage = 15; // 15% of 10,000 = 1,500
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
@@ -325,12 +325,12 @@ describe("calculateRefundAmount", () => {
   });
 
   it("handles large amounts correctly", () => {
-    const authorizedAmount = 5000000; // 5,000,000 COP
+    const authorizedAmount = 5_000_000; // 5,000,000 COP
     const refundPercentage = 50;
 
     const refundAmount = calculateRefundAmount(authorizedAmount, refundPercentage);
 
-    expect(refundAmount).toBe(2500000);
+    expect(refundAmount).toBe(2_500_000);
   });
 
   it("handles zero amounts", () => {
@@ -383,7 +383,7 @@ describe("getCancellationPolicyDescription", () => {
     const description = getCancellationPolicyDescription();
 
     // Should have bullet points (•) or dashes (-)
-    expect(description).toMatch(/[•\-]/);
+    expect(description).toMatch(/[•-]/);
   });
 
   it("does not have leading/trailing whitespace", () => {

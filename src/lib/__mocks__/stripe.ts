@@ -129,9 +129,8 @@ export function createMockStripe(): MockStripeClient {
   };
 
   // Synchronous mock for webhooks.constructEvent
-  const mockConstructEvent = ((..._args: any[]): Stripe.Event => {
-    return createMockWebhookEvent("payment_intent.succeeded");
-  }) as MockFnSync<Stripe.Event>;
+  const mockConstructEvent = ((..._args: any[]): Stripe.Event =>
+    createMockWebhookEvent("payment_intent.succeeded")) as MockFnSync<Stripe.Event>;
   mockConstructEvent.mockReturnValue = (value: Stripe.Event) => {
     const newFn = (() => value) as MockFnSync<Stripe.Event>;
     newFn.mockReturnValue = mockConstructEvent.mockReturnValue;
@@ -200,7 +199,7 @@ export function createMockPaymentIntent(
   return {
     id: "pi_mock_123",
     object: "payment_intent",
-    amount: 100000,
+    amount: 100_000,
     amount_capturable: 0,
     amount_received: 0,
     application: null,
@@ -282,8 +281,8 @@ export function createMockCharge(overrides?: Partial<Stripe.Charge>): Stripe.Cha
   return {
     id: "ch_mock_789",
     object: "charge",
-    amount: 100000,
-    amount_captured: 100000,
+    amount: 100_000,
+    amount_captured: 100_000,
     amount_refunded: 0,
     application: null,
     application_fee: null,
@@ -345,7 +344,7 @@ export function createMockRefund(overrides?: Partial<Stripe.Refund>): Stripe.Ref
   return {
     id: "re_mock_012",
     object: "refund",
-    amount: 50000,
+    amount: 50_000,
     balance_transaction: null,
     charge: "ch_mock_789",
     created: Math.floor(Date.now() / 1000),
