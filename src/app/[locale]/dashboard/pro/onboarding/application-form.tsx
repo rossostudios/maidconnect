@@ -110,7 +110,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
               key={service}
             >
               <input
-                className="h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
                 name="services"
                 type="checkbox"
                 value={service}
@@ -175,26 +175,53 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
                 </p>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                <input
-                  aria-invalid={hasError(`reference_name_${index}`)}
-                  className={cn(inputClass, hasError(`reference_name_${index}`) && errorClass)}
-                  name={`reference_name_${index}`}
-                  placeholder={t("references.namePlaceholder")}
-                  type="text"
-                />
-                <input
-                  className={inputClass}
-                  name={`reference_relationship_${index}`}
-                  placeholder={t("references.relationshipPlaceholder")}
-                  type="text"
-                />
-                <input
-                  aria-invalid={hasError(`reference_contact_${index}`)}
-                  className={cn(inputClass, hasError(`reference_contact_${index}`) && errorClass)}
-                  name={`reference_contact_${index}`}
-                  placeholder={t("references.contactPlaceholder")}
-                  type="text"
-                />
+                <div>
+                  <label
+                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    htmlFor={`reference_name_${index}`}
+                  >
+                    {t("references.namePlaceholder")}
+                  </label>
+                  <input
+                    aria-invalid={hasError(`reference_name_${index}`)}
+                    className={cn(inputClass, hasError(`reference_name_${index}`) && errorClass)}
+                    id={`reference_name_${index}`}
+                    name={`reference_name_${index}`}
+                    placeholder={t("references.namePlaceholder")}
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label
+                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    htmlFor={`reference_relationship_${index}`}
+                  >
+                    {t("references.relationshipPlaceholder")}
+                  </label>
+                  <input
+                    className={inputClass}
+                    id={`reference_relationship_${index}`}
+                    name={`reference_relationship_${index}`}
+                    placeholder={t("references.relationshipPlaceholder")}
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label
+                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    htmlFor={`reference_contact_${index}`}
+                  >
+                    {t("references.contactPlaceholder")}
+                  </label>
+                  <input
+                    aria-invalid={hasError(`reference_contact_${index}`)}
+                    className={cn(inputClass, hasError(`reference_contact_${index}`) && errorClass)}
+                    id={`reference_contact_${index}`}
+                    name={`reference_contact_${index}`}
+                    placeholder={t("references.contactPlaceholder")}
+                    type="text"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -205,7 +232,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         <label className="flex cursor-pointer items-start gap-3 border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
           <input
             aria-invalid={hasError("consent")}
-            className="mt-0.5 h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+            className="mt-0.5 h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
             name="consent"
             type="checkbox"
           />

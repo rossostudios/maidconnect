@@ -41,13 +41,13 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+      <div className="border border-neutral-200 bg-white p-8">
         <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
         <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Profile Editor */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+      <div className="border border-neutral-200 bg-white p-8">
         <ProfileEditor profile={profile} />
       </div>
     </section>

@@ -179,12 +179,21 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         required={config.required}
         type="file"
       />
-      <textarea
-        className={`${inputClass} mt-4`}
-        name={`document_${config.key}_note`}
-        placeholder={t("notePlaceholder")}
-        rows={2}
-      />
+      <div className="mt-4">
+        <label
+          className="mb-2 block font-medium text-neutral-700 text-sm"
+          htmlFor={`document_${config.key}_note`}
+        >
+          {t("notePlaceholder")}
+        </label>
+        <textarea
+          className={inputClass}
+          id={`document_${config.key}_note`}
+          name={`document_${config.key}_note`}
+          placeholder={t("notePlaceholder")}
+          rows={2}
+        />
+      </div>
       {selectedFile ? (
         <div className="mt-4 flex items-center gap-2 border border-orange-500/40 bg-orange-500/10 p-3">
           <svg

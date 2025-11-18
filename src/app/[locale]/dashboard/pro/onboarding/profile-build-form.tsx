@@ -164,7 +164,7 @@ export function ProfileBuildForm({
               key={language}
             >
               <input
-                className="h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
                 defaultChecked={initialLanguages.includes(language)}
                 name="languages"
                 type="checkbox"

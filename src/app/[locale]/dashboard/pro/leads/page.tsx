@@ -7,8 +7,10 @@
 
 import { unstable_noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import { geistSans } from "@/app/fonts";
 import { LeadQueue } from "@/components/professional/lead-queue";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Lead Queue | Professional Dashboard",
@@ -16,11 +18,10 @@ export const metadata = {
 };
 
 export default async function ProLeadsPage() {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const supabase = await createSupabaseServerClient();
 
-  // Check authentication and role
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -39,7 +40,6 @@ export default async function ProLeadsPage() {
     redirect("/");
   }
 
-  // Fetch pending booking requests for this professional
   const { data: pendingBookingsRaw } = await supabase
     .from("bookings")
     .select(`
@@ -65,7 +65,6 @@ export default async function ProLeadsPage() {
     .in("status", ["pending", "pending_payment", "confirmed"])
     .order("created_at", { ascending: false });
 
-  // Transform data: PostgREST returns customer as array, but we need single object
   const pendingBookings =
     pendingBookingsRaw?.map((booking: any) => ({
       ...booking,
@@ -73,10 +72,24 @@ export default async function ProLeadsPage() {
     })) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="font-bold text-3xl text-neutral-900">Lead Queue</h1>
-        <p className="mt-2 text-neutral-700">Pending booking requests waiting for your response</p>
+    <div className="space-y-8">
+      <div>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            geistSans.className
+          )}
+        >
+          Lead Queue
+        </h1>
+        <p
+          className={cn(
+            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            geistSans.className
+          )}
+        >
+          Pending booking requests waiting for your response
+        </p>
       </div>
 
       <LeadQueue initialBookings={pendingBookings} professionalId={user.id} />

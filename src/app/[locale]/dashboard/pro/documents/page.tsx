@@ -5,11 +5,12 @@ import {
   OPTIONAL_DOCUMENTS,
   REQUIRED_DOCUMENTS,
 } from "@/app/[locale]/dashboard/pro/onboarding/state";
+import { geistSans } from "@/app/fonts";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
-// Dynamically import TanStack Table component (reduces initial bundle size)
 const DocumentsTable = dynamic(
   () =>
     import("@/components/documents/documents-table").then((mod) => ({
@@ -17,7 +18,7 @@ const DocumentsTable = dynamic(
     })),
   {
     loading: () => (
-      <div className="h-[400px] w-full animate-pulse bg-gradient-to-br from-neutral-200/30 to-neutral-200/10" />
+      <div className="h-[400px] w-full animate-pulse border border-neutral-200 bg-neutral-50" />
     ),
   }
 );
@@ -45,7 +46,7 @@ export default async function ProDocumentsPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.documents" });
@@ -61,7 +62,6 @@ export default async function ProDocumentsPage({
 
   let documents = (documentsData as DocumentRow[] | null) ?? [];
 
-  // Generate signed URLs for downloads
   if (documents.length > 0) {
     const signedUrlResults = await Promise.all(
       documents.map((doc) =>
@@ -82,23 +82,40 @@ export default async function ProDocumentsPage({
   }
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+          <h1
+            className={cn(
+              "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+              geistSans.className
+            )}
+          >
+            {t("title")}
+          </h1>
+          <p
+            className={cn(
+              "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+              geistSans.className
+            )}
+          >
+            {t("description")}
+          </p>
         </div>
         <Link
-          className="inline-flex items-center justify-center bg-orange-500 px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500"
+          className={cn(
+            "inline-flex items-center justify-center border border-neutral-200 bg-[#FF5200] px-4 py-2 font-semibold text-white text-xs uppercase tracking-wider transition-all hover:bg-orange-600 hover:shadow-sm",
+            geistSans.className
+          )}
           href="/dashboard/pro/onboarding"
         >
           {t("uploadButton")}
         </Link>
       </div>
 
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+      <div className="border border-neutral-200 bg-white p-6">
         <DocumentsTable documents={documents} labels={DOCUMENT_LABELS} />
       </div>
-    </section>
+    </div>
   );
 }

@@ -5,13 +5,12 @@ import {
   FileAttachmentIcon,
   Image02Icon,
   Settings02Icon,
-  UserCircleIcon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
-import Image from "next/image";
 import { Suspense } from "react";
+import { geistSans } from "@/app/fonts";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
@@ -22,6 +21,7 @@ import {
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type ProfessionalBookingRow = {
   id: string;
@@ -109,32 +109,19 @@ function prepareCompletedBookings(
 }
 
 export default async function ProfessionalDashboardPage() {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch user profile
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("avatar_url, full_name")
+    .select("full_name")
     .eq("id", user.id)
     .maybeSingle();
 
-  const avatarUrl = profileData?.avatar_url;
-
-  // Determine greeting based on time of day
-  const hour = new Date().getHours();
-  let greeting = "Good evening";
-  if (hour < 12) {
-    greeting = "Good morning";
-  } else if (hour < 18) {
-    greeting = "Good afternoon";
-  }
-
   const userName = profileData?.full_name?.split(" ")[0] || "Professional";
 
-  // Fetch bookings
   const { data: bookingsData } = await supabase
     .from("bookings")
     .select(
@@ -146,7 +133,6 @@ export default async function ProfessionalDashboardPage() {
 
   const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
 
-  // Fetch customer reviews
   const { data: customerReviewsData } = await supabase
     .from("customer_reviews")
     .select("booking_id")
@@ -161,230 +147,278 @@ export default async function ProfessionalDashboardPage() {
 
   return (
     <>
-      {/* Push Notification Permission Prompt */}
       <NotificationPermissionPrompt variant="banner" />
 
-      {/* Greeting & Quick Stats */}
-      <section className="mb-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Profile Photo Circle */}
-            <div className="flex-shrink-0">
-              {avatarUrl ? (
-                <Image
-                  alt={userName}
-                  className="h-12 w-12 border-2 border-neutral-200 object-cover"
-                  height={48}
-                  src={avatarUrl}
-                  width={48}
-                />
-              ) : (
-                <div className="flex h-12 w-12 items-center justify-center border-2 border-neutral-200 bg-orange-500/10">
-                  <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={UserCircleIcon} />
-                </div>
+      <div className="space-y-8">
+        {/* Page Header */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h1
+              className={cn(
+                "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+                geistSans.className
               )}
-            </div>
-
-            {/* Greeting Text */}
-            <div>
-              <h1 className="mb-1 font-bold text-3xl text-neutral-900">
-                {greeting}, {userName}
-              </h1>
-              <p className="text-neutral-700">Here's your business overview for today</p>
-            </div>
+            >
+              Good morning, {userName}
+            </h1>
+            <p
+              className={cn(
+                "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+                geistSans.className
+              )}
+            >
+              {new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
           </div>
         </div>
 
         {/* Metrics Grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <MetricCard
-            color="warning"
+          <LiaMetricCard
             icon={UserMultiple02Icon}
-            label="Pending Requests"
+            label="Pending Assignments"
             value={pendingBookings.toString()}
           />
-          <MetricCard
-            color="info"
+          <LiaMetricCard
             icon={Calendar03Icon}
             label="Active Bookings"
             value={activeBookings.toString()}
           />
-          <MetricCard
-            color="success"
+          <LiaMetricCard
             icon={Clock01Icon}
             label="Completed This Week"
             value={completedThisWeek.toString()}
           />
-          <MetricCard
-            color="primary"
+          <LiaMetricCard
             icon={DollarCircleIcon}
             label="Weekly Earnings"
             value={formatCOPWithFallback(weeklyEarnings)}
           />
         </div>
-      </section>
 
-      {/* Pending Customer Ratings */}
-      {completedBookings.length > 0 ? (
-        <section className="mb-8">
-          <div className="mb-6">
-            <h2 className="mb-2 font-bold text-2xl text-neutral-900">Pending Customer Ratings</h2>
-            <p className="text-neutral-700 text-sm">Request feedback from recent customers</p>
+        {/* Pending Customer Ratings */}
+        {completedBookings.length > 0 && (
+          <div>
+            <h2
+              className={cn(
+                "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                geistSans.className
+              )}
+            >
+              Pending Customer Ratings
+            </h2>
+            <Suspense fallback={<PendingRatingsSkeleton />}>
+              <PendingRatingsList completedBookings={completedBookings} />
+            </Suspense>
           </div>
-          <Suspense fallback={<PendingRatingsSkeleton />}>
-            <PendingRatingsList completedBookings={completedBookings} />
-          </Suspense>
-        </section>
-      ) : null}
+        )}
 
-      {/* Booking Calendar */}
-      <section className="mb-8">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Booking Calendar</h2>
-          <p className="text-neutral-700 text-sm">Manage your schedule and upcoming bookings</p>
-        </div>
-        <div className="border border-neutral-200 bg-neutral-50 p-6">
-          <Suspense fallback={<BookingCalendarSkeleton />}>
-            <ProBookingCalendar
-              bookings={bookings.map((booking) => ({
-                id: booking.id,
-                status: booking.status,
-                scheduled_start: booking.scheduled_start,
-                duration_minutes: booking.duration_minutes,
-                amount_authorized: booking.amount_authorized,
-                amount_captured: booking.amount_captured,
-                currency: booking.currency,
-              }))}
-            />
-          </Suspense>
-        </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="mb-8">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Quick Actions</h2>
-          <p className="text-neutral-700 text-sm">Manage your professional profile and settings</p>
+        {/* Booking Calendar */}
+        <div>
+          <h2
+            className={cn(
+              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
+            Booking Calendar
+          </h2>
+          <div className="border border-neutral-200 bg-white p-6">
+            <Suspense fallback={<BookingCalendarSkeleton />}>
+              <ProBookingCalendar
+                bookings={bookings.map((booking) => ({
+                  id: booking.id,
+                  status: booking.status,
+                  scheduled_start: booking.scheduled_start,
+                  duration_minutes: booking.duration_minutes,
+                  amount_authorized: booking.amount_authorized,
+                  amount_captured: booking.amount_captured,
+                  currency: booking.currency,
+                }))}
+              />
+            </Suspense>
+          </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {/* View All Bookings */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/bookings"
+        {/* Quick Actions */}
+        <div>
+          <h2
+            className={cn(
+              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
           >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Calendar03Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">View All Bookings</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              See your complete booking history and manage upcoming appointments
-            </p>
-          </Link>
+            Quick Actions
+          </h2>
 
-          {/* Manage Availability */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/availability"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Clock01Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Manage Availability</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              Update your schedule and set when you're available for bookings
-            </p>
-          </Link>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/bookings"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Calendar03Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                View All Bookings
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Complete booking history
+              </p>
+            </Link>
 
-          {/* Portfolio */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/portfolio"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Image02Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Portfolio</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              Showcase your best work with photos and descriptions
-            </p>
-          </Link>
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/availability"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Clock01Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Manage Availability
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Update your schedule
+              </p>
+            </Link>
 
-          {/* Finances */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/finances"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={DollarCircleIcon} />
-              <h3 className="font-semibold text-base text-neutral-900">Finances</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              Track your earnings and manage payout settings
-            </p>
-          </Link>
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/portfolio"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Image02Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Portfolio
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Showcase your work
+              </p>
+            </Link>
 
-          {/* Documents */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/documents"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FileAttachmentIcon} />
-              <h3 className="font-semibold text-base text-neutral-900">Documents</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              Upload and manage your verification documents
-            </p>
-          </Link>
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/finances"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={DollarCircleIcon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Finances
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Track earnings & payouts
+              </p>
+            </Link>
 
-          {/* Settings */}
-          <Link
-            className="group border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
-            href="/dashboard/pro/onboarding"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Profile Settings</h3>
-            </div>
-            <p className="text-neutral-700 text-sm">
-              Update your profile, services, and account settings
-            </p>
-          </Link>
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/documents"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={FileAttachmentIcon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Documents
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Manage verification
+              </p>
+            </Link>
+
+            <Link
+              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              href="/dashboard/pro/onboarding"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Settings02Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Profile Settings
+              </h3>
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+                  geistSans.className
+                )}
+              >
+                Update your profile
+              </p>
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }
 
-function MetricCard({
-  icon,
-  label,
-  value,
-  color = "default",
-}: {
-  icon: any;
-  label: string;
-  value: string;
-  color?: "default" | "primary" | "success" | "warning" | "info";
-}) {
-  const colorClasses = {
-    default: "bg-neutral-50 text-neutral-700",
-    primary: "bg-orange-500/10 text-orange-500",
-    success: "bg-orange-500/10 text-orange-500",
-    warning: "bg-orange-500/10 text-orange-500",
-    info: "bg-orange-500/10 text-orange-500",
-  };
-
+function LiaMetricCard({ icon, label, value }: { icon: any; label: string; value: string }) {
   return (
-    <div className="border border-neutral-200 bg-neutral-50 p-6 transition hover:shadow-md">
-      <div className="mb-3 flex items-center justify-between">
-        <div className={`flex h-10 w-10 items-center justify-center ${colorClasses[color]}`}>
-          <HugeiconsIcon className="h-5 w-5" icon={icon} />
+    <div className="border border-neutral-200 bg-white p-6">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
+          <HugeiconsIcon className="h-5 w-5 text-white" icon={icon} />
         </div>
       </div>
-      <dt className="text-neutral-700 text-sm">{label}</dt>
-      <dd className="mt-1 font-bold text-2xl text-neutral-900">{value}</dd>
+      <dt
+        className={cn(
+          "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+          geistSans.className
+        )}
+      >
+        {label}
+      </dt>
+      <dd
+        className={cn(
+          "mt-3 font-semibold text-5xl text-neutral-900 tracking-tighter",
+          geistSans.className
+        )}
+      >
+        {value}
+      </dd>
     </div>
   );
 }

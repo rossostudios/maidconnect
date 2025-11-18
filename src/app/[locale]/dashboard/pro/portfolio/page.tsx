@@ -1,8 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
+import { geistSans } from "@/app/fonts";
 import { PortfolioManager } from "@/components/portfolio/portfolio-manager";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 export default async function ProPortfolioPage({
   params,
@@ -15,7 +17,6 @@ export default async function ProPortfolioPage({
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch professional profile with portfolio data
   const { data: profileData, error } = await supabase
     .from("professional_profiles")
     .select("portfolio_images, featured_work")
@@ -30,17 +31,31 @@ export default async function ProPortfolioPage({
   const featuredWork = profileData?.featured_work || "";
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+      <div>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            geistSans.className
+          )}
+        >
+          {t("title")}
+        </h1>
+        <p
+          className={cn(
+            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            geistSans.className
+          )}
+        >
+          {t("description")}
+        </p>
       </div>
 
       {/* Portfolio Manager */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+      <div className="border border-neutral-200 bg-white p-6">
         <PortfolioManager featuredWork={featuredWork} images={images} />
       </div>
-    </section>
+    </div>
   );
 }

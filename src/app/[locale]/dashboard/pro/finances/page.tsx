@@ -1,8 +1,10 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { geistSans } from "@/app/fonts";
 import { FinancesOverview } from "@/components/finances/finances-overview";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type BookingRow = {
   id: string;
@@ -16,7 +18,7 @@ type BookingRow = {
 };
 
 export default async function ProFinancesPage({ params }: { params: Promise<{ locale: string }> }) {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.finances" });
@@ -24,7 +26,6 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch completed bookings for revenue analytics
   const { data: bookingsData } = await supabase
     .from("bookings")
     .select(
@@ -36,7 +37,6 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
 
   const bookings = (bookingsData as BookingRow[] | null) ?? [];
 
-  // Fetch pending payouts
   const { data: payoutsData } = await supabase
     .from("payouts")
     .select("*")
@@ -46,13 +46,27 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
   const payouts = payoutsData ?? [];
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            geistSans.className
+          )}
+        >
+          {t("title")}
+        </h1>
+        <p
+          className={cn(
+            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            geistSans.className
+          )}
+        >
+          {t("description")}
+        </p>
       </div>
 
       <FinancesOverview bookings={bookings} payouts={payouts} />
-    </section>
+    </div>
   );
 }

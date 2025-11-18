@@ -1,10 +1,12 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { geistSans } from "@/app/fonts";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type ProfessionalBookingRow = {
   id: string;
@@ -29,7 +31,7 @@ type ProfessionalBookingRow = {
 };
 
 export default async function ProBookingsPage({ params }: { params: Promise<{ locale: string }> }) {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.bookings" });
@@ -49,21 +51,38 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
   const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div>
-          <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+          <h1
+            className={cn(
+              "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+              geistSans.className
+            )}
+          >
+            {t("title")}
+          </h1>
+          <p
+            className={cn(
+              "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+              geistSans.className
+            )}
+          >
+            {t("description")}
+          </p>
         </div>
         <Link
-          className="inline-flex items-center justify-center border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
+          className={cn(
+            "inline-flex items-center justify-center border border-neutral-200 bg-white px-4 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:bg-neutral-50",
+            geistSans.className
+          )}
           href="/dashboard/pro/onboarding"
         >
           {t("updateAvailability")}
         </Link>
       </div>
 
-      <div className="border border-neutral-200 bg-neutral-50 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+      <div className="border border-neutral-200 bg-white p-6">
         <ProBookingCalendar
           bookings={bookings.map((booking) => ({
             id: booking.id,
@@ -77,10 +96,21 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
         />
       </div>
 
-      <div className="border border-neutral-200 bg-neutral-50 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-        <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("allBookings")}</h2>
-        <ProBookingList bookings={bookings} />
+      <div className="border border-neutral-200 bg-white">
+        <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+          <h2
+            className={cn(
+              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
+            {t("allBookings")}
+          </h2>
+        </div>
+        <div className="p-6">
+          <ProBookingList bookings={bookings} />
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

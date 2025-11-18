@@ -1,8 +1,10 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { geistSans } from "@/app/fonts";
 import { AvailabilityEditor } from "@/components/availability/availability-editor";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 type DaySchedule = {
   day: string;
@@ -16,7 +18,7 @@ export default async function ProAvailabilityPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  unstable_noStore(); // Opt out of caching for dynamic page
+  unstable_noStore();
 
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.availability" });
@@ -24,7 +26,6 @@ export default async function ProAvailabilityPage({
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch professional availability settings
   const { data: profileData, error } = await supabase
     .from("professional_profiles")
     .select("availability_settings, blocked_dates")
@@ -35,7 +36,6 @@ export default async function ProAvailabilityPage({
     console.error("Error fetching availability settings:", error);
   }
 
-  // Parse availability settings (JSONB column)
   const availabilitySettings = profileData?.availability_settings as unknown;
   const weeklyHours =
     availabilitySettings &&
@@ -46,52 +46,85 @@ export default async function ProAvailabilityPage({
   const blockedDates = (profileData?.blocked_dates as string[]) || [];
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
-        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+      <div>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            geistSans.className
+          )}
+        >
+          {t("title")}
+        </h1>
+        <p
+          className={cn(
+            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            geistSans.className
+          )}
+        >
+          {t("description")}
+        </p>
       </div>
 
       {/* Availability Editor */}
-      <div className="bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+      <div className="border border-neutral-200 bg-white p-6">
         <AvailabilityEditor initialBlockedDates={blockedDates} initialWeeklyHours={weeklyHours} />
       </div>
 
       {/* Help Section */}
-      <div className="border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
-        <h3 className="font-semibold text-lg text-neutral-900">{t("tips.title")}</h3>
-        <ul className="mt-4 space-y-3 text-base text-neutral-700">
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 text-orange-500">•</span>
-            <span>
-              <strong className="text-neutral-900">{t("tips.workingHours.label")}</strong>{" "}
-              {t("tips.workingHours.text")}
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 text-orange-500">•</span>
-            <span>
-              <strong className="text-neutral-900">{t("tips.blockedDates.label")}</strong>{" "}
-              {t("tips.blockedDates.text")}
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 text-orange-500">•</span>
-            <span>
-              <strong className="text-neutral-900">{t("tips.bufferTime.label")}</strong>{" "}
-              {t("tips.bufferTime.text")}
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="flex-shrink-0 text-orange-500">•</span>
-            <span>
-              <strong className="text-neutral-900">{t("tips.flexibility.label")}</strong>{" "}
-              {t("tips.flexibility.text")}
-            </span>
-          </li>
-        </ul>
+      <div className="border border-neutral-200 bg-white">
+        <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+          <h3
+            className={cn(
+              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
+            {t("tips.title")}
+          </h3>
+        </div>
+        <div className="p-6">
+          <ul className="space-y-3">
+            <li className="flex gap-3">
+              <span className="flex-shrink-0 text-[#FF5200]">•</span>
+              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                <strong className="font-semibold text-neutral-900">
+                  {t("tips.workingHours.label")}
+                </strong>{" "}
+                {t("tips.workingHours.text")}
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex-shrink-0 text-[#FF5200]">•</span>
+              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                <strong className="font-semibold text-neutral-900">
+                  {t("tips.blockedDates.label")}
+                </strong>{" "}
+                {t("tips.blockedDates.text")}
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex-shrink-0 text-[#FF5200]">•</span>
+              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                <strong className="font-semibold text-neutral-900">
+                  {t("tips.bufferTime.label")}
+                </strong>{" "}
+                {t("tips.bufferTime.text")}
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="flex-shrink-0 text-[#FF5200]">•</span>
+              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                <strong className="font-semibold text-neutral-900">
+                  {t("tips.flexibility.label")}
+                </strong>{" "}
+                {t("tips.flexibility.text")}
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
