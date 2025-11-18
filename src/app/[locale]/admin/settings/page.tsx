@@ -136,7 +136,7 @@ export default async function AdminSettingsPage() {
       </div>
 
       {/* Tabbed Settings */}
-      <div className="border border-neutral-200 bg-neutral-50 p-8">
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-8">
         <AdminSettingsTabs
           defaultTab="profile"
           tabs={[

@@ -1,5 +1,5 @@
 import { unstable_noStore } from "next/cache";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { DisputeResolutionDashboard } from "@/components/admin/dispute-resolution-dashboard";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -33,14 +33,8 @@ export default async function AdminDisputesPage() {
       .from("disputes")
       .select("id", { count: "exact", head: true })
       .eq("status", "investigating"),
-    supabase
-      .from("disputes")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "resolved"),
-    supabase
-      .from("disputes")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "closed"),
+    supabase.from("disputes").select("id", { count: "exact", head: true }).eq("status", "resolved"),
+    supabase.from("disputes").select("id", { count: "exact", head: true }).eq("status", "closed"),
     supabase
       .from("disputes")
       .select("id", { count: "exact", head: true })
@@ -134,7 +128,7 @@ export default async function AdminDisputesPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
@@ -149,7 +143,7 @@ export default async function AdminDisputesPage() {
             >
               Dispute Resolution
             </h1>
-            <p className={cn("mt-1.5 text-sm text-neutral-700", geistSans.className)}>
+            <p className={cn("mt-1.5 text-neutral-700 text-sm", geistSans.className)}>
               Lia view of every dispute, prioritised by risk and SLA. Built for rapid triage.
             </p>
           </div>
@@ -158,13 +152,13 @@ export default async function AdminDisputesPage() {
               <div className="border border-neutral-200 bg-white px-3 py-1.5" key={status.label}>
                 <span
                   className={cn(
-                    "text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   {status.label}
                 </span>
-                <span className={cn("ml-2 text-base text-neutral-900", geistMono.className)}>
+                <span className={cn("ml-2 text-base text-neutral-900", geistSans.className)}>
                   {status.value}
                 </span>
               </div>
@@ -177,40 +171,50 @@ export default async function AdminDisputesPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
+                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   SLA Pulse
                 </p>
-                <p className={cn("mt-1 text-sm text-neutral-900", geistSans.className)}>
+                <p className={cn("mt-1 text-neutral-900 text-sm", geistSans.className)}>
                   {agingDisputes} cases aging
                 </p>
               </div>
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
-                <span className={cn("text-xs font-semibold text-white", geistSans.className)}>
+                <span className={cn("font-semibold text-white text-xs", geistSans.className)}>
                   72h
                 </span>
               </div>
             </div>
-            <p className={cn("mt-3 text-sm text-neutral-700", geistSans.className)}>
+            <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
               Monitor disputes breaching the 72h promise. Escalate from here before they turn into
               chargebacks.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
-                <p className={cn("text-[10px] uppercase tracking-[0.3em] text-neutral-600", geistSans.className)}>
+                <p
+                  className={cn(
+                    "text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    geistSans.className
+                  )}
+                >
                   Urgent
                 </p>
-                <p className={cn("mt-1 text-2xl text-neutral-900", geistMono.className)}>
+                <p className={cn("mt-1 text-2xl text-neutral-900", geistSans.className)}>
                   {urgentDisputes}
                 </p>
               </div>
               <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
-                <p className={cn("text-[10px] uppercase tracking-[0.3em] text-neutral-600", geistSans.className)}>
+                <p
+                  className={cn(
+                    "text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
+                    geistSans.className
+                  )}
+                >
                   Refund Exposure
                 </p>
-                <p className={cn("mt-1 text-lg text-neutral-900", geistMono.className)}>
+                <p className={cn("mt-1 text-lg text-neutral-900", geistSans.className)}>
                   {currencyFormatter.format(refundExposure || 0)}
                 </p>
               </div>
@@ -223,13 +227,13 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
             Queue Telemetry
           </h2>
-          <p className={cn("mt-1 text-sm text-neutral-700", geistSans.className)}>
+          <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
             High-level counts for ops leads to act instantly.
           </p>
         </div>
@@ -241,16 +245,21 @@ export default async function AdminDisputesPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
+                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
                 {metric.label}
               </p>
-              <p className={cn("mt-3 text-4xl text-neutral-900", geistMono.className)}>
+              <p className={cn("mt-3 text-4xl text-neutral-900", geistSans.className)}>
                 {metric.value}
               </p>
-              <p className={cn("mt-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600", geistSans.className)}>
+              <p
+                className={cn(
+                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  geistSans.className
+                )}
+              >
                 {metric.descriptor}
               </p>
             </div>
@@ -262,13 +271,13 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
             Ops Alerts
           </h2>
-          <p className={cn("mt-1 text-sm text-neutral-700", geistSans.className)}>
+          <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
             Urgent queues and financial exposure at a glance.
           </p>
         </div>
@@ -277,16 +286,21 @@ export default async function AdminDisputesPage() {
             <div className="border border-neutral-200 bg-white p-4 shadow-sm" key={insight.label}>
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
+                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
                 {insight.label}
               </p>
-              <p className={cn("mt-3 text-3xl text-neutral-900", geistMono.className)}>
+              <p className={cn("mt-3 text-3xl text-neutral-900", geistSans.className)}>
                 {insight.value}
               </p>
-              <p className={cn("mt-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600", geistSans.className)}>
+              <p
+                className={cn(
+                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
+                  geistSans.className
+                )}
+              >
                 {insight.descriptor}
               </p>
             </div>
@@ -296,16 +310,16 @@ export default async function AdminDisputesPage() {
 
       <section>
         <div className="border border-neutral-200 bg-white">
-          <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+          <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
-                "font-semibold text-[11px] uppercase tracking-[0.3em] text-neutral-600",
+                "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
                 geistSans.className
               )}
             >
               Casework
             </p>
-            <p className={cn("mt-1 text-xs text-neutral-600", geistSans.className)}>
+            <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
               Filter, assign, and resolve disputes using the Lia Precision Table.
             </p>
           </div>

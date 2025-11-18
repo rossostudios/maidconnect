@@ -18,7 +18,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { requireUser } from "@/lib/auth";
 import { sanityFetch } from "@/lib/sanity/live";
 import { cn } from "@/lib/utils";
@@ -176,32 +176,32 @@ export default async function AdminContentPage() {
     {
       label: "Total Content",
       value: totalContent,
-      description: "All editorial surfaces",
+      description: "All content types",
     },
     {
       label: "Help Articles",
       value: stats.helpArticles,
-      description: "Knowledge base entries",
+      description: "Knowledge base",
     },
     {
       label: "Published",
       value: stats.publishedArticles,
-      description: "Live to customers",
+      description: "Live on website",
     },
     {
       label: "Drafts",
       value: stats.draftArticles,
-      description: "Awaiting QA",
+      description: "Pending review",
     },
     {
       label: "Roadmap Items",
       value: stats.roadmapItems,
-      description: "Product narrative",
+      description: "Upcoming features",
     },
     {
       label: "City Pages",
       value: stats.cityPages,
-      description: "Hyperlocal coverage",
+      description: "Location pages",
     },
   ];
 
@@ -220,11 +220,11 @@ export default async function AdminContentPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
-            Content Command Center
+            Content Dashboard
           </p>
           <div>
             <h1
@@ -235,14 +235,9 @@ export default async function AdminContentPage() {
             >
               Content Management
             </h1>
-            <p
-              className={cn(
-                "mt-1.5 text-sm text-neutral-700 tracking-wide",
-                geistSans.className
-              )}
-            >
-              Single control room for every Sanity-powered surface. Monitor velocity and jump into
-              structure builders without leaving Lia.
+            <p className={cn("mt-1.5 text-neutral-700 text-sm tracking-wide", geistSans.className)}>
+              Manage all website content - blog posts, help articles, changelog, and more. Create,
+              edit, and publish directly from this dashboard.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -253,17 +248,14 @@ export default async function AdminContentPage() {
               >
                 <span
                   className={cn(
-                    "text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
+                    "font-semibold text-[10px] text-neutral-700 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   {surface.label}
                 </span>
                 <span
-                  className={cn(
-                    "text-base text-neutral-900 tracking-tight",
-                    geistMono.className
-                  )}
+                  className={cn("text-base text-neutral-900 tracking-tight", geistSans.className)}
                 >
                   {surface.value}
                 </span>
@@ -272,7 +264,7 @@ export default async function AdminContentPage() {
             <div className="border border-neutral-900 bg-neutral-900 px-3 py-1.5">
               <span
                 className={cn(
-                  "text-[10px] font-semibold uppercase tracking-[0.3em] text-white",
+                  "font-semibold text-[10px] text-white uppercase tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -287,28 +279,28 @@ export default async function AdminContentPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
+                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
-                  Studio Access
+                  CMS Editor
                 </p>
                 <p className={cn("mt-1 font-medium text-neutral-900", geistSans.className)}>
-                  Sanity sync is live
+                  Content editor ready
                 </p>
               </div>
               <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
                 <HugeiconsIcon className="h-6 w-6 text-white" icon={FileEditIcon} />
               </div>
             </div>
-            <p className={cn("mt-3 text-sm text-neutral-700", geistSans.className)}>
-              Push edits directly from Studio, audit releases in Lia, and keep the editorial slate
-              spotless.
+            <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
+              Edit content directly in the CMS editor, review drafts, and publish updates to your
+              live website.
             </p>
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/studio"
@@ -319,7 +311,7 @@ export default async function AdminContentPage() {
               </Link>
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-200 bg-neutral-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-900 transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 border border-neutral-200 bg-neutral-50 px-4 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-[0.3em] transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/admin/content/roadmap"
@@ -336,14 +328,14 @@ export default async function AdminContentPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
-            Content Telemetry
+            Content Overview
           </h2>
-          <p className={cn("mt-1 text-sm text-neutral-700", geistSans.className)}>
-            Live counts by surface with Geist Mono numerics for quick scanning.
+          <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+            See content counts across all sections at a glance.
           </p>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -354,23 +346,20 @@ export default async function AdminContentPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
+                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
                 {metric.label}
               </p>
               <p
-                className={cn(
-                  "mt-2 text-3xl text-neutral-900 tracking-tight",
-                  geistMono.className
-                )}
+                className={cn("mt-2 text-3xl text-neutral-900 tracking-tight", geistSans.className)}
               >
                 {metric.value}
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600",
+                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -385,14 +374,14 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
-            Content Surfaces
+            Content Types
           </h2>
-          <p className={cn("text-sm text-neutral-700", geistSans.className)}>
-            Jump into Sanity structures, check totals, and spin up drafts without leaving Lia.
+          <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
+            View content counts and create new content for each section.
           </p>
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -405,13 +394,13 @@ export default async function AdminContentPage() {
                 <div>
                   <p
                     className={cn(
-                      "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
+                      "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
                       geistSans.className
                     )}
                   >
                     {contentType.title}
                   </p>
-                  <p className={cn("mt-1 text-sm text-neutral-700", geistSans.className)}>
+                  <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
                     {contentType.description}
                   </p>
                 </div>
@@ -419,20 +408,18 @@ export default async function AdminContentPage() {
                   <HugeiconsIcon className="h-6 w-6 text-white" icon={contentType.icon} />
                 </div>
               </div>
-              <div className="mt-4 space-y-2 border-t border-neutral-100 pt-4">
+              <div className="mt-4 space-y-2 border-neutral-100 border-t pt-4">
                 {contentType.stats.map((stat) => (
                   <div className="flex items-center justify-between" key={stat.label}>
                     <span
                       className={cn(
-                        "text-[11px] uppercase tracking-[0.25em] text-neutral-600",
+                        "text-[11px] text-neutral-600 uppercase tracking-[0.25em]",
                         geistSans.className
                       )}
                     >
                       {stat.label}
                     </span>
-                    <span
-                      className={cn("text-lg text-neutral-900", geistMono.className)}
-                    >
+                    <span className={cn("text-lg text-neutral-900", geistSans.className)}>
                       {stat.value}
                     </span>
                   </div>
@@ -441,19 +428,19 @@ export default async function AdminContentPage() {
               <div className="mt-6 flex flex-wrap gap-2">
                 <Link
                   className={cn(
-                    "inline-flex flex-1 items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                    "inline-flex flex-1 items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.25em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
                     geistSans.className
                   )}
                   href={contentType.studioPath}
                   target="_blank"
                 >
                   <HugeiconsIcon className="h-4 w-4" icon={Edit01Icon} />
-                  Structure
+                  Manage
                 </Link>
                 <Link
                   aria-label={`Create new ${contentType.title}`}
                   className={cn(
-                    "inline-flex items-center justify-center border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-900 transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
+                    "inline-flex items-center justify-center border border-neutral-200 bg-neutral-50 px-3 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-[0.25em] transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
                     geistSans.className
                   )}
                   href={`${contentType.studioPath};action=create`}
@@ -471,30 +458,30 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
             Editorial Activity
           </h2>
-          <p className={cn("text-sm text-neutral-700", geistSans.className)}>
+          <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
             Latest edits across knowledge base and changelog so you always know what shipped.
           </p>
         </div>
         <div className="mt-5 grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <div className="border border-neutral-200 bg-white">
-              <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   Help Articles
                 </p>
-                <p className={cn("mt-1 text-xs text-neutral-600", geistSans.className)}>
-                  Last 5 updates streamed from Sanity
+                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                  Last 5 updates to help articles
                 </p>
               </div>
               <div className="divide-y divide-neutral-100">
@@ -513,8 +500,10 @@ export default async function AdminContentPage() {
                         <HugeiconsIcon className="h-5 w-5 text-white" icon={Book01Icon} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-neutral-900">{article.title}</p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600">
+                        <p className="truncate font-medium text-neutral-900 text-sm">
+                          {article.title}
+                        </p>
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
                           <span>{article.category || "Uncategorized"}</span>
                           <span>•</span>
                           <span>{article.language.toUpperCase()}</span>
@@ -523,11 +512,11 @@ export default async function AdminContentPage() {
                         </div>
                         <div className="mt-2">
                           {article.isPublished ? (
-                            <span className="bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-white">
+                            <span className="bg-emerald-600 px-2 py-0.5 font-semibold text-[10px] text-white uppercase tracking-[0.3em]">
                               Published
                             </span>
                           ) : (
-                            <span className="bg-neutral-900 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-white">
+                            <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-[10px] text-white uppercase tracking-[0.3em]">
                               Draft
                             </span>
                           )}
@@ -541,7 +530,7 @@ export default async function AdminContentPage() {
                   ))
                 ) : (
                   <div className="px-6 py-8 text-center">
-                    <p className={cn("text-sm text-neutral-600", geistSans.className)}>
+                    <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
                       No article updates yet. Ship a draft to populate this feed.
                     </p>
                   </div>
@@ -551,16 +540,16 @@ export default async function AdminContentPage() {
           </div>
           <div className="lg:col-span-5">
             <div className="border border-neutral-200 bg-white">
-              <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   Changelog Updates
                 </p>
-                <p className={cn("mt-1 text-xs text-neutral-600", geistSans.className)}>
+                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                   Latest product release notes
                 </p>
               </div>
@@ -580,8 +569,10 @@ export default async function AdminContentPage() {
                         <HugeiconsIcon className="h-5 w-5 text-white" icon={ClipboardIcon} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-neutral-900">{changelog.title}</p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600">
+                        <p className="truncate font-medium text-neutral-900 text-sm">
+                          {changelog.title}
+                        </p>
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
                           <span>Sprint {changelog.sprintNumber}</span>
                           <span>•</span>
                           <span>{changelog.language.toUpperCase()}</span>
@@ -597,7 +588,7 @@ export default async function AdminContentPage() {
                   ))
                 ) : (
                   <div className="px-6 py-8 text-center">
-                    <p className={cn("text-sm text-neutral-600", geistSans.className)}>
+                    <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
                       No changelog entries yet. Capture the next release to fill this list.
                     </p>
                   </div>

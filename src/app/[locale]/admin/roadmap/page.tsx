@@ -4,7 +4,7 @@
  * Lists all roadmap items with filters and management actions
  */
 
-import { Add01Icon } from "@hugeicons/core-free-icons";
+import { Add01Icon, Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import Link from "next/link";
@@ -44,7 +44,7 @@ export default async function AdminRoadmapPage() {
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-12">
-            <div className="-full h-8 w-8 animate-spin border-4 border-neutral-900 border-t-transparent" />
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
           </div>
         }
       >

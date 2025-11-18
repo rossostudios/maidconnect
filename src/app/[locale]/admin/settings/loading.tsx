@@ -7,14 +7,18 @@
  * Week 2: Route-Level Loading States
  */
 
+import { Loading03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { AdminSettingsSkeleton } from "@/components/admin/admin-settings-skeleton";
-import { LoadingCamper } from "@/components/ui/loading-camper";
 
 export default function SettingsLoading() {
   return (
     <section className="space-y-8">
       <div className="flex justify-center">
-        <LoadingCamper size="lg" text="Syncing settings" />
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">Syncing settings</p>
+        </div>
       </div>
       {/* Page Header Skeleton */}
       <div>

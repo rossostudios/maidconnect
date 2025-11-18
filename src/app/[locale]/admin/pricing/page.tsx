@@ -1,7 +1,12 @@
-import { Calendar03Icon, MoneyBag02Icon, RulerIcon, Shield01Icon } from "@hugeicons/core-free-icons";
+import {
+  Calendar03Icon,
+  MoneyBag02Icon,
+  RulerIcon,
+  Shield01Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { PricingControlsManager } from "@/components/admin/pricing-controls-manager";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -9,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Pricing Controls | Admin",
-  description: "Manage commission rates and pricing rules",
+  description: "Manage commission rates and concierge service pricing rules",
 };
 
 export default async function AdminPricingPage() {
@@ -20,6 +25,7 @@ export default async function AdminPricingPage() {
   const supabase = await createSupabaseServerClient();
 
   // Fetch all pricing controls
+  // Note: Commission structure applies to concierge-matched bookings
   const { data: pricingRules } = await supabase
     .from("pricing_controls")
     .select("*")
@@ -32,8 +38,7 @@ export default async function AdminPricingPage() {
   const upcomingRules = rules
     .filter((rule) => new Date(rule.effective_from) > now)
     .sort((a, b) => new Date(a.effective_from).getTime() - new Date(b.effective_from).getTime());
-  const coverageCities = new Set(rules.filter((rule) => rule.city).map((rule) => rule.city))
-    .size;
+  const coverageCities = new Set(rules.filter((rule) => rule.city).map((rule) => rule.city)).size;
   const serviceCategories = new Set(
     rules.filter((rule) => rule.service_category).map((rule) => rule.service_category)
   ).size;
@@ -53,34 +58,34 @@ export default async function AdminPricingPage() {
 
   const coverageMetrics = [
     {
-      label: "Ratebook Entries",
+      label: "Total Rules",
       value: rules.length,
       description: "All pricing rules",
     },
     {
-      label: "Active Schedules",
+      label: "Active Rules",
       value: activeRules.length,
-      description: "Live + billable",
+      description: "Currently in effect",
     },
     {
       label: "Cities Covered",
       value: coverageCities,
-      description: "Local pricing scopes",
+      description: "City-specific pricing",
     },
     {
       label: "Service Categories",
       value: serviceCategories,
-      description: "Verticals configured",
+      description: "Service types covered",
     },
     {
       label: "Deposit Programs",
       value: depositPrograms,
-      description: "Require upfront COP",
+      description: "Deposit required",
     },
     {
       label: "Cancel Policies",
       value: cancellationPolicies,
-      description: "Late fee schedules",
+      description: "Cancellation fees",
     },
   ];
 
@@ -91,15 +96,13 @@ export default async function AdminPricingPage() {
   });
   const dateFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
 
-  const timeline = (upcomingRules.length > 0 ? upcomingRules : rules)
-    .slice(0, 4)
-    .map((rule) => ({
-      id: rule.id,
-      title: `${rule.service_category ?? "All services"} · ${rule.city ?? "All cities"}`,
-      effectiveFrom: rule.effective_from,
-      commission: `${(rule.commission_rate * 100).toFixed(1)}%`,
-      isActive: rule.is_active,
-    }));
+  const timeline = (upcomingRules.length > 0 ? upcomingRules : rules).slice(0, 4).map((rule) => ({
+    id: rule.id,
+    title: `${rule.service_category ?? "All services"} · ${rule.city ?? "All cities"}`,
+    effectiveFrom: rule.effective_from,
+    commission: `${(rule.commission_rate * 100).toFixed(1)}%`,
+    isActive: rule.is_active,
+  }));
 
   return (
     <div className="space-y-10">
@@ -107,11 +110,11 @@ export default async function AdminPricingPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
-            Rate Command Center
+            Pricing Dashboard
           </p>
           <div>
             <h1
@@ -122,21 +125,16 @@ export default async function AdminPricingPage() {
             >
               Pricing Controls
             </h1>
-            <p
-              className={cn(
-                "mt-1.5 text-sm text-neutral-700 tracking-wide",
-                geistSans.className
-              )}
-            >
-              House rules for commission, price floors, deposits, and cancellation logic—mirroring
-              what ops enforces in Sanity.
+            <p className={cn("mt-1.5 text-neutral-700 text-sm tracking-wide", geistSans.className)}>
+              Set commission rates, deposits, and cancellation policies for concierge-matched
+              bookings. Changes apply immediately to all new bookings.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <div className="border border-neutral-900 bg-neutral-900 px-4 py-1.5">
               <span
                 className={cn(
-                  "text-[10px] font-semibold uppercase tracking-[0.3em] text-white",
+                  "font-semibold text-[10px] text-white uppercase tracking-[0.3em]",
                   geistSans.className
                 )}
               >
@@ -147,14 +145,15 @@ export default async function AdminPricingPage() {
               <div className="border border-neutral-200 bg-white px-3 py-1.5">
                 <span
                   className={cn(
-                    "text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[10px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
                   Background Fee Band
                 </span>
-                <span className={cn("ml-2 text-base text-neutral-900", geistMono.className)}>
-                  {currencyFormatter.format(minBackgroundFee)} - {currencyFormatter.format(maxBackgroundFee)}
+                <span className={cn("ml-2 text-base text-neutral-900", geistSans.className)}>
+                  {currencyFormatter.format(minBackgroundFee)} -{" "}
+                  {currencyFormatter.format(maxBackgroundFee)}
                 </span>
               </div>
             )}
@@ -166,13 +165,13 @@ export default async function AdminPricingPage() {
               <div>
                 <p
                   className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-700",
+                    "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
-                  Ratebook Access
+                  Pricing Rules
                 </p>
-                <p className={cn("mt-1 text-sm text-neutral-900", geistSans.className)}>
+                <p className={cn("mt-1 text-neutral-900 text-sm", geistSans.className)}>
                   {activeRules.length} active schedules
                 </p>
               </div>
@@ -180,24 +179,30 @@ export default async function AdminPricingPage() {
                 <HugeiconsIcon className="h-6 w-6 text-white" icon={MoneyBag02Icon} />
               </div>
             </div>
-            <p className={cn("mt-3 text-sm text-neutral-700", geistSans.className)}>
-              Keep deposits, cancellation penalties, and commission curves in sync with ops.
+            <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
+              Manage all pricing rules from this page. Updates take effect immediately for new
+              bookings.
             </p>
             <div className="mt-5 flex flex-col gap-3">
               <a
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="#ratebook"
               >
                 <HugeiconsIcon className="h-4 w-4" icon={RulerIcon} />
-                Edit Ratebook
+                Edit Pricing Rules
               </a>
               <div className="flex items-center gap-3 border border-neutral-200 bg-neutral-50 px-4 py-2">
                 <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Shield01Icon} />
-                <p className={cn("text-xs uppercase tracking-[0.3em] text-neutral-600", geistSans.className)}>
-                  Compliance synced to payouts
+                <p
+                  className={cn(
+                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    geistSans.className
+                  )}
+                >
+                  Pricing applied to payouts
                 </p>
               </div>
             </div>
@@ -209,14 +214,14 @@ export default async function AdminPricingPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-[11px] uppercase tracking-[0.35em] text-neutral-700",
+              "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.35em]",
               geistSans.className
             )}
           >
-            Coverage Metrics
+            Pricing Overview
           </h2>
-          <p className={cn("mt-1 text-sm text-neutral-700", geistSans.className)}>
-            Lia numerics for ops and finance to trust instantly.
+          <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+            See how many pricing rules are configured across cities and service categories.
           </p>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -227,23 +232,20 @@ export default async function AdminPricingPage() {
             >
               <p
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-700",
+                  "font-semibold text-[11px] text-neutral-700 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
                 {metric.label}
               </p>
               <p
-                className={cn(
-                  "mt-2 text-3xl text-neutral-900 tracking-tight",
-                  geistMono.className
-                )}
+                className={cn("mt-2 text-3xl text-neutral-900 tracking-tight", geistSans.className)}
               >
                 {metric.value}
               </p>
               <p
                 className={cn(
-                  "mt-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600",
+                  "mt-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]",
                   geistSans.className
                 )}
               >
@@ -258,17 +260,17 @@ export default async function AdminPricingPage() {
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="border border-neutral-200 bg-white">
-              <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
-                  Revision Timeline
+                  Recent Activity
                 </p>
-                <p className={cn("mt-1 text-xs text-neutral-600", geistSans.className)}>
-                  Next launches + recent activity
+                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                  Upcoming and recently updated pricing rules
                 </p>
               </div>
               <div className="divide-y divide-neutral-100">
@@ -279,10 +281,15 @@ export default async function AdminPricingPage() {
                         <HugeiconsIcon className="h-5 w-5 text-neutral-900" icon={Calendar03Icon} />
                       </div>
                       <div className="flex-1">
-                        <p className={cn("text-sm font-medium text-neutral-900", geistSans.className)}>
+                        <p
+                          className={cn(
+                            "font-medium text-neutral-900 text-sm",
+                            geistSans.className
+                          )}
+                        >
                           {entry.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-neutral-600">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-neutral-600 uppercase tracking-[0.25em]">
                           <span>{dateFormatter.format(new Date(entry.effectiveFrom))}</span>
                           <span>•</span>
                           <span>{entry.commission}</span>
@@ -298,7 +305,7 @@ export default async function AdminPricingPage() {
                   ))
                 ) : (
                   <div className="px-6 py-8 text-center">
-                    <p className={cn("text-sm text-neutral-600", geistSans.className)}>
+                    <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
                       No pricing activity yet. Create your first rule below.
                     </p>
                   </div>
@@ -307,18 +314,18 @@ export default async function AdminPricingPage() {
             </div>
           </div>
           <div className="lg:col-span-7">
-            <section id="ratebook" className="border border-neutral-200 bg-white">
-              <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+            <section className="border border-neutral-200 bg-white" id="ratebook">
+              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-[11px] uppercase tracking-[0.3em] text-neutral-600",
+                    "font-semibold text-[11px] text-neutral-600 uppercase tracking-[0.3em]",
                     geistSans.className
                   )}
                 >
-                  Ratebook Controls
+                  Manage Pricing Rules
                 </p>
-                <p className={cn("mt-1 text-xs text-neutral-600", geistSans.className)}>
-                  Update rules directly in Lia; changes sync instantly.
+                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                  Create, edit, and delete pricing rules. Changes take effect immediately.
                 </p>
               </div>
               <div className="p-1">
