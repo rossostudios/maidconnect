@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 
 /**
@@ -177,7 +177,7 @@ export const KitchenSink: Story = {
                   <p
                     className={cn(
                       "font-bold text-4xl text-neutral-900 tracking-tight",
-                      geistMono.className
+                      geistSans.className
                     )}
                   >
                     12,847
@@ -188,10 +188,10 @@ export const KitchenSink: Story = {
                   <p className="mb-1 text-neutral-600 text-xs uppercase tracking-wide">
                     IDs & References (14px)
                   </p>
-                  <p className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                  <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
                     USR-2025-001
                   </p>
-                  <p className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                  <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
                     BKG-2025-042
                   </p>
                 </div>
@@ -200,10 +200,10 @@ export const KitchenSink: Story = {
                   <p className="mb-1 text-neutral-600 text-xs uppercase tracking-wide">
                     Timestamps (12px)
                   </p>
-                  <p className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                  <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
                     Jan 15, 2025 · 10:30 AM
                   </p>
-                  <p className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                  <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
                     2025-01-15T10:30:00Z
                   </p>
                 </div>
@@ -212,18 +212,18 @@ export const KitchenSink: Story = {
                   <p className="mb-1 text-neutral-600 text-xs uppercase tracking-wide">
                     Currency (14px)
                   </p>
-                  <p className={cn("text-neutral-900 text-sm", geistMono.className)}>
+                  <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                     $125,000 COP
                   </p>
-                  <p className={cn("text-neutral-900 text-sm", geistMono.className)}>$350.00 USD</p>
+                  <p className={cn("text-neutral-900 text-sm", geistSans.className)}>$350.00 USD</p>
                 </div>
 
                 <div>
                   <p className="mb-1 text-neutral-600 text-xs uppercase tracking-wide">
                     Percentages (14px)
                   </p>
-                  <p className={cn("text-green-600 text-sm", geistMono.className)}>↑ 12.5%</p>
-                  <p className={cn("text-red-600 text-sm", geistMono.className)}>↓ 3.2%</p>
+                  <p className={cn("text-green-600 text-sm", geistSans.className)}>↑ 12.5%</p>
+                  <p className={cn("text-red-600 text-sm", geistSans.className)}>↓ 3.2%</p>
                 </div>
               </div>
             </div>
@@ -260,7 +260,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-50
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#FFFDFC</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#FFFDFC</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Page backgrounds
@@ -273,7 +273,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-100
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#FAF8F6</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#FAF8F6</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Subtle backgrounds
@@ -286,7 +286,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-200
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#EBEAE9</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#EBEAE9</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Borders, dividers
@@ -299,7 +299,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-600
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#8C8985</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#8C8985</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Muted text
@@ -312,7 +312,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-700
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#64615D</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#64615D</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Body text
@@ -325,7 +325,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       neutral-900
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#181818</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#181818</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Headings
@@ -350,7 +350,7 @@ export const KitchenSink: Story = {
                   <div className="h-12 w-12 border border-orange-100 bg-orange-50" />
                   <div>
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>orange-50</p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#FFF7F0</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#FFF7F0</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Tint backgrounds
@@ -363,7 +363,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       orange-400
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#FF8746</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#FF8746</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Light accents
@@ -376,7 +376,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       orange-500
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#FF5200</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#FF5200</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Primary CTAs
@@ -389,7 +389,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       orange-600
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#E64A00</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#E64A00</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Links (WCAG AAA)
@@ -402,7 +402,7 @@ export const KitchenSink: Story = {
                     <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       orange-700
                     </p>
-                    <p className={cn("text-neutral-600 text-xs", geistMono.className)}>#C84000</p>
+                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>#C84000</p>
                   </div>
                   <p className={cn("ml-auto text-neutral-600 text-xs", geistSans.className)}>
                     Active states
@@ -438,7 +438,7 @@ export const KitchenSink: Story = {
                 >
                   Book Now
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   bg-orange-500 hover:bg-orange-600
                 </p>
               </div>
@@ -457,7 +457,7 @@ export const KitchenSink: Story = {
                 >
                   Learn More
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   bg-neutral-100 hover:bg-neutral-200
                 </p>
               </div>
@@ -476,7 +476,7 @@ export const KitchenSink: Story = {
                 >
                   View Services
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   border-2 hover:border-orange-500
                 </p>
               </div>
@@ -495,7 +495,7 @@ export const KitchenSink: Story = {
                 >
                   Cancel
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   bg-transparent hover:bg-orange-50
                 </p>
               </div>
@@ -514,7 +514,7 @@ export const KitchenSink: Story = {
                 >
                   Delete
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   bg-red-600 hover:bg-red-700
                 </p>
               </div>
@@ -534,7 +534,7 @@ export const KitchenSink: Story = {
                 >
                   Disabled
                 </button>
-                <p className={cn("mt-2 text-neutral-600 text-sm", geistMono.className)}>
+                <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                   bg-neutral-200 text-neutral-400
                 </p>
               </div>
@@ -627,7 +627,7 @@ export const KitchenSink: Story = {
                 <span className="bg-green-600 px-3 py-1 font-medium text-white text-xs uppercase">
                   Active
                 </span>
-                <span className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
                   Updated 2h ago
                 </span>
               </div>
@@ -641,12 +641,12 @@ export const KitchenSink: Story = {
               <p
                 className={cn(
                   "mb-1 font-bold text-4xl text-neutral-900 tracking-tight",
-                  geistMono.className
+                  geistSans.className
                 )}
               >
                 12,847
               </p>
-              <p className={cn("text-green-600 text-sm", geistMono.className)}>
+              <p className={cn("text-green-600 text-sm", geistSans.className)}>
                 ↑ 12.5% from last month
               </p>
             </div>
@@ -723,7 +723,7 @@ export const KitchenSink: Story = {
               <tbody>
                 <tr className="border-neutral-200 border-b transition hover:bg-neutral-50">
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                       USR-2025-001
                     </span>
                   </td>
@@ -738,12 +738,12 @@ export const KitchenSink: Story = {
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-900 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       $125,000 COP
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                    <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
                       Jan 15, 2025 · 10:30 AM
                     </span>
                   </td>
@@ -751,7 +751,7 @@ export const KitchenSink: Story = {
 
                 <tr className="border-neutral-200 border-b transition hover:bg-neutral-50">
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                       USR-2025-002
                     </span>
                   </td>
@@ -766,12 +766,12 @@ export const KitchenSink: Story = {
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-900 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       $85,000 COP
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                    <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
                       Jan 14, 2025 · 3:45 PM
                     </span>
                   </td>
@@ -779,7 +779,7 @@ export const KitchenSink: Story = {
 
                 <tr className="border-neutral-200 border-b transition hover:bg-neutral-50">
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                       USR-2025-003
                     </span>
                   </td>
@@ -794,12 +794,12 @@ export const KitchenSink: Story = {
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-900 text-sm", geistMono.className)}>
+                    <span className={cn("text-neutral-900 text-sm", geistSans.className)}>
                       $240,000 COP
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={cn("text-neutral-600 text-xs", geistMono.className)}>
+                    <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
                       Jan 15, 2025 · 9:15 AM
                     </span>
                   </td>
@@ -824,47 +824,47 @@ export const KitchenSink: Story = {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "16px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   0.5 (4px)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "32px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>1 (8px)</span>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>1 (8px)</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "48px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   1.5 (12px)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "64px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   2 (16px)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "96px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   3 (24px - Baseline)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "128px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   4 (32px)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "192px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   6 (48px)
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="h-12 bg-orange-500" style={{ width: "256px" }} />
-                <span className={cn("text-neutral-700 text-sm", geistMono.className)}>
+                <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
                   8 (64px - Module)
                 </span>
               </div>

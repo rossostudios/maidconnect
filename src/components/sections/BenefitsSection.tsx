@@ -84,7 +84,7 @@ const TagMarquee = ({ items, direction, label, speed = 28 }: TagMarqueeProps) =>
         {repeatedItems.map((item, index) => (
           <span
             aria-hidden={index >= items.length}
-            className="flex-none whitespace-nowrap border border-neutral-200 bg-[#f4ede6] px-5 py-2 font-medium text-neutral-700 text-sm shadow-[0_1px_0_rgba(15,23,42,0.08)] sm:text-base"
+            className="flex-none whitespace-nowrap rounded-full border border-neutral-200 bg-[#f4ede6] px-5 py-2 font-medium text-neutral-700 text-sm shadow-[0_1px_0_rgba(15,23,42,0.08)] sm:text-base"
             key={`${item}-${index}`}
             role={index < items.length ? "listitem" : undefined}
           >
@@ -122,11 +122,8 @@ export function BenefitsSection() {
 
   return (
     <section className="bg-neutral-50 py-16 md:py-20" id="benefits">
-      {/* Top horizontal divider */}
-      <div className="mx-auto mb-16 h-px max-w-7xl bg-neutral-200" />
-
       <Container className="max-w-7xl px-4 md:px-8">
-        <div className="mx-auto max-w-5xl overflow-hidden border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {/* Section Header */}
           <motion.div
             className="border-neutral-200 border-b px-6 py-12 text-center sm:px-12"
@@ -136,11 +133,11 @@ export function BenefitsSection() {
             whileInView="visible"
           >
             <div className="mb-4 flex items-center justify-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
-              <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
               {t("badge")}
             </div>
 
-            <h2 className="font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl md:text-5xl">
+            <h2 className="font-normal text-3xl text-neutral-900 tracking-tight sm:text-4xl md:text-5xl">
               {t("heading")}
             </h2>
 

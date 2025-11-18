@@ -60,7 +60,7 @@ export function CustomerPricingTab() {
           {[1, 2, 3].map((step) => (
             <motion.div className="text-center" key={step} variants={fadeInUp}>
               <motion.div
-                className="mb-4 inline-flex h-16 w-16 items-center justify-center bg-orange-500 font-bold text-2xl text-white shadow-md"
+                className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-lg bg-orange-500 font-bold text-2xl text-white shadow-md"
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
@@ -155,7 +155,7 @@ export function CustomerPricingTab() {
             <p className="mb-8 text-[16px] text-neutral-300 leading-[24px]">{t("cta.subtitle")}</p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <motion.a
-                className="inline-block bg-orange-500 px-8 py-4 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
+                className="inline-block rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
                 href="/professionals"
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 whileHover={{ scale: 1.05 }}
@@ -164,7 +164,7 @@ export function CustomerPricingTab() {
                 {t("cta.primary")}
               </motion.a>
               <motion.a
-                className="inline-block border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-neutral-900"
+                className="inline-block rounded-lg border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-neutral-900"
                 href="/concierge"
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 whileHover={{ scale: 1.05 }}

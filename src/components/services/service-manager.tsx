@@ -5,6 +5,7 @@ import {
   Alert01Icon,
   CheckmarkCircle01Icon,
   FilterIcon,
+  Loading03Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
@@ -116,9 +117,9 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin border-[neutral-500] border-t-2 border-b-2" />
-          <p className="text-[neutral-400]">{t("loading")}</p>
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">{t("loading")}</p>
         </div>
       </div>
     );

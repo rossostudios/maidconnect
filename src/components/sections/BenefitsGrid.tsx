@@ -45,9 +45,6 @@ export function BenefitsGrid() {
 
   return (
     <section className="relative w-full bg-neutral-50 py-16 md:py-20">
-      {/* Top Horizontal Divider */}
-      <div className="mx-auto mb-16 h-px max-w-7xl bg-neutral-200" />
-
       <Container className="relative mx-auto max-w-7xl px-4">
         <div className="overflow-hidden border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
           {/* Section Header - Swiss Typography */}
@@ -56,7 +53,7 @@ export function BenefitsGrid() {
               <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
               In Action
             </p>
-            <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl">
               How It Works
             </h2>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
@@ -107,7 +104,7 @@ export function BenefitsGrid() {
                           <div className="text-neutral-700 text-xs uppercase tracking-wider">
                             Trigger
                           </div>
-                          <div className="font-semibold text-lg text-neutral-900">
+                          <div className="font-normal text-lg text-neutral-900">
                             Brief Submitted
                           </div>
                         </div>
@@ -138,7 +135,7 @@ export function BenefitsGrid() {
                           <div className="text-neutral-700 text-xs uppercase tracking-wider">
                             Action
                           </div>
-                          <div className="font-semibold text-lg text-neutral-900">
+                          <div className="font-normal text-lg text-neutral-900">
                             AI Matching & Curation
                           </div>
                         </div>
@@ -171,7 +168,7 @@ export function BenefitsGrid() {
                                 <div className="font-medium text-orange-600 text-xs uppercase tracking-wider">
                                   Candidates
                                 </div>
-                                <div className="font-semibold text-neutral-900 text-sm">
+                                <div className="font-normal text-neutral-900 text-sm">
                                   5 matched
                                 </div>
                               </div>
@@ -200,7 +197,7 @@ export function BenefitsGrid() {
                                 <div className="font-medium text-orange-600 text-xs uppercase tracking-wider">
                                   Timeline
                                 </div>
-                                <div className="font-semibold text-neutral-900 text-sm">
+                                <div className="font-normal text-neutral-900 text-sm">
                                   5 business days
                                 </div>
                               </div>
@@ -213,17 +210,17 @@ export function BenefitsGrid() {
                 ) : (
                   <>
                     <div className="mb-6 flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 font-semibold text-neutral-900">
+                      <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 font-normal text-neutral-900">
                         {step.number}
                       </div>
-                      <div className="font-semibold text-neutral-600 text-xs uppercase tracking-[0.35em]">
+                      <div className="font-normal text-neutral-600 text-xs uppercase tracking-[0.35em]">
                         {step.label}
                       </div>
                     </div>
 
                     {step.title && (
                       <div className="space-y-3">
-                        <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 tracking-tight">
+                        <h3 className="font-[family-name:var(--font-geist-sans)] font-normal text-2xl text-neutral-900 tracking-tight">
                           {step.title}
                         </h3>
 

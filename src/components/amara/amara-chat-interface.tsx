@@ -16,7 +16,7 @@ import {
   CheckmarkCircle02Icon,
   HelpCircleIcon,
   Home01Icon,
-  Loading01Icon,
+  Loading03Icon,
   Location01Icon,
   Message01Icon,
   NewsIcon,
@@ -25,6 +25,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { FileUIPart, ToolUIPart } from "ai";
 import { DefaultChatTransport } from "ai";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -33,7 +34,6 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { Loader } from "@/components/ai-elements/loader";
 import {
   Message,
   MessageActions,
@@ -47,7 +47,6 @@ import { ToolCall } from "@/components/ai-elements/tool";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
 import type { BookingIntent } from "@/lib/integrations/amara/schemas";
-import { AmaraIcon } from "./amara-icon";
 import { AmaraMessageActions } from "./amara-message-actions";
 import { getContextualQuickReplies, type QuickReply } from "./amara-quick-replies";
 
@@ -197,12 +196,18 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
         tabIndex={0}
       />
 
-      <Card className="amara-chat-window fixed inset-0 z-70 flex flex-col border-neutral-200 bg-white shadow-2xl transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:border md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
+      <Card className="amara-chat-window fixed inset-0 z-70 flex flex-col overflow-hidden border-neutral-200 bg-white shadow-2xl transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-lg sm:border md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
         {/* Header - Lia Design */}
         <div className="flex flex-shrink-0 items-center justify-between border-neutral-200 border-b bg-white px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center border border-orange-500 bg-orange-50">
-              <AmaraIcon className="text-orange-600" size={40} />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-orange-500 bg-orange-50">
+              <Image
+                alt="Amara AI Assistant"
+                className="h-6 w-6"
+                height={24}
+                src="/amara-floating-chat.svg"
+                width={24}
+              />
             </div>
             <div>
               <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-base text-neutral-900 tracking-tight">
@@ -215,7 +220,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
           </div>
           <button
             aria-label={t("closeChat")}
-            className="inline-flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
             onClick={onClose}
             type="button"
           >
@@ -230,7 +235,15 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
               {messages.length === 1 && (
                 <ConversationEmptyState
                   description={t("greeting")}
-                  icon={<AmaraIcon className="text-neutral-900" size={36} />}
+                  icon={
+                    <Image
+                      alt="Amara AI Assistant"
+                      className="h-9 w-9"
+                      height={36}
+                      src="/amara-floating-chat.svg"
+                      width={36}
+                    />
+                  }
                   title={t("title")}
                 />
               )}
@@ -245,7 +258,15 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                 return (
                   <Message from={message.role} key={message.id}>
                     <MessageAvatar
-                      avatar={<AmaraIcon className="mx-auto mt-1" size={28} />}
+                      avatar={
+                        <Image
+                          alt="Amara AI Assistant"
+                          className="mx-auto mt-1 h-7 w-7"
+                          height={28}
+                          src="/amara-floating-chat.svg"
+                          width={28}
+                        />
+                      }
                       from={message.role}
                     />
                     <div>
@@ -277,9 +298,15 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
               })}
 
               {isLoading && (
-                <div className="flex items-center gap-3 border border-orange-200 bg-orange-50 px-4 py-3 shadow-sm">
-                  <AmaraIcon className="text-orange-600" size={28} />
-                  <Loader />
+                <div className="flex items-center gap-3 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 shadow-sm">
+                  <Image
+                    alt="Amara AI Assistant"
+                    className="h-7 w-7"
+                    height={28}
+                    src="/amara-floating-chat.svg"
+                    width={28}
+                  />
+                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
                   <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
                     {t("typing")}
                   </span>
@@ -287,7 +314,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
               )}
 
               {error && (
-                <div className="border border-red-300 bg-red-50 px-4 py-3 font-[family-name:var(--font-geist-sans)] text-red-700 text-sm">
+                <div className="rounded-lg border border-red-300 bg-red-50 px-4 py-3 font-[family-name:var(--font-geist-sans)] text-red-700 text-sm">
                   {t("errorMessage")}
                 </div>
               )}
@@ -314,19 +341,15 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
         {(detectingIntent || detectedIntent) && (
           <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
             {detectingIntent ? (
-              <div className="flex items-center gap-3 border border-orange-200 bg-white px-4 py-3">
-                <HugeiconsIcon
-                  className="h-5 w-5 animate-spin text-orange-600"
-                  icon={Loading01Icon}
-                  strokeWidth={1.5}
-                />
+              <div className="flex items-center gap-3 rounded-lg border border-orange-200 bg-white px-4 py-3">
+                <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
                 <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
                   Analyzing your request...
                 </span>
               </div>
             ) : (
               detectedIntent && (
-                <div className="space-y-3 border border-orange-200 bg-white px-4 py-4 sm:px-6">
+                <div className="space-y-3 rounded-lg border border-orange-200 bg-white px-4 py-4 sm:px-6">
                   {/* Header */}
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
@@ -390,7 +413,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                     {detectedIntent.urgency && detectedIntent.urgency !== "not_specified" && (
                       <div className="mt-2">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 font-[family-name:var(--font-geist-sans)] text-xs ${
+                          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-[family-name:var(--font-geist-sans)] text-xs ${
                             detectedIntent.urgency === "urgent"
                               ? "border border-red-200 bg-red-50 text-red-700"
                               : detectedIntent.urgency === "flexible"
@@ -411,7 +434,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
 
                   {/* Action Button */}
                   <Link
-                    className="group flex w-full items-center justify-center gap-2 border border-orange-500 bg-orange-500 px-6 py-3 font-[family-name:var(--font-geist-sans)] font-semibold text-white transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95"
+                    className="group flex w-full items-center justify-center gap-2 rounded-lg border border-orange-500 bg-orange-500 px-6 py-3 font-[family-name:var(--font-geist-sans)] font-semibold text-white transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95"
                     href={`/professionals?service=${detectedIntent.serviceType}${
                       detectedIntent.location?.city
                         ? `&location=${detectedIntent.location.city}`
@@ -429,7 +452,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                   {/* Confidence Indicator */}
                   {detectedIntent.confidence && (
                     <div className="flex items-center justify-center gap-2 pt-2">
-                      <div className="h-1 w-full overflow-hidden bg-neutral-200">
+                      <div className="h-1 w-full overflow-hidden rounded-full bg-neutral-200">
                         <div
                           className="h-full bg-orange-500 transition-all duration-300"
                           style={{ width: `${detectedIntent.confidence}%` }}
@@ -451,7 +474,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
           <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
             <div className="grid grid-cols-4 gap-2">
               <Link
-                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
+                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
                 href="/"
               >
                 <HugeiconsIcon
@@ -464,7 +487,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                 </span>
               </Link>
               <button
-                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
+                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
                 type="button"
               >
                 <HugeiconsIcon
@@ -477,7 +500,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                 </span>
               </button>
               <Link
-                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
+                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
                 href="/help"
               >
                 <HugeiconsIcon
@@ -490,7 +513,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                 </span>
               </Link>
               <Link
-                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
+                className="group flex min-h-[68px] flex-col items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
                 href="/changelog"
               >
                 <HugeiconsIcon
@@ -530,7 +553,7 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
           <div className="mb-3 flex items-end gap-2 sm:gap-3">
             <div className="relative flex-1">
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-3 font-[family-name:var(--font-geist-sans)] text-[15px] text-neutral-900 transition-all placeholder:text-neutral-600 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 font-[family-name:var(--font-geist-sans)] text-[15px] text-neutral-900 transition-all placeholder:text-neutral-600 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/25"
                 disabled={isLoading}
                 maxLength={500}
                 name="message"
@@ -542,16 +565,12 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
             </div>
             <button
               aria-label={t("send")}
-              className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center border border-orange-500 bg-orange-500 text-white shadow-sm transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-orange-500"
+              className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-lg border border-orange-500 bg-orange-500 text-white shadow-sm transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-orange-500"
               disabled={isLoading || !input.trim()}
               type="submit"
             >
               {isLoading ? (
-                <HugeiconsIcon
-                  className="h-5 w-5 animate-spin"
-                  icon={Loading01Icon}
-                  strokeWidth={1.5}
-                />
+                <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
               ) : (
                 <HugeiconsIcon className="h-5 w-5" icon={SentIcon} strokeWidth={1.5} />
               )}

@@ -4,8 +4,10 @@ import { Clock01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { geistSans } from "@/app/fonts";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/use-availability-data";
+import { cn } from "@/lib/utils";
 
 /**
  * Booking data structure for the professional dashboard
@@ -127,7 +129,7 @@ export function ProBookingCalendar({ bookings }: Props) {
   };
 
   return (
-    <div className="border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
+    <div className="border border-neutral-200 bg-white p-6">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         {/* Calendar Grid */}
         <div>
@@ -157,59 +159,95 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         {/* Booking Details Sidebar */}
-        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
-          <h4 className="font-semibold text-[neutral-900] text-sm">{t("details")}</h4>
-          {selectedDate && (
-            <p className="mt-1 text-[neutral-400] text-xs">
-              {selectedDate.toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </p>
-          )}
-          {selectedBookings.length === 0 ? (
-            <p className="mt-4 text-[neutral-400] text-sm">{t("noBookings")}</p>
-          ) : (
-            <ul className="mt-4 space-y-3">
-              {selectedBookings
-                .slice()
-                .sort((a, b) => {
-                  const dateA = a.scheduled_start ? new Date(a.scheduled_start).getTime() : 0;
-                  const dateB = b.scheduled_start ? new Date(b.scheduled_start).getTime() : 0;
-                  return dateA - dateB;
-                })
-                .map((booking) => {
-                  const start = booking.scheduled_start ? new Date(booking.scheduled_start) : null;
-                  const timeLabel = start ? formatTime(start) : t("timeTbd");
-                  const statusLabel = getStatusLabel(booking.status);
-                  const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
-                  return (
-                    <li
-                      className="border border-[neutral-200] bg-[neutral-50] p-3"
-                      key={booking.id}
-                    >
-                      <div className="flex items-center justify-between text-[neutral-900] text-sm">
-                        <span className="font-semibold">{timeLabel}</span>
-                        {amount ? (
-                          <span className="font-semibold text-[neutral-400] text-xs">
-                            {formatCOP(amount)}
-                          </span>
-                        ) : null}
-                      </div>
-                      <div className="mt-1 flex items-center gap-2 text-[neutral-400] text-xs">
-                        <HugeiconsIcon
-                          className="h-3.5 w-3.5 text-[neutral-500]"
-                          icon={Clock01Icon}
-                        />
-                        <span>{statusLabel}</span>
-                      </div>
-                    </li>
-                  );
+        <div className="border border-neutral-200 bg-white">
+          <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+            <h4
+              className={cn(
+                "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                geistSans.className
+              )}
+            >
+              {t("details")}
+            </h4>
+            {selectedDate && (
+              <p
+                className={cn(
+                  "mt-1 font-normal text-[10px] text-neutral-700 tracking-tighter",
+                  geistSans.className
+                )}
+              >
+                {selectedDate.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
                 })}
-            </ul>
-          )}
+              </p>
+            )}
+          </div>
+          <div className="p-6">
+            {selectedBookings.length === 0 ? (
+              <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                {t("noBookings")}
+              </p>
+            ) : (
+              <ul className="space-y-3">
+                {selectedBookings
+                  .slice()
+                  .sort((a, b) => {
+                    const dateA = a.scheduled_start ? new Date(a.scheduled_start).getTime() : 0;
+                    const dateB = b.scheduled_start ? new Date(b.scheduled_start).getTime() : 0;
+                    return dateA - dateB;
+                  })
+                  .map((booking) => {
+                    const start = booking.scheduled_start
+                      ? new Date(booking.scheduled_start)
+                      : null;
+                    const timeLabel = start ? formatTime(start) : t("timeTbd");
+                    const statusLabel = getStatusLabel(booking.status);
+                    const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
+                    return (
+                      <li className="border border-neutral-200 bg-white p-3" key={booking.id}>
+                        <div className="flex items-center justify-between">
+                          <span
+                            className={cn(
+                              "font-semibold text-neutral-900 text-sm tracking-tighter",
+                              geistSans.className
+                            )}
+                          >
+                            {timeLabel}
+                          </span>
+                          {amount ? (
+                            <span
+                              className={cn(
+                                "font-semibold text-neutral-700 text-xs tracking-tighter",
+                                geistSans.className
+                              )}
+                            >
+                              {formatCOP(amount)}
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="mt-1 flex items-center gap-2">
+                          <HugeiconsIcon
+                            className="h-3.5 w-3.5 text-neutral-500"
+                            icon={Clock01Icon}
+                          />
+                          <span
+                            className={cn(
+                              "text-neutral-700 text-xs tracking-tighter",
+                              geistSans.className
+                            )}
+                          >
+                            {statusLabel}
+                          </span>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -232,9 +270,14 @@ function CustomDayContent({
 }) {
   return (
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
-      <span className="font-semibold text-sm">{date.getDate()}</span>
+      <span className={cn("font-semibold text-sm", geistSans.className)}>{date.getDate()}</span>
       {bookingsCount > 0 && (
-        <span className="mt-1 bg-[neutral-500]/15 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
+        <span
+          className={cn(
+            "mt-1 border border-[#FF5200] bg-orange-50 px-2 py-0.5 font-semibold text-[#FF5200] text-xs",
+            geistSans.className
+          )}
+        >
           {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
         </span>
       )}

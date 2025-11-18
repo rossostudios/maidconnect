@@ -9,6 +9,7 @@
 import {
   BulbIcon,
   Calendar01Icon,
+  Loading03Icon,
   Rocket01Icon,
   Search01Icon,
   Tick02Icon,
@@ -110,7 +111,7 @@ export function RoadmapBoard() {
         {isLoading ? (
           /* Loading state - Auto Layout: Center aligned, padding 48px vertical */
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin border-4 border-[neutral-500] border-t-transparent" />
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
           </div>
         ) : items.length === 0 ? (
           /* Empty state - Auto Layout: Vertical stack, center aligned, gap 16px, padding 48px */

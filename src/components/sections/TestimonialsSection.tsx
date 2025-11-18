@@ -1,116 +1,148 @@
-import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+"use client";
+
+import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { testimonials } from "@/lib/content";
-import { cn } from "@/lib/utils";
 
 /**
- * TestimonialsSection - Aurius-inspired editorial layout
+ * TestimonialsSection - Simplified Editorial Design
  *
- * - Centered badge + serif headline
- * - Featured story with portrait on the left and quote on the right
- * - Supporting quotes arranged in a bordered grid
- * - Subtle dividers + neutral paper background
+ * Designed to work gracefully with 1-3 testimonials:
+ * - Large, centered quote with generous spacing
+ * - Serif typography for editorial feel
+ * - Decorative quote mark
+ * - Warm, refined aesthetic
+ * - Staggered animations for visual interest
  */
 export function TestimonialsSection() {
   if (!testimonials || testimonials.length === 0) {
     return null;
   }
 
-  const [featured, ...supporting] = testimonials;
-  const formatMeta = (role?: string, location?: string) =>
-    [role, location].filter(Boolean).join(" · ");
+  // Show only first 3 testimonials for clean, focused layout
+  const displayTestimonials = testimonials.slice(0, 3);
 
   return (
-    <section className="bg-neutral-50 py-16 md:py-20" id="testimonials">
-      {/* Top horizontal divider */}
-      <div className="mx-auto mb-16 h-px max-w-6xl bg-neutral-200" />
+    <section className="relative overflow-hidden bg-white py-24 md:py-32" id="testimonials">
+      {/* Subtle background decoration */}
+      <div className="pointer-events-none absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-orange-100/60 blur-3xl" />
+      </div>
 
-      <Container className="max-w-6xl px-4 md:px-8">
-        <div className="mx-auto max-w-4xl border border-neutral-200 px-6 py-12 text-center sm:px-12">
-          <div className="mb-4 flex items-center justify-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
-            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
-            Testimonials
-          </div>
+      <Container className="relative max-w-5xl px-4">
+        {/* Section Header */}
+        <motion.div
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-20 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-4 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <span className="font-semibold text-orange-600 text-sm uppercase tracking-wider">
+              Testimonials
+            </span>
+          </motion.div>
+          <motion.h2
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Trusted by Families Across Colombia
+          </motion.h2>
+          <motion.p
+            animate={{ opacity: 1, y: 0 }}
+            className="mx-auto max-w-2xl text-lg text-neutral-600"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Real experiences from discerning households who trust Casaora
+          </motion.p>
+        </motion.div>
 
-          <h2 className="font-bold text-3xl text-neutral-900 leading-tight sm:text-4xl md:text-5xl">
-            What Our Clients Say
-          </h2>
+        {/* Testimonials Grid */}
+        <div className="grid gap-8 md:grid-cols-1">
+          {displayTestimonials.map((testimonial, index) => (
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              key={testimonial.handle}
+              transition={{ duration: 0.7, delay: 0.5 + index * 0.15 }}
+            >
+              <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-10 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-14">
+                {/* Decorative Quote Mark */}
+                <div className="absolute top-6 right-6 opacity-10 transition-opacity duration-300 group-hover:opacity-20">
+                  <svg
+                    className="h-24 w-24 text-orange-500 md:h-32 md:w-32"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                </div>
 
-          <p className="mt-5 text-lg text-neutral-600">
-            Real stories from discerning households who trust Casaora to run their homes with
-            precision.
-          </p>
-        </div>
-
-        {/* Featured testimonial */}
-        {featured && (
-          <div className="mt-16 grid overflow-hidden border border-neutral-200 bg-white shadow-sm md:grid-cols-[minmax(0,320px)_1fr]">
-            <div className="relative aspect-[4/5] w-full bg-neutral-100 md:min-h-[420px]">
-              <Image
-                alt={featured.name}
-                className="object-cover"
-                fill
-                priority
-                sizes="(min-width: 768px) 320px, 100vw"
-                src={featured.avatar || "/placeholder-professional.jpg"}
-              />
-            </div>
-
-            <div className="flex flex-col gap-8 p-8 md:p-10">
-              <blockquote className="font-serif text-2xl text-neutral-900 leading-snug md:text-3xl">
-                “{featured.quote}”
-              </blockquote>
-
-              <div>
-                <p className="font-semibold text-base text-neutral-900">{featured.name}</p>
-                <p className="text-neutral-700 text-xs uppercase tracking-[0.35em]">
-                  {formatMeta(featured.role, featured.location)}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Supporting testimonials */}
-        {supporting.length > 0 && (
-          <div className="mt-8 grid border border-neutral-200 bg-white sm:grid-cols-2">
-            {supporting.map((testimonial, index) => (
-              <div
-                className={cn(
-                  "border-neutral-200 p-8 sm:p-10",
-                  index > 0 && "border-t",
-                  index <= 1 && "sm:border-t-0",
-                  index >= 2 && "sm:border-t",
-                  index % 2 === 1 && "sm:border-l"
-                )}
-                key={testimonial.handle}
-              >
-                <blockquote className="font-serif text-neutral-900 text-xl leading-relaxed">
-                  “{testimonial.quote}”
+                {/* Quote */}
+                <blockquote className="relative mb-8 font-serif text-2xl text-neutral-900 leading-relaxed md:text-3xl">
+                  "{testimonial.quote}"
                 </blockquote>
 
-                <div className="mt-8 flex items-center gap-4">
-                  <Avatar className="h-12 w-12 border border-neutral-200">
-                    <AvatarImage
-                      alt={testimonial.name}
-                      src={testimonial.avatar || "/placeholder-professional.jpg"}
-                    />
-                    <AvatarFallback className="bg-neutral-100 text-neutral-600">
-                      {testimonial.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
+                {/* Author Info */}
+                <div className="flex items-center gap-4 border-neutral-200 border-t pt-6">
+                  {/* Avatar */}
+                  <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-orange-200 bg-orange-50">
+                    {testimonial.avatar ? (
+                      <img
+                        alt={testimonial.name}
+                        className="h-full w-full object-cover"
+                        src={testimonial.avatar}
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center font-semibold text-2xl text-orange-600">
+                        {testimonial.name.charAt(0)}
+                      </div>
+                    )}
+                  </div>
 
+                  {/* Name & Details */}
                   <div>
-                    <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                    <p className="text-neutral-700 text-xs uppercase tracking-[0.35em]">
-                      {formatMeta(testimonial.role, testimonial.location)}
+                    <p className="font-semibold text-lg text-neutral-900">{testimonial.name}</p>
+                    <p className="text-neutral-600 text-sm">
+                      {[testimonial.role, testimonial.location].filter(Boolean).join(" · ")}
                     </p>
                   </div>
                 </div>
+
+                {/* Optional: Outcome Badge */}
+                {testimonial.outcome && (
+                  <div className="absolute top-6 left-6">
+                    <div className="rounded-full bg-green-50 px-4 py-1.5 text-green-700 text-xs">
+                      ✓ {testimonial.outcome}
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Optional: Coming Soon Message if only 1 testimonial */}
+        {displayTestimonials.length === 1 && (
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="mt-12 text-center"
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
+            <p className="text-neutral-500 text-sm">
+              More families sharing their Casaora experiences soon
+            </p>
+          </motion.div>
         )}
       </Container>
     </section>

@@ -14,7 +14,7 @@ export function EarningsCalculator() {
   const [hoursPerWeek, setHoursPerWeek] = useState(20);
 
   // Constants
-  const PLATFORM_FEE_RATE = 0.15; // 15% - customers pay this on top
+  const PLATFORM_FEE_RATE = 0.2; // 20% concierge fee - customers pay this on top
 
   // Calculations (Professional keeps 100% of their rate)
   const weeklyEarnings = hourlyRate * hoursPerWeek;
@@ -26,7 +26,7 @@ export function EarningsCalculator() {
   const platformFeePerHour = hourlyRate * PLATFORM_FEE_RATE;
 
   return (
-    <Card className="mx-auto max-w-2xl border-2 border-neutral-200 bg-white shadow-lg">
+    <Card className="mx-auto max-w-2xl rounded-lg border-2 border-neutral-200 bg-white shadow-lg">
       <CardContent className="p-8">
         <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 leading-[24px]">
           {t("title")}
@@ -49,7 +49,7 @@ export function EarningsCalculator() {
                 $
               </span>
               <input
-                className="w-full border-2 border-neutral-200 py-3 pr-20 pl-8 font-semibold text-lg text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full rounded-lg border-2 border-neutral-200 py-3 pr-20 pl-8 font-semibold text-lg text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
                 id="hourly-rate"
                 max="100000"
                 min="15000"
@@ -93,7 +93,7 @@ export function EarningsCalculator() {
           <div className="space-y-4 border-neutral-200 border-t-2 pt-6">
             <div className="grid grid-cols-3 gap-4">
               {/* Weekly */}
-              <div className="border border-neutral-200 bg-neutral-50 p-4 text-center">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center">
                 <HugeiconsIcon
                   className="mx-auto mb-2 h-6 w-6 text-neutral-600"
                   icon={Clock01Icon}
@@ -105,7 +105,7 @@ export function EarningsCalculator() {
               </div>
 
               {/* Monthly */}
-              <div className="border-2 border-orange-500 bg-orange-50 p-4 text-center">
+              <div className="rounded-lg border-2 border-orange-500 bg-orange-50 p-4 text-center">
                 <HugeiconsIcon className="mx-auto mb-2 h-6 w-6 text-orange-600" icon={StarIcon} />
                 <div className="mb-1 font-semibold text-orange-700 text-xs">{t("monthly")}</div>
                 <div className="font-bold text-orange-600 text-xl">
@@ -114,7 +114,7 @@ export function EarningsCalculator() {
               </div>
 
               {/* Yearly */}
-              <div className="border border-neutral-200 bg-neutral-50 p-4 text-center">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center">
                 <HugeiconsIcon
                   className="mx-auto mb-2 h-6 w-6 text-neutral-600"
                   icon={ArrowUp01Icon}
@@ -128,7 +128,7 @@ export function EarningsCalculator() {
           </div>
 
           {/* Transparency Section */}
-          <div className="space-y-3 border border-neutral-200 bg-neutral-50 p-4">
+          <div className="space-y-3 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
             <h4 className="font-semibold text-neutral-900 text-sm">{t("transparency.title")}</h4>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -146,7 +146,7 @@ export function EarningsCalculator() {
               <div className="flex justify-between border-neutral-200 border-t pt-2">
                 <span className="text-neutral-700">{t("transparency.platformFee")}</span>
                 <span className="font-semibold text-neutral-900">
-                  {formatCurrency(platformFeePerHour, { currency: "COP" })}/hr (15%)
+                  {formatCurrency(platformFeePerHour, { currency: "COP" })}/hr (20%)
                 </span>
               </div>
             </div>
@@ -156,7 +156,7 @@ export function EarningsCalculator() {
           </div>
 
           {/* What Platform Fee Covers */}
-          <div className="border border-orange-200 bg-orange-50 p-4">
+          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
             <h4 className="mb-3 font-semibold text-orange-900 text-sm">{t("feeCovers.title")}</h4>
             <ul className="space-y-2">
               {(t.raw("feeCovers.items") as string[]).map((item, idx) => (
@@ -170,7 +170,7 @@ export function EarningsCalculator() {
 
           {/* CTA */}
           <a
-            className="block w-full bg-orange-500 py-4 text-center font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
+            className="block w-full rounded-lg bg-orange-500 py-4 text-center font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
             href="/professionals/onboarding"
           >
             {t("cta")}

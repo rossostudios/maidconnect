@@ -33,10 +33,10 @@ export function DashboardLayout({
         <Container>
           <div className="flex items-center justify-between py-4">
             <Link
-              className="font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 uppercase leading-[24px] tracking-[0.08em]"
+              className="font-[family-name:var(--font-geist-sans)] font-medium text-[24px] text-neutral-900 uppercase leading-[24px] tracking-[0.08em]"
               href="/"
             >
-              CASAORA
+              CASAORA®
             </Link>
 
             {/* Navigation tabs - Precision: Geist Sans, neutral-700 for inactive */}

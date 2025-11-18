@@ -3,6 +3,7 @@
 import {
   BubbleChatIcon,
   Clock01Icon,
+  Loading03Icon,
   Location01Icon,
   MagicWand01Icon,
   SecurityCheckIcon,
@@ -160,23 +161,18 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
 
   if (loading) {
     return (
-      <div className="space-y-6 py-12 text-center">
-        <div className="flex justify-center">
-          <div className="flex h-20 w-20 items-center justify-center">
-            <div className="h-16 w-16 animate-spin border-4 border-[neutral-200] border-t-gray-900" />
-          </div>
-        </div>
-        <div>
-          <h2 className="font-semibold text-2xl text-[neutral-900]">
+      <div className="py-12">
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">
             {t("searching", { defaultValue: "Finding your perfect matches..." })}
-          </h2>
-          <p className="mt-2 text-[neutral-400]">
-            {t("searchingDescription", {
-              defaultValue:
-                "We're analyzing hundreds of professionals to find the best fit for you",
-            })}
           </p>
         </div>
+        <p className="mt-4 text-center text-[neutral-400]">
+          {t("searchingDescription", {
+            defaultValue: "We're analyzing hundreds of professionals to find the best fit for you",
+          })}
+        </p>
       </div>
     );
   }

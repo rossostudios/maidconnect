@@ -40,7 +40,7 @@ export async function ProcessSection() {
       <Container className="mx-auto max-w-7xl px-4">
         {/* Section Header - Precision Typography */}
         <div className="mb-16">
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl">
             How It Works
           </h2>
           <div className="mt-4 h-1 w-16 bg-orange-500" />
@@ -55,7 +55,7 @@ export async function ProcessSection() {
             <div className="group" key={step.number}>
               {/* Precision Number - Large and Bold */}
               <div className="mb-6">
-                <div className="font-[family-name:var(--font-geist-sans)] font-bold text-6xl text-neutral-900 tracking-tighter">
+                <div className="font-[family-name:var(--font-geist-sans)] font-normal text-6xl text-neutral-900 tracking-tighter">
                   {step.number}
                 </div>
                 {/* Label - Uppercase */}
@@ -68,7 +68,7 @@ export async function ProcessSection() {
               <div className="mb-6 h-1 w-12 bg-orange-500" />
 
               {/* Content */}
-              <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl tracking-tight">
+              <h3 className="font-[family-name:var(--font-geist-sans)] font-normal text-neutral-900 text-xl tracking-tight">
                 {step.title}
               </h3>
 

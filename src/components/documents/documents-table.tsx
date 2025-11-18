@@ -14,6 +14,9 @@ import {
 import { format } from "date-fns";
 import { useMemo, useState } from "react";
 
+import { geistSans } from "@/app/fonts";
+import { cn } from "@/lib/utils/core";
+
 type Document = {
   id: string;
   document_type: string;
@@ -55,11 +58,13 @@ export function DocumentsTable({ documents, labels }: Props) {
         header: "Document Type",
         cell: (info) => (
           <div>
-            <p className="font-medium text-[neutral-900]">
+            <p className={cn("font-medium text-neutral-900", geistSans.className)}>
               {labels[info.getValue()] ?? info.getValue()}
             </p>
             {info.row.original.metadata?.note && (
-              <p className="mt-1 text-[neutral-400] text-sm">{info.row.original.metadata.note}</p>
+              <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+                {info.row.original.metadata.note}
+              </p>
             )}
           </div>
         ),
@@ -68,20 +73,24 @@ export function DocumentsTable({ documents, labels }: Props) {
         id: "filename",
         header: "File Name",
         cell: (info) => (
-          <span className="text-[neutral-900]">{info.getValue() ?? "Unnamed file"}</span>
+          <span className={cn("text-neutral-900", geistSans.className)}>
+            {info.getValue() ?? "Unnamed file"}
+          </span>
         ),
       }),
       columnHelper.accessor((row) => row.metadata?.size, {
         id: "size",
         header: "Size",
         cell: (info) => (
-          <span className="text-[neutral-400]">{formatFileSize(info.getValue())}</span>
+          <span className={cn("text-neutral-700", geistSans.className)}>
+            {formatFileSize(info.getValue())}
+          </span>
         ),
       }),
       columnHelper.accessor("uploaded_at", {
         header: "Uploaded",
         cell: (info) => (
-          <span className="text-[neutral-400]">
+          <span className={cn("text-neutral-700", geistSans.className)}>
             {format(new Date(info.getValue()), "MMM dd, yyyy")}
           </span>
         ),
@@ -93,7 +102,12 @@ export function DocumentsTable({ documents, labels }: Props) {
           const mimeType = info.getValue()?.mimeType || "";
           const extension = mimeType.split("/")[1]?.toUpperCase() || "—";
           return (
-            <span className="inline-flex items-center bg-[neutral-200] px-2.5 py-1 font-medium text-[neutral-900] text-xs">
+            <span
+              className={cn(
+                "inline-flex items-center bg-neutral-200 px-2.5 py-1 font-medium text-neutral-900 text-xs",
+                geistSans.className
+              )}
+            >
               {extension}
             </span>
           );
@@ -104,11 +118,18 @@ export function DocumentsTable({ documents, labels }: Props) {
         cell: (info) => {
           const url = info.getValue();
           if (!url) {
-            return <span className="text-[neutral-500] text-sm">URL unavailable</span>;
+            return (
+              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+                URL unavailable
+              </span>
+            );
           }
           return (
             <a
-              className="inline-flex items-center gap-1.5 border border-[neutral-200] px-3 py-1.5 font-semibold text-[neutral-500] text-sm transition hover:border-[neutral-500] hover:bg-[neutral-50]"
+              className={cn(
+                "inline-flex items-center gap-1.5 border border-neutral-200 px-3 py-1.5 font-semibold text-neutral-700 text-sm transition hover:border-[#FF5200] hover:bg-neutral-50",
+                geistSans.className
+              )}
               href={url}
               rel="noopener noreferrer"
               target="_blank"
@@ -162,10 +183,10 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center bg-[neutral-200]">
+            <div className="flex h-12 w-12 items-center justify-center bg-neutral-200">
               <svg
                 aria-hidden="true"
-                className="h-6 w-6 text-[neutral-400]"
+                className="h-6 w-6 text-neutral-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -179,8 +200,10 @@ export function DocumentsTable({ documents, labels }: Props) {
               </svg>
             </div>
           </div>
-          <h3 className="font-semibold text-[neutral-900] text-base">No documents uploaded</h3>
-          <p className="mt-1 text-[neutral-400] text-sm">
+          <h3 className={cn("font-semibold text-base text-neutral-900", geistSans.className)}>
+            No documents uploaded
+          </h3>
+          <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
             Upload your verification documents to get started.
           </p>
         </div>
@@ -194,7 +217,10 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
           <input
-            className="w-full border border-[neutral-200] px-4 py-2 pl-10 text-[neutral-900] text-sm placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
+            className={cn(
+              "w-full border border-neutral-200 px-4 py-2 pl-10 text-neutral-900 text-sm placeholder-neutral-700 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900",
+              geistSans.className
+            )}
             onChange={(e) => table.getColumn("document_type")?.setFilterValue(e.target.value)}
             placeholder="Search documents..."
             type="text"
@@ -202,7 +228,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           />
           <svg
             aria-hidden="true"
-            className="absolute top-2.5 left-3 h-5 w-5 text-[neutral-400]"
+            className="absolute top-2.5 left-3 h-5 w-5 text-neutral-700"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -215,32 +241,35 @@ export function DocumentsTable({ documents, labels }: Props) {
             />
           </svg>
         </div>
-        <div className="text-[neutral-400] text-sm">
+        <div className={cn("text-neutral-700 text-sm", geistSans.className)}>
           {table.getFilteredRowModel().rows.length} document
           {table.getFilteredRowModel().rows.length !== 1 ? "s" : ""}
         </div>
       </div>
 
       {/* Table - Horizontally scrollable on mobile */}
-      <div className="overflow-hidden border border-[neutral-200]">
+      <div className="overflow-hidden border border-neutral-200">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="bg-[neutral-50]">
+            <thead className="bg-neutral-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
-                      className="px-6 py-4 text-left font-semibold text-[neutral-400] text-xs uppercase tracking-[0.2em]"
+                      className={cn(
+                        "px-6 py-4 text-left font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]",
+                        geistSans.className
+                      )}
                       key={header.id}
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[neutral-500]"
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-neutral-900"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span className="text-[neutral-400]">
+                          <span className="text-neutral-700">
                             {{
                               asc: "↑",
                               desc: "↓",
@@ -255,9 +284,9 @@ export function DocumentsTable({ documents, labels }: Props) {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-[neutral-200] bg-[neutral-50]">
+            <tbody className="divide-y divide-neutral-200 bg-white">
               {table.getRowModel().rows.map((row) => (
-                <tr className="transition hover:bg-[neutral-50]" key={row.id}>
+                <tr className="transition hover:bg-neutral-50" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -273,12 +302,15 @@ export function DocumentsTable({ documents, labels }: Props) {
       {/* Pagination - Touch-friendly on mobile */}
       {table.getPageCount() > 1 && (
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <div className="text-[neutral-400] text-sm">
+          <div className={cn("text-neutral-700 text-sm", geistSans.className)}>
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
+              className={cn(
+                "border border-neutral-200 px-4 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-[#FF5200] hover:text-[#FF5200] disabled:cursor-not-allowed disabled:border-neutral-200 disabled:text-neutral-600",
+                geistSans.className
+              )}
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -286,7 +318,10 @@ export function DocumentsTable({ documents, labels }: Props) {
               Previous
             </button>
             <button
-              className="border border-[neutral-200] px-4 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:opacity-50"
+              className={cn(
+                "border border-neutral-200 px-4 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-[#FF5200] hover:text-[#FF5200] disabled:cursor-not-allowed disabled:border-neutral-200 disabled:text-neutral-600",
+                geistSans.className
+              )}
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

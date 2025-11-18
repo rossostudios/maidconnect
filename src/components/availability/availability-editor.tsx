@@ -1,10 +1,17 @@
 "use client";
 
-import { Calendar01Icon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import {
+  Calendar01Icon,
+  CheckmarkCircle01Icon,
+  Clock01Icon,
+  Loading03Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { geistSans } from "@/app/fonts";
+import { cn } from "@/lib/utils";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
 import { WeeklyHoursEditor } from "./weekly-hours-editor";
 
@@ -71,27 +78,33 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
     <div className="space-y-6">
       {/* Success/Error Messages */}
       {success && (
-        <div className="flex items-center gap-3 bg-[neutral-500]/10 p-4 text-[neutral-500]">
-          <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
-          <p className="font-semibold text-sm">{t("success")}</p>
+        <div className="flex items-center gap-3 border border-[#FF5200] bg-orange-50 p-4">
+          <HugeiconsIcon className="h-5 w-5 text-[#FF5200]" icon={CheckmarkCircle01Icon} />
+          <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+            {t("success")}
+          </p>
         </div>
       )}
 
       {error && (
-        <div className="bg-[neutral-500]/10 p-4 text-[neutral-500]">
-          <p className="font-semibold text-sm">{error}</p>
+        <div className="border border-neutral-200 bg-white p-4">
+          <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+            {error}
+          </p>
         </div>
       )}
 
       {/* Tabs - Horizontally scrollable on mobile */}
-      <div className="overflow-x-auto border-[neutral-200] border-b">
+      <div className="overflow-x-auto border-neutral-200 border-b">
         <div className="flex w-max gap-1 md:w-full">
           <button
-            className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
+            className={cn(
+              "flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition",
               activeTab === "hours"
-                ? "border-[neutral-500] text-[neutral-500]"
-                : "border-transparent text-[neutral-400] hover:text-[neutral-900]"
-            }`}
+                ? "border-[#FF5200] text-neutral-900"
+                : "border-transparent text-neutral-700 hover:text-neutral-900",
+              geistSans.className
+            )}
             onClick={() => setActiveTab("hours")}
             type="button"
           >
@@ -99,18 +112,20 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             {t("tabs.workingHours")}
           </button>
           <button
-            className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
+            className={cn(
+              "flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition",
               activeTab === "blocked"
-                ? "border-[neutral-500] text-[neutral-500]"
-                : "border-transparent text-[neutral-400] hover:text-[neutral-900]"
-            }`}
+                ? "border-[#FF5200] text-neutral-900"
+                : "border-transparent text-neutral-700 hover:text-neutral-900",
+              geistSans.className
+            )}
             onClick={() => setActiveTab("blocked")}
             type="button"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
-              <span className="bg-[neutral-500]/100 px-2 py-0.5 font-bold text-[neutral-50] text-xs">
+              <span className="border border-[#FF5200] bg-orange-50 px-2 py-0.5 font-semibold text-[#FF5200] text-xs">
                 {blockedDates.length}
               </span>
             )}
@@ -123,10 +138,12 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "hours" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[neutral-900] text-lg">
+              <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
                 {t("workingHours.title")}
               </h3>
-              <p className="mt-1 text-[neutral-400] text-sm">{t("workingHours.description")}</p>
+              <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+                {t("workingHours.description")}
+              </p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
           </div>
@@ -135,10 +152,12 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "blocked" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[neutral-900] text-lg">
+              <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
                 {t("blockedDates.title")}
               </h3>
-              <p className="mt-1 text-[neutral-400] text-sm">{t("blockedDates.description")}</p>
+              <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+                {t("blockedDates.description")}
+              </p>
             </div>
             <BlockedDatesCalendar initialBlockedDates={blockedDates} onChange={setBlockedDates} />
           </div>
@@ -146,33 +165,22 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       </div>
 
       {/* Save Button */}
-      <div className="flex items-center justify-end gap-3 border-[neutral-200] border-t pt-6">
-        <div className="flex-1 text-[neutral-400] text-sm">{t("infoText")}</div>
+      <div className="flex items-center justify-end gap-3 border-neutral-200 border-t pt-6">
+        <div className={cn("flex-1 text-neutral-700 text-sm", geistSans.className)}>
+          {t("infoText")}
+        </div>
         <button
-          className="bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className={cn(
+            "border border-[#FF5200] bg-[#FF5200] px-8 py-3 font-semibold text-base text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-orange-200 disabled:bg-orange-200 disabled:text-neutral-700",
+            geistSans.className
+          )}
           disabled={loading}
           onClick={handleSave}
           type="button"
         >
           {loading ? (
             <span className="flex items-center gap-2">
-              <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
-                <title>Loading</title>
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  fill="none"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  fill="currentColor"
-                />
-              </svg>
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
               {t("saving")}
             </span>
           ) : (

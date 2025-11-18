@@ -25,7 +25,7 @@ import {
   Cancel01Icon,
   HelpCircleIcon,
   Home01Icon,
-  Loading01Icon,
+  Loading03Icon,
   Message01Icon,
   NewsIcon,
   SentIcon,
@@ -41,7 +41,6 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import { Loader } from "@/components/ai-elements/loader";
 import {
   Message,
   MessageActions,
@@ -220,7 +219,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             {isLoading && (
               <div className="flex items-center gap-3 border border-neutral-200 bg-white px-4 py-3 shadow-sm">
                 <AmaraIcon className="text-neutral-900" size={28} />
-                <Loader />
+                <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
                 <span className="text-neutral-500 text-sm">{t("typing")}</span>
               </div>
             )}
@@ -323,7 +322,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             type="submit"
           >
             {isLoading ? (
-              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
             ) : (
               <HugeiconsIcon className="h-5 w-5" icon={SentIcon} />
             )}

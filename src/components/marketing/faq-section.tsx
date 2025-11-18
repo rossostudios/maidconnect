@@ -68,11 +68,8 @@ export function FaqSection() {
 
   return (
     <section className="bg-neutral-50 py-16 md:py-20">
-      {/* Top horizontal divider */}
-      <div className="mx-auto mb-16 h-px max-w-6xl bg-neutral-200" />
-
       <Container className="max-w-6xl">
-        <div className="grid border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="grid overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           {/* Left Column */}
           <div className="flex flex-col gap-6 p-8 md:p-10 lg:p-12">
             <div className="inline-flex">
@@ -80,7 +77,7 @@ export function FaqSection() {
                 FAQ
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight md:text-5xl">
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 leading-tight md:text-5xl">
               Frequently asked questions
             </h2>
             <p className="text-base text-neutral-700 leading-relaxed">
@@ -101,7 +98,7 @@ export function FaqSection() {
                     onClick={() => toggleItem(index)}
                     type="button"
                   >
-                    <span className="font-[family-name:var(--font-geist-sans)] font-semibold text-lg text-neutral-900">
+                    <span className="font-[family-name:var(--font-geist-sans)] font-normal text-lg text-neutral-900">
                       {item.question}
                     </span>
                     <ChevronDownIcon

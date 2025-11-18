@@ -1,5 +1,7 @@
 "use client";
 
+import { Loading03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
@@ -197,7 +199,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             if (loading) {
               return (
                 <div className="flex items-center justify-center p-12">
-                  <div className="h-8 w-8 animate-spin border-[neutral-500] border-b-2" />
+                  <HugeiconsIcon
+                    className="h-8 w-8 animate-spin text-orange-500"
+                    icon={Loading03Icon}
+                  />
                 </div>
               );
             }

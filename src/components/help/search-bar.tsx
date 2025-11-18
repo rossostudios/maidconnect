@@ -1,6 +1,6 @@
 "use client";
 
-import { Cancel01Icon, Loading01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import { Cancel01Icon, Loading03Icon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -255,7 +255,7 @@ export function HelpSearchBar({
             type="button"
           >
             {isLoading ? (
-              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
             ) : (
               <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
             )}
@@ -270,11 +270,8 @@ export function HelpSearchBar({
             if (isLoading && results.length === 0) {
               return (
                 <div className="flex items-center justify-center px-4 py-8">
-                  <HugeiconsIcon
-                    className="mr-2 h-5 w-5 animate-spin text-[neutral-500]"
-                    icon={Loading01Icon}
-                  />
-                  <span className="text-[neutral-400] text-sm">{t("search.searching")}</span>
+                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
+                  <span className="ml-2 text-[neutral-400] text-sm">{t("search.searching")}</span>
                 </div>
               );
             }

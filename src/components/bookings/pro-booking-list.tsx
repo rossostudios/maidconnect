@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useOptimistic, useState } from "react";
+import { geistSans } from "@/app/fonts";
+import { cn } from "@/lib/utils";
 import { type BookingForExecution, ServiceExecutionCard } from "./service-execution-card";
 
 export type ProfessionalBooking = {
@@ -53,15 +55,15 @@ function formatAmount(amount: number | null): string {
 // Helper: Get status badge classes
 function getStatusBadgeClass(status: string): string {
   if (status === "authorized") {
-    return "bg-[neutral-500]/10 text-[neutral-500]";
+    return "border border-[#FF5200] bg-orange-50 text-[#FF5200]";
   }
   if (status === "confirmed") {
-    return "bg-[neutral-500]/10 text-[neutral-500]";
+    return "border border-neutral-200 bg-neutral-900 text-white";
   }
   if (status === "declined") {
-    return "bg-[neutral-500]/10 text-[neutral-500]";
+    return "border border-neutral-200 bg-neutral-50 text-neutral-700";
   }
-  return "bg-[neutral-500]/10 text-[neutral-500]";
+  return "border border-neutral-200 bg-neutral-50 text-neutral-700";
 }
 
 // Helper: Determine action visibility
@@ -89,13 +91,17 @@ function AcceptDeclineActions({
 }) {
   const isMobile = size === "mobile";
   const baseClass = isMobile
-    ? "inline-flex items-center justify-center  px-4 py-3 font-semibold text-sm"
-    : "inline-flex items-center  px-3 py-1.5 font-semibold text-xs";
+    ? "inline-flex items-center justify-center px-4 py-3 font-semibold text-sm uppercase tracking-wider"
+    : "inline-flex items-center px-3 py-1.5 font-semibold text-xs uppercase tracking-wider";
 
   return (
     <div className={isMobile ? "grid grid-cols-2 gap-3" : "flex flex-wrap items-center gap-2"}>
       <button
-        className={`${baseClass} bg-[neutral-500] text-[neutral-50] shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
+        className={cn(
+          baseClass,
+          "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70",
+          geistSans.className
+        )}
         disabled={loadingId !== null}
         onClick={() => onAction(booking, "accept")}
         type="button"
@@ -103,7 +109,11 @@ function AcceptDeclineActions({
         {loadingId === `${booking.id}-accept` ? t("actions.accepting") : t("actions.accept")}
       </button>
       <button
-        className={`${baseClass} ${isMobile ? "border-2" : "border"} border-[neutral-500]/50 bg-[neutral-50] text-[neutral-500] transition hover:bg-[neutral-500]/10 disabled:cursor-not-allowed disabled:opacity-70`}
+        className={cn(
+          baseClass,
+          `${isMobile ? "border-2" : "border"} border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-70`,
+          geistSans.className
+        )}
         disabled={loadingId !== null}
         onClick={() => onAction(booking, "decline")}
         type="button"
@@ -134,14 +144,18 @@ function CaptureVoidActions({
 }) {
   const isMobile = size === "mobile";
   const baseClass = isMobile
-    ? "inline-flex items-center justify-center  px-4 py-3 font-semibold text-sm"
-    : "inline-flex items-center  px-3 py-1.5 font-semibold text-xs";
+    ? "inline-flex items-center justify-center px-4 py-3 font-semibold text-sm uppercase tracking-wider"
+    : "inline-flex items-center px-3 py-1.5 font-semibold text-xs uppercase tracking-wider";
 
   return (
     <div className={isMobile ? "flex flex-col gap-3" : "flex flex-wrap items-center gap-2"}>
       {showCapture && (
         <button
-          className={`${baseClass} bg-[neutral-500] text-[neutral-50] shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
+          className={cn(
+            baseClass,
+            "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70",
+            geistSans.className
+          )}
           disabled={loadingId !== null}
           onClick={() => onAction(booking, "capture")}
           type="button"
@@ -151,7 +165,11 @@ function CaptureVoidActions({
       )}
       {showVoid && (
         <button
-          className={`${baseClass} ${isMobile ? "border-2" : "border"} ${isMobile ? "border-[neutral-200]" : "border-[neutral-200]"} bg-[neutral-50] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
+          className={cn(
+            baseClass,
+            `${isMobile ? "border-2" : "border"} border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-70`,
+            geistSans.className
+          )}
           disabled={loadingId !== null}
           onClick={() => onAction(booking, "void")}
           type="button"
@@ -261,14 +279,24 @@ function BookingTableRow({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <tr className="text-[neutral-900]" key={booking.id}>
-      <td className="px-4 py-3 font-medium">{booking.id.slice(0, 8)}</td>
-      <td className="px-4 py-3 text-[neutral-400]">{booking.service_name || "—"}</td>
-      <td className="px-4 py-3 text-[neutral-400]">{scheduled}</td>
-      <td className="px-4 py-3 text-[neutral-400]">{amountDisplay}</td>
+    <tr className="text-neutral-900" key={booking.id}>
+      <td className={cn("px-4 py-3 font-medium", geistSans.className)}>{booking.id.slice(0, 8)}</td>
+      <td className={cn("px-4 py-3 text-neutral-700", geistSans.className)}>
+        {booking.service_name || "—"}
+      </td>
+      <td className={cn("px-4 py-3 text-neutral-700 tracking-tighter", geistSans.className)}>
+        {scheduled}
+      </td>
+      <td className={cn("px-4 py-3 text-neutral-700 tracking-tighter", geistSans.className)}>
+        {amountDisplay}
+      </td>
       <td className="px-4 py-3">
         <span
-          className={`inline-flex items-center px-3 py-1 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
+          className={cn(
+            "inline-flex items-center px-3 py-1 font-semibold text-xs uppercase tracking-wider",
+            getStatusBadgeClass(booking.status),
+            geistSans.className
+          )}
         >
           {booking.status.replace(/_/g, " ")}
         </span>
@@ -297,7 +325,11 @@ function BookingTableRow({
               />
             );
           }
-          return <span className="text-[neutral-400] text-xs">{t("actions.noActions")}</span>;
+          return (
+            <span className={cn("text-neutral-700 text-xs", geistSans.className)}>
+              {t("actions.noActions")}
+            </span>
+          );
         })()}
       </td>
     </tr>
@@ -321,40 +353,73 @@ function BookingMobileCard({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <div className="border border-[neutral-200] bg-[neutral-50] p-5 shadow-sm" key={booking.id}>
+    <div className="border border-neutral-200 bg-white p-5" key={booking.id}>
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="text-[neutral-400] text-xs uppercase tracking-wide">{t("table.booking")}</p>
-          <p className="mt-1 font-semibold text-[neutral-900] text-base">
+          <p
+            className={cn("text-neutral-700 text-xs uppercase tracking-wider", geistSans.className)}
+          >
+            {t("table.booking")}
+          </p>
+          <p
+            className={cn(
+              "mt-1 font-semibold text-base text-neutral-900 tracking-tighter",
+              geistSans.className
+            )}
+          >
             {booking.id.slice(0, 8)}
           </p>
         </div>
         <span
-          className={`inline-flex items-center px-3 py-1.5 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
+          className={cn(
+            "inline-flex items-center px-3 py-1.5 font-semibold text-xs uppercase tracking-wider",
+            getStatusBadgeClass(booking.status),
+            geistSans.className
+          )}
         >
           {booking.status.replace(/_/g, " ")}
         </span>
       </div>
 
-      <div className="space-y-3 border-[neutral-200] border-t pt-4">
+      <div className="space-y-3 border-neutral-200 border-t pt-4">
         <div className="flex justify-between">
-          <span className="text-[neutral-400] text-sm">{t("table.service")}</span>
-          <span className="font-medium text-[neutral-900] text-sm">
+          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+            {t("table.service")}
+          </span>
+          <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
             {booking.service_name || "—"}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-[neutral-400] text-sm">{t("table.scheduled")}</span>
-          <span className="text-right font-medium text-[neutral-900] text-sm">{scheduled}</span>
+          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+            {t("table.scheduled")}
+          </span>
+          <span
+            className={cn(
+              "text-right font-medium text-neutral-900 text-sm tracking-tighter",
+              geistSans.className
+            )}
+          >
+            {scheduled}
+          </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-[neutral-400] text-sm">{t("table.amount")}</span>
-          <span className="font-semibold text-[neutral-900] text-base">{amountDisplay}</span>
+          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+            {t("table.amount")}
+          </span>
+          <span
+            className={cn(
+              "font-semibold text-base text-neutral-900 tracking-tighter",
+              geistSans.className
+            )}
+          >
+            {amountDisplay}
+          </span>
         </div>
       </div>
 
       {(showAcceptDecline || showCapture || showVoid) && (
-        <div className="mt-4 border-[neutral-200] border-t pt-4">
+        <div className="mt-4 border-neutral-200 border-t pt-4">
           {showAcceptDecline && (
             <AcceptDeclineActions
               booking={booking}
@@ -412,7 +477,7 @@ export function ProBookingList({ bookings }: Props) {
   };
 
   if (optimisticBookings.length === 0) {
-    return <p className="text-[neutral-400] text-sm">{t("emptyState")}</p>;
+    return <p className={cn("text-neutral-700 text-sm", geistSans.className)}>{t("emptyState")}</p>;
   }
 
   // Separate active service bookings from others (using optimistic state)
@@ -427,7 +492,11 @@ export function ProBookingList({ bookings }: Props) {
     <div className="space-y-6">
       {message ? (
         <p
-          className={`text-sm ${message.includes("successfully") ? "text-[neutral-500]" : "text-[neutral-500]"}`}
+          className={cn(
+            "text-sm",
+            message.includes("successfully") ? "text-neutral-900" : "text-neutral-900",
+            geistSans.className
+          )}
         >
           {message}
         </p>
@@ -436,7 +505,12 @@ export function ProBookingList({ bookings }: Props) {
       {/* Active Service Bookings - Use ServiceExecutionCard */}
       {activeServiceBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 font-semibold text-[neutral-400] text-sm uppercase tracking-wide">
+          <h3
+            className={cn(
+              "mb-4 font-semibold text-neutral-900 text-sm uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
             {t("sections.activeServices")}
           </h3>
           <div className="space-y-4">
@@ -450,26 +524,43 @@ export function ProBookingList({ bookings }: Props) {
       {/* Other Bookings - Table view (Desktop) */}
       {otherBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 font-semibold text-[neutral-400] text-sm uppercase tracking-wide">
+          <h3
+            className={cn(
+              "mb-4 font-semibold text-neutral-900 text-sm uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
             {activeServiceBookings.length > 0
               ? t("sections.otherBookings")
               : t("sections.allBookings")}
           </h3>
 
           {/* Desktop Table View - Hidden on mobile */}
-          <div className="hidden overflow-hidden border border-[neutral-200] md:block">
-            <table className="min-w-full divide-y divide-[neutral-200] text-sm">
-              <thead className="bg-[neutral-50] text-[neutral-400] text-xs uppercase tracking-wide">
+          <div className="hidden overflow-hidden border border-neutral-200 md:block">
+            <table className="min-w-full divide-y divide-neutral-200 text-sm">
+              <thead className="bg-neutral-50 text-neutral-700 text-xs uppercase tracking-wider">
                 <tr>
-                  <th className="px-4 py-3 text-left">{t("table.booking")}</th>
-                  <th className="px-4 py-3 text-left">{t("table.service")}</th>
-                  <th className="px-4 py-3 text-left">{t("table.scheduled")}</th>
-                  <th className="px-4 py-3 text-left">{t("table.amount")}</th>
-                  <th className="px-4 py-3 text-left">{t("table.status")}</th>
-                  <th className="px-4 py-3 text-left">{t("table.actions")}</th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.booking")}
+                  </th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.service")}
+                  </th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.scheduled")}
+                  </th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.amount")}
+                  </th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.status")}
+                  </th>
+                  <th className={cn("px-4 py-3 text-left", geistSans.className)}>
+                    {t("table.actions")}
+                  </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[neutral-50] bg-[neutral-50]">
+              <tbody className="divide-y divide-neutral-200 bg-white">
                 {otherBookings.map((booking) => (
                   <BookingTableRow
                     booking={booking}

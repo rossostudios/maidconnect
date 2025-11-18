@@ -82,7 +82,7 @@ export function HeroVariantA() {
       </div>
 
       {/* Hero Section */}
-      <div className="py-32 md:py-40">
+      <div className="py-12 md:py-20">
         {/* Vertical Lines - Full height from navbar to bottom, aligned with container */}
         <div className="-translate-x-1/2 pointer-events-none fixed top-0 bottom-0 left-1/2 z-10 w-full max-w-[1320px]">
           <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
@@ -109,11 +109,11 @@ export function HeroVariantA() {
 
               {/* Display Heading - Variant A Messaging */}
               <motion.h1
-                className="font-medium text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
+                className="font-normal text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
                 className="font-[family-name:var(--font-geist-sans)]"
                 variants={fadeIn}
               >
-                Trusted household staff, matched to your needs—in English.
+                Trusted household staff, matched to your needs.
               </motion.h1>
 
               {/* Body Copy - Shorter, Benefit-Focused */}
@@ -184,21 +184,25 @@ export function HeroVariantA() {
             initial={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <motion.div
-              className="relative aspect-[16/9] overflow-hidden bg-neutral-200"
-              style={{ y: y1 }}
-            >
+            <motion.div className="relative aspect-[16/9] overflow-hidden" style={{ y: y1 }}>
               <Image
-                alt="Premium household professionals - Casaora"
-                className="object-cover"
+                alt="Colombia - Casaora service coverage"
+                className="object-contain"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 1200px"
-                src="/hero.jpg"
+                src="/colombia.svg"
               />
-              {/* Gradient overlay - fades image to page background */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-50" />
+              {/* Elegant fade to blend into background - top, right, bottom */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50 via-transparent to-transparent" />
             </motion.div>
+
+            {/* Location Badge - Positioned over Medellín */}
+            <div className="absolute top-[35%] left-[20%] rounded-lg border border-neutral-200 bg-white px-5 py-3 shadow-xl">
+              <p className="font-semibold text-neutral-900 text-sm">Medellín, Colombia</p>
+            </div>
           </motion.div>
 
           {/* Trusted By Section - Marquee inside bordered card */}
@@ -238,9 +242,6 @@ export function HeroVariantA() {
             </div>
           </div>
         </Container>
-
-        {/* Horizontal Divider - Connects vertical lines at container width */}
-        <div className="mx-auto mt-20 h-px w-full max-w-[1320px] bg-neutral-200" />
       </div>
     </section>
   );

@@ -6,11 +6,17 @@ import { type Locale } from "@/i18n";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 /**
- * Language Switcher Component
+ * Language Switcher - Lia Design System
  *
- * Allows users to switch between English and Spanish.
- * Uses next-intl for internationalization support.
- * Includes screen reader announcements for accessibility.
+ * Refined segmented control with sharp edges, orange accent, and Geist typography.
+ * Zero-radius aesthetic with precise transitions.
+ *
+ * Features:
+ * - Sliding orange background indicator
+ * - Sharp corners (no border-radius)
+ * - Geist Sans typography
+ * - Smooth transitions
+ * - Full accessibility support
  */
 
 export function LanguageSwitcher() {
@@ -25,7 +31,6 @@ export function LanguageSwitcher() {
     setAnnouncement(`Language changed to ${languageName}`);
 
     // Use next-intl's router which automatically handles locale prefixes
-    // This updates the URL and persists preference via URL locale prefix
     router.replace(pathname, { locale: newLocale });
 
     // Clear announcement after screen readers have time to announce it
@@ -39,31 +44,39 @@ export function LanguageSwitcher() {
         {announcement}
       </div>
 
-      {/* Language toggle buttons */}
+      {/* Segmented Control - Sharp Lia Aesthetic */}
       <div
         aria-label="Language selection"
-        className="flex items-center gap-2 font-medium text-neutral-900 text-sm"
+        className="relative inline-flex border border-neutral-200 bg-white p-1"
         role="group"
       >
+        {/* Sliding orange background indicator */}
+        <div
+          className="absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] bg-orange-500 transition-all duration-300 ease-out"
+          style={{
+            left: locale === "en" ? "4px" : "calc(50% + 0px)",
+          }}
+        />
+
+        {/* EN Button */}
         <button
           aria-label="Switch to English"
           aria-pressed={locale === "en"}
-          className={`transition-colors hover:text-neutral-700 ${
-            locale === "en" ? "font-bold text-neutral-900" : "text-neutral-600"
+          className={`relative z-10 px-4 py-1.5 font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider transition-colors duration-300 ${
+            locale === "en" ? "text-white" : "text-neutral-600 hover:text-neutral-900"
           }`}
           onClick={() => switchLanguage("en")}
           type="button"
         >
           EN
         </button>
-        <span aria-hidden="true" className="text-neutral-600">
-          /
-        </span>
+
+        {/* ES Button */}
         <button
           aria-label="Switch to Spanish"
           aria-pressed={locale === "es"}
-          className={`transition-colors hover:text-neutral-700 ${
-            locale === "es" ? "font-bold text-neutral-900" : "text-neutral-600"
+          className={`relative z-10 px-4 py-1.5 font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider transition-colors duration-300 ${
+            locale === "es" ? "text-white" : "text-neutral-600 hover:text-neutral-900"
           }`}
           onClick={() => switchLanguage("es")}
           type="button"

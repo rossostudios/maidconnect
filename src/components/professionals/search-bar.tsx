@@ -1,6 +1,6 @@
 "use client";
 
-import { Cancel01Icon, Loading01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import { Cancel01Icon, Loading03Icon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -200,9 +200,7 @@ export function SearchBar({
 
         {/* Loading / Clear Button */}
         <div className="-translate-y-1/2 absolute top-1/2 right-5 flex items-center gap-2">
-          {isLoading && (
-            <HugeiconsIcon className="h-5 w-5 animate-spin text-neutral-600" icon={Loading01Icon} />
-          )}
+          {isLoading && <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />}
           {query.length > 0 && !isLoading && (
             <button
               aria-label="Clear search"

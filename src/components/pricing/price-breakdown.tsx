@@ -9,7 +9,6 @@ type PriceBreakdownProps = {
   hours: number;
   hourlyRate: number;
   showPlatformFee?: boolean;
-  serviceType?: "marketplace" | "concierge";
   className?: string;
 };
 
@@ -19,17 +18,16 @@ export function PriceBreakdown({
   hours,
   hourlyRate,
   showPlatformFee = true, // Changed default to true for transparency
-  serviceType = "marketplace",
   className = "",
 }: PriceBreakdownProps) {
-  // 15% for marketplace, 25% for concierge
-  const PLATFORM_FEE_RATE = serviceType === "concierge" ? 0.25 : 0.15;
+  // Concierge-only 20% fee
+  const PLATFORM_FEE_RATE = 0.2;
   const platformFee = Math.round(baseAmount * PLATFORM_FEE_RATE);
   const subtotal = baseAmount + addonsTotal;
   const totalWithFees = showPlatformFee ? subtotal + platformFee : subtotal;
 
   return (
-    <Card className={`border-neutral-200 bg-white ${className}`}>
+    <Card className={`rounded-lg border-neutral-200 bg-white ${className}`}>
       <CardContent className="space-y-3 p-5">
         <h3 className="font-semibold text-base text-neutral-900">Price Breakdown</h3>
 
@@ -68,14 +66,13 @@ export function PriceBreakdown({
                       className="h-3.5 w-3.5 cursor-help text-orange-600 transition hover:text-orange-700"
                       icon={HelpCircleIcon}
                     />
-                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                       <p className="mb-2 font-semibold text-neutral-900 text-sm">
-                        {serviceType === "concierge" ? "Concierge Service Fee" : "Platform Fee"}
+                        Concierge Service Fee
                       </p>
                       <p className="mb-2 text-neutral-700 text-xs leading-relaxed">
-                        {serviceType === "concierge"
-                          ? "Your concierge fee includes expert matching, English-speaking coordinators, priority booking, and satisfaction guarantee."
-                          : "This fee covers background checks, payment protection via Stripe, insurance coverage, 24/7 support, and platform technology."}
+                        Your concierge fee includes expert matching, English-speaking coordinators,
+                        priority booking, and satisfaction guarantee.
                       </p>
                       <p className="font-semibold text-orange-600 text-xs">
                         ✓ Professional receives 100% of their rate
@@ -96,7 +93,7 @@ export function PriceBreakdown({
 
         {showPlatformFee && (
           <div className="mt-4 space-y-2">
-            <Card className="border-orange-200 bg-orange-50">
+            <Card className="rounded-lg border-orange-200 bg-orange-50">
               <CardContent className="p-3">
                 <p className="text-center text-orange-900 text-xs leading-relaxed">
                   <span className="font-semibold">Professional Receives:</span>{" "}
@@ -105,7 +102,7 @@ export function PriceBreakdown({
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-green-200 bg-green-50">
+            <Card className="rounded-lg border-green-200 bg-green-50">
               <CardContent className="p-3 text-center">
                 <p className="text-green-800 text-xs leading-relaxed">
                   <span className="font-semibold">🔒 100% Secure Payment</span> · Protected by
@@ -129,7 +126,7 @@ export function CompactPrice({
   showBreakdown?: boolean;
   className?: string;
 }) {
-  const PLATFORM_FEE_RATE = 0.15;
+  const PLATFORM_FEE_RATE = 0.2; // Concierge-only 20%
   const totalWithFee = hourlyRate * (1 + PLATFORM_FEE_RATE);
 
   if (!showBreakdown) {
@@ -157,7 +154,7 @@ export function calculateTotalWithFees(
   platformFee: number;
   total: number;
 } {
-  const PLATFORM_FEE_RATE = 0.15;
+  const PLATFORM_FEE_RATE = 0.2; // Concierge-only 20%
   const subtotal = baseAmount + addonsTotal;
   const platformFee = includePlatformFee ? Math.round(subtotal * PLATFORM_FEE_RATE) : 0;
   const total = subtotal + platformFee;

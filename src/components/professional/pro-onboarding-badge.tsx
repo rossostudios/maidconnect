@@ -2,7 +2,9 @@
 
 import { Alert01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { geistSans } from "@/app/fonts";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 type OnboardingStatus =
   | "application_pending"
@@ -21,44 +23,32 @@ const STATUS_CONFIG: Record<
   {
     label: string;
     description: string;
-    color: string;
-    bgColor: string;
     showBadge: boolean;
   }
 > = {
   application_pending: {
     label: "Complete Application",
     description: "Finish your application to get reviewed",
-    color: "neutral-500",
-    bgColor: "neutral-50",
     showBadge: true,
   },
   application_in_review: {
     label: "In Review",
     description: "Your application is being reviewed",
-    color: "neutral-500",
-    bgColor: "neutral-500",
     showBadge: true,
   },
   approved: {
     label: "Complete Profile",
     description: "Build your profile to go live",
-    color: "neutral-500",
-    bgColor: "neutral-50",
     showBadge: true,
   },
   active: {
     label: "Active",
     description: "Your profile is live",
-    color: "neutral-500",
-    bgColor: "neutral-50",
     showBadge: false,
   },
   suspended: {
     label: "Account Suspended",
     description: "Contact support for help",
-    color: "neutral-500",
-    bgColor: "neutral-50",
     showBadge: true,
   },
 };
@@ -72,36 +62,48 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
   return (
     <Link
-      className="group mx-3 mt-4 mb-4 block border border-[neutral-200] p-3 transition-all hover:shadow-md"
+      className="group mx-4 mt-4 mb-4 block border border-[#FF5200] bg-orange-50 p-3 transition-all hover:shadow-sm"
       href="/dashboard/pro/onboarding"
-      style={{ backgroundColor: config.bgColor }}
     >
       <div className="flex items-start gap-3">
-        <div
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center"
-          style={{ backgroundColor: `${config.color}20` }}
-        >
-          <HugeiconsIcon className="h-4 w-4" icon={Alert01Icon} style={{ color: config.color }} />
+        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center border border-[#FF5200] bg-[#FF5200]">
+          <HugeiconsIcon className="h-4 w-4 text-white" icon={Alert01Icon} />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="font-semibold text-sm" style={{ color: config.color }}>
+          <p
+            className={cn(
+              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
+          >
             {config.label}
           </p>
-          <p className="mt-0.5 text-[neutral-400] text-xs leading-tight">{config.description}</p>
+          <p
+            className={cn(
+              "mt-1 font-normal text-[10px] text-neutral-700 tracking-tighter",
+              geistSans.className
+            )}
+          >
+            {config.description}
+          </p>
 
           {completionPercentage > 0 && completionPercentage < 100 && (
             <div className="mt-2">
-              <div className="h-1.5 w-full overflow-hidden bg-[neutral-50]/50">
+              <div className="h-1 w-full overflow-hidden border border-neutral-200 bg-white">
                 <div
-                  className="h-full transition-all duration-300"
-                  style={{
-                    width: `${completionPercentage}%`,
-                    backgroundColor: config.color,
-                  }}
+                  className="h-full bg-[#FF5200] transition-all duration-300"
+                  style={{ width: `${completionPercentage}%` }}
                 />
               </div>
-              <p className="mt-1 text-right text-[neutral-400] text-xs">{completionPercentage}%</p>
+              <p
+                className={cn(
+                  "mt-1 text-right font-semibold text-[10px] text-neutral-700 tracking-tighter",
+                  geistSans.className
+                )}
+              >
+                {completionPercentage}%
+              </p>
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartIcon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { ChartIcon, Loading03Icon, RefreshIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -75,9 +75,9 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin border-[neutral-500] border-t-2 border-b-2" />
-          <p className="text-[neutral-400]">{t("loading")}</p>
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">{t("loading")}</p>
         </div>
       </div>
     );
@@ -121,10 +121,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
           onClick={handleRefresh}
           type="button"
         >
-          <HugeiconsIcon
-            className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
-            icon={RefreshIcon}
-          />
+          {refreshing ? (
+            <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
+          ) : (
+            <HugeiconsIcon className="h-4 w-4" icon={RefreshIcon} />
+          )}
           {refreshing ? t("refreshing") : t("refresh")}
         </button>
       </div>

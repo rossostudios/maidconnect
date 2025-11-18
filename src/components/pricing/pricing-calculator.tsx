@@ -21,13 +21,12 @@ export function PricingCalculator() {
   const [serviceCategory, setServiceCategory] = useState<ServiceCategory>("cleaning");
   const [hours, setHours] = useState(4);
   const [addInsurance, setAddInsurance] = useState(true);
-  const [serviceType, setServiceType] = useState<"marketplace" | "concierge">("marketplace");
   const [currency, setCurrency] = useState<"COP" | "USD">("COP");
 
-  // Calculations
+  // Calculations - Concierge-only 20% fee
   const baseRate = SERVICE_BASE_RATES[serviceCategory];
   const serviceTotal = baseRate * hours;
-  const platformFeeRate = serviceType === "marketplace" ? 0.15 : 0.25;
+  const platformFeeRate = 0.2; // Concierge service fee
   const platformFee = serviceTotal * platformFeeRate;
   const insuranceFee = addInsurance ? 5000 : 0;
   const totalCost = serviceTotal + platformFee + insuranceFee;
@@ -42,7 +41,7 @@ export function PricingCalculator() {
   };
 
   return (
-    <Card className="mx-auto max-w-2xl border-2 border-neutral-200 bg-white shadow-lg">
+    <Card className="mx-auto max-w-2xl rounded-lg border-2 border-neutral-200 bg-white shadow-lg">
       <CardContent className="p-10">
         <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 leading-[24px]">
           {t("title")}
@@ -55,12 +54,12 @@ export function PricingCalculator() {
         <div className="mb-baseline-1 flex justify-center">
           <div
             aria-label="Currency selection"
-            className="inline-flex border border-neutral-200 bg-neutral-50 p-1"
+            className="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1"
             role="group"
           >
             <button
               aria-pressed={currency === "COP"}
-              className={`rounded px-4 py-1.5 font-medium text-xs transition-all ${
+              className={`rounded-lg px-4 py-1.5 font-medium text-xs transition-all ${
                 currency === "COP"
                   ? "bg-white text-neutral-900 shadow-sm"
                   : "text-neutral-600 hover:text-neutral-900"
@@ -72,7 +71,7 @@ export function PricingCalculator() {
             </button>
             <button
               aria-pressed={currency === "USD"}
-              className={`rounded px-4 py-1.5 font-medium text-xs transition-all ${
+              className={`rounded-lg px-4 py-1.5 font-medium text-xs transition-all ${
                 currency === "USD"
                   ? "bg-white text-neutral-900 shadow-sm"
                   : "text-neutral-600 hover:text-neutral-900"
@@ -86,46 +85,6 @@ export function PricingCalculator() {
         </div>
 
         <div className="space-y-6">
-          {/* Service Type */}
-          <div>
-            <label
-              className="mb-2 block font-semibold text-[14px] text-neutral-900 leading-[24px]"
-              id="service-type-label"
-            >
-              {t("serviceType")}
-            </label>
-            <div
-              aria-labelledby="service-type-label"
-              className="grid grid-cols-2 gap-3"
-              role="group"
-            >
-              <button
-                aria-pressed={serviceType === "marketplace"}
-                className={`border-2 px-4 py-3 font-medium text-sm transition-all ${
-                  serviceType === "marketplace"
-                    ? "border-orange-500 bg-orange-50 text-orange-600"
-                    : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
-                }`}
-                onClick={() => setServiceType("marketplace")}
-                type="button"
-              >
-                {t("marketplace")} (15%)
-              </button>
-              <button
-                aria-pressed={serviceType === "concierge"}
-                className={`border-2 px-4 py-3 font-medium text-sm transition-all ${
-                  serviceType === "concierge"
-                    ? "border-orange-500 bg-orange-50 text-orange-600"
-                    : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
-                }`}
-                onClick={() => setServiceType("concierge")}
-                type="button"
-              >
-                {t("concierge")} (25%)
-              </button>
-            </div>
-          </div>
-
           {/* Service Category */}
           <div>
             <label
@@ -135,7 +94,7 @@ export function PricingCalculator() {
               {t("selectService")}
             </label>
             <select
-              className="w-full border-2 border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+              className="w-full rounded-lg border-2 border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               id="service-category"
               onChange={(e) => setServiceCategory(e.target.value as ServiceCategory)}
               value={serviceCategory}
@@ -177,7 +136,7 @@ export function PricingCalculator() {
           </div>
 
           {/* Insurance */}
-          <div className="flex items-center justify-between border border-neutral-200 bg-neutral-50 p-4">
+          <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-4">
             <div>
               <div className="font-semibold text-neutral-900 text-sm" id="insurance-label">
                 {t("addInsurance")}
@@ -198,7 +157,7 @@ export function PricingCalculator() {
                 role="switch"
                 type="checkbox"
               />
-              <div className="peer rtl:peer-checked:after:-translate-x-full h-6 w-11 bg-neutral-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/25" />
+              <div className="peer rtl:peer-checked:after:-translate-x-full h-6 w-11 rounded-full bg-neutral-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/25" />
             </label>
           </div>
 
@@ -225,11 +184,9 @@ export function PricingCalculator() {
             </div>
             <div className="flex justify-between text-[16px] leading-[24px]">
               <span className="text-neutral-700">
-                <span id="platform-fee-label">
-                  {t("platformFee")} ({serviceType === "marketplace" ? "15%" : "25%"})
-                </span>
+                <span id="platform-fee-label">{t("platformFee")} (20%)</span>
                 <span className="ml-1 text-neutral-600 text-xs" id="platform-fee-desc">
-                  (Casaora service)
+                  (Casaora concierge service)
                 </span>
               </span>
               <span
@@ -268,7 +225,7 @@ export function PricingCalculator() {
           </div>
 
           {/* Professional Receives */}
-          <div className="border-2 border-orange-200 bg-orange-50 p-4">
+          <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-[14px] text-orange-900 leading-[24px]">
                 {t("professionalReceives")}

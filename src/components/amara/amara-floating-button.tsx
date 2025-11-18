@@ -9,12 +9,14 @@
  * Uses orange accent colors and smooth animations.
  */
 
+import { Loading03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { cn } from "@/lib/utils";
-import { AmaraIcon } from "./amara-icon";
 import { AmaraOnboardingTooltip } from "./amara-onboarding-tooltip";
 
 // Dynamically import the heavy chat interface component
@@ -24,7 +26,7 @@ const AmaraChatInterface = dynamic(
     ssr: false,
     loading: () => (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50">
-        <div className="h-12 w-12 animate-spin border-4 border-neutral-200 border-t-transparent" />
+        <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
       </div>
     ),
   }
@@ -69,13 +71,15 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
       {!isOpen && (
         <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
           {/* Pulse Ring Animation (only when onboarding is visible) */}
-          {showOnboarding && <div className="amara-pulse-ring absolute inset-0 bg-orange-500" />}
+          {showOnboarding && (
+            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-orange-500" />
+          )}
 
           {/* Button */}
           <button
             aria-label={t("openChat")}
             className={cn(
-              "relative inline-flex h-14 w-14 items-center justify-center bg-orange-500 text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
+              "relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
               className
             )}
             onClick={() => {
@@ -84,7 +88,13 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
             }}
             type="button"
           >
-            <AmaraIcon className="text-white" size={32} />
+            <Image
+              alt="Amara AI Assistant"
+              className="h-8 w-8 sm:h-9 sm:w-9"
+              height={36}
+              src="/amara-floating-chat.svg"
+              width={36}
+            />
           </button>
         </div>
       )}

@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
+import { geistSans } from "@/app/fonts";
 import { confirm } from "@/lib/toast";
+import { cn } from "@/lib/utils/core";
 import { ImageUploadDropzone } from "./image-upload-dropzone";
 
 type Props = {
@@ -138,25 +140,32 @@ export function PortfolioManager({
       {/* Featured Work */}
       <div>
         <label
-          className="mb-2 block font-semibold text-[neutral-900] text-sm"
+          className={cn("mb-2 block font-semibold text-neutral-900 text-sm", geistSans.className)}
           htmlFor="featured-work"
         >
           {t("fields.description.label")}
         </label>
         <textarea
-          className="w-full border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+          className={cn(
+            "w-full border border-neutral-200 px-3 py-2 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/20",
+            geistSans.className
+          )}
           id="featured-work"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
           rows={3}
           value={featuredWork}
         />
-        <p className="mt-1 text-[neutral-400] text-xs">{t("fields.description.helper")}</p>
+        <p className={cn("mt-1 text-neutral-700 text-xs", geistSans.className)}>
+          {t("fields.description.helper")}
+        </p>
       </div>
 
       {/* Upload New Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-[neutral-900] text-sm">{t("upload.title")}</h3>
+        <h3 className={cn("mb-3 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+          {t("upload.title")}
+        </h3>
         <ImageUploadDropzone
           maxImages={20 - images.length}
           onImagesUploaded={handleImagesUploaded}
@@ -165,7 +174,7 @@ export function PortfolioManager({
 
       {/* Current Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-[neutral-900] text-sm">
+        <h3 className={cn("mb-3 font-semibold text-neutral-900 text-sm", geistSans.className)}>
           {t("upload.currentImages", { count: images.length })}
         </h3>
 
@@ -173,7 +182,7 @@ export function PortfolioManager({
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
-                className="flex gap-3 border border-[neutral-200] bg-[neutral-50] p-3"
+                className="flex gap-3 border border-neutral-200 bg-neutral-50 p-3"
                 key={image.id}
               >
                 {/* Thumbnail */}
@@ -192,7 +201,10 @@ export function PortfolioManager({
                     <div className="space-y-2">
                       <input
                         autoFocus
-                        className="w-full border border-[neutral-200] px-2 py-1 text-sm focus:border-[neutral-500] focus:outline-none"
+                        className={cn(
+                          "w-full border border-neutral-200 px-2 py-1 text-sm focus:border-neutral-900 focus:outline-none",
+                          geistSans.className
+                        )}
                         defaultValue={image.caption || ""}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
@@ -206,21 +218,39 @@ export function PortfolioManager({
                     </div>
                   ) : (
                     <>
-                      <p className="font-semibold text-[neutral-900] text-sm">
+                      <p
+                        className={cn(
+                          "font-semibold text-neutral-900 text-sm",
+                          geistSans.className
+                        )}
+                      >
                         {image.caption || "(No caption)"}
                       </p>
-                      <p className="mt-1 truncate text-[neutral-400] text-xs">{image.url}</p>
+                      <p
+                        className={cn(
+                          "mt-1 truncate text-neutral-700 text-xs",
+                          geistSans.className
+                        )}
+                      >
+                        {image.url}
+                      </p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
-                          className="text-[neutral-500] text-xs hover:text-[neutral-500]"
+                          className={cn(
+                            "text-neutral-700 text-xs hover:text-neutral-900",
+                            geistSans.className
+                          )}
                           onClick={() => setEditingId(image.id)}
                           type="button"
                         >
                           {t("actions.editCaption")}
                         </button>
-                        <span className="text-[neutral-200] text-xs">•</span>
+                        <span className="text-neutral-200 text-xs">•</span>
                         <button
-                          className="text-[neutral-400] text-xs hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+                          className={cn(
+                            "text-neutral-700 text-xs hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50",
+                            geistSans.className
+                          )}
                           disabled={index === 0}
                           onClick={() => handleMoveUp(image.id)}
                           type="button"
@@ -228,16 +258,22 @@ export function PortfolioManager({
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          className="text-[neutral-400] text-xs hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+                          className={cn(
+                            "text-neutral-700 text-xs hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50",
+                            geistSans.className
+                          )}
                           disabled={index === sortedImages.length - 1}
                           onClick={() => handleMoveDown(image.id)}
                           type="button"
                         >
                           {t("actions.moveDown")}
                         </button>
-                        <span className="text-[neutral-200] text-xs">•</span>
+                        <span className="text-neutral-200 text-xs">•</span>
                         <button
-                          className="text-[neutral-500] text-xs hover:text-[neutral-500]"
+                          className={cn(
+                            "text-neutral-700 text-xs hover:text-neutral-900",
+                            geistSans.className
+                          )}
                           onClick={() => handleDeleteImage(image.id)}
                           type="button"
                         >
@@ -250,7 +286,12 @@ export function PortfolioManager({
 
                 {/* Order Badge */}
                 <div className="flex-shrink-0">
-                  <span className="inline-flex h-6 w-6 items-center justify-center bg-[neutral-200] font-semibold text-[neutral-400] text-xs">
+                  <span
+                    className={cn(
+                      "inline-flex h-6 w-6 items-center justify-center bg-neutral-200 font-semibold text-neutral-700 text-xs",
+                      geistSans.className
+                    )}
+                  >
                     {index + 1}
                   </span>
                 </div>
@@ -260,18 +301,24 @@ export function PortfolioManager({
         )}
 
         {images.length === 0 && (
-          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-12 text-center">
+          <div className="border border-neutral-200 bg-neutral-50 p-12 text-center">
             <p className="text-2xl">📸</p>
-            <p className="mt-2 font-semibold text-[neutral-900] text-sm">{t("emptyState.title")}</p>
-            <p className="mt-1 text-[neutral-400] text-sm">{t("emptyState.description")}</p>
+            <p className={cn("mt-2 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              {t("emptyState.title")}
+            </p>
+            <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+              {t("emptyState.description")}
+            </p>
           </div>
         )}
       </div>
 
       {/* Upload Tips */}
-      <div className="border border-[neutral-200] bg-[neutral-50] p-4">
-        <h4 className="font-semibold text-[neutral-900] text-sm">📸 {t("tips.title")}</h4>
-        <ul className="mt-2 space-y-1 text-[neutral-400] text-sm">
+      <div className="border border-neutral-200 bg-neutral-50 p-4">
+        <h4 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+          📸 {t("tips.title")}
+        </h4>
+        <ul className={cn("mt-2 space-y-1 text-neutral-700 text-sm", geistSans.className)}>
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>
           <li>• {t("tips.tip3")}</li>
@@ -283,7 +330,10 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          className="bg-[neutral-500] px-6 py-2 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
+          className={cn(
+            "border border-[#FF5200] bg-[#FF5200] px-6 py-2 font-semibold text-sm text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-orange-200 disabled:bg-orange-200 disabled:text-neutral-700",
+            geistSans.className
+          )}
           disabled={loading}
           onClick={handleSave}
           type="button"

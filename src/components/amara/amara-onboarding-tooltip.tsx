@@ -12,9 +12,9 @@
 
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { AmaraIcon } from "./amara-icon";
 
 const STORAGE_KEY = "amara_onboarding_dismissed";
 
@@ -66,7 +66,13 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
         {/* Header */}
         <div className="mb-3 flex items-start gap-3">
           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center bg-orange-50">
-            <AmaraIcon className="text-orange-600" size={24} />
+            <Image
+              alt="Amara AI Assistant"
+              className="h-6 w-6"
+              height={24}
+              src="/amara-floating-chat.svg"
+              width={24}
+            />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-neutral-900 text-sm">{t("title")}</h3>

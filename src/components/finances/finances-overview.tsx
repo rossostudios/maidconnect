@@ -5,6 +5,10 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
+import { geistSans } from "@/app/fonts";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils/core";
+
 type Booking = {
   id: string;
   status: string;
@@ -31,8 +35,6 @@ type Props = {
 
 const COLORS = ["#57534E", "#1C1917", "#78716C", "#A8A29E", "#D6D3D1"]; // neutral-600, neutral-900, neutral-500, neutral-400, neutral-300
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
 // Dynamically import Recharts components (150-200KB library)
 const LineChartComponent = dynamic(
   () =>
@@ -53,7 +55,7 @@ const LineChartComponent = dynamic(
                 contentStyle={{
                   backgroundColor: "white",
                   border: "1px solid #E7E5E4",
-                  borderRadius: "8px",
+                  borderRadius: "0px",
                 }}
                 formatter={(value: number) => formatCurrency(value)}
               />
@@ -99,11 +101,11 @@ const BarChartComponent = dynamic(
                 contentStyle={{
                   backgroundColor: "white",
                   border: "1px solid #E7E5E4",
-                  borderRadius: "8px",
+                  borderRadius: "0px",
                 }}
                 formatter={formatter}
               />
-              <Bar dataKey={dataKey} fill={fill} radius={[8, 8, 0, 0]} />
+              <Bar dataKey={dataKey} fill={fill} radius={[0, 0, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         );
@@ -269,7 +271,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Earnings Over Time */}
         <Card className="border-neutral-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-neutral-900 text-xl">{t("charts.earningsTrend")}</h2>
+            <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
+              {t("charts.earningsTrend")}
+            </h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
             <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
@@ -279,7 +283,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Bookings Count Over Time */}
         <Card className="border-neutral-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-neutral-900 text-xl">
+            <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
               {t("charts.bookingsByMonth")}
             </h2>
           </CardHeader>
@@ -292,7 +296,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {serviceData.length > 0 && (
           <Card className="border-neutral-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-neutral-900 text-xl">
+              <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
                 {t("charts.revenueByService")}
               </h2>
             </CardHeader>
@@ -306,7 +310,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {payoutHistory.length > 0 && (
           <Card className="border-neutral-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-neutral-900 text-xl">
+              <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
                 {t("charts.recentPayouts")}
               </h2>
             </CardHeader>
@@ -337,9 +341,23 @@ function MetricCard({
   return (
     <Card className="border-neutral-200 bg-white shadow-sm">
       <CardContent className="p-6">
-        <dt className="font-semibold text-neutral-600 text-xs uppercase tracking-wider">{label}</dt>
-        <dd className="mt-3 font-semibold text-3xl text-neutral-900">{value}</dd>
-        <p className="mt-1 text-neutral-600 text-sm">{description}</p>
+        <dt
+          className={cn(
+            "font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+            geistSans.className
+          )}
+        >
+          {label}
+        </dt>
+        <dd
+          className={cn(
+            "mt-3 font-semibold text-3xl text-neutral-900 tracking-tighter",
+            geistSans.className
+          )}
+        >
+          {value}
+        </dd>
+        <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>{description}</p>
       </CardContent>
     </Card>
   );

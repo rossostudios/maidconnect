@@ -19,7 +19,8 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-neutral-200 border-b bg-white py-4">
-      <Container className="flex items-center justify-between gap-8 text-neutral-900">
+      <Container className="grid grid-cols-[auto_1fr_auto] items-center gap-8 text-neutral-900">
+        {/* Left: Logo */}
         <Link
           className="flex items-center gap-3 no-underline transition-opacity hover:opacity-80"
           href="/"
@@ -32,11 +33,12 @@ export async function SiteHeader() {
             src="/isologo.svg"
             width={40}
           />
-          <span className="font-[family-name:var(--font-geist-sans)] font-bold text-xl uppercase tracking-tight lg:text-2xl">
-            CASAORA
+          <span className="font-[family-name:var(--font-geist-sans)] font-medium text-xl uppercase tracking-tight lg:text-2xl">
+            CASAORA®
           </span>
         </Link>
 
+        {/* Center & Right: Navigation */}
         <SiteHeaderClient dashboardHref={dashboardHref} isAuthenticated={!!user} />
       </Container>
     </header>

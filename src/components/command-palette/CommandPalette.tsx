@@ -453,10 +453,7 @@ export function UnifiedCommandPalette({
         {/* Loading State */}
         {isSearching && (
           <div className="flex items-center justify-center px-4 py-8">
-            <HugeiconsIcon
-              className="h-5 w-5 animate-spin text-[neutral-500]"
-              icon={Loading03Icon}
-            />
+            <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
             <span className="ml-2 text-[neutral-400] text-sm">Searching...</span>
           </div>
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Logout01Icon } from "@hugeicons/core-free-icons";
+import { Loading03Icon, Logout01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState, useTransition } from "react";
 import { signOutAction } from "@/app/[locale]/auth/actions";
@@ -50,14 +50,11 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
       type="button"
     >
       {/* Icon with loading animation */}
-      <div className={cn("relative", isLoading && "animate-pulse")}>
+      {isLoading ? (
+        <HugeiconsIcon className="h-5 w-5 flex-shrink-0 animate-spin" icon={Loading03Icon} />
+      ) : (
         <HugeiconsIcon className="h-5 w-5 flex-shrink-0" icon={Logout01Icon} />
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-5 w-5 animate-spin border-2 border-[neutral-500] border-t-transparent" />
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Label */}
       {showLabel && !isCollapsed && (

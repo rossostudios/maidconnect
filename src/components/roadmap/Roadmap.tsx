@@ -6,7 +6,13 @@
 
 "use client";
 
-import { ArrowUp01Icon, Delete01Icon, Edit01Icon, ViewIcon } from "@hugeicons/core-free-icons";
+import {
+  ArrowUp01Icon,
+  Delete01Icon,
+  Edit01Icon,
+  Loading03Icon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -124,7 +130,9 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin border-4 border-neutral-900 border-t-transparent" />
+          <div className="flex flex-col items-center gap-4">
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+          </div>
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">

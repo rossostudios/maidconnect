@@ -54,8 +54,9 @@ export function SiteNavigation() {
     },
   ];
 
+  // Removed "/professionals" link for concierge-only migration
+  // Professional directory now redirects to /concierge via 301
   const links = [
-    { href: "/professionals", label: t("hireProfessional") },
     { href: "/pricing", label: t("pricing") },
     { href: "/contact", label: "Contact" },
   ];
