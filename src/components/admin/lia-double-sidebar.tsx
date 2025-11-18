@@ -44,45 +44,45 @@ const categories: CategorySection[] = [
   {
     id: "overview",
     icon: Home01Icon,
-    label: "Overview",
-    description: "Dashboard & Analytics",
+    label: "Dashboard",
+    description: "Platform Insights",
     items: [
-      { href: "/admin", label: "Dashboard", description: "Overview & metrics" },
-      { href: "/admin/analytics", label: "Analytics", description: "Deep insights" },
+      { href: "/admin", label: "Overview", description: "Key Performance Indicators" },
+      { href: "/admin/analytics", label: "Analytics", description: "Detailed Performance Data" },
     ],
   },
   {
     id: "users",
     icon: UserGroupIcon,
-    label: "Users",
-    description: "User Management",
+    label: "Community",
+    description: "Member Management",
     items: [
-      { href: "/admin/users", label: "All Users", description: "Browse all users" },
-      { href: "/admin/applications", label: "Applications", description: "Pro applications" },
-      { href: "/admin/moderation", label: "Moderation", description: "Content moderation" },
+      { href: "/admin/users", label: "User Directory", description: "Comprehensive member list" },
+      { href: "/admin/applications", label: "Applications", description: "Professional verification requests" },
+      { href: "/admin/moderation", label: "Safety & Moderation", description: "Content review & safety tools" },
     ],
   },
   {
     id: "operations",
     icon: ClipboardIcon,
     label: "Operations",
-    description: "Admin Operations",
+    description: "System Operations",
     items: [
-      { href: "/admin/bulk-operations", label: "Bulk Operations", description: "Mass actions" },
-      { href: "/admin/disputes", label: "Disputes", description: "Resolve disputes" },
-      { href: "/admin/audit-logs", label: "Audit Logs", description: "Activity history" },
+      { href: "/admin/bulk-operations", label: "Bulk Actions", description: "Batch processing tools" },
+      { href: "/admin/disputes", label: "Resolution Center", description: "Dispute management" },
+      { href: "/admin/audit-logs", label: "Audit Trail", description: "System activity logs" },
     ],
   },
   {
     id: "content",
     icon: FileIcon,
-    label: "Content",
-    description: "Content & Config",
+    label: "Configuration",
+    description: "Platform Configuration",
     items: [
-      { href: "/admin/content", label: "CMS Content", description: "Manage content" },
-      { href: "/admin/pricing", label: "Pricing", description: "Pricing controls" },
-      { href: "/admin/feedback", label: "Feedback", description: "User feedback" },
-      { href: "/admin/roadmap", label: "Roadmap", description: "Product roadmap" },
+      { href: "/admin/content", label: "Content Management", description: "Editorial & static content" },
+      { href: "/admin/pricing", label: "Monetization", description: "Pricing & revenue settings" },
+      { href: "/admin/feedback", label: "User Feedback", description: "Community suggestions" },
+      { href: "/admin/roadmap", label: "Product Roadmap", description: "Future development plans" },
     ],
   },
 ];
@@ -253,36 +253,29 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
       {/* Right Expanded Sidebar - 240px */}
       <div className="flex w-60 flex-col border-neutral-200 border-r bg-white">
         {/* Category Header */}
-        <div className="border-neutral-200 border-b bg-white px-4 py-4">
-          <div className="flex items-center gap-3">
-            {selectedCategoryData && (
-              <>
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-                  <HugeiconsIcon
-                    className="h-5 w-5 text-orange-500"
-                    icon={selectedCategoryData.icon}
-                  />
-                </div>
-                <div className="min-w-0 flex-1 flex flex-col">
-                  <h2
-                    className={cn(
-                      "font-semibold text-neutral-900 text-sm leading-none",
-                      geistSans.className
-                    )}
-                  >
-                    {selectedCategoryData.label}
-                  </h2>
-                  <p className="text-neutral-500 text-xs leading-none">
-                    {selectedCategoryData.description}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
+        <div className="flex items-center gap-2.5 border-neutral-200 border-b bg-white px-4 py-3">
+          {selectedCategoryData && (
+            <>
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
+                <HugeiconsIcon
+                  className="h-4.5 w-4.5 text-orange-500"
+                  icon={selectedCategoryData.icon}
+                />
+              </div>
+              <h2
+                className={cn(
+                  "min-w-0 flex-1 font-semibold text-orange-500 text-sm",
+                  geistSans.className
+                )}
+              >
+                {selectedCategoryData.label}
+              </h2>
+            </>
+          )}
         </div>
 
         {/* Search */}
-        <div className="border-neutral-200 border-b bg-white p-3">
+        <div className="border-neutral-200 border-b bg-white px-3 py-2">
           <div className="relative">
             <HugeiconsIcon
               className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 h-4 w-4 text-neutral-400"
@@ -290,7 +283,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
             />
             <input
               className={cn(
-                "w-full rounded-lg border border-neutral-200 bg-white py-2 pr-3 pl-9 text-neutral-900 text-sm placeholder-neutral-400 transition-colors focus:border-orange-500 focus:outline-none",
+                "w-full rounded-lg border border-neutral-200 bg-white py-1.5 pr-3 pl-9 text-neutral-900 text-sm placeholder-neutral-400 transition-colors focus:border-orange-500 focus:outline-none",
                 geistSans.className
               )}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -351,7 +344,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
 
           {filteredItems.length === 0 && selectedCategory !== "settings" && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <Search01Icon className="mb-3 h-8 w-8 text-neutral-300" />
+              <HugeiconsIcon className="mb-3 h-8 w-8 text-neutral-300" icon={Search01Icon} />
               <p className="font-medium text-neutral-500 text-sm">No results found</p>
               <p className="mt-1 text-neutral-400 text-xs">Try a different search term</p>
             </div>
@@ -359,7 +352,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
         </nav>
 
         {/* User Profile */}
-        <div className="border-neutral-200 border-t bg-white p-3">
+        <div className="border-neutral-200 border-t bg-white p-2">
           <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
             <button
               aria-controls="admin-profile-menu"
@@ -387,16 +380,16 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
               </div>
 
               {/* User Info */}
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 flex flex-col justify-center gap-0.5">
                 <p
                   className={cn(
-                    "truncate font-semibold text-neutral-900 text-sm",
+                    "truncate font-semibold text-neutral-900 text-sm leading-none",
                     geistSans.className
                   )}
                 >
                   {firstName}
                 </p>
-                <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
+                <p className="truncate text-neutral-500 text-xs leading-none">{accountEmail}</p>
               </div>
 
               {/* Chevron */}
