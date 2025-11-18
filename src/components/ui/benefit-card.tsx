@@ -23,8 +23,8 @@ export type BenefitCardProps = {
 /**
  * BenefitCard Component
  *
- * Minimalist benefit card with square icon container (NO rounded corners),
- * inspired by Aurius design patterns. Features left-aligned text and
+ * Minimalist benefit card with Anthropic-inspired rounded icon container,
+ * following Lia design patterns. Features left-aligned text and
  * clean typography hierarchy.
  *
  * @example
@@ -45,7 +45,7 @@ export function BenefitCard({ icon, title, description, className = "" }: Benefi
       className={cn("flex flex-col gap-4 text-left sm:flex-row sm:items-start sm:gap-6", className)}
     >
       {/* Icon column */}
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center border border-neutral-200 bg-neutral-50 shadow-inner">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 shadow-inner">
         <HugeiconsIcon className="h-7 w-7 text-orange-600" icon={icon} />
       </div>
 

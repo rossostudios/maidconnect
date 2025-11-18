@@ -30,7 +30,8 @@ const RadioGroupItem = ({
     {...props}
   >
     <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-      <div className="h-2.5 w-2.5 rounded-full bg-current" />
+      {/* Lia Design System: Square indicator (no rounded corners) */}
+      <div className="h-2.5 w-2.5 bg-current" />
     </RadioGroupPrimitive.Indicator>
   </RadioGroupPrimitive.Item>
 );

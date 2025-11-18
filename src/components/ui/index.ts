@@ -79,7 +79,6 @@ export { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 export { Backdrop } from "./backdrop";
 export type { BadgeProps } from "./badge";
 export { Badge, badgeVariants } from "./badge";
-export { LoadingCamper } from "./loading-camper";
 export {
   CalendarSkeleton,
   CardSkeleton,

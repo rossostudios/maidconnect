@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2",
+  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2",
   {
     variants: {
       variant: {
