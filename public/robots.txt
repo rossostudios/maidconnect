@@ -1,0 +1,25 @@
+# Casaora Robots Configuration
+# Updated for concierge-only business model migration
+
+User-agent: *
+
+# Allow all pages by default
+Allow: /
+
+# Block professional directory (migrated to concierge-only model)
+# These routes now redirect to /concierge via 301 redirects
+Disallow: /en/professionals
+Disallow: /es/professionals
+Disallow: /en/professionals/*
+Disallow: /es/professionals/*
+
+# Block admin and internal routes
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+# Block authentication pages from indexing
+Disallow: /auth/
+
+# Sitemap location
+Sitemap: https://casaora.com/sitemap.xml

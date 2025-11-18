@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running Lia Design System checks..."
+
+# Check for rounded corners violations
+ROUNDED_VIOLATIONS=$(git diff --cached --name-only --diff-filter=ACM | \
+  grep -E '\.(tsx?|jsx?)$' | \
+  xargs grep -n "rounded-full\|rounded-lg\|rounded-md\|rounded-sm\|rounded-xl\|rounded-2xl\|rounded-3xl" 2>/dev/null)
+
+if [ -n "$ROUNDED_VIOLATIONS" ]; then
+  echo ""
+  echo "❌ Lia Design System violation detected:"
+  echo "   Found rounded corner classes (Lia mandates ZERO rounded corners)"
+  echo ""
+  echo "$ROUNDED_VIOLATIONS"
+  echo ""
+  echo "💡 Fix: Remove all rounded-* classes"
+  echo "   Lia Design System uses sharp corners only (0px border-radius)"
+  echo ""
+  exit 1
+fi
+
+# Check for glass morphism violations
+GLASS_VIOLATIONS=$(git diff --cached --name-only --diff-filter=ACM | \
+  grep -E '\.(tsx?|jsx?)$' | \
+  xargs grep -n "backdrop-blur" 2>/dev/null)
+
+if [ -n "$GLASS_VIOLATIONS" ]; then
+  echo ""
+  echo "❌ Lia Design System violation detected:"
+  echo "   Found glass morphism effects (backdrop-blur)"
+  echo ""
+  echo "$GLASS_VIOLATIONS"
+  echo ""
+  echo "💡 Fix: Use solid backgrounds instead"
+  echo "   Lia Design System prohibits glass morphism for clarity and performance"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Lia Design System checks passed!"
+echo ""
+
+# Run Biome linting
+echo "🔍 Running Biome linter..."
+bun run check
+
+# Run TypeScript type checking
+echo "🔍 Running TypeScript type checking..."
+bun run type-check
