@@ -49,7 +49,7 @@ export function StartConversationButton({ bookingId, label = "Message", classNam
   return (
     <button
       className={cn(
-        "inline-flex items-center gap-2 border border-neutral-200 bg-white px-4 py-2 font-semibold text-neutral-700 text-sm shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50",
+        "inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-semibold text-neutral-700 text-sm shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
       disabled={loading}

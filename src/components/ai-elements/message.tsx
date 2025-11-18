@@ -34,7 +34,7 @@ export const Message = ({
 
 export const MessageAvatar = ({ from, avatar }: MessageBaseProps & { avatar?: ReactNode }) =>
   from === "assistant" ? (
-    <div className="mt-1 size-8 shrink-0 bg-[neutral-50] text-[neutral-500]">{avatar}</div>
+    <div className="mt-1 size-8 shrink-0 rounded-full bg-neutral-50 text-neutral-500">{avatar}</div>
   ) : (
     <div className="size-8 shrink-0" />
   );
@@ -46,7 +46,7 @@ export const MessageContent = ({
 }: MessageBaseProps & { children: ReactNode }) => (
   <div
     className={cn(
-      "max-w-full border px-4 py-3 font-[family-name:var(--font-geist-sans)] text-sm shadow-sm",
+      "max-w-full rounded-lg border px-4 py-3 font-[family-name:var(--font-geist-sans)] text-sm shadow-sm",
       from === "user"
         ? "border-orange-500 bg-orange-500 text-white"
         : "border-neutral-200 bg-white text-neutral-900",
@@ -76,7 +76,7 @@ export const MessageAttachments = ({ files }: { files: FileUIPart[] }) => {
     <div className="mt-3 space-y-2 font-[family-name:var(--font-geist-sans)] text-neutral-600 text-xs">
       {files.map((file, index) => (
         <div
-          className="flex items-center justify-between border border-neutral-200 bg-neutral-50 px-3 py-2"
+          className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2"
           key={file.url ?? index}
         >
           <div className="truncate font-medium">{file.filename}</div>
@@ -120,7 +120,7 @@ export const MessageAction = ({
 }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button
     className={cn(
-      "border border-neutral-200 bg-white px-2 py-1 font-[family-name:var(--font-geist-sans)] text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 active:scale-95",
+      "rounded border border-neutral-200 bg-white px-2 py-1 font-[family-name:var(--font-geist-sans)] text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 active:scale-95",
       className
     )}
     type="button"

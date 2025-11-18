@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { CustomerHeader } from "@/components/customer/customer-header";
-import { CustomerSidebar } from "@/components/customer/customer-sidebar";
+import { LiaCustomerShell } from "@/components/customer/lia-customer-shell";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -15,7 +14,7 @@ export default async function CustomerLayout({ children }: Props) {
   const supabase = await createSupabaseServerClient();
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name")
+    .select("full_name, avatar_url")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -27,30 +26,13 @@ export default async function CustomerLayout({ children }: Props) {
     .eq("read", false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-neutral-50">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <CustomerSidebar unreadMessagesCount={unreadMessagesCount ?? 0} />
-      </div>
-
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Header */}
-        <CustomerHeader
-          unreadMessagesCount={unreadMessagesCount ?? 0}
-          userEmail={user.email ?? undefined}
-          userName={profile?.full_name ?? undefined}
-        />
-
-        {/* Main Content Area */}
-        <main
-          className="flex-1 overflow-y-auto bg-neutral-50 px-8 py-8"
-          id="main-content"
-          tabIndex={-1}
-        >
-          {children}
-        </main>
-      </div>
-    </div>
+    <LiaCustomerShell
+      unreadMessagesCount={unreadMessagesCount ?? 0}
+      userAvatarUrl={profile?.avatar_url ?? undefined}
+      userEmail={user.email ?? undefined}
+      userName={profile?.full_name ?? undefined}
+    >
+      {children}
+    </LiaCustomerShell>
   );
 }

@@ -7,8 +7,10 @@
 
 import { unstable_noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import { geistSans } from "@/app/fonts";
 import { RecurringPlansManager } from "@/components/customer/recurring-plans-manager";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Recurring Plans | Customer Dashboard",
@@ -80,15 +82,19 @@ export default async function RecurringPlansPage() {
     })) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="font-bold text-3xl text-neutral-900">Recurring Plans</h1>
-        <p className="mt-2 text-neutral-700">
+    <section className="space-y-6">
+      <div>
+        <h1 className={cn("font-semibold text-3xl text-neutral-900", geistSans.className)}>
+          Recurring Plans
+        </h1>
+        <p className="mt-2 text-base text-neutral-700 leading-relaxed">
           Manage your recurring service subscriptions and save up to 15%
         </p>
       </div>
 
-      <RecurringPlansManager initialPlans={recurringPlans} userId={user.id} />
-    </div>
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+        <RecurringPlansManager initialPlans={recurringPlans} userId={user.id} />
+      </div>
+    </section>
   );
 }

@@ -408,7 +408,7 @@ export function UnifiedCommandPalette({
 
   return (
     <Command.Dialog
-      className="-translate-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden border border-neutral-200/60 bg-neutral-50 shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-neutral-700/60"
+      className="-translate-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden rounded-xl border border-neutral-200/60 bg-neutral-50 shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-neutral-700/60"
       onOpenChange={handleOpenChange}
       open={open}
       shouldFilter
@@ -443,7 +443,7 @@ export function UnifiedCommandPalette({
       <Command.List className="max-h-[400px] overflow-y-auto p-2">
         {/* Empty State */}
         <Command.Empty className="flex flex-col items-center justify-center px-4 py-12 text-center">
-          <div className="mb-3 bg-neutral-50 p-3">
+          <div className="mb-3 rounded-lg bg-neutral-50 p-3">
             <HugeiconsIcon className="h-6 w-6 text-neutral-600" icon={Search01Icon} />
           </div>
           <p className="mb-1 font-semibold text-neutral-900 text-sm">No results found</p>
@@ -453,7 +453,7 @@ export function UnifiedCommandPalette({
         {/* Loading State */}
         {isSearching && (
           <div className="flex items-center justify-center px-4 py-8">
-            <HugeiconsIcon className="h-5 w-5 animate-spin text-neutral-700" icon={Loading03Icon} />
+            <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
             <span className="ml-2 text-neutral-600 text-sm">Searching...</span>
           </div>
         )}
@@ -476,7 +476,7 @@ export function UnifiedCommandPalette({
                 onSelect={() => navigate(item.url, item.title, item.description)}
                 value={`${item.title} ${item.description || ""}`}
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                   <HugeiconsIcon className="h-4 w-4" icon={DashboardSquare01Icon as never} />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -517,7 +517,7 @@ export function UnifiedCommandPalette({
                     value={`${cmd.label} ${cmd.description || ""} ${cmd.keywords?.join(" ") || ""}`}
                   >
                     {cmd.icon !== undefined && (
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                         <HugeiconsIcon className="h-4 w-4" icon={cmd.icon as never} />
                       </div>
                     )}
@@ -554,7 +554,7 @@ export function UnifiedCommandPalette({
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={HelpCircleIcon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -588,7 +588,7 @@ export function UnifiedCommandPalette({
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={UserIcon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -622,7 +622,7 @@ export function UnifiedCommandPalette({
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={Notification03Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -656,7 +656,7 @@ export function UnifiedCommandPalette({
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={TaskDaily01Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -690,7 +690,7 @@ export function UnifiedCommandPalette({
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={LocationAdd01Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -708,25 +708,25 @@ export function UnifiedCommandPalette({
       {/* Footer */}
       <div className="flex items-center gap-4 border-neutral-200/60 border-t bg-neutral-50 px-4 py-3 text-neutral-600 text-xs dark:border-neutral-700/60">
         <div className="flex items-center gap-1.5">
-          <kbd className="border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
             ↑↓
           </kbd>
           <span>Navigate</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
             ↵
           </kbd>
           <span>Select</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
             Esc
           </kbd>
           <span>Close</span>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
-          <kbd className="border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-neutral-700 shadow-sm dark:border-neutral-700/60">
             ⌘K
           </kbd>
           <span>to open</span>
