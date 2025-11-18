@@ -14,7 +14,7 @@
 
 import { Location04Icon } from "@hugeicons/core-free-icons";
 import type { ColumnDef } from "@tanstack/react-table";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import type { CityMetrics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 import { LiaDataTableColumnHeader } from "./data-table/column-header";
@@ -41,7 +41,7 @@ function getFillRateBadge(fillRate: number) {
   return (
     <span
       className={cn(
-        "inline-flex border-2 px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+        "inline-flex rounded-full border-2 px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
         badgeClass,
         geistSans.className
       )}
@@ -78,7 +78,7 @@ const columns: ColumnDef<CityMetrics>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Avg. TTFB" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
       >
         {row.original.avgTimeToFirstBooking > 0
           ? `${row.original.avgTimeToFirstBooking.toFixed(1)} days`
@@ -94,7 +94,7 @@ const columns: ColumnDef<CityMetrics>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Bookings" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
       >
         {row.original.bookingCount}
       </p>
@@ -107,7 +107,7 @@ const columns: ColumnDef<CityMetrics>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Professionals" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
       >
         {row.original.professionalCount}
       </p>
@@ -119,7 +119,7 @@ const columns: ColumnDef<CityMetrics>[] = [
 
 export function CityMetricsTable({ data, isLoading = false }: Props) {
   return (
-    <div className="border border-neutral-200 bg-white p-6">
+    <div className="rounded-lg border border-neutral-200 bg-white p-6">
       {/* Section Header */}
       <h2
         className={cn(

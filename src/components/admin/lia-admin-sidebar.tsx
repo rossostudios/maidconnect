@@ -12,7 +12,6 @@ import {
   MapsLocation01Icon,
   Message01Icon,
   Settings01Icon,
-  StarIcon,
   UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -48,15 +47,14 @@ const navigation: NavItem[] = [
 ];
 
 /**
- * LiaAdminSidebar - Lia Design System
+ * LiaAdminSidebar - Lia Design System (Anthropic-Inspired)
  *
- * Inspired by Bloomberg Terminal + Swiss Design:
- * - Ultra-high contrast for maximum readability
+ * Features:
+ * - Anthropic rounded corners (rounded-lg for buttons, rounded-full for badges)
  * - Geist Sans for all text
- * - Pure white background with deep black borders
- * - Sharp geometric shapes (no rounded corners)
- * - Electric blue accents for active states
- * - All caps typography for hierarchy
+ * - Warm neutral backgrounds with refined borders
+ * - Orange accents for active states
+ * - Refined typography (font-medium, no uppercase except branding)
  */
 export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
   const pathname = usePathname();
@@ -90,11 +88,11 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
           <div>
             <span
               className={cn(
-                "block font-semibold text-lg text-neutral-900 tracking-tight",
+                "block font-medium text-lg text-neutral-900 tracking-tight",
                 geistSans.className
               )}
             >
-              CASAORA
+              CASAORA®
             </span>
             <span
               className={cn(
@@ -115,11 +113,11 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
           return (
             <Link
               className={cn(
-                "group relative flex items-center gap-3 border-l-2 bg-white px-3 py-2.5 font-semibold text-xs uppercase tracking-wider transition-all",
+                "group relative flex items-center gap-3 rounded-lg border-l-2 bg-white px-3 py-2.5 font-medium text-xs tracking-wider transition-all",
                 geistSans.className,
                 active
-                  ? "border-l-[#FF5200] bg-orange-50 text-[#FF5200]"
-                  : "border-l-transparent text-[#5A5A5A] hover:border-l-neutral-300 hover:text-[#5A5A5A]"
+                  ? "border-l-orange-500 bg-orange-50 text-orange-600"
+                  : "border-l-transparent text-neutral-700 hover:border-l-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               href={item.href}
               key={item.href}
@@ -127,7 +125,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
               <HugeiconsIcon
                 className={cn(
                   "h-[18px] w-[18px] flex-shrink-0 transition-colors",
-                  active ? "text-[#FF5200]" : "text-[#5A5A5A]"
+                  active ? "text-orange-600" : "text-neutral-700"
                 )}
                 icon={item.icon}
               />
@@ -139,11 +137,11 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
 
       {/* Account Menu */}
       <div className="border-neutral-200 border-t bg-white px-3 py-4">
-        <div className="relative overflow-hidden border border-neutral-200 bg-white text-neutral-900 shadow-[0_12px_35px_rgba(15,23,42,0.12)]">
+        <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-white text-neutral-900 shadow-[0_12px_35px_rgba(15,23,42,0.12)]">
           <button
             aria-controls="admin-account-dropdown"
             aria-expanded={showProfileMenu}
-            className="relative flex w-full flex-col gap-3 px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="relative flex w-full flex-col gap-3 px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             onClick={() => setShowProfileMenu((prev) => !prev)}
             type="button"
           >
@@ -158,7 +156,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                     width={48}
                   />
                 ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 font-semibold text-neutral-900 text-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 font-medium text-neutral-900 text-sm">
                     {userInitials}
                   </div>
                 )}
@@ -170,7 +168,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
               <div className="min-w-0 flex-1 space-y-1.5">
                 <p
                   className={cn(
-                    "min-w-0 break-words font-semibold text-base text-neutral-900 leading-tight",
+                    "min-w-0 break-words font-medium text-base text-neutral-900 leading-tight",
                     geistSans.className
                   )}
                 >
@@ -178,7 +176,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 </p>
                 <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
                 {!showProfileMenu && (
-                  <span className="inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-[9px] text-white uppercase tracking-[0.18em]">
+                  <span className="inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-[9px] text-white tracking-wider">
                     {accountRole}
                   </span>
                 )}
@@ -201,18 +199,18 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
             )}
             id="admin-account-dropdown"
           >
-            <div className="border border-neutral-200 bg-neutral-50 px-4 py-3">
-              <p className="mb-1 font-semibold text-[10px] text-neutral-500 uppercase tracking-[0.3em]">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3">
+              <p className="mb-1 font-medium text-[10px] text-neutral-500 tracking-wider">
                 Workspace Role
               </p>
-              <span className="inline-flex items-center border border-neutral-900 bg-neutral-900 px-2.5 py-0.5 font-semibold text-[10px] text-white uppercase tracking-[0.18em]">
+              <span className="inline-flex items-center rounded-full border border-neutral-900 bg-neutral-900 px-2.5 py-0.5 font-medium text-[10px] text-white tracking-wider">
                 {accountRole}
               </span>
             </div>
 
             <div className="mt-4 flex flex-col gap-2">
               <Link
-                className="flex items-center justify-between border border-neutral-200 bg-neutral-50 px-4 py-3 font-semibold text-neutral-900 text-sm transition hover:bg-white"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-white"
                 href="/admin/settings"
                 onClick={() => setShowProfileMenu(false)}
               >
@@ -220,7 +218,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Settings01Icon} />
               </Link>
               <Link
-                className="flex items-center justify-between border border-transparent bg-[#FF5200] px-4 py-3 font-semibold text-sm text-white transition hover:bg-[#e64900]"
+                className="flex items-center justify-between rounded-lg border border-transparent bg-orange-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-orange-600"
                 href="/auth/sign-out"
                 onClick={() => setShowProfileMenu(false)}
               >

@@ -3,7 +3,7 @@
 import { Alert02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -49,7 +49,7 @@ const getPriorityBadge = (priority: string) => {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+        "inline-flex items-center rounded-full px-2.5 py-1 font-medium text-xs tracking-wider",
         baseStyle,
         geistSans.className
       )}
@@ -72,7 +72,7 @@ const getStatusBadge = (status: string) => {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+        "inline-flex items-center rounded-full px-2.5 py-1 font-medium text-xs tracking-wider",
         baseStyle,
         geistSans.className
       )}
@@ -90,12 +90,10 @@ const columns: ColumnDef<Dispute>[] = [
       const type = row.original.dispute_type;
       return (
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center border-2 border-neutral-200 bg-red-50">
-            <HugeiconsIcon className="h-5 w-5 text-[#FF5200]" icon={Alert02Icon} />
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-neutral-200 bg-red-50">
+            <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={Alert02Icon} />
           </div>
-          <p
-            className={cn("font-semibold text-neutral-900 text-sm capitalize", geistSans.className)}
-          >
+          <p className={cn("font-medium text-neutral-900 text-sm capitalize", geistSans.className)}>
             {type.replace(/_/g, " ")}
           </p>
         </div>
@@ -111,13 +109,13 @@ const columns: ColumnDef<Dispute>[] = [
       const opener = row.original.opener;
       return (
         <div className="min-w-0">
-          <p className={cn("truncate font-semibold text-neutral-900 text-sm", geistSans.className)}>
+          <p className={cn("truncate font-medium text-neutral-900 text-sm", geistSans.className)}>
             {opener?.full_name || "Unknown"}
           </p>
           <p
             className={cn(
               "truncate font-normal text-neutral-700 text-xs tracking-tighter",
-              geistMono.className
+              geistSans.className
             )}
           >
             {opener?.email}
@@ -161,7 +159,7 @@ const columns: ColumnDef<Dispute>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Date Opened" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
       >
         {new Date(row.original.created_at).toLocaleDateString()}
       </p>
@@ -180,7 +178,7 @@ const columns: ColumnDef<Dispute>[] = [
       <div className="text-right">
         <Link
           className={cn(
-            "inline-flex items-center border border-neutral-200 bg-white px-3 py-1.5 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-[#FF5200] hover:bg-[#FF5200] hover:text-white",
+            "inline-flex items-center rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-orange-500 hover:bg-orange-500 hover:text-white",
             geistSans.className
           )}
           href={`/admin/disputes/${row.original.id}`}
@@ -197,31 +195,65 @@ const columns: ColumnDef<Dispute>[] = [
 type Props = {
   disputes: Dispute[];
   isLoading: boolean;
+  isConnected?: boolean;
+  addOptimisticDispute?: (dispute: Dispute) => void;
+  updateOptimisticDispute?: (id: string, updates: Partial<Dispute>) => void;
 };
 
 /**
  * DisputesTable - Dispute management table with Lia design
  *
  * Features:
+ * - Real-time dispute updates via Supabase Realtime (PostgreSQL CDC)
  * - Client-side filtering and sorting for instant UX
  * - URL state synchronization for shareable links
  * - Export to CSV/JSON
  * - Column visibility control
  * - Global search across all fields
+ * - Optimistic UI support for instant feedback
  */
-export function DisputesTable({ disputes, isLoading }: Props) {
+export function DisputesTable({ disputes, isLoading, isConnected = false }: Props) {
   return (
-    <LiaDataTable
-      columns={columns}
-      data={disputes}
-      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
-      emptyStateIcon={Alert02Icon}
-      emptyStateTitle="No disputes found"
-      enableExport
-      enableUrlSync
-      exportFilename="casaora-disputes"
-      isLoading={isLoading}
-      pageSize={10}
-    />
+    <div>
+      {/* Real-time connection status indicator */}
+      {isConnected !== undefined && (
+        <div className="mb-4 flex items-center justify-end">
+          {isConnected ? (
+            <span
+              className={cn(
+                "type-ui-xs flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-2 py-1 text-green-700",
+                geistSans.className
+              )}
+            >
+              <span className="h-2 w-2 rounded-full bg-green-500" />
+              Live Updates
+            </span>
+          ) : (
+            <span
+              className={cn(
+                "type-ui-xs flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-1 text-neutral-600",
+                geistSans.className
+              )}
+            >
+              <span className="h-2 w-2 rounded-full bg-neutral-400" />
+              Static
+            </span>
+          )}
+        </div>
+      )}
+
+      <LiaDataTable
+        columns={columns}
+        data={disputes}
+        emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
+        emptyStateIcon={Alert02Icon}
+        emptyStateTitle="No disputes found"
+        enableExport
+        enableUrlSync
+        exportFilename="casaora-disputes"
+        isLoading={isLoading}
+        pageSize={10}
+      />
+    </div>
   );
 }

@@ -112,50 +112,46 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
-          <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+          <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
-          <p className="text-red-700 text-sm dark:text-red-200">{successMessage}</p>
+        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+          <p className="text-green-700 text-sm">{successMessage}</p>
         </div>
       )}
 
       <div className="space-y-4">
         {features.map((feature) => (
           <div
-            className="flex items-center justify-between border border-neutral-200 bg-white p-4 transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950"
+            className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:bg-neutral-50"
             key={feature.key}
           >
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h4 className="font-semibold text-red-700 text-sm dark:text-red-200">
-                  {feature.name}
-                </h4>
+                <h4 className="font-semibold text-neutral-900 text-sm">{feature.name}</h4>
                 {feature.beta && (
-                  <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                  <span className="rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs">
                     BETA
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
-                {feature.description}
-              </p>
+              <p className="mt-1 text-neutral-600 text-xs">{feature.description}</p>
             </div>
 
             <button
               aria-label={`Toggle ${feature.name}`}
               className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-                flags[feature.key] ? "bg-neutral-900 dark:bg-neutral-100" : "bg-[neutral-200]"
+                flags[feature.key] ? "bg-neutral-900" : "bg-neutral-200"
               } ${isSaving ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
               disabled={isSaving}
               onClick={() => handleToggle(feature.key, flags[feature.key])}
               type="button"
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-neutral-950 ${
+                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
                   flags[feature.key] ? "translate-x-5" : "translate-x-0"
                 }`}
               />
@@ -164,8 +160,8 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
         ))}
       </div>
 
-      <div className="border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
-        <p className="text-red-700 text-sm dark:text-red-200">
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+        <p className="text-neutral-900 text-sm">
           <strong>Note:</strong> Changes to feature flags take effect immediately across the entire
           platform. Use with caution in production.
         </p>

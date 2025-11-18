@@ -37,19 +37,27 @@ export function UserProfileHeader({
   user,
   activeSuspension,
   onManageSuspension,
+  onVerify,
+  onSendMessage,
+  onExportData,
 }: {
   user: User;
   activeSuspension: Suspension | null;
   onManageSuspension: () => void;
+  onVerify?: () => void;
+  onSendMessage?: () => void;
+  onExportData?: () => void;
 }) {
+  const isProfessional = user.role === "professional";
+
   return (
     <div className="mb-6 flex items-start justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+        <div className="flex h-16 w-16 items-center justify-center bg-neutral-200">
           {user.avatar_url ? (
             <Image
               alt={user.full_name || "User"}
-              className="h-16 w-16 rounded-full object-cover"
+              className="h-16 w-16 object-cover"
               height={64}
               src={user.avatar_url}
               width={64}
@@ -70,13 +78,42 @@ export function UserProfileHeader({
           </span>
         </div>
       </div>
-      <button
-        className="type-ui-sm bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
-        onClick={onManageSuspension}
-        type="button"
-      >
-        {activeSuspension ? "Manage Suspension" : "Suspend/Ban"}
-      </button>
+      <div className="flex gap-2">
+        {isProfessional && onVerify && (
+          <button
+            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            onClick={onVerify}
+            type="button"
+          >
+            Verify Professional
+          </button>
+        )}
+        {onSendMessage && (
+          <button
+            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            onClick={onSendMessage}
+            type="button"
+          >
+            Send Message
+          </button>
+        )}
+        {onExportData && (
+          <button
+            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            onClick={onExportData}
+            type="button"
+          >
+            Export Data
+          </button>
+        )}
+        <button
+          className="type-ui-sm bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-800"
+          onClick={onManageSuspension}
+          type="button"
+        >
+          {activeSuspension ? "Manage Suspension" : "Suspend/Ban"}
+        </button>
+      </div>
     </div>
   );
 }

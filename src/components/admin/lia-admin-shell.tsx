@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { LiaAdminHeader } from "@/components/admin/lia-admin-header";
-import { LiaAdminSidebar } from "@/components/admin/lia-admin-sidebar";
+import { LiaDoubleSidebar } from "@/components/admin/lia-double-sidebar";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -22,13 +22,13 @@ export function LiaAdminShell({ children, userEmail, userName, userAvatarUrl }: 
       <div
         aria-hidden={!sidebarVisible}
         className={cn(
-          "hidden overflow-hidden border-neutral-200 border-r bg-white transition-[width,opacity] duration-300 lg:flex lg:flex-col",
-          sidebarVisible ? "lg:w-64 lg:opacity-100" : "lg:w-0 lg:opacity-0"
+          "hidden overflow-hidden bg-white transition-[width,opacity] duration-300 lg:flex",
+          sidebarVisible ? "lg:w-[304px] lg:opacity-100" : "lg:w-0 lg:opacity-0"
         )}
         data-collapsed={!sidebarVisible}
       >
-        <div className="w-64 flex-1">
-          <LiaAdminSidebar
+        <div className="flex-1">
+          <LiaDoubleSidebar
             userAvatarUrl={userAvatarUrl}
             userEmail={userEmail}
             userName={userName}

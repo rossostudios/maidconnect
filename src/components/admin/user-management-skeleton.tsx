@@ -17,13 +17,13 @@ export function UserManagementSkeleton() {
       {/* Search & Controls Skeleton */}
       <div className="flex items-center justify-between gap-4">
         {/* Search bar */}
-        <div className="h-12 w-96 animate-pulse bg-neutral-200" />
+        <div className="h-12 w-96 animate-pulse rounded-lg bg-neutral-200" />
 
         {/* Filter buttons and export */}
         <div className="flex gap-2">
-          <div className="h-12 w-32 animate-pulse bg-neutral-200" />
-          <div className="h-12 w-32 animate-pulse bg-neutral-200" />
-          <div className="h-12 w-32 animate-pulse bg-neutral-200" />
+          <div className="h-12 w-32 animate-pulse rounded-lg bg-neutral-200" />
+          <div className="h-12 w-32 animate-pulse rounded-lg bg-neutral-200" />
+          <div className="h-12 w-32 animate-pulse rounded-lg bg-neutral-200" />
         </div>
       </div>
 

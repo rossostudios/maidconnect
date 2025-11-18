@@ -310,7 +310,7 @@ export function InterviewCalendar() {
             <TabsTrigger value="scheduled">
               Scheduled
               {data.counts.scheduled > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-white px-2 py-0.5 font-semibold text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                <span className="ml-2 inline-flex items-center justify-center bg-white px-2 py-0.5 font-semibold text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                   {data.counts.scheduled}
                 </span>
               )}

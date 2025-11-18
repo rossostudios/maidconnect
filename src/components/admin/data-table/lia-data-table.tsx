@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 import { LiaDataTableExportMenu } from "./export-menu";
@@ -55,11 +55,11 @@ type Props<TData, TValue> = {
  * - Responsive design
  *
  * Design:
- * - Bloomberg Terminal aesthetic
- * - Ultra-high contrast (WCAG AAA)
- * - Geist Sans + Geist Mono typography
- * - Sharp geometric shapes
- * - Orange (#FF5200) accents
+ * - Anthropic-inspired Lia Design System
+ * - Thoughtful rounded corners (rounded-lg for containers)
+ * - Refined typography (font-medium, no uppercase)
+ * - Warm neutrals + semantic orange accents
+ * - Professional precision with approachable warmth
  */
 export function LiaDataTable<TData, TValue>({
   columns,
@@ -145,10 +145,15 @@ export function LiaDataTable<TData, TValue>({
   // Loading state
   if (isLoading) {
     return (
-      <div className={cn("w-full overflow-hidden border border-neutral-200 bg-white", className)}>
+      <div
+        className={cn(
+          "w-full overflow-hidden rounded-lg border border-neutral-200 bg-white",
+          className
+        )}
+      >
         <LiaDataTableSkeleton columns={columns.length} rows={pageSize} />
         <div className="border-neutral-200 border-t px-6 py-4">
-          <div className="h-8 w-64 animate-pulse bg-neutral-200" />
+          <div className="h-8 w-64 animate-pulse rounded-lg bg-neutral-200" />
         </div>
       </div>
     );
@@ -160,7 +165,7 @@ export function LiaDataTable<TData, TValue>({
   return (
     <div
       className={cn(
-        "flex w-full flex-col overflow-hidden border border-neutral-200 bg-white",
+        "flex w-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white",
         className
       )}
     >
@@ -172,7 +177,7 @@ export function LiaDataTable<TData, TValue>({
             <div className="flex items-center gap-2">
               <span
                 className={cn(
-                  "font-normal text-neutral-700 text-xs uppercase tracking-wider",
+                  "font-normal text-neutral-700 text-xs tracking-wider",
                   geistSans.className
                 )}
               >
@@ -180,7 +185,7 @@ export function LiaDataTable<TData, TValue>({
               </span>
               <button
                 className={cn(
-                  "border border-neutral-200 bg-white px-3 py-1 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50",
+                  "rounded-lg border border-neutral-200 bg-white px-3 py-1 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50",
                   geistSans.className
                 )}
                 onClick={resetFilters}
@@ -195,8 +200,8 @@ export function LiaDataTable<TData, TValue>({
           {enableRowSelection && Object.keys(rowSelection).length > 0 && (
             <div
               className={cn(
-                "flex items-center gap-2 border-l-2 border-l-[#FF5200] bg-orange-50 px-3 py-1 font-semibold text-[#FF5200] text-xs uppercase tracking-wider",
-                geistMono.className
+                "flex items-center gap-2 rounded-lg border-l-2 border-l-orange-500 bg-orange-50 px-3 py-1 font-medium text-orange-500 text-xs tracking-wider",
+                geistSans.className
               )}
             >
               {Object.keys(rowSelection).length} selected

@@ -7,6 +7,7 @@ import {
   DocumentValidationIcon,
   FileEditIcon,
   FilterIcon,
+  Loading03Icon,
   TimeScheduleIcon,
   UserAccountIcon,
   UserMultiple02Icon,
@@ -16,7 +17,6 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { LoadingCamper } from "@/components/ui/loading-camper";
 import {
   Select,
   SelectContent,
@@ -120,7 +120,10 @@ export function ProfessionalVettingDashboard() {
   if (loading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingCamper size="lg" text="Loading vetting queue..." />
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">Loading vetting queue...</p>
+        </div>
       </div>
     );
   }
@@ -273,7 +276,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="needs_review">
               Needs Review
               {data.counts.application_in_review > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.application_in_review}
                 </span>
               )}
@@ -281,7 +284,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="approved">
               Approved
               {data.counts.approved > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center bg-neutral-600/10 px-2 py-0.5 font-semibold text-neutral-600 text-xs">
                   {data.counts.approved}
                 </span>
               )}
@@ -289,7 +292,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="incomplete">
               Incomplete
               {data.counts.application_pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center bg-neutral-200/30 px-2 py-0.5 font-semibold text-neutral-500 text-xs">
                   {data.counts.application_pending}
                 </span>
               )}

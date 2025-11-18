@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRealtimeDisputes } from "@/hooks/useRealtimeDisputes";
 import { type Dispute, DisputesTable } from "./disputes-table";
 
 /**
  * DisputeResolutionDashboard - Main dispute management interface with Lia design
  *
  * Features:
+ * - Real-time dispute updates via Supabase Realtime (PostgreSQL CDC)
  * - Fetches all disputes once for instant client-side filtering
  * - PrecisionDataTable handles search, filtering, sorting, pagination
  * - URL state synchronization for shareable links
@@ -17,9 +19,10 @@ import { type Dispute, DisputesTable } from "./disputes-table";
  * For larger datasets, consider implementing server-side pagination.
  */
 export function DisputeResolutionDashboard() {
-  const [disputes, setDisputes] = useState<Dispute[]>([]);
+  const [initialDisputes, setInitialDisputes] = useState<Dispute[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch initial dispute data
   useEffect(() => {
     async function loadDisputes() {
       setIsLoading(true);
@@ -31,10 +34,10 @@ export function DisputeResolutionDashboard() {
         }
 
         const data = await response.json();
-        setDisputes(data.disputes || []);
+        setInitialDisputes(data.disputes || []);
       } catch (error) {
         console.error("Error loading disputes:", error);
-        setDisputes([]);
+        setInitialDisputes([]);
       } finally {
         setIsLoading(false);
       }
@@ -43,5 +46,20 @@ export function DisputeResolutionDashboard() {
     loadDisputes();
   }, []);
 
-  return <DisputesTable disputes={disputes} isLoading={isLoading} />;
+  // Real-time subscription for live dispute updates
+  const { disputes, isConnected, addOptimisticDispute, updateOptimisticDispute } =
+    useRealtimeDisputes({
+      initialDisputes,
+      enabled: !isLoading, // Only enable after initial data is loaded
+    });
+
+  return (
+    <DisputesTable
+      addOptimisticDispute={addOptimisticDispute}
+      disputes={disputes}
+      isConnected={isConnected}
+      isLoading={isLoading}
+      updateOptimisticDispute={updateOptimisticDispute}
+    />
+  );
 }

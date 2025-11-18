@@ -74,24 +74,22 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
-          <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+          <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
       {/* Commission & Fees */}
       <div>
-        <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-          Commission & Fees
-        </h3>
+        <h3 className="mb-4 font-semibold text-lg text-neutral-900">Commission & Fees</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Platform Commission (%)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 max={50}
                 min={0}
                 onChange={(e) =>
@@ -105,20 +103,20 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.commission_rate}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">{settings.commission_rate}%</p>
+              <p className="text-neutral-900">{settings.commission_rate}%</p>
             )}
-            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
+            <p className="mt-1 text-neutral-500 text-xs">
               Commission charged to professionals per booking
             </p>
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Customer Service Fee ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -131,11 +129,9 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.service_fee}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                ${settings.service_fee.toFixed(2)}
-              </p>
+              <p className="text-neutral-900">${settings.service_fee.toFixed(2)}</p>
             )}
-            <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-300">
+            <p className="mt-1 text-neutral-500 text-xs">
               Fixed fee charged to customers per booking
             </p>
           </div>
@@ -144,17 +140,15 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
       {/* Cancellation Fees */}
       <div>
-        <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-          Cancellation Fees ($)
-        </h3>
+        <h3 className="mb-4 font-semibold text-lg text-neutral-900">Cancellation Fees ($)</h3>
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Customer Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -170,19 +164,17 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.cancellation_fees.customer}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                ${settings.cancellation_fees.customer.toFixed(2)}
-              </p>
+              <p className="text-neutral-900">${settings.cancellation_fees.customer.toFixed(2)}</p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Professional Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -198,19 +190,17 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.cancellation_fees.professional}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
+              <p className="text-neutral-900">
                 ${settings.cancellation_fees.professional.toFixed(2)}
               </p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
-              No-Show Fee
-            </label>
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">No-Show Fee</label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -226,9 +216,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.cancellation_fees.no_show}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                ${settings.cancellation_fees.no_show.toFixed(2)}
-              </p>
+              <p className="text-neutral-900">${settings.cancellation_fees.no_show.toFixed(2)}</p>
             )}
           </div>
         </div>
@@ -236,17 +224,15 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
       {/* Booking Rules */}
       <div>
-        <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-          Booking Rules
-        </h3>
+        <h3 className="mb-4 font-semibold text-lg text-neutral-900">Booking Rules</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Min Advance Notice (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -261,19 +247,17 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.booking_rules.min_advance_hours}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                {settings.booking_rules.min_advance_hours} hours
-              </p>
+              <p className="text-neutral-900">{settings.booking_rules.min_advance_hours} hours</p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Max Booking Duration (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -288,19 +272,17 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.booking_rules.max_duration_hours}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                {settings.booking_rules.max_duration_hours} hours
-              </p>
+              <p className="text-neutral-900">{settings.booking_rules.max_duration_hours} hours</p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Min Booking Amount ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -316,19 +298,19 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.booking_rules.min_booking_amount}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
+              <p className="text-neutral-900">
                 ${settings.booking_rules.min_booking_amount.toFixed(2)}
               </p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Max Service Radius (km)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -343,9 +325,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.booking_rules.max_service_radius_km}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
-                {settings.booking_rules.max_service_radius_km} km
-              </p>
+              <p className="text-neutral-900">{settings.booking_rules.max_service_radius_km} km</p>
             )}
           </div>
         </div>
@@ -353,17 +333,15 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
 
       {/* Payout Settings */}
       <div>
-        <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-          Payout Settings
-        </h3>
+        <h3 className="mb-4 font-semibold text-lg text-neutral-900">Payout Settings</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Payout Schedule
             </label>
             {isEditing ? (
               <select
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 onChange={(e) =>
                   setSettings({
                     ...settings,
@@ -380,19 +358,17 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 <option value="monthly">Monthly</option>
               </select>
             ) : (
-              <p className="text-neutral-900 capitalize dark:text-neutral-100">
-                {settings.payout_settings.schedule}
-              </p>
+              <p className="text-neutral-900 capitalize">{settings.payout_settings.schedule}</p>
             )}
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+            <label className="mb-2 block font-medium text-neutral-500 text-sm">
               Min Payout Threshold ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:ring-neutral-400"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -408,7 +384,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
                 value={settings.payout_settings.min_threshold}
               />
             ) : (
-              <p className="text-neutral-900 dark:text-neutral-100">
+              <p className="text-neutral-900">
                 ${settings.payout_settings.min_threshold.toFixed(2)}
               </p>
             )}
@@ -421,7 +397,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+              className="flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleSave}
               type="button"
@@ -430,7 +406,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
             <button
-              className="flex items-center gap-2 border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-300"
+              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-700 text-sm transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleCancel}
               type="button"
@@ -441,7 +417,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </>
         ) : (
           <button
-            className="flex items-center gap-2 bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-700"
             onClick={() => setIsEditing(true)}
             type="button"
           >

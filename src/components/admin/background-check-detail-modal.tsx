@@ -88,10 +88,10 @@ export function BackgroundCheckDetailModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 p-4 dark:bg-neutral-100/50">
-      <div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-lg border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
         {/* Close Button */}
         <button
-          className="absolute top-6 right-6 p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-300"
+          className="absolute top-6 right-6 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-300"
           disabled={isProcessing}
           onClick={onClose}
           type="button"
@@ -102,33 +102,33 @@ export function BackgroundCheckDetailModal({
         {/* Header */}
         <div className="mb-8">
           <div className="mb-4 flex items-center gap-3">
-            <div className="bg-white p-3 dark:bg-neutral-950">
+            <div className="rounded-lg bg-white p-3 dark:bg-neutral-950">
               <HugeiconsIcon
                 className="h-8 w-8 text-neutral-900 dark:text-neutral-100"
                 icon={SecurityCheckIcon}
               />
             </div>
             <div>
-              <h2 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
+              <h2 className="font-medium text-2xl text-neutral-900 dark:text-neutral-100">
                 Background Check Details
               </h2>
               <p className="text-neutral-600 text-sm dark:text-neutral-300">
-                {check.provider.toUpperCase()} • Check ID: {check.providerCheckId}
+                {check.provider} • Check ID: {check.providerCheckId}
               </p>
             </div>
           </div>
 
           {/* Professional Info */}
-          <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
             <div className="flex items-center gap-4">
-              <div className="bg-white p-3 dark:bg-neutral-950">
+              <div className="rounded-lg bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
                   className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={UserAccountIcon}
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+                <h3 className="font-medium text-lg text-neutral-900 dark:text-neutral-100">
                   {check.professional.full_name || "Unnamed Professional"}
                 </h3>
                 <p className="text-neutral-600 text-sm dark:text-neutral-300">
@@ -153,7 +153,7 @@ export function BackgroundCheckDetailModal({
 
         {/* Error Display */}
         {error && (
-          <div className="mb-6 border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+          <div className="mb-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
             <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
           </div>
         )}
@@ -173,8 +173,8 @@ export function BackgroundCheckDetailModal({
 function StatusSummary({ check }: { check: BackgroundCheckWithProfile }) {
   return (
     <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <p className="mb-2 font-medium text-neutral-600 text-xs tracking-wider dark:text-neutral-300">
           Status
         </p>
         <div className="flex items-center gap-2">
@@ -196,28 +196,28 @@ function StatusSummary({ check }: { check: BackgroundCheckWithProfile }) {
               icon={SecurityCheckIcon}
             />
           )}
-          <p className="font-bold text-neutral-900 text-xl capitalize dark:text-neutral-100">
+          <p className="font-medium text-neutral-900 text-xl capitalize dark:text-neutral-100">
             {check.status}
           </p>
         </div>
       </div>
 
-      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <p className="mb-2 font-medium text-neutral-600 text-xs tracking-wider dark:text-neutral-300">
           Recommendation
         </p>
-        <p className="font-bold text-neutral-900 text-xl dark:text-neutral-100">
+        <p className="font-medium text-neutral-900 text-xl dark:text-neutral-100">
           {check.recommendation === "approved" && "✓ Approve"}
           {check.recommendation === "review_required" && "⚠ Review Required"}
           {check.recommendation === "rejected" && "✗ Reject"}
         </p>
       </div>
 
-      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-300">
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <p className="mb-2 font-medium text-neutral-600 text-xs tracking-wider dark:text-neutral-300">
           Completed
         </p>
-        <p className="font-bold text-neutral-900 text-xl dark:text-neutral-100">
+        <p className="font-medium text-neutral-900 text-xl dark:text-neutral-100">
           {check.completedAt ? new Date(check.completedAt).toLocaleDateString() : "Pending"}
         </p>
       </div>
@@ -232,13 +232,13 @@ function ChecksPerformedSection({ checks }: { checks?: string[] | null }) {
 
   return (
     <div className="mb-8">
-      <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+      <h3 className="mb-4 font-medium text-lg text-neutral-900 dark:text-neutral-100">
         Checks Performed
       </h3>
       <div className="flex flex-wrap gap-3">
         {checks.map((checkType) => (
           <div
-            className="border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-800 dark:bg-neutral-950"
             key={checkType}
           >
             <p className="font-medium text-red-700 text-sm dark:text-red-200">
@@ -262,17 +262,17 @@ function CriminalRecordsSection({ records }: RecordSectionProps) {
 
   return (
     <div className="mb-8">
-      <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+      <h3 className="mb-4 font-medium text-lg text-neutral-900 dark:text-neutral-100">
         Criminal Background Check
       </h3>
       {records.records.length === 0 ? (
-        <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
               className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
               icon={CheckmarkCircle02Icon}
             />
-            <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="font-medium text-neutral-900 dark:text-neutral-100">
               No criminal records found
             </p>
           </div>
@@ -296,17 +296,17 @@ function CriminalRecordCard({
   index: number;
 }) {
   return (
-    <div className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
+    <div className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
       <div className="mb-3 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <HugeiconsIcon
             className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
             icon={AlertCircleIcon}
           />
-          <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+          <p className="font-medium text-neutral-900 dark:text-neutral-100">
             Record #{index + 1}
             {record.severity && (
-              <span className="ml-2 bg-neutral-900 px-2 py-0.5 text-xs uppercase dark:bg-neutral-100/20">
+              <span className="ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-xs dark:bg-neutral-100/20">
                 {record.severity} severity
               </span>
             )}
@@ -324,7 +324,7 @@ function CriminalRecordCard({
           <summary className="cursor-pointer font-medium text-red-700 text-sm dark:text-red-200">
             View full details
           </summary>
-          <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+          <pre className="mt-2 overflow-auto rounded-lg bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
             {JSON.stringify(record.details, null, 2)}
           </pre>
         </details>
@@ -344,17 +344,17 @@ function IdentityVerificationSection({
 
   return (
     <div className="mb-8">
-      <h3 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+      <h3 className="mb-4 font-medium text-lg text-neutral-900 dark:text-neutral-100">
         Identity Verification
       </h3>
       {records.records.length === 0 ? (
-        <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
+        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/30 dark:bg-neutral-100/5">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
               className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
               icon={AlertCircleIcon}
             />
-            <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="font-medium text-neutral-900 dark:text-neutral-100">
               Identity not verified
             </p>
           </div>
@@ -363,7 +363,7 @@ function IdentityVerificationSection({
         <div className="space-y-4">
           {records.records.map((record, index) => (
             <div
-              className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
+              className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10"
               key={index}
             >
               <div className="flex items-center gap-2">
@@ -371,7 +371,7 @@ function IdentityVerificationSection({
                   className="h-5 w-5 text-neutral-900 dark:text-neutral-100"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+                <p className="font-medium text-neutral-900 dark:text-neutral-100">
                   {record.description}
                 </p>
               </div>
@@ -380,7 +380,7 @@ function IdentityVerificationSection({
                   <summary className="cursor-pointer font-medium text-red-700 text-sm dark:text-red-200">
                     View details
                   </summary>
-                  <pre className="mt-2 overflow-auto bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
+                  <pre className="mt-2 overflow-auto rounded-lg bg-white p-3 text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                     {JSON.stringify(record.details, null, 2)}
                   </pre>
                 </details>
@@ -401,10 +401,10 @@ function RawDataSection({ rawData }: { rawData?: Record<string, unknown> | null 
   return (
     <div className="mb-8">
       <details>
-        <summary className="cursor-pointer font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+        <summary className="cursor-pointer font-medium text-lg text-neutral-900 dark:text-neutral-100">
           Raw Provider Data
         </summary>
-        <div className="mt-4 overflow-auto border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="mt-4 overflow-auto rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
           <pre className="text-neutral-900 text-xs dark:text-neutral-100">
             {JSON.stringify(rawData, null, 2)}
           </pre>
@@ -426,7 +426,7 @@ function ActionSection({ check, handleApprove, handleReject, isProcessing }: Act
     return (
       <div className="flex gap-4">
         <button
-          className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-medium text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isProcessing}
           onClick={handleApprove}
           type="button"
@@ -435,7 +435,7 @@ function ActionSection({ check, handleApprove, handleReject, isProcessing }: Act
           {isProcessing ? "Processing..." : "Approve Professional"}
         </button>
         <button
-          className="flex-1 bg-neutral-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="flex-1 rounded-lg bg-neutral-900 px-6 py-4 font-medium text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isProcessing}
           onClick={handleReject}
           type="button"
@@ -449,19 +449,19 @@ function ActionSection({ check, handleApprove, handleReject, isProcessing }: Act
 
   if (check.status === "clear" && check.recommendation === "approved") {
     return (
-      <div className="border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+      <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-6 dark:border-neutral-100/40 dark:bg-neutral-100/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <HugeiconsIcon
               className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
               icon={CheckmarkCircle02Icon}
             />
-            <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="font-medium text-neutral-900 dark:text-neutral-100">
               Background check passed. Ready to approve professional.
             </p>
           </div>
           <button
-            className="bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+            className="rounded-lg bg-neutral-900 px-6 py-3 font-medium text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             disabled={isProcessing}
             onClick={handleApprove}
             type="button"
@@ -475,13 +475,13 @@ function ActionSection({ check, handleApprove, handleReject, isProcessing }: Act
 
   if (check.status === "suspended") {
     return (
-      <div className="border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
+      <div className="rounded-lg border border-neutral-900 bg-white p-6 dark:border-neutral-100/30 dark:bg-neutral-950">
         <div className="flex items-center gap-3">
           <HugeiconsIcon
             className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
             icon={SecurityCheckIcon}
           />
-          <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+          <p className="font-medium text-neutral-900 dark:text-neutral-100">
             This professional has been suspended due to background check findings.
           </p>
         </div>

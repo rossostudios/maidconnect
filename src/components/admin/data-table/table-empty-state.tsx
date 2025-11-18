@@ -34,14 +34,14 @@ export function LiaDataTableEmptyState({
   return (
     <div className="flex min-h-96 flex-col items-center justify-center border-neutral-200 border-t bg-white px-6 py-16 text-center">
       {/* Icon */}
-      <div className="mb-6 flex h-16 w-16 items-center justify-center border-2 border-neutral-200 bg-neutral-50">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg border-2 border-neutral-200 bg-neutral-50">
         <HugeiconsIcon className="h-8 w-8 text-neutral-400" icon={Icon} />
       </div>
 
       {/* Title */}
       <h3
         className={cn(
-          "mb-2 font-semibold text-neutral-900 text-xl uppercase tracking-wider",
+          "mb-2 font-medium text-neutral-900 text-xl tracking-wider",
           geistSans.className
         )}
       >
@@ -58,7 +58,7 @@ export function LiaDataTableEmptyState({
         {hasFilters && onResetFilters && (
           <button
             className={cn(
-              "border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50",
+              "rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50",
               geistSans.className
             )}
             onClick={onResetFilters}

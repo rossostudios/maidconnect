@@ -1,11 +1,11 @@
 /**
- * StatCard - Individual KPI metric card with Lia design
+ * StatCard - Individual KPI metric card with Anthropic-Inspired Lia Design
  *
  * Design:
  * ┌─────────────────────────────────────────┐
- * │ FILL RATE              [mini sparkline] │ ← Geist Sans UPPERCASE
+ * │ Fill Rate              [mini sparkline] │ ← Geist Sans refined typography
  * │                                          │
- * │ 78.4%                            ↗ GOOD │ ← Geist Mono 48px + status
+ * │ 78.4%                               Good │ ← Geist Sans 48px + status
  * │                                          │
  * │ Booking requests accepted               │ ← Neutral-600 description
  * │                                          │
@@ -13,19 +13,18 @@
  * └─────────────────────────────────────────┘
  *
  * Features:
- * - Sharp corners (no rounding) - Lia design
- * - Geist Mono for value display (Bloomberg aesthetic)
- * - Geist Sans for labels/descriptions
- * - Border-only status badges (no background fills)
+ * - Anthropic rounded corners (rounded-lg for 12px radius)
+ * - Geist Sans for value display (refined typography)
+ * - Border-only status badges with rounded-full design
  * - Mini sparkline chart (Recharts)
  * - Orange gradient bottom border accent (featured cards)
- * - Hover: Border transitions to orange
+ * - Hover: Border transitions to orange-500
  * - WCAG AAA contrast ratios
  */
 
 "use client";
 
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { MiniSparkline } from "./MiniSparkline";
 
@@ -74,7 +73,7 @@ function getStatusBadge(status: StatusLevel) {
   return (
     <span
       className={cn(
-        "border-2 px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+        "rounded-full border-2 px-2.5 py-1 font-medium text-xs tracking-wider",
         config.borderColor,
         config.textColor,
         geistSans.className
@@ -97,16 +96,16 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "border border-neutral-200 bg-white p-6 transition-all duration-200 hover:border-orange-500",
+        "rounded-lg border border-neutral-200 bg-white p-6 transition-all duration-200 hover:border-orange-500",
         featured && "border-b-2 border-b-orange-500"
       )}
     >
-      {/* Header: Title + Live Indicator + Sparkline */}
+      {/* Header: Title + Live Indicator + Status Badge */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <h3
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+              "font-medium text-neutral-700 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -120,7 +119,7 @@ export function StatCard({
               </span>
               <span
                 className={cn(
-                  "font-medium text-[10px] text-orange-600 uppercase tracking-wider",
+                  "font-medium text-[10px] text-orange-600 tracking-wider",
                   geistSans.className
                 )}
               >
@@ -129,24 +128,26 @@ export function StatCard({
             </div>
           )}
         </div>
-        {sparklineData && sparklineData.length > 0 && (
-          <div className="w-24">
-            <MiniSparkline data={sparklineData} />
-          </div>
-        )}
+        {getStatusBadge(status)}
       </div>
 
-      {/* Value + Status Badge */}
-      <div className="mb-3 flex items-end justify-between">
+      {/* Sparkline (if provided) */}
+      {sparklineData && sparklineData.length > 0 && (
+        <div className="mb-3 w-24">
+          <MiniSparkline data={sparklineData} />
+        </div>
+      )}
+
+      {/* Value */}
+      <div className="mb-3">
         <p
           className={cn(
-            "font-semibold text-3xl text-neutral-900 tracking-tighter",
-            geistMono.className
+            "font-medium text-3xl text-neutral-900 tracking-tighter",
+            geistSans.className
           )}
         >
           {value}
         </p>
-        {getStatusBadge(status)}
       </div>
 
       {/* Description */}

@@ -1,11 +1,11 @@
 /**
- * TimeRangeSelector - Time range filter buttons with Lia design
+ * TimeRangeSelector - Time range filter buttons with Anthropic-inspired Lia design
  *
  * Features:
- * - Sharp rectangular buttons (no rounding)
- * - Active: Orange border + orange text
+ * - Rounded buttons (rounded-lg)
+ * - Active: Orange border + orange background
  * - Hover: Orange border transition
- * - Geist Sans uppercase
+ * - Refined typography (font-medium, no uppercase)
  * - Keyboard accessible
  */
 
@@ -34,7 +34,7 @@ export function TimeRangeSelector({ value, onChange }: Props) {
         <button
           aria-label={`Filter analytics by ${range.label}`}
           className={cn(
-            "border px-4 py-2.5 font-semibold text-xs uppercase tracking-wider transition-all",
+            "rounded-lg border px-4 py-2.5 font-medium text-xs tracking-wider transition-all",
             geistSans.className,
             value === range.value
               ? "border-orange-500 bg-orange-50 text-orange-600"

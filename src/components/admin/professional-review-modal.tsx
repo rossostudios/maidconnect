@@ -110,7 +110,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       <div className="space-y-6">
         {/* Professional Details */}
         <section>
-          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
+          <h3 className="mb-3 font-medium text-red-700 text-sm tracking-wide dark:text-red-200">
             Professional Information
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
@@ -178,7 +178,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <div className="mt-1 flex flex-wrap gap-2">
               {professional.primary_services?.map((service, idx) => (
                 <span
-                  className="bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100"
+                  className="rounded-full bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100"
                   key={idx}
                 >
                   {service}
@@ -190,14 +190,14 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
         {/* References */}
         <section>
-          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
+          <h3 className="mb-3 font-medium text-red-700 text-sm tracking-wide dark:text-red-200">
             References ({professional.references_data?.length || 0})
           </h3>
           {professional.references_data && professional.references_data.length > 0 ? (
             <div className="space-y-2">
               {professional.references_data.map((ref: any, idx: number) => (
                 <div
-                  className="border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
+                  className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
                   key={idx}
                 >
                   <p className="font-medium text-red-700 text-sm dark:text-red-200">
@@ -216,14 +216,14 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
         {/* Documents */}
         <section>
-          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
+          <h3 className="mb-3 font-medium text-red-700 text-sm tracking-wide dark:text-red-200">
             Documents ({professional.documents.length})
           </h3>
           {professional.documents.length > 0 ? (
             <div className="space-y-2">
               {professional.documents.map((doc: any) => (
                 <div
-                  className="flex items-center justify-between border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
+                  className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
                   key={doc.profile_id + doc.document_type}
                 >
                   <div>
@@ -244,15 +244,15 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
         </section>
 
         {/* Review Form */}
-        <section className="border-2 border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/20 dark:bg-neutral-100/5">
-          <h3 className="mb-4 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
+        <section className="rounded-lg border-2 border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/20 dark:bg-neutral-100/5">
+          <h3 className="mb-4 font-medium text-red-700 text-sm tracking-wide dark:text-red-200">
             Review Decision
           </h3>
 
           {/* Action Selection */}
           <div className="mb-4 flex gap-2">
             <button
-              className={`flex-1 border-2 px-4 py-2 font-semibold text-sm transition ${
+              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
                 form.formData.action === "approve"
                   ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
                   : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
@@ -263,7 +263,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               ✓ Approve
             </button>
             <button
-              className={`flex-1 border-2 px-4 py-2 font-semibold text-sm transition ${
+              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
                 form.formData.action === "reject"
                   ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
                   : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
@@ -274,7 +274,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               ✕ Reject
             </button>
             <button
-              className={`flex-1 border-2 px-4 py-2 font-semibold text-sm transition ${
+              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
                 form.formData.action === "request_info"
                   ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
                   : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
@@ -328,7 +328,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 Notes (visible to professional)
               </label>
               <textarea
-                className="w-full border border-neutral-200 p-2 text-sm dark:border-neutral-800"
+                className="w-full rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-800"
                 id="review-notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Optional feedback for the professional..."
@@ -345,7 +345,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 Internal Notes (admin only)
               </label>
               <textarea
-                className="w-full border border-neutral-200 p-2 text-sm dark:border-neutral-800"
+                className="w-full rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-800"
                 id="review-internal-notes"
                 onChange={(e) => form.updateField("internalNotes", e.target.value)}
                 placeholder="Internal notes not visible to professional..."
@@ -363,7 +363,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                   Rejection Reason (required)
                 </label>
                 <textarea
-                  className="w-full border border-neutral-900 p-2 text-sm dark:border-neutral-100/30"
+                  className="w-full rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-200"
                   id="rejection-reason"
                   onChange={(e) => form.updateField("rejectionReason", e.target.value)}
                   placeholder="Explain why the application is being rejected..."
@@ -376,7 +376,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </div>
 
           {form.error && (
-            <div className="mt-3 border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+            <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
               <p className="text-red-700 text-sm dark:text-red-200">{form.error}</p>
             </div>
           )}
@@ -386,7 +386,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       {/* Custom Footer Actions */}
       <div className="mt-6 flex justify-end gap-3">
         <button
-          className="border border-neutral-200 px-6 py-2 font-semibold text-red-700 text-sm transition hover:bg-white disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:text-red-200"
+          className="rounded-lg border border-neutral-200 px-6 py-2 font-medium text-red-700 text-sm transition hover:bg-white disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:text-red-200"
           disabled={reviewMutation.isLoading}
           onClick={onClose}
           type="button"
@@ -394,7 +394,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           Cancel
         </button>
         <button
-          className="bg-neutral-900 px-6 py-2 font-semibold text-sm text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="rounded-lg bg-neutral-900 px-6 py-2 font-medium text-sm text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={reviewMutation.isLoading}
           onClick={handleSubmit}
           type="button"

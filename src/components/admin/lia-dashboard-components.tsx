@@ -1,24 +1,24 @@
 "use client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 /**
- * Lia Dashboard Components
+ * Lia Dashboard Components - Anthropic-Inspired Design
  *
- * Ultra-high contrast design for maximum readability.
- * Inspired by Bloomberg Terminal + Swiss Design.
+ * Warm, approachable design with thoughtful rounded corners.
+ * Inspired by Anthropic's design language.
  *
  * Design Principles:
- * - WCAG AAA contrast ratios (7:1 minimum)
- * - Geist Sans for UI text (Light 300, Regular 400, Medium 500, Semi Bold 600)
- * - Geist Mono for all numbers and data (with -3 letter spacing)
- * - Pure white backgrounds with deep black text
- * - Orange (#FF5200) for primary actions (brand color)
- * - Subtle borders for clean separation
- * - Generous whitespace for breathing room
+ * - Anthropic rounded corners (rounded-lg for 12px radius)
+ * - Geist Sans for UI text (font-normal to font-medium, avoiding bold)
+ * - Geist Mono for numbers and data
+ * - Warm neutral backgrounds with refined typography
+ * - Orange (orange-500/600) for primary actions (brand color)
+ * - Soft borders with rounded corners for approachable aesthetic
+ * - Generous whitespace and smooth transitions
  */
 
 type StatCardProps = {
@@ -42,8 +42,8 @@ type ActivityItem = {
 /**
  * LiaStatCard
  *
- * High-contrast stat card with Geist Mono numbers.
- * Numbers are the hero - large, bold, impossible to miss.
+ * Anthropic-inspired stat card with rounded corners.
+ * Clean typography with refined font weights.
  */
 export function LiaStatCard({
   title,
@@ -77,42 +77,35 @@ export function LiaStatCard({
   })();
 
   return (
-    <div className="group relative border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm">
+    <div className="group relative rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
       {/* Header Row - Title + Icon */}
       <div className="mb-6 flex items-start justify-between">
         <div>
           <h3
             className={cn(
-              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "font-medium text-neutral-900 text-sm tracking-tight",
               geistSans.className
             )}
           >
             {title}
           </h3>
           {subtitle && (
-            <p
-              className={cn(
-                "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
-                geistSans.className
-              )}
-            >
-              {subtitle}
-            </p>
+            <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>{subtitle}</p>
           )}
         </div>
 
-        {/* Icon - Sharp square container */}
-        <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
+        {/* Icon - Anthropic rounded container */}
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500">
           <HugeiconsIcon className="h-6 w-6 text-white" icon={icon} />
         </div>
       </div>
 
-      {/* Value - HERO Element with Geist Mono */}
+      {/* Value - HERO Element */}
       <div className="mb-3">
         <p
           className={cn(
-            "font-semibold text-5xl text-neutral-900 tracking-tighter",
-            geistMono.className
+            "font-medium text-5xl text-neutral-900 tracking-tight",
+            geistSans.className
           )}
         >
           {value}
@@ -124,28 +117,21 @@ export function LiaStatCard({
         </p>
       </div>
 
-      {/* Trend Indicator - Clean and minimal */}
+      {/* Trend Indicator - Anthropic rounded pill */}
       {change !== undefined && (
         <div className="flex items-center gap-2">
           <div
             className={cn(
-              "flex items-center gap-1 px-2 py-1 font-semibold text-xs tracking-tighter",
+              "flex items-center gap-1 rounded-full px-3 py-1 font-medium text-xs",
               trendBg[trend],
               trendColors[trend],
-              geistMono.className
+              geistSans.className
             )}
           >
             <span>{trendIcon}</span>
             <span>{Math.abs(change)}%</span>
           </div>
-          <span
-            className={cn(
-              "font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
-              geistSans.className
-            )}
-          >
-            vs last month
-          </span>
+          <span className={cn("text-neutral-600 text-xs", geistSans.className)}>vs last month</span>
         </div>
       )}
     </div>
@@ -155,8 +141,8 @@ export function LiaStatCard({
 /**
  * LiaActivityFeed
  *
- * Timeline-based activity feed with status indicators.
- * Clean, scannable, high-information density.
+ * Timeline-based activity feed with Anthropic rounded design.
+ * Clean, scannable layout with refined typography.
  */
 export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) {
   const statusStyles = {
@@ -169,31 +155,21 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
       text: "text-orange-500",
     },
     info: {
-      bg: "bg-[#FF5200]",
-      text: "text-[#FF5200]",
+      bg: "bg-orange-500",
+      text: "text-orange-600",
     },
   };
 
   return (
-    <div className="border border-neutral-200 bg-white">
+    <div className="rounded-lg border border-neutral-200 bg-white">
       {/* Header */}
-      <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+      <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
         <h3
-          className={cn(
-            "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
-            geistSans.className
-          )}
+          className={cn("font-medium text-neutral-900 text-sm tracking-tight", geistSans.className)}
         >
           Recent Activity
         </h3>
-        <p
-          className={cn(
-            "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
-            geistSans.className
-          )}
-        >
-          Last 24 hours
-        </p>
+        <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>Last 24 hours</p>
       </div>
 
       {/* Activity List */}
@@ -201,23 +177,18 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
         {activities.map((activity) => (
           <div className="px-6 py-4 transition-colors hover:bg-neutral-50" key={activity.id}>
             <div className="flex items-start gap-3">
-              {/* Status Dot */}
+              {/* Status Dot - Anthropic rounded */}
               <div className="mt-1.5 flex-shrink-0">
-                <div className={cn("h-2 w-2", statusStyles[activity.status].bg)} />
+                <div className={cn("h-2 w-2 rounded-full", statusStyles[activity.status].bg)} />
               </div>
 
               {/* Content */}
               <div className="min-w-0 flex-1">
                 <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
-                  <span className="font-semibold">{activity.user}</span>{" "}
+                  <span className="font-medium">{activity.user}</span>{" "}
                   <span className="font-normal text-neutral-600">{activity.action}</span>
                 </p>
-                <p
-                  className={cn(
-                    "mt-1 font-normal text-neutral-700 text-xs tracking-tighter",
-                    geistMono.className
-                  )}
-                >
+                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                   {activity.time}
                 </p>
               </div>
@@ -227,10 +198,10 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
       </div>
 
       {/* Footer */}
-      <div className="border-neutral-200 border-t bg-neutral-50 px-6 py-3">
+      <div className="rounded-b-lg border-neutral-200 border-t bg-neutral-50 px-6 py-3">
         <button
           className={cn(
-            "font-semibold text-[#FF5200] text-xs uppercase tracking-wider transition-colors hover:text-orange-600",
+            "font-medium text-orange-600 text-sm transition-colors hover:text-orange-700",
             geistSans.className
           )}
           type="button"
@@ -246,7 +217,7 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
  * LiaCard
  *
  * Generic container for dashboard content.
- * Sharp borders, high contrast, clean layout.
+ * Anthropic rounded design with refined typography.
  */
 export function LiaCard({
   title,
@@ -260,25 +231,20 @@ export function LiaCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border border-neutral-200 bg-white">
+    <div className="rounded-lg border border-neutral-200 bg-white">
       {/* Header */}
-      <div className="flex items-start justify-between border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+      <div className="flex items-start justify-between rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
         <div>
           <h3
             className={cn(
-              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "font-medium text-neutral-900 text-sm tracking-tight",
               geistSans.className
             )}
           >
             {title}
           </h3>
           {description && (
-            <p
-              className={cn(
-                "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
-                geistSans.className
-              )}
-            >
+            <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
               {description}
             </p>
           )}
@@ -295,8 +261,8 @@ export function LiaCard({
 /**
  * LiaTable
  *
- * Data table with Geist Mono for numbers.
- * High contrast, easy to scan, grid-based layout.
+ * Data table with Anthropic rounded design.
+ * Clean typography, easy to scan layout.
  */
 export function LiaTable<T extends Record<string, unknown>>({
   title,
@@ -310,26 +276,16 @@ export function LiaTable<T extends Record<string, unknown>>({
   data: T[];
 }) {
   return (
-    <div className="border border-neutral-200 bg-white">
+    <div className="rounded-lg border border-neutral-200 bg-white">
       {/* Header */}
-      <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+      <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
         <h3
-          className={cn(
-            "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
-            geistSans.className
-          )}
+          className={cn("font-medium text-neutral-900 text-sm tracking-tight", geistSans.className)}
         >
           {title}
         </h3>
         {description && (
-          <p
-            className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
-              geistSans.className
-            )}
-          >
-            {description}
-          </p>
+          <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>{description}</p>
         )}
       </div>
 
@@ -342,7 +298,7 @@ export function LiaTable<T extends Record<string, unknown>>({
               {columns.map((column) => (
                 <th
                   className={cn(
-                    "px-6 py-3 text-left font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                    "px-6 py-3 text-left font-medium text-neutral-900 text-sm",
                     column.align === "right" && "text-right",
                     geistSans.className
                   )}
@@ -363,9 +319,9 @@ export function LiaTable<T extends Record<string, unknown>>({
                     className={cn(
                       "whitespace-nowrap px-6 py-4 text-neutral-900 text-sm",
                       column.align === "right" && "text-right",
-                      // Use Geist Mono for numeric values with tracking-tighter
+                      // Use Geist Mono for numeric values
                       typeof row[column.key] === "number"
-                        ? cn("font-medium tracking-tighter", geistMono.className)
+                        ? cn("font-medium", geistSans.className)
                         : cn("font-normal", geistSans.className)
                     )}
                     key={column.key}
@@ -385,7 +341,7 @@ export function LiaTable<T extends Record<string, unknown>>({
 /**
  * LiaEmptyState
  *
- * Empty state with sharp borders and clear messaging.
+ * Empty state with Anthropic rounded design and clear messaging.
  */
 export function LiaEmptyState({
   icon,
@@ -399,19 +355,14 @@ export function LiaEmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center border border-neutral-200 border-dashed bg-white px-6 py-12 text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center border border-neutral-200 bg-neutral-900">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-neutral-200 border-dashed bg-white px-6 py-12 text-center">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900">
         <HugeiconsIcon className="h-8 w-8 text-white" icon={icon} />
       </div>
-      <h3
-        className={cn(
-          "mb-2 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
-          geistSans.className
-        )}
-      >
+      <h3 className={cn("mb-2 font-medium text-base text-neutral-900", geistSans.className)}>
         {title}
       </h3>
-      <p className={cn("mb-6 max-w-sm font-normal text-neutral-600 text-sm", geistSans.className)}>
+      <p className={cn("mb-6 max-w-sm text-neutral-600 text-sm", geistSans.className)}>
         {description}
       </p>
       {action && <div>{action}</div>}
@@ -422,7 +373,7 @@ export function LiaEmptyState({
 /**
  * LiaButton
  *
- * High-contrast button with sharp edges.
+ * Anthropic-inspired button with rounded corners.
  */
 export function LiaButton({
   variant = "primary",
@@ -439,19 +390,19 @@ export function LiaButton({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center font-semibold uppercase tracking-wider transition-all",
+        "inline-flex items-center justify-center rounded-lg font-medium transition-all",
         geistSans.className,
         // Variants
         variant === "primary" &&
-          "border border-neutral-200 bg-[#FF5200] text-white hover:bg-orange-600 hover:shadow-sm",
+          "border border-neutral-200 bg-orange-500 text-white hover:bg-orange-600 hover:shadow-sm",
         variant === "secondary" &&
           "border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50",
         variant === "ghost" &&
           "border border-transparent text-neutral-900 hover:border-neutral-200 hover:bg-neutral-50",
         // Sizes
-        size === "sm" && "px-3 py-1.5 text-[10px]",
-        size === "md" && "px-4 py-2 text-xs",
-        size === "lg" && "px-6 py-3 text-sm",
+        size === "sm" && "px-3 py-1.5 text-xs",
+        size === "md" && "px-4 py-2 text-sm",
+        size === "lg" && "px-6 py-3 text-base",
         className
       )}
       type="button"

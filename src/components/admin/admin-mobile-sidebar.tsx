@@ -32,7 +32,7 @@ export function AdminMobileSidebar({ userEmail, userName, userAvatarUrl }: Props
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="p-2 text-neutral-900 transition-colors hover:bg-neutral-100 lg:hidden"
+        className="rounded-lg p-2 text-neutral-900 transition-colors hover:bg-neutral-100 lg:hidden"
         onClick={() => setIsOpen(true)}
         type="button"
       >
@@ -58,7 +58,7 @@ export function AdminMobileSidebar({ userEmail, userName, userAvatarUrl }: Props
           {/* Close Button */}
           <button
             aria-label="Close menu"
-            className="absolute top-4 right-4 z-10 p-2 text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+            className="absolute top-4 right-4 z-10 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
             onClick={() => setIsOpen(false)}
             type="button"
           >

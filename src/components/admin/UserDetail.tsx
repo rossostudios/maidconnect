@@ -45,11 +45,11 @@ export function UserProfileHeader({
   return (
     <div className="mb-6 flex items-start justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+        <div className="flex h-16 w-16 items-center justify-center bg-[neutral-200]">
           {user.avatar_url ? (
             <Image
               alt={user.full_name || "User"}
-              className="h-16 w-16 rounded-full object-cover"
+              className="h-16 w-16 object-cover"
               height={64}
               src={user.avatar_url}
               width={64}

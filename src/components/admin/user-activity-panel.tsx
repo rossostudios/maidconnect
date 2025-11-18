@@ -19,7 +19,7 @@ import {
   UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { useUserActivity } from "@/hooks/use-user-activity";
 import { cn } from "@/lib/utils";
 
@@ -96,7 +96,7 @@ function getActivityColor(type: string) {
     case "user":
       return "bg-blue-50 border-blue-200 text-blue-700";
     case "professional":
-      return "bg-orange-50 border-[#FF5200] text-orange-700";
+      return "bg-orange-50 border-orange-500 text-orange-700";
     case "dispute":
       return "bg-red-50 border-red-200 text-red-700";
     default:
@@ -126,7 +126,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         <div>
           <h2
             className={cn(
-              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "font-medium text-neutral-900 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -134,8 +134,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </h2>
           <p
             className={cn(
-              "mt-0.5 font-normal text-[10px] text-neutral-600 uppercase tracking-wide",
-              geistMono.className
+              "mt-1 font-normal text-[10px] text-neutral-600 tracking-wide",
+              geistSans.className
             )}
           >
             Real-time platform activity
@@ -148,7 +148,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
             <div className="h-2 w-2 animate-pulse bg-green-500" />
             <span
               className={cn(
-                "font-medium text-[10px] text-neutral-700 uppercase tracking-wider",
+                "font-medium text-[10px] text-neutral-700 tracking-wider",
                 geistSans.className
               )}
             >
@@ -161,19 +161,16 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
       {/* Activity Stats Grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Online Admins */}
-        <div className="border border-neutral-200 bg-white p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex h-8 w-8 items-center justify-center border border-neutral-200 bg-neutral-900">
-              <HugeiconsIcon className="h-4 w-4 text-white" icon={UserCircleIcon} />
-            </div>
-            {stats.onlineAdmins > 0 && <div className="h-2 w-2 animate-pulse bg-green-500" />}
+        <div className="rounded-lg border border-neutral-200 bg-white p-4">
+          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
+            <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={UserCircleIcon} />
           </div>
-          <div className={cn("font-bold text-2xl text-neutral-900", geistMono.className)}>
+          <div className={cn("font-medium text-2xl text-neutral-900", geistSans.className)}>
             {stats.onlineAdmins}
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
               geistSans.className
             )}
           >
@@ -182,16 +179,16 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         </div>
 
         {/* Active Customers */}
-        <div className="border border-neutral-200 bg-white p-4">
-          <div className="mb-3 flex h-8 w-8 items-center justify-center border border-neutral-200 bg-neutral-900">
-            <HugeiconsIcon className="h-4 w-4 text-white" icon={UserIcon} />
+        <div className="rounded-lg border border-neutral-200 bg-white p-4">
+          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+            <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={UserIcon} />
           </div>
-          <div className={cn("font-bold text-2xl text-neutral-900", geistMono.className)}>
+          <div className={cn("font-medium text-2xl text-neutral-900", geistSans.className)}>
             {stats.activeCustomers}
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
               geistSans.className
             )}
           >
@@ -200,16 +197,16 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         </div>
 
         {/* Active Professionals */}
-        <div className="border border-neutral-200 bg-white p-4">
-          <div className="mb-3 flex h-8 w-8 items-center justify-center border border-neutral-200 bg-neutral-900">
-            <HugeiconsIcon className="h-4 w-4 text-white" icon={UserGroupIcon} />
+        <div className="rounded-lg border border-neutral-200 bg-white p-4">
+          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+            <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={UserGroupIcon} />
           </div>
-          <div className={cn("font-bold text-2xl text-neutral-900", geistMono.className)}>
+          <div className={cn("font-medium text-2xl text-neutral-900", geistSans.className)}>
             {stats.activeProfessionals}
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
               geistSans.className
             )}
           >
@@ -218,16 +215,16 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         </div>
 
         {/* Recent Bookings */}
-        <div className="border border-neutral-200 bg-white p-4">
-          <div className="mb-3 flex h-8 w-8 items-center justify-center border border-neutral-200 bg-neutral-900">
-            <HugeiconsIcon className="h-4 w-4 text-white" icon={Calendar03Icon} />
+        <div className="rounded-lg border border-neutral-200 bg-white p-4">
+          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+            <HugeiconsIcon className="h-4 w-4 text-neutral-700" icon={Calendar03Icon} />
           </div>
-          <div className={cn("font-bold text-2xl text-neutral-900", geistMono.className)}>
+          <div className={cn("font-medium text-2xl text-neutral-900", geistSans.className)}>
             {stats.recentBookings}
           </div>
           <p
             className={cn(
-              "mt-1 font-normal text-[10px] text-neutral-700 uppercase tracking-wide",
+              "mt-1 font-normal text-[10px] text-neutral-700 tracking-wide",
               geistSans.className
             )}
           >
@@ -237,12 +234,12 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
       </div>
 
       {/* Recent Activity Feed */}
-      <div className="border border-neutral-200 bg-white">
+      <div className="rounded-lg border border-neutral-200 bg-white">
         {/* Header */}
-        <div className="border-neutral-200 border-b px-6 py-4">
+        <div className="rounded-t-lg border-neutral-200 border-b px-6 py-4">
           <h3
             className={cn(
-              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "font-medium text-neutral-900 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -263,7 +260,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
               </p>
               <p
                 className={cn(
-                  "mt-1 text-[10px] text-neutral-400 uppercase tracking-wider",
+                  "mt-1 text-[10px] text-neutral-400 tracking-wider",
                   geistSans.className
                 )}
               >
@@ -281,7 +278,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                   key={activity.id}
                 >
                   {/* Icon */}
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center border border-neutral-200 bg-white">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white">
                     <HugeiconsIcon
                       className="h-4 w-4 text-neutral-700"
                       icon={getActivityIcon(activity.type)}
@@ -300,8 +297,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                     </p>
                     <p
                       className={cn(
-                        "font-normal text-[10px] text-neutral-500 uppercase tracking-wide",
-                        geistMono.className
+                        "font-normal text-[10px] text-neutral-500 tracking-wide",
+                        geistSans.className
                       )}
                     >
                       {formatRelativeTime(activity.timestamp)}
@@ -312,7 +309,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                   <div className="flex-shrink-0">
                     <span
                       className={cn(
-                        "border border-neutral-200 bg-neutral-50 px-2 py-1 font-medium text-[10px] uppercase tracking-wider",
+                        "rounded-lg border border-neutral-200 bg-neutral-50 px-2 py-1 font-medium text-[10px] tracking-wider",
                         geistSans.className
                       )}
                     >
@@ -326,13 +323,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         </div>
 
         {/* Footer - Last Updated */}
-        <div className="border-neutral-200 border-t px-6 py-3">
-          <p
-            className={cn(
-              "text-[10px] text-neutral-500 uppercase tracking-wide",
-              geistMono.className
-            )}
-          >
+        <div className="rounded-b-lg border-neutral-200 border-t px-6 py-3">
+          <p className={cn("text-[10px] text-neutral-500 tracking-wide", geistSans.className)}>
             Last updated:{" "}
             {stats.lastUpdated ? (
               <time dateTime={stats.lastUpdated}>
@@ -347,10 +339,10 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
 
       {/* Online Users List (if any) */}
       {onlineUsers.length > 0 && (
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h3
             className={cn(
-              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "mb-4 font-medium text-neutral-900 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -365,8 +357,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                 </span>
                 <span
                   className={cn(
-                    "ml-auto text-[10px] text-neutral-500 uppercase tracking-wide",
-                    geistMono.className
+                    "ml-auto text-[10px] text-neutral-500 tracking-wide",
+                    geistSans.className
                   )}
                 >
                   {formatRelativeTime(user.online_at)}
@@ -376,8 +368,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
             {onlineUsers.length > 5 && (
               <p
                 className={cn(
-                  "mt-2 text-[10px] text-neutral-500 uppercase tracking-wide",
-                  geistMono.className
+                  "mt-2 text-[10px] text-neutral-500 tracking-wide",
+                  geistSans.className
                 )}
               >
                 +{onlineUsers.length - 5} more online

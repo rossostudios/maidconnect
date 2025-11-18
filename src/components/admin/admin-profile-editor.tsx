@@ -135,7 +135,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="border border-red-200 bg-[#FF5200]/10 p-4">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
           <p className="text-red-800 text-sm">{error}</p>
         </div>
       )}
@@ -143,7 +143,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
       {/* Avatar Upload */}
       <div>
         <label
-          className="mb-4 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+          className="mb-4 block font-medium text-neutral-500 text-sm"
           htmlFor="admin-profile-avatar"
         >
           Profile Photo
@@ -153,18 +153,18 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             {avatarPreview ? (
               <Image
                 alt="Profile photo"
-                className="h-24 w-24 rounded-full border-2 border-[#E5E5E5] object-cover"
+                className="h-24 w-24 rounded-lg border-2 border-neutral-200 object-cover"
                 height={96}
                 src={avatarPreview}
                 width={96}
               />
             ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#FF5200]/10">
-                <HugeiconsIcon className="h-12 w-12 text-[#FF5200]" icon={UserCircleIcon} />
+              <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-neutral-200 bg-orange-50">
+                <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={UserCircleIcon} />
               </div>
             )}
             <button
-              className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 transition-opacity disabled:cursor-not-allowed group-hover:opacity-100"
+              className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity disabled:cursor-not-allowed group-hover:opacity-100"
               disabled={isUploadingAvatar}
               onClick={() => fileInputRef.current?.click()}
               type="button"
@@ -174,14 +174,14 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </div>
           <div>
             <button
-              className="border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-[#171717] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isUploadingAvatar}
               onClick={() => fileInputRef.current?.click()}
               type="button"
             >
               {isUploadingAvatar ? "Uploading..." : "Change Photo"}
             </button>
-            <p className="mt-2 text-[#737373] text-xs">JPG, PNG or GIF. Max size 5MB.</p>
+            <p className="mt-2 text-neutral-500 text-xs">JPG, PNG or GIF. Max size 5MB.</p>
           </div>
           <input
             accept="image/*"
@@ -198,73 +198,71 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
         {/* Full Name */}
         <div>
           <label
-            className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+            className="mb-2 block font-medium text-neutral-500 text-sm"
             htmlFor="admin-profile-full-name"
           >
             Full Name
           </label>
           {isEditing ? (
             <input
-              className="w-full border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
+              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               id="admin-profile-full-name"
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               type="text"
               value={formData.full_name}
             />
           ) : (
-            <p className="text-[#171717]">{currentProfile.full_name || "—"}</p>
+            <p className="text-neutral-900">{currentProfile.full_name || "—"}</p>
           )}
         </div>
 
         {/* Email (Read-only) */}
         <div>
-          <p className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
-            Email
-          </p>
-          <p className="text-[#737373]">{currentProfile.email}</p>
-          <p className="mt-1 text-[#A3A3A3] text-xs">Email cannot be changed</p>
+          <p className="mb-2 block font-medium text-neutral-500 text-sm">Email</p>
+          <p className="text-neutral-700">{currentProfile.email}</p>
+          <p className="mt-1 text-neutral-400 text-xs">Email cannot be changed</p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
           {/* Phone */}
           <div>
             <label
-              className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+              className="mb-2 block font-medium text-neutral-500 text-sm"
               htmlFor="admin-profile-phone"
             >
               Phone
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 id="admin-profile-phone"
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 type="tel"
                 value={formData.phone}
               />
             ) : (
-              <p className="text-[#171717]">{currentProfile.phone || "—"}</p>
+              <p className="text-neutral-900">{currentProfile.phone || "—"}</p>
             )}
           </div>
 
           {/* City */}
           <div>
             <label
-              className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+              className="mb-2 block font-medium text-neutral-500 text-sm"
               htmlFor="admin-profile-city"
             >
               City
             </label>
             {isEditing ? (
               <input
-                className="w-full border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 id="admin-profile-city"
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 type="text"
                 value={formData.city}
               />
             ) : (
-              <p className="text-[#171717]">{currentProfile.city || "—"}</p>
+              <p className="text-neutral-900">{currentProfile.city || "—"}</p>
             )}
           </div>
         </div>
@@ -272,21 +270,21 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
         {/* Country */}
         <div>
           <label
-            className="mb-2 block font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider"
+            className="mb-2 block font-medium text-neutral-500 text-sm"
             htmlFor="admin-profile-country"
           >
             Country
           </label>
           {isEditing ? (
             <input
-              className="w-full border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#FF5200]"
+              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               id="admin-profile-country"
               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
               type="text"
               value={formData.country}
             />
           ) : (
-            <p className="text-[#171717]">{currentProfile.country || "—"}</p>
+            <p className="text-neutral-900">{currentProfile.country || "—"}</p>
           )}
         </div>
       </div>
@@ -296,7 +294,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 bg-[#FF5200] px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-[#E64A00] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleSave}
               type="button"
@@ -305,7 +303,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
             <button
-              className="flex items-center gap-2 border border-[#E5E5E5] bg-white px-6 py-2.5 font-semibold text-[#737373] text-sm transition-colors hover:bg-[#F5F5F5] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-700 text-sm transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleCancel}
               type="button"
@@ -316,7 +314,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </>
         ) : (
           <button
-            className="flex items-center gap-2 bg-[#171717] px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-[#404040]"
+            className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-neutral-700"
             onClick={() => setIsEditing(true)}
             type="button"
           >

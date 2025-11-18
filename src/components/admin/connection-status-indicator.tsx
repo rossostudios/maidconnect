@@ -15,7 +15,7 @@
 import { Loading03Icon, Wifi01Icon, WifiOff02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import {
   type ConnectionHealth,
   type ConnectionState,
@@ -63,7 +63,7 @@ const statusInfoMap: Record<
   },
   reconnecting: {
     color: "text-orange-600",
-    bgColor: "bg-[#FF5200]",
+    bgColor: "bg-orange-500",
     icon: Loading03Icon,
     label: "Reconnecting...",
   },
@@ -102,26 +102,26 @@ function ConnectionStatusCompact({
     <div className="relative">
       <button
         aria-label={`Connection status: ${statusInfo.label}`}
-        className="group relative flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white transition-all hover:border-[#FF5200] hover:bg-orange-50"
+        className="group relative flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white transition-all hover:border-orange-500 hover:bg-orange-50"
         onBlur={() => setShowTooltip(false)}
         onFocus={() => setShowTooltip(true)}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         type="button"
       >
-        <HugeiconsIcon
-          className={cn(
-            "h-5 w-5 transition-colors",
-            statusInfo.color,
-            (health.state === "connecting" || health.state === "reconnecting") && "animate-spin"
-          )}
-          icon={statusInfo.icon}
-        />
+        {health.state === "connecting" || health.state === "reconnecting" ? (
+          <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading03Icon} />
+        ) : (
+          <HugeiconsIcon
+            className={cn("h-5 w-5 transition-colors", statusInfo.color)}
+            icon={statusInfo.icon}
+          />
+        )}
 
         {/* Status Indicator Dot */}
         <span
           className={cn(
-            "-right-1 -top-1 absolute h-3 w-3 border-2 border-white",
+            "-right-1 -top-1 absolute h-3 w-3 rounded-full border-2 border-white",
             statusInfo.bgColor,
             health.state === "connected" && "animate-pulse"
           )}
@@ -130,10 +130,10 @@ function ConnectionStatusCompact({
 
       {/* Tooltip */}
       {showTooltip && (
-        <div className="absolute top-full right-0 z-50 mt-2 w-48 border border-neutral-200 bg-white p-3 shadow-lg">
+        <div className="absolute top-full right-0 z-50 mt-2 w-48 rounded-lg border border-neutral-200 bg-white p-3 shadow-lg">
           <p
             className={cn(
-              "font-semibold text-xs uppercase tracking-wider",
+              "font-medium text-xs tracking-wider",
               statusInfo.color,
               geistSans.className
             )}
@@ -142,7 +142,7 @@ function ConnectionStatusCompact({
           </p>
           {health.subscriptionCount > 0 && (
             <p
-              className={cn("mt-1 text-[10px] text-neutral-600 tracking-wide", geistMono.className)}
+              className={cn("mt-1 text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
             >
               {health.subscriptionCount} active{" "}
               {health.subscriptionCount === 1 ? "subscription" : "subscriptions"}
@@ -150,7 +150,7 @@ function ConnectionStatusCompact({
           )}
           {health.reconnectAttempts > 0 && (
             <p
-              className={cn("mt-1 text-[10px] text-orange-600 tracking-wide", geistMono.className)}
+              className={cn("mt-1 text-[10px] text-orange-600 tracking-wide", geistSans.className)}
             >
               Reconnect attempt {health.reconnectAttempts}
             </p>
@@ -169,21 +169,18 @@ type ConnectionStatusDetailProps = {
 
 function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionStatusDetailProps) {
   return (
-    <div className="border border-neutral-200 bg-white p-4">
+    <div className="rounded-lg border border-neutral-200 bg-white p-4">
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <HugeiconsIcon
-            className={cn(
-              "h-5 w-5",
-              statusInfo.color,
-              (health.state === "connecting" || health.state === "reconnecting") && "animate-spin"
-            )}
-            icon={statusInfo.icon}
-          />
+          {health.state === "connecting" || health.state === "reconnecting" ? (
+            <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading03Icon} />
+          ) : (
+            <HugeiconsIcon className={cn("h-5 w-5", statusInfo.color)} icon={statusInfo.icon} />
+          )}
           <h3
             className={cn(
-              "font-semibold text-xs uppercase tracking-wider",
+              "font-medium text-xs tracking-wider",
               statusInfo.color,
               geistSans.className
             )}
@@ -195,7 +192,7 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
         {/* Status Indicator Dot */}
         <span
           className={cn(
-            "h-3 w-3",
+            "h-3 w-3 rounded-full",
             statusInfo.bgColor,
             health.state === "connected" && "animate-pulse"
           )}
@@ -207,15 +204,10 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
         <div className="space-y-2 border-neutral-200 border-t pt-3">
           {/* Subscription Count */}
           <div className="flex items-center justify-between">
-            <span
-              className={cn(
-                "text-[10px] text-neutral-600 uppercase tracking-wide",
-                geistSans.className
-              )}
-            >
+            <span className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}>
               Active Subscriptions
             </span>
-            <span className={cn("font-semibold text-neutral-900 text-sm", geistMono.className)}>
+            <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
               {health.subscriptionCount}
             </span>
           </div>
@@ -224,14 +216,11 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.reconnectAttempts > 0 && (
             <div className="flex items-center justify-between">
               <span
-                className={cn(
-                  "text-[10px] text-neutral-600 uppercase tracking-wide",
-                  geistSans.className
-                )}
+                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
               >
                 Reconnect Attempts
               </span>
-              <span className={cn("font-semibold text-orange-600 text-sm", geistMono.className)}>
+              <span className={cn("font-medium text-orange-600 text-sm", geistSans.className)}>
                 {health.reconnectAttempts}
               </span>
             </div>
@@ -241,14 +230,11 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.lastConnected && (
             <div className="flex items-center justify-between">
               <span
-                className={cn(
-                  "text-[10px] text-neutral-600 uppercase tracking-wide",
-                  geistSans.className
-                )}
+                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
               >
                 Last Connected
               </span>
-              <span className={cn("text-[10px] text-neutral-700", geistMono.className)}>
+              <span className={cn("text-[10px] text-neutral-700", geistSans.className)}>
                 {new Date(health.lastConnected).toLocaleTimeString()}
               </span>
             </div>
@@ -258,16 +244,13 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
           {health.errors.length > 0 && (
             <div className="mt-3 space-y-1 border-neutral-200 border-t pt-3">
               <span
-                className={cn(
-                  "text-[10px] text-neutral-600 uppercase tracking-wide",
-                  geistSans.className
-                )}
+                className={cn("text-[10px] text-neutral-600 tracking-wide", geistSans.className)}
               >
                 Recent Errors
               </span>
               {health.errors.slice(-3).map((error, index) => (
                 <p
-                  className={cn("text-[10px] text-red-600 leading-relaxed", geistMono.className)}
+                  className={cn("text-[10px] text-red-600 leading-relaxed", geistSans.className)}
                   key={index}
                 >
                   {error}

@@ -2,7 +2,7 @@
 
 import { MenuTwoLineIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
 import { ConnectionStatusIndicator } from "@/components/admin/connection-status-indicator";
 import { NotificationBell } from "@/components/admin/notification-bell";
@@ -19,14 +19,14 @@ type Props = {
 };
 
 /**
- * LiaAdminHeader - Lia Design System
+ * LiaAdminHeader - Lia Design System (Anthropic-Inspired)
  *
- * Inspired by Bloomberg Terminal + Swiss Design:
- * - Ultra-high contrast for maximum readability
+ * Features:
+ * - Anthropic rounded corners (rounded-lg)
  * - Geist Sans for all text
- * - Pure white background with deep black borders
- * - Sharp geometric shapes (no rounded corners)
- * - Electric blue accents for active states
+ * - Warm neutral backgrounds with refined borders
+ * - Orange accents for active states
+ * - Refined typography (font-medium, no uppercase)
  */
 export function LiaAdminHeader({
   userEmail,
@@ -52,7 +52,7 @@ export function LiaAdminHeader({
           {onToggleSidebar && (
             <button
               aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              className="hidden border border-neutral-200 bg-white p-2 text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-50 lg:flex"
+              className="hidden rounded-lg border border-neutral-200 bg-white p-2 text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-50 lg:flex"
               onClick={onToggleSidebar}
               type="button"
             >
@@ -66,7 +66,7 @@ export function LiaAdminHeader({
         <button
           aria-label="Search"
           className={cn(
-            "group hidden w-full max-w-md items-center gap-2.5 border border-neutral-200 bg-white px-3 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:bg-[#FF5200] hover:text-white md:flex",
+            "group hidden w-full max-w-md items-center gap-2.5 rounded-lg border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:bg-orange-500 hover:text-white md:flex",
             geistSans.className
           )}
           onClick={openCommandPalette}
@@ -76,8 +76,8 @@ export function LiaAdminHeader({
           <span className="flex-1 text-left">Search</span>
           <kbd
             className={cn(
-              "inline-flex flex-shrink-0 items-center gap-0.5 border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-medium text-[10px] text-neutral-900 tracking-tighter group-hover:border-white group-hover:bg-white group-hover:text-[#FF5200]",
-              geistMono.className
+              "inline-flex flex-shrink-0 items-center gap-0.5 rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 font-medium text-[10px] text-neutral-900 tracking-tighter group-hover:border-white group-hover:bg-white group-hover:text-orange-500",
+              geistSans.className
             )}
           >
             ⌘K

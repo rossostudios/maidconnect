@@ -2,7 +2,7 @@
 
 import { LegalDocumentIcon } from "@hugeicons/core-free-icons";
 import type { ColumnDef } from "@tanstack/react-table";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,7 @@ const getActionBadge = (action: string) => {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
+        "inline-flex items-center rounded-full px-2.5 py-1 font-semibold text-xs uppercase tracking-wider",
         baseStyle,
         geistSans.className
       )}
@@ -47,7 +47,7 @@ const columns: ColumnDef<AuditLog>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Date & Time" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistMono.className)}
+        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
       >
         {new Date(row.original.created_at).toLocaleString("en-US", {
           month: "short",
@@ -97,7 +97,7 @@ const columns: ColumnDef<AuditLog>[] = [
             <p
               className={cn(
                 "truncate font-normal text-neutral-700 text-xs tracking-tighter",
-                geistMono.className
+                geistSans.className
               )}
             >
               {target.email}

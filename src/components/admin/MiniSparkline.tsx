@@ -3,7 +3,7 @@
  *
  * Features:
  * - Clean line chart (no axes, no grid)
- * - Orange stroke color (#FF5200)
+ * - Anthropic orange stroke color (#D97757 / orange-500)
  * - Smooth monotone interpolation
  * - Responsive container
  * - Fast animation (300ms)

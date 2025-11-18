@@ -3,7 +3,7 @@
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Table } from "@tanstack/react-table";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 
 type Props<TData> = {
@@ -38,21 +38,16 @@ export function LiaDataTablePagination<TData>({
       {/* Left: Row count */}
       <div className="flex items-center gap-6">
         <p
-          className={cn(
-            "font-normal text-neutral-700 text-xs uppercase tracking-wider",
-            geistSans.className
-          )}
+          className={cn("font-normal text-neutral-700 text-xs tracking-wider", geistSans.className)}
         >
           Showing{" "}
-          <span className={cn("font-semibold text-neutral-900", geistMono.className)}>
+          <span className={cn("font-medium text-neutral-900", geistSans.className)}>
             {totalRows === 0 ? 0 : startRow}
           </span>{" "}
           to{" "}
-          <span className={cn("font-semibold text-neutral-900", geistMono.className)}>
-            {endRow}
-          </span>{" "}
+          <span className={cn("font-medium text-neutral-900", geistSans.className)}>{endRow}</span>{" "}
           of{" "}
-          <span className={cn("font-semibold text-neutral-900", geistMono.className)}>
+          <span className={cn("font-medium text-neutral-900", geistSans.className)}>
             {totalRows}
           </span>
         </p>
@@ -62,7 +57,7 @@ export function LiaDataTablePagination<TData>({
           <div className="flex items-center gap-2">
             <label
               className={cn(
-                "font-normal text-neutral-700 text-xs uppercase tracking-wider",
+                "font-normal text-neutral-700 text-xs tracking-wider",
                 geistSans.className
               )}
               htmlFor="page-size"
@@ -71,8 +66,8 @@ export function LiaDataTablePagination<TData>({
             </label>
             <select
               className={cn(
-                "border border-neutral-200 bg-white px-2 py-1 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/25",
-                geistMono.className
+                "rounded-lg border border-neutral-200 bg-white px-2 py-1 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25",
+                geistSans.className
               )}
               id="page-size"
               onChange={(e) => table.setPageSize(Number(e.target.value))}
@@ -94,7 +89,7 @@ export function LiaDataTablePagination<TData>({
         <button
           aria-label="Go to first page"
           className={cn(
-            "border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
+            "rounded-lg border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
             geistSans.className
           )}
           disabled={!table.getCanPreviousPage()}
@@ -108,7 +103,7 @@ export function LiaDataTablePagination<TData>({
         <button
           aria-label="Go to previous page"
           className={cn(
-            "border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
+            "rounded-lg border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
             geistSans.className
           )}
           disabled={!table.getCanPreviousPage()}
@@ -121,8 +116,8 @@ export function LiaDataTablePagination<TData>({
         {/* Page indicator */}
         <div
           className={cn(
-            "flex min-w-24 items-center justify-center border border-neutral-200 bg-neutral-50 px-4 py-2 font-semibold text-neutral-900 text-xs tracking-tighter",
-            geistMono.className
+            "flex min-w-24 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 font-medium text-neutral-900 text-xs tracking-tighter",
+            geistSans.className
           )}
         >
           {currentPage} / {totalPages || 1}
@@ -132,7 +127,7 @@ export function LiaDataTablePagination<TData>({
         <button
           aria-label="Go to next page"
           className={cn(
-            "border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
+            "rounded-lg border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
             geistSans.className
           )}
           disabled={!table.getCanNextPage()}
@@ -146,7 +141,7 @@ export function LiaDataTablePagination<TData>({
         <button
           aria-label="Go to last page"
           className={cn(
-            "border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
+            "rounded-lg border border-neutral-200 bg-white p-2 text-neutral-900 transition-all hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
             geistSans.className
           )}
           disabled={!table.getCanNextPage()}

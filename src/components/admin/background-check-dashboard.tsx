@@ -4,6 +4,7 @@ import {
   AlertCircleIcon,
   CheckmarkCircle02Icon,
   FilterIcon,
+  Loading03Icon,
   SecurityCheckIcon,
   TimeScheduleIcon,
   UserAccountIcon,
@@ -14,7 +15,6 @@ import dynamic from "next/dynamic";
 import { type ReactNode, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { LoadingCamper } from "@/components/ui/loading-camper";
 import {
   Select,
   SelectContent,
@@ -280,7 +280,10 @@ export function BackgroundCheckDashboard() {
   if (loading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <LoadingCamper size="lg" text="Loading background checks..." />
+        <div className="flex flex-col items-center gap-4">
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <p className="font-medium text-neutral-900">Loading background checks...</p>
+        </div>
       </div>
     );
   }
@@ -449,7 +452,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="ml-2 inline-flex items-center justify-center border border-neutral-200 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.pending}
                 </span>
               )}
@@ -457,7 +460,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="consider">
               Consider
               {data.counts.consider > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="ml-2 inline-flex items-center justify-center border border-neutral-200 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.consider}
                 </span>
               )}
@@ -465,7 +468,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="clear">
               Clear
               {data.counts.clear > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="ml-2 inline-flex items-center justify-center border border-neutral-200 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.clear}
                 </span>
               )}
@@ -473,7 +476,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="suspended">
               Suspended
               {data.counts.suspended > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
+                <span className="ml-2 inline-flex items-center justify-center border border-neutral-200 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.suspended}
                 </span>
               )}

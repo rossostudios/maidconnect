@@ -153,22 +153,22 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
-      <div className="-2xl my-8 w-full max-w-3xl border border-[#ebe5d8] bg-white p-8">
-        <h2 className="mb-6 font-bold text-2xl text-gray-900">
+      <div className="my-8 w-full max-w-3xl rounded-lg border border-neutral-200 bg-white p-8">
+        <h2 className="mb-6 font-medium text-2xl text-gray-900">
           {rule ? "Edit" : "Create"} Pricing Rule
         </h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Scope Section */}
-          <div className="border border-[#ebe5d8] bg-[#fbfafa] p-6">
-            <h3 className="mb-4 font-semibold text-gray-900">Scope (leave blank for "All")</h3>
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+            <h3 className="mb-4 font-medium text-gray-900">Scope (leave blank for "All")</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">
                   Service Category
                 </label>
                 <select
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   onChange={(e) => setFormData({ ...formData, service_category: e.target.value })}
                   value={formData.service_category}
                 >
@@ -184,7 +184,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">City</label>
                 <select
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   value={formData.city}
                 >
@@ -200,15 +200,15 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           </div>
 
           {/* Commission Section */}
-          <div className="border border-[#ebe5d8] p-6">
-            <h3 className="mb-4 font-semibold text-gray-900">Commission & Fees</h3>
+          <div className="rounded-lg border border-neutral-200 p-6">
+            <h3 className="mb-4 font-medium text-gray-900">Commission & Fees</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">
                   Commission Rate (%) *
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   max="30"
                   min="10"
                   onChange={(e) =>
@@ -219,7 +219,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   type="number"
                   value={formData.commission_rate}
                 />
-                <p className="mt-1 text-[#7d7566] text-xs">Range: 10-30%</p>
+                <p className="mt-1 text-neutral-600 text-xs">Range: 10-30%</p>
               </div>
 
               <div>
@@ -227,7 +227,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   Background Check Fee (COP)
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   min="0"
                   onChange={(e) =>
                     setFormData({
@@ -244,15 +244,15 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           </div>
 
           {/* Price Range Section */}
-          <div className="border border-[#ebe5d8] p-6">
-            <h3 className="mb-4 font-semibold text-gray-900">Price Limits (Optional)</h3>
+          <div className="rounded-lg border border-neutral-200 p-6">
+            <h3 className="mb-4 font-medium text-gray-900">Price Limits (Optional)</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">
                   Minimum Price (COP)
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   min="0"
                   onChange={(e) =>
                     setFormData({
@@ -272,7 +272,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   Maximum Price (COP)
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   min="0"
                   onChange={(e) =>
                     setFormData({
@@ -290,13 +290,13 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           </div>
 
           {/* Deposit & Cancellation Section */}
-          <div className="border border-[#ebe5d8] p-6">
-            <h3 className="mb-4 font-semibold text-gray-900">Deposit & Cancellation Policy</h3>
+          <div className="rounded-lg border border-neutral-200 p-6">
+            <h3 className="mb-4 font-medium text-gray-900">Deposit & Cancellation Policy</h3>
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">Deposit (%)</label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   max="100"
                   min="0"
                   onChange={(e) =>
@@ -317,7 +317,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   Late Cancel (hours)
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   min="0"
                   onChange={(e) =>
                     setFormData({
@@ -336,7 +336,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   Late Cancel Fee (%)
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   max="100"
                   min="0"
                   onChange={(e) =>
@@ -354,15 +354,15 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           </div>
 
           {/* Effective Dates Section */}
-          <div className="border border-[#ebe5d8] p-6">
-            <h3 className="mb-4 font-semibold text-gray-900">Effective Dates</h3>
+          <div className="rounded-lg border border-neutral-200 p-6">
+            <h3 className="mb-4 font-medium text-gray-900">Effective Dates</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block font-medium text-gray-900 text-sm">
                   Effective From *
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   onChange={(e) => setFormData({ ...formData, effective_from: e.target.value })}
                   required
                   type="date"
@@ -375,7 +375,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
                   Effective Until
                 </label>
                 <input
-                  className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   onChange={(e) => setFormData({ ...formData, effective_until: e.target.value })}
                   placeholder="No end date"
                   type="date"
@@ -389,7 +389,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           <div>
             <label className="mb-2 block font-medium text-gray-900 text-sm">Notes (Optional)</label>
             <textarea
-              className="w-full border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#FF5200] focus:outline-none focus:ring-2 focus:ring-[#FF5200]/20"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Internal notes about this pricing rule..."
               rows={3}
@@ -400,7 +400,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
             <button
-              className="border border-[#e5dfd4] px-6 py-3 font-semibold text-gray-900 transition hover:border-[#FF5200] disabled:opacity-50"
+              className="rounded-lg border border-neutral-200 px-6 py-3 font-medium text-gray-900 transition hover:border-orange-500 disabled:opacity-50"
               disabled={isLoading}
               onClick={onClose}
               type="button"
@@ -408,7 +408,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               Cancel
             </button>
             <button
-              className="bg-[#FF5200] px-6 py-3 font-semibold text-white transition hover:bg-[#E64A00] disabled:opacity-50"
+              className="rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition hover:bg-orange-600 disabled:opacity-50"
               disabled={isLoading}
               type="submit"
             >

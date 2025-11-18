@@ -5,6 +5,7 @@ import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
   ArrowUp01Icon,
+  Loading03Icon,
   UserCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -202,8 +203,8 @@ export function UserManagementTable({ users, isLoading, pagination, onPageChange
     return (
       <div className="border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
-          <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin border-4 border-[#E5E5E5] border-t-[#FF5200]" />
+          <div className="flex flex-col items-center gap-3">
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
             <p className="text-[#737373] text-sm">Loading users...</p>
           </div>
         </div>

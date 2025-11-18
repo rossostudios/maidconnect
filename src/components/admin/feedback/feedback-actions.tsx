@@ -1,6 +1,6 @@
 "use client";
 
-import { FloppyDiskIcon, Loading01Icon } from "@hugeicons/core-free-icons";
+import { FloppyDiskIcon, Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -71,28 +71,23 @@ export function FeedbackActions({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 text-sm">
           {error}
         </div>
       )}
 
       {/* Status & Priority */}
-      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-          Update Status & Priority
-        </h3>
+      <div className="rounded-lg border border-neutral-200 bg-white p-6">
+        <h3 className="mb-4 font-bold text-lg text-neutral-900">Update Status & Priority</h3>
 
         <div className="grid gap-4 md:grid-cols-2">
           {/* Status */}
           <div>
-            <label
-              className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
-              htmlFor="status"
-            >
+            <label className="mb-2 block font-medium text-neutral-900 text-sm" htmlFor="status">
               Status
             </label>
             <select
-              className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -107,14 +102,11 @@ export function FeedbackActions({
 
           {/* Priority */}
           <div>
-            <label
-              className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
-              htmlFor="priority"
-            >
+            <label className="mb-2 block font-medium text-neutral-900 text-sm" htmlFor="priority">
               Priority
             </label>
             <select
-              className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -130,13 +122,11 @@ export function FeedbackActions({
       </div>
 
       {/* Admin Notes */}
-      <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-        <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
-          Add Admin Notes
-        </h3>
+      <div className="rounded-lg border border-neutral-200 bg-white p-6">
+        <h3 className="mb-4 font-bold text-lg text-neutral-900">Add Admin Notes</h3>
 
         <textarea
-          className="w-full border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
+          className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -148,14 +138,14 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+          className="flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
           disabled={saving}
           onClick={handleSave}
           type="button"
         >
           {saving ? (
             <>
-              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
               Saving...
             </>
           ) : (

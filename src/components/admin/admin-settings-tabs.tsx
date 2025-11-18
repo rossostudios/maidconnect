@@ -7,9 +7,9 @@ import {
   Shield01Icon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import type { ReactNode } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
+import { LiaTabsUnderline } from "@/components/ui/lia-tabs";
 
 type Tab = {
   value: string;
@@ -31,28 +31,38 @@ const iconMap = {
   shield: Shield01Icon,
 };
 
+/**
+ * AdminSettingsTabs - Settings page navigation with Anthropic design
+ *
+ * Features:
+ * - Refined underline variant for page-level navigation
+ * - Smooth spring animations on tab changes
+ * - Warm orange accents on active state
+ * - Controlled state management
+ * - Clean content transitions
+ */
 export function AdminSettingsTabs({ tabs, defaultTab }: Props) {
+  const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.value || "");
+
+  // Map tabs to LiaTabs format
+  const liaTabs = tabs.map((tab) => ({
+    id: tab.value,
+    label: tab.label,
+    icon: iconMap[tab.icon as keyof typeof iconMap] || Settings01Icon,
+  }));
+
+  // Find active content
+  const activeContent = tabs.find((tab) => tab.value === activeTab)?.content;
+
   return (
-    <Tabs className="w-full" defaultValue={defaultTab || tabs[0]?.value}>
+    <div className="space-y-8">
       {/* Tab Navigation */}
-      <TabsList className="w-full justify-start">
-        {tabs.map((tab) => {
-          const Icon = iconMap[tab.icon as keyof typeof iconMap] || Settings01Icon;
-          return (
-            <TabsTrigger className="gap-2" key={tab.value} value={tab.value}>
-              <HugeiconsIcon className="h-4 w-4" icon={Icon} />
-              <span>{tab.label}</span>
-            </TabsTrigger>
-          );
-        })}
-      </TabsList>
+      <LiaTabsUnderline activeTab={activeTab} onChange={setActiveTab} tabs={liaTabs} />
 
       {/* Tab Content */}
-      {tabs.map((tab) => (
-        <TabsContent key={tab.value} value={tab.value}>
-          {tab.content}
-        </TabsContent>
-      ))}
-    </Tabs>
+      <div className="fade-in-0 slide-in-from-bottom-2 animate-in duration-300">
+        {activeContent}
+      </div>
+    </div>
   );
 }

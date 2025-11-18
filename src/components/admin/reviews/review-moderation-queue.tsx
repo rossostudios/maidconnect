@@ -19,7 +19,7 @@ import {
   AlertCircleIcon,
   CheckmarkCircle02Icon,
   EyeIcon,
-  Loading01Icon,
+  Loading03Icon,
   SentIcon,
   ThumbsDownIcon,
   ThumbsUpIcon,
@@ -163,11 +163,7 @@ export function ReviewModerationQueue() {
     return (
       <Card className="flex items-center justify-center border-neutral-200 bg-white p-12">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon
-            className="h-5 w-5 animate-spin text-orange-600"
-            icon={Loading01Icon}
-            strokeWidth={1.5}
-          />
+          <HugeiconsIcon className="h-5 w-5 animate-spin text-orange-500" icon={Loading03Icon} />
           <span className="text-neutral-700">Loading reviews...</span>
         </div>
       </Card>
@@ -249,9 +245,8 @@ export function ReviewModerationQueue() {
             {review.analyzing && (
               <div className="mb-4 flex items-center gap-3 border border-orange-200 bg-orange-50 px-4 py-3">
                 <HugeiconsIcon
-                  className="h-5 w-5 animate-spin text-orange-600"
-                  icon={Loading01Icon}
-                  strokeWidth={1.5}
+                  className="h-5 w-5 animate-spin text-orange-500"
+                  icon={Loading03Icon}
                 />
                 <span className="text-neutral-700 text-sm">Analyzing review...</span>
               </div>

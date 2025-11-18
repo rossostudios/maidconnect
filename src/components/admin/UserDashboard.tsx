@@ -122,7 +122,7 @@ export function UserManagementDashboard() {
           <HugeiconsIcon className="h-4 w-4" icon={FilterIcon} />
           Filters
           {activeFiltersCount > 0 && (
-            <span className="ml-1 rounded-full bg-[#FF5200] px-2 py-0.5 font-semibold text-white text-xs">
+            <span className="ml-1 bg-[#FF5200] px-2 py-0.5 font-semibold text-white text-xs">
               {activeFiltersCount}
             </span>
           )}

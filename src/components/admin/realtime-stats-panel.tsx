@@ -50,10 +50,10 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div className="border border-neutral-200 bg-white p-6" key={i}>
-            <div className="mb-4 h-4 w-32 animate-pulse bg-neutral-200" />
-            <div className="mb-3 h-10 w-24 animate-pulse bg-neutral-200" />
-            <div className="h-4 w-40 animate-pulse bg-neutral-200" />
+          <div className="rounded-lg border border-neutral-200 bg-white p-6" key={i}>
+            <div className="mb-4 h-4 w-32 animate-pulse rounded-lg bg-neutral-200" />
+            <div className="mb-3 h-10 w-24 animate-pulse rounded-lg bg-neutral-200" />
+            <div className="h-4 w-40 animate-pulse rounded-lg bg-neutral-200" />
           </div>
         ))}
       </div>
@@ -62,7 +62,7 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
 
   if (error) {
     return (
-      <div className="border border-red-200 bg-red-50 p-6">
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6">
         <p className="text-red-600 text-sm">Failed to load real-time stats: {error}</p>
       </div>
     );
@@ -127,7 +127,7 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
     <div className="space-y-4">
       {/* Section Header */}
       <div>
-        <h2 className="font-bold text-2xl text-neutral-900">Live Dashboard Metrics</h2>
+        <h2 className="font-medium text-2xl text-neutral-900">Live Dashboard Metrics</h2>
         <p className="text-neutral-600 text-sm">Real-time statistics updated automatically</p>
       </div>
 

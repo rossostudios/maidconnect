@@ -21,7 +21,7 @@ import {
   CheckmarkCircle02Icon,
   CloudUploadIcon,
   EyeIcon,
-  Loading01Icon,
+  Loading03Icon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -249,11 +249,7 @@ export function DocumentExtractionCard({
           {/* Extraction Progress */}
           {extracting && (
             <div className="flex items-center gap-3 border border-orange-200 bg-orange-50 px-4 py-3">
-              <HugeiconsIcon
-                className="h-5 w-5 animate-spin text-orange-600"
-                icon={Loading01Icon}
-                strokeWidth={1.5}
-              />
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
               <span className="text-neutral-700 text-sm">Extracting document data...</span>
             </div>
           )}

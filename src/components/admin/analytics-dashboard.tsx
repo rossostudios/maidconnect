@@ -21,7 +21,7 @@
 "use client";
 
 import { useState } from "react";
-import { geistMono, geistSans } from "@/app/fonts";
+import { geistSans } from "@/app/fonts";
 import { type TimeRange, useAnalytics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 import { AnalyticsDashboardSkeleton } from "./analytics-dashboard-skeleton";
@@ -42,8 +42,8 @@ export function AnalyticsDashboard() {
   // Error state
   if (error) {
     return (
-      <div className="border border-red-200 bg-red-50 p-8 text-center">
-        <p className={cn("font-semibold text-red-700 text-sm uppercase", geistSans.className)}>
+      <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
+        <p className={cn("font-medium text-red-700 text-sm", geistSans.className)}>
           Error Loading Analytics
         </p>
         <p className={cn("mt-2 font-normal text-red-600 text-sm", geistSans.className)}>{error}</p>
@@ -54,8 +54,8 @@ export function AnalyticsDashboard() {
   // No data state
   if (!metrics) {
     return (
-      <div className="border border-neutral-200 bg-white p-8 text-center">
-        <p className={cn("font-semibold text-neutral-700 text-sm uppercase", geistSans.className)}>
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
+        <p className={cn("font-medium text-neutral-700 text-sm", geistSans.className)}>
           No Analytics Data Available
         </p>
         <p className={cn("mt-2 font-normal text-neutral-600 text-sm", geistSans.className)}>
@@ -76,10 +76,10 @@ export function AnalyticsDashboard() {
       {/* Platform Overview - Total Counts */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Total Bookings */}
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h3
             className={cn(
-              "mb-2 font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+              "mb-2 font-medium text-neutral-700 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -87,8 +87,8 @@ export function AnalyticsDashboard() {
           </h3>
           <p
             className={cn(
-              "font-semibold text-3xl text-neutral-900 tracking-tighter",
-              geistMono.className
+              "font-medium text-3xl text-neutral-900 tracking-tighter",
+              geistSans.className
             )}
           >
             {metrics.totalBookings}
@@ -96,10 +96,10 @@ export function AnalyticsDashboard() {
         </div>
 
         {/* Total Professionals */}
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h3
             className={cn(
-              "mb-2 font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+              "mb-2 font-medium text-neutral-700 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -107,8 +107,8 @@ export function AnalyticsDashboard() {
           </h3>
           <p
             className={cn(
-              "font-semibold text-3xl text-neutral-900 tracking-tighter",
-              geistMono.className
+              "font-medium text-3xl text-neutral-900 tracking-tighter",
+              geistSans.className
             )}
           >
             {metrics.totalProfessionals}
@@ -116,10 +116,10 @@ export function AnalyticsDashboard() {
         </div>
 
         {/* Total Customers */}
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h3
             className={cn(
-              "mb-2 font-semibold text-neutral-700 text-xs uppercase tracking-wider",
+              "mb-2 font-medium text-neutral-700 text-xs tracking-wider",
               geistSans.className
             )}
           >
@@ -127,8 +127,8 @@ export function AnalyticsDashboard() {
           </h3>
           <p
             className={cn(
-              "font-semibold text-3xl text-neutral-900 tracking-tighter",
-              geistMono.className
+              "font-medium text-3xl text-neutral-900 tracking-tighter",
+              geistSans.className
             )}
           >
             {metrics.totalCustomers}

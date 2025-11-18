@@ -38,7 +38,7 @@ export function LiaDataTableSkeleton({
             <tr className="border-neutral-200 border-b bg-neutral-50">
               {Array.from({ length: columnCount }).map((_, i) => (
                 <th className="px-6 py-4 text-left" key={i}>
-                  <div className="h-4 w-24 animate-pulse bg-neutral-200" />
+                  <div className="h-4 w-24 animate-pulse rounded-lg bg-neutral-200" />
                 </th>
               ))}
             </tr>
@@ -59,7 +59,7 @@ export function LiaDataTableSkeleton({
                 <td className="px-6 py-4" key={colIndex}>
                   <div
                     className={cn(
-                      "h-4 animate-pulse bg-neutral-200",
+                      "h-4 animate-pulse rounded-lg bg-neutral-200",
                       // Vary widths for more realistic loading state
                       getSkeletonWidth(colIndex)
                     )}

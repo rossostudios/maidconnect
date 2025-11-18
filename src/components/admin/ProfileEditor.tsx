@@ -153,18 +153,18 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             {avatarPreview ? (
               <Image
                 alt="Profile photo"
-                className="h-24 w-24 rounded-full border-2 border-[#E5E5E5] object-cover"
+                className="h-24 w-24 border-2 border-[#E5E5E5] object-cover"
                 height={96}
                 src={avatarPreview}
                 width={96}
               />
             ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#FF5200]/10">
+              <div className="flex h-24 w-24 items-center justify-center border-2 border-[#E5E5E5] bg-[#FF5200]/10">
                 <HugeiconsIcon className="h-12 w-12 text-[#FF5200]" icon={UserCircleIcon} />
               </div>
             )}
             <button
-              className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 transition-opacity disabled:cursor-not-allowed group-hover:opacity-100"
+              className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity disabled:cursor-not-allowed group-hover:opacity-100"
               disabled={isUploadingAvatar}
               onClick={() => fileInputRef.current?.click()}
               type="button"
