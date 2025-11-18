@@ -27,13 +27,23 @@ export default async function SignUpPage({ params }: Props) {
       <div className="flex h-full flex-col border-neutral-200 border-r bg-neutral-50 px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
         <header className="flex items-center justify-between border-neutral-200 border-b pb-6 text-neutral-900 text-sm md:pb-10">
           <Link
-            className="font-semibold text-neutral-900 transition hover:text-orange-500"
+            className="flex items-center gap-2.5 no-underline transition-opacity hover:opacity-80"
             href="/"
           >
-            Casaora
+            <Image
+              alt="Casaora logo"
+              className="h-7 w-auto md:h-8"
+              height={32}
+              priority
+              src="/isologo.svg"
+              width={32}
+            />
+            <span className="font-[family-name:var(--font-geist-sans)] font-medium text-lg text-neutral-900 uppercase tracking-tight md:text-xl">
+              CASAORA®
+            </span>
           </Link>
           <Link
-            className="font-semibold text-orange-500 transition hover:text-orange-500"
+            className="font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700"
             href={AUTH_ROUTES.signIn}
           >
             {t("header.signIn")}
@@ -42,10 +52,12 @@ export default async function SignUpPage({ params }: Props) {
         <main className="flex flex-1 justify-center pt-12 pb-16 md:pt-14">
           <div className="w-full max-w-3xl space-y-14">
             <div className="space-y-6">
-              <h1 className="serif-headline-lg text-neutral-900">{t("hero.title")}</h1>
-              <p className="text-lg text-neutral-900/70 leading-relaxed">{t("hero.description")}</p>
+              <h1 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl">
+                {t("hero.title")}
+              </h1>
+              <p className="text-lg text-neutral-700 leading-relaxed">{t("hero.description")}</p>
             </div>
-            <div className="border border-neutral-200 bg-neutral-50 p-12 shadow-[0_28px_70px_rgba(22,22,22,0.08)]">
+            <div className="rounded-lg border border-neutral-200 bg-white p-12 shadow-[0_28px_70px_rgba(22,22,22,0.08)]">
               <SignUpForm />
               <p className="mt-8 text-neutral-900/70 text-sm">
                 {t("form.haveAccount")}{" "}
