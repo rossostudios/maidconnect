@@ -52,11 +52,11 @@ export function ServiceOptionsSectionClient({
   concierge,
 }: ServiceOptionsSectionClientProps) {
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-32">
+    <section className="bg-white py-12 md:py-24">
       <Container className="max-w-7xl">
         <motion.div animate="visible" initial="hidden" variants={stagger}>
           {/* Section Header */}
-          <motion.div className="mb-12 text-center" variants={fadeIn}>
+          <motion.div className="mb-16 text-center" variants={fadeIn}>
             <h2 className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
               {title}
             </h2>
@@ -67,53 +67,53 @@ export function ServiceOptionsSectionClient({
           <motion.div className="grid grid-cols-1 gap-8 lg:grid-cols-2" variants={stagger}>
             {/* Instant Book Option (Amara/Marketplace) */}
             <motion.div
-              className="flex flex-col rounded-lg border-2 border-orange-200 bg-white p-8 shadow-lg"
+              className="flex flex-col rounded-2xl border border-orange-100 bg-white p-8 shadow-xl shadow-orange-900/5 transition-all hover:shadow-2xl hover:shadow-orange-900/10"
               variants={fadeIn}
             >
               {/* Icon */}
-              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-lg bg-orange-100">
-                <HugeiconsIcon className="h-8 w-8 text-orange-600" icon={SparklesIcon} />
+              <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50 text-orange-600">
+                <HugeiconsIcon className="h-8 w-8" icon={SparklesIcon} />
               </div>
 
               {/* Title */}
-              <h3 className="mb-2 font-bold text-2xl text-neutral-900">{instantBook.title}</h3>
-              <p className="mb-6 text-neutral-700">{instantBook.description}</p>
+              <h3 className="mb-3 font-bold text-2xl text-neutral-900">{instantBook.title}</h3>
+              <p className="mb-8 text-neutral-600 leading-relaxed">{instantBook.description}</p>
 
               {/* Details Grid */}
-              <div className="mb-6 space-y-3">
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+              <div className="mb-8 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Speed
                   </p>
-                  <p className="mt-1 text-neutral-900">{instantBook.speed}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{instantBook.speed}</p>
                 </div>
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Process
                   </p>
-                  <p className="mt-1 text-neutral-900">{instantBook.process}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{instantBook.process}</p>
                 </div>
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Cost
                   </p>
-                  <p className="mt-1 text-neutral-900">{instantBook.cost}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{instantBook.cost}</p>
                 </div>
               </div>
 
               {/* Features */}
-              <div className="mb-6 flex-1 space-y-2">
+              <div className="mb-8 flex-1 space-y-3">
                 {instantBook.features.map((feature, idx) => (
-                  <div className="flex items-start gap-2" key={idx}>
-                    <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
-                    <span className="text-neutral-700 text-sm">{feature}</span>
+                  <div className="flex items-start gap-3" key={idx}>
+                    <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
+                    <span className="text-neutral-700">{feature}</span>
                   </div>
                 ))}
               </div>
 
               {/* CTA */}
               <Link
-                className="inline-flex items-center justify-center rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white transition-all hover:bg-orange-700"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-orange-600 px-6 py-4 font-semibold text-white transition-all hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/20"
                 href="/professionals"
               >
                 {instantBook.cta}
@@ -122,53 +122,53 @@ export function ServiceOptionsSectionClient({
 
             {/* Concierge Option (Direct Hire) */}
             <motion.div
-              className="flex flex-col rounded-lg border-2 border-blue-200 bg-white p-8 shadow-lg"
+              className="flex flex-col rounded-2xl border border-blue-100 bg-white p-8 shadow-xl shadow-blue-900/5 transition-all hover:shadow-2xl hover:shadow-blue-900/10"
               variants={fadeIn}
             >
               {/* Icon */}
-              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-lg bg-blue-100">
-                <HugeiconsIcon className="h-8 w-8 text-blue-600" icon={UserMultiple02Icon} />
+              <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                <HugeiconsIcon className="h-8 w-8" icon={UserMultiple02Icon} />
               </div>
 
               {/* Title */}
-              <h3 className="mb-2 font-bold text-2xl text-neutral-900">{concierge.title}</h3>
-              <p className="mb-6 text-neutral-700">{concierge.description}</p>
+              <h3 className="mb-3 font-bold text-2xl text-neutral-900">{concierge.title}</h3>
+              <p className="mb-8 text-neutral-600 leading-relaxed">{concierge.description}</p>
 
               {/* Details Grid */}
-              <div className="mb-6 space-y-3">
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+              <div className="mb-8 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Speed
                   </p>
-                  <p className="mt-1 text-neutral-900">{concierge.speed}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{concierge.speed}</p>
                 </div>
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Process
                   </p>
-                  <p className="mt-1 text-neutral-900">{concierge.process}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{concierge.process}</p>
                 </div>
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                  <p className="font-semibold text-neutral-700 text-xs uppercase tracking-wide">
+                <div className="rounded-xl bg-neutral-50 p-4">
+                  <p className="font-semibold text-neutral-500 text-xs uppercase tracking-wider">
                     Cost
                   </p>
-                  <p className="mt-1 text-neutral-900">{concierge.cost}</p>
+                  <p className="mt-1 font-medium text-neutral-900">{concierge.cost}</p>
                 </div>
               </div>
 
               {/* Features */}
-              <div className="mb-6 flex-1 space-y-2">
+              <div className="mb-8 flex-1 space-y-3">
                 {concierge.features.map((feature, idx) => (
-                  <div className="flex items-start gap-2" key={idx}>
-                    <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
-                    <span className="text-neutral-700 text-sm">{feature}</span>
+                  <div className="flex items-start gap-3" key={idx}>
+                    <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
+                    <span className="text-neutral-700">{feature}</span>
                   </div>
                 ))}
               </div>
 
               {/* CTA */}
               <Link
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-all hover:bg-blue-700"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/20"
                 href="/concierge"
               >
                 {concierge.cta}
@@ -178,11 +178,11 @@ export function ServiceOptionsSectionClient({
 
           {/* Help Text */}
           <motion.p
-            className="mt-8 text-center text-neutral-600 text-sm"
+            className="mt-12 text-center text-neutral-600 text-sm"
             variants={fadeIn}
           >
             Not sure which path is right for you?{" "}
-            <Link className="text-orange-600 hover:text-orange-700" href="/contact">
+            <Link className="font-medium text-orange-600 hover:text-orange-700" href="/contact">
               Contact our team
             </Link>{" "}
             and we'll help you decide.

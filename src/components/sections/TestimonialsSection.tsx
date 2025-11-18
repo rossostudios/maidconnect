@@ -13,6 +13,7 @@ import { testimonials } from "@/lib/content";
  * - Decorative quote mark
  * - Warm, refined aesthetic
  * - Staggered animations for visual interest
+ * - LIA Design System: Strict 24px baseline alignment
  */
 export function TestimonialsSection() {
   if (!testimonials || testimonials.length === 0) {
@@ -23,7 +24,7 @@ export function TestimonialsSection() {
   const displayTestimonials = testimonials.slice(0, 3);
 
   return (
-    <section className="relative overflow-hidden bg-white py-24 md:py-32" id="testimonials">
+    <section className="relative overflow-hidden bg-white py-12 md:py-24" id="testimonials">
       {/* Subtle background decoration */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-orange-100/60 blur-3xl" />

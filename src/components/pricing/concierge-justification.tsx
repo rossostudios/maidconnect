@@ -26,38 +26,38 @@ export function ConciergeJustification() {
   ];
 
   return (
-    <section className="bg-orange-50 py-16 sm:py-20">
+    <section className="bg-orange-50 py-24">
       <Container className="max-w-6xl">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center bg-orange-500">
-            <HugeiconsIcon className="h-10 w-10 text-white" icon={ArrowUp01Icon} />
+        <div className="mb-16 text-center">
+          <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-orange-500 text-white shadow-xl shadow-orange-500/20">
+            <HugeiconsIcon className="h-10 w-10" icon={ArrowUp01Icon} />
           </div>
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto max-w-2xl text-[18px] text-neutral-700 leading-[24px]">
+          <p className="mx-auto max-w-2xl text-lg text-neutral-700 leading-relaxed">
             {t("subtitle")}
           </p>
         </div>
 
         {/* Benefits Grid */}
-        <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit) => {
             const Icon = benefit.icon;
             return (
               <Card
-                className="border-2 border-orange-200 bg-white transition-all duration-200 hover:border-orange-500 hover:shadow-lg"
+                className="h-full rounded-2xl border border-orange-200 bg-white transition-all duration-200 hover:border-orange-300 hover:shadow-xl hover:shadow-orange-900/5"
                 key={benefit.key}
               >
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center bg-orange-100">
-                    <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Icon} />
+                <CardContent className="p-8">
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                    <HugeiconsIcon className="h-7 w-7" icon={Icon} />
                   </div>
-                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                  <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-xl text-neutral-900">
                     {t(`benefits.${benefit.key}.title`)}
                   </h3>
-                  <p className="text-[14px] text-neutral-700 leading-[20px]">
+                  <p className="text-base text-neutral-600 leading-relaxed">
                     {t(`benefits.${benefit.key}.description`)}
                   </p>
                 </CardContent>
@@ -67,18 +67,18 @@ export function ConciergeJustification() {
         </div>
 
         {/* Perfect For Section */}
-        <Card className="border-4 border-orange-500 bg-white shadow-xl">
-          <CardContent className="p-8 md:p-12">
-            <h3 className="mb-6 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
+        <Card className="overflow-hidden rounded-3xl border-2 border-orange-500 bg-white shadow-2xl shadow-orange-900/10">
+          <CardContent className="p-10 md:p-16">
+            <h3 className="mb-10 text-center font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">
               {t("perfectFor.title")}
             </h3>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2">
               {(t.raw("perfectFor.audiences") as string[]).map((audience, idx) => (
-                <div className="flex items-start gap-3" key={idx}>
-                  <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center bg-orange-500">
-                    <span className="font-bold text-sm text-white">✓</span>
+                <div className="flex items-start gap-4 rounded-xl bg-neutral-50 p-4" key={idx}>
+                  <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-sm">
+                    <span className="font-bold text-xs">✓</span>
                   </div>
-                  <span className="font-medium text-[16px] text-neutral-900 leading-[24px]">
+                  <span className="font-medium text-lg text-neutral-900 leading-relaxed">
                     {audience}
                   </span>
                 </div>
@@ -86,14 +86,14 @@ export function ConciergeJustification() {
             </div>
 
             {/* CTA */}
-            <div className="mt-8 text-center">
+            <div className="mt-12 text-center">
               <a
-                className="inline-block bg-orange-500 px-10 py-4 font-semibold text-lg text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
+                className="inline-block rounded-xl bg-orange-500 px-10 py-4 font-bold text-lg text-white shadow-lg shadow-orange-500/20 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:scale-[1.02]"
                 href="/concierge"
               >
                 {t("cta")}
               </a>
-              <p className="mt-4 text-neutral-600 text-sm">{t("ctaSubtext")}</p>
+              <p className="mt-6 text-base text-neutral-600">{t("ctaSubtext")}</p>
             </div>
           </CardContent>
         </Card>

@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
  * - Anthropic rounded corners (rounded-lg for cards, rounded-full for buttons)
  * - 4px spacing grid with generous breathing room
  * - Strategic orange accents on warm neutral base
+ * - Strict 24px baseline alignment
  */
 
 // Anthropic-Inspired Animation - Refined and Purposeful
@@ -89,7 +90,8 @@ export function SiteFooter() {
       tabIndex={-1}
     >
       {/* Main Footer Content */}
-      <div className="py-20 md:py-24">
+      {/* LIA: py-12 (48px = 2 baselines) mobile, py-24 (96px = 4 baselines) desktop */}
+      <div className="py-12 md:py-24">
         <Container className="relative max-w-screen-2xl px-4 md:px-12 lg:px-16">
           {/* Elevated Card - Main Content */}
           <motion.div

@@ -73,13 +73,13 @@ export default async function AdminHomePage() {
         <div>
           <h1
             className={cn(
-              "font-medium text-3xl text-neutral-900 tracking-tight",
+              "font-medium text-3xl text-neutral-900 tracking-tight leading-none",
               geistSans.className
             )}
           >
             Good morning, {userName}
           </h1>
-          <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
+          <p className={cn("text-neutral-600 text-sm leading-none", geistSans.className)}>
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
@@ -116,7 +116,7 @@ export default async function AdminHomePage() {
       {/* Action Required - Critical Tasks */}
       {actionItemsCount > 0 && (
         <div>
-          <h2 className={cn("mb-4 font-medium text-base text-neutral-900", geistSans.className)}>
+          <h2 className={cn("mb-2 font-medium text-base text-neutral-900", geistSans.className)}>
             Action Required
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -197,7 +197,7 @@ export default async function AdminHomePage() {
 
       {/* Quick Actions */}
       <div>
-        <h2 className={cn("mb-4 font-medium text-base text-neutral-900", geistSans.className)}>
+        <h2 className={cn("mb-2 font-medium text-base text-neutral-900", geistSans.className)}>
           Quick Actions
         </h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">

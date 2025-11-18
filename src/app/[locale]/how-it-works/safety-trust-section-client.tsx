@@ -23,12 +23,13 @@ const stagger: Variants = {
 };
 
 const cardHover = {
-  scale: 1.02,
-  y: -4,
-  transition: {
-    type: "spring" as const,
-    stiffness: 400,
-    damping: 25,
+  hover: {
+    y: -4,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 25,
+    },
   },
 };
 
@@ -54,7 +55,7 @@ export function SafetyTrustSectionClient() {
   ];
 
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-32">
+    <section className="bg-white py-12 md:py-24">
       <Container>
         <motion.div
           className="mb-16 text-center"
@@ -68,7 +69,7 @@ export function SafetyTrustSectionClient() {
             className="mb-6 inline-flex items-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]"
             variants={fadeIn}
           >
-            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
             Safety & Trust
           </motion.div>
 
@@ -99,14 +100,19 @@ export function SafetyTrustSectionClient() {
           {safetyFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div className="group" key={index} variants={fadeIn} whileHover={cardHover}>
-                <div className="flex h-full flex-col border border-neutral-200 bg-neutral-50 p-10 text-center shadow-sm transition-shadow group-hover:shadow-lg">
+              <motion.div
+                className="group h-full"
+                key={index}
+                variants={fadeIn}
+                whileHover="hover"
+              >
+                <motion.div
+                  className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-10 text-center shadow-sm transition-all group-hover:border-orange-200 group-hover:shadow-xl group-hover:shadow-orange-900/5"
+                  variants={cardHover}
+                >
                   {/* Icon */}
-                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center bg-orange-50 transition-colors group-hover:bg-orange-100">
-                    <HugeiconsIcon
-                      className="h-8 w-8 text-orange-600 transition-transform group-hover:scale-110"
-                      icon={Icon}
-                    />
+                  <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 transition-colors group-hover:bg-orange-100">
+                    <HugeiconsIcon className="h-8 w-8" icon={Icon} />
                   </div>
 
                   {/* Title */}
@@ -118,7 +124,7 @@ export function SafetyTrustSectionClient() {
                   <p className="text-base text-neutral-600 leading-relaxed">
                     {t(feature.descriptionKey)}
                   </p>
-                </div>
+                </motion.div>
               </motion.div>
             );
           })}

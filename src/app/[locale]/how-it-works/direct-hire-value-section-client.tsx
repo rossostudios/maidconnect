@@ -50,11 +50,11 @@ export function DirectHireValueSectionClient({
   benefits,
 }: DirectHireValueSectionClientProps) {
   return (
-    <section className="border-neutral-200 border-y bg-neutral-50 py-20 sm:py-24 lg:py-32">
+    <section className="border-neutral-200 border-y bg-neutral-50 py-12 md:py-24">
       <Container className="max-w-6xl">
         <motion.div animate="visible" initial="hidden" variants={stagger}>
           {/* Section Header */}
-          <motion.div className="mb-12 text-center" variants={fadeIn}>
+          <motion.div className="mb-16 text-center" variants={fadeIn}>
             <h2 className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
               {title}
             </h2>
@@ -67,26 +67,26 @@ export function DirectHireValueSectionClient({
               const IconComponent = iconMap[benefit.icon];
               return (
                 <motion.div
-                  className="flex flex-col items-start rounded-lg border border-neutral-200 bg-white p-6 shadow-sm"
+                  className="flex flex-col items-start rounded-xl border border-neutral-200 bg-white p-8 shadow-sm transition-all hover:shadow-md"
                   key={idx}
                   variants={fadeIn}
                 >
                   {/* Icon */}
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
-                    <HugeiconsIcon className="h-6 w-6 text-green-600" icon={IconComponent} />
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
+                    <HugeiconsIcon className="h-6 w-6" icon={IconComponent} />
                   </div>
 
                   {/* Check Mark + Title */}
-                  <div className="mb-2 flex items-center gap-2">
+                  <div className="mb-3 flex items-center gap-2">
                     <HugeiconsIcon
                       className="h-5 w-5 flex-shrink-0 text-green-600"
                       icon={CheckmarkCircle01Icon}
                     />
-                    <h3 className="font-semibold text-neutral-900">{benefit.title}</h3>
+                    <h3 className="font-semibold text-neutral-900 text-lg">{benefit.title}</h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-neutral-700 text-sm">{benefit.description}</p>
+                  <p className="text-neutral-600 text-sm leading-relaxed">{benefit.description}</p>
                 </motion.div>
               );
             })}
@@ -94,15 +94,14 @@ export function DirectHireValueSectionClient({
 
           {/* Value Prop Footer */}
           <motion.div
-            className="mt-12 rounded-lg border border-blue-200 bg-blue-50 p-6 text-center"
+            className="mt-16 rounded-2xl border border-blue-100 bg-blue-50/50 p-8 text-center"
             variants={fadeIn}
           >
-            <p className="font-semibold text-blue-900 text-lg">
-              This converts a "hidden fee" into a Safety Product that customers are happy to buy.
+            <p className="font-semibold text-blue-900 text-xl">
+              Your Safety Guarantee
             </p>
-            <p className="mt-2 text-blue-700 text-sm">
-              Our $500 Direct Hire Fee isn't just a charge—it's comprehensive protection and peace of
-              mind for permanent placements.
+            <p className="mx-auto mt-3 max-w-2xl text-blue-700 text-base leading-relaxed">
+              The Direct Hire Fee isn't just a charge—it's your comprehensive protection plan. It covers rigorous background checks, legal contract preparation, and medical clearances to ensure your peace of mind.
             </p>
           </motion.div>
         </motion.div>

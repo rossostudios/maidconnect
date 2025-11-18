@@ -13,6 +13,7 @@ import { Link } from "@/i18n/routing";
  *
  * Editorial split-layout with animated Colombia map
  * Premium concierge aesthetic with subtle animations
+ * LIA Design System: Strict 24px baseline alignment
  */
 export function PricingSection() {
   const t = useTranslations("home.pricing");
@@ -35,7 +36,7 @@ export function PricingSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-orange-50/30 py-24 md:py-32">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-orange-50/30 py-12 md:py-24">
       {/* Decorative elements */}
       <div className="pointer-events-none absolute inset-0 opacity-40">
         <div className="absolute top-1/4 right-1/4 h-96 w-96 rounded-full bg-orange-200/30 blur-3xl" />
@@ -99,11 +100,13 @@ export function PricingSection() {
                     animate={{
                       opacity: 1,
                       scale: 1,
+                      rotate: 0,
                     }}
                     className="relative h-full w-full"
                     initial={{
                       opacity: 0,
                       scale: 0.95,
+                      rotate: 0,
                     }}
                     transition={{
                       duration: 1.2,

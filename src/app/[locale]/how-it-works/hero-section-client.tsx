@@ -26,7 +26,7 @@ interface HeroSectionClientProps {
 
 export function HeroSectionClient({ title, subtitle }: HeroSectionClientProps) {
   return (
-    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
+    <section className="bg-neutral-50 py-12 md:py-24">
       <Container className="max-w-5xl">
         <motion.div animate="visible" className="text-center" initial="hidden" variants={stagger}>
           {/* Badge */}
@@ -40,7 +40,7 @@ export function HeroSectionClient({ title, subtitle }: HeroSectionClientProps) {
 
           {/* Title */}
           <motion.h1
-            className="font-bold text-5xl text-neutral-900 tracking-tight md:text-6xl lg:text-7xl"
+            className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]"
             variants={fadeIn}
           >
             {title}

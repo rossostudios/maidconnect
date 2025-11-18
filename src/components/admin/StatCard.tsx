@@ -96,12 +96,12 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white p-6 transition-all duration-200 hover:border-orange-500",
+        "rounded-lg border border-neutral-200 bg-white p-5 transition-all duration-200 hover:border-orange-500",
         featured && "border-b-2 border-b-orange-500"
       )}
     >
       {/* Header: Title + Live Indicator + Status Badge */}
-      <div className="mb-4 flex items-start justify-between">
+      <div className="mb-3 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <h3
             className={cn(
@@ -133,16 +133,16 @@ export function StatCard({
 
       {/* Sparkline (if provided) */}
       {sparklineData && sparklineData.length > 0 && (
-        <div className="mb-3 w-24">
+        <div className="mb-2 w-24">
           <MiniSparkline data={sparklineData} />
         </div>
       )}
 
       {/* Value */}
-      <div className="mb-3">
+      <div className="mb-2">
         <p
           className={cn(
-            "font-medium text-3xl text-neutral-900 tracking-tighter",
+            "font-medium text-3xl text-neutral-900 tracking-tighter leading-none",
             geistSans.className
           )}
         >
@@ -151,7 +151,7 @@ export function StatCard({
       </div>
 
       {/* Description */}
-      <p className={cn("font-normal text-neutral-600 text-sm", geistSans.className)}>
+      <p className={cn("font-normal text-neutral-600 text-xs leading-tight", geistSans.className)}>
         {description}
       </p>
     </div>

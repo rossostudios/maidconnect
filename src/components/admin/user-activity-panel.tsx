@@ -126,7 +126,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
         <div>
           <h2
             className={cn(
-              "font-medium text-neutral-900 text-xs tracking-wider",
+              "font-medium text-2xl text-neutral-900 leading-none",
               geistSans.className
             )}
           >
@@ -134,7 +134,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           </h2>
           <p
             className={cn(
-              "mt-1 font-normal text-neutral-600 text-xs tracking-wide",
+              "text-neutral-600 text-sm leading-none",
               geistSans.className
             )}
           >

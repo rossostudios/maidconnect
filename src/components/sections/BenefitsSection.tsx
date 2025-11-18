@@ -121,7 +121,7 @@ export function BenefitsSection() {
     .filter((row) => row.items.length > 0);
 
   return (
-    <section className="bg-neutral-50 py-16 md:py-20" id="benefits">
+    <section className="bg-neutral-50 py-12 md:py-24" id="benefits">
       <Container className="max-w-7xl px-4 md:px-8">
         <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {/* Section Header */}

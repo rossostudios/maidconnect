@@ -45,6 +45,7 @@ const stagger: Variants = {
  * - 4px spacing grid with generous breathing room
  * - Strategic orange accents on warm neutral base
  * - Elevated white cards on neutral-50 background
+ * - Strict 24px baseline alignment
  */
 export function HeroSection() {
   const t = useTranslations("hero");
@@ -72,7 +73,8 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-neutral-50" ref={containerRef}>
       {/* Split-Screen Hero Layout */}
-      <div className="py-12 md:py-20">
+      {/* LIA: py-12 (48px = 2 baselines) mobile, py-24 (96px = 4 baselines) desktop */}
+      <div className="py-12 md:py-24">
         <Container className="relative max-w-screen-2xl px-4 md:px-12 lg:px-16">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center md:gap-20 lg:gap-24 xl:gap-32">
             {/* LEFT: Content Column */}
@@ -84,7 +86,7 @@ export function HeroSection() {
             >
               {/* Tagline Badge */}
               <motion.div
-                className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2"
+                className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2"
                 variants={fadeIn}
               >
                 <div className="h-2 w-2 animate-pulse rounded-full bg-orange-500" />
@@ -102,8 +104,9 @@ export function HeroSection() {
               </motion.p>
 
               {/* Display Heading - Large, Refined Hierarchy */}
+              {/* LIA: text-5xl (48px) mobile, text-[72px] (72px) desktop. Leading matches size. */}
               <motion.h1
-                className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
+                className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]"
                 variants={fadeIn}
               >
                 {t("title") || "Hire trusted nannies, housekeepers & private staff in Medellín"}
@@ -111,7 +114,7 @@ export function HeroSection() {
 
               {/* Body Copy */}
               <motion.p
-                className="mt-8 max-w-lg text-base text-neutral-600 leading-relaxed"
+                className="mt-8 max-w-lg text-lg text-neutral-600 leading-relaxed md:text-xl"
                 variants={fadeIn}
               >
                 {t("subtitle") ||
@@ -119,7 +122,7 @@ export function HeroSection() {
               </motion.p>
 
               {/* Trust Badges - Elevated Cards */}
-              <motion.div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3" variants={fadeIn}>
+              <motion.div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3" variants={fadeIn}>
                 {[
                   {
                     icon: (
@@ -191,7 +194,7 @@ export function HeroSection() {
 
               {/* CTA Buttons - Clear Hierarchy */}
               <motion.div
-                className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
+                className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center"
                 variants={fadeIn}
               >
                 {/* Primary CTA */}
@@ -230,7 +233,7 @@ export function HeroSection() {
               </motion.div>
 
               {/* Subtle Learn More Link */}
-              <motion.div className="mt-5" variants={fadeIn}>
+              <motion.div className="mt-6" variants={fadeIn}>
                 <Link
                   className="inline-flex items-center gap-1.5 font-medium text-neutral-600 text-sm transition-colors hover:text-orange-600"
                   href="/how-it-works"

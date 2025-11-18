@@ -127,8 +127,8 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
     <div className="space-y-4">
       {/* Section Header */}
       <div>
-        <h2 className="font-medium text-2xl text-neutral-900">Live Dashboard Metrics</h2>
-        <p className="text-neutral-600 text-sm">Real-time statistics updated automatically</p>
+        <h2 className="font-medium text-2xl text-neutral-900 leading-none">Live Dashboard Metrics</h2>
+        <p className="text-neutral-600 text-sm leading-none">Real-time statistics updated automatically</p>
       </div>
 
       {/* Real-time Stats Grid */}
@@ -159,7 +159,7 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
           description="Completed bookings"
           status={getRevenueStatus(stats.totalRevenue)}
           title="Total Revenue"
-          value={formatCurrency(stats.totalRevenue, "COP")}
+          value={formatCurrency(stats.totalRevenue, { currency: "COP" })}
         />
 
         <StatCard

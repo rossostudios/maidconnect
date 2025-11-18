@@ -23,53 +23,61 @@ export function PricingHero({
   const [activeTab, setActiveTab] = useState<AudienceTab>(defaultTab);
 
   return (
-    <section className="relative bg-neutral-50 pt-24 pb-16 sm:pt-32 sm:pb-20">
+    <section className="relative bg-neutral-50 py-12 md:py-24">
       <Container>
         {/* Hero Content */}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mb-12 max-w-3xl text-center"
+          className="mx-auto mb-16 max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-normal text-[48px] text-neutral-900 leading-[48px]">
+          <h1 className="mb-6 font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]">
             {t("title")}
           </h1>
-          <p className="mb-baseline-2 font-[family-name:var(--font-geist-sans)] text-[18px] text-neutral-700 leading-[24px]">
+          <p className="mb-12 text-lg text-neutral-600 leading-relaxed md:text-xl">
             {t("subtitle")}
           </p>
 
           {/* Tab Switcher - Anthropic Rounded Design */}
-          <div className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white p-2 shadow-sm">
+          <div className="inline-flex items-center gap-1 rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-sm">
             <motion.button
               className={cn(
-                "rounded-lg px-8 py-3 font-semibold text-base transition-colors duration-200",
+                "relative rounded-xl px-8 py-3 font-semibold text-base transition-colors duration-200",
                 activeTab === "customers"
-                  ? "bg-orange-500 text-white shadow-md"
-                  : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
+                  ? "text-white"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               onClick={() => setActiveTab("customers")}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               type="button"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              {t("tabs.customers")}
+              {activeTab === "customers" && (
+                <motion.div
+                  className="absolute inset-0 rounded-xl bg-neutral-900 shadow-md"
+                  layoutId="activeTab"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{t("tabs.customers")}</span>
             </motion.button>
             <motion.button
               className={cn(
-                "rounded-lg px-8 py-3 font-semibold text-base transition-colors duration-200",
+                "relative rounded-xl px-8 py-3 font-semibold text-base transition-colors duration-200",
                 activeTab === "professionals"
-                  ? "bg-orange-500 text-white shadow-md"
-                  : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
+                  ? "text-white"
+                  : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               onClick={() => setActiveTab("professionals")}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               type="button"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              {t("tabs.professionals")}
+              {activeTab === "professionals" && (
+                <motion.div
+                  className="absolute inset-0 rounded-xl bg-neutral-900 shadow-md"
+                  layoutId="activeTab"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{t("tabs.professionals")}</span>
             </motion.button>
           </div>
         </motion.div>

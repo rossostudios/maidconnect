@@ -24,35 +24,32 @@ export function FeeExplainer() {
   ];
 
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <Container className="max-w-5xl">
-        <div className="mb-12 text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+    <section className="bg-white py-24">
+      <Container className="max-w-6xl">
+        <div className="mb-16 text-center">
+          <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto max-w-2xl text-[18px] text-neutral-700 leading-[24px]">
+          <p className="mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed">
             {t("subtitle")}
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <div
-                className="group border-2 border-neutral-200 bg-neutral-50 p-6 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50"
+                className="group rounded-2xl border border-neutral-200 bg-white p-8 transition-all duration-200 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-900/5"
                 key={feature.key}
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center border-2 border-neutral-200 bg-white transition-all group-hover:border-orange-500 group-hover:bg-orange-50">
-                  <HugeiconsIcon
-                    className="h-6 w-6 text-neutral-700 group-hover:text-orange-600"
-                    icon={Icon}
-                  />
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-neutral-50 text-neutral-600 transition-colors group-hover:bg-orange-50 group-hover:text-orange-600">
+                  <HugeiconsIcon className="h-7 w-7" icon={Icon} />
                 </div>
-                <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-xl text-neutral-900">
                   {t(`features.${feature.key}.title`)}
                 </h3>
-                <p className="text-[14px] text-neutral-700 leading-[20px]">
+                <p className="text-base text-neutral-600 leading-relaxed">
                   {t(`features.${feature.key}.description`)}
                 </p>
               </div>
@@ -61,14 +58,14 @@ export function FeeExplainer() {
         </div>
 
         {/* Trust Badge */}
-        <div className="mt-12 border-2 border-orange-200 bg-orange-50 p-8 text-center">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center bg-orange-500">
-            <HugeiconsIcon className="h-8 w-8 text-white" icon={Shield01Icon} />
+        <div className="mt-16 rounded-3xl border border-orange-100 bg-orange-50/50 p-10 text-center">
+          <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100 text-orange-600">
+            <HugeiconsIcon className="h-8 w-8" icon={Shield01Icon} />
           </div>
-          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+          <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-2xl text-neutral-900">
             {t("trustBadge.title")}
           </h3>
-          <p className="mx-auto max-w-2xl text-[16px] text-neutral-700 leading-[24px]">
+          <p className="mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed">
             {t("trustBadge.description")}
           </p>
         </div>
