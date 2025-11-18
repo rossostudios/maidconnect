@@ -1,13 +1,13 @@
 # Foundations
 
-Version: **2025.02**  
+Version: **2025.03**
 Source of truth: `src/app/globals.css`, `src/app/fonts.ts`
 
 ## Design Goals
 
-1. **Data-first clarity** – Feels like a Bloomberg terminal but modernized for Casaora.
-2. **Trust through rigor** – Tight typography, zero-radius geometry, and strict spacing.
-3. **Accessibility by default** – WCAG AAA contrast targets with predictable focus states.
+1. **Anthropic-inspired clarity** – Clean, modern aesthetic with warm neutrals and thoughtful rounded corners.
+2. **Trust through precision** – Tight typography, consistent geometry, and strict 4px spacing grid.
+3. **Accessibility by default** – WCAG AA contrast targets with predictable focus states.
 4. **One system across all surfaces** – Admin, dashboard, marketing, and support use the same tokens.
 
 ---
@@ -38,45 +38,65 @@ Rules:
 
 ## Color System
 
-### Neutral Ramp
+### Neutral Ramp (Anthropic Warm Grays)
 
 | Token | Hex | Notes |
 | --- | --- | --- |
-| `neutral-50` | `#FFFDFC` | Page background |
-| `neutral-100` | `#FAF8F6` | Muted surfaces, disabled |
-| `neutral-200` | `#E6E5E5` | Borders, table dividers |
-| `neutral-300` | `#DCDAD7` | Hover borders |
-| `neutral-400` | `#BEBBB7` | Icons, muted lines |
-| `neutral-600` | `#8C8985` | Secondary text |
-| `neutral-700` | `#64615D` | Body text |
-| `neutral-900` | `#181818` | Headings |
+| `neutral-50` | `#FAF9F5` | Page background (Anthropic light) |
+| `neutral-100` | `#F5F3EE` | Muted surfaces, disabled |
+| `neutral-200` | `#E8E6DC` | Borders, table dividers (Anthropic light-gray) |
+| `neutral-300` | `#D4D1C7` | Hover borders |
+| `neutral-400` | `#C0BDB3` | Icons, muted lines |
+| `neutral-500` | `#B0AEA5` | Mid-gray (Anthropic) |
+| `neutral-600` | `#8C8A82` | Secondary text |
+| `neutral-700` | `#68665F` | Body text |
+| `neutral-900` | `#141413` | Headings (Anthropic dark) |
 
-### Orange Ramp
+### Orange Ramp (Anthropic Primary Accent)
 
 | Token | Hex | Usage |
 | --- | --- | --- |
-| `orange-50` | `#FFF7F0` | Hover background |
-| `orange-400` | `#FF8746` | Highlights, progress |
-| `orange-500` | `#FF5200` | Primary CTA |
-| `orange-600` | `#E64A00` | Links, hover |
-| `orange-700` | `#C84000` | Active/destructive |
+| `orange-50` | `#FAF0ED` | Hover background |
+| `orange-100` | `#F5E1DB` | Light highlights |
+| `orange-400` | `#E88668` | Highlights, progress |
+| `orange-500` | `#D97757` | Primary CTA (Anthropic orange) |
+| `orange-600` | `#C56847` | Links, hover (Anthropic hover) |
+| `orange-700` | `#B15937` | Active/destructive |
 
-### Semantic / Utility
+### Blue Ramp (Anthropic Secondary Accent)
 
-- Success `#22C55E`, Warning `#F5A524`, Info `#2E90FA`, Critical `#C84000`.
-- Background gradient token: `linear-gradient(180deg,#FFF8F2,#FFF1E6)` for premium heroes.
+| Token | Hex | Usage |
+| --- | --- | --- |
+| `blue-50` | `#EDF4FA` | Info background |
+| `blue-400` | `#7FAAD9` | Info highlights |
+| `blue-500` | `#6A9BCC` | Info states (Anthropic blue) |
+| `blue-600` | `#5A8BBC` | Info hover (Anthropic blue hover) |
+
+### Green Ramp (Anthropic Success Accent)
+
+| Token | Hex | Usage |
+| --- | --- | --- |
+| `green-50` | `#F0F2ED` | Success background |
+| `green-400` | `#8C9F6E` | Success highlights |
+| `green-500` | `#788C5D` | Success states (Anthropic green) |
+| `green-600` | `#687C4D` | Success hover (Anthropic green hover) |
 
 Rules:
-- `orange-600` only for inline links (WCAG AA).
-- Never mix additional accent colors for badges—use neutral backgrounds + orange emphasis.
+- `orange-600` for inline links (WCAG AA compliant).
+- Use blue for informational accents, green for success states, orange for primary actions.
 - All borders/dividers default to `neutral-200`.
 
 ---
 
 ## Geometry & Spacing
 
-- **Border radius:** default `0`. Only apply rounding when `patterns.md` explicitly calls for it (e.g., marketing hero cards).
-- **Spacing scale:** 8px base (`gap-1 = 4px`, `gap-2 = 8px`, `gap-3 = 12px`, `gap-4 = 16px`, `gap-6 = 24px`, `gap-8 = 32px`, `gap-12 = 48px`, `gap-16 = 64px`).
+- **Border radius (Anthropic):**
+  - `rounded-sm` = 4px (small elements, inline badges)
+  - `rounded-md` = 8px (standard inputs, small cards)
+  - `rounded-lg` = 12px (default for buttons, cards, inputs)
+  - `rounded-xl` = 16px (large cards, modals)
+  - `rounded-full` = 9999px (badges, pills, avatars)
+- **Spacing scale:** 4px base (`gap-1 = 4px`, `gap-2 = 8px`, `gap-3 = 12px`, `gap-4 = 16px`, `gap-5 = 20px`, `gap-6 = 24px`, `gap-8 = 32px`, `gap-10 = 40px`, `gap-12 = 48px`).
 - **Baseline grid:** 24px increments for vertical rhythm.
 - **Module heights:** multiples of 64px for cards, tables, hero blocks.
 - **Gutters:** 24px standard grid gap (`--gutter`).

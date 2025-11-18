@@ -2,7 +2,7 @@
 
 > Connecting expats in Colombia with trusted domestic service professionals
 
-**Casaora** is a concierge-style marketplace platform that bridges the gap between foreigners living in Colombia and verified, professional domestic service providers. Built for trust, transparency, and seamless service delivery.
+**Casaora** is a concierge service that connects foreigners living in Colombia with thoroughly vetted, professional domestic service providers. We personally match you with the perfect professionals — no browsing, no guesswork. Built for trust, transparency, and seamless service delivery.
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
@@ -17,22 +17,23 @@
 
 ### For Customers
 
-- 🔍 **Smart Professional Matching** - AI-powered recommendations based on your needs
-- 📅 **Real-time Booking** - Instant availability checking and booking confirmation
-- 🔄 **Repeat Booking** - One-click rebooking of favorite professionals and past services
+- 🤝 **Personal Concierge Matching** - We hand-select professionals based on your specific needs
+- 🏆 **Thoroughly Vetted Professionals** - Every professional passes background checks and interviews
+- 📋 **Simple Brief System** - Share your needs once, we handle the rest
+- 💬 **English-Speaking Coordinators** - Bilingual support team for seamless communication
 - 💳 **Secure Payments** - Integrated Stripe payment processing with Colombian payment methods
-- ⭐ **Reviews & Ratings** - Transparent feedback system with verified reviews
-- 🌐 **Bilingual Support** - Full English and Spanish localization
-- 📱 **Mobile-First Design** - Optimized for mobile devices with responsive UI
+- ⭐ **Quality Guarantee** - Satisfaction guaranteed with responsive support
+- 🌐 **Bilingual Platform** - Full English and Spanish support throughout
+- 🔔 **Match Notifications** - We notify you when we have perfect matches ready
 
 ### For Professionals
 
-- 📊 **Professional Dashboard** - Manage bookings, availability, and earnings
-- ✅ **Verification System** - Background checks and document verification
-- 💰 **Transparent Pricing** - Set your own rates and service packages
-- 📈 **Analytics & Insights** - Track performance metrics and customer feedback
+- 📊 **Professional Dashboard** - Manage concierge assignments, availability, and earnings
+- ✅ **Rigorous Vetting Process** - Background checks, interviews, and skills verification
+- 💰 **Transparent Pricing** - Set your own rates and keep 100% of what you charge
+- 🎯 **Curated Assignments** - Receive hand-matched bookings from our concierge team
 - 🗓️ **Calendar Management** - Integrated availability and scheduling system
-- 💬 **Direct Messaging** - Secure communication with customers
+- 💬 **Secure Messaging** - Direct communication with customers and coordinators
 
 ### For Admins
 
@@ -166,6 +167,46 @@ casaora/
 - **[Biome](https://biomejs.dev/)** - Fast linter and formatter
 - **[Playwright](https://playwright.dev/)** - E2E testing
 - **[Storybook](https://storybook.js.org/)** - Component development
+
+---
+
+## 🎨 Lia Design System
+
+Casaora's visual language is powered by **Lia**, an Anthropic-inspired design system that balances warmth with precision.
+
+### Design Philosophy
+
+- **Anthropic-Inspired:** Clean, modern aesthetic with thoughtful rounded corners
+- **Warm Neutrals:** Cool gray palette (#FAF9F5 to #141413) with excellent contrast
+- **Three-Accent System:** Orange (primary), blue (secondary), green (success)
+- **Geist Fonts:** Geist Sans for UI, Geist Mono for data/code
+- **4px Grid:** Precise spacing system (4, 8, 12, 16, 20, 24, 32, 40, 48px)
+- **24px Baseline:** Typography locked to 24px vertical rhythm
+
+### Key Visual Elements
+
+**Border Radius (Anthropic Rounded):**
+- `rounded-sm` (4px) - Small elements
+- `rounded-md` (8px) - Standard inputs
+- `rounded-lg` (12px) - Buttons, cards, inputs (default)
+- `rounded-xl` (16px) - Large cards, modals
+- `rounded-full` (9999px) - Badges, pills, avatars
+
+**Color Palette:**
+- **Orange:** `#D97757` (primary CTA), `#C56847` (hover)
+- **Blue:** `#6A9BCC` (info states), `#5A8BBC` (hover)
+- **Green:** `#788C5D` (success), `#687C4D` (hover)
+- **Neutrals:** `#FAF9F5` (background) to `#141413` (text)
+
+**Accessibility:**
+- WCAG AA compliant contrast ratios
+- Orange-600 (`#C56847`) for links
+- Focus rings with 2px offset
+- Keyboard navigation support
+
+### Documentation
+
+Complete design system reference: [docs/lia/](docs/lia/)
 
 ---
 
@@ -513,10 +554,11 @@ See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for up
 
 **Current Focus (Q1 2025):**
 - ✅ **Product Analytics** - PostHog integration complete (feature flags, session recording, funnels)
+- 🏗️ **Professional Network Building** - Growing our thoroughly vetted professional network in Medellín
 - 🔄 **React Aria Migration** - Better accessibility with React Aria Components
 - 📱 **Mobile App** - React Native for iOS and Android
-- 🌎 **City Expansion** - Medellín, Cartagena, and Cali
-- 🤖 **AI Matching V2** - Enhanced algorithms with PostHog data insights
+- 🌎 **City Expansion** - Medellín first, then Cartagena and Cali
+- 🤝 **Enhanced Concierge Tools** - Better matching algorithms and coordinator workflows
 - 📊 **Analytics Dashboards** - Real-time metrics for admins and professionals
 
 ---

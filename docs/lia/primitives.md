@@ -6,8 +6,8 @@ Lia exposes all UI building blocks from `src/components/ui`. This document conso
 
 | Component | Path | Notes |
 | --- | --- | --- |
-| **Button** | `src/components/ui/button.tsx` | Orange-first CTA system. Variants: `default`, `secondary`, `outline`, `ghost`, `link`, `destructive`. Sizes: `sm`, `default`, `lg`, `icon`. Active feedback uses `scale-[0.98]`. |
-| **Input** | `src/components/ui/input.tsx` | Sharp geometry (`rounded-none`), `h-10`, orange focus ring. Supports `isInvalid` styling via `aria-invalid`. |
+| **Button** | `src/components/ui/button.tsx` | Orange-first CTA system. Variants: `default`, `secondary`, `outline`, `ghost`, `link`, `destructive`. Sizes: `sm`, `default`, `lg`, `icon`. Active feedback uses `scale-[0.98]`. Anthropic `rounded-lg` geometry. |
+| **Input** | `src/components/ui/input.tsx` | Anthropic `rounded-lg` geometry, `h-10`, orange focus ring. Supports `isInvalid` styling via `aria-invalid`. |
 | **Textarea** | `src/components/ui/textarea.tsx` | Same token set as Input with `min-h-[80px]`. |
 | **Checkbox** | `src/components/ui/checkbox.tsx` | Radix wrapper with 16px square, orange check, neutral hover. |
 | **Radio Group** | `src/components/ui/radio-group.tsx` | Horizontal/vertical layouts with 16px markers. |
@@ -36,7 +36,7 @@ import { Button, Input, Select, SelectTrigger, SelectContent, SelectItem } from 
 
 | Component | Path | Notes |
 | --- | --- | --- |
-| **Card** | `src/components/ui/card.tsx` | Handles headers/footers/content with zero radius by default; `cardVariants` expose density options. |
+| **Card** | `src/components/ui/card.tsx` | Handles headers/footers/content with Anthropic `rounded-lg`; `cardVariants` expose density options. |
 | **Container** | `src/components/ui/container.tsx` | Responsive shell with Lia gutters (24px). |
 | **LiaGrid / LiaGrid10 / LiaGrid12 / LiaGrid13** | `src/components/ui/lia-grid.tsx` | CSS Grid presets for Swiss-style layouts. |
 | **SectionHeader / FeatureSection / TwoColumnFeature** | `src/components/ui/*` | Marketing-friendly but still obey Lia tokens; refer to `patterns.md` for when to introduce rounded cards. |
@@ -46,7 +46,7 @@ import { Button, Input, Select, SelectTrigger, SelectContent, SelectItem } from 
 | Component | Path | Notes |
 | --- | --- | --- |
 | **Accordion** | `src/components/ui/accordion.tsx` | Neutral backgrounds, `text-neutral-900`. Use for FAQs and data disclosures. |
-| **Dialog** | `src/components/ui/dialog.tsx` | White surfaces, 0 radius, `shadow-lg`. Includes `DialogFooter` for CTA stacking. |
+| **Dialog** | `src/components/ui/dialog.tsx` | White surfaces, Anthropic `rounded-xl`, `shadow-lg`. Includes `DialogFooter` for CTA stacking. |
 | **Tabs** | `src/components/ui/tabs.tsx` | Underline indicator, uppercase labels recommended for admin/dash. |
 | **SkipLink** | `src/components/ui/skip-link.tsx` | Accessibility requirement for long forms/dashboards. |
 
@@ -63,7 +63,7 @@ import { Button, Input, Select, SelectTrigger, SelectContent, SelectItem } from 
 
 | Component | Path | Notes |
 | --- | --- | --- |
-| **Badge** | `src/components/ui/badge.tsx` | Sharp badges with uppercase `text-xs`. Variants: `default`, `outline`, `secondary`. |
+| **Badge** | `src/components/ui/badge.tsx` | Anthropic pill-style badges (`rounded-full`) with uppercase `text-xs`. Variants: `default`, `outline`, `secondary`. |
 | **Skeleton** | `src/components/ui/skeleton.tsx` | Collection that covers cards, tables, charts, conversation lists, etc. Use to preserve layout stability. |
 | **Backdrop** | `src/components/ui/backdrop.tsx` | 80% black overlay for modals/drawers. |
 | **AnimatedCounter / AnimatedMarquee / WavyDivider** | Marketing enhancements that still respect Lia spacing/contrast rules. |
