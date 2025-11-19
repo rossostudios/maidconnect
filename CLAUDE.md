@@ -26,6 +26,11 @@ Vanilla Extract is **NOT COMPATIBLE** with Next.js 16 + Turbopack. Do not attemp
 - ❌ Vanilla Extract (incompatible with Next.js 16 + Turbopack)
 - ❌ Styled Components, Emotion, or any CSS-in-JS library
 
+### UI Components
+- **React Aria Components** - Accessible, unstyled UI primitives (Adobe)
+- **Tailwind CSS 4.1** - All styling via utility classes
+- **Lia Design System** - Anthropic-inspired design patterns
+
 ### Key Integrations
 - **Supabase** - Database, auth, storage, realtime
 - **Stripe** - Payment processing
@@ -203,19 +208,224 @@ src/lib/integrations/                         # External services (Supabase, Str
 
 ---
 
+## React Aria Component Patterns (CRITICAL)
+
+### Why React Aria?
+
+We migrated from Radix UI to **React Aria Components** (Adobe) for better:
+- **Accessibility** - ARIA implementation built by Adobe Accessibility team
+- **Flexibility** - Unstyled primitives that work perfectly with Tailwind
+- **Bundle Size** - Tree-shakeable, lightweight components
+- **Modern APIs** - Hooks-based, React 19 compatible
+
+### Component Architecture
+
+```tsx
+// ✅ CORRECT Pattern - React Aria + Lia Design System
+import {
+  Select as AriaSelect,
+  Button,
+  ListBox,
+  ListBoxItem,
+  Popover,
+} from "react-aria-components";
+import { cn } from "@/lib/utils/core";
+
+export const Select = ({ children, ...props }) => (
+  <AriaSelect {...props}>
+    {children}
+  </AriaSelect>
+);
+
+export const SelectTrigger = ({ children, className }) => (
+  <Button
+    className={cn(
+      // Lia Design System styling
+      "rounded-lg border border-neutral-200 bg-neutral-50",
+      "focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+      className
+    )}
+  >
+    {children}
+  </Button>
+);
+```
+
+### Key React Aria Components
+
+**Form Controls:**
+- `Button` - Interactive buttons with press states
+- `TextField`, `TextArea` - Text inputs with labels
+- `Checkbox`, `CheckboxGroup` - Checkbox controls
+- `RadioGroup`, `Radio` - Radio button controls
+- `Select`, `ListBox`, `ComboBox` - Dropdown selections
+- `Switch` - Toggle switches
+
+**Overlays:**
+- `Dialog`, `Modal`, `ModalOverlay` - Modal dialogs
+- `Popover` - Floating content panels
+- `Tooltip` - Hover/focus tooltips
+
+**Navigation:**
+- `Tabs`, `TabList`, `Tab`, `TabPanel` - Tab navigation
+- `Menu`, `MenuItem` - Dropdown menus
+
+**Disclosure:**
+- `Disclosure`, `DisclosurePanel` - Expandable sections (accordions)
+
+### Component Styling Guidelines
+
+**1. Always use Lia Design System classes:**
+```tsx
+// Border radius (CRITICAL!)
+"rounded-lg"        // Buttons, cards, inputs, containers
+"rounded"           // Tab triggers, select items
+"rounded-full"      // Badges, pills, avatars
+
+// Focus states (orange-500)
+"focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+
+// Colors
+"bg-white"          // Cards, elevated surfaces
+"bg-neutral-50"     // Page backgrounds, input backgrounds
+"bg-orange-500"     // Primary CTAs
+"text-neutral-900"  // Headings
+"text-neutral-700"  // Body text
+"border-neutral-200" // Borders
+```
+
+**2. Use data attributes for state styling:**
+```tsx
+// React Aria provides data attributes for component states
+"data-[selected]:bg-orange-50"           // Selected items
+"data-[focused]:ring-2"                   // Focused state
+"data-[disabled]:opacity-50"              // Disabled state
+"data-[pressed]:scale-[0.98]"            // Active press
+"data-[entering]:animate-in"              // Enter animation
+"data-[exiting]:animate-out"              // Exit animation
+```
+
+**3. Maintain backward compatibility:**
+```tsx
+// Support both React Aria and legacy Radix prop names
+export const Tabs = ({ value, defaultValue, onValueChange, ...props }) => {
+  const selectedKey = value ?? props.selectedKey;
+  const defaultSelectedKey = defaultValue ?? props.defaultSelectedKey;
+
+  const handleSelectionChange = (key: React.Key) => {
+    onValueChange?.(String(key));
+    props.onSelectionChange?.(key);
+  };
+
+  return (
+    <AriaTabs
+      selectedKey={selectedKey}
+      defaultSelectedKey={defaultSelectedKey}
+      onSelectionChange={handleSelectionChange}
+      {...props}
+    />
+  );
+};
+```
+
+### Migration Checklist
+
+When creating or updating UI components:
+
+- [ ] **Import from React Aria** - `react-aria-components`, not Radix UI
+- [ ] **Apply Lia styling** - `rounded-lg`, orange-500 focus rings, neutral colors
+- [ ] **Use cn() utility** - For className merging from `@/lib/utils/core`
+- [ ] **Add data-attribute styles** - For React Aria state management
+- [ ] **Maintain exports** - Keep backward compatibility if replacing existing component
+- [ ] **Add TypeScript types** - Define proper interfaces extending React Aria types
+- [ ] **Test accessibility** - Verify keyboard navigation, ARIA labels, focus management
+- [ ] **Run build** - Verify no type errors with `bun run build`
+
+### Common Patterns
+
+**Composition with asChild:**
+```tsx
+// Custom Slot implementation for composition
+const Slot = ({ children, ...props }) => {
+  if (React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      ...props,
+      ...children.props,
+      className: cn(props.className, children.props.className),
+    });
+  }
+  return children;
+};
+
+// Usage
+<Button asChild>
+  <Link href="/about">Go to About</Link>
+</Button>
+```
+
+**Variant Management with CVA:**
+```tsx
+import { cva, type VariantProps } from "class-variance-authority";
+
+const buttonVariants = cva(
+  "rounded-lg font-semibold transition-all focus-visible:ring-2",
+  {
+    variants: {
+      variant: {
+        default: "bg-orange-500 text-white hover:bg-orange-600",
+        outline: "border-2 border-neutral-200 hover:border-orange-500",
+        ghost: "hover:bg-orange-50 hover:text-orange-600",
+      },
+      size: {
+        default: "h-10 px-8",
+        sm: "h-9 px-6",
+        lg: "h-11 px-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+```
+
+**Animation States:**
+```tsx
+<ModalOverlay className={cn(
+  "fixed inset-0 z-50 flex items-center justify-center",
+  "bg-neutral-900/80",
+  // React Aria animation data attributes
+  "data-[entering]:animate-in data-[entering]:fade-in-0",
+  "data-[exiting]:animate-out data-[exiting]:fade-out-0"
+)}>
+  <Modal>
+    <Dialog>
+      {/* Dialog content */}
+    </Dialog>
+  </Modal>
+</ModalOverlay>
+```
+
+**See [src/components/ui/](src/components/ui/) for complete component implementations.**
+
+---
+
 ## AI Assistant Guidelines
 
 ### When Creating Components
 
 1. **Always use Tailwind CSS** - Never suggest CSS-in-JS alternatives
 2. **USE ANTHROPIC ROUNDED CORNERS** - `rounded-lg` for buttons/cards/inputs, `rounded-full` for badges (Lia requirement)
-3. **Use Exa MCP before shipping** - Run "frontend-design" skill for latest Lia patterns
-4. **Use Context7 MCP for framework APIs** - Get latest Next.js 16+/React 19+ docs
-5. **Check compatibility** - Verify packages work with Next.js 16 + Turbopack
-6. **Type safety** - Define proper TypeScript interfaces
-7. **Accessibility** - Use Radix UI primitives, ARIA labels, keyboard navigation
-8. **Responsive** - Mobile-first approach
-9. **Security** - ALWAYS sanitize user input with `sanitizeHTML()`, `sanitizeURL()`
+3. **Use React Aria Components** - Import from `react-aria-components` for accessible UI primitives
+4. **Use Exa MCP before shipping** - Run "frontend-design" skill for latest Lia patterns
+5. **Use Context7 MCP for framework APIs** - Get latest Next.js 16+/React 19+ docs
+6. **Check compatibility** - Verify packages work with Next.js 16 + Turbopack
+7. **Type safety** - Define proper TypeScript interfaces extending React Aria types
+8. **Accessibility** - Use React Aria primitives, ARIA labels, keyboard navigation, data attributes
+9. **Responsive** - Mobile-first approach
+10. **Security** - ALWAYS sanitize user input with `sanitizeHTML()`, `sanitizeURL()`
 
 ### Common Mistakes to Avoid
 
@@ -327,10 +537,10 @@ bun run build              # Test build
   - [Next.js 16 Docs](https://nextjs.org/docs) (use Context7 MCP for latest)
   - [React 19 Docs](https://react.dev/blog/2024/12/05/react-19) (use Context7 MCP)
   - [Tailwind CSS 4 Docs](https://tailwindcss.com/docs)
-  - [Radix UI Docs](https://www.radix-ui.com/docs/primitives/overview/introduction)
+  - [React Aria Components Docs](https://react-spectrum.adobe.com/react-aria/components.html) (use Context7 MCP)
   - [Supabase Docs](https://supabase.com/docs)
 
 ---
 
-**Last Updated:** 2025-01-17
-**Version:** 1.3.0
+**Last Updated:** 2025-01-19
+**Version:** 1.4.0 - React Aria Migration Complete
