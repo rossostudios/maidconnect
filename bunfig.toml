@@ -22,7 +22,7 @@ cache = true
 save = true
 
 # Print a message if the lockfile is updated
-print = "yarn"
+print = "bun"
 
 [test]
 # Test runner configuration
