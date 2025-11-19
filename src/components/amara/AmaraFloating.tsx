@@ -6,6 +6,10 @@
  * A floating action button that opens the Amara chat interface.
  * Positioned in the bottom-right corner with onboarding tooltip for first-time users.
  * Uses orange accent color from Lia Design System.
+ *
+ * Feature Flag Integration:
+ * - `show_amara_assistant` - Controls overall Amara visibility
+ * - `enable-amara-v2` - Toggles between V1 (API route) and V2 (Server Actions/Generative UI)
  */
 
 import { Loading03Icon } from "@hugeicons/core-free-icons";
@@ -16,11 +20,26 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/featureFlags";
 import { cn } from "@/lib/utils";
+import { isAmaraV2Enabled } from "@/lib/feature-flags/amara-flags";
+import { trackAmaraV2Enabled } from "@/lib/analytics/amara-events";
 import { AmaraOnboardingTooltip } from "./AmaraOnboarding";
 
-// Dynamically import the heavy chat interface component
+// Dynamically import V1 chat interface (original API route version)
 const AmaraChatInterface = dynamic(
   () => import("./AmaraChat").then((mod) => mod.AmaraChatInterface),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50">
+        <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+      </div>
+    ),
+  }
+);
+
+// Dynamically import V2 chat interface (Generative UI version)
+const AmaraChatInterfaceV2 = dynamic(
+  () => import("./amara-chat-interface-v2").then((mod) => mod.AmaraChatInterfaceV2),
   {
     ssr: false,
     loading: () => (
@@ -34,14 +53,16 @@ const AmaraChatInterface = dynamic(
 type AmaraFloatingButtonProps = {
   className?: string;
   locale?: string;
+  userId?: string;
 };
 
-export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonProps) {
+export function AmaraFloatingButton({ className, locale, userId }: AmaraFloatingButtonProps) {
   const t = useTranslations("amara");
   const [isOpen, setIsOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [useV2, setUseV2] = useState(false);
 
-  // Check feature flag
+  // Check feature flags
   const isAmaraEnabled = isFeatureEnabled("show_amara_assistant");
 
   useEffect(() => {
@@ -50,7 +71,16 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
     if (!dismissed) {
       setShowOnboarding(true);
     }
-  }, []);
+
+    // Check if V2 is enabled via PostHog feature flag
+    const v2Enabled = isAmaraV2Enabled();
+    setUseV2(v2Enabled);
+
+    // Track V2 enablement for analytics
+    if (v2Enabled && userId) {
+      trackAmaraV2Enabled(userId);
+    }
+  }, [userId]);
 
   const handleOnboardingDismiss = () => {
     setShowOnboarding(false);
@@ -96,8 +126,17 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
         </div>
       )}
 
-      {/* Chat Interface */}
-      <AmaraChatInterface isOpen={isOpen} locale={locale} onClose={() => setIsOpen(false)} />
+      {/* Chat Interface - Toggle between V1 and V2 based on feature flag */}
+      {useV2 ? (
+        <AmaraChatInterfaceV2
+          isOpen={isOpen}
+          locale={locale}
+          userId={userId}
+          onClose={() => setIsOpen(false)}
+        />
+      ) : (
+        <AmaraChatInterface isOpen={isOpen} locale={locale} onClose={() => setIsOpen(false)} />
+      )}
     </>
   );
 }

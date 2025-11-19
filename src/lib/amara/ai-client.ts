@@ -31,6 +31,31 @@ export const AMARA_MODEL_CONFIG = {
 } as const;
 
 /**
+ * RSC-specific configuration
+ */
+export const AMARA_RSC_CONFIG = {
+  /**
+   * Maximum number of professionals to return in search results
+   */
+  maxProfessionals: 3,
+
+  /**
+   * Default availability window (days)
+   */
+  defaultAvailabilityWindow: 7,
+
+  /**
+   * Enable streaming UI components
+   */
+  enableStreamingUI: true,
+
+  /**
+   * Enable PostHog event tracking
+   */
+  enableAnalytics: true,
+} as const;
+
+/**
  * Validate that the required API key is present
  */
 export function validateAmaraConfig(): void {
