@@ -2,7 +2,9 @@ import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
+import { TrialCreditsSummary } from "@/components/trial-credits/trial-credits-summary";
 import { requireUser } from "@/lib/auth";
+import { getCustomerTrialCredits } from "@/lib/services/trial-credits/trialCreditService";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +20,7 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
+  // Fetch bookings
   const { data: bookingsData } = await supabase
     .from("bookings")
     .select(`
@@ -49,6 +52,9 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
       professional: { full_name: string | null; profile_id: string } | null;
     }> | null) ?? [];
 
+  // Fetch trial credits for this customer
+  const trialCredits = await getCustomerTrialCredits(supabase, user.id);
+
   return (
     <section className="space-y-6">
       <div>
@@ -58,6 +64,12 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
         <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
+      {/* Trial Credits Summary */}
+      {trialCredits.length > 0 && (
+        <TrialCreditsSummary locale={params.locale} trialCredits={trialCredits} />
+      )}
+
+      {/* Bookings List */}
       <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
         <CustomerBookingList bookings={bookings} />
       </div>

@@ -523,6 +523,130 @@
           "recentPayouts": "Pagos Recientes"
         }
       },
+      "balance": {
+        "title": "Tu Saldo",
+        "actions": {
+          "instantPayout": "Pago Instantáneo"
+        },
+        "available": {
+          "label": "Saldo Disponible",
+          "description": "Listo para retirar en cualquier momento"
+        },
+        "pending": {
+          "label": "Liberación Pendiente",
+          "description": "Disponible después de 24hrs de protección antifraude"
+        },
+        "total": {
+          "label": "Saldo Total"
+        },
+        "estimate": {
+          "fee": "Tarifa de pago instantáneo ({percentage}%)",
+          "youReceive": "Recibes"
+        },
+        "clearances": {
+          "title": "Próximas Liberaciones",
+          "available": "Disponible",
+          "more": "más"
+        },
+        "ineligible": {
+          "title": "Pago instantáneo no disponible"
+        },
+        "rateLimit": {
+          "label": "Pagos instantáneos diarios",
+          "remaining": "restantes hoy"
+        },
+        "error": {
+          "title": "Error al cargar saldo",
+          "unknown": "Por favor, intenta de nuevo más tarde"
+        }
+      },
+      "instantPayoutModal": {
+        "title": "Pago Instantáneo",
+        "fields": {
+          "amount": {
+            "label": "Monto a retirar"
+          }
+        },
+        "info": {
+          "availableBalance": "Saldo disponible",
+          "feeExplanation": "Se aplica una tarifa del {percentage}% a los pagos instantáneos. Los fondos llegan en minutos en lugar de los 2-5 días hábiles estándar."
+        },
+        "breakdown": {
+          "requested": "Monto solicitado",
+          "fee": "Tarifa de pago instantáneo",
+          "youReceive": "Recibes"
+        },
+        "confirm": {
+          "youReceive": "Recibes",
+          "requested": "Solicitado",
+          "fee": "Tarifa",
+          "warning": "Esta acción no se puede deshacer. Los fondos se transferirán a tu cuenta bancaria de inmediato."
+        },
+        "processing": {
+          "title": "Procesando tu pago...",
+          "description": "Esto solo debería tomar unos segundos. Por favor, no cierres esta ventana."
+        },
+        "success": {
+          "title": "¡Pago exitoso!",
+          "amount": "Monto transferido",
+          "newBalance": "Nuevo saldo disponible",
+          "description": "Tus fondos deberían llegar a tu cuenta bancaria en minutos."
+        },
+        "error": {
+          "title": "Pago fallido"
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "continue": "Continuar",
+          "back": "Atrás",
+          "confirmPayout": "Confirmar Pago",
+          "tryAgain": "Intentar de Nuevo"
+        }
+      },
+      "payoutHistory": {
+        "title": "Historial de Pagos",
+        "description": "Ver todos tus pagos instantáneos y por lotes",
+        "filters": {
+          "type": {
+            "placeholder": "Tipo de Pago",
+            "all": "Todos los Tipos",
+            "instant": "Instantáneo",
+            "batch": "Por Lotes"
+          },
+          "status": {
+            "placeholder": "Estado",
+            "all": "Todos los Estados",
+            "completed": "Completado",
+            "pending": "Pendiente",
+            "processing": "Procesando",
+            "failed": "Fallido"
+          }
+        },
+        "stats": {
+          "totalPayouts": "Total de Pagos",
+          "instantPayouts": "Pagos Instantáneos",
+          "batchPayouts": "Pagos por Lotes",
+          "totalFees": "Tarifas Totales Pagadas"
+        },
+        "type": {
+          "instant": "Instantáneo",
+          "batch": "Por Lotes"
+        },
+        "status": {
+          "completed": "Completado",
+          "pending": "Pendiente",
+          "processing": "Procesando",
+          "failed": "Fallido"
+        },
+        "fee": "Tarifa",
+        "requestedAt": "Solicitado",
+        "processedAt": "Procesado",
+        "empty": {
+          "title": "No se encontraron transacciones",
+          "description": "Intenta ajustar tus filtros o vuelve más tarde",
+          "clearFilters": "Limpiar Filtros"
+        }
+      },
       "portfolioManager": {
         "fields": {
           "description": {
@@ -648,6 +772,49 @@
         "service": "Servicio",
         "customerInfo": "Cliente • {date}",
         "rateButton": "Calificar Cliente"
+      },
+      "bankAccount": {
+        "title": "Cuenta Bancaria",
+        "description": "Administra la información de tu cuenta bancaria para pagos",
+        "default": "Predeterminada",
+        "accountNumber": "Cuenta",
+        "status": {
+          "verified": "Verificada",
+          "validated": "Validada",
+          "new": "Nueva",
+          "failed": "Verificación Fallida",
+          "errored": "Error"
+        },
+        "refresh": {
+          "button": "Actualizar",
+          "success": "Información de cuenta bancaria actualizada"
+        },
+        "manage": {
+          "button": "Administrar Cuenta Bancaria",
+          "connecting": "Conectando..."
+        },
+        "onboarding": {
+          "title": "Conecta Tu Cuenta Bancaria",
+          "description": "Completa tu registro en Stripe Connect para comenzar a recibir pagos",
+          "startButton": "Iniciar Registro",
+          "connecting": "Conectando..."
+        },
+        "empty": {
+          "title": "No Hay Cuenta Bancaria Conectada",
+          "description": "Agrega una cuenta bancaria para recibir pagos instantáneos",
+          "addButton": "Agregar Cuenta Bancaria",
+          "connecting": "Conectando..."
+        },
+        "warning": {
+          "payoutsDisabled": {
+            "title": "Pagos Deshabilitados",
+            "description": "Tu cuenta necesita verificación adicional antes de que los pagos puedan ser habilitados. Por favor completa tu registro en Stripe."
+          }
+        },
+        "errors": {
+          "fetchFailed": "Error al cargar la información de la cuenta bancaria",
+          "connectFailed": "Error al conectar con Stripe. Por favor intenta nuevamente."
+        }
       }
     },
     "customer": {
@@ -2077,7 +2244,6 @@
       },
       "form": {
         "accountTypeLabel": "Tipo de cuenta",
-        "accountTypeHelper": "Elija la experiencia que mejor se adapte a cómo planea usar Casaora.",
         "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar Casaora.",
         "customerLabel": "Cliente",
         "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
@@ -3133,6 +3299,21 @@
       "detailsTitle": "Qué está incluido en la tarifa de $299:",
       "detailsCollapse": "Mostrar detalles",
       "detailsExpand": "Ocultar detalles"
+    },
+    "socialShare": {
+      "share": "Compartir",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn",
+      "copyLink": "Copiar Enlace",
+      "copied": "¡Copiado!",
+      "copySuccess": "Enlace copiado al portapapeles",
+      "copyError": "Error al copiar el enlace"
+    },
+    "shareSection": {
+      "title": "Comparte este profesional",
+      "description": "Ayuda a {name} a hacer crecer su negocio compartiendo su perfil con amigos y familiares"
     }
   },
   "datePicker": {

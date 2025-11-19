@@ -540,6 +540,130 @@
           "recentPayouts": "Recent Payouts"
         }
       },
+      "balance": {
+        "title": "Your Balance",
+        "actions": {
+          "instantPayout": "Instant Payout"
+        },
+        "available": {
+          "label": "Available Balance",
+          "description": "Ready to cash out anytime"
+        },
+        "pending": {
+          "label": "Pending Clearance",
+          "description": "Available after 24hr fraud protection"
+        },
+        "total": {
+          "label": "Total Balance"
+        },
+        "estimate": {
+          "fee": "Instant payout fee ({percentage}%)",
+          "youReceive": "You receive"
+        },
+        "clearances": {
+          "title": "Upcoming Clearances",
+          "available": "Available",
+          "more": "more"
+        },
+        "ineligible": {
+          "title": "Instant payout not available"
+        },
+        "rateLimit": {
+          "label": "Daily instant payouts",
+          "remaining": "remaining today"
+        },
+        "error": {
+          "title": "Failed to load balance",
+          "unknown": "Please try again later"
+        }
+      },
+      "instantPayoutModal": {
+        "title": "Instant Payout",
+        "fields": {
+          "amount": {
+            "label": "Amount to cash out"
+          }
+        },
+        "info": {
+          "availableBalance": "Available balance",
+          "feeExplanation": "A {percentage}% fee applies to instant payouts. Funds arrive in minutes instead of the standard 2-5 business days."
+        },
+        "breakdown": {
+          "requested": "Requested amount",
+          "fee": "Instant payout fee",
+          "youReceive": "You receive"
+        },
+        "confirm": {
+          "youReceive": "You receive",
+          "requested": "Requested",
+          "fee": "Fee",
+          "warning": "This action cannot be undone. The funds will be transferred to your bank account immediately."
+        },
+        "processing": {
+          "title": "Processing your payout...",
+          "description": "This should only take a few seconds. Please don't close this window."
+        },
+        "success": {
+          "title": "Payout successful!",
+          "amount": "Amount transferred",
+          "newBalance": "New available balance",
+          "description": "Your funds should arrive in your bank account within minutes."
+        },
+        "error": {
+          "title": "Payout failed"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "continue": "Continue",
+          "back": "Back",
+          "confirmPayout": "Confirm Payout",
+          "tryAgain": "Try Again"
+        }
+      },
+      "payoutHistory": {
+        "title": "Payout History",
+        "description": "View all your instant and batch payouts",
+        "filters": {
+          "type": {
+            "placeholder": "Payout Type",
+            "all": "All Types",
+            "instant": "Instant",
+            "batch": "Batch"
+          },
+          "status": {
+            "placeholder": "Status",
+            "all": "All Statuses",
+            "completed": "Completed",
+            "pending": "Pending",
+            "processing": "Processing",
+            "failed": "Failed"
+          }
+        },
+        "stats": {
+          "totalPayouts": "Total Payouts",
+          "instantPayouts": "Instant Payouts",
+          "batchPayouts": "Batch Payouts",
+          "totalFees": "Total Fees Paid"
+        },
+        "type": {
+          "instant": "Instant",
+          "batch": "Batch"
+        },
+        "status": {
+          "completed": "Completed",
+          "pending": "Pending",
+          "processing": "Processing",
+          "failed": "Failed"
+        },
+        "fee": "Fee",
+        "requestedAt": "Requested",
+        "processedAt": "Processed",
+        "empty": {
+          "title": "No transactions found",
+          "description": "Try adjusting your filters or check back later",
+          "clearFilters": "Clear Filters"
+        }
+      },
       "portfolioManager": {
         "fields": {
           "description": {
@@ -665,6 +789,49 @@
         "service": "Service",
         "customerInfo": "Customer • {date}",
         "rateButton": "Rate Customer"
+      },
+      "bankAccount": {
+        "title": "Bank Account",
+        "description": "Manage your payout bank account information",
+        "default": "Default",
+        "accountNumber": "Account",
+        "status": {
+          "verified": "Verified",
+          "validated": "Validated",
+          "new": "New",
+          "failed": "Verification Failed",
+          "errored": "Error"
+        },
+        "refresh": {
+          "button": "Refresh",
+          "success": "Bank account information refreshed"
+        },
+        "manage": {
+          "button": "Manage Bank Account",
+          "connecting": "Connecting..."
+        },
+        "onboarding": {
+          "title": "Connect Your Bank Account",
+          "description": "Complete your Stripe Connect onboarding to start receiving payouts",
+          "startButton": "Start Onboarding",
+          "connecting": "Connecting..."
+        },
+        "empty": {
+          "title": "No Bank Account Connected",
+          "description": "Add a bank account to receive instant payouts",
+          "addButton": "Add Bank Account",
+          "connecting": "Connecting..."
+        },
+        "warning": {
+          "payoutsDisabled": {
+            "title": "Payouts Disabled",
+            "description": "Your account needs additional verification before payouts can be enabled. Please complete your Stripe onboarding."
+          }
+        },
+        "errors": {
+          "fetchFailed": "Failed to load bank account information",
+          "connectFailed": "Failed to connect to Stripe. Please try again."
+        }
       }
     },
     "customer": {
@@ -3391,6 +3558,21 @@
       "detailsTitle": "What's included in the $299 fee:",
       "detailsCollapse": "Show details",
       "detailsExpand": "Hide details"
+    },
+    "socialShare": {
+      "share": "Share",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn",
+      "copyLink": "Copy Link",
+      "copied": "Copied!",
+      "copySuccess": "Link copied to clipboard",
+      "copyError": "Failed to copy link"
+    },
+    "shareSection": {
+      "title": "Share this professional",
+      "description": "Help {name} grow their business by sharing their profile with friends and family"
     }
   },
   "datePicker": {

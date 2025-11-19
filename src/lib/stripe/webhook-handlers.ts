@@ -12,6 +12,8 @@ import {
 } from "@/lib/integrations/posthog/server";
 import { logger } from "@/lib/logger";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
+import { markTrialCreditUsed } from "@/lib/services/trial-credits/trialCreditService";
+import { BalanceService } from "@/lib/services/balance/balance-service";
 
 /**
  * Handle payment_intent.succeeded event
@@ -54,6 +56,42 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
       amountCaptured: intent.amount_received ?? intent.amount,
     });
 
+    // Mark trial credit as used if applicable (Direct Hire with trial discount)
+    if (
+      intent.metadata?.booking_type === "direct_hire" &&
+      intent.metadata?.has_trial_discount === "true"
+    ) {
+      try {
+        const customerId = intent.metadata.customer_id;
+        const professionalId = intent.metadata.professional_id;
+        const creditApplied = parseInt(intent.metadata.trial_credit_applied_cop || "0", 10);
+
+        if (customerId && professionalId && creditApplied > 0) {
+          await markTrialCreditUsed(
+            supabaseAdmin,
+            customerId,
+            professionalId,
+            bookingId,
+            creditApplied
+          );
+          logger.info("[Stripe Webhook] Trial credit marked as used", {
+            bookingId,
+            customerId,
+            professionalId,
+            creditApplied,
+          });
+        }
+      } catch (error) {
+        logger.error("[Stripe Webhook] Failed to mark trial credit as used", {
+          bookingId,
+          intentId: intent.id,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
+        // Don't fail the webhook if credit marking fails
+        // The payment succeeded, so booking is still valid
+      }
+    }
+
     // Track booking completion in PostHog
     if (booking) {
       await trackBookingCompletedServer(booking.customer_id, {
@@ -62,6 +100,76 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
         totalAmount: (intent.amount_received ?? intent.amount) / 100, // Convert from cents
         currency: booking.currency,
       });
+
+      // Add earnings to professional's pending balance (24hr clearance period)
+      try {
+        const balanceService = new BalanceService(supabaseAdmin);
+        const bookingAmountCop = intent.amount_received ?? intent.amount; // Amount in COP cents
+        const balanceUpdate = await balanceService.addToPendingBalance(
+          booking.professional_id,
+          bookingId,
+          bookingAmountCop
+        );
+
+        if (balanceUpdate.success) {
+          logger.info("[Stripe Webhook] Professional balance updated", {
+            bookingId,
+            professionalId: booking.professional_id,
+            amountCop: bookingAmountCop,
+            newPendingBalance: balanceUpdate.newPendingBalance,
+            message: balanceUpdate.message,
+          });
+        } else {
+          logger.error("[Stripe Webhook] Failed to update professional balance", {
+            bookingId,
+            professionalId: booking.professional_id,
+            amountCop: bookingAmountCop,
+            error: balanceUpdate.message,
+          });
+        }
+      } catch (error) {
+        logger.error("[Stripe Webhook] Balance tracking error", {
+          bookingId,
+          professionalId: booking.professional_id,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
+        // Don't fail the webhook if balance tracking fails
+        // The payment succeeded and booking is valid
+      }
+
+      // Update professional's career stats (total earnings and bookings count)
+      try {
+        const bookingAmountCop = intent.amount_received ?? intent.amount; // Amount in COP cents
+
+        const { error: statsError } = await supabaseAdmin.rpc("increment_professional_stats", {
+          p_professional_id: booking.professional_id,
+          p_earnings_cop: bookingAmountCop,
+        });
+
+        if (statsError) {
+          logger.error("[Stripe Webhook] Failed to update professional stats", {
+            bookingId,
+            professionalId: booking.professional_id,
+            amountCop: bookingAmountCop,
+            error: statsError.message,
+            code: statsError.code,
+          });
+        } else {
+          logger.info("[Stripe Webhook] Professional stats updated", {
+            bookingId,
+            professionalId: booking.professional_id,
+            earningsAdded: bookingAmountCop,
+          });
+        }
+      } catch (error) {
+        logger.error("[Stripe Webhook] Stats update error", {
+          bookingId,
+          professionalId: booking.professional_id,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
+        // Don't fail the webhook if stats update fails
+        // The payment succeeded and booking is valid
+      }
     }
   }
 }
@@ -203,6 +311,117 @@ export async function handleChargeRefund(event: Stripe.Event): Promise<void> {
 }
 
 /**
+ * Handle payout.paid event (instant payout succeeded)
+ * Updates payout_transfers status to completed
+ */
+export async function handlePayoutPaid(event: Stripe.Event): Promise<void> {
+  const payout = event.data.object as Stripe.Payout;
+  const transferId = payout.metadata?.transfer_id;
+
+  if (!transferId) {
+    logger.warn("[Stripe Webhook] Payout paid but no transfer_id in metadata", {
+      payoutId: payout.id,
+    });
+    return;
+  }
+
+  const { error } = await supabaseAdmin
+    .from("payout_transfers")
+    .update({
+      status: "completed",
+      stripe_payout_id: payout.id,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", transferId);
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to update payout transfer on success", {
+      eventId: event.id,
+      transferId,
+      payoutId: payout.id,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Payout transfer marked as completed", {
+      transferId,
+      payoutId: payout.id,
+      amount: payout.amount,
+      arrivalDate: payout.arrival_date,
+    });
+  }
+}
+
+/**
+ * Handle payout.failed event (instant payout failed)
+ * Updates payout_transfers status to failed and refunds balance
+ */
+export async function handlePayoutFailed(event: Stripe.Event): Promise<void> {
+  const payout = event.data.object as Stripe.Payout;
+  const transferId = payout.metadata?.transfer_id;
+  const professionalId = payout.metadata?.professional_id;
+  const amountCop = payout.amount; // Stripe amount is already in cents
+
+  if (!transferId || !professionalId) {
+    logger.warn("[Stripe Webhook] Payout failed but missing metadata", {
+      payoutId: payout.id,
+      hasTransferId: !!transferId,
+      hasProfessionalId: !!professionalId,
+    });
+    return;
+  }
+
+  // Update payout transfer status
+  const { error: updateError } = await supabaseAdmin
+    .from("payout_transfers")
+    .update({
+      status: "failed",
+      stripe_payout_id: payout.id,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", transferId);
+
+  if (updateError) {
+    logger.error("[Stripe Webhook] Failed to update payout transfer on failure", {
+      eventId: event.id,
+      transferId,
+      payoutId: payout.id,
+      error: updateError.message,
+    });
+  }
+
+  // Refund balance to professional's available balance
+  try {
+    const balanceService = new BalanceService(supabaseAdmin);
+    const refundResult = await balanceService.refundFailedPayout(professionalId, amountCop);
+
+    if (refundResult.success) {
+      logger.info("[Stripe Webhook] Balance refunded after failed payout", {
+        transferId,
+        payoutId: payout.id,
+        professionalId,
+        refundedAmount: amountCop,
+        newAvailableBalance: refundResult.newAvailableBalance,
+      });
+    } else {
+      logger.error("[Stripe Webhook] Failed to refund balance after payout failure", {
+        transferId,
+        payoutId: payout.id,
+        professionalId,
+        amountCop,
+        error: refundResult.message,
+      });
+    }
+  } catch (error) {
+    logger.error("[Stripe Webhook] Exception while refunding failed payout", {
+      transferId,
+      payoutId: payout.id,
+      professionalId,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+}
+
+/**
  * Route webhook event to appropriate handler
  */
 export async function processWebhookEvent(event: Stripe.Event): Promise<void> {
@@ -218,6 +437,12 @@ export async function processWebhookEvent(event: Stripe.Event): Promise<void> {
       break;
     case "charge.refunded":
       await handleChargeRefund(event);
+      break;
+    case "payout.paid":
+      await handlePayoutPaid(event);
+      break;
+    case "payout.failed":
+      await handlePayoutFailed(event);
       break;
     default:
       logger.info("[Stripe Webhook] Unhandled event type", {
