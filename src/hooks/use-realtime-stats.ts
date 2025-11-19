@@ -55,19 +55,20 @@ export type DashboardStats = {
  * }
  * ```
  */
-export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRange?: { from: Date | undefined; to: Date | undefined } } = {}) {
+export function useRealtimeDashboardStats(
+  options: { enabled?: boolean; dateRange?: { from: Date | undefined; to: Date | undefined } } = {}
+) {
   const { enabled = true, dateRange } = options;
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Generate mock sparkline data
-  const generateSparklineData = (baseValue: number, variance: number) => {
-    return Array.from({ length: 7 }, (_, i) => ({
+  const generateSparklineData = (baseValue: number, variance: number) =>
+    Array.from({ length: 7 }, (_, i) => ({
       day: i + 1,
       value: Math.max(0, Math.floor(baseValue + (Math.random() - 0.5) * variance)),
     }));
-  };
 
   // Fetch initial stats on mount
   useEffect(() => {
@@ -113,14 +114,27 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
           const endOfDay = new Date(dateRange.to || dateRange.from);
           endOfDay.setHours(23, 59, 59, 999);
 
-          bookingsQuery = bookingsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
-          usersQuery = usersQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
-          professionalsQuery = professionalsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
-          revenueQuery = revenueQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
-          pendingBookingsQuery = pendingBookingsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+          bookingsQuery = bookingsQuery
+            .gte("created_at", startOfDay.toISOString())
+            .lte("created_at", endOfDay.toISOString());
+          usersQuery = usersQuery
+            .gte("created_at", startOfDay.toISOString())
+            .lte("created_at", endOfDay.toISOString());
+          professionalsQuery = professionalsQuery
+            .gte("created_at", startOfDay.toISOString())
+            .lte("created_at", endOfDay.toISOString());
+          revenueQuery = revenueQuery
+            .gte("created_at", startOfDay.toISOString())
+            .lte("created_at", endOfDay.toISOString());
+          pendingBookingsQuery = pendingBookingsQuery
+            .gte("created_at", startOfDay.toISOString())
+            .lte("created_at", endOfDay.toISOString());
         } else {
           // Default: Last 30 days for professionals if no date selected
-          professionalsQuery = professionalsQuery.gte("created_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+          professionalsQuery = professionalsQuery.gte(
+            "created_at",
+            new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+          );
         }
 
         // Parallel queries for better performance
@@ -139,11 +153,18 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
         ]);
 
         // Check for errors with detailed logging
-        if (bookingsResult.error) throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
-        if (usersResult.error) throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
-        if (professionalsResult.error) throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
-        if (revenueResult.error) throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
-        if (pendingBookingsResult.error) throw new Error(`Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`);
+        if (bookingsResult.error)
+          throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
+        if (usersResult.error)
+          throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
+        if (professionalsResult.error)
+          throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
+        if (revenueResult.error)
+          throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
+        if (pendingBookingsResult.error)
+          throw new Error(
+            `Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`
+          );
 
         // Calculate total revenue
         const totalRevenue =
@@ -158,10 +179,10 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
           lastUpdated: new Date().toISOString(),
           sparklines: {
             bookings: generateSparklineData(10, 5),
-            revenue: generateSparklineData(500000, 200000),
+            revenue: generateSparklineData(500_000, 200_000),
             users: generateSparklineData(50, 10),
             professionals: generateSparklineData(5, 2),
-          }
+          },
         });
 
         setIsLoading(false);
@@ -191,14 +212,12 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
         setStats((prev) =>
           prev
             ? {
-              ...prev,
-              totalBookings: prev.totalBookings + 1,
-              pendingBookings:
-                newRecord.status === "pending"
-                  ? prev.pendingBookings + 1
-                  : prev.pendingBookings,
-              lastUpdated: new Date().toISOString(),
-            }
+                ...prev,
+                totalBookings: prev.totalBookings + 1,
+                pendingBookings:
+                  newRecord.status === "pending" ? prev.pendingBookings + 1 : prev.pendingBookings,
+                lastUpdated: new Date().toISOString(),
+              }
             : prev
         );
       } else if (payload.eventType === "UPDATE") {
@@ -253,10 +272,10 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
           setStats((prev) =>
             prev
               ? {
-                ...prev,
-                activeUsers: prev.activeUsers + 1,
-                lastUpdated: new Date().toISOString(),
-              }
+                  ...prev,
+                  activeUsers: prev.activeUsers + 1,
+                  lastUpdated: new Date().toISOString(),
+                }
               : prev
           );
         }
@@ -277,10 +296,10 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRang
           setStats((prev) =>
             prev
               ? {
-                ...prev,
-                newProfessionals: prev.newProfessionals + 1,
-                lastUpdated: new Date().toISOString(),
-              }
+                  ...prev,
+                  newProfessionals: prev.newProfessionals + 1,
+                  lastUpdated: new Date().toISOString(),
+                }
               : prev
           );
         }

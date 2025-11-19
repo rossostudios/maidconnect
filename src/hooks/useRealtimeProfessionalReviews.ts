@@ -13,8 +13,8 @@
  * - Automatic reconnection handling
  */
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useCallback, useEffect, useState } from "react";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import {
   CHANNEL_CONFIGS,
   isDeleteEvent,
@@ -22,9 +22,8 @@ import {
   isUpdateEvent,
   type ProfessionalReviewPayload,
 } from "@/lib/realtime/admin-channels";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-export interface ProfessionalReview {
+export type ProfessionalReview = {
   id: string;
   professional_id: string;
   status: "pending" | "interview_scheduled" | "interview_completed" | "approved" | "rejected";
@@ -45,20 +44,20 @@ export interface ProfessionalReview {
     full_name: string | null;
     email: string | null;
   };
-}
+};
 
-interface UseRealtimeProfessionalReviewsOptions {
+type UseRealtimeProfessionalReviewsOptions = {
   initialReviews?: ProfessionalReview[];
   filterByStatus?: string;
   enabled?: boolean;
-}
+};
 
-interface UseRealtimeProfessionalReviewsReturn {
+type UseRealtimeProfessionalReviewsReturn = {
   reviews: ProfessionalReview[];
   isConnected: boolean;
   error: Error | null;
   updateOptimisticReview: (id: string, updates: Partial<ProfessionalReview>) => void;
-}
+};
 
 /**
  * Hook to subscribe to real-time professional review updates
@@ -102,46 +101,7 @@ export function useRealtimeProfessionalReviews({
       return;
     }
 
-    const supabase = createSupabaseBrowserClient();
-    let channel: RealtimeChannel | null = null;
-
-    const setupSubscription = async () => {
-      try {
-        const config = filterByStatus
-          ? CHANNEL_CONFIGS.professionalReviewsByStatus(filterByStatus)
-          : CHANNEL_CONFIGS.professionalReviews();
-
-        channel = supabase
-          .channel(config.channelName)
-          .on(
-            "postgres_changes",
-            {
-              event: config.event,
-              schema: config.schema || "public",
-              table: config.table,
-              filter: config.filter,
-            },
-            (payload: ProfessionalReviewPayload) => {
-              handleRealtimeUpdate(payload);
-            }
-          )
-          .subscribe((status) => {
-            if (status === "SUBSCRIBED") {
-              setIsConnected(true);
-              setError(null);
-            } else if (status === "CHANNEL_ERROR") {
-              setIsConnected(false);
-              setError(new Error("Failed to subscribe to real-time professional review updates"));
-            } else if (status === "TIMED_OUT") {
-              setIsConnected(false);
-              setError(new Error("Professional review subscription timed out"));
-            }
-          });
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
-        setIsConnected(false);
-      }
-    };
+    const manager = getConnectionManager();
 
     const handleRealtimeUpdate = (payload: ProfessionalReviewPayload) => {
       if (isInsertEvent(payload)) {
@@ -167,15 +127,45 @@ export function useRealtimeProfessionalReviews({
       }
     };
 
-    setupSubscription();
+    try {
+      const config = filterByStatus
+        ? CHANNEL_CONFIGS.professionalReviewsByStatus(filterByStatus)
+        : CHANNEL_CONFIGS.professionalReviews();
 
-    // Cleanup function - unsubscribe when component unmounts or filter changes
-    return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
-        setIsConnected(false);
-      }
-    };
+      const subscription = manager.createSubscription(config.channelName, (channel) =>
+        channel.on(
+          "postgres_changes",
+          {
+            event: config.event,
+            schema: config.schema || "public",
+            table: config.table,
+            filter: config.filter,
+          },
+          (payload: ProfessionalReviewPayload) => {
+            handleRealtimeUpdate(payload);
+          }
+        )
+      );
+
+      // Monitor connection state
+      const unsubscribeHealth = manager.onConnectionChange((health) => {
+        setIsConnected(health.state === "connected");
+        if (health.errors.length > 0) {
+          setError(new Error(health.errors.at(-1) || "Unknown error"));
+        } else {
+          setError(null);
+        }
+      });
+
+      // Cleanup function - unsubscribe when component unmounts or filter changes
+      return () => {
+        subscription.unsubscribe();
+        unsubscribeHealth();
+      };
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Unknown error"));
+      setIsConnected(false);
+    }
   }, [enabled, filterByStatus]);
 
   // Sync initial reviews when they change

@@ -13,8 +13,8 @@
  * - Cleanup on unmount
  */
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import {
   CHANNEL_CONFIGS,
   isDeleteEvent,
@@ -22,7 +22,6 @@ import {
   isUpdateEvent,
   type UserSuspensionPayload,
 } from "@/lib/realtime/admin-channels";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 export interface UserSuspension {
   id: string;
@@ -77,44 +76,7 @@ export function useRealtimeUserStatus({
       return;
     }
 
-    const supabase = createSupabaseBrowserClient();
-    let channel: RealtimeChannel | null = null;
-
-    const setupSubscription = async () => {
-      try {
-        const config = CHANNEL_CONFIGS.userSuspensionsByUser(userId);
-
-        channel = supabase
-          .channel(config.channelName)
-          .on(
-            "postgres_changes",
-            {
-              event: config.event,
-              schema: config.schema || "public",
-              table: config.table,
-              filter: config.filter,
-            },
-            (payload: UserSuspensionPayload) => {
-              handleRealtimeUpdate(payload);
-            }
-          )
-          .subscribe((status) => {
-            if (status === "SUBSCRIBED") {
-              setIsConnected(true);
-              setError(null);
-            } else if (status === "CHANNEL_ERROR") {
-              setIsConnected(false);
-              setError(new Error("Failed to subscribe to real-time updates"));
-            } else if (status === "TIMED_OUT") {
-              setIsConnected(false);
-              setError(new Error("Subscription timed out"));
-            }
-          });
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
-        setIsConnected(false);
-      }
-    };
+    const manager = getConnectionManager();
 
     const handleRealtimeUpdate = (payload: UserSuspensionPayload) => {
       if (isInsertEvent(payload)) {
@@ -141,15 +103,43 @@ export function useRealtimeUserStatus({
       }
     };
 
-    setupSubscription();
+    try {
+      const config = CHANNEL_CONFIGS.userSuspensionsByUser(userId);
 
-    // Cleanup function - unsubscribe when component unmounts
-    return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
-        setIsConnected(false);
-      }
-    };
+      const subscription = manager.createSubscription(config.channelName, (channel) =>
+        channel.on(
+          "postgres_changes",
+          {
+            event: config.event,
+            schema: config.schema || "public",
+            table: config.table,
+            filter: config.filter,
+          },
+          (payload: UserSuspensionPayload) => {
+            handleRealtimeUpdate(payload);
+          }
+        )
+      );
+
+      // Monitor connection state
+      const unsubscribeHealth = manager.onConnectionChange((health) => {
+        setIsConnected(health.state === "connected");
+        if (health.errors.length > 0) {
+          setError(new Error(health.errors.at(-1) || "Unknown error"));
+        } else {
+          setError(null);
+        }
+      });
+
+      // Cleanup function - unsubscribe when component unmounts
+      return () => {
+        subscription.unsubscribe();
+        unsubscribeHealth();
+      };
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Unknown error"));
+      setIsConnected(false);
+    }
   }, [userId, enabled, activeSuspension?.id]);
 
   // Sync initial suspension when it changes

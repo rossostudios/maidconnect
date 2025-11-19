@@ -7,10 +7,12 @@
  * - Broadcast channels for real-time messaging
  *
  * Week 3: Real-time Features & Notifications
+ * Week 1: Integrated with RealtimeConnectionManager for automatic reconnection
  */
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "./browserClient";
+import { getConnectionManager } from "./realtime-connection-manager";
 
 /**
  * Realtime event payload from PostgreSQL CDC
@@ -71,12 +73,14 @@ export function subscribeToTable<T>(
     schema?: string;
   } = {}
 ): RealtimeSubscription {
-  const supabase = createSupabaseBrowserClient();
   const { event = "*", filter, schema = "public" } = options;
+  const manager = getConnectionManager();
 
-  const channel = supabase
-    .channel(`${table}_changes`)
-    .on(
+  // Create unique channel ID based on table, event, and filter
+  const channelId = filter ? `${table}_${event}_${filter}` : `${table}_${event}`;
+
+  const subscription = manager.createSubscription(channelId, (channel) =>
+    channel.on(
       "postgres_changes",
       {
         event,
@@ -86,13 +90,11 @@ export function subscribeToTable<T>(
       },
       (payload) => callback(payload as RealtimeEvent<T>)
     )
-    .subscribe();
+  );
 
   return {
-    channel,
-    unsubscribe: () => {
-      channel.unsubscribe();
-    },
+    channel: subscription as unknown as RealtimeChannel, // For backward compatibility
+    unsubscribe: subscription.unsubscribe,
   };
 }
 
@@ -132,32 +134,36 @@ export function subscribeToTables(
     filter?: string;
   }>
 ): RealtimeSubscription {
-  const supabase = createSupabaseBrowserClient();
-  const channelName = `admin_dashboard_${Date.now()}`;
+  const manager = getConnectionManager();
 
-  let channel = supabase.channel(channelName);
+  // Create unique channel ID based on subscribed tables
+  const tables = subscriptions
+    .map((s) => s.table)
+    .sort()
+    .join("_");
+  const channelId = `multi_${tables}_${Date.now()}`;
 
-  // Add all subscriptions to the same channel
-  for (const sub of subscriptions) {
-    channel = channel.on(
-      "postgres_changes",
-      {
-        event: sub.event || "*",
-        schema: "public",
-        table: sub.table,
-        filter: sub.filter,
-      },
-      (payload) => sub.callback(payload as RealtimeEvent<unknown>)
-    );
-  }
-
-  channel.subscribe();
+  const subscription = manager.createSubscription(channelId, (channel) => {
+    // Add all subscriptions to the same channel
+    let configuredChannel = channel;
+    for (const sub of subscriptions) {
+      configuredChannel = configuredChannel.on(
+        "postgres_changes",
+        {
+          event: sub.event || "*",
+          schema: "public",
+          table: sub.table,
+          filter: sub.filter,
+        },
+        (payload) => sub.callback(payload as RealtimeEvent<unknown>)
+      );
+    }
+    return configuredChannel;
+  });
 
   return {
-    channel,
-    unsubscribe: () => {
-      channel.unsubscribe();
-    },
+    channel: subscription as unknown as RealtimeChannel, // For backward compatibility
+    unsubscribe: subscription.unsubscribe,
   };
 }
 
@@ -188,35 +194,41 @@ export function subscribeToPresence(
   userId: string,
   metadata: Record<string, unknown> = {}
 ): RealtimeSubscription {
-  const supabase = createSupabaseBrowserClient();
+  const manager = getConnectionManager();
 
-  const channel = supabase
-    .channel(channelName)
-    .on("presence", { event: "sync" }, () => {
-      const state = channel.presenceState();
-      console.log("Presence sync:", state);
-    })
-    .on("presence", { event: "join" }, ({ key, newPresences }) => {
-      console.log("User joined:", key, newPresences);
-    })
-    .on("presence", { event: "leave" }, ({ key, leftPresences }) => {
-      console.log("User left:", key, leftPresences);
-    })
-    .subscribe(async (status) => {
-      if (status === "SUBSCRIBED") {
-        await channel.track({
-          user_id: userId,
-          online_at: new Date().toISOString(),
-          ...metadata,
-        });
-      }
-    });
+  // Store channel reference for presence tracking
+  let channelRef: RealtimeChannel | null = null;
+
+  const subscription = manager.createSubscription(`presence_${channelName}`, (channel) => {
+    channelRef = channel;
+    return channel
+      .on("presence", { event: "sync" }, () => {
+        const state = channel.presenceState();
+        console.log("Presence sync:", state);
+      })
+      .on("presence", { event: "join" }, ({ key, newPresences }) => {
+        console.log("User joined:", key, newPresences);
+      })
+      .on("presence", { event: "leave" }, ({ key, leftPresences }) => {
+        console.log("User left:", key, leftPresences);
+      });
+  });
+
+  // Track presence after subscription is established
+  // The ConnectionManager's createSubscription handles the subscribe callback
+  setTimeout(async () => {
+    if (channelRef) {
+      await channelRef.track({
+        user_id: userId,
+        online_at: new Date().toISOString(),
+        ...metadata,
+      });
+    }
+  }, 100); // Small delay to ensure subscription is established
 
   return {
-    channel,
-    unsubscribe: () => {
-      channel.unsubscribe();
-    },
+    channel: channelRef as RealtimeChannel, // For backward compatibility
+    unsubscribe: subscription.unsubscribe,
   };
 }
 
@@ -278,19 +290,18 @@ export function subscribeToBroadcast(
   event: string,
   callback: (payload: Record<string, unknown>) => void
 ): RealtimeSubscription {
-  const supabase = createSupabaseBrowserClient();
+  const manager = getConnectionManager();
 
-  const channel = supabase
-    .channel(channelName)
-    .on("broadcast", { event }, ({ payload }) => {
+  const channelId = `broadcast_${channelName}_${event}`;
+
+  const subscription = manager.createSubscription(channelId, (channel) =>
+    channel.on("broadcast", { event }, ({ payload }) => {
       callback(payload as Record<string, unknown>);
     })
-    .subscribe();
+  );
 
   return {
-    channel,
-    unsubscribe: () => {
-      channel.unsubscribe();
-    },
+    channel: subscription as unknown as RealtimeChannel, // For backward compatibility
+    unsubscribe: subscription.unsubscribe,
   };
 }

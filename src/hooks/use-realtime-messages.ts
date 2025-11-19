@@ -1,8 +1,7 @@
 "use client";
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useEffect, useRef } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 
 type Message = {
   id: string;
@@ -33,8 +32,8 @@ export function useRealtimeMessages({
   onNewMessage,
   onConversationUpdate,
 }: UseRealtimeMessagesOptions) {
-  const supabase = createSupabaseBrowserClient();
-  const channelRef = useRef<RealtimeChannel | null>(null);
+  const manager = getConnectionManager();
+  const conversationSubRef = useRef<{ unsubscribe: () => void } | null>(null);
 
   // Subscribe to conversation updates
   useEffect(() => {
@@ -42,47 +41,42 @@ export function useRealtimeMessages({
       return;
     }
 
-    const channel = supabase
-      .channel(`conversations:${userId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "conversations",
-          filter:
-            userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
-        },
-        (_payload) => {
-          onConversationUpdate?.();
-        }
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "conversations",
-          filter:
-            userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
-        },
-        (_payload) => {
-          onConversationUpdate?.();
-        }
-      )
-      .subscribe((status) => {
-        // Subscribe callback required for Supabase Realtime - status changes are handled internally
-        if (status === "CHANNEL_ERROR") {
-          console.warn("Conversations channel error");
-        }
-      });
+    const filter =
+      userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`;
+    const channelId = `conversations:${userId}:${userRole}`;
 
-    channelRef.current = channel;
+    conversationSubRef.current = manager.createSubscription(channelId, (channel) =>
+      channel
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "conversations",
+            filter,
+          },
+          (_payload) => {
+            onConversationUpdate?.();
+          }
+        )
+        .on(
+          "postgres_changes",
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "conversations",
+            filter,
+          },
+          (_payload) => {
+            onConversationUpdate?.();
+          }
+        )
+    );
 
     return () => {
-      supabase.removeChannel(channel);
+      conversationSubRef.current?.unsubscribe();
     };
-  }, [userId, userRole, onConversationUpdate, supabase.channel, supabase.removeChannel]);
+  }, [userId, userRole, onConversationUpdate, manager]);
 
   // Subscribe to messages in the selected conversation
   useEffect(() => {
@@ -90,9 +84,10 @@ export function useRealtimeMessages({
       return;
     }
 
-    const messagesChannel = supabase
-      .channel(`messages:${selectedConversationId}`)
-      .on(
+    const channelId = `messages:${selectedConversationId}`;
+
+    const subscription = manager.createSubscription(channelId, (channel) =>
+      channel.on(
         "postgres_changes",
         {
           event: "INSERT",
@@ -105,19 +100,14 @@ export function useRealtimeMessages({
           onNewMessage?.(newMessage);
         }
       )
-      .subscribe((status) => {
-        // Subscribe callback required for Supabase Realtime - status changes are handled internally
-        if (status === "CHANNEL_ERROR") {
-          console.warn("Messages channel error");
-        }
-      });
+    );
 
     return () => {
-      supabase.removeChannel(messagesChannel);
+      subscription.unsubscribe();
     };
-  }, [selectedConversationId, onNewMessage, supabase.channel, supabase.removeChannel]);
+  }, [selectedConversationId, onNewMessage, manager]);
 
   return {
-    isConnected: channelRef.current?.state === "joined",
+    isConnected: manager.getHealth().state === "connected",
   };
 }

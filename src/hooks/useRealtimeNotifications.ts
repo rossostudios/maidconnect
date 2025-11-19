@@ -13,8 +13,8 @@
  * - Automatic reconnection handling
  */
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useCallback, useEffect, useState } from "react";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import {
   CHANNEL_CONFIGS,
   isDeleteEvent,
@@ -22,9 +22,8 @@ import {
   isUpdateEvent,
   type NotificationPayload,
 } from "@/lib/realtime/admin-channels";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-export interface Notification {
+export type Notification = {
   id: string;
   user_id: string;
   type: string;
@@ -35,23 +34,23 @@ export interface Notification {
   metadata: Record<string, unknown> | null;
   created_at: string;
   read_at: string | null;
-}
+};
 
-interface UseRealtimeNotificationsOptions {
+type UseRealtimeNotificationsOptions = {
   adminUserId: string;
   initialNotifications?: Notification[];
   unreadOnly?: boolean;
   enabled?: boolean;
-}
+};
 
-interface UseRealtimeNotificationsReturn {
+type UseRealtimeNotificationsReturn = {
   notifications: Notification[];
   unreadCount: number;
   isConnected: boolean;
   error: Error | null;
   markAsReadOptimistic: (id: string) => void;
   markAllAsReadOptimistic: () => void;
-}
+};
 
 /**
  * Hook to subscribe to real-time notifications for admin users
@@ -111,46 +110,7 @@ export function useRealtimeNotifications({
       return;
     }
 
-    const supabase = createSupabaseBrowserClient();
-    let channel: RealtimeChannel | null = null;
-
-    const setupSubscription = async () => {
-      try {
-        const config = unreadOnly
-          ? CHANNEL_CONFIGS.unreadNotifications(adminUserId)
-          : CHANNEL_CONFIGS.notifications(adminUserId);
-
-        channel = supabase
-          .channel(config.channelName)
-          .on(
-            "postgres_changes",
-            {
-              event: config.event,
-              schema: config.schema || "public",
-              table: config.table,
-              filter: config.filter,
-            },
-            (payload: NotificationPayload) => {
-              handleRealtimeUpdate(payload);
-            }
-          )
-          .subscribe((status) => {
-            if (status === "SUBSCRIBED") {
-              setIsConnected(true);
-              setError(null);
-            } else if (status === "CHANNEL_ERROR") {
-              setIsConnected(false);
-              setError(new Error("Failed to subscribe to real-time notifications"));
-            } else if (status === "TIMED_OUT") {
-              setIsConnected(false);
-              setError(new Error("Notification subscription timed out"));
-            }
-          });
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
-        setIsConnected(false);
-      }
-    };
+    const manager = getConnectionManager();
 
     const handleRealtimeUpdate = (payload: NotificationPayload) => {
       if (isInsertEvent(payload)) {
@@ -188,15 +148,45 @@ export function useRealtimeNotifications({
       }
     };
 
-    setupSubscription();
+    try {
+      const config = unreadOnly
+        ? CHANNEL_CONFIGS.unreadNotifications(adminUserId)
+        : CHANNEL_CONFIGS.notifications(adminUserId);
 
-    // Cleanup function - unsubscribe when component unmounts
-    return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
-        setIsConnected(false);
-      }
-    };
+      const subscription = manager.createSubscription(config.channelName, (channel) =>
+        channel.on(
+          "postgres_changes",
+          {
+            event: config.event,
+            schema: config.schema || "public",
+            table: config.table,
+            filter: config.filter,
+          },
+          (payload: NotificationPayload) => {
+            handleRealtimeUpdate(payload);
+          }
+        )
+      );
+
+      // Monitor connection state
+      const unsubscribeHealth = manager.onConnectionChange((health) => {
+        setIsConnected(health.state === "connected");
+        if (health.errors.length > 0) {
+          setError(new Error(health.errors.at(-1) || "Unknown error"));
+        } else {
+          setError(null);
+        }
+      });
+
+      // Cleanup function - unsubscribe when component unmounts
+      return () => {
+        subscription.unsubscribe();
+        unsubscribeHealth();
+      };
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Unknown error"));
+      setIsConnected(false);
+    }
   }, [adminUserId, unreadOnly, enabled]);
 
   // Sync initial notifications when they change

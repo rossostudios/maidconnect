@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRealtimeDisputes } from "@/hooks/useRealtimeDisputes";
+import { useRealtimeAdminModeration } from "@/hooks/use-realtime-admin-moderation";
 import { type Dispute, DisputesTable } from "./disputes-table";
 
 /**
@@ -46,17 +46,20 @@ export function DisputeResolutionDashboard() {
     loadDisputes();
   }, []);
 
-  // Real-time subscription for live dispute updates
-  const { disputes, isConnected, addOptimisticDispute, updateOptimisticDispute } =
-    useRealtimeDisputes({
-      initialDisputes,
-      enabled: !isLoading, // Only enable after initial data is loaded
-    });
+  // Real-time subscription for live dispute updates using multiplexed hook
+  // Note: This uses the new multiplexed admin moderation hook which combines
+  // disputes, professional reviews, and moderation flags into a single channel
+  const { disputes, isConnected, updateOptimisticDispute } = useRealtimeAdminModeration({
+    enabled: !isLoading, // Only enable after initial data is loaded
+  });
+
+  // Merge initial fetched disputes with real-time disputes
+  // Use real-time disputes if available (they contain the latest updates)
+  const displayDisputes = disputes.length > 0 ? disputes : initialDisputes;
 
   return (
     <DisputesTable
-      addOptimisticDispute={addOptimisticDispute}
-      disputes={disputes}
+      disputes={displayDisputes}
       isConnected={isConnected}
       isLoading={isLoading}
       updateOptimisticDispute={updateOptimisticDispute}

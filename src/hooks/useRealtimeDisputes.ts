@@ -13,8 +13,8 @@
  * - Automatic reconnection handling
  */
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useCallback, useEffect, useState } from "react";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import {
   CHANNEL_CONFIGS,
   type DisputePayload,
@@ -22,9 +22,8 @@ import {
   isInsertEvent,
   isUpdateEvent,
 } from "@/lib/realtime/admin-channels";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-export interface Dispute {
+export type Dispute = {
   id: string;
   booking_id: string;
   filed_by: string;
@@ -38,21 +37,21 @@ export interface Dispute {
   created_at: string;
   updated_at: string;
   resolved_at: string | null;
-}
+};
 
-interface UseRealtimeDisputesOptions {
+type UseRealtimeDisputesOptions = {
   initialDisputes?: Dispute[];
   filterByStatus?: string;
   enabled?: boolean;
-}
+};
 
-interface UseRealtimeDisputesReturn {
+type UseRealtimeDisputesReturn = {
   disputes: Dispute[];
   isConnected: boolean;
   error: Error | null;
   addOptimisticDispute: (dispute: Dispute) => void;
   updateOptimisticDispute: (id: string, updates: Partial<Dispute>) => void;
-}
+};
 
 /**
  * Hook to subscribe to real-time dispute updates
@@ -100,46 +99,7 @@ export function useRealtimeDisputes({
       return;
     }
 
-    const supabase = createSupabaseBrowserClient();
-    let channel: RealtimeChannel | null = null;
-
-    const setupSubscription = async () => {
-      try {
-        const config = filterByStatus
-          ? CHANNEL_CONFIGS.disputesByStatus(filterByStatus)
-          : CHANNEL_CONFIGS.disputes();
-
-        channel = supabase
-          .channel(config.channelName)
-          .on(
-            "postgres_changes",
-            {
-              event: config.event,
-              schema: config.schema || "public",
-              table: config.table,
-              filter: config.filter,
-            },
-            (payload: DisputePayload) => {
-              handleRealtimeUpdate(payload);
-            }
-          )
-          .subscribe((status) => {
-            if (status === "SUBSCRIBED") {
-              setIsConnected(true);
-              setError(null);
-            } else if (status === "CHANNEL_ERROR") {
-              setIsConnected(false);
-              setError(new Error("Failed to subscribe to real-time dispute updates"));
-            } else if (status === "TIMED_OUT") {
-              setIsConnected(false);
-              setError(new Error("Dispute subscription timed out"));
-            }
-          });
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
-        setIsConnected(false);
-      }
-    };
+    const manager = getConnectionManager();
 
     const handleRealtimeUpdate = (payload: DisputePayload) => {
       if (isInsertEvent(payload)) {
@@ -165,15 +125,45 @@ export function useRealtimeDisputes({
       }
     };
 
-    setupSubscription();
+    try {
+      const config = filterByStatus
+        ? CHANNEL_CONFIGS.disputesByStatus(filterByStatus)
+        : CHANNEL_CONFIGS.disputes();
 
-    // Cleanup function - unsubscribe when component unmounts or filter changes
-    return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
-        setIsConnected(false);
-      }
-    };
+      const subscription = manager.createSubscription(config.channelName, (channel) =>
+        channel.on(
+          "postgres_changes",
+          {
+            event: config.event,
+            schema: config.schema || "public",
+            table: config.table,
+            filter: config.filter,
+          },
+          (payload: DisputePayload) => {
+            handleRealtimeUpdate(payload);
+          }
+        )
+      );
+
+      // Monitor connection state
+      const unsubscribeHealth = manager.onConnectionChange((health) => {
+        setIsConnected(health.state === "connected");
+        if (health.errors.length > 0) {
+          setError(new Error(health.errors.at(-1)));
+        } else {
+          setError(null);
+        }
+      });
+
+      // Cleanup function - unsubscribe when component unmounts or filter changes
+      return () => {
+        subscription.unsubscribe();
+        unsubscribeHealth();
+      };
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Unknown error"));
+      setIsConnected(false);
+    }
   }, [enabled, filterByStatus]);
 
   // Sync initial disputes when they change

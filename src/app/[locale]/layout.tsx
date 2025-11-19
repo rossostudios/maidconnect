@@ -18,6 +18,7 @@ import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-short
 import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
+import { RealtimeProvider } from "@/lib/integrations/supabase/RealtimeProvider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { ConditionalAnnouncementBanner } from "@/components/sections/ConditionalAnnouncementBanner";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
@@ -119,9 +120,11 @@ export default async function RootLayout({
                   <ChangelogBanner />
                   <Suspense fallback={<div>Loading...</div>}>
                     <SupabaseProvider>
-                      <QueryProvider>
-                        <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-                      </QueryProvider>
+                      <RealtimeProvider>
+                        <QueryProvider>
+                          <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                        </QueryProvider>
+                      </RealtimeProvider>
                     </SupabaseProvider>
                   </Suspense>
                   <Suspense fallback={null}>

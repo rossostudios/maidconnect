@@ -10,7 +10,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRealtimeDashboardStats } from "@/hooks/use-realtime-stats";
+import { useRealtimeAdminStats } from "@/hooks/use-realtime-admin-stats";
 import { formatCurrency } from "@/lib/utils/format";
 import { DateRange, DateRangePicker } from "@/components/ui/date-range-picker";
 import { StatCard } from "./StatCard";
@@ -47,7 +47,7 @@ type RealtimeStatsPanelProps = {
  */
 export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) {
   const [dateRange, setDateRange] = useState<DateRange>({ from: undefined, to: undefined });
-  const { stats, isLoading, error } = useRealtimeDashboardStats({ enabled, dateRange });
+  const { stats, isLoading, error } = useRealtimeAdminStats({ enabled, dateRange });
 
   if (isLoading) {
     return (

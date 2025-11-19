@@ -67,7 +67,9 @@ export function useRealtimeTable<T>(
   const { enabled = true } = options;
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     // Subscribe to table changes
     subscriptionRef.current = subscribeToTable<T>(table, callback, options);
@@ -79,7 +81,7 @@ export function useRealtimeTable<T>(
         subscriptionRef.current = null;
       }
     };
-  }, [table, enabled, options.event, options.filter]);
+  }, [table, enabled, options.event, options.filter, callback, options]);
 }
 
 /**
@@ -127,7 +129,9 @@ export function useRealtimePresence(
   const { enabled = true } = options;
 
   useEffect(() => {
-    if (!(enabled && userId)) return;
+    if (!(enabled && userId)) {
+      return;
+    }
 
     // Subscribe to presence channel
     subscriptionRef.current = subscribeToPresence(channelName, userId, metadata);
@@ -139,7 +143,7 @@ export function useRealtimePresence(
         subscriptionRef.current = null;
       }
     };
-  }, [channelName, userId, enabled]);
+  }, [channelName, userId, enabled, metadata]);
 }
 
 /**
@@ -188,7 +192,9 @@ export function useRealtimeBroadcast(
   const { enabled = true } = options;
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     // Subscribe to broadcast messages
     subscriptionRef.current = subscribeToBroadcast(channelName, event, callback);
@@ -200,5 +206,5 @@ export function useRealtimeBroadcast(
         subscriptionRef.current = null;
       }
     };
-  }, [channelName, event, enabled]);
+  }, [channelName, event, enabled, callback]);
 }

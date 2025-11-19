@@ -6,12 +6,14 @@
  * - Connection health monitoring
  * - Subscription deduplication
  * - Connection state tracking
+ * - PostHog analytics integration
  *
  * Week 3: Real-time Features & Notifications - Task 5
  */
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "./browserClient";
+import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 
 /**
  * Connection state
@@ -78,16 +80,18 @@ type ManagedSubscription = {
  */
 class RealtimeConnectionManager {
   private static instance: RealtimeConnectionManager | null = null;
-  private subscriptions: Map<string, ManagedSubscription> = new Map();
+  private readonly subscriptions: Map<string, ManagedSubscription> = new Map();
   private connectionState: ConnectionState = "disconnected";
+  private previousConnectionState: ConnectionState | undefined = undefined;
   private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
-  private baseReconnectDelay = 1000; // 1 second
+  private readonly maxReconnectAttempts = 5;
+  private readonly baseReconnectDelay = 1000; // 1 second
   private reconnectTimer: NodeJS.Timeout | null = null;
   private healthCheckInterval: NodeJS.Timeout | null = null;
   private lastConnected: Date | null = null;
+  private disconnectedAt: Date | null = null;
   private errors: string[] = [];
-  private callbacks: Set<ConnectionCallback> = new Set();
+  private readonly callbacks: Set<ConnectionCallback> = new Set();
 
   private constructor() {
     this.startHealthMonitoring();
@@ -156,9 +160,32 @@ class RealtimeConnectionManager {
       // Monitor subscription status
       channel.subscribe((status, err) => {
         if (status === "SUBSCRIBED") {
+          const wasReconnecting = this.connectionState === "reconnecting";
+          const attemptNumber = this.reconnectAttempts;
+
           this.setConnectionState("connected");
           this.lastConnected = new Date();
+
+          // Track successful connection or reconnection
+          if (wasReconnecting) {
+            const totalDowntime = this.disconnectedAt
+              ? Date.now() - this.disconnectedAt.getTime()
+              : 0;
+
+            realtimeEvents.reconnectionSucceeded({
+              attemptNumber,
+              subscriptionCount: this.subscriptions.size,
+              totalDowntime,
+            });
+          } else if (attemptNumber === 0) {
+            realtimeEvents.connectionEstablished({
+              subscriptionCount: this.subscriptions.size,
+              reconnectAttempts: attemptNumber,
+            });
+          }
+
           this.reconnectAttempts = 0;
+          this.disconnectedAt = null;
           this.clearReconnectTimer();
         } else if (status === "CHANNEL_ERROR") {
           this.handleConnectionError(err?.message || "Channel subscription error");
@@ -175,6 +202,15 @@ class RealtimeConnectionManager {
         channel,
         createdAt: new Date(),
         isActive: true,
+      });
+
+      // Track subscription creation
+      // Note: We can't easily determine listener count here, so we pass 1 as an estimate
+      realtimeEvents.subscriptionCreated({
+        channelName: id,
+        listenerCount: 1,
+        totalSubscriptions: this.subscriptions.size,
+        isMultiplexed: id.includes("admin-stats") || id.includes("admin-moderation"),
       });
 
       this.notifyCallbacks();
@@ -196,9 +232,19 @@ class RealtimeConnectionManager {
   private removeSubscription(id: string): void {
     const subscription = this.subscriptions.get(id);
     if (subscription) {
+      const wasMultiplexed = id.includes("admin-stats") || id.includes("admin-moderation");
+
       subscription.channel.unsubscribe();
       subscription.isActive = false;
       this.subscriptions.delete(id);
+
+      // Track subscription removal
+      realtimeEvents.subscriptionRemoved({
+        channelName: id,
+        totalSubscriptions: this.subscriptions.size,
+        wasMultiplexed,
+      });
+
       this.notifyCallbacks();
 
       // If no more subscriptions, update state
@@ -217,6 +263,20 @@ class RealtimeConnectionManager {
     if (this.errors.length > 10) {
       this.errors.shift(); // Keep last 10 errors
     }
+
+    // Track connection error
+    realtimeEvents.connectionError(new Error(errorMessage), {
+      state: this.connectionState,
+      reconnectAttempts: this.reconnectAttempts,
+      subscriptionCount: this.subscriptions.size,
+    });
+
+    // Track connection failure
+    realtimeEvents.connectionFailed({
+      error: errorMessage,
+      reconnectAttempts: this.reconnectAttempts,
+      subscriptionCount: this.subscriptions.size,
+    });
 
     this.setConnectionState("error");
     this.scheduleReconnect();
@@ -253,6 +313,17 @@ class RealtimeConnectionManager {
     console.log(
       `[RealtimeConnectionManager] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`
     );
+
+    // Track reconnection attempt
+    const timeSinceDisconnect = this.disconnectedAt
+      ? Date.now() - this.disconnectedAt.getTime()
+      : undefined;
+
+    realtimeEvents.reconnectionAttempted({
+      attemptNumber: this.reconnectAttempts,
+      subscriptionCount: this.subscriptions.size,
+      timeSinceDisconnect,
+    });
 
     this.setConnectionState("reconnecting");
 
@@ -296,7 +367,24 @@ class RealtimeConnectionManager {
    */
   private setConnectionState(state: ConnectionState): void {
     if (this.connectionState !== state) {
+      const previousState = this.connectionState;
+      this.previousConnectionState = previousState;
       this.connectionState = state;
+
+      // Track disconnection timestamp
+      if (state === "disconnected" || state === "error") {
+        this.disconnectedAt = new Date();
+      }
+
+      // Track connection state change
+      realtimeEvents.connectionStateChanged({
+        state,
+        previousState,
+        subscriptionCount: this.subscriptions.size,
+        reconnectAttempts: this.reconnectAttempts,
+        errorCount: this.errors.length,
+      });
+
       this.notifyCallbacks();
     }
   }
