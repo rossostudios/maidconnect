@@ -2,9 +2,10 @@ import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
 import { FinancesOverview } from "@/components/finances/finances-overview";
+import { FinancesPageClient } from "@/components/finances/finances-page-client";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/core";
 
 type BookingRow = {
   id: string;
@@ -26,6 +27,7 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
+  // Fetch bookings data for charts
   const { data: bookingsData } = await supabase
     .from("bookings")
     .select(
@@ -37,6 +39,7 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
 
   const bookings = (bookingsData as BookingRow[] | null) ?? [];
 
+  // Fetch payouts data for charts
   const { data: payoutsData } = await supabase
     .from("payouts")
     .select("*")
@@ -66,6 +69,10 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
         </p>
       </div>
 
+      {/* Client-side instant payout UI (balance card, modal, payout history) */}
+      <FinancesPageClient />
+
+      {/* Server-side overview charts */}
       <FinancesOverview bookings={bookings} payouts={payouts} />
     </div>
   );

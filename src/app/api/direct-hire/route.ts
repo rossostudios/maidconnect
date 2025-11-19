@@ -14,6 +14,10 @@ import { ok, withAuth } from "@/lib/api";
 import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 import { calculateDirectHireFee } from "@/lib/services/bookings/pricingService";
+import {
+  getTrialCreditInfo,
+  applyTrialCredit,
+} from "@/lib/services/trial-credits/trialCreditService";
 
 const directHireSchema = z.object({
   professionalId: z.string().uuid("Invalid professional ID"),
@@ -37,6 +41,10 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
   }
 
   const { feeCOP, professionalName, professionalId: verifiedProfId } = feeResult.feeData;
+
+  // Check for trial credit and apply discount
+  const creditInfo = await getTrialCreditInfo(supabase, user.id, verifiedProfId);
+  const pricing = await applyTrialCredit(supabase, user.id, verifiedProfId, feeCOP);
 
   // Get or create Stripe customer
   const { data: customerRow } = await supabase
@@ -72,10 +80,12 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
       professional_id: verifiedProfId,
       booking_type: "direct_hire",
       status: "pending",
-      total_amount: feeCOP,
+      total_amount: pricing.finalPriceCOP,  // Discounted price
       currency: "COP",
       service_name: `Direct Hire - ${professionalName}`,
       direct_hire_fee_paid: false,
+      original_price_cop: feeCOP,  // Original price before discount
+      trial_credit_applied_cop: pricing.discountAppliedCOP,  // Trial discount
     })
     .select("id")
     .single();
@@ -89,17 +99,21 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
 
   // Create Stripe payment intent (NOT manual capture - this is a one-time finder's fee)
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: feeCOP,
+    amount: pricing.finalPriceCOP,  // Discounted price after trial credit
     currency: "cop",
     capture_method: "automatic", // Auto-capture on confirmation
     customer: stripeCustomerId,
-    description: `Direct Hire Finder's Fee - ${professionalName}`,
+    description: `Direct Hire Finder's Fee - ${professionalName}${pricing.discountAppliedCOP > 0 ? " (Trial Credit Applied)" : ""}`,
     metadata: {
       supabase_profile_id: user.id,
       booking_id: booking.id,
       booking_type: "direct_hire",
       professional_id: verifiedProfId,
       professional_name: professionalName,
+      customer_id: user.id,
+      original_price_cop: feeCOP.toString(),
+      trial_credit_applied_cop: pricing.discountAppliedCOP.toString(),
+      has_trial_discount: pricing.discountAppliedCOP > 0 ? "true" : "false",
     },
     automatic_payment_methods: {
       enabled: true,
@@ -116,8 +130,16 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     clientSecret: paymentIntent.client_secret,
     paymentIntentId: paymentIntent.id,
     bookingId: booking.id,
-    feeCOP,
+    feeCOP: pricing.finalPriceCOP,  // Final price after discount
+    originalFeeCOP: feeCOP,  // Original price before discount
+    trialCreditAppliedCOP: pricing.discountAppliedCOP,
+    hasTrialDiscount: pricing.discountAppliedCOP > 0,
     professionalName,
+    creditInfo: {
+      hasCredit: creditInfo.hasCredit,
+      bookingsCompleted: creditInfo.bookingsCompleted,
+      percentageEarned: creditInfo.percentageEarned,
+    },
   });
 });
 

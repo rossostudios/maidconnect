@@ -12,7 +12,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AvailabilityCalendar as LargeAvailabilityCalendar } from "@/components/shared/availability-calendar";
 
 // Dynamic import for sheet (lazy load on demand)
@@ -22,6 +22,7 @@ const BookingSheet = dynamic(
 );
 
 import { CompactPrice } from "@/components/pricing/price-breakdown";
+import { EarningsBadge } from "@/components/professionals/earnings-badge";
 import { TrustCard } from "@/components/professionals/trust-card";
 import type {
   ProfessionalBookingSummary,
@@ -33,6 +34,7 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
+import { trackVanityUrlViewed, trackEarningsBadgeViewed } from "@/lib/analytics/professional-events";
 import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
 
@@ -56,6 +58,10 @@ export type ProfessionalProfileDetail = {
   portfolioImages: ProfessionalPortfolioImage[];
   directHireFeeCOP?: number | null;
   verification?: VerificationData;
+  // Earnings badge
+  shareEarningsBadge?: boolean;
+  totalEarningsCOP?: number;
+  totalBookingsCompleted?: number;
 };
 
 type ProfessionalProfileViewProps = {
@@ -94,6 +100,44 @@ export function ProfessionalProfileView({
   // Week 3-4 feature flag
   const showLivePriceBreakdown = useFeatureFlag("live_price_breakdown");
 
+  // Track analytics - profile view on mount
+  useEffect(() => {
+    trackVanityUrlViewed({
+      professionalId: professional.id,
+      hasEarningsBadge: Boolean(professional.shareEarningsBadge && professional.totalBookingsCompleted),
+      slug: window.location.pathname.split("/").pop() || "",
+    });
+  }, [professional.id, professional.shareEarningsBadge, professional.totalBookingsCompleted]);
+
+  // Track analytics - earnings badge view
+  useEffect(() => {
+    if (
+      professional.shareEarningsBadge &&
+      professional.totalBookingsCompleted !== undefined &&
+      professional.totalBookingsCompleted > 0
+    ) {
+      trackEarningsBadgeViewed({
+        professionalId: professional.id,
+        totalBookings: professional.totalBookingsCompleted,
+        totalEarningsCOP: professional.totalEarningsCOP || 0,
+        tier:
+          professional.totalBookingsCompleted >= 100
+            ? "platinum"
+            : professional.totalBookingsCompleted >= 50
+              ? "gold"
+              : professional.totalBookingsCompleted >= 20
+                ? "silver"
+                : "bronze",
+        isOnPublicProfile: true,
+      });
+    }
+  }, [
+    professional.shareEarningsBadge,
+    professional.totalBookingsCompleted,
+    professional.totalEarningsCOP,
+    professional.id,
+  ]);
+
   const locationLabel = professional.location || "Colombia";
   const formattedRate = formatCOPWithFallback(professional.hourlyRateCop);
   const hasServices = professional.services.length > 0;
@@ -116,7 +160,7 @@ export function ProfessionalProfileView({
   };
 
   return (
-    <div className="pb-24">
+    <div className="pb-24" data-testid="professional-profile">
       <Container className="max-w-[1680px] pt-12">
         <Link
           className="font-semibold text-[neutral-900] text-base transition hover:text-[neutral-500]"
@@ -129,7 +173,7 @@ export function ProfessionalProfileView({
         <div className="mt-8 overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
           <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
-            <div className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full">
+            <div className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full" data-testid="professional-avatar">
               <Image
                 alt={professional.name}
                 className="object-cover"
@@ -191,6 +235,21 @@ export function ProfessionalProfileView({
                 )}
               </div>
 
+              {/* Earnings Badge (shown when professional opts in) */}
+              {professional.shareEarningsBadge &&
+                professional.totalBookingsCompleted !== undefined &&
+                professional.totalBookingsCompleted > 0 && (
+                  <div data-testid="earnings-badge">
+                    <EarningsBadge
+                      showEarnings={Boolean(professional.totalEarningsCOP)}
+                      showProgress={false}
+                      size="md"
+                      totalBookings={professional.totalBookingsCompleted}
+                      totalEarningsCOP={professional.totalEarningsCOP}
+                    />
+                  </div>
+                )}
+
               {professional.availableToday && (
                 <div className="inline-flex w-fit items-center gap-2 bg-[neutral-500]/10 px-5 py-2.5 font-semibold text-[neutral-500] text-base">
                   <HugeiconsIcon className="h-5 w-5" icon={CalendarSetting01Icon} />
@@ -205,10 +264,8 @@ export function ProfessionalProfileView({
                 onTimeRate={95} // TODO: Get from professional data when available
                 rating={averageRating}
                 reviewCount={professional.reviews.length}
-                verificationLevel={
-                  (professional.verification?.level as any) ?? "background-check"
-                }
                 verification={professional.verification}
+                verificationLevel={(professional.verification?.level as any) ?? "background-check"}
               />
             </div>
           </div>
@@ -220,10 +277,8 @@ export function ProfessionalProfileView({
             onTimeRate={95} // TODO: Get from professional data when available
             rating={averageRating}
             reviewCount={professional.reviews.length}
-            verificationLevel={
-              (professional.verification?.level as any) ?? "background-check"
-            }
             verification={professional.verification}
+            verificationLevel={(professional.verification?.level as any) ?? "background-check"}
           />
         </div>
 
@@ -305,7 +360,7 @@ export function ProfessionalProfileView({
                 {activeTab === "about" && (
                   <div className="space-y-6">
                     <h3 className="font-semibold text-2xl text-[neutral-900]">{t("tabs.about")}</h3>
-                    <p className="text-[neutral-400] text-base leading-relaxed">
+                    <p className="text-[neutral-400] text-base leading-relaxed" data-testid="professional-bio">
                       {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>

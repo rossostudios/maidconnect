@@ -13,6 +13,7 @@ import { Suspense } from "react";
 import { geistSans } from "@/app/fonts";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
+import { WalletEarningsSummary } from "@/components/professionals/wallet-earnings-summary";
 import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
 import {
   BookingCalendarSkeleton,
@@ -200,6 +201,9 @@ export default async function ProfessionalDashboardPage() {
             value={formatCOPWithFallback(weeklyEarnings)}
           />
         </div>
+
+        {/* Career Earnings & Achievement Badge */}
+        <WalletEarningsSummary />
 
         {/* Pending Customer Ratings */}
         {completedBookings.length > 0 && (

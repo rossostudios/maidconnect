@@ -1,5 +1,6 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { EarningsBadgeSettings } from "@/components/professionals/earnings-badge-settings";
 import { ProfileEditor } from "@/components/profile/profile-editor";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -50,6 +51,9 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
       <div className="border border-neutral-200 bg-white p-8">
         <ProfileEditor profile={profile} />
       </div>
+
+      {/* Earnings Badge Settings */}
+      <EarningsBadgeSettings />
     </section>
   );
 }

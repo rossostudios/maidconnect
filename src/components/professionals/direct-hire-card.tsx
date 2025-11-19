@@ -5,6 +5,8 @@ import { ArrowRight, Briefcase01Icon, CheckmarkCircle01Icon } from "hugeicons-re
 import { useTranslations } from "next-intl";
 import { formatCurrency } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/core";
+import { TrialCreditBadge } from "@/components/trial-credits/trial-credit-badge";
+import { TrialProgressWidget } from "@/components/trial-credits/trial-progress-widget";
 
 export interface DirectHireCardProps {
   professionalName: string;
@@ -13,6 +15,17 @@ export interface DirectHireCardProps {
   feeUSD: number;
   onRequestContact: () => void;
   className?: string;
+  // Trial credit props (optional)
+  trialCredit?: {
+    creditAvailableCOP: number;
+    creditAvailableUSD: number;
+    bookingsCompleted: number;
+    totalBookingsValueCOP: number;
+    percentageEarned: number;
+    discountedFeeCOP: number;
+    discountedFeeUSD: number;
+  };
+  showTrialProgress?: boolean;
 }
 
 /**
@@ -34,9 +47,15 @@ export function DirectHireCard({
   feeUSD,
   onRequestContact,
   className,
+  trialCredit,
+  showTrialProgress = false,
 }: DirectHireCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const t = useTranslations("directHireCard");
+
+  const hasTrialCredit = trialCredit && trialCredit.creditAvailableCOP > 0;
+  const finalFeeUSD = hasTrialCredit ? trialCredit.discountedFeeUSD : feeUSD;
+  const finalFeeCOP = hasTrialCredit ? trialCredit.discountedFeeCOP : feeCOP;
 
   return (
     <div
@@ -62,12 +81,43 @@ export function DirectHireCard({
           </div>
         </div>
         <div className="text-right">
-          <div className="font-[family-name:var(--font-geist-sans)] text-2xl font-bold text-neutral-900">
-            ${feeUSD}
-          </div>
-          <div className="text-xs text-neutral-500 mt-1">
-            {formatCurrency(feeCOP, "COP")}
-          </div>
+          {hasTrialCredit ? (
+            <div className="space-y-2">
+              {/* Trial Credit Badge */}
+              <TrialCreditBadge
+                creditAvailableCOP={trialCredit.creditAvailableCOP}
+                bookingsCompleted={trialCredit.bookingsCompleted}
+                variant="compact"
+                className="ml-auto"
+              />
+              {/* Original Price (Struck Through) */}
+              <div className="flex items-center gap-2 justify-end">
+                <span className="text-lg font-semibold text-neutral-400 line-through">
+                  ${feeUSD}
+                </span>
+              </div>
+              {/* Discounted Price */}
+              <div className="font-[family-name:var(--font-geist-sans)] text-2xl font-bold text-orange-600">
+                ${finalFeeUSD}
+              </div>
+              <div className="text-xs text-neutral-500">
+                {formatCurrency(finalFeeCOP, "COP")}
+              </div>
+              {/* Savings Message */}
+              <p className="text-xs font-medium text-green-600">
+                You save ${trialCredit.creditAvailableUSD}!
+              </p>
+            </div>
+          ) : (
+            <div>
+              <div className="font-[family-name:var(--font-geist-sans)] text-2xl font-bold text-neutral-900">
+                ${feeUSD}
+              </div>
+              <div className="text-xs text-neutral-500 mt-1">
+                {formatCurrency(feeCOP, "COP")}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -141,6 +191,20 @@ export function DirectHireCard({
         <CheckmarkCircle01Icon className="w-4 h-4 text-green-600" />
         <span className="leading-relaxed">{t("trustBadge")}</span>
       </div>
+
+      {/* Trial Progress Widget (Optional) */}
+      {showTrialProgress && trialCredit && (
+        <div className="mt-6 pt-6 border-t border-neutral-200">
+          <TrialProgressWidget
+            creditAvailableCOP={trialCredit.creditAvailableCOP}
+            creditAvailableUSD={trialCredit.creditAvailableUSD}
+            bookingsCompleted={trialCredit.bookingsCompleted}
+            totalBookingsValueCOP={trialCredit.totalBookingsValueCOP}
+            percentageEarned={trialCredit.percentageEarned}
+            professionalName={professionalName}
+          />
+        </div>
+      )}
     </div>
   );
 }
