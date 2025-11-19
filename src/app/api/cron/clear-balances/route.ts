@@ -1,10 +1,10 @@
 /**
  * Balance Clearance Cron Job
  *
- * Runs hourly to process 24-hour clearance period for professional earnings.
+ * Runs daily to process 24-hour clearance period for professional earnings.
  * Moves pending balance to available balance after fraud protection hold.
  *
- * Schedule: Every hour (configured in vercel.json)
+ * Schedule: Daily at 2:00 AM UTC (configured in vercel.json)
  * Trigger: GET /api/cron/clear-balances
  *
  * Security: Vercel Cron Secret header verification

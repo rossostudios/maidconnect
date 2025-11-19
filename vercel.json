@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/clear-balances",
-      "schedule": "0 * * * *"
+      "schedule": "0 2 * * *"
     }
   ]
 }
