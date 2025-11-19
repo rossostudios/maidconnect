@@ -7,10 +7,6 @@
     {
       "path": "/api/cron/process-payouts",
       "schedule": "0 15 * * 2,5"
-    },
-    {
-      "path": "/api/cron/clear-balances",
-      "schedule": "0 2 * * *"
     }
   ]
 }
