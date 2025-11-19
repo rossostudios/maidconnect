@@ -70,11 +70,18 @@ bun run build             # Build for production
 bun run check             # Run Biome linter
 bun run check:fix         # Auto-fix linting issues
 
-# Database
+# Database (Local Supabase)
 supabase start            # Start local Supabase
 supabase db push          # Apply migrations
 supabase db reset         # Reset database (destructive!)
 supabase migration new X  # Create new migration
+
+# Database (Docker Toolkit)
+docker compose -f docker-compose.db.yml up -d  # Start pgAdmin + PgHero
+./supabase/scripts/health-check.sh            # Database health report
+./supabase/scripts/backup-now.sh              # Create manual backup
+./supabase/scripts/vacuum-analyze.sh          # Optimize database
+# See: docs/database-docker-toolkit.md for full toolkit guide
 
 # Testing
 bun test                  # Run Vitest unit tests
@@ -532,6 +539,8 @@ bun run build              # Test build
   - [Security Guide](docs/security.md) - XSS prevention, SSRF mitigation
   - [Typography Guide](docs/typography.md) - Font system, baseline grid
   - [Lia Design System](docs/lia/) - Complete design system reference
+  - [Database Docker Toolkit](docs/database-docker-toolkit.md) - pgAdmin, PgHero, performance monitoring
+  - [Quick Start Guide](.github/DB_TOOLKIT_QUICKSTART.md) - Database toolkit quick reference
 
 - **External Docs:**
   - [Next.js 16 Docs](https://nextjs.org/docs) (use Context7 MCP for latest)

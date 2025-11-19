@@ -360,37 +360,45 @@ ALTER TABLE balance_clearance_queue ENABLE ROW LEVEL SECURITY;
 ALTER TABLE balance_audit_log ENABLE ROW LEVEL SECURITY;
 
 -- Platform settings: Admin read/write, professionals read-only
+DROP POLICY IF EXISTS "Admins can manage platform settings" ON platform_settings;
 CREATE POLICY "Admins can manage platform settings"
   ON platform_settings FOR ALL
   USING (auth.jwt() ->> 'user_role' = 'admin');
 
+DROP POLICY IF EXISTS "Professionals can view platform settings" ON platform_settings;
 CREATE POLICY "Professionals can view platform settings"
   ON platform_settings FOR SELECT
   USING (true); -- All authenticated users can read
 
 -- Rate limits: Professionals can view own, admins can view all
+DROP POLICY IF EXISTS "Professionals can view own rate limits" ON payout_rate_limits;
 CREATE POLICY "Professionals can view own rate limits"
   ON payout_rate_limits FOR SELECT
   USING (professional_id = auth.uid());
 
+DROP POLICY IF EXISTS "Admins can manage all rate limits" ON payout_rate_limits;
 CREATE POLICY "Admins can manage all rate limits"
   ON payout_rate_limits FOR ALL
   USING (auth.jwt() ->> 'user_role' = 'admin');
 
 -- Balance clearance queue: Similar to rate limits
+DROP POLICY IF EXISTS "Professionals can view own clearance queue" ON balance_clearance_queue;
 CREATE POLICY "Professionals can view own clearance queue"
   ON balance_clearance_queue FOR SELECT
   USING (professional_id = auth.uid());
 
+DROP POLICY IF EXISTS "Admins can manage clearance queue" ON balance_clearance_queue;
 CREATE POLICY "Admins can manage clearance queue"
   ON balance_clearance_queue FOR ALL
   USING (auth.jwt() ->> 'user_role' = 'admin');
 
 -- Balance audit log: View only, no deletes
+DROP POLICY IF EXISTS "Professionals can view own balance audit log" ON balance_audit_log;
 CREATE POLICY "Professionals can view own balance audit log"
   ON balance_audit_log FOR SELECT
   USING (professional_id = auth.uid());
 
+DROP POLICY IF EXISTS "Admins can view all balance audit logs" ON balance_audit_log;
 CREATE POLICY "Admins can view all balance audit logs"
   ON balance_audit_log FOR SELECT
   USING (auth.jwt() ->> 'user_role' = 'admin');

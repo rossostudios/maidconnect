@@ -16,12 +16,26 @@ export async function POST() {
 
   const { data: profile, error } = await supabase
     .from("professional_profiles")
-    .select("stripe_connect_account_id, stripe_connect_onboarding_status, full_name")
+    .select("stripe_connect_account_id, stripe_connect_onboarding_status, full_name, country")
     .eq("profile_id", user.id)
     .maybeSingle();
 
   if (error || !profile) {
     return NextResponse.json({ error: "Professional profile not found" }, { status: 404 });
+  }
+
+  // Stripe Connect is only available for Colombia
+  // Other countries (Paraguay, Uruguay, Argentina) use PayPal
+  const professionalCountry = profile.country?.toUpperCase();
+  if (professionalCountry !== "CO") {
+    return NextResponse.json(
+      {
+        error: "Stripe Connect is only available for Colombia. Please use PayPal integration.",
+        paymentProvider: "paypal",
+        country: professionalCountry,
+      },
+      { status: 400 }
+    );
   }
 
   let accountId = profile.stripe_connect_account_id ?? undefined;

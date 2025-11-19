@@ -11,8 +11,8 @@
 // TYPES
 // ============================================================================
 
-export type Currency = "COP" | "USD";
-export type Locale = "es-CO" | "en-US";
+export type Currency = "COP" | "USD" | "ARS" | "UYU" | "PYG";
+export type Locale = "es-CO" | "en-US" | "es-AR" | "es-UY" | "es-PY";
 
 export type CurrencyFormatOptions = {
   locale?: Locale;
@@ -62,11 +62,19 @@ export function formatCurrency(
   amount: number | null | undefined,
   options: CurrencyFormatOptions = {}
 ): string {
+  // Determine default decimal places based on currency
+  const getDefaultDecimals = (curr: Currency): number => {
+    // Currencies with no decimal places
+    if (curr === "COP" || curr === "PYG") return 0;
+    // Currencies with 2 decimal places
+    return 2;
+  };
+
   const {
     locale = "es-CO",
     currency = "COP",
-    minimumFractionDigits = currency === "USD" ? 2 : 0,
-    maximumFractionDigits = currency === "COP" ? 0 : 2,
+    minimumFractionDigits = getDefaultDecimals(currency),
+    maximumFractionDigits = getDefaultDecimals(currency),
   } = options;
 
   // Handle null/undefined/NaN
@@ -135,6 +143,72 @@ export function formatUSD(amount: number | null | undefined): string {
     currency: "USD",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
+  });
+}
+
+/**
+ * Format a number as Argentine Pesos (ARS)
+ *
+ * @example
+ * ```ts
+ * formatARS(50.5) // "$50,50"
+ * formatARS(1000) // "$1.000,00"
+ * formatARS(null) // "$0,00"
+ * ```
+ *
+ * @param amount - The amount to format in ARS
+ * @returns Formatted ARS currency string
+ */
+export function formatARS(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-AR",
+    currency: "ARS",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+/**
+ * Format a number as Uruguayan Pesos (UYU)
+ *
+ * @example
+ * ```ts
+ * formatUYU(50.5) // "$U 50,50"
+ * formatUYU(1000) // "$U 1.000,00"
+ * formatUYU(null) // "$U 0,00"
+ * ```
+ *
+ * @param amount - The amount to format in UYU
+ * @returns Formatted UYU currency string
+ */
+export function formatUYU(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-UY",
+    currency: "UYU",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+/**
+ * Format a number as Paraguayan Guaraníes (PYG)
+ *
+ * @example
+ * ```ts
+ * formatPYG(50000) // "₲ 50.000"
+ * formatPYG(1500) // "₲ 1.500"
+ * formatPYG(null) // "₲ 0"
+ * ```
+ *
+ * @param amount - The amount to format in PYG
+ * @returns Formatted PYG currency string
+ */
+export function formatPYG(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-PY",
+    currency: "PYG",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
 }
 

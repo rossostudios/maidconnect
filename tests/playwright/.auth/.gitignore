@@ -1,0 +1,2 @@
+# Playwright authentication state (contains session tokens)
+*.json

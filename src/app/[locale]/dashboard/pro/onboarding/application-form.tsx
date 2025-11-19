@@ -1,28 +1,39 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { cn } from "@/lib/utils";
+import {
+  COUNTRY_OPTIONS,
+  getCityOptions,
+  type CountryCode,
+} from "@/lib/shared/config/territories";
 import { submitApplication } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 
 type Props = {
   services: string[];
-  countries: string[];
   inputClass: string;
 };
 
 const errorClass = "border-orange-500/50 focus:border-orange-500 focus:ring-orange-500/30";
 
-export function ApplicationForm({ services, countries, inputClass }: Props) {
+export function ApplicationForm({ services, inputClass }: Props) {
   const t = useTranslations("dashboard.pro.applicationForm");
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(
     submitApplication,
     defaultActionState
   );
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
   const hasError = (key: string) => Boolean(fieldError(key));
+
+  const handleCountryChange = (country: string) => {
+    setSelectedCountry(country);
+  };
+
+  const cityOptions = selectedCountry ? getCityOptions(selectedCountry as CountryCode) : [];
 
   return (
     <form action={formAction} className="space-y-8" noValidate>
@@ -69,31 +80,40 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           <select
             aria-invalid={hasError("country")}
             className={cn(inputClass, hasError("country") && errorClass)}
-            defaultValue="Colombia"
             id="country"
             name="country"
+            onChange={(e) => handleCountryChange(e.target.value)}
             required
+            value={selectedCountry}
           >
-            {countries.map((option) => (
-              <option key={option} value={option}>
-                {option}
+            <option value="">{t("country.placeholder", { defaultValue: "Select your country" })}</option>
+            {COUNTRY_OPTIONS.map((country) => (
+              <option key={country.value} value={country.value}>
+                {country.label}
               </option>
             ))}
           </select>
         </FormField>
       </div>
 
-      <FormField error={fieldError("city")} label={t("city.label")}>
-        <input
-          aria-invalid={hasError("city")}
-          className={cn(inputClass, hasError("city") && errorClass)}
-          id="city"
-          name="city"
-          placeholder={t("city.placeholder")}
-          required
-          type="text"
-        />
-      </FormField>
+      {selectedCountry && (
+        <FormField error={fieldError("city")} label={t("city.label")}>
+          <select
+            aria-invalid={hasError("city")}
+            className={cn(inputClass, hasError("city") && errorClass)}
+            id="city"
+            name="city"
+            required
+          >
+            <option value="">{t("city.placeholder", { defaultValue: "Select your city" })}</option>
+            {cityOptions.map((city) => (
+              <option key={city.value} value={city.value}>
+                {city.label}
+              </option>
+            ))}
+          </select>
+        </FormField>
+      )}
 
       <FormField
         error={fieldError("services")}
@@ -104,13 +124,13 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           {services.map((service) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 border-2 border-neutral-200 bg-neutral-50 p-4 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
+                "flex cursor-pointer items-center gap-3 rounded-lg border-2 border-neutral-200 bg-neutral-50 p-4 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
                 hasError("services") && "border-orange-500/50"
               )}
               key={service}
             >
               <input
-                className="h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
                 name="services"
                 type="checkbox"
                 value={service}
@@ -165,9 +185,9 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       >
         <div className="space-y-4">
           {[1, 2].map((index) => (
-            <div className="border border-neutral-200 bg-neutral-50 p-6" key={index}>
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6" key={index}>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center bg-orange-500 font-semibold text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500 font-semibold text-sm text-white">
                   {index}
                 </div>
                 <p className="font-semibold text-neutral-700 text-sm uppercase tracking-[0.2em]">
@@ -229,10 +249,10 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField error={fieldError("consent")} label={t("consent.label")}>
-        <label className="flex cursor-pointer items-start gap-3 border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
           <input
             aria-invalid={hasError("consent")}
-            className="mt-0.5 h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
+            className="mt-0.5 h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
             name="consent"
             type="checkbox"
           />
@@ -244,7 +264,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         <p className="text-neutral-700 text-sm">{t("footer.note")}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center rounded-lg bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -260,9 +280,9 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
+      <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
             <svg
               aria-label="Error icon"
               className="h-5 w-5 text-orange-500"
@@ -286,9 +306,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
+      <div className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
             <svg
               aria-label="Success icon"
               className="h-5 w-5 text-orange-500"

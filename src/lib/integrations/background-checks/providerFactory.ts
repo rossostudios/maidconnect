@@ -2,9 +2,14 @@
  * Background Check Provider Factory
  *
  * Factory pattern to instantiate the correct background check provider
- * based on admin configuration. Allows switching between Checkr and Truora.
+ * based on admin configuration or country-specific requirements.
+ *
+ * Provider Selection by Country:
+ * - Colombia (CO): Checkr
+ * - Paraguay (PY), Uruguay (UY), Argentina (AR): Truora
  */
 
+import type { CountryCode } from "@/lib/shared/config/territories";
 import { CheckrClient } from "./checkrClient";
 import { BackgroundCheckProviderInterface } from "./providerInterface";
 import { TruoraClient } from "./truoraClient";
@@ -113,6 +118,67 @@ export class BackgroundCheckProviderFactory {
         providerName
       );
     }
+
+    return provider;
+  }
+
+  /**
+   * Get provider based on country code (recommended for multi-country operations)
+   *
+   * Provider Selection:
+   * - Colombia (CO): Checkr
+   * - Paraguay (PY), Uruguay (UY), Argentina (AR): Truora
+   *
+   * @param countryCode - ISO 3166-1 alpha-2 country code
+   * @returns Background check provider instance for the specified country
+   * @throws Error if provider for country is not enabled or configured
+   */
+  getProviderByCountry(countryCode: CountryCode): BackgroundCheckProviderInterface {
+    if (!this.config) {
+      throw new Error("Provider factory not initialized. Call initialize() first.");
+    }
+
+    // Determine provider based on country
+    let providerName: BackgroundCheckProvider;
+
+    switch (countryCode) {
+      case "CO":
+        providerName = "checkr";
+        break;
+      case "PY":
+      case "UY":
+      case "AR":
+        providerName = "truora";
+        break;
+      default:
+        throw new BackgroundCheckError(
+          `No background check provider configured for country: ${countryCode}`,
+          ErrorCodes.PROVIDER_ERROR,
+          "unknown"
+        );
+    }
+
+    // Validate provider is enabled
+    const providerConfig = this.config[providerName];
+    if (!providerConfig.enabled) {
+      throw new BackgroundCheckError(
+        `Background check provider ${providerName} is not enabled for country ${countryCode}`,
+        ErrorCodes.PROVIDER_ERROR,
+        providerName
+      );
+    }
+
+    const provider = this.createProvider(providerName);
+
+    if (!provider) {
+      throw new BackgroundCheckError(
+        `Failed to create provider ${providerName} for country ${countryCode}`,
+        ErrorCodes.PROVIDER_ERROR,
+        providerName
+      );
+    }
+
+    console.log(`[BackgroundCheckFactory] Using ${providerName} for country ${countryCode}`);
 
     return provider;
   }
@@ -248,4 +314,17 @@ export async function initializeBackgroundCheckFactory(): Promise<void> {
 export function getBackgroundCheckProvider(): BackgroundCheckProviderInterface {
   const factory = BackgroundCheckProviderFactory.getInstance();
   return factory.getProvider();
+}
+
+/**
+ * Convenience function to get provider by country (recommended for multi-country operations)
+ *
+ * @param countryCode - ISO 3166-1 alpha-2 country code (CO, PY, UY, AR)
+ * @returns Background check provider instance for the specified country
+ */
+export function getBackgroundCheckProviderByCountry(
+  countryCode: CountryCode
+): BackgroundCheckProviderInterface {
+  const factory = BackgroundCheckProviderFactory.getInstance();
+  return factory.getProviderByCountry(countryCode);
 }

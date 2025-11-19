@@ -13,7 +13,8 @@ import { TimingBudgetStep } from "./steps/timing-budget-step";
 
 export type WizardData = {
   // Location
-  city: string;
+  country?: string; // ISO 3166-1 alpha-2 country code (CO, PY, UY, AR)
+  city?: string;
   neighborhood?: string;
 
   // Service
@@ -49,7 +50,6 @@ export function MatchWizard() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState<Step>("location");
   const [wizardData, setWizardData] = useState<WizardData>({
-    city: "",
     serviceType: "",
   });
 
@@ -130,6 +130,7 @@ export function MatchWizard() {
             stepsSkipped: stepsSkippedRef.current,
             timeSpent,
             finalData: {
+              country: wizardData.country,
               city: wizardData.city,
               serviceType: wizardData.serviceType,
               budgetRange:
@@ -223,7 +224,7 @@ export function MatchWizard() {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="h-2 overflow-hidden bg-[neutral-200]">
+          <div className="h-2 overflow-hidden rounded-full bg-[neutral-200]">
             <div
               aria-label={t("progressLabel", {
                 defaultValue: "Match wizard progress",
@@ -233,7 +234,7 @@ export function MatchWizard() {
               aria-valuemax={100}
               aria-valuemin={0}
               aria-valuenow={Math.round(progress)}
-              className="h-full bg-[neutral-900] transition-all duration-300"
+              className="h-full rounded-full bg-[neutral-900] transition-all duration-300"
               role="progressbar"
               style={{ width: `${progress}%` }}
             />
@@ -254,7 +255,7 @@ export function MatchWizard() {
         </div>
 
         {/* Step Content */}
-        <div className="border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
+        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
           {currentStep === "location" && (
             <LocationStep
               data={wizardData}

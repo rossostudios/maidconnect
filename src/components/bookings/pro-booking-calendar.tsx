@@ -129,10 +129,10 @@ export function ProBookingCalendar({ bookings }: Props) {
   };
 
   return (
-    <div className="border border-neutral-200 bg-white p-6">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
+    <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         {/* Calendar Grid */}
-        <div>
+        <div className="border-neutral-200 bg-white p-6 lg:border-r">
           <AvailabilityCalendar
             dataSource={{
               type: "props",
@@ -159,11 +159,11 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         {/* Booking Details Sidebar */}
-        <div className="border border-neutral-200 bg-white">
-          <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+        <div className="flex flex-col bg-neutral-50">
+          <div className="border-neutral-200 border-b bg-white px-6 py-4">
             <h4
               className={cn(
-                "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                "font-semibold text-neutral-900 text-sm",
                 geistSans.className
               )}
             >
@@ -172,24 +172,30 @@ export function ProBookingCalendar({ bookings }: Props) {
             {selectedDate && (
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs tracking-tighter",
+                  "mt-1 font-normal text-neutral-500 text-xs",
                   geistSans.className
                 )}
               >
                 {selectedDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
-                  month: "short",
+                  month: "long",
                   day: "numeric",
                 })}
               </p>
             )}
           </div>
-          <div className="p-6">
+          <div className="flex-1 overflow-y-auto p-4">
             {selectedBookings.length === 0 ? (
-              <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
-                {t("noBookings")}
-              </p>
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-100 bg-orange-50">
+                  <span className="text-3xl text-orange-500">📅</span>
+                </div>
+                <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                  {t("noBookings")}
+                </p>
+                <p className="mt-1 text-neutral-500 text-xs">{t("selectDate")}</p>
+              </div>
             ) : (
               <ul className="space-y-3">
                 {selectedBookings
@@ -207,40 +213,42 @@ export function ProBookingCalendar({ bookings }: Props) {
                     const statusLabel = getStatusLabel(booking.status);
                     const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                     return (
-                      <li className="border border-neutral-200 bg-white p-3" key={booking.id}>
-                        <div className="flex items-center justify-between">
-                          <span
-                            className={cn(
-                              "font-semibold text-neutral-900 text-sm tracking-tighter",
-                              geistSans.className
-                            )}
-                          >
-                            {timeLabel}
-                          </span>
-                          {amount ? (
+                      <li className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md" key={booking.id}>
+                        <div className="p-4">
+                          <div className="flex items-center justify-between gap-3">
                             <span
                               className={cn(
-                                "font-semibold text-neutral-700 text-xs tracking-tighter",
+                                "font-semibold text-neutral-900 text-sm",
                                 geistSans.className
                               )}
                             >
-                              {formatCOP(amount)}
+                              {timeLabel}
                             </span>
-                          ) : null}
-                        </div>
-                        <div className="mt-1 flex items-center gap-2">
-                          <HugeiconsIcon
-                            className="h-3.5 w-3.5 text-neutral-500"
-                            icon={Clock01Icon}
-                          />
-                          <span
-                            className={cn(
-                              "text-neutral-700 text-xs tracking-tighter",
-                              geistSans.className
-                            )}
-                          >
-                            {statusLabel}
-                          </span>
+                            {amount ? (
+                              <span
+                                className={cn(
+                                  "font-semibold text-neutral-700 text-xs",
+                                  geistSans.className
+                                )}
+                              >
+                                {formatCOP(amount)}
+                              </span>
+                            ) : null}
+                          </div>
+                          <div className="mt-2 flex items-center gap-2">
+                            <HugeiconsIcon
+                              className="h-3.5 w-3.5 text-neutral-400"
+                              icon={Clock01Icon}
+                            />
+                            <span
+                              className={cn(
+                                "text-neutral-600 text-xs",
+                                geistSans.className
+                              )}
+                            >
+                              {statusLabel}
+                            </span>
+                          </div>
                         </div>
                       </li>
                     );
@@ -269,16 +277,18 @@ function CustomDayContent({
   t: (key: string) => string;
 }) {
   return (
-    <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
-      <span className={cn("font-semibold text-sm", geistSans.className)}>{date.getDate()}</span>
+    <div className="flex h-full min-h-[50px] flex-col items-center justify-center gap-1.5">
+      <span className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+        {date.getDate()}
+      </span>
       {bookingsCount > 0 && (
         <span
           className={cn(
-            "mt-1 border border-[#FF5200] bg-orange-50 px-2 py-0.5 font-semibold text-[#FF5200] text-xs",
+            "rounded-full border border-orange-500 bg-orange-50 px-2 py-0.5 font-semibold text-orange-600 text-xs",
             geistSans.className
           )}
         >
-          {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
+          {bookingsCount}
         </span>
       )}
     </div>

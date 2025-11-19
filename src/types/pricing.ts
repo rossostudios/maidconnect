@@ -73,16 +73,10 @@ export type ServiceCategory = (typeof SERVICE_CATEGORIES)[number];
 
 /**
  * Available cities for pricing rules
+ * @deprecated Import from @/lib/shared/config/territories instead
+ * This is kept for backward compatibility but now sources from centralized config
  */
-export const CITIES = [
-  "Bogotá",
-  "Medellín",
-  "Cali",
-  "Barranquilla",
-  "Cartagena",
-  "Bucaramanga",
-  "Pereira",
-] as const;
+export { CITIES } from "@/lib/shared/config/territories";
 
 /**
  * City type (union of all possible values)

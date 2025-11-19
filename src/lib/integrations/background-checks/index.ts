@@ -10,6 +10,7 @@ export { CheckrClient } from "./checkrClient";
 export {
   BackgroundCheckProviderFactory,
   getBackgroundCheckProvider,
+  getBackgroundCheckProviderByCountry,
   initializeBackgroundCheckFactory,
 } from "./providerFactory";
 // Provider interface

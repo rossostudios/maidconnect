@@ -152,7 +152,7 @@ export function ProSidebar({
               </span>
               <span
                 className={cn(
-                  "block font-normal text-neutral-500 text-xs uppercase tracking-wider",
+                  "block font-normal text-neutral-500 text-xs",
                   geistSans.className
                 )}
               >
@@ -174,7 +174,7 @@ export function ProSidebar({
           <div className={idx > 0 ? "mt-8" : ""} key={section.title}>
             {!isCollapsed && (
               <div className="mb-3 px-3">
-                <h3 className="font-semibold text-neutral-900 text-xs uppercase tracking-wider">
+                <h3 className="font-medium text-neutral-600 text-sm">
                   {section.title}
                 </h3>
               </div>
@@ -186,10 +186,10 @@ export function ProSidebar({
 
                 return (
                   <Link
-                    className={`flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2 ${
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 ${
                       active
-                        ? "bg-neutral-900 text-white shadow-sm"
-                        : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+                        ? "bg-orange-50 text-orange-600"
+                        : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
                     } ${isCollapsed ? "justify-center" : ""}`}
                     href={item.href}
                     key={item.href}
@@ -198,7 +198,7 @@ export function ProSidebar({
                   >
                     <HugeiconsIcon
                       className={`h-5 w-5 flex-shrink-0 transition-colors ${
-                        active ? "text-white" : "text-neutral-500 group-hover:text-neutral-900"
+                        active ? "text-orange-600" : "text-neutral-500 group-hover:text-neutral-900"
                       }`}
                       icon={item.icon}
                     />
@@ -206,14 +206,14 @@ export function ProSidebar({
                       <>
                         <span className="flex-1">{item.label}</span>
                         {showBadge && (
-                          <span className="flex h-5 min-w-[20px] items-center justify-center bg-[#FF5200] px-1.5 font-semibold text-white text-xs">
+                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-orange-500 px-1.5 font-semibold text-white text-xs">
                             {pendingLeadsCount > 99 ? "99+" : pendingLeadsCount}
                           </span>
                         )}
                       </>
                     )}
                     {isCollapsed && showBadge && (
-                      <span className="absolute top-1 right-1 h-2 w-2 bg-[#FF5200]" />
+                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-orange-500" />
                     )}
                   </Link>
                 );
@@ -225,26 +225,26 @@ export function ProSidebar({
 
       {/* Footer - Account Dropdown */}
       <div className="border-neutral-200 border-t bg-white px-3 py-4">
-        <div className="relative overflow-hidden border border-neutral-200 bg-white text-neutral-900 shadow-[0_12px_35px_rgba(15,23,42,0.12)]">
+        <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-white text-neutral-900 shadow-sm">
           <button
             aria-controls="pro-account-dropdown"
             aria-expanded={showProfileMenu}
-            className="relative flex w-full flex-col gap-3 px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="relative flex w-full flex-col gap-3 rounded-lg px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             onClick={() => setShowProfileMenu((prev) => !prev)}
             type="button"
           >
             <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center border border-neutral-200 bg-neutral-900">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
                 {userAvatarUrl ? (
                   <Image
                     alt={accountName}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full rounded-lg object-cover"
                     height={40}
                     src={userAvatarUrl}
                     width={40}
                   />
                 ) : (
-                  <span className={cn("font-semibold text-white text-xs", geistSans.className)}>
+                  <span className={cn("font-semibold text-orange-600 text-xs", geistSans.className)}>
                     {userInitials}
                   </span>
                 )}
@@ -270,10 +270,10 @@ export function ProSidebar({
                 icon={ArrowDown01Icon}
               />
             </div>
-            <div className="inline-flex items-center border border-neutral-200 bg-neutral-50 px-2 py-1">
+            <div className="inline-flex items-center rounded-full border border-neutral-700 bg-neutral-700 px-2 py-1">
               <span
                 className={cn(
-                  "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                  "font-semibold text-white text-xs",
                   geistSans.className
                 )}
               >
@@ -291,7 +291,7 @@ export function ProSidebar({
             <div className="space-y-2 border-neutral-200 border-t pt-4">
               <Link
                 className={cn(
-                  "flex w-full items-center gap-2 border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-sm transition hover:border-[#FF5200] hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+                  "flex w-full items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-sm transition hover:border-orange-500 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
                   geistSans.className
                 )}
                 href="/dashboard/pro/onboarding"
@@ -302,7 +302,7 @@ export function ProSidebar({
               </Link>
               <button
                 className={cn(
-                  "flex w-full items-center gap-2 border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-sm transition hover:border-[#FF5200] hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50",
+                  "flex w-full items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-sm transition hover:border-orange-500 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50",
                   geistSans.className
                 )}
                 disabled={isLoading}

@@ -1,0 +1,25 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Casaora Local (Supabase)",
+      "Group": "Development",
+      "Host": "host.docker.internal",
+      "Port": 54322,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer",
+      "PassFile": "/tmp/pgpassfile",
+      "Comment": "Local Supabase database - started via 'supabase start'"
+    },
+    "2": {
+      "Name": "Casaora Test",
+      "Group": "Testing",
+      "Host": "db-test",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer",
+      "Comment": "Isolated testing environment - run migrations here first"
+    }
+  }
+}

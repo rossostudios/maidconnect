@@ -71,12 +71,12 @@ export function ProHeader({
             {/* Messages */}
             <Link
               aria-label="Messages"
-              className="group relative p-1.5 text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900"
+              className="group relative rounded-lg p-1.5 text-neutral-700 transition hover:bg-neutral-50 hover:text-neutral-900"
               href="/dashboard/pro/messages"
             >
               <HugeiconsIcon className="h-4 w-4" icon={Message01Icon} />
               {unreadMessagesCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center bg-[#FF5200] px-1 font-semibold text-white text-xs">
+                <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-orange-500 px-1 font-semibold text-white text-xs">
                   {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
                 </span>
               )}
@@ -85,15 +85,15 @@ export function ProHeader({
             {/* Notifications */}
             <button
               aria-label="Notifications"
-              className="group relative p-1.5 text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900"
+              className="group relative rounded-lg p-1.5 text-neutral-700 transition hover:bg-neutral-50 hover:text-neutral-900"
               onClick={() => setShowNotifications(true)}
               type="button"
             >
               <HugeiconsIcon className="h-4 w-4" icon={Notification02Icon} />
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping bg-orange-500 opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 bg-orange-500" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-500 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-orange-500" />
                 </span>
               )}
             </button>
@@ -102,7 +102,7 @@ export function ProHeader({
             <div className="relative flex items-center">
               <button
                 aria-label="Profile menu"
-                className="group flex items-center gap-1.5 px-2 py-1.5 text-xs transition hover:bg-neutral-100"
+                className="group flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs transition hover:bg-neutral-50"
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 type="button"
               >
@@ -119,7 +119,7 @@ export function ProHeader({
                     aria-label="Close profile menu"
                     onClose={() => setShowProfileMenu(false)}
                   />
-                  <div className="absolute top-full right-0 z-50 mt-1 w-48 border border-neutral-200 bg-white shadow-lg">
+                  <div className="absolute top-full right-0 z-50 mt-1 w-48 rounded-lg border border-neutral-200 bg-white shadow-sm">
                     <div className="border-neutral-200 border-b px-3 py-2">
                       <p className="font-medium text-neutral-900 text-xs">
                         {userName || "Professional"}

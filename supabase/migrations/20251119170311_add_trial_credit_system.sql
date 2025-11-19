@@ -43,10 +43,10 @@ CREATE TABLE IF NOT EXISTS trial_credits (
 );
 
 -- Indexes for performance
-CREATE INDEX idx_trial_credits_customer_id ON trial_credits(customer_id);
-CREATE INDEX idx_trial_credits_professional_id ON trial_credits(professional_id);
-CREATE INDEX idx_trial_credits_has_credit ON trial_credits(credit_remaining_cop) WHERE credit_remaining_cop > 0;
-CREATE INDEX idx_trial_credits_last_booking_at ON trial_credits(last_booking_at DESC);
+CREATE INDEX IF NOT EXISTS idx_trial_credits_customer_id ON trial_credits(customer_id);
+CREATE INDEX IF NOT EXISTS idx_trial_credits_professional_id ON trial_credits(professional_id);
+CREATE INDEX IF NOT EXISTS idx_trial_credits_has_credit ON trial_credits(credit_remaining_cop) WHERE credit_remaining_cop > 0;
+CREATE INDEX IF NOT EXISTS idx_trial_credits_last_booking_at ON trial_credits(last_booking_at DESC);
 
 -- Comments for documentation
 COMMENT ON TABLE trial_credits IS 'Tracks trial credit earned from completed bookings, redeemable toward direct hire placement fee';
@@ -234,6 +234,7 @@ COMMENT ON FUNCTION get_trial_credit_info(UUID, UUID) IS
 -- Allow authenticated users to read their own trial credits
 ALTER TABLE trial_credits ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS trial_credits_select_own ON trial_credits;
 CREATE POLICY trial_credits_select_own
   ON trial_credits
   FOR SELECT
@@ -241,12 +242,14 @@ CREATE POLICY trial_credits_select_own
   USING (customer_id = auth.uid());
 
 -- Only backend services can insert/update (via triggers)
+DROP POLICY IF EXISTS trial_credits_insert_service ON trial_credits;
 CREATE POLICY trial_credits_insert_service
   ON trial_credits
   FOR INSERT
   TO service_role
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS trial_credits_update_service ON trial_credits;
 CREATE POLICY trial_credits_update_service
   ON trial_credits
   FOR UPDATE

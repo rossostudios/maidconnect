@@ -3,6 +3,7 @@
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useMemo } from "react";
+import { geistSans } from "@/app/fonts";
 import {
   type AvailabilityData,
   type DayAvailability,
@@ -228,15 +229,16 @@ export function AvailabilityCalendar({
     <div className={cn("space-y-4", className)}>
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className={cn("font-semibold text-[neutral-900]", sizeConfig.headerText)}>
+        <h3 className={cn("font-semibold text-neutral-900", sizeConfig.headerText, geistSans.className)}>
           {getMonthLabel(locale)}
         </h3>
-        <div className={cn("flex gap-2", sizeConfig.buttonGap)}>
+        <div className={cn("flex", sizeConfig.buttonGap)}>
           {showTodayButton && (
             <button
               className={cn(
-                "border border-[neutral-200] font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
-                sizeConfig.button
+                "rounded-lg border border-neutral-200 font-medium text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
+                sizeConfig.button,
+                geistSans.className
               )}
               onClick={goToToday}
               type="button"
@@ -247,7 +249,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
+              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
@@ -258,7 +260,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Next month"
             className={cn(
-              "border border-[neutral-200] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]",
+              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
@@ -273,22 +275,23 @@ export function AvailabilityCalendar({
       {isLoading && (
         <div
           className={cn(
-            "border border-[neutral-200] bg-[neutral-50]/90 text-center",
-            sizeConfig.loadingPadding
+            "rounded-lg border border-neutral-200 bg-neutral-50 text-center",
+            sizeConfig.loadingPadding,
+            geistSans.className
           )}
         >
-          <p className={cn("text-[neutral-400]", sizeConfig.text)}>Loading availability...</p>
+          <p className={cn("text-neutral-500", sizeConfig.text)}>Loading availability...</p>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-4 text-center">
-          <p className={cn("text-[neutral-500]", sizeConfig.text)}>{error.message}</p>
+        <div className={cn("rounded-lg border border-orange-200 bg-orange-50 p-4 text-center", geistSans.className)}>
+          <p className={cn("text-orange-600", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
               className={cn(
-                "mt-2 font-semibold text-[neutral-500] hover:text-[neutral-500]",
+                "mt-2 font-semibold text-orange-600 hover:text-orange-700",
                 sizeConfig.smallText
               )}
               onClick={apiData.refetch}
@@ -305,7 +308,7 @@ export function AvailabilityCalendar({
         <>
           <div
             className={cn(
-              "grid grid-cols-7 gap-px overflow-hidden border border-[neutral-200] bg-[neutral-200]",
+              "grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-neutral-200 bg-neutral-200 shadow-sm",
               themeConfig.gridBorder
             )}
           >
@@ -313,9 +316,10 @@ export function AvailabilityCalendar({
             {getDayHeaders(size).map((day) => (
               <div
                 className={cn(
-                  "bg-[neutral-200] text-center font-semibold text-[neutral-400] uppercase",
+                  "bg-neutral-50 text-center font-semibold text-neutral-600",
                   sizeConfig.headerPadding,
-                  sizeConfig.smallText
+                  sizeConfig.smallText,
+                  geistSans.className
                 )}
                 key={day}
               >
@@ -337,12 +341,12 @@ export function AvailabilityCalendar({
               const statusColors = getStatusColors(availability?.status);
 
               const bgColor = calendarDay.isPast
-                ? "bg-[neutral-50]"
+                ? "bg-neutral-50"
                 : calendarDay.inCurrentMonth
                   ? availability
                     ? statusColors.bg
-                    : "bg-[neutral-50]"
-                  : "bg-[neutral-50]";
+                    : "bg-white"
+                  : "bg-neutral-50";
 
               return (
                 <button
@@ -353,9 +357,10 @@ export function AvailabilityCalendar({
                     isSelected && themeConfig.selected,
                     calendarDay.isToday && themeConfig.today,
                     canSelect ? themeConfig.selectable : "cursor-not-allowed opacity-60",
-                    calendarDay.isPast && "text-[neutral-400]/70",
-                    !calendarDay.isPast && "text-[neutral-900]",
-                    !calendarDay.inCurrentMonth && "opacity-40"
+                    calendarDay.isPast && "text-neutral-400",
+                    !calendarDay.isPast && "text-neutral-900",
+                    !calendarDay.inCurrentMonth && "opacity-40",
+                    geistSans.className
                   )}
                   disabled={!canSelect}
                   key={calendarDay.key}
@@ -379,11 +384,12 @@ export function AvailabilityCalendar({
 
           {/* Legend */}
           {showLegend && (
-            <div className={cn("flex flex-wrap gap-3 text-[neutral-400]", sizeConfig.smallText)}>
-              <LegendItem icon="🟢" label="Available" />
-              <LegendItem icon="🟡" label="Limited" />
-              <LegendItem icon="🔴" label="Booked" />
-              <LegendItem icon="⚫" label="Unavailable" />
+            <div className={cn("flex flex-wrap items-center gap-4", sizeConfig.smallText, geistSans.className)}>
+              <span className="font-medium text-neutral-600">Status:</span>
+              <LegendItem color="bg-green-500" label="Available" />
+              <LegendItem color="bg-orange-400" label="Limited" />
+              <LegendItem color="bg-orange-500" label="Booked" />
+              <LegendItem color="bg-neutral-300" label="Unavailable" />
             </div>
           )}
         </>
@@ -394,8 +400,8 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
-          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-4">
-            <h4 className={cn("mb-3 font-semibold text-[neutral-900]", sizeConfig.text)}>
+          <div className={cn("rounded-lg border border-neutral-200 bg-white p-4 shadow-sm", geistSans.className)}>
+            <h4 className={cn("mb-3 font-semibold text-neutral-900", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
             </h4>
@@ -427,11 +433,11 @@ export function AvailabilityCalendar({
                 ) : (
                   <button
                     className={cn(
-                      "border font-medium transition",
+                      "rounded-lg border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
-                        ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
-                        : "border-[neutral-200] bg-[neutral-50] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]"
+                        ? "border-orange-500 bg-orange-500 text-white hover:bg-orange-600"
+                        : "border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:text-orange-600"
                     )}
                     key={time}
                     onClick={() => onTimeSelect?.(time)}
@@ -443,7 +449,7 @@ export function AvailabilityCalendar({
               })}
             </div>
             {selectedDateAvailability.bookingCount > 0 && (
-              <p className={cn("mt-3 text-[neutral-400]", sizeConfig.smallText)}>
+              <p className={cn("mt-3 text-neutral-500", sizeConfig.smallText)}>
                 {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings}{" "}
                 slots booked today
               </p>
@@ -456,8 +462,8 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length === 0 && (
-          <div className="border border-[neutral-200] bg-[neutral-50]/90 p-4 text-center">
-            <p className={cn("text-[neutral-400]", sizeConfig.text)}>
+          <div className={cn("rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center", geistSans.className)}>
+            <p className={cn("text-neutral-500", sizeConfig.text)}>
               No available time slots on this date. Please choose another day.
             </p>
           </div>
@@ -479,18 +485,18 @@ function DefaultDayContent({
   size: CalendarSize;
 }) {
   const sizeConfig = getSizeConfig(size);
-  const statusIndicators = {
-    available: "🟢",
-    limited: "🟡",
-    booked: "🔴",
-    blocked: "⚫",
+  const statusColors = {
+    available: "bg-green-500",
+    limited: "bg-orange-400",
+    booked: "bg-orange-500",
+    blocked: "bg-neutral-300",
   };
 
   return (
-    <div className="flex h-full flex-col">
-      <span className={sizeConfig.dayNumber}>{day.label}</span>
+    <div className={cn("flex h-full flex-col", geistSans.className)}>
+      <span className={cn("font-semibold text-neutral-900", sizeConfig.dayNumber)}>{day.label}</span>
       {availability && !day.isPast && day.inCurrentMonth && (
-        <span className="mt-auto text-xs">{statusIndicators[availability.status]}</span>
+        <span className={cn("mt-auto h-2 w-2 rounded-full", statusColors[availability.status])} />
       )}
     </div>
   );
@@ -499,11 +505,11 @@ function DefaultDayContent({
 /**
  * Legend item component
  */
-function LegendItem({ icon, label }: { icon: string; label: string }) {
+function LegendItem({ color, label }: { color: string; label: string }) {
   return (
-    <div className="flex items-center gap-1">
-      <span>{icon}</span>
-      <span>{label}</span>
+    <div className="flex items-center gap-1.5">
+      <span className={cn("h-2.5 w-2.5 rounded-full", color)} />
+      <span className="text-neutral-600">{label}</span>
     </div>
   );
 }
@@ -514,21 +520,21 @@ function LegendItem({ icon, label }: { icon: string; label: string }) {
 function getThemeConfig(theme: CalendarTheme) {
   const configs = {
     default: {
-      gridBorder: "border-[neutral-200]",
-      selected: "ring-2 ring-[neutral-500] ring-inset",
+      gridBorder: "border-neutral-200",
+      selected: "ring-2 ring-orange-500 ring-inset",
       today: "font-bold",
-      selectable: "cursor-pointer hover:ring-2 hover:ring-[neutral-500]/20",
+      selectable: "cursor-pointer hover:ring-2 hover:ring-orange-500/20",
     },
     professional: {
-      gridBorder: "border-[neutral-200]",
-      selected: "border-[neutral-500] ring-2 ring-[neutral-500]/20",
-      today: "font-bold text-[neutral-500]",
-      selectable: "cursor-pointer hover:border-[neutral-500]",
+      gridBorder: "border-neutral-200",
+      selected: "border-orange-500 ring-2 ring-orange-500/20",
+      today: "font-bold text-orange-600",
+      selectable: "cursor-pointer hover:border-orange-500",
     },
     customer: {
-      gridBorder: "border-[neutral-200]",
-      selected: "scale-105 ring-4 ring-[neutral-500] ring-offset-2",
-      today: "border-[neutral-500]",
+      gridBorder: "border-neutral-200",
+      selected: "scale-105 ring-4 ring-orange-500 ring-offset-2",
+      today: "border-orange-500",
       selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
@@ -594,24 +600,24 @@ function getSizeConfig(size: CalendarSize) {
 function getStatusColors(status: DayAvailability["status"] | undefined) {
   const colors = {
     available: {
-      bg: "bg-[neutral-500]/10 border-[neutral-500]/40",
-      text: "text-[neutral-500]",
+      bg: "bg-green-50 border-green-200",
+      text: "text-green-600",
     },
     limited: {
-      bg: "bg-[neutral-500]/5 border-[neutral-500]/30",
-      text: "text-[neutral-500]",
+      bg: "bg-orange-50 border-orange-200",
+      text: "text-orange-600",
     },
     booked: {
-      bg: "bg-[neutral-500]/10 border-[neutral-500]/30",
-      text: "text-[neutral-500]",
+      bg: "bg-orange-50 border-orange-300",
+      text: "text-orange-600",
     },
     blocked: {
-      bg: "bg-[neutral-200]/30 border-[neutral-200]",
-      text: "text-[neutral-400]",
+      bg: "bg-neutral-100 border-neutral-200",
+      text: "text-neutral-400",
     },
   };
 
-  return status ? colors[status] : { bg: "bg-[neutral-50]", text: "text-[neutral-900]" };
+  return status ? colors[status] : { bg: "bg-white", text: "text-neutral-900" };
 }
 
 /**

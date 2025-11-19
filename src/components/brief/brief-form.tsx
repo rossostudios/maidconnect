@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
+import {
+  COUNTRY_OPTIONS,
+  getCityOptions,
+  type CountryCode,
+} from "@/lib/shared/config/territories";
 
 // Form validation schema
 const briefSchema = z.object({
@@ -19,6 +24,7 @@ const briefSchema = z.object({
     "estate_management",
     "other",
   ]),
+  country: z.string().min(2, "Please select a country"),
   city: z.string().min(1, "Please select a city"),
   language: z.enum(["english", "spanish", "both"]),
   startDate: z.string().min(1, "Please select a start date"),
@@ -46,15 +52,6 @@ const SERVICE_TYPES = [
   { value: "cooking", label: "Private Chef & Cooking" },
   { value: "estate_management", label: "Estate Management" },
   { value: "other", label: "Other Services" },
-];
-
-const CITIES = [
-  { value: "bogota", label: "Bogotá" },
-  { value: "medellin", label: "Medellín" },
-  { value: "cartagena", label: "Cartagena" },
-  { value: "cali", label: "Cali" },
-  { value: "barranquilla", label: "Barranquilla" },
-  { value: "other", label: "Other City" },
 ];
 
 const LANGUAGES = [
@@ -140,7 +137,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
       case 1:
         return ["serviceType"];
       case 2:
-        return ["city", "language"];
+        return ["country", "city", "language"];
       case 3:
         return ["startDate", "hoursPerWeek"];
       case 4:
@@ -152,6 +149,10 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
     }
   };
 
+  // Get city options for selected country
+  const selectedCountry = watch("country");
+  const cityOptions = selectedCountry ? getCityOptions(selectedCountry as CountryCode) : [];
+
   return (
     <div className="mx-auto w-full max-w-2xl">
       {/* Progress Bar */}
@@ -159,7 +160,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         <div className="mb-4 flex items-center justify-between">
           {STEPS.map((step) => (
             <div
-              className={`flex h-10 w-10 items-center justify-center border-2 ${
+              className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                 step.id === currentStep
                   ? "border-orange-500 bg-orange-500 text-white"
                   : step.id < currentStep
@@ -172,9 +173,9 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
             </div>
           ))}
         </div>
-        <div className="h-2 w-full overflow-hidden bg-neutral-200">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
           <div
-            className="h-full bg-orange-500 transition-all duration-300"
+            className="h-full rounded-full bg-orange-500 transition-all duration-300"
             style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
           />
         </div>
@@ -199,7 +200,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
             <div className="grid gap-3 sm:grid-cols-2">
               {SERVICE_TYPES.map((service) => (
                 <label
-                  className={`flex cursor-pointer items-center gap-3 border-2 p-4 transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
                     formData.serviceType === service.value
                       ? "border-orange-500 bg-orange-50"
                       : "border-neutral-200 hover:border-neutral-300"
@@ -226,23 +227,46 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         {currentStep === 2 && (
           <div className="space-y-6">
             <div>
-              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="city">
-                City <span className="text-orange-500">*</span>
+              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="country">
+                Country <span className="text-orange-500">*</span>
               </label>
               <select
-                id="city"
-                {...register("city")}
-                className="w-full border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                id="country"
+                {...register("country")}
+                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               >
-                <option value="">Select a city</option>
-                {CITIES.map((city) => (
-                  <option key={city.value} value={city.value}>
-                    {city.label}
+                <option value="">Select a country</option>
+                {COUNTRY_OPTIONS.map((country) => (
+                  <option key={country.value} value={country.value}>
+                    {country.label}
                   </option>
                 ))}
               </select>
-              {errors.city && <p className="mt-1 text-red-600 text-sm">{errors.city.message}</p>}
+              {errors.country && (
+                <p className="mt-1 text-red-600 text-sm">{errors.country.message}</p>
+              )}
             </div>
+
+            {selectedCountry && (
+              <div>
+                <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="city">
+                  City <span className="text-orange-500">*</span>
+                </label>
+                <select
+                  id="city"
+                  {...register("city")}
+                  className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                >
+                  <option value="">Select a city</option>
+                  {cityOptions.map((city) => (
+                    <option key={city.value} value={city.value}>
+                      {city.label}
+                    </option>
+                  ))}
+                </select>
+                {errors.city && <p className="mt-1 text-red-600 text-sm">{errors.city.message}</p>}
+              </div>
+            )}
 
             <div>
               <label className="mb-3 block font-medium text-neutral-700 text-sm">
@@ -251,7 +275,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               <div className="space-y-2">
                 {LANGUAGES.map((lang) => (
                   <label
-                    className={`flex cursor-pointer items-center gap-3 border-2 p-4 transition-all ${
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
                       formData.language === lang.value
                         ? "border-orange-500 bg-orange-50"
                         : "border-neutral-200 hover:border-neutral-300"
@@ -307,7 +331,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
               <select
                 id="hoursPerWeek"
                 {...register("hoursPerWeek")}
-                className="w-full border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
+                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               >
                 <option value="">Select hours</option>
                 <option value="1-10">1-10 hours/week</option>

@@ -50,6 +50,7 @@ function extractSignUpFormData(formData: FormData) {
     role: sanitizeRole(formData.get("role") as string | null),
     fullName: stringOrNull(formData.get("fullName")),
     phone: stringOrNull(formData.get("phone")),
+    country: String(formData.get("country") ?? "CO"), // Default to Colombia for backward compatibility
     city: stringOrNull(formData.get("city")),
     propertyType: stringOrNull(formData.get("propertyType")),
     privacyConsent: formData.get("privacyConsent") === "on",
@@ -130,7 +131,7 @@ function buildUserMetadata(
     role: data.role,
     locale: data.locale,
     phone: data.phone,
-    country: "Colombia",
+    country: data.country, // Now uses dynamic country from form data
     city: data.city,
     full_name: data.fullName,
     consents: {

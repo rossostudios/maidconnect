@@ -173,6 +173,18 @@
         "updateAvailability": "Update availability",
         "allBookings": "All bookings"
       },
+      "bookingCalendar": {
+        "details": "Details",
+        "noBookings": "No bookings for this date",
+        "selectDate": "Select a date to view bookings",
+        "timeTbd": "Time TBD",
+        "status": {
+          "pendingPayment": "Pending payment",
+          "authorized": "Authorized",
+          "completed": "Completed",
+          "canceled": "Canceled"
+        }
+      },
       "documents": {
         "title": "Document Center",
         "description": "Keep your verification paperwork current. Upload new files if your information changes.",
@@ -279,12 +291,16 @@
           "label": "Country",
           "options": {
             "colombia": "Colombia",
+            "paraguay": "Paraguay",
+            "uruguay": "Uruguay",
+            "argentina": "Argentina",
             "unitedStates": "United States",
             "canada": "Canada",
             "unitedKingdom": "United Kingdom",
             "mexico": "Mexico",
             "other": "Other"
-          }
+          },
+          "placeholder": "Select your country"
         },
         "city": {
           "label": "City",
@@ -1207,7 +1223,7 @@
   },
   "hero": {
     "tagline": "Household Happiness",
-    "ribbon": "The hybrid household staffing platform for expats in Colombia",
+    "ribbon": "The hybrid household staffing platform for expats in Latin America",
     "title": "Book instantly with Amara AI or hire permanently with our concierge",
     "titleHighlight": "Trusted help for tomorrow or a full-time nanny with a legal contract",
     "subtitle": "Whether you need a cleaner for tomorrow or a full-time nanny, Casaora provides the vetting, payments, and legal framework to hire with confidence.",
@@ -1227,7 +1243,7 @@
     },
     "trustSignals": {
       "verified": "Every professional reviewed by Casaora",
-      "cities": "Starting in Medellín, expanding across Colombia",
+      "cities": "Operating in Colombia, Paraguay, Uruguay, and Argentina",
       "rating": "Built for long-term relationships"
     },
     "trustLabels": {
@@ -1246,7 +1262,7 @@
   "benefits": {
     "badge": "WHY CASAORA",
     "heading": "Premium Household Staffing Made Simple",
-    "description": "We connect expat families with Colombia's top domestic professionals through a platform built for trust and excellence.",
+    "description": "We connect expat families with Latin America's top domestic professionals through a platform built for trust and excellence.",
     "englishSupport": {
       "title": "English Support",
       "description": "Bilingual platform and professionals who communicate fluently in English for seamless coordination."
@@ -1313,8 +1329,8 @@
           "label": "Households we focus on"
         },
         "cities": {
-          "value": "Medellín first",
-          "label": "Expanding across Colombia"
+          "value": "4 countries",
+          "label": "Expanding across Latin America"
         },
         "rating": {
           "value": "Care & trust",
@@ -1415,10 +1431,10 @@
   },
   "concierge": {
     "title": "Ready to Find Your Exceptional Match?",
-    "subtitle": "Browse our curated network of Colombia's top household professionals. Every profile is verified, every professional is vetted, every choice is yours.",
+    "subtitle": "Browse our curated network of Latin America's top household professionals. Every profile is verified, every professional is vetted, every choice is yours.",
     "browseProfessionals": "Browse Exceptional Professionals",
     "bookConsultation": "Schedule a Consultation",
-    "cities": "Serving Bogotá, Medellín, Cartagena, Cali & beyond",
+    "cities": "Serving Colombia, Paraguay, Uruguay & Argentina",
     "languages": "English, Spanish & Portuguese support"
   },
   "auth": {
@@ -1559,7 +1575,7 @@
     "professionalProfiles": {
       "meta": {
         "title": "Verified Professional Profiles - Background Checked | Casaora",
-        "description": "Meet vetted professionals with background checks, credentials, customer reviews, and portfolio galleries — so you can book with confidence in Colombia."
+        "description": "Meet vetted professionals with background checks, credentials, customer reviews, and portfolio galleries — so you can book with confidence in Latin America."
       },
       "hero": {
         "headline": "Meet verified professionals you can trust",
@@ -2084,7 +2100,7 @@
           },
           "areas": {
             "question": "What areas do you serve?",
-            "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
+            "answer": "We operate in four countries: Colombia (Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Pereira), Paraguay (Asunción, Ciudad del Este, Encarnación), Uruguay (Montevideo, Punta del Este, Maldonado), and Argentina (Buenos Aires, Córdoba, Rosario, Mendoza). We're actively expanding to new cities based on demand."
           },
           "becomePro": {
             "question": "How do I become a professional on Casaora?",
@@ -2096,7 +2112,7 @@
     "careers": {
       "meta": {
         "title": "Careers at Casaora | Join Our Team",
-        "description": "Join the team transforming home services in Colombia. We're hiring engineers, designers, and customer success professionals to build the future of domestic work."
+        "description": "Join the team transforming home services in Latin America. We're hiring engineers, designers, and customer success professionals to build the future of domestic work."
       },
       "hero": {
         "badge": "JOIN OUR TEAM",
@@ -2520,7 +2536,7 @@
     },
     "hero": {
       "title": "The Casaora Blog",
-      "subtitle": "Insights on hiring trusted household staff in Colombia and beyond"
+      "subtitle": "Insights on hiring trusted household staff in Latin America"
     },
     "detail": {
       "backToBlog": "Back to blog"
@@ -2540,7 +2556,7 @@
       "emailHelp": "We'll only use this to follow up on your feedback",
       "optional": "optional",
       "consentText": "I consent to Casaora processing this feedback to improve the platform.",
-      "privacyNotice": "We collect your feedback, page URL, and browser info to improve Casaora. Your email is optional for follow-up. We respect your privacy and comply with Colombian data protection laws.",
+      "privacyNotice": "We collect your feedback, page URL, and browser info to improve Casaora. Your email is optional for follow-up. We respect your privacy and comply with applicable data protection laws.",
       "submit": "Submit Feedback",
       "submitting": "Sending..."
     },
@@ -2650,7 +2666,7 @@
         }
       },
       "trustBadge": {
-        "title": "Built for expats and local families in Colombia",
+        "title": "Built for expats and local families in Latin America",
         "description": "Your platform fee ensures every professional is vetted, verified, and backed by our support. We don't take shortcuts on safety."
       }
     },
@@ -2686,8 +2702,8 @@
       "perfectFor": {
         "title": "Perfect For:",
         "audiences": [
-          "Foreigners visiting Colombia",
-          "Expats new to the country",
+          "Foreigners visiting Latin America",
+          "Expats new to the region",
           "First-time users of domestic services",
           "Busy professionals who want concierge-level service",
           "Anyone who values expert guidance and English support"
@@ -2818,7 +2834,7 @@
       },
       "cta": {
         "title": "Start Earning on Your Own Terms",
-        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Colombia's most trusted concierge service.",
+        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Latin America's most trusted concierge service.",
         "button": "Become a Professional",
         "subtext": "Free to join · No hidden fees · Weekly payouts"
       }
@@ -2934,14 +2950,14 @@
   "about": {
     "meta": {
       "title": "About Us - Our Story | Casaora",
-      "description": "Learn about Casaora's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge matching service."
+      "description": "Learn about Casaora's mission to connect expats in Latin America with trusted, bilingual domestic service professionals through our concierge matching service."
     },
     "story": {
       "title": "Bridging Cultures, Building Trust",
-      "subtitle": "We're building a trusted concierge service that connects foreigners in Colombia with verified, bilingual domestic service professionals.",
+      "subtitle": "We're building a trusted concierge service that connects foreigners in Latin America with verified, bilingual domestic service professionals.",
       "problem": {
         "title": "The Challenge We're Solving",
-        "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Colombia face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
+        "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Latin America face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
         "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the bilingual support, verification, or ongoing concierge assistance that foreigners truly need."
       },
       "solution": {
@@ -2962,7 +2978,7 @@
       },
       "journey": {
         "title": "Our Journey",
-        "paragraph1": "Founded by expats who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Colombia."
+        "paragraph1": "Founded by expats who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Latin America."
       }
     },
     "missionVision": {
@@ -2970,7 +2986,7 @@
       "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
       "mission": {
         "title": "Our Mission",
-        "description": "To connect foreigners living in Colombia with verified, bilingual domestic service professionals through a secure, transparent concierge service powered by modern technology."
+        "description": "To connect foreigners living in Latin America with verified, bilingual domestic service professionals through a secure, transparent concierge service powered by modern technology."
       },
       "vision": {
         "title": "Our Vision",
@@ -2999,7 +3015,7 @@
     },
     "team": {
       "title": "Our Remote-First Team",
-      "subtitle": "We're a distributed team spanning Colombia and the United States, united by our mission to serve expats and professionals.",
+      "subtitle": "We're a distributed team spanning Latin America and the United States, united by our mission to serve expats and professionals.",
       "remoteFirst": {
         "title": "Built for Global Impact",
         "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives, deep local knowledge, and a genuine understanding of the expat experience. We work asynchronously across time zones to provide 24/7 support for our community."
@@ -3015,7 +3031,7 @@
       "benefits": {
         "distributed": {
           "title": "Globally Distributed",
-          "description": "Our team spans Colombia and the US, giving us deep insight into both expat and local needs."
+          "description": "Our team spans Latin America and the US, giving us deep insight into both expat and local needs."
         },
         "bilingual": {
           "title": "Fully Bilingual",
@@ -3154,7 +3170,7 @@
         "answer": "For customers: Pay securely through the platform using credit/debit cards or bank transfers. Your payment is held securely until the service is completed. For professionals: You receive payment automatically after each completed job, minus our small service fee."
       },
       "q4": {
-        "question": "Can I communicate in English even though I'm in Colombia?",
+        "question": "Can I communicate in English?",
         "answer": "Absolutely! Our entire platform, support team, and many of our professionals are fully bilingual. You can browse, book, and get support entirely in English or Spanish—whatever you're most comfortable with."
       },
       "stillHaveQuestions": "Still have questions?",
@@ -3205,7 +3221,7 @@
         {
           "icon": "legal",
           "title": "Legal Safety",
-          "description": "Bilingual contract templates compliant with Colombian labor law. Protect yourself and your employee."
+          "description": "Bilingual contract templates compliant with local labor laws. Protect yourself and your employee."
         },
         {
           "icon": "background",
@@ -3215,7 +3231,7 @@
         {
           "icon": "medical",
           "title": "Medical & Pension Setup",
-          "description": "Step-by-step 'Pila' setup guide for Colombian social security compliance."
+          "description": "Step-by-step setup guide for local social security and benefits compliance."
         },
         {
           "icon": "guarantee",

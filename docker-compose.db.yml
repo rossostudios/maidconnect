@@ -1,0 +1,137 @@
+# Casaora Database Tooling - Docker Compose
+# Enhanced database development and monitoring tools for Supabase
+
+version: '3.8'
+
+services:
+  # pgAdmin - Visual database management and query tool
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: casaora-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@casaora.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    networks:
+      - db_tools
+    restart: unless-stopped
+
+  # PgHero - Database performance monitoring and insights
+  pghero:
+    image: ankane/pghero:latest
+    container_name: casaora-pghero
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@host.docker.internal:54322/postgres
+      PGHERO_USERNAME: admin
+      PGHERO_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    networks:
+      - db_tools
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # PostgreSQL Query Analyzer - pg_stat_statements UI
+  pganalyze:
+    image: pganalyze/collector:latest
+    container_name: casaora-pganalyze
+    environment:
+      DB_HOST: host.docker.internal
+      DB_PORT: 54322
+      DB_NAME: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      PGA_API_KEY: ${PGANALYZE_API_KEY:-dev_key}
+      LOG_LEVEL: debug
+    networks:
+      - db_tools
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    profiles:
+      - analysis
+
+  # Database backup container with cron scheduling
+  db-backup:
+    image: prodrigestivill/postgres-backup-local:17
+    container_name: casaora-db-backup
+    environment:
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_PORT: 54322
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_EXTRA_OPTS: '-Z 9 --schema=public --blobs'
+      SCHEDULE: '@daily'
+      BACKUP_KEEP_DAYS: 7
+      BACKUP_KEEP_WEEKS: 4
+      BACKUP_KEEP_MONTHS: 6
+      HEALTHCHECK_PORT: 8080
+    volumes:
+      - ./backups:/backups
+    networks:
+      - db_tools
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    profiles:
+      - backup
+
+  # Migration testing environment - isolated PostgreSQL instance
+  db-test:
+    image: supabase/postgres:17.4.0.31
+    container_name: casaora-db-test
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "54325:5432"
+    volumes:
+      - db_test_data:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d:ro
+    networks:
+      - db_tools
+    command:
+      - postgres
+      - -c
+      - config_file=/etc/postgresql/postgresql.conf
+      - -c
+      - log_statement=all
+      - -c
+      - log_min_duration_statement=0
+    profiles:
+      - testing
+
+  # Redis for caching (optional - for future optimization)
+  redis:
+    image: redis:7-alpine
+    container_name: casaora-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - db_tools
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    profiles:
+      - cache
+
+volumes:
+  pgadmin_data:
+    name: casaora-pgadmin-data
+  db_test_data:
+    name: casaora-db-test-data
+  redis_data:
+    name: casaora-redis-data
+
+networks:
+  db_tools:
+    name: casaora-db-tools
+    driver: bridge

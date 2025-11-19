@@ -8,13 +8,14 @@ import {
   getStepClassName,
   transformProfileData,
 } from "@/lib/onboarding/profile-data-transformer";
+import { COUNTRY_OPTIONS } from "@/lib/shared/config/territories";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full  border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
+  "w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -27,15 +28,6 @@ const APPLICATION_SERVICE_OPTIONS = [
 ];
 
 const PROFILE_SERVICE_OPTIONS = ["House cleaning", "Laundry", "Cooking"];
-
-const COUNTRY_OPTIONS = [
-  "Colombia",
-  "United States",
-  "Canada",
-  "United Kingdom",
-  "Mexico",
-  "Other",
-];
 
 const AVAILABILITY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -112,7 +104,7 @@ export default async function ProfessionalOnboardingPage({
           </p>
         </div>
         <Link
-          className="inline-flex items-center border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
+          className="inline-flex items-center rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -128,30 +120,30 @@ export default async function ProfessionalOnboardingPage({
 
             return (
               <li
-                className={`hover:-translate-y-1 border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
+                className={`hover:-translate-y-1 rounded-lg border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center bg-orange-500 font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
                     if (isCompleted) {
                       return (
-                        <span className="bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.completed")}
                         </span>
                       );
                     }
                     if (isCurrent) {
                       return (
-                        <span className="bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.inProgress")}
                         </span>
                       );
                     }
                     return (
-                      <span className="bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-700 text-xs">
+                      <span className="rounded-full bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-700 text-xs">
                         {t("status.pending")}
                       </span>
                     );
@@ -171,9 +163,9 @@ export default async function ProfessionalOnboardingPage({
 
       {isActive ? (
         <div className="space-y-8">
-          <div className="border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center bg-orange-500/10">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500/10">
                 <svg
                   aria-label="Success icon"
                   className="h-6 w-6 text-orange-500"
@@ -225,7 +217,6 @@ export default async function ProfessionalOnboardingPage({
               title={t("sections.applicationDetails.title")}
             >
               <ApplicationForm
-                countries={COUNTRY_OPTIONS}
                 inputClass={inputClass}
                 services={APPLICATION_SERVICE_OPTIONS}
               />

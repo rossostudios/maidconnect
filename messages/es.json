@@ -1190,7 +1190,7 @@
   },
   "hero": {
     "tagline": "Felicidad en el Hogar",
-    "ribbon": "La plataforma híbrida de personal doméstico para expatriados en Colombia",
+    "ribbon": "La plataforma híbrida de personal doméstico para expatriados en América Latina",
     "title": "Reserva instantáneamente con Amara AI o contrata permanentemente con nuestro concierge",
     "titleHighlight": "Ayuda confiable para mañana o una niñera a tiempo completo con contrato legal",
     "subtitle": "Ya sea que necesites una empleada de limpieza para mañana o una niñera a tiempo completo, Casaora proporciona la verificación, pagos y marco legal para contratar con confianza.",
@@ -1210,7 +1210,7 @@
     },
     "trustSignals": {
       "verified": "Cada profesional revisado por Casaora",
-      "cities": "Empezando en Medellín, expandiéndonos en Colombia",
+      "cities": "Operando en Colombia, Paraguay, Uruguay y Argentina",
       "rating": "Pensado para relaciones a largo plazo"
     },
     "trustLabels": {
@@ -1229,7 +1229,7 @@
   "benefits": {
     "badge": "POR QUÉ CASAORA",
     "heading": "Servicio Doméstico Premium Simplificado",
-    "description": "Conectamos familias expatriadas con los mejores profesionales domésticos de Colombia a través de una plataforma construida para la confianza y excelencia.",
+    "description": "Conectamos familias expatriadas con los mejores profesionales domésticos de América Latina a través de una plataforma construida para la confianza y excelencia.",
     "englishSupport": {
       "title": "Soporte en Inglés",
       "description": "Plataforma bilingüe y profesionales que se comunican fluidamente en inglés para una coordinación sin problemas."
@@ -1296,8 +1296,8 @@
           "label": "Hogares en los que nos enfocamos"
         },
         "cities": {
-          "value": "Medellín primero",
-          "label": "Expandiendo a más ciudades de Colombia"
+          "value": "4 países",
+          "label": "Expandiendo en América Latina"
         },
         "rating": {
           "value": "Cuidado y confianza",
@@ -1401,7 +1401,7 @@
     "subtitle": "Programa una consulta para conversar sobre las necesidades de tu hogar en Medellín. Te presentaremos profesionales verificados lo antes posible.",
     "browseProfessionals": "Explorar profesionales",
     "bookConsultation": "Reservar una consulta",
-    "cities": "Actualmente centrado en Medellín, expandiéndonos a más ciudades de Colombia",
+    "cities": "Operando en Colombia, Paraguay, Uruguay y Argentina",
     "languages": "Soporte en inglés y español"
   },
   "auth": {
@@ -1579,7 +1579,7 @@
     "professionalProfiles": {
       "meta": {
         "title": "Perfiles Profesionales Verificados - Verificación de Antecedentes | Casaora",
-        "description": "Conoce profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio para que puedas reservar con confianza en Colombia."
+        "description": "Conoce profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio para que puedas reservar con confianza en América Latina."
       },
       "hero": {
         "headline": "Conoce profesionales verificados en los que puedes confiar",
@@ -2104,7 +2104,7 @@
           },
           "areas": {
             "question": "¿Qué áreas cubren?",
-            "answer": "Actualmente estamos centrados en Medellín y comenzando a expandirnos a más ciudades de Colombia según la demanda."
+            "answer": "Operamos en cuatro países: Colombia (Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Pereira), Paraguay (Asunción, Ciudad del Este, Encarnación), Uruguay (Montevideo, Punta del Este, Maldonado) y Argentina (Buenos Aires, Córdoba, Rosario, Mendoza). Continuamos expandiéndonos a nuevas ciudades según la demanda."
           },
           "becomePro": {
             "question": "¿Cómo me convierto en profesional en Casaora?",
@@ -2116,7 +2116,7 @@
     "careers": {
       "meta": {
         "title": "Carreras en Casaora | Únete a Nuestro Equipo",
-        "description": "Únete al equipo que está transformando los servicios domésticos en Colombia. Estamos contratando ingenieros, diseñadores y profesionales de éxito del cliente para construir el futuro del trabajo doméstico."
+        "description": "Únete al equipo que está transformando los servicios domésticos en América Latina. Estamos contratando ingenieros, diseñadores y profesionales de éxito del cliente para construir el futuro del trabajo doméstico."
       },
       "hero": {
         "badge": "ÚNETE A NUESTRO EQUIPO",
@@ -2503,7 +2503,7 @@
     },
     "hero": {
       "title": "El Blog de Casaora",
-      "subtitle": "Perspectivas sobre la contratación de personal doméstico de confianza en Colombia y más allá"
+      "subtitle": "Perspectivas sobre la contratación de personal doméstico de confianza en América Latina"
     },
     "detail": {
       "backToBlog": "Volver al blog"
@@ -2646,14 +2646,14 @@
   "about": {
     "meta": {
       "title": "Sobre Nosotros - Nuestra Historia | Casaora",
-      "description": "Conoce la misión de Casaora de conectar expatriados en Colombia con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
+      "description": "Conoce la misión de Casaora de conectar expatriados en América Latina con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
     },
     "story": {
       "title": "Conectando Culturas, Construyendo Confianza",
-      "subtitle": "Estamos construyendo el marketplace confiable que conecta extranjeros en Colombia con profesionales de servicios domésticos verificados y bilingües.",
+      "subtitle": "Estamos construyendo el marketplace confiable que conecta extranjeros en América Latina con profesionales de servicios domésticos verificados y bilingües.",
       "problem": {
         "title": "El Desafío que Estamos Resolviendo",
-        "paragraph1": "Mudarse a un nuevo país es emocionante, pero encontrar ayuda doméstica confiable no debería ser estresante. Los expatriados en Colombia enfrentan barreras idiomáticas, incertidumbre sobre confianza y seguridad, y falta de profesionales verificados que comprendan sus necesidades.",
+        "paragraph1": "Mudarse a un nuevo país es emocionante, pero encontrar ayuda doméstica confiable no debería ser estresante. Los expatriados en América Latina enfrentan barreras idiomáticas, incertidumbre sobre confianza y seguridad, y falta de profesionales verificados que comprendan sus necesidades.",
         "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen el soporte bilingüe, verificación o asistencia continua que los extranjeros realmente necesitan."
       },
       "solution": {
@@ -2674,7 +2674,7 @@
       },
       "journey": {
         "title": "Nuestro Camino",
-        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, Casaora nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a familias expatriadas y empoderar a profesionales locales en toda Colombia."
+        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, Casaora nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a familias expatriadas y empoderar a profesionales locales en América Latina."
       }
     },
     "missionVision": {
@@ -2682,7 +2682,7 @@
       "sectionSubtitle": "Estamos en una misión de hacer los servicios domésticos accesibles, transparentes y confiables para todos.",
       "mission": {
         "title": "Nuestra Misión",
-        "description": "Conectar a extranjeros viviendo en Colombia con profesionales de servicios domésticos bilingües y verificados a través de un marketplace seguro y transparente impulsado por soporte personalizado y tecnología moderna."
+        "description": "Conectar a extranjeros viviendo en América Latina con profesionales de servicios domésticos bilingües y verificados a través de un marketplace seguro y transparente impulsado por soporte personalizado y tecnología moderna."
       },
       "vision": {
         "title": "Nuestra Visión",
@@ -2711,7 +2711,7 @@
     },
     "team": {
       "title": "Nuestro Equipo Remoto",
-      "subtitle": "Somos un equipo distribuido que abarca Colombia y Estados Unidos, unidos por nuestra misión de servir a expatriados y profesionales.",
+      "subtitle": "Somos un equipo distribuido que abarca América Latina y Estados Unidos, unidos por nuestra misión de servir a expatriados y profesionales.",
       "remoteFirst": {
         "title": "Construido para Impacto Global",
         "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y una comprensión genuina de la experiencia de los expatriados. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte 24/7 a nuestra comunidad."
@@ -2727,7 +2727,7 @@
       "benefits": {
         "distributed": {
           "title": "Globalmente Distribuido",
-          "description": "Nuestro equipo abarca Colombia y EE.UU., dándonos una visión profunda de las necesidades tanto de expatriados como locales."
+          "description": "Nuestro equipo abarca América Latina y EE.UU., dándonos una visión profunda de las necesidades tanto de expatriados como locales."
         },
         "bilingual": {
           "title": "Completamente Bilingüe",
@@ -2866,7 +2866,7 @@
         "answer": "Para clientes: Paga de forma segura a través de la plataforma usando tarjetas de crédito/débito o transferencias bancarias. su pago se mantiene seguro hasta que se complete el servicio. Para profesionales: Recibes el pago automáticamente después de cada trabajo completado, menos nuestra pequeña tarifa de servicio."
       },
       "q4": {
-        "question": "¿Puedo comunicarme en inglés aunque esté en Colombia?",
+        "question": "¿Puedo comunicarme en inglés?",
         "answer": "¡Absolutamente! Toda nuestra plataforma, equipo de soporte y muchos de nuestros profesionales son completamente bilingües. puede explorar, reservar y obtener soporte completamente en inglés o español, lo que le resulte más cómodo."
       },
       "stillHaveQuestions": "¿Aún tiene preguntas?",

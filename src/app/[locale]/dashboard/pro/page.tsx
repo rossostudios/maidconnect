@@ -156,7 +156,7 @@ export default async function ProfessionalDashboardPage() {
           <div>
             <h1
               className={cn(
-                "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+                "font-bold text-3xl text-neutral-900",
                 geistSans.className
               )}
             >
@@ -210,7 +210,7 @@ export default async function ProfessionalDashboardPage() {
           <div>
             <h2
               className={cn(
-                "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                "mb-4 font-medium text-neutral-600 text-sm",
                 geistSans.className
               )}
             >
@@ -226,13 +226,13 @@ export default async function ProfessionalDashboardPage() {
         <div>
           <h2
             className={cn(
-              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "mb-4 font-medium text-neutral-600 text-sm",
               geistSans.className
             )}
           >
             Booking Calendar
           </h2>
-          <div className="border border-neutral-200 bg-white p-6">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6">
             <Suspense fallback={<BookingCalendarSkeleton />}>
               <ProBookingCalendar
                 bookings={bookings.map((booking) => ({
@@ -253,7 +253,7 @@ export default async function ProfessionalDashboardPage() {
         <div>
           <h2
             className={cn(
-              "mb-4 font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "mb-4 font-medium text-neutral-600 text-sm",
               geistSans.className
             )}
           >
@@ -262,12 +262,12 @@ export default async function ProfessionalDashboardPage() {
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/bookings"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Calendar03Icon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
+                  <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={Calendar03Icon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -275,7 +275,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -284,12 +284,12 @@ export default async function ProfessionalDashboardPage() {
             </Link>
 
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/availability"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Clock01Icon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Clock01Icon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -297,7 +297,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -306,12 +306,12 @@ export default async function ProfessionalDashboardPage() {
             </Link>
 
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/portfolio"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Image02Icon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Image02Icon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -319,7 +319,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -328,12 +328,12 @@ export default async function ProfessionalDashboardPage() {
             </Link>
 
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/finances"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={DollarCircleIcon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={DollarCircleIcon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -341,7 +341,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -350,12 +350,12 @@ export default async function ProfessionalDashboardPage() {
             </Link>
 
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/documents"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={FileAttachmentIcon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FileAttachmentIcon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -363,7 +363,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -372,12 +372,12 @@ export default async function ProfessionalDashboardPage() {
             </Link>
 
             <Link
-              className="group border border-neutral-200 bg-white p-6 transition-all hover:border-[#FF5200] hover:shadow-sm"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/onboarding"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={Settings02Icon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
                 </div>
               </div>
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -385,7 +385,7 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p
                 className={cn(
-                  "mt-1 font-normal text-neutral-700 text-xs uppercase tracking-wide",
+                  "mt-1 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -401,15 +401,15 @@ export default async function ProfessionalDashboardPage() {
 
 function LiaMetricCard({ icon, label, value }: { icon: any; label: string; value: string }) {
   return (
-    <div className="border border-neutral-200 bg-white p-6">
+    <div className="rounded-lg border border-neutral-200 bg-white p-6">
       <div className="mb-4 flex items-center justify-between">
-        <div className="flex h-10 w-10 items-center justify-center border border-neutral-200 bg-neutral-900">
-          <HugeiconsIcon className="h-5 w-5 text-white" icon={icon} />
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
+          <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={icon} />
         </div>
       </div>
       <dt
         className={cn(
-          "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+          "text-neutral-600 text-sm",
           geistSans.className
         )}
       >
