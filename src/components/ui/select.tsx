@@ -1,194 +1,405 @@
-/**
- * Select Component
- *
- * Shadcn/ui select dropdown for filters
- */
-
 "use client";
+
+/**
+ * Select Component (React Aria)
+ *
+ * Accessible select dropdown with Lia Design System styling.
+ * Migrated from Radix UI to React Aria Components.
+ *
+ * Week 5: Component Libraries Consolidation - Task 1
+ *
+ * @example
+ * ```tsx
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select option" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="option1">Option 1</SelectItem>
+ *     <SelectItem value="option2">Option 2</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ * ```
+ */
 
 import { ArrowDown01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import * as SelectPrimitive from "@radix-ui/react-select";
+import {
+  Select as AriaSelect,
+  SelectValue as AriaSelectValue,
+  Button,
+  ListBox,
+  ListBoxItem,
+  Popover,
+  type SelectProps as AriaSelectProps,
+  type ListBoxItemProps,
+} from "react-aria-components";
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/core";
 
-const Select = SelectPrimitive.Root;
+/**
+ * Select Root Props
+ */
+export interface SelectProps<T extends object> extends AriaSelectProps<T> {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * Children elements (SelectTrigger and SelectContent)
+   */
+  children: React.ReactNode;
+}
 
-const SelectGroup = SelectPrimitive.Group;
-
-const SelectValue = SelectPrimitive.Value;
-
-const SelectTrigger = ({
-  className,
-  children,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Trigger> | null>;
-}) => (
-  <SelectPrimitive.Trigger
-    className={cn(
-      "flex h-10 w-full items-center justify-between border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm",
-      "focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2",
-      "disabled:cursor-not-allowed disabled:opacity-50",
-      "transition-colors hover:bg-neutral-50",
-      "[&>span]:line-clamp-1",
-      className
-    )}
-    ref={ref}
-    {...props}
-  >
-    {children}
-    <SelectPrimitive.Icon asChild>
-      <HugeiconsIcon className="h-4 w-4 opacity-50" icon={ArrowDown01Icon} />
-    </SelectPrimitive.Icon>
-  </SelectPrimitive.Trigger>
+/**
+ * Select Root Component
+ *
+ * Container for the select with state management.
+ * Uses React Aria for robust accessibility.
+ */
+export const Select = React.forwardRef<HTMLDivElement, SelectProps<any>>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <AriaSelect ref={ref} className={cn("relative", className)} {...props}>
+        {children}
+      </AriaSelect>
+    );
+  }
 );
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
-const SelectScrollUpButton = ({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.ScrollUpButton> | null>;
-}) => (
-  <SelectPrimitive.ScrollUpButton
-    className={cn("flex cursor-default items-center justify-center py-1", className)}
-    ref={ref}
-    {...props}
-  >
-    <HugeiconsIcon className="h-4 w-4 rotate-180" icon={ArrowDown01Icon} />
-  </SelectPrimitive.ScrollUpButton>
+Select.displayName = "Select";
+
+/**
+ * Select Value Component
+ *
+ * Displays the selected value in the trigger.
+ * Uses React Aria's SelectValue for proper rendering.
+ */
+export interface SelectValueProps {
+  /**
+   * Placeholder text when no value is selected
+   */
+  placeholder?: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+export const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(
+  ({ placeholder, className }, ref) => {
+    return (
+      <AriaSelectValue
+        ref={ref}
+        className={cn("block truncate", className)}
+      >
+        {({ selectedText }) => selectedText || placeholder}
+      </AriaSelectValue>
+    );
+  }
 );
-SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
-const SelectScrollDownButton = ({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.ScrollDownButton> | null>;
-}) => (
-  <SelectPrimitive.ScrollDownButton
-    className={cn("flex cursor-default items-center justify-center py-1", className)}
-    ref={ref}
-    {...props}
-  >
-    <HugeiconsIcon className="h-4 w-4" icon={ArrowDown01Icon} />
-  </SelectPrimitive.ScrollDownButton>
-);
-SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+SelectValue.displayName = "SelectValue";
 
-const SelectContent = ({
-  className,
-  children,
-  position = "popper",
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Content> | null>;
-}) => (
-  <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
-      className={cn(
-        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden border border-neutral-200 bg-neutral-50 shadow-lg",
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=open]:animate-in",
-        "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        position === "popper" &&
-          "data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1",
-        className
-      )}
-      position={position}
-      ref={ref}
-      {...props}
-    >
-      <SelectScrollUpButton />
-      <SelectPrimitive.Viewport
+/**
+ * Select Trigger Props
+ */
+export interface SelectTriggerProps {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * Children elements (typically SelectValue)
+   */
+  children: React.ReactNode;
+}
+
+/**
+ * Select Trigger Component
+ *
+ * Button that opens the select dropdown.
+ * Lia Design System: rounded-lg, orange focus ring.
+ */
+export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
+  ({ className, children }, ref) => {
+    return (
+      <Button
+        ref={ref}
         className={cn(
-          "p-1",
-          position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+          // Base layout
+          "flex h-10 w-full items-center justify-between",
+          // Border and background (Lia Design System)
+          "border border-neutral-200 bg-neutral-50",
+          // Shape - Lia Design System: rounded-lg (Anthropic)
+          "rounded-lg",
+          // Spacing
+          "px-4 py-2",
+          // Typography
+          "text-sm",
+          // Focus state - orange ring (Lia Design System)
+          "focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+          // Disabled state
+          "disabled:cursor-not-allowed disabled:opacity-50",
+          // Hover state
+          "transition-colors hover:bg-neutral-100",
+          // Text truncation
+          "[&>span]:line-clamp-1",
+          // Additional classes
+          className
         )}
       >
         {children}
-      </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
-    </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
+        <HugeiconsIcon className="h-4 w-4 opacity-50 ml-2" icon={ArrowDown01Icon} />
+      </Button>
+    );
+  }
 );
-SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-const SelectLabel = ({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Label> | null>;
-}) => (
-  <SelectPrimitive.Label
-    className={cn(
-      "px-3 py-2 font-semibold text-neutral-400 text-xs uppercase tracking-wider",
-      className
-    )}
-    ref={ref}
-    {...props}
-  />
+SelectTrigger.displayName = "SelectTrigger";
+
+/**
+ * Select Content Props
+ */
+export interface SelectContentProps {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * Children elements (SelectItem components)
+   */
+  children: React.ReactNode;
+}
+
+/**
+ * Select Content Component
+ *
+ * Dropdown content container with ListBox.
+ * Lia Design System: rounded-lg, shadow-lg, neutral background.
+ */
+export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
+  ({ className, children }, ref) => {
+    return (
+      <Popover
+        ref={ref}
+        className={cn(
+          // Base positioning
+          "z-50",
+          // Animation states
+          "data-[entering]:animate-in data-[entering]:fade-in-0 data-[entering]:zoom-in-95",
+          "data-[exiting]:animate-out data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95",
+          // Additional classes
+          className
+        )}
+      >
+        <ListBox
+          className={cn(
+            // Size constraints
+            "max-h-96 min-w-[8rem] w-[var(--trigger-width)]",
+            // Border and background (Lia Design System)
+            "border border-neutral-200 bg-white",
+            // Shape - Lia Design System: rounded-lg (Anthropic)
+            "rounded-lg",
+            // Shadow
+            "shadow-lg",
+            // Overflow
+            "overflow-auto",
+            // Padding
+            "p-1"
+          )}
+        >
+          {children}
+        </ListBox>
+      </Popover>
+    );
+  }
 );
-SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
-const SelectItem = ({
-  className,
-  children,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Item> | null>;
-}) => (
-  <SelectPrimitive.Item
-    className={cn(
-      "relative flex w-full cursor-default select-none items-center py-2 pr-8 pl-3 text-sm outline-none",
-      "focus:bg-neutral-50 focus:text-neutral-900",
-      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
-    )}
-    ref={ref}
-    {...props}
-  >
-    <span className="absolute right-2 flex h-4 w-4 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Tick02Icon} />
-      </SelectPrimitive.ItemIndicator>
-    </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
+SelectContent.displayName = "SelectContent";
+
+/**
+ * Select Item Props
+ */
+export interface SelectItemProps extends Omit<ListBoxItemProps, "children"> {
+  /**
+   * The value of this select option
+   */
+  value: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * The display text for this option
+   */
+  children: React.ReactNode;
+}
+
+/**
+ * Select Item Component
+ *
+ * Individual select option with checkmark indicator.
+ * Lia Design System: orange-50 hover, orange-600 selected.
+ */
+export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
+  ({ className, children, value, ...props }, ref) => {
+    return (
+      <ListBoxItem
+        ref={ref}
+        id={value}
+        textValue={typeof children === "string" ? children : value}
+        className={cn(
+          // Base layout
+          "relative flex w-full cursor-default select-none items-center",
+          // Spacing
+          "py-2 pl-3 pr-8",
+          // Typography
+          "text-sm",
+          // Shape - Lia Design System: rounded (Anthropic)
+          "rounded",
+          // Outline
+          "outline-none",
+          // Focus state - orange background (Lia Design System)
+          "focus:bg-orange-50 focus:text-orange-900",
+          // Selected state
+          "data-[selected]:bg-orange-50 data-[selected]:text-orange-900",
+          // Disabled state
+          "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+          // Additional classes
+          className
+        )}
+        {...props}
+      >
+        {({ isSelected }) => (
+          <>
+            <span className="block truncate">{children}</span>
+            {isSelected && (
+              <span className="absolute right-2 flex h-4 w-4 items-center justify-center">
+                <HugeiconsIcon className="h-4 w-4 text-orange-600" icon={Tick02Icon} />
+              </span>
+            )}
+          </>
+        )}
+      </ListBoxItem>
+    );
+  }
 );
-SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-const SelectSeparator = ({
-  className,
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> & {
-  ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Separator> | null>;
-}) => (
-  <SelectPrimitive.Separator
-    className={cn("-mx-1 my-1 h-px bg-neutral-200", className)}
-    ref={ref}
-    {...props}
-  />
+SelectItem.displayName = "SelectItem";
+
+/**
+ * Select Label Props
+ */
+export interface SelectLabelProps {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * Label text
+   */
+  children: React.ReactNode;
+}
+
+/**
+ * Select Label Component
+ *
+ * Section label within select dropdown.
+ * Lia Design System: uppercase, tracking-wider, neutral-400.
+ */
+export const SelectLabel = React.forwardRef<HTMLDivElement, SelectLabelProps>(
+  ({ className, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          // Spacing
+          "px-3 py-2",
+          // Typography (Lia Design System)
+          "text-xs font-semibold uppercase tracking-wider text-neutral-400",
+          // Additional classes
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
 );
-SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
-export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-};
+SelectLabel.displayName = "SelectLabel";
+
+/**
+ * Select Separator Props
+ */
+export interface SelectSeparatorProps {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+/**
+ * Select Separator Component
+ *
+ * Visual separator between select items.
+ * Lia Design System: neutral-200.
+ */
+export const SelectSeparator = React.forwardRef<HTMLDivElement, SelectSeparatorProps>(
+  ({ className }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          // Margin
+          "-mx-1 my-1",
+          // Size
+          "h-px",
+          // Color (Lia Design System)
+          "bg-neutral-200",
+          // Additional classes
+          className
+        )}
+      />
+    );
+  }
+);
+
+SelectSeparator.displayName = "SelectSeparator";
+
+/**
+ * Select Group Component
+ *
+ * Groups related select items together.
+ * Typically used with SelectLabel.
+ */
+export interface SelectGroupProps {
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+  /**
+   * Children elements (SelectLabel and SelectItem components)
+   */
+  children: React.ReactNode;
+}
+
+export const SelectGroup = React.forwardRef<HTMLDivElement, SelectGroupProps>(
+  ({ className, children }, ref) => {
+    return (
+      <div ref={ref} className={cn("py-1", className)}>
+        {children}
+      </div>
+    );
+  }
+);
+
+SelectGroup.displayName = "SelectGroup";
+
+// Export aliases for backward compatibility (if needed)
+export const SelectScrollUpButton = () => null;
+export const SelectScrollDownButton = () => null;
+
+SelectScrollUpButton.displayName = "SelectScrollUpButton";
+SelectScrollDownButton.displayName = "SelectScrollDownButton";
