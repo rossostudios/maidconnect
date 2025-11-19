@@ -28,8 +28,6 @@ import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { MiniSparkline } from "./MiniSparkline";
 
-type StatusLevel = "good" | "neutral" | "poor";
-
 type SparklineData = {
   day: number;
   value: number;
@@ -39,121 +37,59 @@ type Props = {
   title: string;
   value: string;
   description: string;
-  status: StatusLevel;
   sparklineData?: SparklineData[];
-  featured?: boolean; // If true, shows orange gradient bottom border
-  isLive?: boolean; // If true, shows live indicator with pulsing animation
 };
-
-/**
- * Get status badge styling based on performance level
- * Uses border-only design for Precision aesthetic (no background fills)
- */
-function getStatusBadge(status: StatusLevel) {
-  const statusConfig = {
-    good: {
-      borderColor: "border-green-600",
-      textColor: "text-green-700",
-      label: "GOOD",
-    },
-    neutral: {
-      borderColor: "border-yellow-600",
-      textColor: "text-yellow-700",
-      label: "OK",
-    },
-    poor: {
-      borderColor: "border-red-600",
-      textColor: "text-red-700",
-      label: "LOW",
-    },
-  };
-
-  const config = statusConfig[status];
-
-  return (
-    <span
-      className={cn(
-        "rounded-full border-2 px-2.5 py-1 font-medium text-xs tracking-wider",
-        config.borderColor,
-        config.textColor,
-        geistSans.className
-      )}
-    >
-      {config.label}
-    </span>
-  );
-}
 
 export function StatCard({
   title,
   value,
   description,
-  status,
   sparklineData,
-  featured = false,
-  isLive = false,
 }: Props) {
+  // Calculate trend color
+  const trendColor = (() => {
+    if (!sparklineData || sparklineData.length < 2) return "#F97316"; // Default orange
+    const first = sparklineData[0]?.value ?? 0;
+    const last = sparklineData[sparklineData.length - 1]?.value ?? 0;
+    return last >= first ? "#22C55E" : "#F97316"; // Green if up/flat, Orange if down
+  })();
+
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white p-5 transition-all duration-200 hover:border-orange-500",
-        featured && "border-b-2 border-b-orange-500"
+        "relative flex flex-col justify-between overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:shadow-md"
       )}
     >
-      {/* Header: Title + Live Indicator + Status Badge */}
-      <div className="mb-3 flex items-start justify-between">
-        <div className="flex items-center gap-2">
-          <h3
+      <div className="flex items-start justify-between">
+        <div className="space-y-1">
+          <p
             className={cn(
-              "font-medium text-neutral-700 text-xs tracking-wider",
+              "font-medium text-neutral-500 text-xs tracking-wider uppercase",
               geistSans.className
             )}
           >
             {title}
+          </p>
+          <h3
+            className={cn(
+              "font-semibold text-3xl text-neutral-900 tracking-tight",
+              geistSans.className
+            )}
+          >
+            {value}
           </h3>
-          {isLive && (
-            <div className="flex items-center gap-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping bg-orange-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 bg-orange-500" />
-              </span>
-              <span
-                className={cn(
-                  "font-medium text-orange-600 text-xs tracking-wider",
-                  geistSans.className
-                )}
-              >
-                Live
-              </span>
-            </div>
-          )}
         </div>
-        {getStatusBadge(status)}
+        {/* Sparkline Chart */}
+        {sparklineData && sparklineData.length > 0 && (
+          <div className="h-10 w-24">
+            <MiniSparkline color={trendColor} data={sparklineData} />
+          </div>
+        )}
       </div>
 
-      {/* Sparkline (if provided) */}
-      {sparklineData && sparklineData.length > 0 && (
-        <div className="mb-2 w-24">
-          <MiniSparkline data={sparklineData} />
-        </div>
-      )}
-
-      {/* Value */}
-      <div className="mb-2">
-        <p
-          className={cn(
-            "font-medium text-3xl text-neutral-900 tracking-tighter leading-none",
-            geistSans.className
-          )}
-        >
-          {value}
-        </p>
+      <div className="mt-4 flex items-center justify-between">
+        <p className={cn("text-neutral-400 text-xs", geistSans.className)}>{description}</p>
       </div>
-
-      {/* Description */}
-      <p className={cn("font-normal text-neutral-600 text-xs leading-tight", geistSans.className)}>
-        {description}
-      </p>
     </div>
   );
 }

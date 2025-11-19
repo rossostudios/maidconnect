@@ -9,8 +9,10 @@
 
 "use client";
 
+import { useState } from "react";
 import { useRealtimeDashboardStats } from "@/hooks/use-realtime-stats";
 import { formatCurrency } from "@/lib/utils/format";
+import { DateRange, DateRangePicker } from "@/components/ui/date-range-picker";
 import { StatCard } from "./StatCard";
 
 type RealtimeStatsPanelProps = {
@@ -44,7 +46,8 @@ type RealtimeStatsPanelProps = {
  * ```
  */
 export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) {
-  const { stats, isLoading, error } = useRealtimeDashboardStats({ enabled });
+  const [dateRange, setDateRange] = useState<DateRange>({ from: undefined, to: undefined });
+  const { stats, isLoading, error } = useRealtimeDashboardStats({ enabled, dateRange });
 
   if (isLoading) {
     return (
@@ -72,109 +75,71 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
     return null;
   }
 
-  // Determine status levels based on typical benchmarks
-  const getBookingStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 100) {
-      return "good";
-    }
-    if (count >= 50) {
-      return "neutral";
-    }
-    return "poor";
-  };
-
-  const getPendingStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count <= 5) {
-      return "good";
-    }
-    if (count <= 15) {
-      return "neutral";
-    }
-    return "poor";
-  };
-
-  const getUsersStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 1000) {
-      return "good";
-    }
-    if (count >= 500) {
-      return "neutral";
-    }
-    return "poor";
-  };
-
-  const getRevenueStatus = (amount: number): "good" | "neutral" | "poor" => {
-    if (amount >= 10_000_000) {
-      return "good"; // 10M COP
-    }
-    if (amount >= 5_000_000) {
-      return "neutral"; // 5M COP
-    }
-    return "poor";
-  };
-
-  const getProfessionalsStatus = (count: number): "good" | "neutral" | "poor" => {
-    if (count >= 20) {
-      return "good";
-    }
-    if (count >= 10) {
-      return "neutral";
-    }
-    return "poor";
-  };
+  const isFiltered = !!dateRange.from;
 
   return (
     <div className="space-y-4">
       {/* Section Header */}
-      <div>
-        <h2 className="font-medium text-2xl text-neutral-900 leading-none">Live Dashboard Metrics</h2>
-        <p className="text-neutral-600 text-sm leading-none">Real-time statistics updated automatically</p>
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <h2 className="font-medium text-2xl text-neutral-900 leading-none">Performance Overview</h2>
+          <p className="mt-1 text-neutral-600 text-sm leading-none">
+            {isFiltered ? "Overview of key performance indicators" : "Real-time statistics updated automatically"}
+          </p>
+        </div>
+        <div className="w-full sm:w-auto">
+          <DateRangePicker
+            onChange={setDateRange}
+            placeholder="Filter by date"
+            value={dateRange}
+          />
+        </div>
       </div>
 
       {/* Real-time Stats Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
         <StatCard
           description="All bookings in system"
-          featured
-          status={getBookingStatus(stats.totalBookings)}
+          sparklineData={stats.sparklines?.bookings}
           title="Total Bookings"
           value={stats.totalBookings.toString()}
         />
 
         <StatCard
           description="Awaiting confirmation"
-          status={getPendingStatus(stats.pendingBookings)}
           title="Pending Bookings"
           value={stats.pendingBookings.toString()}
         />
 
         <StatCard
           description="Registered platform users"
-          status={getUsersStatus(stats.activeUsers)}
+          sparklineData={stats.sparklines?.users}
           title="Active Users"
           value={stats.activeUsers.toString()}
         />
 
         <StatCard
           description="Completed bookings"
-          status={getRevenueStatus(stats.totalRevenue)}
+          sparklineData={stats.sparklines?.revenue}
           title="Total Revenue"
           value={formatCurrency(stats.totalRevenue, { currency: "COP" })}
         />
 
         <StatCard
-          description="Last 30 days"
-          status={getProfessionalsStatus(stats.newProfessionals)}
+          description={isFiltered ? "In selected period" : "Last 30 days"}
+          sparklineData={stats.sparklines?.professionals}
           title="New Professionals"
           value={stats.newProfessionals.toString()}
         />
       </div>
 
       {/* Last Updated Timestamp */}
-      <div className="flex items-center justify-end gap-2 text-neutral-500 text-xs">
-        <span>Last updated:</span>
-        <time dateTime={stats.lastUpdated}>{new Date(stats.lastUpdated).toLocaleTimeString()}</time>
-      </div>
+      {!isFiltered && (
+        <div className="flex items-center justify-end gap-2 text-neutral-500 text-xs">
+          <span>Last updated:</span>
+          <time dateTime={stats.lastUpdated}>{new Date(stats.lastUpdated).toLocaleTimeString()}</time>
+        </div>
+      )}
     </div>
   );
 }

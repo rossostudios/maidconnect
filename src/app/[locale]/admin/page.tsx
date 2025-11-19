@@ -66,6 +66,15 @@ export default async function AdminHomePage() {
   const actionItemsCount =
     (pendingBookingsCount ?? 0) + (pendingProfessionals ?? 0) + (activeDisputesCount ?? 0);
 
+  // Calculate greeting based on time of day
+  const hour = new Date().getHours();
+  const greeting =
+    hour < 12
+      ? "Good morning"
+      : hour < 18
+        ? "Good afternoon"
+        : "Good evening";
+
   return (
     <div className="space-y-8">
       {/* Page Header */}
@@ -77,15 +86,17 @@ export default async function AdminHomePage() {
               geistSans.className
             )}
           >
-            Good morning, {userName}
+            {greeting}, {userName}
           </h1>
-          <p className={cn("text-neutral-600 text-sm leading-none", geistSans.className)}>
+          <p className={cn("mt-2 text-neutral-600 text-sm leading-none", geistSans.className)}>
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
+            <span className="mx-2 text-neutral-300">|</span>
+            Here&apos;s what&apos;s happening today
           </p>
         </div>
 

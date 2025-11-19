@@ -128,7 +128,7 @@ export default async function AdminDisputesPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -149,10 +149,10 @@ export default async function AdminDisputesPage() {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {statusBreakdown.map((status) => (
-              <div className="border border-neutral-200 bg-white px-3 py-1.5" key={status.label}>
+              <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5" key={status.label}>
                 <span
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -166,12 +166,12 @@ export default async function AdminDisputesPage() {
           </div>
         </div>
         <div className="lg:col-span-4">
-          <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <p
                   className={cn(
-                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -181,8 +181,8 @@ export default async function AdminDisputesPage() {
                   {agingDisputes} cases aging
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
-                <span className={cn("font-semibold text-white text-xs", geistSans.className)}>
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                <span className={cn("font-semibold text-orange-600 text-xs", geistSans.className)}>
                   72h
                 </span>
               </div>
@@ -192,10 +192,10 @@ export default async function AdminDisputesPage() {
               chargebacks.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
-                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -205,10 +205,10 @@ export default async function AdminDisputesPage() {
                   {urgentDisputes}
                 </p>
               </div>
-              <div className="border border-neutral-200 bg-neutral-50 px-3 py-2">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
-                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -227,7 +227,7 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -240,12 +240,12 @@ export default async function AdminDisputesPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {summaryCards.map((metric) => (
             <div
-              className="border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-[#FF5200]"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
               key={metric.label}
             >
               <p
                 className={cn(
-                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -256,7 +256,7 @@ export default async function AdminDisputesPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -271,7 +271,7 @@ export default async function AdminDisputesPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -283,10 +283,10 @@ export default async function AdminDisputesPage() {
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {queueInsights.map((insight) => (
-            <div className="border border-neutral-200 bg-white p-4 shadow-sm" key={insight.label}>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm" key={insight.label}>
               <p
                 className={cn(
-                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -297,7 +297,7 @@ export default async function AdminDisputesPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -309,11 +309,11 @@ export default async function AdminDisputesPage() {
       </section>
 
       <section>
-        <div className="border border-neutral-200 bg-white">
-          <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+        <div className="rounded-lg border border-neutral-200 bg-white">
+          <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
-                "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                 geistSans.className
               )}
             >

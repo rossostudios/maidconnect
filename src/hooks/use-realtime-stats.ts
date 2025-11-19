@@ -21,6 +21,12 @@ export type DashboardStats = {
   totalRevenue: number;
   newProfessionals: number;
   lastUpdated: string;
+  sparklines: {
+    bookings: { day: number; value: number }[];
+    revenue: { day: number; value: number }[];
+    users: { day: number; value: number }[];
+    professionals: { day: number; value: number }[];
+  };
 };
 
 /**
@@ -49,11 +55,19 @@ export type DashboardStats = {
  * }
  * ```
  */
-export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
-  const { enabled = true } = options;
+export function useRealtimeDashboardStats(options: { enabled?: boolean; dateRange?: { from: Date | undefined; to: Date | undefined } } = {}) {
+  const { enabled = true, dateRange } = options;
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Generate mock sparkline data
+  const generateSparklineData = (baseValue: number, variance: number) => {
+    return Array.from({ length: 7 }, (_, i) => ({
+      day: i + 1,
+      value: Math.max(0, Math.floor(baseValue + (Math.random() - 0.5) * variance)),
+    }));
+  };
 
   // Fetch initial stats on mount
   useEffect(() => {
@@ -61,7 +75,53 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
 
     async function fetchInitialStats() {
       try {
+        setIsLoading(true);
         const supabase = createSupabaseBrowserClient();
+
+        // Build queries with date filtering if provided
+        let bookingsQuery = supabase
+          .from("bookings")
+          .select("id, status", { count: "exact", head: true });
+
+        let usersQuery = supabase
+          .from("profiles")
+          .select("id", { count: "exact", head: true })
+          .eq("role", "user");
+
+        let professionalsQuery = supabase
+          .from("profiles")
+          .select("id, created_at")
+          .eq("role", "professional");
+
+        let revenueQuery = supabase
+          .from("bookings")
+          .select("final_amount_captured")
+          .eq("status", "completed");
+
+        let pendingBookingsQuery = supabase
+          .from("bookings")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "pending");
+
+        // Apply date filtering if a date range is selected
+        if (dateRange?.from) {
+          const startOfDay = new Date(dateRange.from);
+          startOfDay.setHours(0, 0, 0, 0);
+
+          // If 'to' is not selected, default to end of 'from' day (single day selection)
+          // If 'to' is selected, use end of that day
+          const endOfDay = new Date(dateRange.to || dateRange.from);
+          endOfDay.setHours(23, 59, 59, 999);
+
+          bookingsQuery = bookingsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+          usersQuery = usersQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+          professionalsQuery = professionalsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+          revenueQuery = revenueQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+          pendingBookingsQuery = pendingBookingsQuery.gte("created_at", startOfDay.toISOString()).lte("created_at", endOfDay.toISOString());
+        } else {
+          // Default: Last 30 days for professionals if no date selected
+          professionalsQuery = professionalsQuery.gte("created_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+        }
 
         // Parallel queries for better performance
         const [
@@ -71,43 +131,19 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
           revenueResult,
           pendingBookingsResult,
         ] = await Promise.all([
-          supabase.from("bookings").select("id, status", { count: "exact", head: true }),
-          supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "user"),
-          supabase
-            .from("profiles")
-            .select("id, created_at")
-            .eq("role", "professional")
-            .gte("created_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()),
-          supabase.from("bookings").select("final_amount_captured").eq("status", "completed"),
-          supabase
-            .from("bookings")
-            .select("id", { count: "exact", head: true })
-            .eq("status", "pending"),
+          bookingsQuery,
+          usersQuery,
+          professionalsQuery,
+          revenueQuery,
+          pendingBookingsQuery,
         ]);
 
         // Check for errors with detailed logging
-        if (bookingsResult.error) {
-          console.error("Bookings query failed:", bookingsResult.error);
-          throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
-        }
-        if (usersResult.error) {
-          console.error("Users query failed:", usersResult.error);
-          throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
-        }
-        if (professionalsResult.error) {
-          console.error("Professionals query failed:", professionalsResult.error);
-          throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
-        }
-        if (revenueResult.error) {
-          console.error("Revenue query failed:", revenueResult.error);
-          throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
-        }
-        if (pendingBookingsResult.error) {
-          console.error("Pending bookings query failed:", pendingBookingsResult.error);
-          throw new Error(
-            `Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`
-          );
-        }
+        if (bookingsResult.error) throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
+        if (usersResult.error) throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
+        if (professionalsResult.error) throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
+        if (revenueResult.error) throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
+        if (pendingBookingsResult.error) throw new Error(`Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`);
 
         // Calculate total revenue
         const totalRevenue =
@@ -120,6 +156,12 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
           totalRevenue,
           newProfessionals: professionalsResult.data?.length || 0,
           lastUpdated: new Date().toISOString(),
+          sparklines: {
+            bookings: generateSparklineData(10, 5),
+            revenue: generateSparklineData(500000, 200000),
+            users: generateSparklineData(50, 10),
+            professionals: generateSparklineData(5, 2),
+          }
         });
 
         setIsLoading(false);
@@ -136,7 +178,7 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
     }
 
     fetchInitialStats();
-  }, [enabled]);
+  }, [enabled, dateRange]);
 
   // Subscribe to real-time updates for bookings
   useRealtimeTable(
@@ -145,22 +187,25 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
       if (!stats) return;
 
       if (payload.eventType === "INSERT") {
+        const newRecord = payload.new as { status: string };
         setStats((prev) =>
           prev
             ? {
-                ...prev,
-                totalBookings: prev.totalBookings + 1,
-                pendingBookings:
-                  payload.new.status === "pending"
-                    ? prev.pendingBookings + 1
-                    : prev.pendingBookings,
-                lastUpdated: new Date().toISOString(),
-              }
+              ...prev,
+              totalBookings: prev.totalBookings + 1,
+              pendingBookings:
+                newRecord.status === "pending"
+                  ? prev.pendingBookings + 1
+                  : prev.pendingBookings,
+              lastUpdated: new Date().toISOString(),
+            }
             : prev
         );
       } else if (payload.eventType === "UPDATE") {
-        const oldStatus = payload.old.status;
-        const newStatus = payload.new.status;
+        const oldRecord = payload.old as { status: string };
+        const newRecord = payload.new as { status: string; final_amount_captured?: number };
+        const oldStatus = oldRecord.status;
+        const newStatus = newRecord.status;
 
         setStats((prev) => {
           if (!prev) return prev;
@@ -179,9 +224,9 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
           if (
             oldStatus !== "completed" &&
             newStatus === "completed" &&
-            payload.new.final_amount_captured
+            newRecord.final_amount_captured
           ) {
-            totalRevenue = totalRevenue + payload.new.final_amount_captured;
+            totalRevenue = totalRevenue + newRecord.final_amount_captured;
           }
 
           return {
@@ -202,16 +247,19 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
     (payload) => {
       if (!stats) return;
 
-      if (payload.eventType === "INSERT" && payload.new.role === "user") {
-        setStats((prev) =>
-          prev
-            ? {
+      if (payload.eventType === "INSERT") {
+        const newRecord = payload.new as { role: string };
+        if (newRecord.role === "user") {
+          setStats((prev) =>
+            prev
+              ? {
                 ...prev,
                 activeUsers: prev.activeUsers + 1,
                 lastUpdated: new Date().toISOString(),
               }
-            : prev
-        );
+              : prev
+          );
+        }
       }
     },
     { event: "INSERT", filter: "role=eq.user", enabled }
@@ -223,16 +271,19 @@ export function useRealtimeDashboardStats(options: { enabled?: boolean } = {}) {
     (payload) => {
       if (!stats) return;
 
-      if (payload.eventType === "INSERT" && payload.new.role === "professional") {
-        setStats((prev) =>
-          prev
-            ? {
+      if (payload.eventType === "INSERT") {
+        const newRecord = payload.new as { role: string };
+        if (newRecord.role === "professional") {
+          setStats((prev) =>
+            prev
+              ? {
                 ...prev,
                 newProfessionals: prev.newProfessionals + 1,
                 lastUpdated: new Date().toISOString(),
               }
-            : prev
-        );
+              : prev
+          );
+        }
       }
     },
     { event: "INSERT", filter: "role=eq.professional", enabled }

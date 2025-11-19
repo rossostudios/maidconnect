@@ -31,11 +31,11 @@ export type User = {
 const getRoleBadgeColor = (role: UserRole) => {
   switch (role) {
     case "admin":
-      return "bg-orange-500 text-white border border-orange-500";
+      return "bg-neutral-900 text-white border border-neutral-900";
     case "professional":
-      return "bg-orange-50 text-orange-600 border border-orange-200";
+      return "bg-white text-neutral-900 border border-neutral-200";
     case "customer":
-      return "bg-green-50 text-green-700 border border-green-200";
+      return "bg-neutral-50 text-neutral-600 border border-neutral-200";
     default:
       return "bg-neutral-100 text-neutral-700 border border-neutral-200";
   }
@@ -46,7 +46,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
     return (
       <span
         className={cn(
-          "inline-flex items-center rounded-full border border-green-200 bg-green-50 px-2.5 py-1 font-medium text-green-700 text-xs tracking-wider",
+          "inline-flex items-center rounded-full border border-neutral-200 bg-white px-2.5 py-0.5 font-medium text-neutral-600 text-xs",
           geistSans.className
         )}
       >
@@ -61,11 +61,11 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
     <div className="space-y-1">
       <span
         className={cn(
-          "inline-flex items-center rounded-full px-2.5 py-1 font-medium text-xs tracking-wider",
+          "inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs",
           geistSans.className,
           isBanned
             ? "border border-red-200 bg-red-50 text-red-700"
-            : "border border-yellow-200 bg-yellow-50 text-yellow-700"
+            : "border border-orange-200 bg-orange-50 text-orange-700"
         )}
       >
         {isBanned ? "Banned" : "Suspended"}
@@ -73,7 +73,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
       {suspension.expires_at && (
         <p
           className={cn(
-            "font-normal text-neutral-700 text-xs tracking-tighter",
+            "font-normal text-neutral-500 text-xs",
             geistSans.className
           )}
         >
@@ -96,14 +96,14 @@ const columns: ColumnDef<User>[] = [
             {user.avatar_url ? (
               <Image
                 alt={user.full_name || "User"}
-                className="h-10 w-10 rounded-full border-2 border-neutral-200 object-cover"
+                className="h-10 w-10 rounded-full border border-neutral-200 object-cover"
                 height={40}
                 src={user.avatar_url}
                 width={40}
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-neutral-200 bg-orange-50">
-                <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={UserCircleIcon} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50">
+                <HugeiconsIcon className="h-5 w-5 text-neutral-400" icon={UserCircleIcon} />
               </div>
             )}
           </div>
@@ -111,14 +111,16 @@ const columns: ColumnDef<User>[] = [
             <p className={cn("truncate font-medium text-neutral-900 text-sm", geistSans.className)}>
               {user.full_name || "Unnamed User"}
             </p>
-            <p
-              className={cn(
-                "truncate font-normal text-neutral-700 text-xs tracking-tighter",
-                geistSans.className
-              )}
-            >
-              {user.email}
-            </p>
+            {user.email && (
+              <p
+                className={cn(
+                  "truncate font-normal text-neutral-500 text-xs",
+                  geistSans.className
+                )}
+              >
+                {user.email}
+              </p>
+            )}
           </div>
         </div>
       );
@@ -134,7 +136,7 @@ const columns: ColumnDef<User>[] = [
       return (
         <span
           className={cn(
-            "inline-flex items-center rounded-full px-2.5 py-1 font-medium text-xs tracking-wider",
+            "inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs",
             getRoleBadgeColor(role),
             geistSans.className
           )}
@@ -150,7 +152,7 @@ const columns: ColumnDef<User>[] = [
     accessorKey: "city",
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="City" />,
     cell: ({ row }) => (
-      <p className={cn("font-normal text-neutral-900 text-sm", geistSans.className)}>
+      <p className={cn("font-normal text-neutral-600 text-sm", geistSans.className)}>
         {row.original.city || "—"}
       </p>
     ),
@@ -181,7 +183,7 @@ const columns: ColumnDef<User>[] = [
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Joined" />,
     cell: ({ row }) => (
       <p
-        className={cn("font-normal text-neutral-700 text-sm tracking-tighter", geistSans.className)}
+        className={cn("font-normal text-neutral-500 text-sm", geistSans.className)}
       >
         {new Date(row.original.created_at).toLocaleDateString()}
       </p>
@@ -200,7 +202,7 @@ const columns: ColumnDef<User>[] = [
       <div className="text-right">
         <Link
           className={cn(
-            "inline-flex items-center rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-orange-500 hover:bg-orange-500 hover:text-white",
+            "inline-flex items-center rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-700 text-xs transition-all hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900",
             geistSans.className
           )}
           href={`/admin/users/${row.original.id}`}

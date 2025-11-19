@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { geistSans } from "@/app/fonts";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Applications | Admin Dashboard | Casaora",
@@ -11,10 +13,10 @@ export default function ApplicationsPage() {
     <div className="mx-auto max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8">
       {/* Page Header */}
       <div className="space-y-2">
-        <h1 className="font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+        <h1 className={cn("font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}>
           Applications
         </h1>
-        <p className="text-lg text-neutral-600">
+        <p className={cn("text-neutral-600 text-base", geistSans.className)}>
           Review and manage professional applications for Casaora
         </p>
       </div>

@@ -51,9 +51,9 @@ export function UserProfileHeader({
   const isProfessional = user.role === "professional";
 
   return (
-    <div className="mb-6 flex items-start justify-between">
+    <div className="mb-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center bg-neutral-200">
+        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-neutral-100">
           {user.avatar_url ? (
             <Image
               alt={user.full_name || "User"}
@@ -63,25 +63,25 @@ export function UserProfileHeader({
               width={64}
             />
           ) : (
-            <span className="type-ui-lg font-medium text-neutral-600 dark:text-neutral-300">
+            <span className="font-medium text-2xl text-neutral-400">
               {(user.full_name || "?").charAt(0).toUpperCase()}
             </span>
           )}
         </div>
         <div>
-          <h2 className="type-ui-md font-semibold text-neutral-900 dark:text-neutral-100">
+          <h2 className="font-semibold text-xl text-neutral-900 tracking-tight">
             {user.full_name || "Unnamed User"}
           </h2>
-          <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.email}</p>
-          <span className="type-ui-sm mt-2 inline-block bg-neutral-900 px-3 py-1 font-medium text-white capitalize dark:bg-neutral-100/10 dark:text-neutral-100">
+          <p className="text-neutral-500 text-sm">{user.email}</p>
+          <span className="mt-2 inline-flex items-center rounded-full bg-neutral-100 px-2.5 py-0.5 font-medium text-neutral-900 text-xs capitalize">
             {user.role}
           </span>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {isProfessional && onVerify && (
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-700 text-sm transition-colors hover:bg-neutral-50 hover:text-neutral-900"
             onClick={onVerify}
             type="button"
           >
@@ -90,7 +90,7 @@ export function UserProfileHeader({
         )}
         {onSendMessage && (
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-700 text-sm transition-colors hover:bg-neutral-50 hover:text-neutral-900"
             onClick={onSendMessage}
             type="button"
           >
@@ -99,7 +99,7 @@ export function UserProfileHeader({
         )}
         {onExportData && (
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-700 text-sm transition-colors hover:bg-neutral-50 hover:text-neutral-900"
             onClick={onExportData}
             type="button"
           >
@@ -107,7 +107,7 @@ export function UserProfileHeader({
           </button>
         )}
         <button
-          className="type-ui-sm bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-800"
+          className="rounded-lg bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-800"
           onClick={onManageSuspension}
           type="button"
         >
@@ -122,45 +122,48 @@ export function SuspensionAlert({ suspension }: { suspension: Suspension }) {
   const isPermanent = suspension.type === "permanent";
 
   return (
-    <div className="mb-6 border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
-      <p className="type-ui-sm mb-2 font-medium text-neutral-900 dark:text-neutral-100">
-        {isPermanent ? "Banned" : "Suspended"}
-      </p>
-      <p className="type-body-sm mb-1 text-neutral-900 dark:text-neutral-100">
-        Reason: {suspension.reason}
-      </p>
-      <p className="type-body-sm text-red-700 dark:text-red-200">
-        By: {suspension.suspended_by.full_name || "Admin"}
-      </p>
-      {suspension.expires_at && (
-        <p className="type-body-sm mt-1 text-neutral-900 dark:text-neutral-100">
-          {formatSuspensionDuration(suspension.expires_at)}
-        </p>
-      )}
+    <div className="mb-6 rounded-xl border border-red-100 bg-red-50 p-4">
+      <div className="flex items-start gap-3">
+        <div className="mt-0.5 h-2 w-2 rounded-full bg-red-500" />
+        <div>
+          <p className="font-semibold text-red-900 text-sm">
+            {isPermanent ? "Account Banned" : "Account Suspended"}
+          </p>
+          <p className="mt-1 text-red-700 text-sm">
+            Reason: {suspension.reason}
+          </p>
+          <div className="mt-2 flex items-center gap-3 text-red-600 text-xs">
+            <span>By: {suspension.suspended_by.full_name || "Admin"}</span>
+            {suspension.expires_at && (
+              <span>• Expires: {formatSuspensionDuration(suspension.expires_at)}</span>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 export function UserDetailsGrid({ user }: { user: User }) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Phone</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.phone || "—"}</p>
+        <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">Phone</p>
+        <p className="font-medium text-neutral-900 text-sm">{user.phone || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">City</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.city || "—"}</p>
+        <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">City</p>
+        <p className="font-medium text-neutral-900 text-sm">{user.city || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">
+        <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
           Address
         </p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">{user.address || "—"}</p>
+        <p className="font-medium text-neutral-900 text-sm">{user.address || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Joined</p>
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
+        <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">Joined</p>
+        <p className="font-medium text-neutral-900 text-sm">
           {new Date(user.created_at).toLocaleDateString()}
         </p>
       </div>
@@ -175,7 +178,9 @@ export function SuspensionHistoryList({
 }) {
   if (suspensionHistory.length === 0) {
     return (
-      <p className="type-body-sm text-neutral-600 dark:text-neutral-300">No suspension history</p>
+      <div className="flex h-32 items-center justify-center rounded-xl border border-dashed border-neutral-200 bg-neutral-50">
+        <p className="text-neutral-500 text-sm">No suspension history</p>
+      </div>
     );
   }
 
@@ -190,33 +195,30 @@ export function SuspensionHistoryList({
 
 function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryItem }) {
   const isPermanent = suspension.suspension_type === "permanent";
-  const statusBgColor = isPermanent
-    ? "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100"
-    : "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
   return (
-    <div className="border border-neutral-200 p-4 dark:border-neutral-800">
-      <div className="mb-2 flex items-center justify-between">
-        <span className={`px-2 py-1 font-medium text-xs ${statusBgColor}`}>
+    <div className="rounded-xl border border-neutral-200 bg-white p-4 transition-shadow hover:shadow-sm">
+      <div className="mb-3 flex items-center justify-between">
+        <span
+          className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${isPermanent
+              ? "bg-red-50 text-red-700"
+              : "bg-orange-50 text-orange-700"
+            }`}
+        >
           {isPermanent ? "Banned" : "Suspended"}
         </span>
         {suspension.lifted_at && (
-          <span className="bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
-            Lifted
+          <span className="text-neutral-500 text-xs">
+            Lifted on {new Date(suspension.lifted_at).toLocaleDateString()}
           </span>
         )}
       </div>
-      <p className="type-body-sm mb-1 text-neutral-900 dark:text-neutral-100">
-        Reason: {suspension.reason}
+      <p className="mb-2 font-medium text-neutral-900 text-sm">
+        {suspension.reason}
       </p>
-      <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
-        Date: {new Date(suspension.suspended_at).toLocaleDateString()}
+      <p className="text-neutral-500 text-xs">
+        Suspended on {new Date(suspension.suspended_at).toLocaleDateString()}
       </p>
-      {suspension.lifted_at && (
-        <p className="type-body-sm text-neutral-600 dark:text-neutral-300">
-          Lifted: {new Date(suspension.lifted_at).toLocaleDateString()}
-        </p>
-      )}
     </div>
   );
 }
@@ -230,34 +232,34 @@ export function UserStatsCard({
   };
 }) {
   return (
-    <div className="border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
-      <h3 className="type-ui-md mb-4 font-semibold text-neutral-900 dark:text-neutral-100">
-        Stats
+    <div className="rounded-xl border border-neutral-200 bg-white p-6">
+      <h3 className="mb-4 font-semibold text-lg text-neutral-900 tracking-tight">
+        Activity Stats
       </h3>
-      <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
         {stats.bookings && (
           <>
-            <div>
-              <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">
+            <div className="rounded-lg bg-neutral-50 p-4">
+              <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
                 Total Bookings
               </p>
-              <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
+              <p className="font-bold text-2xl text-neutral-900">
                 {stats.bookings.total}
               </p>
             </div>
-            <div>
-              <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">
+            <div className="rounded-lg bg-neutral-50 p-4">
+              <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
                 Completed
               </p>
-              <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
+              <p className="font-bold text-2xl text-neutral-900">
                 {stats.bookings.completed}
               </p>
             </div>
           </>
         )}
-        <div>
-          <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">Disputes</p>
-          <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="rounded-lg bg-neutral-50 p-4">
+          <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">Disputes</p>
+          <p className="font-bold text-2xl text-neutral-900">
             {stats.disputes}
           </p>
         </div>

@@ -1,12 +1,13 @@
 import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
-  CalendarSetting01Icon,
+  Calendar03Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { geistSans } from "@/app/fonts";
 
 type DatePickerProps = {
   value: Date | null;
@@ -46,13 +47,13 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
   const weekdays = useMemo(
     () => [
-      t("weekdays.sunday"),
-      t("weekdays.monday"),
-      t("weekdays.tuesday"),
-      t("weekdays.wednesday"),
-      t("weekdays.thursday"),
-      t("weekdays.friday"),
-      t("weekdays.saturday"),
+      t("weekdays.sunday").slice(0, 2),
+      t("weekdays.monday").slice(0, 2),
+      t("weekdays.tuesday").slice(0, 2),
+      t("weekdays.wednesday").slice(0, 2),
+      t("weekdays.thursday").slice(0, 2),
+      t("weekdays.friday").slice(0, 2),
+      t("weekdays.saturday").slice(0, 2),
     ],
     [t]
   );
@@ -146,31 +147,30 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm shadow-[neutral-900]/5 shadow-inner transition hover:border-[neutral-500] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[neutral-500] focus-visible:outline-offset-2",
-          !value && "text-[neutral-400]"
+          "flex w-full items-center justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:outline-none",
+          !value && "text-neutral-500",
+          open && "border-orange-500 ring-2 ring-orange-500/20"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2.5">
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 text-[neutral-500]"
-            icon={CalendarSetting01Icon}
+            className="h-4 w-4 text-neutral-500"
+            icon={Calendar03Icon}
           />
-          {formatButtonLabel(value, placeholder || t("selectDate"), locale)}
+          <span className={cn("font-medium text-sm text-neutral-900", geistSans.className)}>
+            {formatButtonLabel(value, placeholder || t("selectDate"), locale)}
+          </span>
         </span>
-        <HugeiconsIcon
-          className={cn("h-4 w-4 text-[neutral-400] transition-transform", open && "rotate-90")}
-          icon={ArrowRight01Icon}
-        />
       </button>
 
       {open ? (
-        <div className="absolute z-50 mt-3 w-full min-w-[280px] border border-[neutral-200] bg-[neutral-50] p-4 shadow-[0_24px_60px_rgba(22,22,22,0.12)]">
-          <div className="flex items-center justify-between">
+        <div className="absolute right-0 z-50 mt-2 w-[320px] rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
+          <div className="mb-4 flex items-center justify-between">
             <button
-              className="border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
@@ -179,11 +179,11 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowLeft01Icon} />
               <span className="sr-only">{t("previousMonth")}</span>
             </button>
-            <div className="font-semibold text-[neutral-900] text-sm">
+            <div className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
               {new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(viewDate)}
             </div>
             <button
-              className="border border-[neutral-200] p-1 text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
@@ -194,13 +194,18 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-[neutral-400] text-xs uppercase tracking-[0.18em]">
-            {weekdays.map((day) => (
-              <span key={day}>{day}</span>
+          <div className="mb-2 grid grid-cols-7 gap-1 text-center">
+            {weekdays.map((day, index) => (
+              <span
+                className={cn("font-medium text-neutral-400 text-xs", geistSans.className)}
+                key={index}
+              >
+                {day}
+              </span>
             ))}
           </div>
 
-          <div className="mt-2 grid grid-cols-7 gap-1 text-sm">
+          <div className="grid grid-cols-7 gap-1">
             {calendarDays.map(({ date, inCurrentMonth }) => {
               const isSelected =
                 value &&
@@ -219,15 +224,17 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               return (
                 <button
                   className={cn(
-                    "py-2 text-sm transition",
-                    inCurrentMonth ? "text-[neutral-900]" : "text-[neutral-200]",
-                    isSelected &&
-                      "bg-[neutral-900] text-[neutral-50] shadow-[0_10px_20px_rgba(22,22,22,0.16)]",
-                    !isSelected && isToday && "border border-[neutral-500] text-[neutral-500]",
-                    !(isSelected || isToday) && "hover:bg-[neutral-50]"
+                    "flex h-9 w-9 items-center justify-center rounded-lg text-sm transition-all",
+                    geistSans.className,
+                    inCurrentMonth ? "text-neutral-900" : "text-neutral-300",
+                    isSelected && "bg-orange-500 font-medium text-white shadow-sm hover:bg-orange-600",
+                    !isSelected && isToday && "border border-orange-500 font-medium text-orange-600",
+                    !isSelected && !isToday && inCurrentMonth && "hover:bg-neutral-100",
+                    !inCurrentMonth && "cursor-default"
                   )}
+                  disabled={!inCurrentMonth}
                   key={date.toISOString()}
-                  onClick={() => handleSelect(date)}
+                  onClick={() => inCurrentMonth && handleSelect(date)}
                   type="button"
                 >
                   {date.getDate()}
@@ -236,16 +243,22 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             })}
           </div>
 
-          <div className="mt-4 flex items-center justify-between text-[neutral-400] text-xs">
+          <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-4">
             <button
-              className="border border-transparent px-3 py-1 font-semibold text-[neutral-500] transition hover:border-[neutral-500]/40"
+              className={cn(
+                "rounded-md px-2 py-1 font-medium text-neutral-500 text-xs transition hover:bg-neutral-100 hover:text-neutral-900",
+                geistSans.className
+              )}
               onClick={() => onChange(null)}
               type="button"
             >
               {t("clear")}
             </button>
             <button
-              className="border border-[neutral-900] px-3 py-1 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500]"
+              className={cn(
+                "rounded-md bg-neutral-900 px-3 py-1.5 font-medium text-white text-xs transition hover:bg-neutral-800",
+                geistSans.className
+              )}
               onClick={handleToday}
               type="button"
             >

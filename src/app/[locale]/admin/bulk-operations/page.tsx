@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { geistSans } from "@/app/fonts";
+import { cn } from "@/lib/utils";
 import { sanitizeHTML } from "@/lib/utils/sanitize";
 
 type User = {
@@ -213,19 +215,21 @@ export default function BulkOperationsPage() {
         >
           ← Back to Admin
         </button>
-        <h1 className="type-ui-lg font-semibold text-neutral-900">Bulk Operations</h1>
-        <p className="type-body-sm mt-2 text-neutral-700">
+        <h1 className={cn("font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}>
+          Bulk Operations
+        </h1>
+        <p className={cn("mt-2 text-neutral-700 text-sm", geistSans.className)}>
           Select multiple users to perform bulk actions
         </p>
       </div>
 
       {/* Filters & Search */}
-      <div className="mb-6 border border-neutral-200 bg-white p-6">
+      <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div>
             <label className="type-ui-sm mb-2 block font-medium text-neutral-900">Search</label>
             <input
-              className="w-full border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email..."
               type="text"
@@ -235,7 +239,7 @@ export default function BulkOperationsPage() {
           <div>
             <label className="type-ui-sm mb-2 block font-medium text-neutral-900">Role</label>
             <select
-              className="w-full border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setRoleFilter(e.target.value)}
               value={roleFilter}
             >
@@ -247,7 +251,7 @@ export default function BulkOperationsPage() {
           </div>
           <div className="flex items-end">
             <button
-              className="type-ui-sm w-full border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 transition hover:bg-neutral-50"
+              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50"
               onClick={selectAll}
               type="button"
             >
@@ -258,8 +262,8 @@ export default function BulkOperationsPage() {
 
         {/* Selection Count */}
         {selectedUserIds.size > 0 && (
-          <div className="mt-4 border border-orange-200 bg-orange-50 p-3">
-            <p className="type-ui-sm font-medium text-orange-900">
+          <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-3">
+            <p className="font-medium text-orange-900 text-sm">
               {selectedUserIds.size} user(s) selected
             </p>
           </div>
@@ -267,11 +271,11 @@ export default function BulkOperationsPage() {
       </div>
 
       {/* Bulk Actions */}
-      <div className="mb-6 border border-neutral-200 bg-white p-6">
-        <h2 className="type-ui-md mb-4 font-semibold text-neutral-900">Bulk Actions</h2>
+      <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
+        <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>Bulk Actions</h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={selectedUserIds.size === 0}
             onClick={() => handleBulkAction("suspend")}
             type="button"
@@ -279,7 +283,7 @@ export default function BulkOperationsPage() {
             Suspend Users
           </button>
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={selectedUserIds.size === 0}
             onClick={() => handleBulkAction("verify")}
             type="button"
@@ -287,7 +291,7 @@ export default function BulkOperationsPage() {
             Verify Professionals
           </button>
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={selectedUserIds.size === 0}
             onClick={() => handleBulkAction("message")}
             type="button"
@@ -295,7 +299,7 @@ export default function BulkOperationsPage() {
             Send Message
           </button>
           <button
-            className="type-ui-sm border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={selectedUserIds.size === 0}
             onClick={() => handleBulkAction("export")}
             type="button"
@@ -306,7 +310,7 @@ export default function BulkOperationsPage() {
       </div>
 
       {/* Users Table */}
-      <div className="border border-neutral-200 bg-white">
+      <div className="rounded-lg border border-neutral-200 bg-white">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -364,7 +368,7 @@ export default function BulkOperationsPage() {
                     </td>
                     <td className="type-body-sm px-4 py-3 text-neutral-700">{user.email}</td>
                     <td className="px-4 py-3">
-                      <span className="type-ui-sm bg-neutral-900 px-2 py-1 text-white capitalize">
+                      <span className="rounded-full bg-orange-500 px-3 py-1 font-medium text-white text-xs capitalize">
                         {user.role}
                       </span>
                     </td>
@@ -382,8 +386,8 @@ export default function BulkOperationsPage() {
       {/* Confirmation Modal */}
       {showConfirmModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-neutral-200 bg-white p-6">
-            <h2 className="type-ui-lg mb-4 font-semibold text-neutral-900">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-neutral-200 bg-white p-6">
+            <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
               Confirm Bulk Operation
             </h2>
 
@@ -404,9 +408,9 @@ export default function BulkOperationsPage() {
                       <div className="flex gap-3">
                         <button
                           className={
-                            "type-ui-sm flex-1 border-2 px-4 py-2 font-medium transition" +
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition " +
                             (suspensionType === "temporary"
-                              ? "border-neutral-900 bg-neutral-900 text-white"
+                              ? "border-orange-500 bg-orange-500 text-white"
                               : "border-neutral-200 bg-white text-neutral-900")
                           }
                           onClick={() => setSuspensionType("temporary")}
@@ -416,9 +420,9 @@ export default function BulkOperationsPage() {
                         </button>
                         <button
                           className={
-                            "type-ui-sm flex-1 border-2 px-4 py-2 font-medium transition" +
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition " +
                             (suspensionType === "permanent"
-                              ? "border-neutral-900 bg-neutral-900 text-white"
+                              ? "border-orange-500 bg-orange-500 text-white"
                               : "border-neutral-200 bg-white text-neutral-900")
                           }
                           onClick={() => setSuspensionType("permanent")}
@@ -435,7 +439,7 @@ export default function BulkOperationsPage() {
                           Duration (days)
                         </label>
                         <select
-                          className="w-full border border-neutral-200 px-4 py-2"
+                          className="w-full rounded-lg border border-neutral-200 px-4 py-2"
                           onChange={(e) => setSuspensionDays(Number.parseInt(e.target.value, 10))}
                           value={suspensionDays}
                         >
@@ -454,7 +458,7 @@ export default function BulkOperationsPage() {
                         Reason <span className="text-red-600">*</span>
                       </label>
                       <textarea
-                        className="w-full resize-none border border-neutral-200 px-4 py-3"
+                        className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3"
                         onChange={(e) => setSuspensionReason(e.target.value)}
                         placeholder="Provide a reason for suspension..."
                         rows={4}
@@ -471,7 +475,7 @@ export default function BulkOperationsPage() {
                         Subject <span className="text-red-600">*</span>
                       </label>
                       <input
-                        className="w-full border border-neutral-200 px-4 py-2"
+                        className="w-full rounded-lg border border-neutral-200 px-4 py-2"
                         onChange={(e) => setMessageSubject(e.target.value)}
                         placeholder="Message subject..."
                         type="text"
@@ -484,7 +488,7 @@ export default function BulkOperationsPage() {
                         Message <span className="text-red-600">*</span>
                       </label>
                       <textarea
-                        className="w-full resize-none border border-neutral-200 px-4 py-3"
+                        className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3"
                         onChange={(e) => setMessageContent(e.target.value)}
                         placeholder="Message content..."
                         rows={6}
@@ -497,14 +501,14 @@ export default function BulkOperationsPage() {
                 {/* Confirm/Cancel Buttons */}
                 <div className="flex gap-3">
                   <button
-                    className="type-ui-sm flex-1 border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 transition hover:bg-neutral-50"
+                    className="flex-1 rounded-lg border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
                     onClick={closeConfirmModal}
                     type="button"
                   >
                     Cancel
                   </button>
                   <button
-                    className="type-ui-sm flex-1 bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={isProcessing}
                     onClick={executeBulkOperation}
                     type="button"
@@ -518,39 +522,39 @@ export default function BulkOperationsPage() {
             {/* Progress Display */}
             {progress && (
               <div className="space-y-4">
-                <div className="border border-neutral-200 bg-neutral-50 p-4">
+                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
                   <div className="mb-2 flex justify-between">
-                    <span className="type-ui-sm font-medium text-neutral-900">Progress:</span>
-                    <span className="type-ui-sm font-medium text-neutral-900">
+                    <span className="font-medium text-neutral-900 text-sm">Progress:</span>
+                    <span className="font-medium text-neutral-900 text-sm">
                       {progress.processed} / {progress.total}
                     </span>
                   </div>
-                  <div className="h-2 w-full bg-neutral-200">
+                  <div className="h-2 w-full rounded-full bg-neutral-200">
                     <div
-                      className="h-2 bg-neutral-900 transition-all"
+                      className="h-2 rounded-full bg-orange-500 transition-all"
                       style={{ width: `${(progress.processed / progress.total) * 100}%` }}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="border border-neutral-200 p-4">
-                    <p className="type-ui-sm mb-1 font-medium text-neutral-900">Successful</p>
-                    <p className="type-ui-lg font-bold text-green-600">{progress.successful}</p>
+                  <div className="rounded-lg border border-neutral-200 p-4">
+                    <p className="mb-1 font-medium text-neutral-900 text-sm">Successful</p>
+                    <p className="font-bold text-green-600 text-lg">{progress.successful}</p>
                   </div>
-                  <div className="border border-neutral-200 p-4">
-                    <p className="type-ui-sm mb-1 font-medium text-neutral-900">Failed</p>
-                    <p className="type-ui-lg font-bold text-red-600">{progress.failed}</p>
+                  <div className="rounded-lg border border-neutral-200 p-4">
+                    <p className="mb-1 font-medium text-neutral-900 text-sm">Failed</p>
+                    <p className="font-bold text-lg text-red-600">{progress.failed}</p>
                   </div>
-                  <div className="border border-neutral-200 p-4">
-                    <p className="type-ui-sm mb-1 font-medium text-neutral-900">Total</p>
-                    <p className="type-ui-lg font-bold text-neutral-900">{progress.total}</p>
+                  <div className="rounded-lg border border-neutral-200 p-4">
+                    <p className="mb-1 font-medium text-neutral-900 text-sm">Total</p>
+                    <p className="font-bold text-lg text-neutral-900">{progress.total}</p>
                   </div>
                 </div>
 
                 {progress.errors.length > 0 && (
-                  <div className="border border-red-200 bg-red-50 p-4">
-                    <p className="type-ui-sm mb-2 font-medium text-red-900">Errors:</p>
+                  <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+                    <p className="mb-2 font-medium text-red-900 text-sm">Errors:</p>
                     <div className="max-h-48 space-y-2 overflow-y-auto">
                       {progress.errors.map((error, idx) => (
                         <p className="type-body-sm text-red-700" key={idx}>
@@ -563,7 +567,7 @@ export default function BulkOperationsPage() {
 
                 {progress.processed === progress.total && (
                   <button
-                    className="type-ui-sm w-full bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-800"
+                    className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition hover:bg-orange-600"
                     onClick={closeConfirmModal}
                     type="button"
                   >

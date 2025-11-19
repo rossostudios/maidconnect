@@ -110,7 +110,7 @@ export default async function AdminPricingPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -131,10 +131,10 @@ export default async function AdminPricingPage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="border border-neutral-900 bg-neutral-900 px-4 py-1.5">
+            <div className="rounded-lg border border-orange-500 bg-orange-500 px-4 py-1.5">
               <span
                 className={cn(
-                  "font-semibold text-white text-xs uppercase tracking-[0.3em]",
+                  "font-semibold text-white text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -145,7 +145,7 @@ export default async function AdminPricingPage() {
               <div className="border border-neutral-200 bg-white px-3 py-1.5">
                 <span
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -160,7 +160,7 @@ export default async function AdminPricingPage() {
           </div>
         </div>
         <div className="lg:col-span-4">
-          <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <p
@@ -175,8 +175,8 @@ export default async function AdminPricingPage() {
                   {activeRules.length} active schedules
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
-                <HugeiconsIcon className="h-6 w-6 text-white" icon={MoneyBag02Icon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={MoneyBag02Icon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -186,7 +186,7 @@ export default async function AdminPricingPage() {
             <div className="mt-5 flex flex-col gap-3">
               <a
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="#ratebook"
@@ -198,7 +198,7 @@ export default async function AdminPricingPage() {
                 <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Shield01Icon} />
                 <p
                   className={cn(
-                    "text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -214,7 +214,7 @@ export default async function AdminPricingPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -227,12 +227,12 @@ export default async function AdminPricingPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {coverageMetrics.map((metric) => (
             <div
-              className="border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-[#FF5200]"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
               key={metric.label}
             >
               <p
                 className={cn(
-                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -245,7 +245,7 @@ export default async function AdminPricingPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -259,11 +259,11 @@ export default async function AdminPricingPage() {
       <section>
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="border border-neutral-200 bg-white">
-              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+            <div className="rounded-lg border border-neutral-200 bg-white">
+              <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -314,11 +314,11 @@ export default async function AdminPricingPage() {
             </div>
           </div>
           <div className="lg:col-span-7">
-            <section className="border border-neutral-200 bg-white" id="ratebook">
-              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+            <section className="rounded-lg border border-neutral-200 bg-white" id="ratebook">
+              <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >

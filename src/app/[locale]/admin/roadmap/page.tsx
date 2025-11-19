@@ -9,8 +9,10 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
+import { geistSans } from "@/app/fonts";
 import { RoadmapAdminList } from "@/components/roadmap/roadmap-admin-list";
 import { requireUser } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Roadmap Management | Admin",
@@ -27,12 +29,21 @@ export default async function AdminRoadmapPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-3xl text-neutral-900">Roadmap Management</h1>
-          <p className="mt-2 text-neutral-600">Manage your product roadmap items</p>
+          <h1
+            className={cn(
+              "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+              geistSans.className
+            )}
+          >
+            Roadmap Management
+          </h1>
+          <p className={cn("mt-1.5 text-neutral-700 text-sm tracking-wide", geistSans.className)}>
+            Manage your product roadmap items
+          </p>
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-medium text-white transition hover:bg-orange-600"
+          className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition hover:bg-orange-600"
           href="/admin/roadmap/new"
         >
           <HugeiconsIcon icon={Add01Icon} size={20} />

@@ -220,7 +220,7 @@ export default async function AdminContentPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -248,7 +248,7 @@ export default async function AdminContentPage() {
               >
                 <span
                   className={cn(
-                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -261,10 +261,10 @@ export default async function AdminContentPage() {
                 </span>
               </div>
             ))}
-            <div className="border border-neutral-900 bg-neutral-900 px-3 py-1.5">
+            <div className="rounded-lg border border-orange-500 bg-orange-500 px-3 py-1.5">
               <span
                 className={cn(
-                  "font-semibold text-white text-xs uppercase tracking-[0.3em]",
+                  "font-semibold text-white text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -274,12 +274,12 @@ export default async function AdminContentPage() {
           </div>
         </div>
         <div className="lg:col-span-4">
-          <div className="border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <p
                   className={cn(
-                    "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -289,8 +289,8 @@ export default async function AdminContentPage() {
                   Content editor ready
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
-                <HugeiconsIcon className="h-6 w-6 text-white" icon={FileEditIcon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={FileEditIcon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -300,7 +300,7 @@ export default async function AdminContentPage() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/studio"
@@ -311,7 +311,7 @@ export default async function AdminContentPage() {
               </Link>
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 border border-neutral-200 bg-neutral-50 px-4 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-[0.3em] transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-wide transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/admin/content/roadmap"
@@ -328,7 +328,7 @@ export default async function AdminContentPage() {
         <div>
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -341,12 +341,12 @@ export default async function AdminContentPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {metricCards.map((metric) => (
             <div
-              className="border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-[#FF5200]"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
               key={metric.label}
             >
               <p
                 className={cn(
-                  "font-semibold text-neutral-700 text-xs uppercase tracking-[0.25em]",
+                  "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -359,7 +359,7 @@ export default async function AdminContentPage() {
               </p>
               <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs uppercase tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
@@ -374,7 +374,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -387,14 +387,14 @@ export default async function AdminContentPage() {
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {contentTypes.map((contentType) => (
             <div
-              className="group flex flex-col border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-[#FF5200] hover:shadow-md"
+              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md"
               key={contentType.title}
             >
               <div className="flex items-start justify-between">
                 <div>
                   <p
                     className={cn(
-                      "font-semibold text-neutral-700 text-xs uppercase tracking-[0.3em]",
+                      "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
                       geistSans.className
                     )}
                   >
@@ -404,8 +404,8 @@ export default async function AdminContentPage() {
                     {contentType.description}
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-6 w-6 text-white" icon={contentType.icon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                  <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={contentType.icon} />
                 </div>
               </div>
               <div className="mt-4 space-y-2 border-neutral-100 border-t pt-4">
@@ -413,7 +413,7 @@ export default async function AdminContentPage() {
                   <div className="flex items-center justify-between" key={stat.label}>
                     <span
                       className={cn(
-                        "text-neutral-600 text-xs uppercase tracking-[0.25em]",
+                        "text-neutral-600 text-xs uppercase tracking-wide",
                         geistSans.className
                       )}
                     >
@@ -428,7 +428,7 @@ export default async function AdminContentPage() {
               <div className="mt-6 flex flex-wrap gap-2">
                 <Link
                   className={cn(
-                    "inline-flex flex-1 items-center justify-center gap-2 border border-neutral-900 bg-neutral-900 px-4 py-2 font-semibold text-white text-xs uppercase tracking-[0.25em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200] focus-visible:ring-offset-2",
+                    "inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                     geistSans.className
                   )}
                   href={contentType.studioPath}
@@ -440,7 +440,7 @@ export default async function AdminContentPage() {
                 <Link
                   aria-label={`Create new ${contentType.title}`}
                   className={cn(
-                    "inline-flex items-center justify-center border border-neutral-200 bg-neutral-50 px-3 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-[0.25em] transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
+                    "inline-flex items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 font-semibold text-neutral-900 text-xs uppercase tracking-wide transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
                     geistSans.className
                   )}
                   href={`${contentType.studioPath};action=create`}
@@ -458,7 +458,7 @@ export default async function AdminContentPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-semibold text-neutral-700 text-xs uppercase tracking-[0.35em]",
+              "font-semibold text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
@@ -470,11 +470,11 @@ export default async function AdminContentPage() {
         </div>
         <div className="mt-5 grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="border border-neutral-200 bg-white">
-              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+            <div className="rounded-lg border border-neutral-200 bg-white">
+              <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -489,21 +489,21 @@ export default async function AdminContentPage() {
                   recent.recentArticles.map((article) => (
                     <Link
                       className={cn(
-                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200]",
+                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
                         geistSans.className
                       )}
                       href={`/studio/structure/helpArticle;${article._id}`}
                       key={article._id}
                       target="_blank"
                     >
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center border border-neutral-200 bg-neutral-900">
-                        <HugeiconsIcon className="h-5 w-5 text-white" icon={Book01Icon} />
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                        <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={Book01Icon} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium text-neutral-900 text-sm">
                           {article.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-[0.25em]">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-wide">
                           <span>{article.category || "Uncategorized"}</span>
                           <span>•</span>
                           <span>{article.language.toUpperCase()}</span>
@@ -512,11 +512,11 @@ export default async function AdminContentPage() {
                         </div>
                         <div className="mt-2">
                           {article.isPublished ? (
-                            <span className="bg-emerald-600 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-[0.3em]">
+                            <span className="rounded-full bg-emerald-600 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-wide">
                               Published
                             </span>
                           ) : (
-                            <span className="bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-[0.3em]">
+                            <span className="rounded-full bg-orange-500 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-wide">
                               Draft
                             </span>
                           )}
@@ -539,11 +539,11 @@ export default async function AdminContentPage() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <div className="border border-neutral-200 bg-white">
-              <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+            <div className="rounded-lg border border-neutral-200 bg-white">
+              <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
                 <p
                   className={cn(
-                    "font-semibold text-neutral-600 text-xs uppercase tracking-[0.3em]",
+                    "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
@@ -558,21 +558,21 @@ export default async function AdminContentPage() {
                   recent.recentChangelogs.map((changelog) => (
                     <Link
                       className={cn(
-                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5200]",
+                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
                         geistSans.className
                       )}
                       href={`/studio/structure/changelog;${changelog._id}`}
                       key={changelog._id}
                       target="_blank"
                     >
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center border border-neutral-200 bg-neutral-900">
-                        <HugeiconsIcon className="h-5 w-5 text-white" icon={ClipboardIcon} />
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                        <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={ClipboardIcon} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium text-neutral-900 text-sm">
                           {changelog.title}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-[0.25em]">
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-neutral-600 text-xs uppercase tracking-wide">
                           <span>Sprint {changelog.sprintNumber}</span>
                           <span>•</span>
                           <span>{changelog.language.toUpperCase()}</span>

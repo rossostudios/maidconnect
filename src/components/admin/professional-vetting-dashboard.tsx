@@ -236,7 +236,7 @@ export function ProfessionalVettingDashboard() {
       </div>
 
       {/* Queue Distribution Chart */}
-      <Card className="border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-lg">
+      <Card className="rounded-lg border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
             <p className="mb-1 font-semibold text-neutral-500 text-xs uppercase tracking-wider">
@@ -319,7 +319,7 @@ export function ProfessionalVettingDashboard() {
         {/* Needs Review Tab */}
         <TabsContent value="needs_review">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-neutral-200 bg-white">
+            <Card className="rounded-lg border-neutral-200 bg-white">
               <CardContent className="flex min-h-[400px] items-center justify-center p-12">
                 <div className="flex max-w-md flex-col items-center gap-4 text-center">
                   <div className="bg-green-50 p-4">
@@ -342,7 +342,7 @@ export function ProfessionalVettingDashboard() {
             <div className="space-y-4">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
+                  className="rounded-lg border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-4 sm:p-6">
@@ -481,7 +481,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 bg-neutral-600 px-6 py-3 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-600"
+                        className="ml-6 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition-colors hover:bg-orange-600"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -498,7 +498,7 @@ export function ProfessionalVettingDashboard() {
         {/* Approved Tab */}
         <TabsContent value="approved">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-neutral-200 bg-neutral-50">
+            <Card className="rounded-lg border-neutral-200 bg-neutral-50">
               <CardContent className="flex min-h-[400px] items-center justify-center">
                 <p className="text-neutral-500 text-sm">No approved professionals yet.</p>
               </CardContent>
@@ -507,7 +507,7 @@ export function ProfessionalVettingDashboard() {
             <div className="space-y-4">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
+                  className="rounded-lg border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-4 sm:p-6">
@@ -607,7 +607,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="bg-neutral-900 px-4 py-2 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-900 sm:ml-6"
+                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-sm transition-colors hover:bg-orange-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -624,7 +624,7 @@ export function ProfessionalVettingDashboard() {
         {/* Incomplete Tab */}
         <TabsContent value="incomplete">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-neutral-200 bg-neutral-50">
+            <Card className="rounded-lg border-neutral-200 bg-neutral-50">
               <CardContent className="flex min-h-[400px] items-center justify-center">
                 <p className="text-neutral-500 text-sm">No incomplete applications.</p>
               </CardContent>
@@ -633,7 +633,7 @@ export function ProfessionalVettingDashboard() {
             <div className="space-y-4">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
+                  className="rounded-lg border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-4 sm:p-6">
@@ -733,7 +733,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="bg-neutral-500 px-4 py-2 font-semibold text-neutral-50 text-sm transition-colors hover:bg-neutral-500 sm:ml-6"
+                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-sm transition-colors hover:bg-orange-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

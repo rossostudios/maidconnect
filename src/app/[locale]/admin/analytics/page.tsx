@@ -185,7 +185,7 @@ export default async function AdminAnalyticsPage() {
               geistSans.className
             )}
           >
-            Concierge Operations Center
+            Overview
           </p>
           <div>
             <h1
@@ -197,12 +197,12 @@ export default async function AdminAnalyticsPage() {
               Platform Analytics
             </h1>
             <p className={cn("mt-1.5 text-neutral-700 text-sm", geistSans.className)}>
-              Track professional network, customer requests, and matching performance without
-              leaving Lia. Live data sourced directly from Supabase.
+              Track professional network growth, customer requests, and matching performance.
+              Real-time data sourced directly from the platform.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-1.5">
+            <div className="rounded-xl border border-neutral-900 bg-neutral-900 px-4 py-1.5">
               <span
                 className={cn(
                   "font-semibold text-white text-xs uppercase tracking-wide",
@@ -212,7 +212,7 @@ export default async function AdminAnalyticsPage() {
                 Completion · {completionRate}%
               </span>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
+            <div className="rounded-xl border border-neutral-200 bg-white px-3 py-1.5">
               <span
                 className={cn(
                   "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
@@ -227,7 +227,7 @@ export default async function AdminAnalyticsPage() {
                 {requestsLast30}
               </span>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
+            <div className="rounded-xl border border-neutral-200 bg-white px-3 py-1.5">
               <span
                 className={cn(
                   "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
@@ -243,7 +243,7 @@ export default async function AdminAnalyticsPage() {
           </div>
         </div>
         <div className="lg:col-span-4">
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <p
@@ -260,17 +260,17 @@ export default async function AdminAnalyticsPage() {
                   {pendingBookings} bookings waiting
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-900">
                 <span className={cn("font-semibold text-white text-xs", geistSans.className)}>
                   24h
                 </span>
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-600 text-sm", geistSans.className)}>
-              Pending queue shows assignments awaiting professional matching by concierge team.
+              Pending queue shows assignments awaiting professional matching by the team.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2">
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
                     "font-semibold text-neutral-500 text-xs uppercase tracking-wide",
@@ -288,7 +288,7 @@ export default async function AdminAnalyticsPage() {
                   {fillRate30}%
                 </p>
               </div>
-              <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2">
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2">
                 <p
                   className={cn(
                     "font-semibold text-neutral-500 text-xs uppercase tracking-wide",
@@ -319,16 +319,16 @@ export default async function AdminAnalyticsPage() {
               geistSans.className
             )}
           >
-            Headline Telemetry
+            Key Metrics
           </h2>
           <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
-            Lia numerics pull from Supabase counts for immediate context before diving into charts.
+            High-level performance indicators for immediate context.
           </p>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {headlineMetrics.map((metric) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
+              className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition hover:shadow-md"
               key={metric.label}
             >
               <p
@@ -368,16 +368,16 @@ export default async function AdminAnalyticsPage() {
               geistSans.className
             )}
           >
-            Pipeline Pressure
+            Activity Pipeline
           </h2>
           <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
-            Ops quick-glance cards for requests, fill performance, and supply activation.
+            Quick-glance cards for requests, fill performance, and supply activation.
           </p>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {pipelineStats.map((stat) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
+              className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm"
               key={stat.label}
             >
               <p
@@ -405,19 +405,18 @@ export default async function AdminAnalyticsPage() {
       </section>
 
       <section>
-        <div className="rounded-lg border border-neutral-200 bg-white">
-          <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+        <div className="rounded-xl border border-neutral-200 bg-white">
+          <div className="rounded-t-xl border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
                 "font-medium text-neutral-600 text-xs tracking-[0.3em]",
                 geistSans.className
               )}
             >
-              Deep Dive Analytics
+              Detailed Analysis
             </p>
             <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-              Trend lines, supply utilization, and category breakdowns powered by
-              EnhancedAnalyticsDashboard.
+              Trend lines, supply utilization, and category breakdowns.
             </p>
           </div>
           <div className="p-1">

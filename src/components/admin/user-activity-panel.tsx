@@ -130,7 +130,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
               geistSans.className
             )}
           >
-            Live Activity Monitor
+            Real-time Activity
           </h2>
           <p
             className={cn(
@@ -138,24 +138,10 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
               geistSans.className
             )}
           >
-            Real-time platform activity
+            Monitoring active users and sessions
           </p>
         </div>
 
-        {/* Online Indicator */}
-        {enabled && (
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 animate-pulse bg-green-500" />
-            <span
-              className={cn(
-                "font-medium text-neutral-700 text-xs tracking-wider",
-                geistSans.className
-              )}
-            >
-              Live
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Activity Stats Grid */}

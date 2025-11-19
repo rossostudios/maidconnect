@@ -128,83 +128,82 @@ export default async function AdminUsersPage() {
         <div className="space-y-4 lg:col-span-8">
           <p
             className={cn(
-              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
-            Identity Graph
+            User Management
           </p>
           <div>
             <h1
               className={cn(
-                "font-medium text-3xl text-neutral-900 tracking-tight",
+                "font-semibold text-3xl text-neutral-900 tracking-tight",
                 geistSans.className
               )}
             >
               User Directory
             </h1>
-            <p className={cn("mt-1.5 text-neutral-700 text-sm tracking-wide", geistSans.className)}>
-              Monitor every account, see review queues, and launch disciplinary workflows without
-              leaving Lia.
+            <p className={cn("mt-1.5 text-neutral-700 text-sm", geistSans.className)}>
+              Monitor every account, see review queues, and launch disciplinary workflows.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-1.5">
+            <div className="rounded-lg border border-orange-500 bg-orange-500 px-4 py-2 shadow-sm">
               <span
                 className={cn(
-                  "font-medium text-white text-xs tracking-[0.3em]",
+                  "font-medium text-white text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
                 Approval Rate · {approvalRate}%
               </span>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
+            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-2">
               <span
                 className={cn(
-                  "font-medium text-neutral-600 text-xs tracking-[0.3em]",
+                  "font-medium text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
                 Queue Load
               </span>
-              <span className={cn("ml-2 text-base text-neutral-900", geistSans.className)}>
+              <span className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}>
                 {reviewQueueCount}
               </span>
             </div>
-            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5">
+            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-2">
               <span
                 className={cn(
-                  "font-medium text-neutral-600 text-xs tracking-[0.3em]",
+                  "font-medium text-neutral-600 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
                 Admin Surface
               </span>
-              <span className={cn("ml-2 text-base text-neutral-900", geistSans.className)}>
+              <span className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}>
                 {adminCount}
               </span>
             </div>
           </div>
         </div>
         <div className="lg:col-span-4">
-          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <p
                   className={cn(
-                    "font-medium text-neutral-700 text-xs tracking-[0.3em]",
+                    "font-medium text-neutral-700 text-xs uppercase tracking-wide",
                     geistSans.className
                   )}
                 >
-                  Safeguard Center
+                  Security & Compliance
                 </p>
-                <p className={cn("mt-1 text-neutral-900 text-sm", geistSans.className)}>
+                <p className={cn("mt-1 font-semibold text-neutral-900 text-sm", geistSans.className)}>
                   Suspensions + AML Flags
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900">
-                <HugeiconsIcon className="h-6 w-6 text-white" icon={Alert01Icon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Alert01Icon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -214,7 +213,7 @@ export default async function AdminUsersPage() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-2 font-medium text-white text-xs tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2.5 font-medium text-white text-sm transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/admin/users?status=suspended"
@@ -224,7 +223,7 @@ export default async function AdminUsersPage() {
               </Link>
               <a
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 font-medium text-neutral-900 text-xs tracking-[0.3em] transition hover:border-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="#directory"
@@ -241,38 +240,38 @@ export default async function AdminUsersPage() {
         <div>
           <h2
             className={cn(
-              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
-            Population Metrics
+            User Statistics
           </h2>
           <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
-            Geist Mono numerics with zero drift from Lia tokens.
+            Real-time population metrics.
           </p>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {metrics.map((metric) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:shadow-md"
               key={metric.label}
             >
               <p
                 className={cn(
-                  "font-medium text-neutral-700 text-xs tracking-[0.25em]",
+                  "font-medium text-neutral-700 text-xs uppercase tracking-wide",
                   geistSans.className
                 )}
               >
                 {metric.label}
               </p>
               <p
-                className={cn("mt-2 text-3xl text-neutral-900 tracking-tight", geistSans.className)}
+                className={cn("mt-2 font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}
               >
                 {metric.value}
               </p>
               <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs tracking-[0.25em]",
+                  "mt-2 text-neutral-600 text-xs",
                   geistSans.className
                 )}
               >
@@ -287,20 +286,20 @@ export default async function AdminUsersPage() {
         <div className="flex flex-col gap-1">
           <h2
             className={cn(
-              "font-medium text-neutral-700 text-xs tracking-[0.35em]",
+              "font-medium text-neutral-700 text-xs uppercase tracking-wide",
               geistSans.className
             )}
           >
-            Oversight Modules
+            Quick Actions
           </h2>
           <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
-            Shortcut cards for the flows ops uses hourly.
+            Shortcut cards for common operations flows.
           </p>
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {oversightPanels.map((panel) => (
             <Link
-              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-500"
+              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-orange-200"
               href={panel.href}
               key={panel.label}
             >
@@ -308,7 +307,7 @@ export default async function AdminUsersPage() {
                 <div>
                   <p
                     className={cn(
-                      "font-medium text-neutral-700 text-xs tracking-[0.3em]",
+                      "font-medium text-neutral-700 text-xs uppercase tracking-wide",
                       geistSans.className
                     )}
                   >
@@ -318,16 +317,16 @@ export default async function AdminUsersPage() {
                     {panel.description}
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={panel.icon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
+                  <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={panel.icon} />
                 </div>
               </div>
               <div className="mt-6 flex items-end justify-between">
-                <p className={cn("text-4xl text-neutral-900", geistSans.className)}>
+                <p className={cn("font-semibold text-4xl text-neutral-900", geistSans.className)}>
                   {panel.value}
                 </p>
                 <HugeiconsIcon
-                  className="h-4 w-4 text-neutral-500 transition group-hover:text-neutral-900"
+                  className="h-4 w-4 text-neutral-400 transition group-hover:text-orange-500"
                   icon={ArrowUpRight01Icon}
                 />
               </div>
@@ -341,14 +340,14 @@ export default async function AdminUsersPage() {
           <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
             <p
               className={cn(
-                "font-medium text-neutral-600 text-xs tracking-[0.3em]",
+                "font-medium text-neutral-600 text-xs uppercase tracking-wide",
                 geistSans.className
               )}
             >
-              Directory Intelligence
+              User Directory
             </p>
             <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-              Search, slice, and export with Lia's Precision Data Table.
+              Search, filter, and manage user accounts.
             </p>
           </div>
           <div className="p-1">

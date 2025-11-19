@@ -23,7 +23,7 @@ type User = {
   id: string;
   email: string | null;
   full_name: string | null;
-  role: string;
+  role: "customer" | "professional" | "admin";
   avatar_url: string | null;
   phone: string | null;
   city: string | null;
@@ -67,19 +67,19 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
     userId: id,
     initialSuspension: userData?.activeSuspension
       ? {
-          id: userData.activeSuspension.id,
-          user_id: id,
-          suspension_type: userData.activeSuspension.type as "temporary" | "permanent",
-          reason: userData.activeSuspension.reason,
-          suspended_at: userData.activeSuspension.suspended_at,
-          expires_at: userData.activeSuspension.expires_at,
-          is_active: true,
-          suspended_by: userData.activeSuspension.suspended_by
-            ? {
-                full_name: userData.activeSuspension.suspended_by.full_name,
-              }
-            : undefined,
-        }
+        id: userData.activeSuspension.id,
+        user_id: id,
+        suspension_type: userData.activeSuspension.type as "temporary" | "permanent",
+        reason: userData.activeSuspension.reason,
+        suspended_at: userData.activeSuspension.suspended_at,
+        expires_at: userData.activeSuspension.expires_at,
+        is_active: true,
+        suspended_by: userData.activeSuspension.suspended_by
+          ? {
+            full_name: userData.activeSuspension.suspended_by.full_name,
+          }
+          : undefined,
+      }
       : null,
     enabled: !!userData, // Only enable after initial data is loaded
   });
@@ -87,16 +87,16 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   // Map real-time suspension to component format
   const activeSuspension: Suspension | null = realtimeSuspension
     ? {
-        id: realtimeSuspension.id,
-        type: realtimeSuspension.suspension_type,
-        reason: realtimeSuspension.reason,
-        suspended_at: realtimeSuspension.suspended_at,
-        expires_at: realtimeSuspension.expires_at,
-        suspended_by: {
-          id: "", // Not available from real-time payload
-          full_name: realtimeSuspension.suspended_by?.full_name || null,
-        },
-      }
+      id: realtimeSuspension.id,
+      type: realtimeSuspension.suspension_type,
+      reason: realtimeSuspension.reason,
+      suspended_at: realtimeSuspension.suspended_at,
+      expires_at: realtimeSuspension.expires_at,
+      suspended_by: {
+        id: "", // Not available from real-time payload
+        full_name: realtimeSuspension.suspended_by?.full_name || null,
+      },
+    }
     : null;
 
   const loadUserData = useCallback(async () => {
@@ -157,7 +157,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-neutral-700">Loading user data...</p>
+        <p className="text-neutral-500 text-sm">Loading user data...</p>
       </div>
     );
   }
@@ -165,7 +165,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (!userData) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-neutral-700">User not found</p>
+        <p className="text-neutral-500 text-sm">User not found</p>
       </div>
     );
   }
@@ -173,35 +173,35 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   const { user } = userData;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto max-w-7xl px-4 py-8">
       {/* Header with back button */}
-      <div className="mb-6">
+      <div className="mb-8">
         <button
-          className="type-ui-sm mb-4 text-orange-600 transition hover:text-orange-700"
+          className="mb-4 flex items-center gap-2 font-medium text-neutral-500 text-sm transition-colors hover:text-neutral-900"
           onClick={() => router.back()}
           type="button"
         >
           ← Back to Users
         </button>
         <div className="flex items-center gap-3">
-          <h1 className="type-ui-lg font-semibold text-neutral-900">User Details</h1>
+          <h1 className="font-semibold text-3xl text-neutral-900 tracking-tight">User Details</h1>
           {/* Real-time connection status */}
           {isConnected ? (
-            <span className="type-ui-xs flex items-center gap-1.5 border border-green-200 bg-green-50 px-2 py-1 text-green-700">
-              <span className="h-2 w-2 bg-green-500" />
+            <span className="flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 font-medium text-green-700 text-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
               Live
             </span>
           ) : (
-            <span className="type-ui-xs flex items-center gap-1.5 border border-neutral-200 bg-neutral-50 px-2 py-1 text-neutral-600">
-              <span className="h-2 w-2 bg-neutral-400" />
-              Static
+            <span className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 font-medium text-neutral-500 text-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              Offline
             </span>
           )}
         </div>
       </div>
 
       {/* User Profile Header - Always visible */}
-      <div className="mb-6 border border-neutral-200 bg-white p-6">
+      <div className="mb-8 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
         <UserProfileHeader
           activeSuspension={activeSuspension}
           onExportData={handleExportData}
@@ -232,10 +232,10 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
             role: user.role,
             suspension: activeSuspension
               ? {
-                  type: activeSuspension.type as "temporary" | "permanent",
-                  reason: activeSuspension.reason,
-                  expires_at: activeSuspension.expires_at,
-                }
+                type: activeSuspension.type as "temporary" | "permanent",
+                reason: activeSuspension.reason,
+                expires_at: activeSuspension.expires_at,
+              }
               : null,
           }}
         />
