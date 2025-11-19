@@ -36,24 +36,74 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project - runs authentication before all tests
+    {
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
+    },
+
+    // Customer-authenticated projects
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "tests/playwright/.auth/customer.json",
+      },
+      dependencies: ["setup"],
     },
 
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      use: {
+        ...devices["Desktop Firefox"],
+        storageState: "tests/playwright/.auth/customer.json",
+      },
+      dependencies: ["setup"],
     },
 
-    /* Test against mobile viewports. */
     {
       name: "Mobile Chrome",
-      use: { ...devices["Pixel 5"] },
+      use: {
+        ...devices["Pixel 5"],
+        storageState: "tests/playwright/.auth/customer.json",
+      },
+      dependencies: ["setup"],
     },
     {
       name: "Mobile Safari",
-      use: { ...devices["iPhone 12"] },
+      use: {
+        ...devices["iPhone 12"],
+        storageState: "tests/playwright/.auth/customer.json",
+      },
+      dependencies: ["setup"],
+    },
+
+    // Professional-authenticated projects (for professional dashboard tests)
+    {
+      name: "professional-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "tests/playwright/.auth/professional.json",
+      },
+      dependencies: ["setup"],
+    },
+
+    {
+      name: "professional-firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        storageState: "tests/playwright/.auth/professional.json",
+      },
+      dependencies: ["setup"],
+    },
+
+    {
+      name: "professional-mobile",
+      use: {
+        ...devices["Pixel 5"],
+        storageState: "tests/playwright/.auth/professional.json",
+      },
+      dependencies: ["setup"],
     },
   ],
 
