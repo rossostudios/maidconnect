@@ -23,6 +23,7 @@ const BookingSheet = dynamic(
 
 import { CompactPrice } from "@/components/pricing/price-breakdown";
 import { EarningsBadge } from "@/components/professionals/earnings-badge";
+import { IntroVideoPlayer } from "@/components/professionals/intro-video-player";
 import { TrustCard } from "@/components/professionals/trust-card";
 import type {
   ProfessionalBookingSummary,
@@ -62,6 +63,10 @@ export type ProfessionalProfileDetail = {
   shareEarningsBadge?: boolean;
   totalEarningsCOP?: number;
   totalBookingsCompleted?: number;
+  // Intro video (Phase 2.3)
+  introVideoPath?: string | null;
+  introVideoStatus?: "none" | "pending_review" | "approved" | "rejected";
+  introVideoDurationSeconds?: number | null;
 };
 
 type ProfessionalProfileViewProps = {
@@ -281,6 +286,21 @@ export function ProfessionalProfileView({
             verificationLevel={(professional.verification?.level as any) ?? "background-check"}
           />
         </div>
+
+        {/* Intro Video (Phase 2.3) - Only show if professional has approved video */}
+        {professional.introVideoPath &&
+          professional.introVideoStatus === "approved" &&
+          professional.introVideoDurationSeconds && (
+            <div className="mt-8">
+              <IntroVideoPlayer
+                professionalId={professional.id}
+                professionalName={professional.name}
+                videoPath={professional.introVideoPath}
+                durationSeconds={professional.introVideoDurationSeconds}
+                countryCode="CO" // TODO: Get from professional data when available
+              />
+            </div>
+          )}
 
         {/* Main Layout: Calendar + Info Sidebar */}
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_400px)] xl:grid-cols-[minmax(0,_1fr)_minmax(0,_480px)]">

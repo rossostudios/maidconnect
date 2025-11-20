@@ -268,6 +268,133 @@ import { bookingSchema } from '@/lib/shared/validations/booking';
 
 ---
 
+## Multi-Country Architecture
+
+Casaora operates as a **multi-country domestic staffing platform** across Latin America, with unique configurations per market.
+
+### Market Definition
+
+**Market** = Country + City combination
+- Example: `CO-bogota`, `PY-asuncion`, `UY-montevideo`, `AR-buenos-aires`
+- Each market has its own:
+  - Currency (COP, PYG, UYU, ARS)
+  - Pricing structure and commission rates
+  - Payment processor (Stripe or PayPal)
+  - Local regulations and compliance requirements
+
+**Supported Countries:**
+- **Colombia (CO)** - 7 cities: Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Pereira
+- **Paraguay (PY)** - 3 cities: Asunción, Ciudad del Este, Encarnación
+- **Uruguay (UY)** - 3 cities: Montevideo, Salto, Paysandú
+- **Argentina (AR)** - 4 cities: Buenos Aires, Córdoba, Rosario, Mendoza
+
+**Configuration Files:**
+- Markets: [`src/lib/shared/config/territories.ts`](../src/lib/shared/config/territories.ts)
+- Pricing: [`src/lib/shared/config/pricing.ts`](../src/lib/shared/config/pricing.ts)
+
+### Concierge Model
+
+**Concierge** = Human-powered support and placement service
+
+Casaora operates as "Airbnb with concierge" - customers can self-serve or request human assistance for direct hire placements.
+
+**What the Concierge Does:**
+- **Professional Vetting** - Reviews intro videos, background checks, and qualifications
+- **Direct Hire Placements** - Handles high-value, long-term placements (higher commission)
+- **Customer Support** - Assists with booking issues, rescheduling, and disputes
+- **Quality Assurance** - Monitors service quality and handles escalations
+- **Market Operations** - On-the-ground presence in each market via remote ops team
+
+**Service Level Agreements (SLAs):**
+- Direct hire requests: 24-48 hours response time
+- Video review: 48-72 hours turnaround
+- Support tickets: 12-24 hours first response
+- Emergency escalations: Same-day handling
+
+**Handoff Points:**
+- Customers start with self-service booking flow
+- "Need help?" option triggers concierge assistance
+- Direct hire requests always go through concierge
+- Failed bookings automatically flagged for concierge review
+
+**Admin Tools:**
+- Today's bookings by market (dashboard view)
+- Pending video reviews queue
+- Direct hire pipeline with status tracking
+- Professional quality scores and flags
+
+### Currency & Payment Processing
+
+**Multi-Currency Support:**
+- Customers see prices in **local currency** (COP, PYG, UYU, ARS)
+- Professionals receive payouts in **local currency**
+- Platform commissions calculated in **local currency**
+- Database stores amounts in minor units (cents/centavos)
+
+**Payment Processor Routing:**
+- **Stripe** - Colombia (CO) only
+  - Supports COP (Colombian Peso)
+  - Credit/debit cards, PSE bank transfers
+- **PayPal** - Paraguay, Uruguay, Argentina (PY/UY/AR)
+  - Supports PYG, UYU, ARS
+  - PayPal Checkout, bank transfers, local payment methods
+
+**Commission Structure:**
+- **Marketplace Bookings:** 15% commission
+- **Direct Hire Placements:** 15% placement fee (one-time)
+- Rates configurable per country in [`pricing.ts`](../src/lib/shared/config/pricing.ts)
+
+### Database Schema for Multi-Country
+
+**Country-Aware Tables:**
+- `countries` - Master list of supported countries (CO, PY, UY, AR)
+- `cities` - All 17 cities across markets with country foreign keys
+- `neighborhoods` - City neighborhoods (currently Colombia only)
+
+**Foreign Key Relationships:**
+- `profiles.country_code` → `countries.code` (customer location)
+- `profiles.city_id` → `cities.id` (customer city)
+- `professional_profiles.country_code` → `countries.code` (service area)
+- `professional_profiles.city_id` → `cities.id` (service city)
+- `bookings.country_code` → `countries.code` (booking location)
+- `bookings.city_id` → `cities.id` (booking city)
+
+**Multi-Currency Columns:**
+- All currency amounts use `_cents` suffix (e.g., `amount_cents`, `commission_cents`)
+- Stored as `bigint` in database (minor units)
+- Migration path: Original `_cop` columns for backward compatibility
+
+**Example Query:**
+```typescript
+// Get all professionals in a specific market
+const professionals = await supabase
+  .from('professional_profiles')
+  .select('*, cities(name, countries(code))')
+  .eq('country_code', 'CO')
+  .eq('city_id', cityId)
+  .eq('is_active', true);
+```
+
+### Feature Flags by Market
+
+Use PostHog feature flags to enable/disable features per country:
+
+```typescript
+import { isFeatureEnabled } from '@/lib/integrations/posthog';
+
+// Example: Enable intro videos only in Colombia
+const showIntroVideo = await isFeatureEnabled('intro-videos', {
+  country_code: 'CO',
+});
+```
+
+**Common Feature Flags:**
+- `intro-videos-{country_code}` - Intro video upload feature
+- `direct-hire-{country_code}` - Direct hire placement service
+- `background-checks-{country_code}` - Background check requirement
+
+---
+
 ## Database Schema (Supabase PostgreSQL)
 
 ### Core Tables

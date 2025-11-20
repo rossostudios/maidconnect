@@ -228,7 +228,35 @@
       },
       "profile": {
         "title": "Configuración de Perfil",
-        "description": "Actualiza tu información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en tu listado público."
+        "description": "Actualiza tu información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en tu listado público.",
+        "introVideo": {
+          "title": "Video de Presentación",
+          "description": "Graba un video de 60 segundos presentándote y tus servicios. Los perfiles con videos reciben 30% más reservas.",
+          "uploadButton": "Subir Video",
+          "replaceButton": "Reemplazar Video",
+          "uploading": "Subiendo... {progress}%",
+          "thumbnailAlt": "Miniatura del video",
+          "status": {
+            "noVideo": "Sin Video",
+            "pendingReview": "Pendiente de Revisión",
+            "approved": "Aprobado",
+            "rejected": "Rechazado"
+          },
+          "guidelines": {
+            "title": "Guías del Video",
+            "duration": "Máximo {maxDuration} segundos",
+            "fileSize": "Máximo {maxSize}MB",
+            "content": "Preséntate, habla de tu experiencia y por qué los clientes deberían elegirte",
+            "quality": "Graba con buena iluminación, ambiente silencioso y orientación horizontal"
+          },
+          "rejectionReasonTitle": "Motivo del Rechazo",
+          "errors": {
+            "invalidType": "Tipo de archivo inválido. Por favor sube formato MP4, WebM, QuickTime, AVI o MKV.",
+            "fileTooLarge": "Archivo demasiado grande. El tamaño máximo es {maxSize}MB.",
+            "durationTooLong": "Video demasiado largo. La duración máxima es {maxDuration} segundos.",
+            "uploadFailed": "Fallo al subir. Por favor intenta de nuevo."
+          }
+        }
       },
       "onboarding": {
         "labels": {
@@ -2488,6 +2516,13 @@
         "title": "Reseñas",
         "moreReviews": "+ {count} reseñas más",
         "noReviews": "Aún no hay reseñas"
+      },
+      "introVideo": {
+        "title": "Video de Presentación",
+        "introductionFrom": "Presentación de {name}",
+        "loading": "Cargando video...",
+        "loadError": "No se pudo cargar el video",
+        "browserNotSupported": "Su navegador no admite la etiqueta de video."
       }
     }
   },
@@ -2523,6 +2558,7 @@
       "favorite": "Agregar a favoritos",
       "noBio": "Este profesional está preparando su biografía pública. Vuelva pronto.",
       "newBadge": "Nuevo en Casaora",
+      "hasIntroVideo": "Video de presentación",
       "flexibleServices": "Servicios flexibles",
       "rateOnRequest": "Tarifa bajo consulta"
     }

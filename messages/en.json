@@ -250,7 +250,35 @@
       },
       "profile": {
         "title": "Profile Settings",
-        "description": "Update your public information, contact details, and professional summary. Changes are reflected on your public listing."
+        "description": "Update your public information, contact details, and professional summary. Changes are reflected on your public listing.",
+        "introVideo": {
+          "title": "Intro Video",
+          "description": "Record a 60-second video introducing yourself and your services. Profiles with videos get 30% more bookings.",
+          "uploadButton": "Upload Video",
+          "replaceButton": "Replace Video",
+          "uploading": "Uploading... {progress}%",
+          "thumbnailAlt": "Video thumbnail",
+          "status": {
+            "noVideo": "No Video",
+            "pendingReview": "Pending Review",
+            "approved": "Approved",
+            "rejected": "Rejected"
+          },
+          "guidelines": {
+            "title": "Video Guidelines",
+            "duration": "Maximum {maxDuration} seconds",
+            "fileSize": "Maximum {maxSize}MB",
+            "content": "Introduce yourself, your experience, and why customers should choose you",
+            "quality": "Record in good lighting, quiet environment, and landscape orientation"
+          },
+          "rejectionReasonTitle": "Rejection Reason",
+          "errors": {
+            "invalidType": "Invalid file type. Please upload MP4, WebM, QuickTime, AVI, or MKV format.",
+            "fileTooLarge": "File too large. Maximum size is {maxSize}MB.",
+            "durationTooLong": "Video too long. Maximum duration is {maxDuration} seconds.",
+            "uploadFailed": "Upload failed. Please try again."
+          }
+        }
       },
       "onboarding": {
         "labels": {
@@ -2472,6 +2500,13 @@
         "title": "Reviews",
         "moreReviews": "+ {count} more reviews",
         "noReviews": "No reviews yet"
+      },
+      "introVideo": {
+        "title": "Introduction Video",
+        "introductionFrom": "Introduction from {name}",
+        "loading": "Loading video...",
+        "loadError": "Unable to load video",
+        "browserNotSupported": "Your browser does not support the video tag."
       }
     }
   },
@@ -2544,6 +2579,7 @@
       "favorite": "Favorite this professional",
       "noBio": "This professional is preparing their public bio. Check back soon.",
       "newBadge": "New to Casaora",
+      "hasIntroVideo": "Intro video",
       "flexibleServices": "Flexible services",
       "rateOnRequest": "Rate on request"
     }

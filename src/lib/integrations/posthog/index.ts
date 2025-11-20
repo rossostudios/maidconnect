@@ -60,6 +60,7 @@ export {
 } from "./user-tracking-client";
 export {
   bookingEvents,
+  conciergeEvents,
   funnelEvents,
   identifyUser,
   professionalEvents,
@@ -68,4 +69,6 @@ export {
   setUserProperties,
   trackError,
   trackEvent,
+  videoEvents,
+  type RequiredEventProperties,
 } from "./utils";

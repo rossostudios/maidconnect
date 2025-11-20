@@ -74,11 +74,15 @@ type GetProfessionalRow = {
   country: string | null;
   verification_level?: string | null;
   interview_completed?: boolean | null;
-  direct_hire_fee_cop?: number | null;
+  direct_hire_fee_cents?: number | null;
   // Verification data from admin_professional_reviews (joined)
   background_check_passed?: boolean | null;
   documents_verified?: boolean | null;
   references_verified?: boolean | null;
+  // Intro video fields (Phase 2.3)
+  intro_video_path?: string | null;
+  intro_video_status?: string | null;
+  intro_video_duration_seconds?: number | null;
 };
 
 function isValidUuid(value: string) {
@@ -117,7 +121,7 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     bookings: [],
     reviews: [],
     portfolioImages,
-    directHireFeeCOP: row.direct_hire_fee_cop ?? null,
+    directHireFeeCOP: row.direct_hire_fee_cents ?? null,
     // Enhanced verification data
     verification: {
       level: (row.verification_level as any) ?? "none",
@@ -126,6 +130,10 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
       interviewCompleted: row.interview_completed ?? undefined,
       referencesVerified: row.references_verified ?? undefined,
     },
+    // Intro video (Phase 2.3) - only approved videos are returned by RPC
+    introVideoPath: row.intro_video_path ?? null,
+    introVideoStatus: (row.intro_video_status as "none" | "pending_review" | "approved" | "rejected") ?? "none",
+    introVideoDurationSeconds: row.intro_video_duration_seconds ?? null,
   };
 }
 

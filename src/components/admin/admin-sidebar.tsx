@@ -11,6 +11,7 @@ import {
   Message01Icon,
   StarIcon,
   UserGroupIcon,
+  Video01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
@@ -28,6 +29,7 @@ type NavItem = {
 const navigation: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: Home01Icon },
   { href: "/admin/users", label: "Users", icon: UserGroupIcon },
+  { href: "/admin/intro-videos", label: "Intro Videos", icon: Video01Icon },
   { href: "/admin/disputes", label: "Disputes", icon: Alert01Icon },
   { href: "/admin/audit-logs", label: "Audit Logs", icon: ClipboardIcon },
   { href: "/admin/analytics", label: "Analytics", icon: Analytics01Icon },

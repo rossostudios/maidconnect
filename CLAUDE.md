@@ -229,6 +229,38 @@ PostgreSQL 17
 - **Private schema helper functions** for complex RLS policies
 - **Multi-currency support** (COP, USD, EUR, PYG, UYU, ARS)
 
+### Multi-Country Architecture
+
+**Core Concepts:**
+
+**Market** = Country + City combination
+- Example: "CO-bogota", "PY-asuncion", "UY-montevideo", "AR-buenos-aires"
+- Each market has its own currency, pricing, and payment processor
+- Markets are defined in `/src/lib/shared/config/territories.ts`
+- Countries: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)
+- Cities: 17 total across all markets (CO: 7, PY: 3, UY: 3, AR: 4)
+
+**Concierge** = Human-powered support and placement service
+- **What it is:** Remote operations team handling direct hire placements, professional vetting, and customer support
+- **SLAs:** Response time varies by market, typically 24-48 hours for direct hire requests
+- **Capabilities:**
+  - Create bookings on behalf of customers
+  - Vet and approve professional intro videos
+  - Handle direct hire placements (higher-fee service)
+  - Reassign professionals if issues arise
+  - Resolve disputes and quality issues
+- **Handoff points:** Customers can start self-service bookings or request concierge assistance at any point
+- **Admin tools:** Dashboard shows today's bookings by market, pending video reviews, direct hire pipeline
+
+**Currency Handling:**
+- Customers see prices in local currency (COP, PYG, UYU, ARS)
+- Platform commissions calculated in local currency (15% marketplace, 15% direct hire)
+- Payment processor routing: Stripe for Colombia (CO), PayPal for Paraguay/Uruguay/Argentina (PY/UY/AR)
+
+**Configuration:**
+- Markets: `/src/lib/shared/config/territories.ts` - Countries, cities, currencies
+- Pricing: `/src/lib/shared/config/pricing.ts` - Commission rates, fees, constraints
+
 ### Database Migrations
 
 **Current Local Migrations (Synced with Production):**

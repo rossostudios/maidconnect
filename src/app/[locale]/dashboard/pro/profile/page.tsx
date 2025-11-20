@@ -1,6 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { EarningsBadgeSettings } from "@/components/professionals/earnings-badge-settings";
+import { IntroVideoUpload } from "@/components/professionals/intro-video-upload";
 import { ProfileEditor } from "@/components/profile/profile-editor";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -14,10 +15,12 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch professional profile
+  // Fetch professional profile (including intro video fields)
   const { data: profileData, error } = await supabase
     .from("professional_profiles")
-    .select("full_name, bio, languages, phone_number, avatar_url, primary_services")
+    .select(
+      "full_name, bio, languages, phone_number, avatar_url, primary_services, country_code, intro_video_path, intro_video_status, intro_video_thumbnail_path, intro_video_rejection_reason"
+    )
     .eq("profile_id", user.id)
     .maybeSingle();
 
@@ -51,6 +54,18 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
       <div className="border border-neutral-200 bg-white p-8">
         <ProfileEditor profile={profile} />
       </div>
+
+      {/* Intro Video Upload */}
+      <IntroVideoUpload
+        userId={user.id}
+        countryCode={(profileData?.country_code as "CO" | "PY" | "UY" | "AR") || "CO"}
+        currentVideoPath={profileData?.intro_video_path}
+        currentVideoStatus={
+          profileData?.intro_video_status as "none" | "pending_review" | "approved" | "rejected"
+        }
+        currentVideoThumbnailPath={profileData?.intro_video_thumbnail_path}
+        rejectionReason={profileData?.intro_video_rejection_reason}
+      />
 
       {/* Earnings Badge Settings */}
       <EarningsBadgeSettings />

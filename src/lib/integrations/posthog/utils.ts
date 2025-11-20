@@ -6,6 +6,23 @@
 import { posthog } from "./client";
 
 /**
+ * Required properties for ALL PostHog events (multi-country support)
+ * CRITICAL: These properties enable market-specific analytics and feature flags
+ */
+export interface RequiredEventProperties {
+  /** User's country code (CO, PY, UY, AR) - REQUIRED for market analysis */
+  country_code: "CO" | "PY" | "UY" | "AR";
+  /** User's role (customer, professional, admin) - REQUIRED for role segmentation */
+  role: "customer" | "professional" | "admin";
+  /** User's city ID - Optional for granular location analysis */
+  city_id?: string;
+  /** Currency code (COP, PYG, UYU, ARS) - Required for transaction events */
+  currency?: "COP" | "PYG" | "UYU" | "ARS";
+  /** User's locale (es, en) - Optional for language preference */
+  locale?: "es" | "en";
+}
+
+/**
  * Identify user with PostHog
  */
 export function identifyUser(userId: string, properties?: Record<string, any>) {
@@ -31,12 +48,18 @@ export function trackEvent(event: string, properties?: Record<string, any>) {
  * Track booking events
  */
 export const bookingEvents = {
-  started: (data: { service: string; city?: string }) => trackEvent("Booking Started", data),
+  started: (data: RequiredEventProperties & { service: string; city?: string }) =>
+    trackEvent("Booking Started", data),
 
-  completed: (data: { bookingId: string; amount: number; service: string }) =>
-    trackEvent("Booking Completed", data),
+  completed: (
+    data: RequiredEventProperties & {
+      bookingId: string;
+      amount: number;
+      service: string;
+    },
+  ) => trackEvent("Booking Completed", data),
 
-  cancelled: (data: { bookingId: string; reason?: string }) =>
+  cancelled: (data: RequiredEventProperties & { bookingId: string; reason?: string }) =>
     trackEvent("Booking Cancelled", data),
 };
 
@@ -44,35 +67,123 @@ export const bookingEvents = {
  * Track search events
  */
 export const searchEvents = {
-  performed: (data: { query: string; resultCount: number; locale: string }) =>
+  performed: (data: RequiredEventProperties & { query: string; resultCount: number }) =>
     trackEvent("Search Performed", data),
 
-  resultClicked: (data: { query: string; resultId: string; position: number }) =>
-    trackEvent("Search Result Clicked", data),
+  resultClicked: (
+    data: RequiredEventProperties & { query: string; resultId: string; position: number },
+  ) => trackEvent("Search Result Clicked", data),
 };
 
 /**
  * Track professional events
  */
 export const professionalEvents = {
-  viewed: (data: { professionalId: string; source?: string }) =>
+  viewed: (data: RequiredEventProperties & { professionalId: string; source?: string }) =>
     trackEvent("Professional Viewed", data),
 
-  contacted: (data: { professionalId: string; method: string }) =>
+  contacted: (data: RequiredEventProperties & { professionalId: string; method: string }) =>
     trackEvent("Professional Contacted", data),
 
-  favorited: (data: { professionalId: string }) => trackEvent("Professional Favorited", data),
+  favorited: (data: RequiredEventProperties & { professionalId: string }) =>
+    trackEvent("Professional Favorited", data),
 };
 
 /**
  * Track conversion funnel
  */
 export const funnelEvents = {
-  viewedLanding: () => trackEvent("Viewed Landing Page"),
-  clickedCTA: (ctaText: string) => trackEvent("Clicked CTA", { ctaText }),
-  startedSignup: () => trackEvent("Started Signup"),
-  completedSignup: (method: string) => trackEvent("Completed Signup", { method }),
-  viewedPricing: () => trackEvent("Viewed Pricing"),
+  viewedLanding: (data: RequiredEventProperties) => trackEvent("Viewed Landing Page", data),
+  clickedCTA: (data: RequiredEventProperties & { ctaText: string }) =>
+    trackEvent("Clicked CTA", data),
+  startedSignup: (data: RequiredEventProperties) => trackEvent("Started Signup", data),
+  completedSignup: (data: RequiredEventProperties & { method: string }) =>
+    trackEvent("Completed Signup", data),
+  viewedPricing: (data: RequiredEventProperties) => trackEvent("Viewed Pricing", data),
+};
+
+/**
+ * Track intro video events (Phase 1.2 - Professional Trust Features)
+ */
+export const videoEvents = {
+  /** Professional uploads a new intro video */
+  uploaded: (
+    data: RequiredEventProperties & {
+      professionalId: string;
+      durationSeconds: number;
+      fileSizeMb: number;
+    },
+  ) => trackEvent("Video Uploaded", data),
+
+  /** Customer or admin views a professional's intro video */
+  viewed: (
+    data: RequiredEventProperties & {
+      professionalId: string;
+      videoStatus: "pending_review" | "approved" | "rejected";
+      viewerRole: "customer" | "admin";
+    },
+  ) => trackEvent("Video Viewed", data),
+
+  /** Admin approves a professional's intro video */
+  approved: (
+    data: RequiredEventProperties & {
+      professionalId: string;
+      reviewedBy: string;
+      reviewTimeMinutes: number;
+    },
+  ) => trackEvent("Video Approved", data),
+
+  /** Admin rejects a professional's intro video */
+  rejected: (
+    data: RequiredEventProperties & {
+      professionalId: string;
+      reviewedBy: string;
+      rejectionReason: string;
+      reviewTimeMinutes: number;
+    },
+  ) => trackEvent("Video Rejected", data),
+};
+
+/**
+ * Track concierge interaction events (Phase 1.4 - Human-Powered Support)
+ */
+export const conciergeEvents = {
+  /** Customer initiates chat with concierge team */
+  chatStarted: (
+    data: RequiredEventProperties & {
+      source: "booking_flow" | "profile_page" | "help_center" | "direct";
+      topic?: string;
+    },
+  ) => trackEvent("Concierge Chat Started", data),
+
+  /** Customer requests direct hire placement (higher-fee service) */
+  directHireRequested: (
+    data: RequiredEventProperties & {
+      serviceType: string;
+      estimatedSalaryRange?: string;
+      urgency: "immediate" | "within_week" | "within_month" | "flexible";
+    },
+  ) => trackEvent("Concierge Direct Hire Requested", data),
+
+  /** Concierge team completes a direct hire placement */
+  placementCompleted: (
+    data: RequiredEventProperties & {
+      placementId: string;
+      serviceType: string;
+      timeToPlacementDays: number;
+      conciergeFeeCents: number;
+    },
+  ) => trackEvent("Concierge Placement Completed", data),
+
+  /** Concierge reassigns a professional to resolve booking issues */
+  professionalReassigned: (
+    data: RequiredEventProperties & {
+      bookingId: string;
+      originalProfessionalId: string;
+      newProfessionalId: string;
+      reason: string;
+    },
+  ) => trackEvent("Concierge Professional Reassigned", data),
 };
 
 /**

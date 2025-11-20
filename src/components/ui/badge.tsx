@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Badge Component - Lia Design System
  *

@@ -21,6 +21,68 @@ This guide shows how to implement PostHog tracking across your application for c
 
 ---
 
+## 🌍 Required Event Properties (Multi-Country Support)
+
+**CRITICAL:** All events MUST include these properties for multi-country analytics:
+
+```typescript
+{
+  country_code: 'CO' | 'PY' | 'UY' | 'AR',  // REQUIRED - User's market
+  role: 'customer' | 'professional' | 'admin',  // REQUIRED - User role
+  currency?: 'COP' | 'PYG' | 'UYU' | 'ARS',  // For transaction events
+  city_id?: string,  // Optional - More granular than country
+  locale?: 'es' | 'en',  // Optional - User language
+}
+```
+
+**Why This Matters:**
+- **Market Analysis** - Compare conversion rates across CO/PY/UY/AR
+- **Currency Tracking** - Properly attribute revenue by local currency
+- **Role Segmentation** - Separate customer vs professional behavior
+- **Feature Flags** - Enable/disable features by country
+- **Funnel Analysis** - Identify which markets need optimization
+
+**Example Usage:**
+```typescript
+// BAD - Missing required properties ❌
+bookingTracking.started({
+  serviceType: 'nanny',
+});
+
+// GOOD - Includes required properties ✅
+bookingTracking.started({
+  serviceType: 'nanny',
+  country_code: user.country_code,  // REQUIRED
+  role: 'customer',  // REQUIRED
+  currency: 'COP',  // For transactions
+  city_id: user.city_id,  // Optional
+});
+```
+
+**Getting User Context:**
+```typescript
+// In API routes or server actions
+import { getServerUser } from '@/lib/shared/auth/session';
+
+const user = await getServerUser();
+const eventProperties = {
+  country_code: user.country_code || 'CO',
+  role: user.role || 'customer',
+  currency: getCurrencyByCountry(user.country_code),
+};
+
+// In client components
+import { useUser } from '@/hooks/useUser';
+
+const { user } = useUser();
+const eventProperties = {
+  country_code: user?.country_code || 'CO',
+  role: user?.role || 'customer',
+};
+```
+
+---
+
 ## 📋 Recommended Implementations
 
 ### 1. **User Authentication Tracking**
