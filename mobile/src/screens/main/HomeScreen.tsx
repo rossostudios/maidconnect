@@ -145,10 +145,11 @@ export function HomeScreen({ navigation }: Props) {
                   <TouchableOpacity
                     key={professional.id}
                     activeOpacity={0.7}
-                    onPress={() => {
-                      // TODO: Navigate to professional detail
-                      console.log('Selected professional:', professional.id);
-                    }}
+                    onPress={() =>
+                      navigation.navigate('ProfessionalDetail', {
+                        professionalId: professional.id,
+                      })
+                    }
                   >
                     <Card style={styles.professionalCard}>
                       {professional.profile_picture_url ? (
