@@ -22,6 +22,7 @@ export type MainTabParamList = {
   Search: undefined;
   Bookings: undefined;
   Profile: undefined;
+  ProfessionalDetail: { professionalId: string };
 };
 
 // Home Stack Navigator
