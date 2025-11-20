@@ -23,6 +23,30 @@ export type MainTabParamList = {
   Bookings: undefined;
   Profile: undefined;
   ProfessionalDetail: { professionalId: string };
+  BookingService: { professionalId: string };
+  BookingDateTime: {
+    professionalId: string;
+    serviceType: string;
+    durationHours: number;
+  };
+  BookingAddress: {
+    professionalId: string;
+    serviceType: string;
+    durationHours: number;
+    startTime: string;
+  };
+  BookingConfirm: {
+    professionalId: string;
+    serviceType: string;
+    durationHours: number;
+    startTime: string;
+    address: {
+      street: string;
+      city: string;
+      neighborhood?: string;
+      notes?: string;
+    };
+  };
 };
 
 // Home Stack Navigator
