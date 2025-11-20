@@ -5,6 +5,10 @@ import { SearchScreen } from '@/screens/main/SearchScreen';
 import { BookingsScreen } from '@/screens/main/BookingsScreen';
 import { ProfileScreen } from '@/screens/main/ProfileScreen';
 import { ProfessionalDetailScreen } from '@/screens/professionals/ProfessionalDetailScreen';
+import { BookingServiceScreen } from '@/screens/booking/BookingServiceScreen';
+import { BookingDateTimeScreen } from '@/screens/booking/BookingDateTimeScreen';
+import { BookingAddressScreen } from '@/screens/booking/BookingAddressScreen';
+import { BookingConfirmScreen } from '@/screens/booking/BookingConfirmScreen';
 import { Colors } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -83,6 +87,38 @@ export function MainNavigator() {
         component={ProfessionalDetailScreen}
         options={{
           tabBarButton: () => null, // Hide from tab bar
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingService"
+        component={BookingServiceScreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingDateTime"
+        component={BookingDateTimeScreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingAddress"
+        component={BookingAddressScreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="BookingConfirm"
+        component={BookingConfirmScreen}
+        options={{
+          tabBarButton: () => null,
           headerShown: false,
         }}
       />

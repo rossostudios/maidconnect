@@ -205,8 +205,7 @@ export function ProfessionalDetailScreen({ route, navigation }: Props) {
         <Button
           title="Reservar"
           onPress={() => {
-            // TODO: Navigate to booking flow
-            console.log('Book professional:', professional.id);
+            navigation.navigate('BookingService', { professionalId: professional.id });
           }}
           variant="primary"
           style={styles.bookButton}
