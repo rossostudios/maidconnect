@@ -43,9 +43,9 @@ jobs:
         run: bun run build
         env:
           NODE_ENV: production
-          # Add minimal env vars needed for build
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          # Placeholder values for bundle analysis (build only, no runtime behavior)
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key-for-bundle-analysis
 
       - name: Analyze bundle size
         id: analyze
