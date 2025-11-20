@@ -48,6 +48,11 @@ export type MainTabParamList = {
     };
   };
   BookingDetail: { bookingId: string };
+  PaymentMethod: {
+    bookingId: string;
+    amount_cents: number;
+    currency_code: string;
+  };
 };
 
 // Home Stack Navigator

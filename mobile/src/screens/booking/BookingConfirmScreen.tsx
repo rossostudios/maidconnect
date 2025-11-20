@@ -70,22 +70,12 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
         address,
       });
 
-      Alert.alert(
-        '¡Reserva Creada!',
-        'Tu reserva ha sido creada exitosamente. El profesional confirmará pronto.',
-        [
-          {
-            text: 'Ver Reservas',
-            onPress: () => {
-              // Reset navigation to Bookings tab
-              navigation.reset({
-                index: 0,
-                routes: [{ name: 'Bookings' }],
-              });
-            },
-          },
-        ]
-      );
+      // Navigate to payment screen with booking details
+      navigation.navigate('PaymentMethod', {
+        bookingId: booking.id,
+        amount_cents: Math.round(totalAmount * 100),
+        currency_code: currencyCode,
+      });
     } catch (error) {
       console.error('Error creating booking:', error);
       Alert.alert('Error', 'No se pudo crear la reserva. Por favor intenta nuevamente.');

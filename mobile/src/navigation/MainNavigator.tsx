@@ -10,6 +10,7 @@ import { BookingDateTimeScreen } from '@/screens/booking/BookingDateTimeScreen';
 import { BookingAddressScreen } from '@/screens/booking/BookingAddressScreen';
 import { BookingConfirmScreen } from '@/screens/booking/BookingConfirmScreen';
 import { BookingDetailScreen } from '@/screens/booking/BookingDetailScreen';
+import { PaymentMethodScreen } from '@/screens/payment/PaymentMethodScreen';
 import { Colors } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -126,6 +127,14 @@ export function MainNavigator() {
       <Tab.Screen
         name="BookingDetail"
         component={BookingDetailScreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="PaymentMethod"
+        component={PaymentMethodScreen}
         options={{
           tabBarButton: () => null,
           headerShown: false,
