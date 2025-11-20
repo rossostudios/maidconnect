@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { cn } from "@/lib/utils";
+import type { Currency } from "@/lib/utils/format";
 import { submitProfile } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 
@@ -20,6 +21,7 @@ type Props = {
   availabilityDays: AvailabilityDay[];
   languages: string[];
   inputClass: string;
+  currencyCode: Currency;
   initialData?: {
     bio?: string | null;
     languages?: string[] | null;
@@ -112,6 +114,7 @@ export function ProfileBuildForm({
   availabilityDays,
   languages,
   inputClass,
+  currencyCode,
   initialData,
   submitLabel,
   footnote,
@@ -205,7 +208,7 @@ export function ProfileBuildForm({
                           className="mb-2 block font-medium text-neutral-700 text-sm"
                           htmlFor={`service_rate_${service.name}`}
                         >
-                          {t("services.hourlyRate")}
+                          {t("services.hourlyRate", { currency: currencyCode })}
                         </label>
                         <input
                           className={cn(inputClass, hasError("services") && errorClass)}
@@ -213,7 +216,6 @@ export function ProfileBuildForm({
                           id={`service_rate_${service.name}`}
                           min={0}
                           name="service_rate"
-                          placeholder={t("services.ratePlaceholder")}
                           type="number"
                         />
                       </div>

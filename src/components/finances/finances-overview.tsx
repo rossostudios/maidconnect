@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import { geistSans } from "@/app/fonts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils/core";
+import type { Currency } from "@/lib/utils/format";
 
 type Booking = {
   id: string;
@@ -31,6 +32,7 @@ type Payout = {
 type Props = {
   bookings: Booking[];
   payouts: Payout[];
+  currencyCode: Currency;
 };
 
 const COLORS = ["#57534E", "#1C1917", "#78716C", "#A8A29E", "#D6D3D1"]; // neutral-600, neutral-900, neutral-500, neutral-400, neutral-300
@@ -158,7 +160,7 @@ function ChartSkeleton() {
   );
 }
 
-export function FinancesOverview({ bookings, payouts }: Props) {
+export function FinancesOverview({ bookings, payouts, currencyCode }: Props) {
   const t = useTranslations("dashboard.pro.financesOverview");
 
   // Calculate metrics
@@ -236,7 +238,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "COP",
+      currency: currencyCode,
       maximumFractionDigits: 0,
     }).format(value * 1000);
 

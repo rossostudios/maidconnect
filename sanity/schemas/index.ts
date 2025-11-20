@@ -7,6 +7,7 @@ import cityPage from "./documents/city-page";
 import helpArticle from "./documents/help-article";
 import helpCategory from "./documents/help-category";
 import helpTag from "./documents/help-tag";
+import marketContent from "./documents/market-content";
 import page from "./documents/page";
 import roadmapItem from "./documents/roadmap-item";
 
@@ -33,6 +34,7 @@ export const schemaTypes = [
 	cityPage,
 	blogCategory,
 	blogPost,
+	marketContent,
 
 	// Objects
 	blockContent,

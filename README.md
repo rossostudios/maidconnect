@@ -1,8 +1,8 @@
 # Casaora
 
-> The hybrid household staffing platform for expats in Colombia
+> The hybrid household staffing platform for expats in Latin America
 
-**Casaora** is the hybrid household staffing platform for expats in Colombia. We combine **Amara AI** for instant bookings with a **White-Glove Concierge** for permanent placements.
+**Casaora** is the hybrid household staffing platform for expats in Latin America. Currently operating in **Colombia, Paraguay, Uruguay, and Argentina**, we combine **Amara AI** for instant bookings with a **White-Glove Concierge** for permanent placements.
 
 Whether you need a cleaner for tomorrow or a full-time nanny with a legal contract, Casaora provides the vetting, payments, and legal framework to hire with confidence.
 
@@ -560,14 +560,20 @@ Built with these amazing open-source projects:
 
 See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for upcoming features and improvements.
 
-**Current Focus (Q1 2025):**
+**Current Focus (Q4 2025):**
 - ✅ **Product Analytics** - PostHog integration complete (feature flags, session recording, funnels)
 - 💎 **Direct Hire System** - Implementation of $299 placement fee, contract generation, and 30-day guarantees
 - 🛡️ **Trust & Safety V2** - Visual verification badges and enhanced background check integration
 - 🤖 **Amara AI Evolution** - Transitioning from simple chat to full "Instant Booking" intent handling
-- 🏗️ **Professional Network** - Scaling the "Top 5%" supply in Medellín
+- 🏗️ **Professional Network** - Scaling the "Top 5%" supply across Latin America (17+ cities in CO, PY, UY, AR)
 - 📱 **Mobile App** - React Native for iOS and Android (In Progress)
 - 🔄 **React Aria Migration** - Better accessibility with React Aria Components (In Progress)
+
+**🌎 Multi-Country Expansion:**
+- ✅ **Colombia** - Medellín, Bogotá, Cali, Cartagena, Barranquilla (live)
+- ✅ **Paraguay** - Asunción, Ciudad del Este (live)
+- ✅ **Uruguay** - Montevideo, Punta del Este (live)
+- 🚧 **Argentina** - Buenos Aires, Córdoba, Rosario, Mendoza (in progress)
 
 ---
 

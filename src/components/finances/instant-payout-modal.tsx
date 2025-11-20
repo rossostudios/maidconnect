@@ -19,7 +19,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils/core";
-import { formatCurrency } from "@/lib/utils/format";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -62,6 +62,10 @@ type InstantPayoutModalProps = {
    * Callback when payout fails
    */
   onError?: (error: string) => void;
+  /**
+   * Currency code for formatting (COP, PYG, UYU, ARS)
+   */
+  currencyCode: Currency;
 };
 
 type PayoutSuccessResult = {
@@ -124,6 +128,7 @@ export function InstantPayoutModal({
   minThresholdCop,
   onSuccess,
   onError,
+  currencyCode,
 }: InstantPayoutModalProps) {
   const t = useTranslations("dashboard.pro.instantPayoutModal");
   const locale = useLocale();
@@ -346,7 +351,7 @@ export function InstantPayoutModal({
                   {t("info.availableBalance")}
                 </span>
                 <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatCurrency(availableBalanceCop, "COP", locale)}
+                  {formatFromMinorUnits(availableBalanceCop, currencyCode)}
                 </span>
               </div>
             </div>
@@ -366,7 +371,7 @@ export function InstantPayoutModal({
                       {t("breakdown.requested")}
                     </span>
                     <span className={cn("font-medium text-blue-900", geistSans.className)}>
-                      {formatCurrency(amountCop, "COP", locale)}
+                      {formatFromMinorUnits(amountCop, currencyCode)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
@@ -374,7 +379,7 @@ export function InstantPayoutModal({
                       {t("breakdown.fee")}
                     </span>
                     <span className={cn("font-medium text-blue-900", geistSans.className)} data-testid="fee-amount">
-                      -{formatCurrency(feeAmountCop, "COP", locale)}
+                      -{formatFromMinorUnits(feeAmountCop, currencyCode)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between border-blue-200 border-t pt-2 font-semibold text-sm">
@@ -382,7 +387,7 @@ export function InstantPayoutModal({
                       {t("breakdown.youReceive")}
                     </span>
                     <span className={cn("text-green-700 text-base", geistSans.className)} data-testid="net-amount">
-                      {formatCurrency(netAmountCop, "COP", locale)}
+                      {formatFromMinorUnits(netAmountCop, currencyCode)}
                     </span>
                   </div>
                 </div>
@@ -423,7 +428,7 @@ export function InstantPayoutModal({
                   geistSans.className
                 )}
               >
-                {formatCurrency(netAmountCop, "COP", locale)}
+                {formatFromMinorUnits(netAmountCop, currencyCode)}
               </p>
               <div className="space-y-1 border-neutral-200 border-t pt-3 text-sm">
                 <div className="flex justify-between">
@@ -431,7 +436,7 @@ export function InstantPayoutModal({
                     {t("confirm.requested")}
                   </span>
                   <span className={cn("text-neutral-900", geistSans.className)}>
-                    {formatCurrency(amountCop, "COP", locale)}
+                    {formatFromMinorUnits(amountCop, currencyCode)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -439,7 +444,7 @@ export function InstantPayoutModal({
                     {t("confirm.fee")} ({feePercentage}%)
                   </span>
                   <span className={cn("text-neutral-900", geistSans.className)}>
-                    -{formatCurrency(feeAmountCop, "COP", locale)}
+                    -{formatFromMinorUnits(feeAmountCop, currencyCode)}
                   </span>
                 </div>
               </div>
@@ -491,7 +496,7 @@ export function InstantPayoutModal({
                   {t("success.amount")}
                 </span>
                 <span className={cn("font-medium text-green-700", geistSans.className)}>
-                  {formatCurrency(successResult.netAmountCop, "COP", locale)}
+                  {formatFromMinorUnits(successResult.netAmountCop, currencyCode)}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -499,7 +504,7 @@ export function InstantPayoutModal({
                   {t("success.newBalance")}
                 </span>
                 <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatCurrency(successResult.newBalanceCop, "COP", locale)}
+                  {formatFromMinorUnits(successResult.newBalanceCop, currencyCode)}
                 </span>
               </div>
             </div>

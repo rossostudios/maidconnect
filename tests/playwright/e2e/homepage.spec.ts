@@ -21,7 +21,7 @@ test.describe("Homepage", () => {
     await navigateTo(page, "/");
 
     // Check for hero content
-    await expectTextPresent(page, "Trusted home professionals for expats in Colombia");
+    await expectTextPresent(page, "Trusted home professionals for expats in Latin America");
 
     // Check for CTA buttons
     await expect(page.locator('a:has-text("Find a professional")')).toBeVisible();

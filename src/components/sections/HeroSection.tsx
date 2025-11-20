@@ -3,11 +3,12 @@
 import { motion, useScroll, useTransform, type Variants } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
+import { useMarket } from "@/lib/contexts/MarketContext";
 
 // Anthropic-Inspired Animation - Refined and Purposeful
 const fadeIn: Variants = {
@@ -50,6 +51,7 @@ const stagger: Variants = {
 export function HeroSection() {
   const t = useTranslations("hero");
   const containerRef = useRef<HTMLElement>(null);
+  const { country, city } = useMarket();
 
   // Subtle parallax for visual depth
   const { scrollYProgress } = useScroll({
@@ -60,15 +62,57 @@ export function HeroSection() {
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
-  // Highlight Medellín focus and Colombian expansion
-  const trustedAreas = [
-    "El Poblado · Medellín",
-    "Laureles · Medellín",
-    "Envigado · Medellín",
-    "Sabaneta · Medellín",
-    "Bogotá · Coming Soon",
-    "Cali · Coming Soon",
-  ];
+  // Get market-specific copy based on selected country and city
+  const marketCopy = useMemo(() => {
+    // Try country-city specific first (e.g., CO.medellin)
+    if (country && city) {
+      const cityKey = city.replace(/-/g, "").toLowerCase(); // Convert ciudad-del-este → ciudaddeleste
+      const marketKey = `markets.${country}.${cityKey}`;
+
+      // Check if translation exists for this specific city
+      const cityRibbon = t(`${marketKey}.ribbon`, { defaultValue: null });
+      if (cityRibbon) {
+        return {
+          ribbon: cityRibbon,
+          title: t(`${marketKey}.title`),
+          trustBadge: t(`${marketKey}.trustBadge`),
+        };
+      }
+    }
+
+    // Fallback to country default (e.g., CO.default)
+    if (country) {
+      const marketKey = `markets.${country}.default`;
+      return {
+        ribbon: t(`${marketKey}.ribbon`),
+        title: t(`${marketKey}.title`),
+        trustBadge: t(`${marketKey}.trustBadge`),
+      };
+    }
+
+    // Ultimate fallback to global default
+    return {
+      ribbon: t("markets.default.ribbon"),
+      title: t("markets.default.title"),
+      trustBadge: t("markets.default.trustBadge"),
+    };
+  }, [country, city, t]);
+
+  // All available neighborhoods by country
+  const allTrustedAreas = {
+    CO: ["El Poblado · Medellín, CO", "Chapinero · Bogotá, CO"],
+    AR: ["Palermo · Buenos Aires, AR", "Recoleta · Buenos Aires, AR"],
+    UY: ["Pocitos · Montevideo, UY", "Ciudad Vieja · Montevideo, UY"],
+    PY: ["Villa Morra · Asunción, PY", "Las Carmelitas · Asunción, PY"],
+  };
+
+  // Prioritize local neighborhoods (2-3 from selected country, rest from others)
+  const localAreas = allTrustedAreas[country] || [];
+  const otherAreas = Object.entries(allTrustedAreas)
+    .filter(([code]) => code !== country)
+    .flatMap(([, areas]) => areas);
+
+  const trustedAreas = [...localAreas, ...otherAreas.slice(0, 4)];
 
   return (
     <section className="relative overflow-hidden bg-neutral-50" ref={containerRef}>
@@ -100,7 +144,7 @@ export function HeroSection() {
                 className="mb-6 font-medium text-neutral-600 text-sm leading-relaxed"
                 variants={fadeIn}
               >
-                {t("ribbon") || "Medellín's only boutique household staffing agency"}
+                {marketCopy.ribbon}
               </motion.p>
 
               {/* Display Heading - Large, Refined Hierarchy */}
@@ -109,7 +153,7 @@ export function HeroSection() {
                 className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]"
                 variants={fadeIn}
               >
-                {t("title") || "Hire trusted nannies, housekeepers & private staff in Medellín"}
+                {marketCopy.title}
               </motion.h1>
 
               {/* Body Copy */}
@@ -296,7 +340,7 @@ export function HeroSection() {
         <Container className="max-w-screen-2xl px-4 md:px-12 lg:px-16">
           <div className="rounded-lg border border-neutral-200 bg-white px-8 py-12 shadow-sm md:px-12 lg:px-16">
             <p className="mb-6 text-center font-medium text-neutral-600 text-xs uppercase tracking-widest">
-              Built for expat and local households in Medellín — expanding across Colombia
+              {marketCopy.trustBadge}
             </p>
 
             <div className="relative overflow-hidden">

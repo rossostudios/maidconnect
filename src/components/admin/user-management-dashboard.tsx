@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAdminCountryFilter } from "@/lib/contexts/AdminCountryFilterContext";
 import type { User } from "./user-management-table";
 import { UserManagementTable } from "./user-management-table";
 
@@ -20,13 +21,19 @@ import { UserManagementTable } from "./user-management-table";
 export function UserManagementDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { selectedCountry } = useAdminCountryFilter();
 
   useEffect(() => {
     async function loadUsers() {
       setIsLoading(true);
       try {
-        // Fetch all users (no pagination - client-side filtering is faster for admin UX)
-        const response = await fetch("/api/admin/users?limit=10000");
+        // Fetch users with country filter
+        const params = new URLSearchParams({
+          limit: "10000",
+          country: selectedCountry,
+        });
+
+        const response = await fetch(`/api/admin/users?${params.toString()}`);
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
@@ -42,7 +49,7 @@ export function UserManagementDashboard() {
     }
 
     loadUsers();
-  }, []);
+  }, [selectedCountry]); // Reload when country filter changes
 
   return <UserManagementTable isLoading={isLoading} users={users} />;
 }

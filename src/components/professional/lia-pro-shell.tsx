@@ -40,6 +40,7 @@ type Props = {
   unreadMessagesCount?: number;
   onboardingStatus?: OnboardingStatus;
   onboardingCompletion?: number;
+  countryCode?: string;
 };
 
 export function LiaProShell({
@@ -51,6 +52,7 @@ export function LiaProShell({
   unreadMessagesCount = 0,
   onboardingStatus = "active",
   onboardingCompletion = 100,
+  countryCode,
 }: Props) {
   return (
     <div className={cn("flex h-screen overflow-hidden bg-white", geistSans.className)}>
@@ -68,6 +70,7 @@ export function LiaProShell({
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Header */}
         <ProHeader
+          countryCode={countryCode}
           onboardingCompletion={onboardingCompletion}
           onboardingStatus={onboardingStatus}
           pendingLeadsCount={pendingLeadsCount}

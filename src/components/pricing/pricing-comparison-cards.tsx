@@ -9,6 +9,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useMarket } from "@/lib/contexts/MarketContext";
+import { COUNTRY_PRICING } from "@/lib/shared/config/pricing";
 
 type PricingComparisonCardsProps = {
   highlightConcierge?: boolean;
@@ -18,6 +20,12 @@ export function PricingComparisonCards({
   highlightConcierge = false,
 }: PricingComparisonCardsProps) {
   const t = useTranslations("pricing.comparison");
+  const { country } = useMarket();
+
+  // Get commission rates for current market
+  const { marketplaceRate, directHireRate } = COUNTRY_PRICING[country].commission;
+  const marketplacePercentage = `${Math.round(marketplaceRate * 100)}%`;
+  const directHirePercentage = `${Math.round(directHireRate * 100)}%`;
 
   return (
     <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
@@ -59,7 +67,7 @@ export function PricingComparisonCards({
               {t("platformFee")}
             </div>
             <div className="font-[family-name:var(--font-geist-sans)] font-bold text-6xl text-neutral-900 tracking-tight">
-              15%
+              {marketplacePercentage}
             </div>
             <div className="mt-2 font-medium text-neutral-500 text-sm">
               {t("addedToServiceCost")}
@@ -130,16 +138,16 @@ export function PricingComparisonCards({
             <p className="text-lg text-neutral-600 leading-relaxed">{t("concierge.subtitle")}</p>
           </div>
 
-          {/* Direct Hire Fee */}
+          {/* Direct Hire Commission */}
           <div className="mb-10 rounded-2xl bg-blue-50/50 py-8 text-center">
             <div className="mb-2 font-bold text-blue-600/80 text-xs uppercase tracking-widest">
-              {t("oneTimeFee")}
+              {t("platformFee")}
             </div>
             <div className="font-[family-name:var(--font-geist-sans)] font-bold text-6xl text-blue-900 tracking-tight">
-              $299
+              {directHirePercentage}
             </div>
             <div className="mt-2 font-medium text-blue-600/80 text-sm">
-              {t("forPermanentPlacement")}
+              {t("onAgreedSalary")}
             </div>
           </div>
 

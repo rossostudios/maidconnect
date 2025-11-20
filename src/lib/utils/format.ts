@@ -11,8 +11,8 @@
 // TYPES
 // ============================================================================
 
-export type Currency = "COP" | "USD";
-export type Locale = "es-CO" | "en-US";
+export type Currency = "COP" | "PYG" | "UYU" | "ARS" | "USD";
+export type Locale = "es-CO" | "es-PY" | "es-UY" | "es-AR" | "en-US";
 
 export type CurrencyFormatOptions = {
   locale?: Locale;
@@ -67,7 +67,8 @@ export function formatCurrency(
     locale = "es-CO",
     currency = "COP",
     minimumFractionDigits = 0,
-    maximumFractionDigits = currency === "COP" ? 0 : 2,
+    // COP and PYG have 0 decimals, others have 2
+    maximumFractionDigits = currency === "COP" || currency === "PYG" ? 0 : 2,
     compact = false,
   } = options;
 
@@ -136,6 +137,129 @@ export function formatUSD(amount: number | null | undefined): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+}
+
+/**
+ * Format a number as Paraguayan Guaraníes (PYG)
+ *
+ * @example
+ * ```ts
+ * formatPYG(7300000) // "₲7,300,000"
+ * formatPYG(1500000) // "₲1,500,000"
+ * formatPYG(null) // "₲0"
+ * ```
+ *
+ * @param amount - The amount to format in PYG
+ * @returns Formatted PYG currency string
+ */
+export function formatPYG(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-PY",
+    currency: "PYG",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+}
+
+/**
+ * Format a number as Uruguayan Pesos (UYU)
+ *
+ * @example
+ * ```ts
+ * formatUYU(1185.50) // "$U 1,185.50"
+ * formatUYU(39500) // "$U 39,500.00"
+ * formatUYU(null) // "$U 0.00"
+ * ```
+ *
+ * @param amount - The amount to format in UYU
+ * @returns Formatted UYU currency string
+ */
+export function formatUYU(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-UY",
+    currency: "UYU",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+/**
+ * Format a number as Argentine Pesos (ARS)
+ *
+ * @example
+ * ```ts
+ * formatARS(28500.50) // "$28,500.50"
+ * formatARS(950000) // "$950,000.00"
+ * formatARS(null) // "$0.00"
+ * ```
+ *
+ * @param amount - The amount to format in ARS
+ * @returns Formatted ARS currency string
+ */
+export function formatARS(amount: number | null | undefined): string {
+  return formatCurrency(amount, {
+    locale: "es-AR",
+    currency: "ARS",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+/**
+ * Format an amount from minor currency units (cents/centavos) to major units
+ *
+ * This is the PRIMARY function for displaying prices stored in the database.
+ * All monetary values in the database are stored as integers in minor units:
+ * - Colombia (COP): 50,000 COP = 5,000,000 centavos (multiply by 100)
+ * - Paraguay (PYG): 100,000 PYG = 10,000,000 céntimos (multiply by 100)
+ * - Uruguay (UYU): 2,000 UYU = 200,000 centésimos (multiply by 100)
+ * - Argentina (ARS): 5,000 ARS = 500,000 centavos (multiply by 100)
+ *
+ * @example
+ * ```ts
+ * // Colombian Peso (no decimals in practice)
+ * formatFromMinorUnits(5000000, "COP") // "$50,000"
+ *
+ * // Paraguayan Guaraní (no decimals in practice)
+ * formatFromMinorUnits(10000000, "PYG") // "₲100,000"
+ *
+ * // Uruguayan Peso (2 decimals)
+ * formatFromMinorUnits(200000, "UYU") // "$U 2,000.00"
+ *
+ * // Argentine Peso (2 decimals)
+ * formatFromMinorUnits(500000, "ARS") // "$5,000.00"
+ *
+ * // US Dollar (2 decimals)
+ * formatFromMinorUnits(5000, "USD") // "$50.00"
+ * ```
+ *
+ * @param amountInMinorUnits - Amount in minor currency units (cents/centavos)
+ * @param currency - ISO 4217 currency code
+ * @returns Formatted currency string in major units
+ */
+export function formatFromMinorUnits(
+  amountInMinorUnits: number | null | undefined,
+  currency: Currency
+): string {
+  // Convert minor units to major units (divide by 100)
+  const amountInMajorUnits = (amountInMinorUnits ?? 0) / 100;
+
+  // Format based on currency
+  switch (currency) {
+    case "COP":
+      return formatCOP(amountInMajorUnits);
+    case "PYG":
+      return formatPYG(amountInMajorUnits);
+    case "UYU":
+      return formatUYU(amountInMajorUnits);
+    case "ARS":
+      return formatARS(amountInMajorUnits);
+    case "USD":
+      return formatUSD(amountInMajorUnits);
+    default:
+      // Fallback to generic formatter
+      return formatCurrency(amountInMajorUnits, { currency });
+  }
 }
 
 // ============================================================================

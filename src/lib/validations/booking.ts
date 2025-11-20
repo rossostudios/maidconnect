@@ -58,6 +58,9 @@ export const createBookingSchema = z
     durationMinutes: z.number().int().positive().max(1440).optional(), // Max 24 hours
 
     // Payment
+    // Currency should be determined by user's selected country (CO→COP, PY→PYG, UY→UYU, AR→ARS)
+    // Default to COP for backward compatibility, but should be explicitly set based on market
+    // Use getCurrencyByCountry() from territories.ts to get correct currency for country
     currency: z.string().length(3).toLowerCase().default("cop"),
 
     // Service details

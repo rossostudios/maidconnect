@@ -22,6 +22,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server-client';
 import { supabaseAdmin } from '@/lib/supabase/admin-client';
 import { logger } from '@/lib/logger';
+import type { Currency } from '@/lib/utils/format';
 
 // ========================================
 // Query Parameter Schema
@@ -138,12 +139,32 @@ export async function GET(request: NextRequest) {
     };
 
     // ========================================
-    // 4. Return Response
+    // 4. Enrich Transfers with Currency Code
+    // ========================================
+
+    // TODO: Derive currencyCode from professional's country after multi-currency migration
+    const currencyCode: Currency = 'COP';
+
+    // Add currencyCode to each transfer record
+    // Database still has _cop columns (migration pending)
+    const enrichedTransfers = (transfers || []).map((transfer) => ({
+      ...transfer,
+      currencyCode,
+      // Generic field names for client consumption
+      amount: transfer.amount_cop,
+      feeAmount: transfer.fee_amount_cop,
+      // Keep _cop fields for backward compatibility
+      amount_cop: transfer.amount_cop,
+      fee_amount_cop: transfer.fee_amount_cop,
+    }));
+
+    // ========================================
+    // 5. Return Response
     // ========================================
 
     return NextResponse.json({
       success: true,
-      transfers: transfers || [],
+      transfers: enrichedTransfers,
       pagination: {
         limit,
         offset,
@@ -151,6 +172,7 @@ export async function GET(request: NextRequest) {
         hasMore: count ? offset + limit < count : false,
       },
       stats: {
+        currencyCode,
         totalPayouts: statsData.total_payouts || 0,
         instantCount: statsData.instant_count || 0,
         batchCount: statsData.batch_count || 0,

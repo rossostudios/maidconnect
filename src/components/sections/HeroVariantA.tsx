@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
+import { useMarket } from "@/lib/contexts/MarketContext";
 
 // Swiss Design Animation - Minimal and Purposeful
 const fadeIn: Variants = {
@@ -36,6 +37,7 @@ const stagger: Variants = {
  */
 export function HeroVariantA() {
   const containerRef = useRef<HTMLElement>(null);
+  const { marketInfo, country } = useMarket();
 
   // Subtle parallax for visual depth
   const { scrollYProgress } = useScroll({
@@ -44,14 +46,22 @@ export function HeroVariantA() {
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const trustedAreas = [
-    "El Poblado · Medellín",
-    "Laureles · Medellín",
-    "Envigado · Medellín",
-    "Sabaneta · Medellín",
-    "Bogotá · Coming Soon",
-    "Cali · Coming Soon",
-  ];
+
+  // All available neighborhoods by country
+  const allTrustedAreas = {
+    CO: ["El Poblado · Medellín, CO", "Chapinero · Bogotá, CO"],
+    AR: ["Palermo · Buenos Aires, AR", "Recoleta · Buenos Aires, AR"],
+    UY: ["Pocitos · Montevideo, UY", "Ciudad Vieja · Montevideo, UY"],
+    PY: ["Villa Morra · Asunción, PY", "Las Carmelitas · Asunción, PY"],
+  };
+
+  // Prioritize local neighborhoods (2-3 from selected country, rest from others)
+  const localAreas = allTrustedAreas[country] || [];
+  const otherAreas = Object.entries(allTrustedAreas)
+    .filter(([code]) => code !== country)
+    .flatMap(([, areas]) => areas);
+
+  const trustedAreas = [...localAreas, ...otherAreas.slice(0, 4)];
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
@@ -60,7 +70,7 @@ export function HeroVariantA() {
         <div className="w-full max-w-[1320px] border-neutral-200 border-b">
           <Container className="max-w-6xl px-4 md:px-8">
             <p className="text-center text-neutral-700 text-sm sm:text-base">
-              <strong className="font-semibold text-neutral-900">New to Colombia?</strong> Try our
+              <strong className="font-semibold text-neutral-900">New to {marketInfo.countryName}?</strong> Try our
               Concierge service — English-speaking coordinator, curated matches in 5 days.{" "}
               <Link
                 className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
@@ -120,7 +130,7 @@ export function HeroVariantA() {
                 className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
                 variants={fadeIn}
               >
-                Connect with Colombia's top housekeepers, nannies, and estate staff through our
+                Connect with {marketInfo.countryName}'s top housekeepers, nannies, and estate staff through our
                 streamlined matching process. Every professional is vetted, English-supported, and
                 ready to start—typically within 5 business days.
               </motion.p>
@@ -203,7 +213,7 @@ export function HeroVariantA() {
           <div className="mt-24">
             <div className="border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
-                Built for expat and local households in Medellín — expanding across Colombia
+                Built for expat and local households in Latin America — serving Colombia, Paraguay, Uruguay & Argentina
               </p>
 
               <div className="relative overflow-hidden">

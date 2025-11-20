@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
+import { useMarket } from "@/lib/contexts/MarketContext";
+import { COUNTRY_PRICING } from "@/lib/shared/config/pricing";
 
 // Simpler schema for concierge requests
 const conciergeSchema = z.object({
@@ -35,6 +37,11 @@ export function ConciergeForm() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { country } = useMarket();
+
+  // Get commission rate for current market
+  const { directHireRate } = COUNTRY_PRICING[country].commission;
+  const commissionPercentage = `${Math.round(directHireRate * 100)}%`;
 
   const {
     register,
@@ -93,7 +100,7 @@ export function ConciergeForm() {
           <h2 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">Request Received!</h2>
           <p className="mb-8 text-lg text-neutral-600 leading-relaxed">
             Thank you for choosing Casaora Direct Hire. Our team will review your request and reach
-            out within 2 hours during business hours (Mon-Fri, 9am-6pm COT). $299 one-time fee for permanent placement with legal contracts.
+            out within 2 hours during business hours (Mon-Fri, 9am-6pm COT). {commissionPercentage} placement commission on agreed salary with legal contracts and ongoing support.
           </p>
 
           <div className="mb-8 rounded-lg border border-blue-200 bg-blue-50 p-4">

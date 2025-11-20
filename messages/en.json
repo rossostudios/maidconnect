@@ -174,13 +174,23 @@
         "allBookings": "All bookings"
       },
       "bookingCalendar": {
+        "days": {
+          "sun": "Sun",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat"
+        },
         "details": "Details",
-        "noBookings": "No bookings for this date",
-        "selectDate": "Select a date to view bookings",
+        "noBookings": "No bookings scheduled for this day.",
+        "booking": "booking",
+        "bookings": "bookings",
         "timeTbd": "Time TBD",
         "status": {
-          "pendingPayment": "Pending payment",
-          "authorized": "Authorized",
+          "pendingPayment": "Awaiting payment",
+          "authorized": "Authorized hold",
           "completed": "Completed",
           "canceled": "Canceled"
         }
@@ -192,7 +202,47 @@
       },
       "finances": {
         "title": "Finances & Analytics",
-        "description": "Track your earnings, view analytics, and manage payouts."
+        "description": "Track your earnings, view analytics, and manage payouts.",
+        "paymentProcessor": {
+          "title": "Payment Processor: {processor}",
+          "description": "Earnings in {country} are processed through {processor}",
+          "stripe": {
+            "setup": {
+              "title": "Stripe Connection Required",
+              "description": "Connect your Stripe account to receive payouts. You'll be redirected to Stripe to complete the setup."
+            },
+            "requirements": {
+              "title": "What you'll need:",
+              "colombianBank": "Colombian bank account (checking or savings)",
+              "cedula": "Cédula de Ciudadanía or Cédula de Extranjería",
+              "rut": "RUT (Registro Único Tributario) for tax reporting"
+            },
+            "payoutInfo": {
+              "title": "Payout Schedule",
+              "description": "Instant payouts available 24/7 (2% fee). Standard batch payouts process weekly at no additional charge."
+            }
+          },
+          "paypal": {
+            "setup": {
+              "title": "PayPal Account Required",
+              "description": "You'll need a verified PayPal Business account to receive payments. Make sure your PayPal account is linked to a local bank account."
+            },
+            "requirements": {
+              "title": "What you'll need:",
+              "verifiedAccount": "Verified PayPal Business account",
+              "bankLink": "Local bank account linked to PayPal",
+              "localBank": "Bank account in your country's banking system"
+            },
+            "payoutInfo": {
+              "title": "Payout Schedule",
+              "description": "Payouts are processed weekly to your PayPal account. Funds typically arrive within 1-2 business days."
+            },
+            "note": {
+              "title": "Note for professionals:",
+              "description": "PayPal integration is coming soon. For now, please contact support to arrange manual payouts."
+            }
+          }
+        }
       },
       "portfolio": {
         "title": "Portfolio",
@@ -382,8 +432,13 @@
         "services": {
           "label": "Services & rates",
           "helper": "Tell customers what to expect for each service.",
-          "hourlyRate": "Hourly rate (COP)",
-          "ratePlaceholder": "40000",
+          "hourlyRate": "Hourly rate ({currency})",
+          "ratePlaceholder": {
+            "CO": "25,000 COP/hour",
+            "PY": "35,000 PYG/hour",
+            "UY": "200 UYU/hour",
+            "AR": "5,000 ARS/hour"
+          },
           "serviceDescription": "Service description",
           "descriptionPlaceholder": "Describe what's included in this service"
         },
@@ -401,28 +456,6 @@
           "saving": "Saving…"
         },
         "characterCount": "{count} characters"
-      },
-      "bookingCalendar": {
-        "days": {
-          "sun": "Sun",
-          "mon": "Mon",
-          "tue": "Tue",
-          "wed": "Wed",
-          "thu": "Thu",
-          "fri": "Fri",
-          "sat": "Sat"
-        },
-        "details": "Details",
-        "noBookings": "No bookings scheduled for this day.",
-        "booking": "booking",
-        "bookings": "bookings",
-        "timeTbd": "Time TBD",
-        "status": {
-          "pendingPayment": "Awaiting payment",
-          "authorized": "Authorized hold",
-          "completed": "Completed",
-          "canceled": "Canceled"
-        }
       },
       "bookingList": {
         "emptyState": "No bookings yet. Once customers authorize a booking, it will appear here.",
@@ -1241,6 +1274,12 @@
       "verified": "Vetted professionals",
       "rating": "Two-way reviews"
     },
+    "backgroundVerification": {
+      "CO": "Verified via Colombian National Police database (POLICIA) and national ID verification",
+      "PY": "Verified via Paraguayan identity database (RNPP) and criminal record checks",
+      "UY": "Verified via Uruguayan Civil Registry (DNIC) and police background checks",
+      "AR": "Verified via Argentine Federal Police (PFA) and DNI verification system"
+    },
     "trustSignals": {
       "verified": "Every professional reviewed by Casaora",
       "cities": "Operating in Colombia, Paraguay, Uruguay, and Argentina",
@@ -1257,7 +1296,67 @@
     "bookConsultation": "Schedule a Consultation",
     "howItWorks": "Our vetting process",
     "becomeProfessional": "Join our network",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "markets": {
+      "CO": {
+        "medellin": {
+          "ribbon": "Medellín's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Medellín",
+          "trustBadge": "Trusted in El Poblado, Laureles & Envigado"
+        },
+        "bogota": {
+          "ribbon": "Bogotá's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Bogotá",
+          "trustBadge": "Trusted in Chapinero, Usaquén & Rosales"
+        },
+        "default": {
+          "ribbon": "Colombia's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Colombia",
+          "trustBadge": "Operating in Medellín, Bogotá, Cali & more"
+        }
+      },
+      "PY": {
+        "asuncion": {
+          "ribbon": "Asunción's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Asunción",
+          "trustBadge": "Trusted in Villa Morra, Carmelitas & Manorá"
+        },
+        "default": {
+          "ribbon": "Paraguay's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Paraguay",
+          "trustBadge": "Operating in Asunción, Ciudad del Este & Encarnación"
+        }
+      },
+      "UY": {
+        "montevideo": {
+          "ribbon": "Montevideo's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Montevideo",
+          "trustBadge": "Trusted in Pocitos, Carrasco & Punta Gorda"
+        },
+        "default": {
+          "ribbon": "Uruguay's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Uruguay",
+          "trustBadge": "Operating in Montevideo, Punta del Este & Maldonado"
+        }
+      },
+      "AR": {
+        "buenosAires": {
+          "ribbon": "Buenos Aires' boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Buenos Aires",
+          "trustBadge": "Trusted in Palermo, Recoleta & Belgrano"
+        },
+        "default": {
+          "ribbon": "Argentina's boutique household staffing agency",
+          "title": "Hire trusted nannies, housekeepers & private staff in Argentina",
+          "trustBadge": "Operating in Buenos Aires, Córdoba, Rosario & Mendoza"
+        }
+      },
+      "default": {
+        "ribbon": "Latin America's boutique household staffing agency",
+        "title": "Hire trusted nannies, housekeepers & private staff",
+        "trustBadge": "Operating in Colombia, Paraguay, Uruguay & Argentina"
+      }
+    }
   },
   "benefits": {
     "badge": "WHY CASAORA",
@@ -1455,20 +1554,51 @@
     }
   },
   "booking": {
-    "title": "Book a service",
-    "selectDate": "Select date",
-    "selectTime": "Select time",
-    "duration": "Duration",
-    "hours": "hours",
-    "addons": "Add-ons",
-    "totalPrice": "Total price",
-    "bookNow": "Book now",
-    "requestBooking": "Request booking",
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "completed": "Completed",
-      "cancelled": "Cancelled"
+    "countryLabel": "Country",
+    "countryPlaceholder": "Select your country",
+    "cityLabel": "City",
+    "cityPlaceholder": "Select your city",
+    "wizard": {
+      "countryTitle": "Where do you need help?",
+      "countryDescription": "Select the country where you need our services",
+      "cityTitle": "Which city?",
+      "cityDescription": "Select your city to show you available professionals",
+      "serviceTitle": "What type of service do you need?",
+      "serviceDescription": "Select the service that best fits your needs",
+      "back": "Back",
+      "continue": "Continue",
+      "submit": "Continue to form"
+    },
+    "steps": {
+      "country": "Country",
+      "city": "City",
+      "service": "Service"
+    },
+    "services": {
+      "cleaning": {
+        "name": "Cleaning",
+        "description": "Professional house cleaning services"
+      },
+      "nanny": {
+        "name": "Nanny",
+        "description": "Childcare and babysitting"
+      },
+      "chef": {
+        "name": "Private Chef",
+        "description": "Personal cooking services"
+      },
+      "elderCare": {
+        "name": "Elder Care",
+        "description": "Senior companion and care"
+      },
+      "laundry": {
+        "name": "Laundry",
+        "description": "Washing, ironing, and folding"
+      },
+      "gardening": {
+        "name": "Gardening",
+        "description": "Garden maintenance and care"
+      }
     }
   },
   "footer": {
@@ -3711,6 +3841,131 @@
         "description": "Ready for stability? Families pay us a $299 finder's fee for permanent placements — you pay nothing and get legal contracts."
       },
       "ctaText": "Interested in full-time? Check \"Open to Full-Time\" on your profile to appear in premium family searches."
+    }
+  },
+  "pros": {
+    "safety": {
+      "title": "Worker Safety & Protection",
+      "description": "Your safety, rights, and well-being are our top priority. Learn about your protections as a household professional.",
+      "overview": {
+        "legal": {
+          "title": "Legal Contracts",
+          "description": "All placements include written contracts compliant with local labor laws"
+        },
+        "safety": {
+          "title": "Anti-Harassment",
+          "description": "Zero tolerance policy for any form of harassment or discrimination"
+        },
+        "support": {
+          "title": "24/7 Support",
+          "description": "Report concerns anytime through our confidential support channels"
+        }
+      },
+      "workerRights": {
+        "title": "Your Rights as a Household Professional",
+        "contracts": {
+          "title": "Written Employment Contracts",
+          "description": "You have the right to a clear, written contract outlining your duties, hours, compensation, and terms before starting any permanent position."
+        },
+        "minimumWage": {
+          "title": "Fair Compensation",
+          "description": "All positions must meet or exceed local minimum wage requirements. Your rate is transparent and agreed upon before work begins."
+        },
+        "workingHours": {
+          "title": "Reasonable Working Hours",
+          "description": "Standard working hours, overtime compensation, and rest periods as required by local labor laws."
+        },
+        "benefits": {
+          "title": "Social Security & Benefits",
+          "description": "For full-time placements, employers must comply with local requirements for health insurance, social security, and other mandated benefits."
+        }
+      },
+      "antiHarassment": {
+        "title": "Zero Tolerance for Harassment",
+        "description": "Casaora maintains a strict zero tolerance policy for any form of harassment, discrimination, or unsafe working conditions.",
+        "zeroTolerance": {
+          "title": "We do not tolerate:",
+          "verbal": "Verbal abuse, threats, or derogatory language",
+          "physical": "Physical intimidation, unwanted contact, or violence",
+          "discrimination": "Discrimination based on race, gender, nationality, or any protected characteristic",
+          "workEnvironment": "Unsafe working conditions or unreasonable demands"
+        }
+      },
+      "reporting": {
+        "title": "How to Report Issues",
+        "description": "If you experience harassment, safety concerns, or contract violations, you have multiple confidential reporting channels:",
+        "channels": {
+          "title": "Reporting Channels",
+          "casaoraSupport": {
+            "title": "Casaora Support Team",
+            "description": "Email us anytime for confidential assistance. We respond within 24 hours for safety concerns."
+          },
+          "emergencyHotline": {
+            "title": "Emergency Hotline",
+            "description": "For urgent safety concerns, call our 24/7 emergency line:",
+            "number": "+57 (1) 234-5678 (Colombia) | Available in Spanish & English"
+          },
+          "localAuthorities": {
+            "title": "Local Labor Authorities",
+            "description": "You always have the right to contact local labor ministry offices or emergency services directly."
+          }
+        },
+        "confidentiality": {
+          "title": "Your Privacy is Protected",
+          "description": "All reports are handled confidentially. We never share your identity without your explicit permission, except when required by law."
+        }
+      },
+      "legalContracts": {
+        "title": "Legal Contracts & Documentation",
+        "description": "Every full-time placement through Casaora includes proper legal documentation to protect your rights:",
+        "written": {
+          "title": "Written Employment Agreement",
+          "description": "Clear terms covering responsibilities, hours, compensation, vacation, notice periods, and termination conditions."
+        },
+        "payment": {
+          "title": "Payment Terms",
+          "description": "Exact hourly rate or salary, payment frequency, overtime rules, and any additional benefits specified in writing."
+        },
+        "termination": {
+          "title": "Termination Protection",
+          "description": "Notice period requirements for both parties, severance terms if applicable, and your rights during dismissal."
+        }
+      },
+      "countrySpecific": {
+        "title": "Country-Specific Labor Information",
+        "description": "Labor laws vary by country. Below are resources specific to your location:",
+        "laborMinistry": {
+          "title": "Labor Ministry Contact",
+          "description": "Find your country's labor ministry contact information and file official complaints if needed."
+        },
+        "minimumWageInfo": {
+          "title": "Minimum Wage Standards",
+          "description": "Current minimum wage rates for household workers in your region, updated annually."
+        },
+        "healthSafety": {
+          "title": "Health & Safety Standards",
+          "description": "Required safety equipment, working conditions, and health protections for household professionals."
+        },
+        "emergencyContacts": {
+          "title": "Emergency Services",
+          "description": "Police, medical emergency, and labor complaint hotlines for your country."
+        }
+      },
+      "resources": {
+        "title": "Additional Resources",
+        "description": "Explore our help center for detailed guides on worker rights, contracts, and dispute resolution:",
+        "links": {
+          "workerRightsGuide": "Complete Worker Rights Guide",
+          "contractTemplates": "Sample Employment Contracts",
+          "disputeResolution": "Dispute Resolution Process",
+          "contactSupport": "Contact Support Team"
+        }
+      },
+      "footer": {
+        "title": "Questions or Concerns?",
+        "description": "Our support team is here to help. Don't hesitate to reach out if you have questions about your rights or need assistance.",
+        "cta": "Contact Support"
+      }
     }
   }
 }

@@ -1,16 +1,28 @@
 /**
  * Payout and Commission Calculation Utilities
  *
- * Platform commission is configurable via pricing_controls table
- * Default: 18% commission from completed bookings
+ * Platform commission rates are defined per-country in pricing.ts
+ * Default: 15% commission from completed bookings (all markets)
  * Payouts are processed twice weekly (per operations manual)
+ *
+ * Multi-Currency Support:
+ * - Commission rates vary by country (currently 15% for all markets)
+ * - All calculations use country-specific pricing configuration
+ * - Supports COP, PYG, UYU, ARS currencies
  */
 
 import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import { type Currency, formatCurrency } from "@/lib/utils/format";
+import {
+  calculateCommission as calculateCommissionFromPricing,
+  getPricingConfig,
+  type CountryCode,
+} from "@/lib/shared/config/pricing";
+import { COUNTRIES } from "@/lib/shared/config/territories";
 
-// Default platform commission rate (fallback if no pricing rule found)
-export const DEFAULT_COMMISSION_RATE = 0.18; // 18%
+// Default commission rate (fallback if country not specified)
+// @deprecated Use getPricingConfig(countryCode).commission.marketplaceRate instead
+export const DEFAULT_COMMISSION_RATE = 0.15; // 15%
 
 export type BookingForPayout = {
   id: string;
@@ -20,6 +32,7 @@ export type BookingForPayout = {
   checked_out_at?: string | null;
   service_category?: string | null;
   city?: string | null;
+  country?: CountryCode | null; // Country for commission calculation
 };
 
 export type PayoutCalculation = {
@@ -31,6 +44,21 @@ export type PayoutCalculation = {
   bookingCount: number;
   appliedCommissionRate?: number; // The actual commission rate used
 };
+
+/**
+ * Map Currency to CountryCode for commission calculation
+ */
+function getCurrencyCountry(currency: Currency): CountryCode {
+  const currencyCountryMap: Record<Currency, CountryCode> = {
+    COP: 'CO',
+    PYG: 'PY',
+    UYU: 'UY',
+    ARS: 'AR',
+    USD: 'CO', // Default to Colombia for USD (legacy)
+    EUR: 'CO', // Default to Colombia for EUR (legacy)
+  };
+  return currencyCountryMap[currency] || 'CO';
+}
 
 /**
  * Fetch applicable pricing rule for a booking
@@ -65,16 +93,26 @@ export async function getPricingRule(
 /**
  * Calculate commission and net payout from gross amount
  * @param grossAmount - Total booking amount before commission
- * @param commissionRate - Optional commission rate (defaults to DEFAULT_COMMISSION_RATE if not provided)
+ * @param countryCode - Optional country code for country-specific rates (uses pricing.ts)
+ * @param commissionRate - Optional commission rate override (uses DEFAULT_COMMISSION_RATE if not provided)
  */
 export function calculateCommission(
   grossAmount: number,
-  commissionRate: number = DEFAULT_COMMISSION_RATE
+  countryCode?: CountryCode,
+  commissionRate?: number
 ): {
   commissionAmount: number;
   netAmount: number;
 } {
-  const commissionAmount = Math.round(grossAmount * commissionRate);
+  // Use country-specific rate from pricing.ts if country provided
+  let rate = commissionRate;
+  if (countryCode && !commissionRate) {
+    rate = getPricingConfig(countryCode).commission.marketplaceRate;
+  } else if (!rate) {
+    rate = DEFAULT_COMMISSION_RATE;
+  }
+
+  const commissionAmount = Math.round(grossAmount * rate);
   const netAmount = grossAmount - commissionAmount;
 
   return {
@@ -85,7 +123,7 @@ export function calculateCommission(
 
 /**
  * Calculate payout totals from a list of completed bookings
- * Uses default commission rate for all bookings (for backward compatibility)
+ * Uses country-specific commission rates from pricing.ts
  * For dynamic rates per booking, use calculatePayoutFromBookingsWithDynamicRates
  */
 export function calculatePayoutFromBookings(bookings: BookingForPayout[]): PayoutCalculation {
@@ -101,29 +139,37 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
     };
   }
 
+  // Derive country from first booking's currency or country field
+  const firstBooking = bookings[0];
+  const currency = firstBooking?.currency || "COP";
+  const countryCode = firstBooking?.country || getCurrencyCountry(currency);
+
   // Sum up all captured amounts
   const grossAmount = bookings.reduce(
     (sum, booking) => sum + (booking.final_amount_captured || 0),
     0
   );
 
-  const { commissionAmount, netAmount } = calculateCommission(grossAmount);
+  // Use country-specific commission rate
+  const { commissionAmount, netAmount } = calculateCommission(grossAmount, countryCode);
+  const appliedRate = getPricingConfig(countryCode).commission.marketplaceRate;
 
   return {
     grossAmount,
     commissionAmount,
     netAmount,
-    currency: bookings[0]?.currency || "COP",
+    currency,
     bookingIds: bookings.map((b) => b.id),
     bookingCount: bookings.length,
-    appliedCommissionRate: DEFAULT_COMMISSION_RATE,
+    appliedCommissionRate: appliedRate,
   };
 }
 
 /**
  * Calculate payout totals with dynamic commission rates per booking
  * This function fetches pricing rules for each unique category/city combination
- * and applies the appropriate commission rate to each booking
+ * and applies the appropriate commission rate to each booking.
+ * Falls back to pricing.ts country-specific rates if no pricing rule is found.
  */
 export async function calculatePayoutFromBookingsWithDynamicRates(
   bookings: BookingForPayout[]
@@ -138,6 +184,12 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
       bookingCount: 0,
     };
   }
+
+  // Derive country from first booking
+  const firstBooking = bookings[0];
+  const currency = firstBooking?.currency || "COP";
+  const countryCode = firstBooking?.country || getCurrencyCountry(currency);
+  const baselineRate = getPricingConfig(countryCode).commission.marketplaceRate;
 
   // Calculate gross amount
   const grossAmount = bookings.reduce(
@@ -155,8 +207,9 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
       booking.completed_at ? new Date(booking.completed_at) : new Date()
     );
 
-    const rate = pricingRule?.commission_rate || DEFAULT_COMMISSION_RATE;
-    const { commissionAmount } = calculateCommission(booking.final_amount_captured || 0, rate);
+    // Use pricing rule if found, otherwise use country-specific baseline rate from pricing.ts
+    const rate = pricingRule?.commission_rate || baselineRate;
+    const { commissionAmount } = calculateCommission(booking.final_amount_captured || 0, undefined, rate);
     totalCommission += commissionAmount;
   }
 
@@ -166,7 +219,7 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
     grossAmount,
     commissionAmount: totalCommission,
     netAmount,
-    currency: bookings[0]?.currency || "COP",
+    currency,
     bookingIds: bookings.map((b) => b.id),
     bookingCount: bookings.length,
   };

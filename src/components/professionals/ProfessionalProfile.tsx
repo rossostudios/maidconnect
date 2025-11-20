@@ -14,6 +14,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AvailabilityCalendar as LargeAvailabilityCalendar } from "@/components/shared/availability-calendar";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { COUNTRIES } from "@/lib/shared/config/territories";
 
 // Dynamic import for sheet (lazy load on demand)
 const BookingSheet = dynamic(
@@ -62,27 +64,22 @@ type ProfessionalProfileViewProps = {
   professional: ProfessionalProfileDetail;
   viewer: AppUser | null;
   locale: string;
+  currency?: Currency; // Optional currency override (defaults to professional's country currency)
 };
 
 const DEFAULT_PRO_PHOTO =
   "https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&w=600&q=80";
 
-function formatCOPWithFallback(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
 export function ProfessionalProfileView({
   professional,
   viewer: _viewer,
   locale,
+  currency,
 }: ProfessionalProfileViewProps) {
+  // Derive currency from professional's country if not provided
+  const professionalCurrency: Currency = currency ||
+    (professional.country && COUNTRIES[professional.country as keyof typeof COUNTRIES]?.currency) ||
+    "COP";
   const t = useTranslations("pages.professionalProfile");
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -95,7 +92,9 @@ export function ProfessionalProfileView({
   const showLivePriceBreakdown = useFeatureFlag("live_price_breakdown");
 
   const locationLabel = professional.location || "Colombia";
-  const formattedRate = formatCOPWithFallback(professional.hourlyRateCop);
+  const formattedRate = professional.hourlyRateCop
+    ? formatCurrency(professional.hourlyRateCop, { currency: professionalCurrency })
+    : null;
   const hasServices = professional.services.length > 0;
   const averageRating =
     professional.reviews.length > 0
@@ -224,6 +223,7 @@ export function ProfessionalProfileView({
               professionalId={professional.id}
               feeCOP={professional.directHireFeeCOP}
               feeUSD={Math.round(professional.directHireFeeCOP / 4000)}
+              currency={professionalCurrency}
               onRequestContact={() => {
                 // TODO: Implement direct hire payment flow with Stripe Elements
                 alert("Direct hire payment flow coming soon!");
@@ -341,7 +341,7 @@ export function ProfessionalProfileView({
                                   />
                                 ) : (
                                   <div className="font-semibold text-[neutral-500] text-lg">
-                                    {formatCOPWithFallback(service.hourlyRateCop)}
+                                    {formatCurrency(service.hourlyRateCop, { currency: professionalCurrency })}
                                   </div>
                                 )
                               ) : (

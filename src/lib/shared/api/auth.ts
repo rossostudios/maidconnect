@@ -8,7 +8,10 @@
  */
 
 import type { SupabaseClient, User } from "@supabase/supabase-js";
-import { createSupabaseServerClient } from "@/lib/integrations/supabase/serverClient";
+import {
+  createSupabaseFromAuthHeader,
+  createSupabaseServerClient,
+} from "@/lib/integrations/supabase/serverClient";
 import { AuthenticationError, NotFoundError, UnauthorizedError } from "@/lib/shared/errors";
 import type { Database } from "@/types/databaseTypes";
 
@@ -30,6 +33,7 @@ export type AuthContext = {
  * Get authenticated user or throw 401
  *
  * Use this for routes that require authentication.
+ * Supports both cookie-based (web) and Authorization header (mobile) authentication.
  *
  * @example
  * ```typescript
@@ -41,8 +45,20 @@ export type AuthContext = {
  *
  * @throws {AuthenticationError} If user is not authenticated
  */
-export async function requireAuth(_request: Request): Promise<AuthContext> {
-  const supabase = await createSupabaseServerClient();
+export async function requireAuth(request: Request): Promise<AuthContext> {
+  // Check for mobile client Authorization header (JWT auth)
+  const authHeader = request.headers.get("authorization");
+
+  let supabase: SupabaseClient<Database>;
+
+  if (authHeader?.startsWith("Bearer ")) {
+    // Mobile client: Use JWT from Authorization header
+    supabase = createSupabaseFromAuthHeader(authHeader);
+  } else {
+    // Web client: Use session from cookies
+    supabase = await createSupabaseServerClient();
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -58,6 +74,7 @@ export async function requireAuth(_request: Request): Promise<AuthContext> {
  * Get optional authentication - returns user or null
  *
  * Use this for routes that work with or without authentication.
+ * Supports both cookie-based (web) and Authorization header (mobile) authentication.
  *
  * @example
  * ```typescript
@@ -70,8 +87,20 @@ export async function requireAuth(_request: Request): Promise<AuthContext> {
  * }
  * ```
  */
-export async function getOptionalAuth(_request: Request): Promise<AuthContext | null> {
-  const supabase = await createSupabaseServerClient();
+export async function getOptionalAuth(request: Request): Promise<AuthContext | null> {
+  // Check for mobile client Authorization header (JWT auth)
+  const authHeader = request.headers.get("authorization");
+
+  let supabase: SupabaseClient<Database>;
+
+  if (authHeader?.startsWith("Bearer ")) {
+    // Mobile client: Use JWT from Authorization header
+    supabase = createSupabaseFromAuthHeader(authHeader);
+  } else {
+    // Web client: Use session from cookies
+    supabase = await createSupabaseServerClient();
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();

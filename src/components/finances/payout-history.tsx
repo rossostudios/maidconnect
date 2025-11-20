@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils/core";
-import { formatCurrency } from "@/lib/utils/format";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -56,6 +56,10 @@ type PayoutHistoryProps = {
    * Professional ID for analytics tracking
    */
   professionalId?: string;
+  /**
+   * Currency code for formatting (COP, PYG, UYU, ARS)
+   */
+  currencyCode: Currency;
 };
 
 type PayoutFilter = "all" | "instant" | "batch";
@@ -89,6 +93,7 @@ export function PayoutHistory({
   isLoading = false,
   className,
   professionalId,
+  currencyCode,
 }: PayoutHistoryProps) {
   const t = useTranslations("dashboard.pro.payoutHistory");
   const locale = useLocale();
@@ -226,7 +231,7 @@ export function PayoutHistory({
                 {t("stats.totalPayouts")}
               </div>
               <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {formatCurrency(stats.totalPayouts, "COP", locale)}
+                {formatFromMinorUnits(stats.totalPayouts, currencyCode)}
               </div>
             </div>
             <div className="border-neutral-200 bg-neutral-50 border p-3 rounded-lg">
@@ -250,7 +255,7 @@ export function PayoutHistory({
                 {t("stats.totalFees")}
               </div>
               <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {formatCurrency(stats.totalFees, "COP", locale)}
+                {formatFromMinorUnits(stats.totalFees, currencyCode)}
               </div>
             </div>
           </div>
@@ -292,7 +297,7 @@ export function PayoutHistory({
         {filteredTransfers.length > 0 && (
           <div className="space-y-3">
             {filteredTransfers.map((transfer) => (
-              <TransferRow key={transfer.id} transfer={transfer} locale={locale} t={t} />
+              <TransferRow key={transfer.id} transfer={transfer} locale={locale} t={t} currencyCode={currencyCode} />
             ))}
           </div>
         )}
@@ -309,10 +314,12 @@ function TransferRow({
   transfer,
   locale,
   t,
+  currencyCode,
 }: {
   transfer: PayoutTransfer;
   locale: string;
   t: any;
+  currencyCode: Currency;
 }) {
   const statusConfig = {
     completed: {
@@ -380,11 +387,11 @@ function TransferRow({
           {/* Amount and Fee */}
           <div className="mt-2">
             <p className={cn("font-semibold text-neutral-900 text-lg", geistSans.className)}>
-              {formatCurrency(transfer.amount_cop, "COP", locale)}
+              {formatFromMinorUnits(transfer.amount_cop, currencyCode)}
             </p>
             {isInstant && transfer.fee_amount_cop && (
               <p className={cn("mt-0.5 text-neutral-600 text-sm", geistSans.className)}>
-                {t("fee")}: -{formatCurrency(transfer.fee_amount_cop, "COP", locale)} (
+                {t("fee")}: -{formatFromMinorUnits(transfer.fee_amount_cop, currencyCode)} (
                 {transfer.fee_percentage}%)
               </p>
             )}

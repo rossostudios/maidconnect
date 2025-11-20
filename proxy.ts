@@ -136,6 +136,9 @@ function detectLocaleFromHeaders(request: NextRequest): string {
 /**
  * CSRF Protection: Validate origin/referer for state-changing operations
  * Prevents cross-site request forgery attacks
+ *
+ * For web browsers: Validates Origin/Referer headers match the host
+ * For mobile apps: Validates presence of Authorization header (JWT auth)
  */
 function validateCSRF(request: NextRequest): boolean {
   const { method } = request;
@@ -148,6 +151,18 @@ function validateCSRF(request: NextRequest): boolean {
   // Check if route is exempt from CSRF validation
   const pathname = request.nextUrl.pathname;
   if (CSRF_EXEMPT_ROUTES.some((pattern) => pattern.test(pathname))) {
+    return true;
+  }
+
+  // Mobile client detection: Allow if using Authorization header instead of cookies
+  // Mobile apps (React Native, Flutter, etc.) don't send Origin/Referer headers
+  // but authenticate via JWT in Authorization header
+  const clientType = request.headers.get("x-client-type");
+  const authorization = request.headers.get("authorization");
+
+  if (clientType === "mobile" && authorization?.startsWith("Bearer ")) {
+    // Mobile client with JWT auth - skip Origin/Referer validation
+    // The JWT will be validated by Supabase in downstream API routes
     return true;
   }
 
@@ -195,7 +210,7 @@ function validateCSRF(request: NextRequest): boolean {
 }
 
 /**
- * Add security headers to response
+ * Add security headers to response (2025 modern standards)
  */
 function addSecurityHeaders(response: NextResponse): NextResponse {
   // Prevent clickjacking attacks
@@ -204,17 +219,26 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   // Prevent MIME type sniffing
   response.headers.set("X-Content-Type-Options", "nosniff");
 
-  // Enable browser XSS protection
-  response.headers.set("X-XSS-Protection", "1; mode=block");
-
   // Referrer policy for privacy
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  // Enforce HTTPS (2 years, include subdomains, preload eligible)
+  response.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
 
   // Content Security Policy (basic - adjust as needed)
   response.headers.set("Content-Security-Policy", "frame-ancestors 'none';");
 
-  // Permissions policy
-  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  // Permissions Policy (2025 modern syntax)
+  // geolocation=(self): Allows same-origin geolocation for:
+  //   - Professional check-in/check-out GPS verification (existing feature)
+  //   - Future "nearby professionals" feature (e.g., "You're in Asunción, here are top pros near you")
+  //   - Browser permission prompt still required (user-level protection)
+  //   - Blocks third-party iframes from accessing location
+  // interest-cohort=(): Blocks Google FLoC tracking for privacy
+  response.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(self), interest-cohort=()"
+  );
 
   return response;
 }

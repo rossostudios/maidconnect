@@ -4,6 +4,7 @@ import { AlertCircleIcon, DollarCircleIcon, RefreshIcon } from "@hugeicons/core-
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState, useTransition } from "react";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
 import type { HugeIcon } from "@/types/icons";
 
 type FinancialBooking = {
@@ -20,6 +21,7 @@ type Props = {
   bookings: FinancialBooking[];
   connectAccountId: string | null;
   connectStatus: string | null;
+  currency?: Currency; // Optional currency override (defaults to first booking's currency)
 };
 
 type Totals = {
@@ -30,14 +32,6 @@ type Totals = {
   thisMonthCaptured: number;
   thisMonthAuthorized: number;
 };
-
-function formatCOP(value: number) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 function isSameMonth(dateInput: string | null, reference: Date) {
   if (!dateInput) {
@@ -50,10 +44,16 @@ function isSameMonth(dateInput: string | null, reference: Date) {
   );
 }
 
-export function ProFinancialSummary({ bookings, connectAccountId, connectStatus }: Props) {
+export function ProFinancialSummary({ bookings, connectAccountId, connectStatus, currency }: Props) {
   const t = useTranslations("dashboard.pro.financialSummary");
   const [onboardingError, setOnboardingError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  // Derive currency from first booking or use prop override
+  const displayCurrency: Currency = currency ||
+    (bookings[0]?.currency as Currency) ||
+    "COP";
+
   const totals = useMemo(() => {
     const summary: Totals = {
       captured: 0,
@@ -169,6 +169,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             <SummaryCard
               accent="text-[neutral-500]"
               amount={totals.captured}
+              currency={displayCurrency}
               description={t("cards.availableAfterCompletion.description")}
               icon={DollarCircleIcon}
               title={t("cards.availableAfterCompletion.title")}
@@ -177,6 +178,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             <SummaryCard
               accent="text-[neutral-500]"
               amount={totals.authorized}
+              currency={displayCurrency}
               description={t("cards.activeHolds.description")}
               icon={RefreshIcon}
               title={t("cards.activeHolds.title")}
@@ -192,7 +194,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
                   {t("metrics.capturedPayouts")}
                 </p>
                 <p className="font-semibold text-[neutral-900] text-sm">
-                  {formatCOP(totals.thisMonthCaptured)}
+                  {formatCurrency(totals.thisMonthCaptured, { currency: displayCurrency })}
                 </p>
               </div>
               <div>
@@ -200,7 +202,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
                   {t("metrics.upcomingHolds")}
                 </p>
                 <p className="font-semibold text-[neutral-900] text-sm">
-                  {formatCOP(totals.thisMonthAuthorized)}
+                  {formatCurrency(totals.thisMonthAuthorized, { currency: displayCurrency })}
                 </p>
               </div>
             </div>
@@ -209,14 +211,14 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           <div className="mt-6 space-y-3 text-[neutral-400] text-sm">
             <div className="flex items-center justify-between border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
-              <span>{formatCOP(totals.pending)}</span>
+              <span>{formatCurrency(totals.pending, { currency: displayCurrency })}</span>
             </div>
             <div className="flex items-center justify-between border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span className="flex items-center gap-2">
                 <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={AlertCircleIcon} />
                 {t("metrics.holdsReleased")}
               </span>
-              <span>{formatCOP(totals.canceled)}</span>
+              <span>{formatCurrency(totals.canceled, { currency: displayCurrency })}</span>
             </div>
           </div>
         </>
@@ -229,12 +231,13 @@ type SummaryCardProps = {
   icon: HugeIcon;
   title: string;
   amount: number;
+  currency: Currency;
   description: string;
   tone: string;
   accent: string;
 };
 
-function SummaryCard({ icon, title, amount, description, tone, accent }: SummaryCardProps) {
+function SummaryCard({ icon, title, amount, currency, description, tone, accent }: SummaryCardProps) {
   return (
     <div className={`border border-[neutral-200] ${tone} p-4`}>
       <div className="flex items-center gap-2">
@@ -243,7 +246,7 @@ function SummaryCard({ icon, title, amount, description, tone, accent }: Summary
           {title}
         </dt>
       </div>
-      <dd className="mt-2 font-semibold text-[neutral-900] text-xl">{formatCOP(amount)}</dd>
+      <dd className="mt-2 font-semibold text-[neutral-900] text-xl">{formatCurrency(amount, { currency })}</dd>
       <p className="mt-1 text-[neutral-400] text-xs">{description}</p>
     </div>
   );

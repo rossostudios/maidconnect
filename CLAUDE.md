@@ -94,6 +94,263 @@ git pull origin develop   # Pull latest changes
 
 ---
 
+## Backend Development Workflow (Supabase)
+
+### Local Development Setup
+
+**Stack:**
+- PostgreSQL 17 via Docker (Supabase CLI)
+- Ports: 54322 (DB), 54321 (API), 54323 (Studio), 54324 (Email testing)
+- Environment: `.env.local` (not committed to git)
+
+**Start Local Supabase:**
+```bash
+supabase start            # Spin up Docker containers
+# DB: postgresql://postgres:postgres@localhost:54322/postgres
+# API: http://localhost:54321
+# Studio: http://localhost:54323
+```
+
+**Database Commands:**
+```bash
+supabase db reset         # Wipe local database and re-apply all migrations (destructive!)
+supabase migration new <name>  # Create new migration file (YYYYMMDDHHMMSS_name.sql)
+supabase db push --linked # Push pending migrations to PRODUCTION (not local!)
+supabase db diff          # Generate migration from schema changes
+```
+
+**Health Check:**
+```bash
+./supabase/scripts/health-check.sh   # Database health report
+```
+
+### Production Deployment
+
+**⚠️ Current State:** Production has schema but NO migration history tracked in `supabase_migrations.schema_migrations`
+
+**Migration Workflow (Ideal - when CLI works):**
+```bash
+# 1. Test migration locally first
+supabase db reset
+bun dev                   # Verify app works
+
+# 2. Apply to production
+supabase db push --linked
+
+# 3. Verify on production
+# Check Supabase Dashboard → Database → Migrations
+```
+
+**Migration Workflow (Manual - when pooler saturated):**
+
+If `supabase db push --linked` fails with `MaxClientsInSessionMode` error:
+
+```bash
+# 1. Test migration locally first
+supabase db reset
+bun dev                   # Verify app works
+
+# 2. Apply to production manually via Supabase Dashboard
+# → SQL Editor → Paste migration SQL → Run
+
+# 3. Track migration in production (CRITICAL!)
+# Run this in Dashboard SQL Editor after applying migration:
+INSERT INTO supabase_migrations.schema_migrations (version, name, statements)
+VALUES ('20251119HHMMSS', 'migration_name', ARRAY[]::text[]);
+
+# 4. Mark as applied locally
+cp supabase/migrations/20251119HHMMSS_migration_name.sql \
+   supabase/migrations/applied_on_remote/
+```
+
+**Troubleshooting:**
+- **Pooler Saturated:** Use manual workflow above (Dashboard SQL Editor)
+- **Migration Already Applied:** Check `supabase_migrations.schema_migrations` table
+- **Schema Mismatch:** Run queries to compare production vs local schema
+- **Sync Local from Prod:** Backup local migrations, restore baseline from production
+
+**Deployment Checklist:**
+- [ ] Migration tested locally with `supabase db reset`
+- [ ] No breaking changes to existing APIs
+- [ ] Environment variables updated in Vercel (if needed)
+- [ ] RLS policies verified for new tables
+- [ ] Run `bun run build` to verify types
+- [ ] Migration tracked in `supabase_migrations.schema_migrations` (if applied manually)
+
+### Environment Variables
+
+**Required Services (69 variables total):**
+- **Supabase**: URL, anon key, service role key
+- **Stripe**: Secret key, webhook secret (CO/USD/EUR markets)
+- **PayPal**: Client ID, secret (PY/UY/AR markets)
+- **Sanity**: Project ID, dataset, API token, webhook secret
+- **PostHog**: API key, host
+- **Resend**: API key (transactional email)
+- **Background Checks**: Checkr API key + Truora credentials
+- **Upstash Redis**: URL, token (rate limiting)
+- **Cron Jobs**: CRON_SECRET (Vercel scheduled tasks)
+- **Algolia**: App ID, API key (search)
+
+**See:** `.env.example` for complete list with descriptions
+
+### Architecture Overview
+
+**Tech Stack:**
+- **Next.js 16 API Routes** (95+ endpoints)
+- **Supabase PostgreSQL 17** (69 tables, 50+ migrations)
+- **TypeScript Service Layer** (40+ files in `src/lib/services/`)
+- **Upstash Redis** (rate limiting via `@upstash/ratelimit`)
+
+**Layered Architecture:**
+```
+API Routes (src/app/api/)
+    ↓
+Service Layer (src/lib/services/)
+    ↓
+Repository Layer (src/lib/repositories/)
+    ↓
+Supabase Client (src/lib/integrations/supabase/)
+    ↓
+PostgreSQL 17
+```
+
+**Key Domains:**
+- `bookings/` - Booking lifecycle, availability, pricing
+- `payments/` - Stripe/PayPal integration, payouts, refunds
+- `professionals/` - Profile management, verification, services
+- `admin/` - User management, moderation, analytics
+- `webhooks/` - External service integrations
+- `cron/` - Scheduled background tasks
+
+**Database Schema:**
+- **69 tables** across 5 schemas (public, private, auth, storage, realtime)
+- **50+ migrations** tracked in `/supabase/migrations/`
+- **Row-Level Security (RLS)** on all tables with role-based access
+- **Private schema helper functions** for complex RLS policies
+- **Multi-currency support** (COP, USD, EUR, PYG, UYU, ARS)
+
+### Database Migrations
+
+**Current Local Migrations (Synced with Production):**
+```
+supabase/migrations/
+├── 00000000000000_initial_schema.sql              # Production baseline schema
+├── 20251119170320_add_multi_country_support.sql   # Countries/cities tables
+├── 20251119190424_add_country_city_to_profiles.sql
+├── 20251119190516_add_country_city_to_professional_profiles.sql
+├── 20251119190601_add_country_city_to_bookings.sql
+└── 20251119190656_fix_payout_tables_multi_currency.sql  # Adds _cents columns
+```
+
+**Applied on Remote (Tracking):**
+```
+supabase/migrations/applied_on_remote/
+└── (Copy of migrations successfully applied to production)
+```
+
+**Migration Best Practices:**
+1. **Always test locally first** with `supabase db reset`
+2. **Use descriptive names** - `YYYYMMDDHHMMSS_what_changed.sql`
+3. **Add RLS policies** for new tables immediately
+4. **Never edit applied migrations** - create a new one instead
+5. **Document breaking changes** in migration comments
+6. **Track production migrations manually** if using Dashboard SQL Editor
+
+**Recent Migrations (Nov 2024):**
+- Multi-country support (countries, cities, neighborhoods tables)
+- Country/city fields added to profiles, professional_profiles, bookings
+- Multi-currency payout tables (adds _cents columns alongside _cop columns)
+
+**⚠️ Known State:** Production currently has both `_cop` and `_cents` currency columns (transition state)
+
+### Scheduled Tasks (Cron Jobs)
+
+**4 Vercel Cron Jobs:**
+
+1. **Process Payouts** - `/api/cron/process-payouts`
+   - Schedule: Tuesday & Friday 10:00 AM COT
+   - Function: Batch process pending professional payouts
+   - Auth: CRON_SECRET bearer token
+
+2. **Clear Balances** - `/api/cron/clear-balances`
+   - Schedule: Daily 2:00 AM COT
+   - Function: Archive old balance transactions
+   - Auth: CRON_SECRET bearer token
+
+3. **Auto-Decline Bookings** - `/api/cron/auto-decline-bookings`
+   - Schedule: Multiple times daily
+   - Function: Auto-decline expired booking requests
+   - Auth: CRON_SECRET bearer token
+
+4. **Rebook Nudges** - `/api/cron/rebook-nudges`
+   - Schedule: Configured intervals
+   - Function: Send rebooking reminders to clients
+   - Auth: CRON_SECRET bearer token
+
+**Cron Configuration:**
+- Defined in `vercel.json` under `crons` array
+- All protected by CRON_SECRET verification
+- Logs visible in Vercel Dashboard → Cron Jobs
+
+### Webhooks
+
+**4 Webhook Endpoints:**
+
+1. **Stripe Webhooks** - `/api/webhooks/stripe`
+   - Events: Payment intents, charges, refunds
+   - Verification: HMAC signature with webhook secret
+   - Idempotency: Tracked in `webhook_events` table
+
+2. **PayPal Webhooks** - `/api/webhooks/paypal`
+   - Events: Payment capture, authorization, disputes
+   - Verification: PayPal signature validation
+   - Idempotency: Tracked in `webhook_events` table
+
+3. **Background Check Webhooks** - `/api/webhooks/background-check`
+   - Events: Check completion, results available
+   - Providers: Checkr (US) + Truora (LATAM)
+   - Verification: HMAC signature
+
+4. **Sanity Webhooks** - `/api/webhooks/sanity`
+   - Events: Content publish, update, delete
+   - Use Case: Invalidate Next.js cache on CMS changes
+   - Verification: SANITY_WEBHOOK_SECRET
+
+**Webhook Security:**
+- All webhooks verify HMAC signatures
+- Idempotent processing (webhook_events table tracks event IDs)
+- Rate limited via Upstash Redis
+
+### Why TypeScript/Next.js (Not Rust)
+
+**Decision: Stick with TypeScript/Next.js Stack**
+
+**Rationale:**
+1. **No Performance Crisis** - Current stack handles production load without bottlenecks
+2. **Production-Ready** - 95+ endpoints, 40+ services, sophisticated business logic already working
+3. **Supabase Ecosystem** - TypeScript-native with excellent SDK support
+4. **Team Velocity** - TypeScript enables faster iteration for marketplace features
+5. **Migration Cost** - Rewriting 95+ endpoints would take months with zero business value
+6. **RLS Complexity** - Complex Row-Level Security policies remain in PostgreSQL regardless of backend language
+
+**When to Consider Rust:**
+- Specific compute-intensive microservices (image processing, ML inference)
+- After proving market fit and identifying clear performance bottlenecks
+- As targeted optimization, not full rewrite
+
+**Current Bottlenecks (if any):**
+- RLS policy complexity (addressed via private schema helper functions)
+- Cron-based payouts (consider background job queue in future)
+- Limited caching layer (addressed via `unstable_cache()` for public data)
+
+**Performance Optimizations in Place:**
+- Upstash Redis for rate limiting (tier-based: booking 20/min, payment 15/min)
+- Next.js `unstable_cache()` for public data (1 hour TTL)
+- Database indexes on high-traffic queries
+- Connection pooling via Supabase Pooler
+
+---
+
 ## Quick File Reference
 
 ### Core Configuration
@@ -551,5 +808,5 @@ bun run build              # Test build
 
 ---
 
-**Last Updated:** 2025-01-19
-**Version:** 1.4.0 - React Aria Migration Complete
+**Last Updated:** 2025-11-19
+**Version:** 1.5.1 - Database Sync Workflow (Manual Migration Process + Production State Documentation)

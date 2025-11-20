@@ -3,6 +3,7 @@
 import { MenuTwoLineIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { geistSans } from "@/app/fonts";
+import { AdminCountrySelector } from "@/components/admin/admin-country-selector";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
 import { ConnectionStatusIndicator } from "@/components/admin/connection-status-indicator";
 import { NotificationBell } from "@/components/admin/notification-bell";
@@ -83,6 +84,9 @@ export function LiaAdminHeader({
             ⌘K
           </kbd>
         </button>
+
+        {/* Country Filter */}
+        <AdminCountrySelector />
 
         {/* Right: Actions */}
         <div className="flex items-center gap-1">

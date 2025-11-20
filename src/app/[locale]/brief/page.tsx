@@ -1,19 +1,30 @@
-import { BriefPageClient } from "@/components/brief/brief-page-client";
-import { SiteFooter } from "@/components/sections/SiteFooter";
-import { SiteHeader } from "@/components/sections/SiteHeader";
+import { Suspense } from "react";
+import { BookingWizard } from "@/components/booking/BookingWizard";
+import { Container } from "@/components/ui/container";
 
-/**
- * Brief Page - Server Component
- *
- * Allows users to submit a brief describing their household service needs.
- * We'll match them with 3-5 vetted professionals within 5 business days.
- */
+export const metadata = {
+  title: "Start Your Booking",
+  description: "Tell us about your household staffing needs",
+};
+
 export default function BriefPage() {
   return (
-    <div className="relative min-h-screen bg-neutral-50 text-neutral-900">
-      <SiteHeader />
-      <BriefPageClient />
-      <SiteFooter />
-    </div>
+    <main className="min-h-screen bg-neutral-50 py-12 md:py-20">
+      <Container className="max-w-screen-xl">
+        <div className="mb-8 text-center">
+          <h1 className="mb-3 font-semibold text-4xl text-neutral-900 md:text-5xl">
+            Find Your Perfect Match
+          </h1>
+          <p className="mx-auto max-w-2xl text-lg text-neutral-600 md:text-xl">
+            Answer a few quick questions and we'll connect you with pre-vetted household
+            professionals in your area
+          </p>
+        </div>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          <BookingWizard />
+        </Suspense>
+      </Container>
+    </main>
   );
 }

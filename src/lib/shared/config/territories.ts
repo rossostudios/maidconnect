@@ -22,6 +22,26 @@
 export type CountryCode = "CO" | "PY" | "UY" | "AR";
 
 /**
+ * Supported Markets (Operational Countries)
+ *
+ * These are the countries where Casaora actively operates. This is distinct
+ * from language support - all markets are Spanish-speaking, but users can
+ * select English UI in any market.
+ *
+ * - CO (Colombia): Stripe payments, 7 cities, established market
+ * - PY (Paraguay): PayPal payments, 3 cities, expanding
+ * - UY (Uruguay): PayPal payments, 3 cities, expanding
+ * - AR (Argentina): PayPal payments, 4 cities, expanding
+ */
+export const SUPPORTED_MARKETS = ["CO", "PY", "UY", "AR"] as const;
+export type SupportedMarket = (typeof SUPPORTED_MARKETS)[number];
+
+/**
+ * Default operational market (Colombia)
+ */
+export const DEFAULT_MARKET: SupportedMarket = "CO";
+
+/**
  * ISO 4217 currency codes
  */
 export type CurrencyCode = "COP" | "PYG" | "UYU" | "ARS" | "USD";
@@ -358,6 +378,25 @@ export function getCountry(code: string): CountryConfig | null {
  */
 export function isValidCountryCode(code: string): code is CountryCode {
   return code in COUNTRIES;
+}
+
+/**
+ * Check if country is an operational market
+ *
+ * Use this to validate that a country is where Casaora actively operates.
+ * This is separate from language support - users can select English UI
+ * in any operational market.
+ *
+ * @param countryCode - Country code to check (e.g., "CO", "PY", "UY", "AR")
+ * @returns true if the country is in SUPPORTED_MARKETS and isActive
+ *
+ * @example
+ * isOperationalMarket("CO") // true (Colombia is operational)
+ * isOperationalMarket("BR") // false (Brazil not supported)
+ */
+export function isOperationalMarket(countryCode: string): countryCode is SupportedMarket {
+  return SUPPORTED_MARKETS.includes(countryCode as SupportedMarket) &&
+         (countryCode in COUNTRIES ? COUNTRIES[countryCode as CountryCode].isActive : false);
 }
 
 /**

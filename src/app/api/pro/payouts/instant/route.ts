@@ -40,13 +40,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 // Request Validation Schema
 // ========================================
 
+// TODO: Accept currencyCode parameter after multi-currency expansion
+// Currently hardcoded to COP since only Colombia market is live
 const InstantPayoutRequestSchema = z.object({
-  amountCop: z
+  amount: z
     .number()
     .int()
     .positive()
     .min(50000, 'Minimum payout is 50,000 COP (~$12 USD)')
     .max(100000000, 'Maximum payout is 100,000,000 COP (~$25,000 USD)'),
+  // Backward compatibility: accept amountCop but map to amount
+  amountCop: z.number().int().positive().optional(),
 });
 
 type InstantPayoutRequest = z.infer<typeof InstantPayoutRequestSchema>;
@@ -108,27 +112,32 @@ export async function GET(request: NextRequest) {
       .single();
 
     const isEligible =
-      balanceBreakdown.availableBalanceCop >= minThresholdCop &&
+      balanceBreakdown.availableBalance >= minThresholdCop &&
       todayCount < dailyLimit &&
       profile?.stripe_account_id &&
       profile?.instant_payout_enabled;
 
     // Calculate fee for available balance (if user wants to cash out everything)
-    const feeAmount = Math.round(balanceBreakdown.availableBalanceCop * (feePercentage / 100));
-    const netAmount = balanceBreakdown.availableBalanceCop - feeAmount;
+    const feeAmount = Math.round(balanceBreakdown.availableBalance * (feePercentage / 100));
+    const netAmount = balanceBreakdown.availableBalance - feeAmount;
 
     return NextResponse.json({
       success: true,
       balance: {
-        availableCop: balanceBreakdown.availableBalanceCop,
-        pendingCop: balanceBreakdown.pendingBalanceCop,
-        totalCop: balanceBreakdown.totalBalanceCop,
+        available: balanceBreakdown.availableBalance,
+        pending: balanceBreakdown.pendingBalance,
+        total: balanceBreakdown.totalBalance,
+        currencyCode: balanceBreakdown.currencyCode,
+        // Backward compatibility
+        availableCop: balanceBreakdown.availableBalance,
+        pendingCop: balanceBreakdown.pendingBalance,
+        totalCop: balanceBreakdown.totalBalance,
       },
       eligibility: {
         isEligible,
         reasons: !isEligible
           ? [
-              balanceBreakdown.availableBalanceCop < minThresholdCop &&
+              balanceBreakdown.availableBalance < minThresholdCop &&
                 `Minimum balance is ${minThresholdCop.toLocaleString()} COP`,
               todayCount >= dailyLimit && `Daily limit reached (${dailyLimit} payouts per day)`,
               !profile?.stripe_account_id && 'Stripe Connect account not set up',
@@ -144,7 +153,12 @@ export async function GET(request: NextRequest) {
         remainingToday: Math.max(0, dailyLimit - todayCount),
       },
       estimate: {
-        grossAmountCop: balanceBreakdown.availableBalanceCop,
+        grossAmount: balanceBreakdown.availableBalance,
+        feeAmount: feeAmount,
+        netAmount: netAmount,
+        currencyCode: balanceBreakdown.currencyCode,
+        // Backward compatibility
+        grossAmountCop: balanceBreakdown.availableBalance,
         feeAmountCop: feeAmount,
         netAmountCop: netAmount,
       },
@@ -197,7 +211,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { amountCop } = validation.data;
+    // Backward compatibility: support both amount and amountCop
+    const amountCop = validation.data.amount ?? validation.data.amountCop ?? 0;
 
     logger.info('[Instant Payout API] Request initiated', {
       professionalId: user.id,
@@ -434,16 +449,24 @@ export async function POST(request: NextRequest) {
         payout: {
           transferId: transfer.id,
           stripePayoutId: stripePayout.id,
-          grossAmountCop: amountCop,
-          feeAmountCop: validationResult.feeAmount,
-          netAmountCop: validationResult.netAmount,
+          grossAmount: amountCop,
+          feeAmount: validationResult.feeAmount,
+          netAmount: validationResult.netAmount,
+          currencyCode: validationResult.currencyCode,
           status: 'processing',
           arrivalDate: stripePayout.arrival_date
             ? new Date(stripePayout.arrival_date * 1000).toISOString()
             : null,
           requestedAt: new Date().toISOString(),
+          // Backward compatibility
+          grossAmountCop: amountCop,
+          feeAmountCop: validationResult.feeAmount,
+          netAmountCop: validationResult.netAmount,
         },
         newBalance: {
+          available: deductResult.newAvailableBalance,
+          currencyCode: deductResult.currencyCode,
+          // Backward compatibility
           availableCop: deductResult.newAvailableBalance,
         },
       },

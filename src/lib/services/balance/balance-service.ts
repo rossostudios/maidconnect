@@ -16,6 +16,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/supabase";
+import type { Currency } from "@/lib/utils/format";
 
 // ========================================
 // Type Definitions
@@ -23,16 +24,18 @@ import type { Database } from "@/types/supabase";
 
 export type BalanceBreakdown = {
   professionalId: string;
-  availableBalanceCop: number;
-  pendingBalanceCop: number;
-  totalBalanceCop: number;
+  availableBalance: number;
+  pendingBalance: number;
+  totalBalance: number;
+  currencyCode: Currency;
   lastUpdate: string | null;
   pendingClearances: PendingClearance[];
 };
 
 export type PendingClearance = {
   bookingId: string;
-  amountCop: number;
+  amount: number;
+  currencyCode: Currency;
   completedAt: string;
   clearanceAt: string;
   hoursRemaining: number;
@@ -42,6 +45,7 @@ export type BalanceUpdate = {
   success: boolean;
   newAvailableBalance: number;
   newPendingBalance: number;
+  currencyCode: Currency;
   message?: string;
 };
 
@@ -51,6 +55,7 @@ export type InstantPayoutValidation = {
   requestedAmount: number;
   feeAmount: number;
   netAmount: number;
+  currencyCode: Currency;
   errors: string[];
   warnings: string[];
 };
@@ -83,6 +88,9 @@ export class BalanceService {
   /**
    * Get comprehensive balance breakdown for a professional
    * Includes both database values and calculated pending clearances
+   *
+   * TODO: After database migration, derive currencyCode from professional's country field
+   * Currently hardcoded to COP since database only has _cop columns
    */
   async getBalanceBreakdown(professionalId: string): Promise<BalanceBreakdown> {
     // Fetch current balance from database
@@ -108,6 +116,9 @@ export class BalanceService {
       throw new Error(`Failed to fetch pending clearances: ${clearanceError.message}`);
     }
 
+    // TODO: Derive currency from professional's country after migration
+    const currencyCode: Currency = "COP";
+
     // Calculate hours remaining for each clearance
     const now = new Date();
     const pendingClearances: PendingClearance[] = (clearances || []).map((clearance) => {
@@ -119,7 +130,8 @@ export class BalanceService {
 
       return {
         bookingId: clearance.booking_id,
-        amountCop: clearance.amount_cop,
+        amount: clearance.amount_cop, // Database still uses _cop column
+        currencyCode,
         completedAt: clearance.completed_at,
         clearanceAt: clearance.clearance_at,
         hoursRemaining,
@@ -128,9 +140,10 @@ export class BalanceService {
 
     return {
       professionalId,
-      availableBalanceCop: profile.available_balance_cop ?? 0,
-      pendingBalanceCop: profile.pending_balance_cop ?? 0,
-      totalBalanceCop: (profile.available_balance_cop ?? 0) + (profile.pending_balance_cop ?? 0),
+      availableBalance: profile.available_balance_cop ?? 0, // Database still uses _cop column
+      pendingBalance: profile.pending_balance_cop ?? 0, // Database still uses _cop column
+      totalBalance: (profile.available_balance_cop ?? 0) + (profile.pending_balance_cop ?? 0),
+      currencyCode,
       lastUpdate: profile.last_balance_update,
       pendingClearances,
     };
@@ -200,6 +213,8 @@ export class BalanceService {
   /**
    * Add booking earnings to pending balance
    * Called when a booking is completed (not yet cleared)
+   *
+   * TODO: Accept currencyCode parameter after multi-currency migration
    */
   async addToPendingBalance(
     professionalId: string,
@@ -209,6 +224,9 @@ export class BalanceService {
     const professionalEarnings = this.calculateProfessionalEarnings(bookingAmountCop);
     const clearanceAt = new Date();
     clearanceAt.setHours(clearanceAt.getHours() + CLEARANCE_PERIOD_HOURS);
+
+    // TODO: Hardcoded to COP until database migration
+    const currencyCode: Currency = "COP";
 
     // Use database function for atomic update
     const { error: balanceError } = await this.supabase.rpc("add_to_pending_balance", {
@@ -221,6 +239,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Failed to update pending balance: ${balanceError.message}`,
       };
     }
@@ -245,9 +264,10 @@ export class BalanceService {
 
     return {
       success: true,
-      newAvailableBalance: breakdown.availableBalanceCop,
-      newPendingBalance: breakdown.pendingBalanceCop,
-      message: `Added ${professionalEarnings} COP to pending balance. Available after 24hr hold.`,
+      newAvailableBalance: breakdown.availableBalance,
+      newPendingBalance: breakdown.pendingBalance,
+      currencyCode: breakdown.currencyCode,
+      message: `Added ${professionalEarnings} ${currencyCode} to pending balance. Available after 24hr hold.`,
     };
   }
 
@@ -256,6 +276,9 @@ export class BalanceService {
    * Called after 24-hour clearance period
    */
   async clearPendingBalance(bookingId: string): Promise<BalanceUpdate> {
+    // TODO: Hardcoded to COP until database migration
+    const currencyCode: Currency = "COP";
+
     // Fetch clearance record
     const { data: clearance, error: fetchError } = await this.supabase
       .from("balance_clearance_queue")
@@ -268,6 +291,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Clearance record not found for booking ${bookingId}`,
       };
     }
@@ -277,6 +301,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Booking ${bookingId} already processed (status: ${clearance.status})`,
       };
     }
@@ -292,6 +317,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Failed to clear pending balance: ${transferError.message}`,
       };
     }
@@ -316,9 +342,10 @@ export class BalanceService {
 
     return {
       success: true,
-      newAvailableBalance: breakdown.availableBalanceCop,
-      newPendingBalance: breakdown.pendingBalanceCop,
-      message: `Cleared ${clearance.amount_cop} COP to available balance.`,
+      newAvailableBalance: breakdown.availableBalance,
+      newPendingBalance: breakdown.pendingBalance,
+      currencyCode: breakdown.currencyCode,
+      message: `Cleared ${clearance.amount_cop} ${currencyCode} to available balance.`,
     };
   }
 
@@ -378,8 +405,13 @@ export class BalanceService {
   /**
    * Deduct amount from available balance for instant payout
    * Called when instant payout is processed
+   *
+   * TODO: Accept currencyCode parameter after multi-currency migration
    */
   async deductForInstantPayout(professionalId: string, amountCop: number): Promise<BalanceUpdate> {
+    // TODO: Hardcoded to COP until database migration
+    const currencyCode: Currency = "COP";
+
     // Use database function for atomic deduction
     const { error: deductError } = await this.supabase.rpc("deduct_available_balance", {
       p_professional_id: professionalId,
@@ -391,6 +423,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Failed to deduct balance: ${deductError.message}`,
       };
     }
@@ -400,17 +433,23 @@ export class BalanceService {
 
     return {
       success: true,
-      newAvailableBalance: breakdown.availableBalanceCop,
-      newPendingBalance: breakdown.pendingBalanceCop,
-      message: `Deducted ${amountCop} COP for instant payout.`,
+      newAvailableBalance: breakdown.availableBalance,
+      newPendingBalance: breakdown.pendingBalance,
+      currencyCode: breakdown.currencyCode,
+      message: `Deducted ${amountCop} ${currencyCode} for instant payout.`,
     };
   }
 
   /**
    * Refund amount to available balance if payout fails
    * Called when Stripe payout fails
+   *
+   * TODO: Accept currencyCode parameter after multi-currency migration
    */
   async refundFailedPayout(professionalId: string, amountCop: number): Promise<BalanceUpdate> {
+    // TODO: Hardcoded to COP until database migration
+    const currencyCode: Currency = "COP";
+
     // Use database function for atomic refund
     const { error: refundError } = await this.supabase.rpc("refund_available_balance", {
       p_professional_id: professionalId,
@@ -422,6 +461,7 @@ export class BalanceService {
         success: false,
         newAvailableBalance: 0,
         newPendingBalance: 0,
+        currencyCode,
         message: `Failed to refund balance: ${refundError.message}`,
       };
     }
@@ -431,9 +471,10 @@ export class BalanceService {
 
     return {
       success: true,
-      newAvailableBalance: breakdown.availableBalanceCop,
-      newPendingBalance: breakdown.pendingBalanceCop,
-      message: `Refunded ${amountCop} COP after failed payout.`,
+      newAvailableBalance: breakdown.availableBalance,
+      newPendingBalance: breakdown.pendingBalance,
+      currencyCode: breakdown.currencyCode,
+      message: `Refunded ${amountCop} ${currencyCode} after failed payout.`,
     };
   }
 
@@ -444,6 +485,8 @@ export class BalanceService {
   /**
    * Validate instant payout request
    * Checks balance, amount, rate limits, and Stripe status
+   *
+   * TODO: Accept currencyCode parameter after multi-currency migration
    */
   async validateInstantPayout(
     professionalId: string,
@@ -451,6 +494,9 @@ export class BalanceService {
   ): Promise<InstantPayoutValidation> {
     const errors: string[] = [];
     const warnings: string[] = [];
+
+    // TODO: Hardcoded to COP until database migration
+    const currencyCode: Currency = "COP";
 
     // 1. Fetch professional profile
     const { data: profile, error: profileError } = await this.supabase
@@ -469,6 +515,7 @@ export class BalanceService {
         requestedAmount: requestedAmountCop,
         feeAmount: 0,
         netAmount: 0,
+        currencyCode,
         errors,
         warnings,
       };
@@ -541,6 +588,7 @@ export class BalanceService {
       requestedAmount: requestedAmountCop,
       feeAmount,
       netAmount,
+      currencyCode,
       errors,
       warnings,
     };

@@ -11,7 +11,7 @@ import {
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
-import { formatCOP } from "@/lib/format";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
 import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 
@@ -27,6 +27,7 @@ type BookingSheetProps = {
   availableSlots: string[];
   services: ProfessionalService[];
   defaultHourlyRate: number | null;
+  currency?: Currency; // Optional currency (defaults to COP)
 };
 
 // Local time formatter for slot times (keep this as it's a specific format different from formatTime utility)
@@ -46,6 +47,7 @@ export function BookingSheet({
   availableSlots,
   services,
   defaultHourlyRate,
+  currency = "COP", // Default to COP for backward compatibility
 }: BookingSheetProps) {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<"time" | "details" | "payment">("time");
@@ -190,7 +192,7 @@ export function BookingSheet({
       bookingTracking.checkoutStarted({
         bookingId: result.bookingId,
         amount: totalAmount,
-        currency: "COP",
+        currency,
       });
 
       setBookingResult(result);
@@ -327,7 +329,7 @@ export function BookingSheet({
                   {serviceWithName.map((service) => (
                     <option key={service.name} value={service.name ?? ""}>
                       {service.name}
-                      {service.hourlyRateCop ? ` · ${formatCOP(service.hourlyRateCop)}/hr` : ""}
+                      {service.hourlyRateCop ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr` : ""}
                     </option>
                   ))}
                 </select>
@@ -436,7 +438,7 @@ export function BookingSheet({
                               )}
                             </div>
                             <div className="ml-4 font-semibold text-[neutral-500] text-base">
-                              {formatCOP(addon.price_cop)}
+                              {formatCurrency(addon.price_cop, { currency })}
                             </div>
                           </div>
                         </button>
@@ -476,21 +478,21 @@ export function BookingSheet({
                   <div className="flex justify-between">
                     <span className="text-[neutral-400]">Service</span>
                     <span className="font-semibold text-[neutral-900]">
-                      {formatCOP(baseAmount)}
+                      {formatCurrency(baseAmount, { currency })}
                     </span>
                   </div>
                   {addonsTotal > 0 && (
                     <div className="flex justify-between">
                       <span className="text-[neutral-400]">Add-ons</span>
                       <span className="font-semibold text-[neutral-900]">
-                        {formatCOP(addonsTotal)}
+                        {formatCurrency(addonsTotal, { currency })}
                       </span>
                     </div>
                   )}
                   <div className="border-[neutral-200] border-t pt-3">
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[neutral-900]">Total</span>
-                      <span className="font-bold text-[neutral-500]">{formatCOP(totalAmount)}</span>
+                      <span className="font-bold text-[neutral-500]">{formatCurrency(totalAmount, { currency })}</span>
                     </div>
                   </div>
                 </div>

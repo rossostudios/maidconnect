@@ -20,7 +20,7 @@ export default async function ProLayout({ children }: Props) {
 
   const { data: professionalProfile } = await supabase
     .from("professional_profiles")
-    .select("*")
+    .select("*, country_code")
     .eq("user_id", user.id)
     .maybeSingle();
 
@@ -43,6 +43,7 @@ export default async function ProLayout({ children }: Props) {
 
   return (
     <LiaProShell
+      countryCode={professionalProfile?.country_code ?? undefined}
       onboardingCompletion={onboardingCompletion}
       onboardingStatus={profile?.onboarding_status ?? ""}
       pendingLeadsCount={pendingLeadsCount ?? 0}

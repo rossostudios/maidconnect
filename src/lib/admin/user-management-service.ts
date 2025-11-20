@@ -16,6 +16,8 @@ export type UserQueryParams = {
   role: UserRole | null;
   suspensionFilter: SuspensionFilter;
   search: string;
+  /** Filter by country code (CO, PY, UY, AR) or "ALL" for all countries */
+  country: string | null;
 };
 
 export type UserProfile = {
@@ -24,6 +26,7 @@ export type UserProfile = {
   role: string;
   avatar_url: string | null;
   city: string | null;
+  country_code: string | null;
   created_at: string;
 };
 
@@ -42,6 +45,7 @@ export type CombinedUser = {
   role: string;
   avatar_url: string | null;
   city: string | null;
+  country_code: string | null;
   created_at: string;
   suspension: {
     type: "temporary" | "permanent";
@@ -66,8 +70,9 @@ export function parseUserQueryParams(searchParams: URLSearchParams): UserQueryPa
   const role = searchParams.get("role") as UserRole | null;
   const suspensionFilter = (searchParams.get("suspensionFilter") || "all") as SuspensionFilter;
   const search = searchParams.get("search") || "";
+  const country = searchParams.get("country") || null;
 
-  return { page, limit, role, suspensionFilter, search };
+  return { page, limit, role, suspensionFilter, search, country };
 }
 
 /**
@@ -93,11 +98,16 @@ export function buildUserQuery(
 ) {
   let query = supabase
     .from("profiles")
-    .select("id, full_name, role, avatar_url, city, created_at", { count: "exact" });
+    .select("id, full_name, role, avatar_url, city, country_code, created_at", { count: "exact" });
 
   // Apply role filter
   if (params.role) {
     query = query.eq("role", params.role);
+  }
+
+  // Apply country filter (skip if "ALL" or null)
+  if (params.country && params.country !== "ALL") {
+    query = query.eq("country_code", params.country);
   }
 
   // Apply search filter (search by name)
@@ -205,6 +215,7 @@ export function combineUserData(
       role: profile.role,
       avatar_url: profile.avatar_url,
       city: profile.city,
+      country_code: profile.country_code,
       created_at: profile.created_at,
       suspension: suspension
         ? {

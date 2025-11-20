@@ -10,7 +10,7 @@ import { geistSans } from "@/app/fonts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/core";
-import { formatCurrency } from "@/lib/utils/format";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -61,6 +61,10 @@ type BalanceCardProps = {
    * Optional className for custom styling
    */
   className?: string;
+  /**
+   * Currency code for balance display (COP, PYG, UYU, ARS)
+   */
+  currencyCode: Currency;
 };
 
 /**
@@ -78,7 +82,7 @@ type BalanceCardProps = {
  * <BalanceCard onRequestPayout={() => setShowPayoutModal(true)} />
  * ```
  */
-export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
+export function BalanceCard({ onRequestPayout, className, currencyCode }: BalanceCardProps) {
   const t = useTranslations("dashboard.pro.balance");
   const locale = useLocale();
 
@@ -204,7 +208,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
                 )}
                 data-testid="available-balance"
               >
-                {formatCurrency(balance.availableCop, "COP", locale)}
+                {formatFromMinorUnits(balance.availableCop, currencyCode)}
               </p>
               <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
                 {t("available.description")}
@@ -221,7 +225,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
                   {t("estimate.fee", { percentage: feeInfo.feePercentage })}
                 </span>
                 <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  -{formatCurrency(estimate.feeAmountCop, "COP", locale)}
+                  -{formatFromMinorUnits(estimate.feeAmountCop, currencyCode)}
                 </span>
               </div>
               <div className="mt-2 flex items-center justify-between font-semibold text-sm">
@@ -229,7 +233,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
                   {t("estimate.youReceive")}
                 </span>
                 <span className={cn("text-green-700", geistSans.className)}>
-                  {formatCurrency(estimate.netAmountCop, "COP", locale)}
+                  {formatFromMinorUnits(estimate.netAmountCop, currencyCode)}
                 </span>
               </div>
             </div>
@@ -252,7 +256,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
             </div>
           </div>
           <p className={cn("font-bold text-blue-900 text-lg", geistSans.className)}>
-            {formatCurrency(balance.pendingCop, "COP", locale)}
+            {formatFromMinorUnits(balance.pendingCop, currencyCode)}
           </p>
         </div>
 
@@ -276,7 +280,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
                   <div className="flex items-center gap-2">
                     <TrendingUp className="size-4 text-neutral-500" />
                     <span className={cn("text-neutral-900", geistSans.className)}>
-                      {formatCurrency(clearance.amountCop, "COP", locale)}
+                      {formatFromMinorUnits(clearance.amountCop, currencyCode)}
                     </span>
                   </div>
                   <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
@@ -344,7 +348,7 @@ export function BalanceCard({ onRequestPayout, className }: BalanceCardProps) {
             {t("total.label")}
           </span>
           <span className={cn("font-bold text-neutral-900 text-xl", geistSans.className)}>
-            {formatCurrency(balance.totalCop, "COP", locale)}
+            {formatFromMinorUnits(balance.totalCop, currencyCode)}
           </span>
         </div>
       </CardContent>

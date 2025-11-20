@@ -15,8 +15,9 @@ import { useAddressesAndAddons } from "@/hooks/use-addresses-and-addons";
 import { useBookingSubmission } from "@/hooks/use-booking-submission";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { trackEvent } from "@/lib/analytics/track-event";
-import { formatCurrencyCOP, normalizeServiceName } from "@/lib/booking-utils";
+import { normalizeServiceName } from "@/lib/booking-utils";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -28,6 +29,7 @@ type BookingFormProps = {
   defaultHourlyRate: number | null;
   savedAddresses?: SavedAddress[];
   availableAddons?: ServiceAddon[];
+  currency?: Currency; // Optional currency (defaults to COP)
 };
 
 type BookingStep = "service-details" | "address-addons" | "confirmation" | "payment";
@@ -56,6 +58,7 @@ export function EnhancedBookingForm({
   defaultHourlyRate,
   savedAddresses = [],
   availableAddons = [],
+  currency = "COP", // Default to COP for backward compatibility
 }: BookingFormProps) {
   const [currentStep, setCurrentStep] = useState<BookingStep>("service-details");
   const [bookingData, setBookingData] = useState<BookingData>({
@@ -180,6 +183,7 @@ export function EnhancedBookingForm({
       {currentStep === "service-details" && (
         <ServiceDetailsStep
           bookingData={bookingData}
+          currency={currency}
           onNext={() => setCurrentStep("address-addons")}
           services={serviceWithName}
           setBookingData={setBookingData}
@@ -192,6 +196,7 @@ export function EnhancedBookingForm({
           addons={addons}
           addresses={addresses}
           bookingData={bookingData}
+          currency={currency}
           onAddressesChange={handleAddressesChange}
           onBack={() => setCurrentStep("service-details")}
           onNext={() => setCurrentStep("confirmation")}
@@ -205,6 +210,7 @@ export function EnhancedBookingForm({
           addonsTotal={addonsTotal}
           baseAmount={baseAmount}
           bookingData={bookingData}
+          currency={currency}
           loading={isPending}
           onBack={() => setCurrentStep("address-addons")}
           onConfirm={handleSubmit}
@@ -238,11 +244,13 @@ function ServiceDetailsStep({
   services,
   bookingData,
   setBookingData,
+  currency,
   onNext,
 }: {
   services: ProfessionalService[];
   bookingData: BookingData;
   setBookingData: (data: BookingData) => void;
+  currency: Currency;
   onNext: () => void;
 }) {
   const canProceed =
@@ -281,7 +289,7 @@ function ServiceDetailsStep({
           {services.map((service) => (
             <option key={service.name} value={service.name ?? ""}>
               {service.name}
-              {service.hourlyRateCop ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr` : ""}
+              {service.hourlyRateCop ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr` : ""}
             </option>
           ))}
         </select>
@@ -395,6 +403,7 @@ function AddressAddonsStep({
   addresses,
   onAddressesChange,
   addons,
+  currency,
   onBack,
   onNext,
 }: {
@@ -403,6 +412,7 @@ function AddressAddonsStep({
   addresses: SavedAddress[];
   onAddressesChange: (addresses: SavedAddress[]) => void;
   addons: ServiceAddon[];
+  currency: Currency;
   onBack: () => void;
   onNext: () => void;
 }) {
@@ -537,7 +547,7 @@ function AddressAddonsStep({
                       )}
                       <div className="mt-1 flex gap-3 text-[neutral-400] text-xs">
                         <span className="font-semibold text-[neutral-500]">
-                          {formatCurrencyCOP(addon.price_cop)}
+                          {formatCurrency(addon.price_cop, { currency })}
                         </span>
                         {addon.duration_minutes > 0 && <span>+{addon.duration_minutes} min</span>}
                       </div>
@@ -578,6 +588,7 @@ function ConfirmationStep({
   baseAmount,
   addonsTotal,
   totalAmount,
+  currency,
   onBack,
   onConfirm,
   loading,
@@ -587,6 +598,7 @@ function ConfirmationStep({
   baseAmount: number;
   addonsTotal: number;
   totalAmount: number;
+  currency: Currency;
   onBack: () => void;
   onConfirm: () => void;
   loading: boolean;
@@ -661,7 +673,7 @@ function ConfirmationStep({
               {bookingData.selectedAddons.map((addon) => (
                 <li className="flex justify-between text-[neutral-900] text-sm" key={addon.id}>
                   <span>{addon.name}</span>
-                  <span>{formatCurrencyCOP(addon.price_cop)}</span>
+                  <span>{formatCurrency(addon.price_cop, { currency })}</span>
                 </li>
               ))}
             </ul>
@@ -691,17 +703,17 @@ function ConfirmationStep({
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-[neutral-400]">Service</span>
-                  <span className="text-[neutral-900]">{formatCurrencyCOP(baseAmount)}</span>
+                  <span className="text-[neutral-900]">{formatCurrency(baseAmount, { currency })}</span>
                 </div>
                 {addonsTotal > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-[neutral-400]">Add-ons</span>
-                    <span className="text-[neutral-900]">{formatCurrencyCOP(addonsTotal)}</span>
+                    <span className="text-[neutral-900]">{formatCurrency(addonsTotal, { currency })}</span>
                   </div>
                 )}
                 <div className="flex justify-between border-[neutral-200] border-t pt-2 font-semibold text-base">
                   <span className="text-[neutral-900]">Total</span>
-                  <span className="text-[neutral-500]">{formatCurrencyCOP(totalAmount)}</span>
+                  <span className="text-[neutral-500]">{formatCurrency(totalAmount, { currency })}</span>
                 </div>
               </div>
             </div>

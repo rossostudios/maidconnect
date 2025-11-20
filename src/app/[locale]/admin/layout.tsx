@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { LiaAdminShell } from "@/components/admin/lia-admin-shell";
 import { requireUser } from "@/lib/auth";
+import { AdminCountryFilterProvider } from "@/lib/contexts/AdminCountryFilterContext";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type Props = {
@@ -29,12 +30,14 @@ export default async function AdminLayout({ children }: Props) {
     .single();
 
   return (
-    <LiaAdminShell
-      userAvatarUrl={profile?.avatar_url ?? undefined}
-      userEmail={user.email ?? undefined}
-      userName={profile?.full_name ?? undefined}
-    >
-      {children}
-    </LiaAdminShell>
+    <AdminCountryFilterProvider>
+      <LiaAdminShell
+        userAvatarUrl={profile?.avatar_url ?? undefined}
+        userEmail={user.email ?? undefined}
+        userName={profile?.full_name ?? undefined}
+      >
+        {children}
+      </LiaAdminShell>
+    </AdminCountryFilterProvider>
   );
 }

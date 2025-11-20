@@ -180,7 +180,47 @@
       },
       "finances": {
         "title": "Finanzas y Analíticas",
-        "description": "Haz seguimiento de tus ganancias, consulta analíticas y gestiona pagos."
+        "description": "Haz seguimiento de tus ganancias, consulta analíticas y gestiona pagos.",
+        "paymentProcessor": {
+          "title": "Procesador de Pagos: {processor}",
+          "description": "Las ganancias en {country} se procesan a través de {processor}",
+          "stripe": {
+            "setup": {
+              "title": "Conexión de Stripe Requerida",
+              "description": "Conecta tu cuenta de Stripe para recibir pagos. Serás redirigido a Stripe para completar la configuración."
+            },
+            "requirements": {
+              "title": "Lo que necesitarás:",
+              "colombianBank": "Cuenta bancaria colombiana (corriente o ahorros)",
+              "cedula": "Cédula de Ciudadanía o Cédula de Extranjería",
+              "rut": "RUT (Registro Único Tributario) para reporte fiscal"
+            },
+            "payoutInfo": {
+              "title": "Calendario de Pagos",
+              "description": "Pagos instantáneos disponibles 24/7 (tarifa del 2%). Los pagos estándar en lote se procesan semanalmente sin cargo adicional."
+            }
+          },
+          "paypal": {
+            "setup": {
+              "title": "Cuenta de PayPal Requerida",
+              "description": "Necesitarás una cuenta PayPal Business verificada para recibir pagos. Asegúrate de que tu cuenta PayPal esté vinculada a una cuenta bancaria local."
+            },
+            "requirements": {
+              "title": "Lo que necesitarás:",
+              "verifiedAccount": "Cuenta PayPal Business verificada",
+              "bankLink": "Cuenta bancaria local vinculada a PayPal",
+              "localBank": "Cuenta bancaria en el sistema bancario de tu país"
+            },
+            "payoutInfo": {
+              "title": "Calendario de Pagos",
+              "description": "Los pagos se procesan semanalmente a tu cuenta PayPal. Los fondos suelen llegar en 1-2 días hábiles."
+            },
+            "note": {
+              "title": "Nota para profesionales:",
+              "description": "La integración de PayPal estará disponible próximamente. Por ahora, contacta a soporte para coordinar pagos manuales."
+            }
+          }
+        }
       },
       "portfolio": {
         "title": "Portafolio",
@@ -349,8 +389,13 @@
         "services": {
           "label": "Servicios y tarifas",
           "helper": "Dile a los clientes qué esperar de cada servicio.",
-          "hourlyRate": "Tarifa por hora (COP)",
-          "ratePlaceholder": "40000",
+          "hourlyRate": "Tarifa por hora ({currency})",
+          "ratePlaceholder": {
+            "CO": "25.000 COP/hora",
+            "PY": "35.000 PYG/hora",
+            "UY": "200 UYU/hora",
+            "AR": "5.000 ARS/hora"
+          },
           "serviceDescription": "Descripción del servicio",
           "descriptionPlaceholder": "Describa qué está incluido en este servicio"
         },
@@ -1208,6 +1253,12 @@
       "verified": "Profesionales verificados",
       "rating": "Reseñas bidireccionales"
     },
+    "backgroundVerification": {
+      "CO": "Verificado a través de la base de datos de la Policía Nacional Colombiana (POLICIA) y verificación de cédula nacional",
+      "PY": "Verificado a través de la base de datos de identidad paraguaya (RNPP) y verificaciones de antecedentes penales",
+      "UY": "Verificado a través del Registro Civil Uruguayo (DNIC) y verificaciones policiales",
+      "AR": "Verificado a través de la Policía Federal Argentina (PFA) y sistema de verificación de DNI"
+    },
     "trustSignals": {
       "verified": "Cada profesional revisado por Casaora",
       "cities": "Operando en Colombia, Paraguay, Uruguay y Argentina",
@@ -1224,7 +1275,67 @@
     "bookConsultation": "Agende Consulta Gratis",
     "howItWorks": "Cómo funciona",
     "becomeProfessional": "Ser profesional",
-    "learnMore": "Más información"
+    "learnMore": "Más información",
+    "markets": {
+      "CO": {
+        "medellin": {
+          "ribbon": "La agencia boutique de personal doméstico de Medellín",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Medellín",
+          "trustBadge": "De confianza en El Poblado, Laureles y Envigado"
+        },
+        "bogota": {
+          "ribbon": "La agencia boutique de personal doméstico de Bogotá",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Bogotá",
+          "trustBadge": "De confianza en Chapinero, Usaquén y Rosales"
+        },
+        "default": {
+          "ribbon": "La agencia boutique de personal doméstico de Colombia",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Colombia",
+          "trustBadge": "Operando en Medellín, Bogotá, Cali y más"
+        }
+      },
+      "PY": {
+        "asuncion": {
+          "ribbon": "La agencia boutique de personal doméstico de Asunción",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Asunción",
+          "trustBadge": "De confianza en Villa Morra, Carmelitas y Manorá"
+        },
+        "default": {
+          "ribbon": "La agencia boutique de personal doméstico de Paraguay",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Paraguay",
+          "trustBadge": "Operando en Asunción, Ciudad del Este y Encarnación"
+        }
+      },
+      "UY": {
+        "montevideo": {
+          "ribbon": "La agencia boutique de personal doméstico de Montevideo",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Montevideo",
+          "trustBadge": "De confianza en Pocitos, Carrasco y Punta Gorda"
+        },
+        "default": {
+          "ribbon": "La agencia boutique de personal doméstico de Uruguay",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Uruguay",
+          "trustBadge": "Operando en Montevideo, Punta del Este y Maldonado"
+        }
+      },
+      "AR": {
+        "buenosAires": {
+          "ribbon": "La agencia boutique de personal doméstico de Buenos Aires",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Buenos Aires",
+          "trustBadge": "De confianza en Palermo, Recoleta y Belgrano"
+        },
+        "default": {
+          "ribbon": "La agencia boutique de personal doméstico de Argentina",
+          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Argentina",
+          "trustBadge": "Operando en Buenos Aires, Córdoba, Rosario y Mendoza"
+        }
+      },
+      "default": {
+        "ribbon": "La agencia boutique de personal doméstico de América Latina",
+        "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza",
+        "trustBadge": "Operando en Colombia, Paraguay, Uruguay y Argentina"
+      }
+    }
   },
   "benefits": {
     "badge": "POR QUÉ CASAORA",
@@ -1422,20 +1533,51 @@
     }
   },
   "booking": {
-    "title": "Reservar un servicio",
-    "selectDate": "Seleccionar fecha",
-    "selectTime": "Seleccionar hora",
-    "duration": "Duración",
-    "hours": "horas",
-    "addons": "Complementos",
-    "totalPrice": "Precio total",
-    "bookNow": "Reservar ahora",
-    "requestBooking": "Solicitar reserva",
-    "status": {
-      "pending": "Pendiente",
-      "confirmed": "Confirmado",
-      "completed": "Completado",
-      "cancelled": "Cancelado"
+    "countryLabel": "País",
+    "countryPlaceholder": "Selecciona tu país",
+    "cityLabel": "Ciudad",
+    "cityPlaceholder": "Selecciona tu ciudad",
+    "wizard": {
+      "countryTitle": "¿Dónde necesitas ayuda?",
+      "countryDescription": "Selecciona el país donde necesitas nuestros servicios",
+      "cityTitle": "¿En qué ciudad?",
+      "cityDescription": "Selecciona tu ciudad para mostrarte profesionales disponibles",
+      "serviceTitle": "¿Qué tipo de servicio necesitas?",
+      "serviceDescription": "Selecciona el servicio que mejor se adapte a tus necesidades",
+      "back": "Atrás",
+      "continue": "Continuar",
+      "submit": "Continuar con el formulario"
+    },
+    "steps": {
+      "country": "País",
+      "city": "Ciudad",
+      "service": "Servicio"
+    },
+    "services": {
+      "cleaning": {
+        "name": "Limpieza",
+        "description": "Servicios profesionales de limpieza"
+      },
+      "nanny": {
+        "name": "Niñera",
+        "description": "Cuidado infantil y babysitting"
+      },
+      "chef": {
+        "name": "Chef Privado",
+        "description": "Servicios de cocina personal"
+      },
+      "elderCare": {
+        "name": "Cuidado de Adultos",
+        "description": "Acompañamiento y cuidado de mayores"
+      },
+      "laundry": {
+        "name": "Lavandería",
+        "description": "Lavado, planchado y doblado"
+      },
+      "gardening": {
+        "name": "Jardinería",
+        "description": "Mantenimiento y cuidado del jardín"
+      }
     }
   },
   "footer": {
@@ -3436,6 +3578,131 @@
         "description": "¿Lista para estabilidad? Las familias nos pagan una tarifa única de $299 por colocaciones permanentes — tú no pagas nada y obtienes contratos legales."
       },
       "ctaText": "¿Interesada en tiempo completo? Marca \"Abierta a Tiempo Completo\" en tu perfil para aparecer en búsquedas premium de familias."
+    }
+  },
+  "pros": {
+    "safety": {
+      "title": "Seguridad y Protección del Trabajador",
+      "description": "Tu seguridad, derechos y bienestar son nuestra máxima prioridad. Conoce tus protecciones como profesional del hogar.",
+      "overview": {
+        "legal": {
+          "title": "Contratos Legales",
+          "description": "Todas las colocaciones incluyen contratos escritos que cumplen con las leyes laborales locales"
+        },
+        "safety": {
+          "title": "Anti-Acoso",
+          "description": "Política de tolerancia cero para cualquier forma de acoso o discriminación"
+        },
+        "support": {
+          "title": "Soporte 24/7",
+          "description": "Reporta inquietudes en cualquier momento a través de nuestros canales de soporte confidenciales"
+        }
+      },
+      "workerRights": {
+        "title": "Tus Derechos como Profesional del Hogar",
+        "contracts": {
+          "title": "Contratos de Trabajo Escritos",
+          "description": "Tienes derecho a un contrato claro y escrito que detalle tus funciones, horarios, compensación y términos antes de comenzar cualquier empleo permanente."
+        },
+        "minimumWage": {
+          "title": "Compensación Justa",
+          "description": "Todos los empleos deben cumplir o superar los requisitos de salario mínimo local. Tu tarifa es transparente y se acuerda antes de comenzar a trabajar."
+        },
+        "workingHours": {
+          "title": "Horas de Trabajo Razonables",
+          "description": "Horas de trabajo estándar, compensación por horas extras y períodos de descanso según lo requieren las leyes laborales locales."
+        },
+        "benefits": {
+          "title": "Seguridad Social y Beneficios",
+          "description": "Para colocaciones a tiempo completo, los empleadores deben cumplir con los requisitos locales de seguro de salud, seguridad social y otros beneficios obligatorios."
+        }
+      },
+      "antiHarassment": {
+        "title": "Tolerancia Cero para el Acoso",
+        "description": "Casaora mantiene una política estricta de tolerancia cero para cualquier forma de acoso, discriminación o condiciones laborales inseguras.",
+        "zeroTolerance": {
+          "title": "No toleramos:",
+          "verbal": "Abuso verbal, amenazas o lenguaje despectivo",
+          "physical": "Intimidación física, contacto no deseado o violencia",
+          "discrimination": "Discriminación por raza, género, nacionalidad o cualquier característica protegida",
+          "workEnvironment": "Condiciones laborales inseguras o demandas irrazonables"
+        }
+      },
+      "reporting": {
+        "title": "Cómo Reportar Problemas",
+        "description": "Si experimentas acoso, preocupaciones de seguridad o violaciones de contrato, tienes múltiples canales de reporte confidenciales:",
+        "channels": {
+          "title": "Canales de Reporte",
+          "casaoraSupport": {
+            "title": "Equipo de Soporte Casaora",
+            "description": "Escríbenos en cualquier momento para asistencia confidencial. Respondemos en 24 horas para preocupaciones de seguridad."
+          },
+          "emergencyHotline": {
+            "title": "Línea de Emergencia",
+            "description": "Para preocupaciones urgentes de seguridad, llama a nuestra línea de emergencia 24/7:",
+            "number": "+57 (1) 234-5678 (Colombia) | Disponible en español e inglés"
+          },
+          "localAuthorities": {
+            "title": "Autoridades Laborales Locales",
+            "description": "Siempre tienes el derecho de contactar directamente a las oficinas del ministerio de trabajo local o servicios de emergencia."
+          }
+        },
+        "confidentiality": {
+          "title": "Tu Privacidad está Protegida",
+          "description": "Todos los reportes se manejan confidencialmente. Nunca compartimos tu identidad sin tu permiso explícito, excepto cuando lo requiere la ley."
+        }
+      },
+      "legalContracts": {
+        "title": "Contratos Legales y Documentación",
+        "description": "Toda relación laboral permanente debe estar respaldada por documentación legal adecuada que proteja tus derechos.",
+        "written": {
+          "title": "Acuerdos Escritos",
+          "description": "Todos los empleos permanentes requieren un contrato escrito que especifique deberes, horas, compensación, beneficios y términos de terminación."
+        },
+        "payment": {
+          "title": "Términos de Pago",
+          "description": "El contrato debe detallar claramente el método de pago, frecuencia (semanal, quincenal, mensual) y cualquier deducción autorizada."
+        },
+        "termination": {
+          "title": "Protección de Terminación",
+          "description": "El contrato debe especificar el período de aviso requerido, indemnización por despido (si aplica) y el proceso de resolución de disputas."
+        }
+      },
+      "countrySpecific": {
+        "title": "Información Específica del País",
+        "description": "Las leyes laborales y protecciones varían según el país. Aquí hay información importante para tu ubicación:",
+        "laborMinistry": {
+          "title": "Ministerio de Trabajo",
+          "description": "Contacta al ministerio de trabajo de tu país para información sobre leyes laborales, derechos de los trabajadores y resolución de disputas."
+        },
+        "minimumWageInfo": {
+          "title": "Información de Salario Mínimo",
+          "description": "Verifica las tasas de salario mínimo actuales para trabajadores domésticos en tu país. Las tasas pueden variar por región."
+        },
+        "healthSafety": {
+          "title": "Salud y Seguridad",
+          "description": "Los empleadores deben proporcionar un ambiente de trabajo seguro que cumpla con los estándares locales de salud y seguridad."
+        },
+        "emergencyContacts": {
+          "title": "Contactos de Emergencia",
+          "description": "Conoce los números locales de emergencia para policía, servicios médicos y líneas directas de abuso laboral en tu país."
+        }
+      },
+      "resources": {
+        "title": "Recursos Adicionales",
+        "description": "Accede a estos recursos para aprender más sobre tus derechos y protecciones:",
+        "links": {
+          "workerRightsGuide": "Guía de Derechos del Trabajador",
+          "contractTemplates": "Plantillas de Contrato",
+          "disputeResolution": "Resolución de Disputas",
+          "contactSupport": "Contactar Soporte"
+        }
+      },
+      "footer": {
+        "title": "¿Necesitas Ayuda?",
+        "description": "Nuestro equipo de soporte está aquí para ayudarte. No dudes en contactarnos con cualquier pregunta o inquietud.",
+        "cta": "Contactar Soporte"
+      }
     }
   }
 }

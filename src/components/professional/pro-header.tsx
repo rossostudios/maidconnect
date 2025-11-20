@@ -34,6 +34,27 @@ type Props = {
   onboardingCompletion?: number;
   isSidebarCollapsed?: boolean;
   onToggleSidebar?: () => void;
+  countryCode?: string;
+};
+
+const getCountryFlag = (countryCode: string) => {
+  const flags: Record<string, string> = {
+    CO: "🇨🇴",
+    PY: "🇵🇾",
+    UY: "🇺🇾",
+    AR: "🇦🇷",
+  };
+  return flags[countryCode] || "🌍";
+};
+
+const getCountryLabel = (countryCode: string) => {
+  const labels: Record<string, string> = {
+    CO: "Colombia",
+    PY: "Paraguay",
+    UY: "Uruguay",
+    AR: "Argentina",
+  };
+  return labels[countryCode] || countryCode;
 };
 
 export function ProHeader({
@@ -45,6 +66,7 @@ export function ProHeader({
   onboardingCompletion = 100,
   isSidebarCollapsed,
   onToggleSidebar,
+  countryCode,
 }: Props) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -65,6 +87,16 @@ export function ProHeader({
             <div className="flex items-center">
               <Breadcrumbs />
             </div>
+
+            {/* Country Badge */}
+            {countryCode && (
+              <div className="hidden items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 md:flex">
+                <span className="text-base">{getCountryFlag(countryCode)}</span>
+                <span className="font-medium text-neutral-900 text-xs">
+                  {getCountryLabel(countryCode)}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-0.5">

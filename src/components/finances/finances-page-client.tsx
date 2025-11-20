@@ -5,9 +5,11 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { trackFinancesDashboardViewed } from "@/lib/analytics/professional-events";
+import type { Currency } from "@/lib/utils/format";
 import { BalanceCard } from "./balance-card";
 import { BankAccountManager } from "./bank-account-manager";
 import { InstantPayoutModal } from "./instant-payout-modal";
+import { PaymentProcessorInfo } from "./payment-processor-info";
 import { PayoutHistory } from "./payout-history";
 
 // ========================================
@@ -73,7 +75,7 @@ type BalanceEligibilityResponse = {
  * - Instant payout modal
  * - Payout history
  */
-export function FinancesPageClient() {
+export function FinancesPageClient({ currencyCode }: { currencyCode: Currency }) {
   const t = useTranslations("dashboard.pro.finances");
 
   // State
@@ -176,13 +178,17 @@ export function FinancesPageClient() {
   return (
     <div className="space-y-8">
       {/* Balance Card with Instant Payout Button */}
-      <BalanceCard onRequestPayout={handleRequestPayout} />
+      <BalanceCard currencyCode={currencyCode} onRequestPayout={handleRequestPayout} />
 
       {/* Bank Account Manager */}
       <BankAccountManager />
 
+      {/* Payment Processor Information */}
+      <PaymentProcessorInfo />
+
       {/* Payout History */}
       <PayoutHistory
+        currencyCode={currencyCode}
         transfers={transfers}
         isLoading={isLoadingHistory}
         professionalId={professionalId}
@@ -191,6 +197,7 @@ export function FinancesPageClient() {
       {/* Instant Payout Modal */}
       {balanceData && (
         <InstantPayoutModal
+          currencyCode={currencyCode}
           open={showPayoutModal}
           onClose={() => setShowPayoutModal(false)}
           availableBalanceCop={balanceData.balance.availableCop}

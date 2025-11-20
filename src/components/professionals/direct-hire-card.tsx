@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, Briefcase01Icon, CheckmarkCircle01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
-import { formatCurrency } from "@/lib/utils/format";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/core";
 import { TrialCreditBadge } from "@/components/trial-credits/trial-credit-badge";
 import { TrialProgressWidget } from "@/components/trial-credits/trial-progress-widget";
@@ -13,6 +13,7 @@ export interface DirectHireCardProps {
   professionalId: string;
   feeCOP: number;
   feeUSD: number;
+  currency?: Currency; // Currency for local price display (defaults to COP for backward compatibility)
   onRequestContact: () => void;
   className?: string;
   // Trial credit props (optional)
@@ -45,6 +46,7 @@ export function DirectHireCard({
   professionalId,
   feeCOP,
   feeUSD,
+  currency = "COP", // Default to COP for backward compatibility
   onRequestContact,
   className,
   trialCredit,
@@ -101,7 +103,7 @@ export function DirectHireCard({
                 ${finalFeeUSD}
               </div>
               <div className="text-xs text-neutral-500">
-                {formatCurrency(finalFeeCOP, "COP")}
+                {formatCurrency(finalFeeCOP, { currency })}
               </div>
               {/* Savings Message */}
               <p className="text-xs font-medium text-green-600">
@@ -114,7 +116,7 @@ export function DirectHireCard({
                 ${feeUSD}
               </div>
               <div className="text-xs text-neutral-500 mt-1">
-                {formatCurrency(feeCOP, "COP")}
+                {formatCurrency(feeCOP, { currency })}
               </div>
             </div>
           )}

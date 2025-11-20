@@ -104,11 +104,6 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
           },
-          // Protects against XSS attacks (legacy, but still useful)
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
-          },
         ],
       },
     ];

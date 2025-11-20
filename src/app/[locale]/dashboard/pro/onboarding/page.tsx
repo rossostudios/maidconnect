@@ -8,8 +8,9 @@ import {
   getStepClassName,
   transformProfileData,
 } from "@/lib/onboarding/profile-data-transformer";
-import { COUNTRY_OPTIONS } from "@/lib/shared/config/territories";
+import { COUNTRIES, DEFAULT_MARKET, type CountryCode } from "@/lib/shared/config/territories";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import type { Currency } from "@/lib/utils/format";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
@@ -88,6 +89,10 @@ export default async function ProfessionalOnboardingPage({
   const professionalProfileRecord =
     (professionalProfileData as SupabaseProfessionalProfile | null) ?? null;
   const profileInitialData = transformProfileData(professionalProfileRecord);
+
+  // Get currency code from user's country
+  const userCountry = (user.country as CountryCode | null) ?? DEFAULT_MARKET;
+  const currencyCode = COUNTRIES[userCountry].currencyCode as Currency;
 
   return (
     <section className="flex-1 space-y-10">
@@ -202,6 +207,7 @@ export default async function ProfessionalOnboardingPage({
                 label,
                 slug: label.toLowerCase().replace(/\s+/g, "_"),
               }))}
+              currencyCode={currencyCode}
               initialData={profileInitialData}
               inputClass={inputClass}
               languages={LANGUAGE_OPTIONS}
@@ -282,6 +288,7 @@ export default async function ProfessionalOnboardingPage({
                   label,
                   slug: label.toLowerCase().replace(/\s+/g, "_"),
                 }))}
+                currencyCode={currencyCode}
                 initialData={profileInitialData}
                 inputClass={inputClass}
                 languages={LANGUAGE_OPTIONS}

@@ -19,6 +19,7 @@ import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { RealtimeProvider } from "@/lib/integrations/supabase/RealtimeProvider";
+import { MarketProvider } from "@/lib/contexts/MarketContext";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { ConditionalAnnouncementBanner } from "@/components/sections/ConditionalAnnouncementBanner";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
@@ -37,15 +38,20 @@ export const metadata: Metadata = {
     template: "%s · Casaora®",
   },
   description:
-    "Casaora is Colombia's premier boutique domestic staffing agency. Browse our curated network of exceptional household professionals—only the top 5% make it onto our platform. Pre-vetted excellence for discerning homes.",
+    "Casaora is Latin America's premier boutique domestic staffing agency. Operating in Colombia, Paraguay, Uruguay, and Argentina. Browse our curated network of exceptional household professionals—only the top 5% make it onto our platform. Pre-vetted excellence for discerning homes.",
   keywords: [
     "Casaora®",
-    "luxury domestic staffing Colombia",
+    "luxury domestic staffing Latin America",
     "private household staff Bogotá",
     "boutique staffing agency",
     "premium housekeepers Colombia",
     "private chef Cartagena",
     "estate staff Medellín",
+    "household staff Asunción Paraguay",
+    "domestic staff Montevideo Uruguay",
+    "housekeepers Buenos Aires Argentina",
+    "private staff Ciudad del Este",
+    "estate staff Punta del Este",
   ],
   icons: {
     icon: [
@@ -57,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Casaora® · The Art of Home",
     description:
-      "Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
+      "Latin America's premier boutique domestic staffing agency. Serving Colombia, Paraguay, Uruguay, and Argentina. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
     url: "https://casaora.com",
     siteName: "Casaora®",
     locale: "en_US",
@@ -67,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Casaora® · The Art of Home",
     description:
-      "Browse Colombia's most exceptional household professionals. Pre-vetted, curated excellence. The Art of Home.",
+      "Browse Latin America's most exceptional household professionals. Operating in CO, PY, UY, AR. Pre-vetted, curated excellence. The Art of Home.",
   },
 };
 
@@ -108,39 +114,41 @@ export default async function RootLayout({
       >
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <SkipLinks>
-              <SkipLink href="main-content">Skip to main content</SkipLink>
-              <SkipLink href="footer">Skip to footer</SkipLink>
-            </SkipLinks>
-            <WebVitalsReporter />
-            <PostHogProvider nonce={nonce}>
-              <FeedbackProvider>
-                <UnifiedCommandPaletteWrapper>
-                  <ConditionalAnnouncementBanner />
-                  <ChangelogBanner />
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <SupabaseProvider>
-                      <RealtimeProvider>
-                        <QueryProvider>
-                          <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-                        </QueryProvider>
-                      </RealtimeProvider>
-                    </SupabaseProvider>
-                  </Suspense>
-                  <Suspense fallback={null}>
-                    <AmaraFloatingButton locale={locale} />
-                  </Suspense>
-                  <CookieConsent />
-                </UnifiedCommandPaletteWrapper>
-              </FeedbackProvider>
-            </PostHogProvider>
-            {isDraftMode && <DraftModeIndicator />}
-            <Toaster
-              closeButton
-              position="top-right"
-              richColors
-              toastOptions={{ duration: 4000 }}
-            />
+            <MarketProvider>
+              <SkipLinks>
+                <SkipLink href="main-content">Skip to main content</SkipLink>
+                <SkipLink href="footer">Skip to footer</SkipLink>
+              </SkipLinks>
+              <WebVitalsReporter />
+              <PostHogProvider nonce={nonce}>
+                <FeedbackProvider>
+                  <UnifiedCommandPaletteWrapper>
+                    <ConditionalAnnouncementBanner />
+                    <ChangelogBanner />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <SupabaseProvider>
+                        <RealtimeProvider>
+                          <QueryProvider>
+                            <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                          </QueryProvider>
+                        </RealtimeProvider>
+                      </SupabaseProvider>
+                    </Suspense>
+                    <Suspense fallback={null}>
+                      <AmaraFloatingButton locale={locale} />
+                    </Suspense>
+                    <CookieConsent />
+                  </UnifiedCommandPaletteWrapper>
+                </FeedbackProvider>
+              </PostHogProvider>
+              {isDraftMode && <DraftModeIndicator />}
+              <Toaster
+                closeButton
+                position="top-right"
+                richColors
+                toastOptions={{ duration: 4000 }}
+              />
+            </MarketProvider>
           </NextIntlClientProvider>
         </ErrorBoundary>
         <Analytics />

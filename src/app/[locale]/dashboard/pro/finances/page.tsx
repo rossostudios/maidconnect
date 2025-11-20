@@ -27,6 +27,20 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
+  // Fetch professional's currency code
+  const { data: professionalProfile } = await supabase
+    .from("professional_profiles")
+    .select("country_code")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  // Determine currency from country code
+  const currencyCode = professionalProfile?.country_code === "CO" ? "COP"
+    : professionalProfile?.country_code === "PY" ? "PYG"
+    : professionalProfile?.country_code === "UY" ? "UYU"
+    : professionalProfile?.country_code === "AR" ? "ARS"
+    : "COP"; // Default to COP for backward compatibility
+
   // Fetch bookings data for charts
   const { data: bookingsData } = await supabase
     .from("bookings")
@@ -70,10 +84,10 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
       </div>
 
       {/* Client-side instant payout UI (balance card, modal, payout history) */}
-      <FinancesPageClient />
+      <FinancesPageClient currencyCode={currencyCode} />
 
       {/* Server-side overview charts */}
-      <FinancesOverview bookings={bookings} payouts={payouts} />
+      <FinancesOverview bookings={bookings} currencyCode={currencyCode} payouts={payouts} />
     </div>
   );
 }

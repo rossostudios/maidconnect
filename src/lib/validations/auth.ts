@@ -64,7 +64,18 @@ export type ProfessionalProfile = z.infer<typeof professionalProfileSchema>;
 
 export const customerProfileSchema = baseProfileSchema.extend({
   role: z.literal("customer"),
+
+  /**
+   * UI Language Preference (user choice)
+   *
+   * Defaults to Spanish ("es") for LATAM markets (CO, PY, UY, AR).
+   * English ("en") available for expats, tourists, and international users.
+   *
+   * Note: This is separate from operational market/country selection.
+   * Users can select English UI while being in any Spanish-speaking market.
+   */
   preferredLanguage: z.string().length(2).default("es"),
+
   notificationPreferences: z
     .object({
       email: z.boolean().default(true),

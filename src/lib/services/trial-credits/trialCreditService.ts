@@ -1,18 +1,20 @@
 /**
  * Trial Credit Service
  *
- * Manages trial credit system for Direct Hire conversion.
- * Strategy: Offer 50% credit on completed bookings (up to 3) toward $299 direct hire fee.
- * Goal: De-risk the placement fee and gamify gig-to-employee transition.
+ * ⚠️ DEPRECATED: This service was designed for the old fixed-fee direct hire model ($299 USD).
+ * With the new percentage-based commission model (15% of agreed salary), trial credits
+ * need to be fundamentally redesigned.
  *
- * Key Rules:
- * - Credit = 50% of total completed booking fees
- * - Capped at 50% of direct hire fee (~$150 USD / 598,000 COP)
- * - Per-professional scope (separate credits with different pros)
- * - Any booking source counts (Amara, web, etc.)
- * - Partial credit allowed (can direct hire after 1, 2, or 3 bookings)
+ * **TODO: Redesign trial credit system for percentage-based pricing**
+ * Possible approaches:
+ * 1. Commission discount: Reduce commission from 15% to 10% or 5% after completing bookings
+ * 2. Booking vouchers: Offer free hours toward direct hire trial period
+ * 3. Remove entirely: Direct hire is already low-friction with percentage-based pricing
+ *
+ * **Current State:** This service still references the old fixed-fee model and should not be used.
  *
  * @module services/trial-credits
+ * @deprecated Use percentage-based commission model instead
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
