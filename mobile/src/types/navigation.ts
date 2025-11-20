@@ -47,6 +47,7 @@ export type MainTabParamList = {
       notes?: string;
     };
   };
+  BookingDetail: { bookingId: string };
 };
 
 // Home Stack Navigator
