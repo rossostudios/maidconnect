@@ -24,6 +24,11 @@ export type BackgroundCheckType =
 // Professional Information (Input)
 // ============================================================================
 
+/**
+ * Supported LATAM countries for background checks
+ */
+export type BackgroundCheckCountry = "CO" | "PY" | "UY" | "AR";
+
 export type ProfessionalInfo = {
   // Required fields
   professionalId: string;
@@ -31,8 +36,16 @@ export type ProfessionalInfo = {
   lastName: string;
   dateOfBirth: string; // ISO 8601 format: "1990-05-15"
 
-  // Colombian ID (Cédula de Ciudadanía)
-  documentType: "CC" | "CE" | "PA" | "NIT"; // CC=Cédula, CE=Cédula Extranjería, PA=Passport, NIT=Business
+  // Country code for this professional (determines which background check package to use)
+  countryCode?: BackgroundCheckCountry;
+
+  // ID Document
+  // Colombia: CC=Cédula de Ciudadanía, CE=Cédula Extranjería
+  // Paraguay: CI=Cédula de Identidad
+  // Uruguay: CI=Cédula de Identidad
+  // Argentina: DNI=Documento Nacional de Identidad
+  // All countries: PA=Passport
+  documentType: "CC" | "CE" | "CI" | "DNI" | "PA" | "NIT";
   documentId: string;
 
   // Contact info
@@ -43,9 +56,9 @@ export type ProfessionalInfo = {
   address?: {
     street?: string;
     city?: string;
-    state?: string; // Department in Colombia
+    state?: string; // Department/Province/State
     postalCode?: string;
-    country: "CO"; // Colombia
+    country: BackgroundCheckCountry;
   };
 
   // Optional metadata

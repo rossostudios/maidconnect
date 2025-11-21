@@ -55,9 +55,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             Plataforma.
           </p>
           <p className="mt-3 text-neutral-700">
-            Casaora es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, NIT{" "}
-            <strong>[NIT DE LA EMPRESA]</strong>, con domicilio en <strong>[DIRECCIÓN]</strong>,
-            Colombia (&quot;Casaora&quot;, &quot;nosotros&quot;, &quot;nuestro&quot;).
+            Casaora es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, con oficinas registradas
+            en <strong>Colombia, Paraguay, Uruguay y Argentina</strong> (&quot;Casaora&quot;,
+            &quot;nosotros&quot;, &quot;nuestro&quot;). Cada mercado opera bajo los requisitos
+            regulatorios locales correspondientes.
           </p>
         </section>
 
@@ -308,9 +309,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                 8.1 Procesamiento de Pagos
               </h3>
               <p className="text-neutral-700">
-                Todos los pagos se procesan a través de <strong>Stripe</strong>, un procesador de
-                pagos certificado PCI DSS. Casaora no almacena información completa de tarjetas de
-                crédito o débito.
+                Todos los pagos se procesan a través de procesadores de pago certificados PCI DSS.
+                En <strong>Colombia</strong>, utilizamos <strong>Stripe</strong>. En{" "}
+                <strong>Paraguay, Uruguay y Argentina</strong>, utilizamos <strong>PayPal</strong>.
+                Casaora no almacena información completa de tarjetas de crédito o débito.
               </p>
             </div>
 
@@ -582,11 +584,26 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             17. Ley Aplicable y Jurisdicción
           </h2>
           <p className="text-neutral-700">
-            Estos Términos se rigen por las leyes de la <strong>República de Colombia</strong>.
-            Cualquier disputa que surja en relación con estos Términos o el uso de la Plataforma
-            será sometida a la jurisdicción exclusiva de los tribunales competentes de{" "}
-            <strong>[CIUDAD], Colombia</strong>.
+            Estos Términos se rigen por las leyes del país donde el Usuario reside o donde se
+            presta el servicio:
           </p>
+          <ul className="mt-2 ml-6 list-disc space-y-1 text-neutral-700">
+            <li>
+              <strong>Colombia:</strong> Leyes de la República de Colombia, jurisdicción de Bogotá
+            </li>
+            <li>
+              <strong>Paraguay:</strong> Leyes de la República del Paraguay, jurisdicción de
+              Asunción
+            </li>
+            <li>
+              <strong>Uruguay:</strong> Leyes de la República Oriental del Uruguay, jurisdicción de
+              Montevideo
+            </li>
+            <li>
+              <strong>Argentina:</strong> Leyes de la República Argentina, jurisdicción de Buenos
+              Aires
+            </li>
+          </ul>
           <p className="mt-3 text-neutral-700">
             Las partes acuerdan intentar resolver cualquier disputa mediante negociación de buena fe
             antes de iniciar procedimientos legales.
@@ -633,10 +650,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               <strong>Correo electrónico:</strong> legal@casaora.com
             </li>
             <li>
-              <strong>Dirección postal:</strong> [DIRECCIÓN COMPLETA], Colombia
-            </li>
-            <li>
-              <strong>Teléfono:</strong> [NÚMERO DE TELÉFONO]
+              <strong>Soporte regional:</strong> Disponible en Colombia, Paraguay, Uruguay y
+              Argentina
             </li>
           </ul>
           <p className="mt-3 text-neutral-700">
@@ -675,9 +690,10 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
             (&quot;Terms&quot;). If you do not agree to these Terms, you must not use the Platform.
           </p>
           <p className="mt-3 text-neutral-700">
-            Casaora is operated by <strong>[COMPANY NAME]</strong>, NIT{" "}
-            <strong>[COMPANY NIT]</strong>, domiciled at <strong>[ADDRESS]</strong>, Colombia
-            (&quot;Casaora&quot;, &quot;we&quot;, &quot;our&quot;).
+            Casaora is operated by <strong>[COMPANY NAME]</strong>, with registered offices in{" "}
+            <strong>Colombia, Paraguay, Uruguay, and Argentina</strong>
+            (&quot;Casaora&quot;, &quot;we&quot;, &quot;our&quot;). Each market operates under local
+            regulatory requirements.
           </p>
         </section>
 
@@ -742,13 +758,15 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-neutral-900">4. Payment Processing</h2>
           <p className="text-neutral-700">
-            All payments are processed through <strong>Stripe</strong>, a PCI DSS certified payment
-            processor. Casaora does not store complete credit or debit card information.
+            All payments are processed through PCI DSS certified payment processors. In{" "}
+            <strong>Colombia</strong>, we use <strong>Stripe</strong>. In{" "}
+            <strong>Paraguay, Uruguay, and Argentina</strong>, we use <strong>PayPal</strong>.
+            Casaora does not store complete credit or debit card information.
           </p>
           <p className="mt-3 text-neutral-700">
             Professionals receive payment 24 hours after check-out, minus Casaora&apos;s commission
-            and Stripe processing fees. Professionals are responsible for declaring this income to
-            tax authorities.
+            and payment processor fees. Professionals are responsible for declaring this income to
+            tax authorities in their respective countries.
           </p>
         </section>
 
@@ -785,10 +803,28 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-neutral-900">7. Governing Law</h2>
           <p className="text-neutral-700">
-            These Terms are governed by the laws of the <strong>Republic of Colombia</strong>. Any
-            dispute arising in connection with these Terms or use of the Platform shall be subject
-            to the exclusive jurisdiction of the competent courts of{" "}
-            <strong>[CITY], Colombia</strong>.
+            These Terms are governed by the laws of the country where the User resides or where the
+            service is provided:
+          </p>
+          <ul className="mt-2 ml-6 list-disc space-y-1 text-neutral-700">
+            <li>
+              <strong>Colombia:</strong> Laws of the Republic of Colombia, jurisdiction of Bogotá
+            </li>
+            <li>
+              <strong>Paraguay:</strong> Laws of the Republic of Paraguay, jurisdiction of Asunción
+            </li>
+            <li>
+              <strong>Uruguay:</strong> Laws of the Oriental Republic of Uruguay, jurisdiction of
+              Montevideo
+            </li>
+            <li>
+              <strong>Argentina:</strong> Laws of the Argentine Republic, jurisdiction of Buenos
+              Aires
+            </li>
+          </ul>
+          <p className="mt-3 text-neutral-700">
+            The parties agree to attempt to resolve any dispute through good faith negotiation
+            before initiating legal proceedings.
           </p>
         </section>
 
@@ -800,10 +836,8 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
               <strong>Email:</strong> legal@casaora.com
             </li>
             <li>
-              <strong>Address:</strong> [FULL ADDRESS], Colombia
-            </li>
-            <li>
-              <strong>Phone:</strong> [PHONE NUMBER]
+              <strong>Regional Support:</strong> Available in Colombia, Paraguay, Uruguay, and
+              Argentina
             </li>
           </ul>
         </section>

@@ -35,13 +35,13 @@ type InstantPayoutModalProps = {
    */
   onClose: () => void;
   /**
-   * Available balance in COP
+   * Available balance in minor currency units (centavos/céntimos)
    */
-  availableBalanceCop: number;
+  availableBalance: number;
   /**
-   * Pending balance in COP
+   * Pending balance in minor currency units
    */
-  pendingBalanceCop?: number;
+  pendingBalance?: number;
   /**
    * Professional ID for analytics tracking
    */
@@ -51,9 +51,9 @@ type InstantPayoutModalProps = {
    */
   feePercentage: number;
   /**
-   * Minimum payout amount in COP
+   * Minimum payout amount in minor currency units
    */
-  minThresholdCop: number;
+  minThreshold: number;
   /**
    * Callback when payout is successfully initiated
    */
@@ -66,15 +66,33 @@ type InstantPayoutModalProps = {
    * Currency code for formatting (COP, PYG, UYU, ARS)
    */
   currencyCode: Currency;
+  /**
+   * @deprecated Use availableBalance instead
+   */
+  availableBalanceCop?: number;
+  /**
+   * @deprecated Use pendingBalance instead
+   */
+  pendingBalanceCop?: number;
+  /**
+   * @deprecated Use minThreshold instead
+   */
+  minThresholdCop?: number;
 };
 
 type PayoutSuccessResult = {
   transferId: string;
-  stripePayoutId: string;
-  grossAmountCop: number;
-  feeAmountCop: number;
-  netAmountCop: number;
-  newBalanceCop: number;
+  payoutId: string; // Generic payout ID (Stripe or PayPal)
+  grossAmount: number;
+  feeAmount: number;
+  netAmount: number;
+  newBalance: number;
+  // Deprecated fields for backward compatibility
+  stripePayoutId?: string;
+  grossAmountCop?: number;
+  feeAmountCop?: number;
+  netAmountCop?: number;
+  newBalanceCop?: number;
 };
 
 // ========================================
@@ -82,12 +100,10 @@ type PayoutSuccessResult = {
 // ========================================
 
 const InstantPayoutFormSchema = z.object({
-  amountCop: z
+  amount: z
     .number({ required_error: "Amount is required" })
     .int("Amount must be a whole number")
-    .positive("Amount must be positive")
-    .min(50000, "Minimum payout is 50,000 COP (~$12 USD)")
-    .max(100000000, "Maximum payout is 100,000,000 COP (~$25,000 USD)"),
+    .positive("Amount must be positive"),
 });
 
 type InstantPayoutFormData = z.infer<typeof InstantPayoutFormSchema>;
@@ -105,15 +121,17 @@ type InstantPayoutFormData = z.infer<typeof InstantPayoutFormSchema>;
  * - Confirmation step
  * - Success and error states
  * - Quick action buttons (25%, 50%, 75%, 100%)
+ * - Multi-currency support (COP, PYG, UYU, ARS)
  *
  * @example
  * ```tsx
  * <InstantPayoutModal
  *   open={showModal}
  *   onClose={() => setShowModal(false)}
- *   availableBalanceCop={2500000}
+ *   availableBalance={2500000}
  *   feePercentage={1.5}
- *   minThresholdCop={50000}
+ *   minThreshold={50000}
+ *   currencyCode="COP"
  *   onSuccess={(result) => showSuccessToast(result)}
  * />
  * ```
@@ -121,17 +139,26 @@ type InstantPayoutFormData = z.infer<typeof InstantPayoutFormSchema>;
 export function InstantPayoutModal({
   open,
   onClose,
-  availableBalanceCop,
-  pendingBalanceCop = 0,
+  availableBalance,
+  pendingBalance = 0,
   professionalId,
   feePercentage,
-  minThresholdCop,
+  minThreshold,
   onSuccess,
   onError,
   currencyCode,
+  // Deprecated props - support backward compatibility
+  availableBalanceCop,
+  pendingBalanceCop,
+  minThresholdCop,
 }: InstantPayoutModalProps) {
   const t = useTranslations("dashboard.pro.instantPayoutModal");
   const locale = useLocale();
+
+  // Support deprecated props for backward compatibility
+  const balance = availableBalance ?? availableBalanceCop ?? 0;
+  const pending = pendingBalance ?? pendingBalanceCop ?? 0;
+  const minAmount = minThreshold ?? minThresholdCop ?? 50000;
 
   const [step, setStep] = useState<"input" | "confirm" | "processing" | "success" | "error">(
     "input"
@@ -154,18 +181,18 @@ export function InstantPayoutModal({
   } = useForm<InstantPayoutFormData>({
     resolver: zodResolver(InstantPayoutFormSchema),
     defaultValues: {
-      amountCop: availableBalanceCop,
+      amount: balance,
     },
   });
 
-  const amountCop = watch("amountCop");
+  const amount = watch("amount");
 
   // ========================================
   // Fee Calculations
   // ========================================
 
-  const feeAmountCop = amountCop ? Math.round(amountCop * (feePercentage / 100)) : 0;
-  const netAmountCop = amountCop ? amountCop - feeAmountCop : 0;
+  const feeAmount = amount ? Math.round(amount * (feePercentage / 100)) : 0;
+  const netAmount = amount ? amount - feeAmount : 0;
 
   // ========================================
   // Handlers
@@ -178,13 +205,13 @@ export function InstantPayoutModal({
       setStep("input");
       setErrorMessage("");
       setSuccessResult(null);
-      reset({ amountCop: availableBalanceCop });
+      reset({ amount: balance });
     }, 300);
   };
 
   const handleSetPercentage = (percentage: number) => {
-    const amount = Math.round((availableBalanceCop * percentage) / 100);
-    setValue("amountCop", amount, { shouldValidate: true });
+    const calculatedAmount = Math.round((balance * percentage) / 100);
+    setValue("amount", calculatedAmount, { shouldValidate: true });
   };
 
   const handleConfirm = (data: InstantPayoutFormData) => {
@@ -199,10 +226,10 @@ export function InstantPayoutModal({
     if (professionalId) {
       trackInstantPayoutRequested({
         professionalId,
-        amountCOP: amountCop,
-        feeAmountCOP: feeAmountCop,
+        amountCOP: amount, // Analytics still uses COP naming for backward compatibility
+        feeAmountCOP: feeAmount,
         feePercentage,
-        availableBalanceCOP: availableBalanceCop,
+        availableBalanceCOP: balance,
       });
     }
 
@@ -212,7 +239,8 @@ export function InstantPayoutModal({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amountCop }),
+        // Send both amount and amountCop for backward compatibility
+        body: JSON.stringify({ amount, amountCop: amount }),
       });
 
       const result = await response.json();
@@ -221,13 +249,21 @@ export function InstantPayoutModal({
         throw new Error(result.error || "Failed to process payout");
       }
 
+      // Handle both new and legacy API response formats
+      const payout = result.payout;
       const successData: PayoutSuccessResult = {
-        transferId: result.payout.transferId,
-        stripePayoutId: result.payout.stripePayoutId,
-        grossAmountCop: result.payout.grossAmountCop,
-        feeAmountCop: result.payout.feeAmountCop,
-        netAmountCop: result.payout.netAmountCop,
-        newBalanceCop: result.newBalance.availableCop,
+        transferId: payout.transferId,
+        payoutId: payout.payoutId || payout.stripePayoutId,
+        grossAmount: payout.grossAmount ?? payout.grossAmountCop,
+        feeAmount: payout.feeAmount ?? payout.feeAmountCop,
+        netAmount: payout.netAmount ?? payout.netAmountCop,
+        newBalance: result.newBalance?.available ?? result.newBalance?.availableCop,
+        // Include deprecated fields for backward compatibility
+        stripePayoutId: payout.stripePayoutId,
+        grossAmountCop: payout.grossAmountCop ?? payout.grossAmount,
+        feeAmountCop: payout.feeAmountCop ?? payout.feeAmount,
+        netAmountCop: payout.netAmountCop ?? payout.netAmount,
+        newBalanceCop: result.newBalance?.availableCop ?? result.newBalance?.available,
       };
 
       setSuccessResult(successData);
@@ -238,8 +274,8 @@ export function InstantPayoutModal({
       if (professionalId) {
         trackInstantPayoutCompleted({
           professionalId,
-          amountCOP: successData.grossAmountCop,
-          feeAmountCOP: successData.feeAmountCop,
+          amountCOP: successData.grossAmount,
+          feeAmountCOP: successData.feeAmount,
           payoutId: successData.transferId,
           processingTimeMs: Date.now() - requestTimestamp,
         });
@@ -257,8 +293,8 @@ export function InstantPayoutModal({
       if (professionalId) {
         trackInstantPayoutFailed({
           professionalId,
-          amountCOP: amountCop,
-          feeAmountCOP: feeAmountCop,
+          amountCOP: amount,
+          feeAmountCOP: feeAmount,
           errorMessage: errorMsg,
         });
       }
@@ -273,8 +309,8 @@ export function InstantPayoutModal({
   if (open && !hasTrackedModalOpen && professionalId) {
     trackInstantPayoutModalOpened({
       professionalId,
-      availableBalanceCOP: availableBalanceCop,
-      pendingBalanceCOP: pendingBalanceCop,
+      availableBalanceCOP: balance,
+      pendingBalanceCOP: pending,
     });
     setHasTrackedModalOpen(true);
   }
@@ -314,16 +350,16 @@ export function InstantPayoutModal({
                 id="amount"
                 type="number"
                 placeholder="0"
-                {...register("amountCop", { valueAsNumber: true })}
+                {...register("amount", { valueAsNumber: true })}
                 className={cn(
                   "font-mono text-lg",
-                  errors.amountCop && "border-red-300 focus-visible:ring-red-500"
+                  errors.amount && "border-red-300 focus-visible:ring-red-500"
                 )}
               />
-              {errors.amountCop && (
+              {errors.amount && (
                 <p className={cn("flex items-center gap-1 text-red-600 text-sm", geistSans.className)}>
                   <AlertCircle className="size-4" />
-                  {errors.amountCop.message}
+                  {errors.amount.message}
                 </p>
               )}
 
@@ -351,13 +387,13 @@ export function InstantPayoutModal({
                   {t("info.availableBalance")}
                 </span>
                 <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatFromMinorUnits(availableBalanceCop, currencyCode)}
+                  {formatFromMinorUnits(balance, currencyCode)}
                 </span>
               </div>
             </div>
 
             {/* Fee Breakdown */}
-            {amountCop >= minThresholdCop && (
+            {amount >= minAmount && (
               <div className="space-y-3 border-neutral-200 bg-blue-50 border p-4 rounded-lg">
                 <div className="flex items-start gap-2">
                   <Info className="mt-0.5 size-4 text-blue-600" />
@@ -371,7 +407,7 @@ export function InstantPayoutModal({
                       {t("breakdown.requested")}
                     </span>
                     <span className={cn("font-medium text-blue-900", geistSans.className)}>
-                      {formatFromMinorUnits(amountCop, currencyCode)}
+                      {formatFromMinorUnits(amount, currencyCode)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
@@ -379,7 +415,7 @@ export function InstantPayoutModal({
                       {t("breakdown.fee")}
                     </span>
                     <span className={cn("font-medium text-blue-900", geistSans.className)} data-testid="fee-amount">
-                      -{formatFromMinorUnits(feeAmountCop, currencyCode)}
+                      -{formatFromMinorUnits(feeAmount, currencyCode)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between border-blue-200 border-t pt-2 font-semibold text-sm">
@@ -387,7 +423,7 @@ export function InstantPayoutModal({
                       {t("breakdown.youReceive")}
                     </span>
                     <span className={cn("text-green-700 text-base", geistSans.className)} data-testid="net-amount">
-                      {formatFromMinorUnits(netAmountCop, currencyCode)}
+                      {formatFromMinorUnits(netAmount, currencyCode)}
                     </span>
                   </div>
                 </div>
@@ -428,7 +464,7 @@ export function InstantPayoutModal({
                   geistSans.className
                 )}
               >
-                {formatFromMinorUnits(netAmountCop, currencyCode)}
+                {formatFromMinorUnits(netAmount, currencyCode)}
               </p>
               <div className="space-y-1 border-neutral-200 border-t pt-3 text-sm">
                 <div className="flex justify-between">
@@ -436,7 +472,7 @@ export function InstantPayoutModal({
                     {t("confirm.requested")}
                   </span>
                   <span className={cn("text-neutral-900", geistSans.className)}>
-                    {formatFromMinorUnits(amountCop, currencyCode)}
+                    {formatFromMinorUnits(amount, currencyCode)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -444,7 +480,7 @@ export function InstantPayoutModal({
                     {t("confirm.fee")} ({feePercentage}%)
                   </span>
                   <span className={cn("text-neutral-900", geistSans.className)}>
-                    -{formatFromMinorUnits(feeAmountCop, currencyCode)}
+                    -{formatFromMinorUnits(feeAmount, currencyCode)}
                   </span>
                 </div>
               </div>
@@ -496,7 +532,7 @@ export function InstantPayoutModal({
                   {t("success.amount")}
                 </span>
                 <span className={cn("font-medium text-green-700", geistSans.className)}>
-                  {formatFromMinorUnits(successResult.netAmountCop, currencyCode)}
+                  {formatFromMinorUnits(successResult.netAmount, currencyCode)}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -504,7 +540,7 @@ export function InstantPayoutModal({
                   {t("success.newBalance")}
                 </span>
                 <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatFromMinorUnits(successResult.newBalanceCop, currencyCode)}
+                  {formatFromMinorUnits(successResult.newBalance, currencyCode)}
                 </span>
               </div>
             </div>

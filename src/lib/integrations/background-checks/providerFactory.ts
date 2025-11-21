@@ -5,8 +5,11 @@
  * based on admin configuration or country-specific requirements.
  *
  * Provider Selection by Country:
- * - Colombia (CO): Checkr
- * - Paraguay (PY), Uruguay (UY), Argentina (AR): Truora
+ * - All LATAM markets (CO, PY, UY, AR): Checkr
+ *
+ * Note: Checkr supports international background checks for all our
+ * operational markets. Truora is kept as a fallback provider but is
+ * not currently used as the primary provider for any market.
  */
 
 import type { CountryCode } from "@/lib/shared/config/territories";
@@ -126,8 +129,11 @@ export class BackgroundCheckProviderFactory {
    * Get provider based on country code (recommended for multi-country operations)
    *
    * Provider Selection:
-   * - Colombia (CO): Checkr
-   * - Paraguay (PY), Uruguay (UY), Argentina (AR): Truora
+   * - All LATAM markets (CO, PY, UY, AR): Checkr
+   *
+   * Checkr supports international background checks for all our operational
+   * markets. The country code is passed to the provider to select the
+   * appropriate background check package for that jurisdiction.
    *
    * @param countryCode - ISO 3166-1 alpha-2 country code
    * @returns Background check provider instance for the specified country
@@ -138,23 +144,21 @@ export class BackgroundCheckProviderFactory {
       throw new Error("Provider factory not initialized. Call initialize() first.");
     }
 
-    // Determine provider based on country
+    // All LATAM markets use Checkr
     let providerName: BackgroundCheckProvider;
 
     switch (countryCode) {
       case "CO":
-        providerName = "checkr";
-        break;
       case "PY":
       case "UY":
       case "AR":
-        providerName = "truora";
+        providerName = "checkr";
         break;
       default:
         throw new BackgroundCheckError(
           `No background check provider configured for country: ${countryCode}`,
           ErrorCodes.PROVIDER_ERROR,
-          "unknown"
+          "checkr" // Default to checkr for error reporting
         );
     }
 

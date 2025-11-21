@@ -51,7 +51,9 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         <strong>Última actualización:</strong> {lastUpdated}
       </p>
       <p className="mb-8 text-neutral-700">
-        <strong>Conforme a la Ley 1581 de 2012 de Colombia</strong>
+        <strong>
+          Conforme a las leyes de protección de datos de Colombia, Paraguay, Uruguay y Argentina
+        </strong>
       </p>
 
       <div className="prose prose-lg max-w-none space-y-8">
@@ -65,10 +67,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Razón Social:</strong> [Su empresa - Por completar]
             </p>
             <p className="mb-2 text-neutral-900">
-              <strong>NIT:</strong> [Por completar]
-            </p>
-            <p className="mb-2 text-neutral-900">
-              <strong>Domicilio:</strong> [Dirección en Colombia - Por completar]
+              <strong>Oficinas Regionales:</strong> Colombia, Paraguay, Uruguay y Argentina
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
@@ -76,13 +75,10 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
                 privacy@casaora.com
               </a>
             </p>
-            <p className="mb-2 text-neutral-900">
-              <strong>Teléfono:</strong> [Por completar]
-            </p>
           </div>
           <p className="text-neutral-700">
-            Casaora actúa como responsable del tratamiento de sus datos personales conforme a lo
-            establecido en la Ley 1581 de 2012 y el Decreto 1377 de 2013.
+            Casaora actúa como responsable del tratamiento de sus datos personales conforme a las
+            leyes aplicables en cada país donde operamos.
           </p>
         </section>
 
@@ -121,7 +117,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Información de cuenta bancaria (solo para profesionales que reciben pagos)</li>
             <li>
               <strong>Nota importante:</strong> NO guardamos números de tarjeta de crédito. Los
-              pagos son procesados por Stripe Inc., certificado PCI DSS Level 1.
+              pagos son procesados por procesadores certificados PCI DSS Level 1: Stripe (Colombia)
+              y PayPal (Paraguay, Uruguay, Argentina).
             </li>
           </ul>
 
@@ -296,7 +293,13 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Stripe Inc. (Estados Unidos)</p>
               <p className="text-neutral-500 text-sm">
-                Finalidad: Procesamiento de pagos | Certificación: PCI DSS Level 1
+                Finalidad: Procesamiento de pagos (Colombia) | Certificación: PCI DSS Level 1
+              </p>
+            </div>
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
+              <p className="mb-1 font-semibold text-neutral-900">PayPal Holdings Inc. (Estados Unidos)</p>
+              <p className="text-neutral-500 text-sm">
+                Finalidad: Procesamiento de pagos (Paraguay, Uruguay, Argentina) | Certificación: PCI DSS Level 1
               </p>
             </div>
             <div className="border border-neutral-200 bg-neutral-50 p-3">
@@ -458,28 +461,67 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">13. Autoridades de Control</h2>
           <p className="mb-4 text-neutral-700">
-            Si considera que sus derechos no han sido respetados, puede presentar una queja ante:
+            Si considera que sus derechos no han sido respetados, puede presentar una queja ante la
+            autoridad de protección de datos de su país:
           </p>
-          <div className="border border-neutral-200 bg-neutral-50 p-4">
-            <p className="mb-2 font-semibold text-neutral-900">
-              Superintendencia de Industria y Comercio (SIC)
-            </p>
-            <p className="mb-1 text-neutral-700">Delegatura de Protección de Datos Personales</p>
-            <p className="mb-1 text-neutral-700">
-              Carrera 13 No. 27 - 00, Pisos 3 y 4, Bogotá D.C., Colombia
-            </p>
-            <p className="mb-1 text-neutral-700">Tel: (+57) 601 5870000</p>
-            <p className="text-neutral-700">
-              Web:{" "}
-              <a
-                className="text-orange-500"
-                href="https://www.sic.gov.co"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                www.sic.gov.co
-              </a>
-            </p>
+          <div className="space-y-4">
+            <div className="border border-neutral-200 bg-neutral-50 p-4">
+              <p className="mb-2 font-semibold text-neutral-900">
+                🇨🇴 Colombia - Superintendencia de Industria y Comercio (SIC)
+              </p>
+              <p className="mb-1 text-neutral-700">Delegatura de Protección de Datos Personales</p>
+              <p className="text-neutral-700">
+                Web:{" "}
+                <a
+                  className="text-orange-500"
+                  href="https://www.sic.gov.co"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  www.sic.gov.co
+                </a>
+              </p>
+            </div>
+            <div className="border border-neutral-200 bg-neutral-50 p-4">
+              <p className="mb-2 font-semibold text-neutral-900">
+                🇵🇾 Paraguay - Ministerio de Industria y Comercio
+              </p>
+              <p className="text-neutral-700">
+                Dirección de Protección al Consumidor y Defensa de la Competencia
+              </p>
+            </div>
+            <div className="border border-neutral-200 bg-neutral-50 p-4">
+              <p className="mb-2 font-semibold text-neutral-900">
+                🇺🇾 Uruguay - Unidad Reguladora y de Control de Datos Personales (URCDP)
+              </p>
+              <p className="text-neutral-700">
+                Web:{" "}
+                <a
+                  className="text-orange-500"
+                  href="https://www.gub.uy/urcdp"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  www.gub.uy/urcdp
+                </a>
+              </p>
+            </div>
+            <div className="border border-neutral-200 bg-neutral-50 p-4">
+              <p className="mb-2 font-semibold text-neutral-900">
+                🇦🇷 Argentina - Agencia de Acceso a la Información Pública (AAIP)
+              </p>
+              <p className="text-neutral-700">
+                Web:{" "}
+                <a
+                  className="text-orange-500"
+                  href="https://www.argentina.gob.ar/aaip"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  www.argentina.gob.ar/aaip
+                </a>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -517,8 +559,9 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Acepta el uso de sus datos para las finalidades descritas</li>
           </ul>
           <p className="font-semibold text-neutral-900">
-            Esta Política de Privacidad cumple con la Ley 1581 de 2012, el Decreto 1377 de 2013, y
-            demás normas aplicables en Colombia.
+            Esta Política de Privacidad cumple con las leyes de protección de datos aplicables en
+            cada país: Colombia (Ley 1581 de 2012), Paraguay (Ley 1682 de 2001), Uruguay (Ley 18.331
+            de 2008), y Argentina (Ley 25.326 de 2000).
           </p>
         </section>
       </div>
@@ -536,7 +579,9 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         <strong>Last Updated:</strong> {lastUpdated}
       </p>
       <p className="mb-8 text-neutral-700">
-        <strong>In compliance with Colombian Law 1581 of 2012</strong>
+        <strong>
+          In compliance with data protection laws of Colombia, Paraguay, Uruguay, and Argentina
+        </strong>
       </p>
 
       <div className="prose prose-lg max-w-none space-y-8">
@@ -547,10 +592,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <strong>Company Name:</strong> [Your company - To be completed]
             </p>
             <p className="mb-2 text-neutral-900">
-              <strong>Tax ID:</strong> [To be completed]
-            </p>
-            <p className="mb-2 text-neutral-900">
-              <strong>Address:</strong> [Address in Colombia - To be completed]
+              <strong>Regional Offices:</strong> Colombia, Paraguay, Uruguay, and Argentina
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
@@ -558,13 +600,10 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
                 privacy@casaora.com
               </a>
             </p>
-            <p className="mb-2 text-neutral-900">
-              <strong>Phone:</strong> [To be completed]
-            </p>
           </div>
           <p className="text-neutral-700">
-            Casaora acts as the data controller for your personal data in accordance with Colombian
-            Law 1581 of 2012 and Decree 1377 of 2013.
+            Casaora acts as the data controller for your personal data in accordance with applicable
+            data protection laws in each country where we operate.
           </p>
         </section>
 
@@ -592,7 +631,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Bank account information (professionals receiving payments)</li>
             <li>
               <strong>Note:</strong> We do NOT store credit card numbers. Payments are processed by
-              Stripe Inc., PCI DSS Level 1 certified.
+              PCI DSS Level 1 certified processors: Stripe (Colombia) and PayPal (Paraguay, Uruguay,
+              Argentina).
             </li>
           </ul>
         </section>
@@ -652,7 +692,14 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <div className="border border-neutral-200 bg-neutral-50 p-3">
               <p className="mb-1 font-semibold text-neutral-900">Stripe Inc. (USA)</p>
               <p className="text-neutral-500 text-sm">
-                Purpose: Payment processing | Certification: PCI DSS Level 1
+                Purpose: Payment processing (Colombia) | Certification: PCI DSS Level 1
+              </p>
+            </div>
+            <div className="border border-neutral-200 bg-neutral-50 p-3">
+              <p className="mb-1 font-semibold text-neutral-900">PayPal Holdings Inc. (USA)</p>
+              <p className="text-neutral-500 text-sm">
+                Purpose: Payment processing (Paraguay, Uruguay, Argentina) | Certification: PCI DSS
+                Level 1
               </p>
             </div>
             <div className="border border-neutral-200 bg-neutral-50 p-3">
@@ -742,7 +789,9 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>You know your rights and how to exercise them</li>
           </ul>
           <p className="font-semibold text-neutral-900">
-            This Privacy Policy complies with Colombian Law 1581 of 2012 and applicable regulations.
+            This Privacy Policy complies with applicable data protection laws in each country:
+            Colombia (Law 1581 of 2012), Paraguay (Law 1682 of 2001), Uruguay (Law 18.331 of 2008),
+            and Argentina (Law 25.326 of 2000).
           </p>
         </section>
       </div>

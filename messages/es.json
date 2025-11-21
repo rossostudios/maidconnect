@@ -43,7 +43,7 @@
     },
     "securePayments": {
       "title": "Pagos seguros",
-      "description": "Pague de forma segura a través de Stripe con protección de depósito en garantía hasta completar el servicio"
+      "description": "Pague de forma segura a través de procesadores de pago certificados con protección de depósito en garantía hasta completar el servicio"
     },
     "realTimeBooking": {
       "title": "Reserva en tiempo real",
@@ -1853,21 +1853,21 @@
     },
     "paymentProcessing": {
       "meta": {
-        "title": "Procesamiento de Pagos Seguros - Impulsado por Stripe | Casaora",
-        "description": "Pagos seguros y transparentes con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
+        "title": "Procesamiento de Pagos Seguros - Certificado PCI DSS | Casaora",
+        "description": "Pagos seguros y transparentes con procesadores certificados. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
       },
       "hero": {
         "headline": "Pagos seguros y transparentes en todo momento",
-        "description": "Procesamiento de pagos seguro con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
+        "description": "Procesamiento de pagos seguro y certificado. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
         "primaryCTA": "Ver Cómo Funciona",
         "secondaryCTA": "Reservar un Servicio",
-        "badge": "Impulsado por Stripe"
+        "badge": "Certificado PCI DSS Nivel 1"
       },
       "features": {
         "title": "Procesamiento de pagos en el que puedes confiar",
         "subtitle": "Seguridad de nivel empresarial con transparencia para el consumidor",
         "stripeIntegration": {
-          "title": "Integración Segura con Stripe",
+          "title": "Procesadores Certificados",
           "description": "Seguridad de pago estándar de la industria con transacciones encriptadas. La información de tu tarjeta nunca toca nuestros servidores."
         },
         "transparentPricing": {
@@ -1888,7 +1888,7 @@
         },
         "step2": {
           "title": "Autorizar Pago",
-          "description": "La autorización de pago segura a través de Stripe retiene los fondos hasta que se complete el servicio"
+          "description": "La autorización de pago segura retiene los fondos hasta que se complete el servicio"
         },
         "step3": {
           "title": "Servicio Completado",
@@ -1934,7 +1934,7 @@
         },
         "encrypted": {
           "title": "Almacenamiento de tarjeta encriptado",
-          "description": "Tu información de pago está tokenizada y encriptada por Stripe. Nunca vemos ni almacenamos los detalles completos de tu tarjeta en nuestros servidores."
+          "description": "Tu información de pago está tokenizada y encriptada por procesadores certificados. Nunca vemos ni almacenamos los detalles completos de tu tarjeta en nuestros servidores."
         }
       },
       "acceptedMethods": {
@@ -1954,7 +1954,7 @@
       },
       "cta": {
         "title": "¿Listo para pagos seguros y transparentes?",
-        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por la seguridad líder en la industria de Stripe",
+        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por seguridad de nivel bancario",
         "bookService": "Reserve Su Primer Servicio",
         "signUpFree": "Registrarse Gratis"
       }
@@ -2273,7 +2273,7 @@
           },
           "payments": {
             "question": "¿Cómo funcionan los pagos?",
-            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se complete el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
+            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se complete el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de procesadores certificados PCI DSS Nivel 1."
           },
           "cancellation": {
             "question": "¿Qué sucede si necesito cancelar?",
@@ -2946,7 +2946,7 @@
       },
       "secure": {
         "title": "Pagos Seguros",
-        "description": "Todas las transacciones se procesan a través de Stripe con encriptación de nivel bancario y protección al comprador."
+        "description": "Todas las transacciones se procesan a través de procesadores certificados PCI DSS Nivel 1 con encriptación de nivel bancario y protección al comprador."
       },
       "support": {
         "title": "Soporte Personalizado",
@@ -3032,7 +3032,7 @@
       },
       "payments": {
         "title": "Pagos Seguros",
-        "description": "Todos los pagos se procesan a través de Stripe con encriptación de nivel bancario. Los clientes están protegidos y los profesionales reciben pagos de manera confiable después de cada trabajo."
+        "description": "Todos los pagos se procesan a través de procesadores certificados con encriptación de nivel bancario. Los clientes están protegidos y los profesionales reciben pagos de manera confiable después de cada trabajo."
       },
       "support": {
         "title": "Soporte 24/7",
@@ -3244,7 +3244,7 @@
         "title": "Nequi - Paga desde su celular",
         "description": "Pago rápido usando su app Nequi. Instantáneo y conveniente."
       },
-      "securityNote": "Pago seguro con Stripe • Todas las transacciones encriptadas"
+      "securityNote": "Pagos seguros certificados PCI DSS • Todas las transacciones encriptadas"
     },
     "onboardingChecklist": {
       "title": "Complete su Perfil",

@@ -119,7 +119,7 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
         />
 
         <StatCard
-          description="Completed bookings"
+          description="Completed bookings (all markets)"
           sparklineData={stats.sparklines?.revenue}
           title="Total Revenue"
           value={formatCurrency(stats.totalRevenue, { currency: "COP" })}

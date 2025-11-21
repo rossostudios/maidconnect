@@ -43,7 +43,7 @@
     },
     "securePayments": {
       "title": "Secure payments",
-      "description": "Pay safely through Stripe with escrow protection until service completion"
+      "description": "Pay safely through certified payment processors with escrow protection until service completion"
     },
     "realTimeBooking": {
       "title": "Real-time booking",
@@ -1837,21 +1837,21 @@
     },
     "paymentProcessing": {
       "meta": {
-        "title": "Secure Payment Processing - Stripe Powered | Casaora",
-        "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
+        "title": "Secure Payment Processing - PCI DSS Certified | Casaora",
+        "description": "Safe, transparent payments with certified processors. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
       },
       "hero": {
         "headline": "Safe, transparent payments every time",
-        "description": "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
+        "description": "Secure payment processing with certified processors. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
         "primaryCTA": "See How It Works",
         "secondaryCTA": "Book a Service",
-        "badge": "Powered by Stripe"
+        "badge": "PCI DSS Level 1 Certified"
       },
       "features": {
         "title": "Payment processing you can trust",
         "subtitle": "Enterprise-grade security with consumer-friendly transparency",
         "stripeIntegration": {
-          "title": "Secure Stripe Integration",
+          "title": "Certified Processors",
           "description": "Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
         },
         "transparentPricing": {
@@ -1872,7 +1872,7 @@
         },
         "step2": {
           "title": "Authorize Payment",
-          "description": "Secure payment authorization through Stripe holds funds until service completion"
+          "description": "Secure payment authorization holds funds until service completion"
         },
         "step3": {
           "title": "Service Completed",
@@ -1918,7 +1918,7 @@
         },
         "encrypted": {
           "title": "Encrypted card storage",
-          "description": "Your payment information is tokenized and encrypted by Stripe. We never see or store your full card details on our servers."
+          "description": "Your payment information is tokenized and encrypted by certified processors. We never see or store your full card details on our servers."
         }
       },
       "acceptedMethods": {
@@ -1938,7 +1938,7 @@
       },
       "cta": {
         "title": "Ready for secure, transparent payments?",
-        "description": "Experience hassle-free payment processing backed by Stripe's industry-leading security",
+        "description": "Experience hassle-free payment processing backed by bank-level security",
         "bookService": "Book Your First Service",
         "signUpFree": "Sign Up Free"
       }
@@ -2257,7 +2257,7 @@
           },
           "payments": {
             "question": "How do payments work?",
-            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through Stripe."
+            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through PCI DSS Level 1 certified processors."
           },
           "cancellation": {
             "question": "What happens if I need to cancel?",
@@ -2827,7 +2827,7 @@
         },
         "paymentProtection": {
           "title": "Payment Protection",
-          "description": "Secure escrow via Stripe. Funds held until service completion with dispute resolution."
+          "description": "Secure escrow via certified payment processors. Funds held until service completion with dispute resolution."
         },
         "support": {
           "title": "24/7 Customer Support",
@@ -2942,8 +2942,8 @@
         }
       },
       "keyPoint": {
-        "title": "You Keep Every Peso You Charge",
-        "description": "Unlike other platforms that take a cut from your earnings, Casaora adds our fee on top. If you charge 25,000 COP/hour, you receive 25,000 COP/hour."
+        "title": "You Keep Every Cent You Charge",
+        "description": "Unlike other platforms that take a cut from your earnings, Casaora adds our fee on top. Whatever rate you set, you receive the full amount."
       },
       "calculator": {
         "title": "Calculate Your Potential Earnings",
@@ -2980,7 +2980,7 @@
           },
           {
             "title": "Payment Processing",
-            "description": "Secure payment handling via Stripe, fraud protection, and direct deposit to your account."
+            "description": "Secure payment handling via certified processors, fraud protection, and direct deposit to your account."
           },
           {
             "title": "Background Checks",
@@ -3019,8 +3019,8 @@
     "earnings": {
       "title": "Calculate Your Earnings",
       "subtitle": "See exactly how much you'll earn with Casaora. Set your rate and hours to get your potential income.",
-      "yourHourlyRate": "Your Hourly Rate (COP)",
-      "rateRange": "Recommended: 15,000 - 100,000 COP/hour based on experience",
+      "yourHourlyRate": "Your Hourly Rate",
+      "rateRange": "Recommended rate based on your experience and local market",
       "hoursPerWeek": "Hours Per Week",
       "weekly": "Weekly",
       "monthly": "Monthly",
@@ -3036,7 +3036,7 @@
         "title": "What the Platform Fee Covers",
         "items": [
           "Customer marketing and acquisition",
-          "Secure payment processing via Stripe",
+          "Secure payment processing via certified processors",
           "Background checks and verification",
           "Professional liability insurance",
           "24/7 customer and professional support",
@@ -3067,7 +3067,7 @@
         },
         "paymentSecurity": {
           "question": "How are payments secured?",
-          "answer": "All payments are processed through Stripe with escrow protection. Funds are authorized when you book, but only captured after service completion. If there's a dispute, we handle refunds fairly."
+          "answer": "All payments are processed through certified processors with escrow protection. Funds are authorized when you book, but only captured after service completion. If there's a dispute, we handle refunds fairly."
         },
         "cancellationPolicy": {
           "question": "What's the cancellation policy?",
@@ -3238,7 +3238,7 @@
       },
       "secure": {
         "title": "Secure Payments",
-        "description": "All transactions are processed through Stripe with bank-level encryption and buyer protection."
+        "description": "All transactions are processed through PCI DSS Level 1 certified processors with bank-level encryption and buyer protection."
       },
       "support": {
         "title": "Concierge Support",
@@ -3324,7 +3324,7 @@
       },
       "payments": {
         "title": "Secure Payments",
-        "description": "All payments are processed through Stripe with bank-level encryption. Customers are protected, and professionals get paid reliably after each job."
+        "description": "All payments are processed through certified processors with bank-level encryption. Customers are protected, and professionals get paid reliably after each job."
       },
       "support": {
         "title": "24/7 Concierge Support",
@@ -3594,7 +3594,7 @@
         "title": "Nequi - Pay from your phone",
         "description": "Quick payment using your Nequi app. Instant and convenient."
       },
-      "securityNote": "Secure payment powered by Stripe • All transactions encrypted"
+      "securityNote": "PCI DSS certified secure payments • All transactions encrypted"
     },
     "onboardingChecklist": {
       "title": "Complete Your Profile",

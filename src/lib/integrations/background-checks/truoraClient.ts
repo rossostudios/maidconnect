@@ -353,11 +353,18 @@ export class TruoraClient extends BackgroundCheckProviderInterface {
   }
 
   private mapDocumentType(type: string): string {
+    // Map LATAM document types to Truora's expected values
     const typeMap: Record<string, string> = {
+      // Colombia
       CC: "cedula_ciudadania",
       CE: "cedula_extranjeria",
-      PA: "passport",
       NIT: "nit",
+      // Paraguay, Uruguay
+      CI: "cedula_identidad",
+      // Argentina
+      DNI: "dni",
+      // Universal
+      PA: "passport",
     };
 
     return typeMap[type] || "cedula_ciudadania";

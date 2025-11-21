@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CompliancePage({ params }: Props) {
   const { locale } = await params;
   const isSpanish = locale === "es";
-  const lastUpdated = isSpanish ? "13 de Enero de 2025" : "January 13, 2025";
+  const lastUpdated = isSpanish ? "20 de Noviembre de 2025" : "November 20, 2025";
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -136,8 +136,8 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
           </div>
           <p className="text-neutral-600">
             {isSpanish
-              ? "Todos los pagos son procesados por Stripe, líder mundial en procesamiento de pagos en línea."
-              : "All payments are processed by Stripe, a global leader in online payment processing."}
+              ? "Todos los pagos son procesados por proveedores certificados PCI DSS Level 1: Stripe (Colombia) y PayPal (Paraguay, Uruguay, Argentina)."
+              : "All payments are processed by PCI DSS Level 1 certified providers: Stripe (Colombia) and PayPal (Paraguay, Uruguay, Argentina)."}
           </p>
         </div>
       </div>
@@ -150,14 +150,24 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
           </div>
           <p className="text-neutral-600 text-sm">
             {isSpanish
-              ? "Stripe cumple con el nivel más alto de certificación de seguridad de la industria de tarjetas de pago (Payment Card Industry Data Security Standard)."
-              : "Stripe complies with the highest level of Payment Card Industry Data Security Standard certification."}
+              ? "Tanto Stripe como PayPal cumplen con el nivel más alto de certificación de seguridad de la industria de tarjetas de pago (Payment Card Industry Data Security Standard)."
+              : "Both Stripe and PayPal comply with the highest level of Payment Card Industry Data Security Standard certification."}
           </p>
           <ul className="mt-3 ml-6 list-disc space-y-1 text-neutral-600 text-sm">
             {pciItems.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
+          <div className="mt-3 grid gap-2 text-neutral-600 text-xs sm:grid-cols-2">
+            <div className="rounded bg-white p-2">
+              <strong>Stripe</strong>
+              {isSpanish ? " — Colombia" : " — Colombia"}
+            </div>
+            <div className="rounded bg-white p-2">
+              <strong>PayPal</strong>
+              {isSpanish ? " — Paraguay, Uruguay, Argentina" : " — Paraguay, Uruguay, Argentina"}
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -274,16 +284,64 @@ function InfrastructureSecuritySection({ isSpanish }: SectionProps) {
 }
 
 function DataPrivacySection({ isSpanish }: SectionProps) {
-  const colombianItems = isSpanish
+  const latamLaws = isSpanish
+    ? [
+        {
+          country: "🇨🇴 Colombia",
+          law: "Ley 1581 de 2012",
+          authority: "Superintendencia de Industria y Comercio (SIC)",
+        },
+        {
+          country: "🇵🇾 Paraguay",
+          law: "Ley 1682 de 2001",
+          authority: "Ministerio de Industria y Comercio",
+        },
+        {
+          country: "🇺🇾 Uruguay",
+          law: "Ley 18.331 de 2008",
+          authority: "Unidad Reguladora y de Control de Datos Personales (URCDP)",
+        },
+        {
+          country: "🇦🇷 Argentina",
+          law: "Ley 25.326 de 2000",
+          authority: "Agencia de Acceso a la Información Pública (AAIP)",
+        },
+      ]
+    : [
+        {
+          country: "🇨🇴 Colombia",
+          law: "Law 1581 of 2012",
+          authority: "Superintendence of Industry and Commerce (SIC)",
+        },
+        {
+          country: "🇵🇾 Paraguay",
+          law: "Law 1682 of 2001",
+          authority: "Ministry of Industry and Commerce",
+        },
+        {
+          country: "🇺🇾 Uruguay",
+          law: "Law 18.331 of 2008",
+          authority: "Data Protection and Control Unit (URCDP)",
+        },
+        {
+          country: "🇦🇷 Argentina",
+          law: "Law 25.326 of 2000",
+          authority: "Agency for Access to Public Information (AAIP)",
+        },
+      ];
+
+  const commonRights = isSpanish
     ? [
         "Autorización expresa e informada para el tratamiento de datos",
         "Derecho de acceso, rectificación y eliminación de datos",
-        "Notificación a la Superintendencia de Industria y Comercio (SIC)",
+        "Notificación a las autoridades locales de protección de datos",
+        "Derecho al olvido y portabilidad de datos",
       ]
     : [
         "Express and informed authorization for data processing",
         "Right to access, rectify, and delete data",
-        "Notification to Colombian Superintendence of Industry and Commerce (SIC)",
+        "Notification to local data protection authorities",
+        "Right to be forgotten and data portability",
       ];
 
   const gdprItems = isSpanish
@@ -309,8 +367,8 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
         </div>
         <p className="text-neutral-600">
           {isSpanish
-            ? "Cumplimos con las regulaciones internacionales de protección de datos y privacidad."
-            : "We comply with international data protection and privacy regulations."}
+            ? "Cumplimos con las regulaciones de protección de datos de cada país donde operamos."
+            : "We comply with data protection regulations in each country where we operate."}
         </p>
       </div>
 
@@ -319,16 +377,25 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">
-              {isSpanish ? "Ley 1581 de 2012 (Colombia)" : "Colombian Law 1581 of 2012"}
+              {isSpanish ? "Leyes de Protección de Datos LATAM" : "LATAM Data Protection Laws"}
             </h3>
           </div>
-          <p className="text-neutral-600 text-sm">
+          <p className="mb-3 text-neutral-600 text-sm">
             {isSpanish
-              ? "Cumplimiento total con la ley colombiana de protección de datos personales."
-              : "Full compliance with Colombian personal data protection law."}
+              ? "Cumplimiento total con las leyes de protección de datos personales en cada mercado."
+              : "Full compliance with personal data protection laws in each market."}
           </p>
-          <ul className="mt-3 ml-6 list-disc space-y-1 text-neutral-600 text-sm">
-            {colombianItems.map((item) => (
+          <div className="grid gap-2 sm:grid-cols-2">
+            {latamLaws.map((item) => (
+              <div className="rounded bg-white p-3" key={item.country}>
+                <p className="font-semibold text-neutral-900 text-sm">{item.country}</p>
+                <p className="text-neutral-700 text-xs">{item.law}</p>
+                <p className="text-neutral-500 text-xs">{item.authority}</p>
+              </div>
+            ))}
+          </div>
+          <ul className="mt-4 ml-6 list-disc space-y-1 text-neutral-600 text-sm">
+            {commonRights.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>

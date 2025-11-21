@@ -13,22 +13,48 @@ import { ok, withAuth } from "@/lib/api";
 import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 
-const SUPPORTED_CURRENCIES = ["cop", "usd", "eur"];
-const MAX_AMOUNT_COP = 1_000_000_000; // 1M COP in centavos
+// Supported currencies for LATAM markets
+// CO: COP (Stripe), PY: PYG (PayPal), UY: UYU (PayPal), AR: ARS (PayPal)
+const SUPPORTED_CURRENCIES = ["cop", "usd", "eur", "pyg", "uyu", "ars"];
 
-const createIntentSchema = z.object({
-  amount: z.number().int().positive().max(MAX_AMOUNT_COP, "Amount exceeds maximum allowed"),
-  currency: z
-    .string()
-    .toLowerCase()
-    .refine((val) => SUPPORTED_CURRENCIES.includes(val), {
-      message: `Currency must be one of: ${SUPPORTED_CURRENCIES.join(", ")}`,
+// Maximum amounts per currency (in minor units - centavos/céntimos)
+// These limits are set to reasonable maximums for booking transactions
+const MAX_AMOUNTS: Record<string, number> = {
+  cop: 50_000_000_00,   // 50M COP (Colombian Peso)
+  pyg: 500_000_000_00,  // 500M PYG (Paraguayan Guaraní - no decimal)
+  uyu: 5_000_000_00,    // 5M UYU (Uruguayan Peso)
+  ars: 50_000_000_00,   // 50M ARS (Argentine Peso)
+  usd: 100_000_00,      // 100K USD
+  eur: 100_000_00,      // 100K EUR
+};
+
+// Default max for backward compatibility
+const MAX_AMOUNT_COP = MAX_AMOUNTS.cop;
+
+const createIntentSchema = z
+  .object({
+    amount: z.number().int().positive(),
+    currency: z
+      .string()
+      .toLowerCase()
+      .refine((val) => SUPPORTED_CURRENCIES.includes(val), {
+        message: `Currency must be one of: ${SUPPORTED_CURRENCIES.join(", ")}`,
+      })
+      .default("cop"),
+    bookingId: z.string().uuid().optional(),
+    customerName: z.string().optional(),
+    customerEmail: z.string().email().optional(),
+  })
+  .refine(
+    (data) => {
+      const maxAmount = MAX_AMOUNTS[data.currency] || MAX_AMOUNT_COP;
+      return data.amount <= maxAmount;
+    },
+    (data) => ({
+      message: `Amount exceeds maximum allowed for ${data.currency.toUpperCase()}`,
+      path: ["amount"],
     })
-    .default("cop"),
-  bookingId: z.string().uuid().optional(),
-  customerName: z.string().optional(),
-  customerEmail: z.string().email().optional(),
-});
+  );
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
   // Parse and validate request body

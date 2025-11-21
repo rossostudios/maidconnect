@@ -1,7 +1,8 @@
 /**
  * Checkr Background Check Provider
  *
- * Implementation for Checkr API (Colombia support)
+ * Implementation for Checkr API (LATAM support)
+ * Supports: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)
  * Docs: https://docs.checkr.com/
  */
 
@@ -87,7 +88,8 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
   }
 
   /**
-   * Create a background check for Colombian professional
+   * Create a background check for LATAM professional
+   * Supports: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)
    */
   async createCheck(professionalInfo: ProfessionalInfo): Promise<CreateCheckResponse> {
     try {
@@ -95,7 +97,7 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
       const candidate = await this.createCandidate(professionalInfo);
 
       // Step 2: Create report (background check) for the candidate
-      // For Colombia, use 'colombian_national_criminal_search' package
+      // Package is selected based on professional's country
       const report = await this.createReport(candidate.id, professionalInfo);
 
       return {
@@ -334,17 +336,21 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
   }
 
   private async createReport(candidateId: string, info: ProfessionalInfo): Promise<CheckrReport> {
+    // Select package based on country
+    const packageName = this.getPackageForCountry(info.countryCode);
+
     const response = await fetch(`${this.baseUrl}/${this.apiVersion}/reports`, {
       method: "POST",
       headers: this.getHeaders(),
       body: JSON.stringify({
         candidate_id: candidateId,
-        // Colombian background check package
-        package: "colombian_national_criminal_search",
+        // Country-specific background check package
+        package: packageName,
         // Additional metadata
         metadata: {
           professional_id: info.professionalId,
           document_id: info.documentId,
+          country_code: info.countryCode,
         },
       }),
     });
@@ -455,5 +461,32 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
     };
 
     return typeMap[checkrType] || "check.updated";
+  }
+
+  /**
+   * Get the appropriate Checkr package for a country
+   *
+   * Checkr offers country-specific background check packages that comply
+   * with local laws and access appropriate criminal record databases.
+   *
+   * @param countryCode - ISO 3166-1 alpha-2 country code
+   * @returns Checkr package name for the specified country
+   */
+  private getPackageForCountry(countryCode?: string): string {
+    // Map country codes to Checkr international packages
+    // Note: Package names may need adjustment based on Checkr account configuration
+    const packageMap: Record<string, string> = {
+      // Colombia - National criminal search
+      CO: "colombian_national_criminal_search",
+      // Paraguay - International criminal search
+      PY: "international_criminal_search",
+      // Uruguay - International criminal search
+      UY: "international_criminal_search",
+      // Argentina - International criminal search
+      AR: "international_criminal_search",
+    };
+
+    const normalizedCode = countryCode?.toUpperCase() || "CO";
+    return packageMap[normalizedCode] || "international_criminal_search";
   }
 }

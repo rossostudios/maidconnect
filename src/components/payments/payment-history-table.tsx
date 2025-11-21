@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { formatCurrency as formatAmount, type Currency } from "@/lib/utils/format";
 
 type Booking = {
   id: string;
@@ -34,15 +35,13 @@ type Props = {
 
 const columnHelper = createColumnHelper<Booking>();
 
-function formatCurrency(amount: number | null) {
+function formatBookingCurrency(amount: number | null, currency: string | null) {
   if (!amount) {
     return "—";
   }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  // Use the booking's currency, defaulting to COP for backwards compatibility
+  const currencyCode = (currency?.toUpperCase() || "COP") as Currency;
+  return formatAmount(amount, { currency: currencyCode });
 }
 
 function getStatusBadge(status: string) {
@@ -97,11 +96,11 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => (
           <div>
             <p className="font-medium text-neutral-900">
-              {formatCurrency(info.row.original.amount_captured || info.getValue())}
+              {formatBookingCurrency(info.row.original.amount_captured || info.getValue(), info.row.original.currency)}
             </p>
             {info.row.original.amount_captured &&
               info.getValue() !== info.row.original.amount_captured && (
-                <p className="text-neutral-600 text-sm">Auth: {formatCurrency(info.getValue())}</p>
+                <p className="text-neutral-600 text-sm">Auth: {formatBookingCurrency(info.getValue(), info.row.original.currency)}</p>
               )}
           </div>
         ),
