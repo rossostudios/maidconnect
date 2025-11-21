@@ -16,17 +16,25 @@ import { validateEnv } from "./lib/validations/env";
 // This will throw an error if any required env vars are missing or invalid
 let env: ReturnType<typeof validateEnv> | null = null;
 
-try {
-  env = validateEnv();
-  console.log("✅ Environment variables validated successfully");
-} catch (error) {
-  console.error("❌ Environment validation failed:", error);
-  // In development, we want to see the error clearly
-  if (process.env.NODE_ENV === "development") {
-    throw error;
+// Skip validation during Next.js build phase (static generation)
+// NEXT_PHASE is set by Next.js during build to 'phase-production-build'
+const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
+
+if (isBuildPhase) {
+  console.log("⏭️ Skipping env validation during build phase");
+} else {
+  try {
+    env = validateEnv();
+    console.log("✅ Environment variables validated successfully");
+  } catch (error) {
+    console.error("❌ Environment validation failed:", error);
+    // In development, we want to see the error clearly
+    if (process.env.NODE_ENV === "development") {
+      throw error;
+    }
+    // In production, we still throw but the error is already logged
+    throw new Error("Invalid environment configuration. Check server logs for details.");
   }
-  // In production, we still throw but the error is already logged
-  throw new Error("Invalid environment configuration. Check server logs for details.");
 }
 
 // Export validated env for type-safe access throughout the app

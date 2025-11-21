@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
   // Enable React Compiler for automatic memoization (Next.js 16)
   reactCompiler: true,
 
+  // Transpile packages that use React.createContext in a way incompatible with Turbopack SSR
+  transpilePackages: [
+    "@hugeicons/react",
+    "@hugeicons/core-free-icons",
+    "react-aria-components",
+    "react-aria",
+    "@react-aria/utils",
+  ],
+
   // Skip TypeScript checking during build (already verified locally)
   // This prevents hanging builds on Vercel and speeds up deployments
   typescript: {

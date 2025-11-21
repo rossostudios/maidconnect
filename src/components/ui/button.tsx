@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Button Component (React Aria with Custom Slot)
  *
