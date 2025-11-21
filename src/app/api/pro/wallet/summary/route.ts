@@ -11,6 +11,7 @@
 
 import { NextResponse } from "next/server";
 import { logger } from "@/lib/logger";
+import { COUNTRIES, type CountryCode } from "@/lib/shared/config/territories";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // ========================================
@@ -30,7 +31,7 @@ export async function GET() {
   try {
     const { data: profile, error } = await supabase
       .from("professional_profiles")
-      .select("total_earnings_cop, total_bookings_completed, share_earnings_badge, slug")
+      .select("total_earnings_cop, total_bookings_completed, share_earnings_badge, slug, country_code")
       .eq("profile_id", user.id)
       .maybeSingle();
 
@@ -42,12 +43,18 @@ export async function GET() {
       return NextResponse.json({ error: "Professional profile not found" }, { status: 404 });
     }
 
+    // Get currency code from professional's country (default to COP for backward compatibility)
+    const countryCode = (profile.country_code as CountryCode) || "CO";
+    const currencyCode = COUNTRIES[countryCode]?.currencyCode || "COP";
+
     return NextResponse.json({
       success: true,
       totalEarningsCOP: profile.total_earnings_cop ?? 0,
       totalBookingsCompleted: profile.total_bookings_completed ?? 0,
       shareEarningsBadge: profile.share_earnings_badge ?? false,
       slug: profile.slug,
+      countryCode,
+      currencyCode,
     });
   } catch (error) {
     logger.error("[Wallet Summary API] Failed to get summary", {

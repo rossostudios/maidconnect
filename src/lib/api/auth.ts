@@ -8,7 +8,12 @@
  */
 
 import type { SupabaseClient, User } from "@supabase/supabase-js";
-import { AuthenticationError, NotFoundError, UnauthorizedError } from "@/lib/errors";
+import {
+  AuthenticationError,
+  NotFoundError,
+  UnauthorizedError,
+  ValidationError,
+} from "@/lib/errors";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { Database } from "@/types/supabase";
 
@@ -292,6 +297,78 @@ export async function requireCustomerProfile(
   }
 
   return profile;
+}
+
+/**
+ * Multi-country context returned by requireCountryProfile
+ */
+export type CountryContext = {
+  country: "CO" | "PY" | "UY" | "AR";
+  currency: "COP" | "PYG" | "UYU" | "ARS";
+  paymentProcessor: "stripe" | "paypal";
+};
+
+// Country to currency mapping
+const COUNTRY_CURRENCY_MAP: Record<string, "COP" | "PYG" | "UYU" | "ARS"> = {
+  CO: "COP",
+  PY: "PYG",
+  UY: "UYU",
+  AR: "ARS",
+};
+
+// Country to payment processor mapping
+const COUNTRY_PROCESSOR_MAP: Record<string, "stripe" | "paypal"> = {
+  CO: "stripe",
+  PY: "paypal",
+  UY: "paypal",
+  AR: "paypal",
+};
+
+/**
+ * Verify user has a valid country set and return multi-country context
+ *
+ * CRITICAL: Required for bookings and payments to ensure proper currency
+ * and payment processor routing for LATAM multi-country support.
+ *
+ * @example
+ * ```typescript
+ * const { user, supabase } = await requireAuth(request);
+ * const { country, currency, paymentProcessor } = await requireCountryProfile(supabase, user.id);
+ * // Now you can safely create bookings/payments with proper currency
+ * ```
+ *
+ * @throws {ValidationError} If user profile has no country set
+ */
+export async function requireCountryProfile(
+  supabase: SupabaseClient<Database>,
+  userId: string
+): Promise<CountryContext> {
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("country")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error || !profile) {
+    throw new NotFoundError("Profile");
+  }
+
+  const country = profile.country as string | null;
+
+  if (!country || !["CO", "PY", "UY", "AR"].includes(country)) {
+    throw new ValidationError(
+      "Please complete your profile with a valid country before making bookings or payments. " +
+        "Supported countries: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)."
+    );
+  }
+
+  const validCountry = country as "CO" | "PY" | "UY" | "AR";
+
+  return {
+    country: validCountry,
+    currency: COUNTRY_CURRENCY_MAP[validCountry],
+    paymentProcessor: COUNTRY_PROCESSOR_MAP[validCountry],
+  };
 }
 
 /**

@@ -404,6 +404,10 @@
         "footer": {
           "submitting": "Enviando…",
           "submit": "Enviar documentos"
+        },
+        "countryGuidance": {
+          "title": "Documentos de identidad aceptados para {country}",
+          "description": "Por favor sube uno de los siguientes documentos de identificación oficial vigentes:"
         }
       },
       "profileBuildForm": {

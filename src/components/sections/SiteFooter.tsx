@@ -123,7 +123,7 @@ export function SiteFooter() {
 
                 {/* Tagline */}
                 <p className="max-w-xs text-base text-neutral-600 leading-relaxed">
-                  Medellín's boutique household staffing agency for English-speaking families.
+                  Boutique household staffing across Latin America. Colombia, Paraguay, Uruguay, and Argentina.
                 </p>
 
                 {/* Contact */}

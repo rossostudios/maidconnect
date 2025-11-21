@@ -5,7 +5,9 @@ import { type ChangeEvent, useActionState, useEffect, useMemo, useRef, useState 
 import { UnexpectedError } from "@/components/feedback/unexpected-error";
 import { cn } from "@/lib/utils";
 import { submitDocuments } from "./actions";
+import type { CountryCode } from "@/lib/shared/config/territories";
 import {
+  COUNTRY_DOCUMENT_TYPES,
   defaultActionState,
   type OnboardingActionState,
   OPTIONAL_DOCUMENTS,
@@ -30,6 +32,8 @@ const ACCEPTED_TYPE_LABEL = "PDF, JPG, PNG";
 
 type Props = {
   inputClass: string;
+  /** Professional's country code for showing relevant document type guidance */
+  countryCode?: CountryCode;
 };
 
 type FieldConfig = {
@@ -38,7 +42,7 @@ type FieldConfig = {
   required: boolean;
 };
 
-export function DocumentUploadForm({ inputClass }: Props) {
+export function DocumentUploadForm({ inputClass, countryCode }: Props) {
   const t = useTranslations("dashboard.pro.documentUploadForm");
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(
     submitDocuments,
@@ -52,6 +56,9 @@ export function DocumentUploadForm({ inputClass }: Props) {
     ],
     []
   );
+
+  // Get country-specific document types for guidance
+  const countryDocTypes = countryCode ? COUNTRY_DOCUMENT_TYPES[countryCode] : null;
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
 
@@ -67,6 +74,34 @@ export function DocumentUploadForm({ inputClass }: Props) {
       {state.status === "error" && state.error ? <UnexpectedError message={state.error} /> : null}
 
       <div className="space-y-6">
+        {/* Per-country document type guidance */}
+        {countryDocTypes && (
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
+            <h3 className="mb-3 font-semibold text-blue-900 text-sm">
+              {t("countryGuidance.title", { country: countryDocTypes.name })}
+            </h3>
+            <p className="mb-4 text-blue-800 text-sm">
+              {t("countryGuidance.description")}
+            </p>
+            <ul className="space-y-2">
+              {countryDocTypes.types.map((docType) => (
+                <li
+                  className="flex items-center gap-2 text-blue-800 text-sm"
+                  key={docType.code}
+                >
+                  <span className="inline-flex h-6 min-w-[2.5rem] items-center justify-center rounded bg-blue-100 px-2 font-mono font-semibold text-blue-700 text-xs">
+                    {docType.code}
+                  </span>
+                  <span>
+                    <strong>{docType.label}</strong>
+                    <span className="text-blue-600"> — {docType.description}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {documents.map((doc) => (
           <DocumentField
             config={doc}

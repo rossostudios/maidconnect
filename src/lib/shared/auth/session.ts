@@ -48,7 +48,7 @@ async function fetchProfileForUser(
     await Promise.all([
       supabase
         .from("profiles")
-        .select("role, locale, onboarding_status")
+        .select("role, locale, onboarding_status, country")
         .eq("id", userId)
         .maybeSingle(),
       supabase.auth.getUser(),
@@ -78,6 +78,7 @@ async function fetchProfileForUser(
     role,
     locale,
     onboardingStatus,
+    country: profile?.country ?? null,
   };
 }
 

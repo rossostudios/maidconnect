@@ -6,7 +6,13 @@
  * import { identifyUserServer, trackSignupServer } from '@/lib/integrations/posthog/server';
  */
 
-import { identifyUser as identifyUserClient, resetUser, trackEvent } from "./utils";
+import {
+  clearMultiCountryContext,
+  identifyUser as identifyUserClient,
+  registerMultiCountryContext,
+  resetUser,
+  trackEvent,
+} from "./utils";
 
 export type UserProperties = {
   email?: string;
@@ -18,27 +24,50 @@ export type UserProperties = {
   totalBookings?: number;
   totalSpent?: number;
   verificationStatus?: string;
+  /** User's country code (CO, PY, UY, AR) - for multi-country analytics */
+  country?: "CO" | "PY" | "UY" | "AR";
+  /** User's city ID - for granular location analytics */
+  city?: string;
+  /** User's currency (COP, PYG, UYU, ARS) - for transaction analytics */
+  currency?: "COP" | "PYG" | "UYU" | "ARS";
 };
 
 /**
  * Client-side user identification
  * Call this after login/signup to identify the user
+ * CRITICAL: Also registers multi-country context for analytics
  */
 export function identifyAuthenticatedUser(userId: string, properties?: UserProperties) {
   identifyUserClient(userId, {
     ...properties,
     identified_at: new Date().toISOString(),
   });
+
+  // Register multi-country context as super properties (attached to all events)
+  if (properties?.country || properties?.role) {
+    registerMultiCountryContext({
+      country_code: properties.country,
+      city_id: properties.city,
+      currency: properties.currency,
+      role: properties.role,
+      locale: properties.locale?.split("-")[0] as "es" | "en" | undefined,
+    });
+  }
 }
 
 /**
  * Track user signup
+ * Includes multi-country context for LATAM market analytics
  */
 export function trackSignup(data: {
   userId: string;
   method: "email" | "google" | "facebook";
   role: "customer" | "professional";
   locale: string;
+  /** User's country code for multi-country analytics */
+  country?: "CO" | "PY" | "UY" | "AR";
+  /** User's city ID */
+  city?: string;
 }) {
   identifyUserClient(data.userId, {
     role: data.role,
@@ -47,10 +76,22 @@ export function trackSignup(data: {
     signup_method: data.method,
   });
 
+  // Register multi-country context if country is provided
+  if (data.country) {
+    registerMultiCountryContext({
+      country_code: data.country,
+      city_id: data.city,
+      role: data.role,
+      locale: data.locale.split("-")[0] as "es" | "en" | undefined,
+    });
+  }
+
   trackEvent("User Signed Up", {
     signup_method: data.method,
     user_role: data.role,
     locale: data.locale,
+    country_code: data.country,
+    city_id: data.city,
   });
 }
 
@@ -66,11 +107,15 @@ export function trackLogin(data: { userId: string; method: "email" | "google" | 
 
 /**
  * Track user logout
+ * CRITICAL: Clears multi-country context to prevent data pollution
  */
 export function trackLogout() {
   trackEvent("User Logged Out", {
     timestamp: new Date().toISOString(),
   });
+
+  // Clear multi-country super properties before resetting identity
+  clearMultiCountryContext();
 
   // Reset PostHog identity
   resetUser();

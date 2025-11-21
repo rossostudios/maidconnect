@@ -119,9 +119,9 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
         />
 
         <StatCard
-          description="Completed bookings (all markets)"
+          description="Colombia revenue (COP) – other markets coming soon"
           sparklineData={stats.sparklines?.revenue}
-          title="Total Revenue"
+          title="Revenue (CO)"
           value={formatCurrency(stats.totalRevenue, { currency: "COP" })}
         />
 

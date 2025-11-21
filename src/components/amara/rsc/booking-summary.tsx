@@ -14,6 +14,7 @@
  */
 
 import Image from "next/image";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import { BookingSummaryActions } from "../client/booking-summary-actions";
 
 export type BookingSummaryProps = {
@@ -24,9 +25,11 @@ export type BookingSummaryProps = {
   selectedDate: string; // YYYY-MM-DD
   selectedTime: string; // HH:MM
   estimatedDuration: number; // in hours
-  estimatedPrice: number; // in cents
+  estimatedPrice: number; // in minor currency units (cents/centavos)
   instantBooking: boolean;
   conversationId?: string;
+  /** Currency code for price display (defaults to COP for backward compatibility) */
+  currencyCode?: Currency;
 };
 
 export function BookingSummary({
@@ -40,6 +43,7 @@ export function BookingSummary({
   estimatedPrice,
   instantBooking,
   conversationId,
+  currencyCode = "COP",
 }: BookingSummaryProps) {
   const bookingDate = new Date(selectedDate);
   const formattedDate = bookingDate.toLocaleDateString("en-US", {
@@ -49,7 +53,7 @@ export function BookingSummary({
     day: "numeric",
   });
 
-  const priceInDollars = (estimatedPrice / 100).toFixed(2);
+  const formattedPrice = formatFromMinorUnits(estimatedPrice, currencyCode);
   const endTime = calculateEndTime(selectedTime, estimatedDuration);
 
   return (
@@ -136,7 +140,7 @@ export function BookingSummary({
               </svg>
               <div>
                 <div className="font-medium text-neutral-900 text-sm">Estimated Total</div>
-                <div className="text-neutral-600 text-sm">${priceInDollars}</div>
+                <div className="text-neutral-600 text-sm">{formattedPrice}</div>
               </div>
             </div>
           </div>

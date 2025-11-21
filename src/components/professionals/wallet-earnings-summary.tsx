@@ -22,6 +22,8 @@ type WalletSummaryData = {
   totalBookingsCompleted: number;
   shareEarningsBadge: boolean;
   slug: string | null;
+  countryCode?: string;
+  currencyCode?: "COP" | "PYG" | "UYU" | "ARS";
 };
 
 // ========================================
@@ -126,7 +128,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
     );
   }
 
-  const { totalEarningsCOP, totalBookingsCompleted, shareEarningsBadge, slug } = data;
+  const { totalEarningsCOP, totalBookingsCompleted, shareEarningsBadge, slug, currencyCode = "COP" } = data;
 
   return (
     <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
@@ -171,7 +173,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
                   geistSans.className
                 )}
               >
-                {formatCurrency(totalEarningsCOP, "COP", locale)}
+                {formatCurrency(totalEarningsCOP, currencyCode, locale)}
               </p>
               <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
                 From {totalBookingsCompleted} completed{" "}
@@ -252,10 +254,10 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
               {totalBookingsCompleted > 0
                 ? formatCurrency(
                     Math.floor(totalEarningsCOP / totalBookingsCompleted),
-                    "COP",
+                    currencyCode,
                     locale
                   )
-                : formatCurrency(0, "COP", locale)}
+                : formatCurrency(0, currencyCode, locale)}
             </p>
           </div>
         </div>

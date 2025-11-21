@@ -9,7 +9,7 @@
  */
 
 import { z } from "zod";
-import { ok, withAuth } from "@/lib/api";
+import { ok, requireCountryProfile, withAuth } from "@/lib/api";
 import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 
@@ -57,10 +57,18 @@ const createIntentSchema = z
   );
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
+  // CRITICAL: Validate user has a country set for multi-country support
+  // This ensures proper currency and payment processor routing
+  const countryContext = await requireCountryProfile(supabase, user.id);
+
   // Parse and validate request body
   const body = await request.json();
-  const { amount, currency, bookingId, customerName, customerEmail } =
-    createIntentSchema.parse(body);
+  const parsedData = createIntentSchema.parse(body);
+
+  // Use country-specific currency if client didn't specify or used default
+  const currency =
+    parsedData.currency === "cop" ? countryContext.currency.toLowerCase() : parsedData.currency;
+  const { amount, bookingId, customerName, customerEmail } = parsedData;
 
   const { data: customerRow } = await supabase
     .from("profiles")
@@ -95,6 +103,9 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     metadata: {
       supabase_profile_id: user.id,
       ...(bookingId ? { booking_id: bookingId } : {}),
+      // Multi-country metadata for analytics and reconciliation
+      country_code: countryContext.country,
+      payment_processor: countryContext.paymentProcessor,
     },
     automatic_payment_methods: {
       enabled: true,

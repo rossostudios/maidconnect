@@ -231,6 +231,78 @@ export function setUserProperties(properties: Record<string, any>) {
 }
 
 /**
+ * Multi-country context for analytics
+ * Used to automatically attach country/currency info to all events
+ */
+export type MultiCountryContext = {
+  /** User's country code (CO, PY, UY, AR) */
+  country_code?: "CO" | "PY" | "UY" | "AR";
+  /** User's city ID */
+  city_id?: string;
+  /** Currency code based on country */
+  currency?: "COP" | "PYG" | "UYU" | "ARS";
+  /** Payment processor for this market */
+  payment_processor?: "stripe" | "paypal";
+  /** User's role */
+  role?: "customer" | "professional" | "admin";
+  /** User's locale */
+  locale?: "es" | "en";
+};
+
+/**
+ * Register super properties that are automatically attached to ALL events
+ * CRITICAL: Call this when user is identified to ensure multi-country context
+ *
+ * Super properties persist across page loads and are included in every event
+ */
+export function registerMultiCountryContext(context: MultiCountryContext) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  // Map country to payment processor
+  const paymentProcessor =
+    context.country_code === "CO" ? "stripe" : context.country_code ? "paypal" : undefined;
+
+  // Map country to currency
+  const currencyMap: Record<string, "COP" | "PYG" | "UYU" | "ARS"> = {
+    CO: "COP",
+    PY: "PYG",
+    UY: "UYU",
+    AR: "ARS",
+  };
+  const currency = context.country_code
+    ? currencyMap[context.country_code] || context.currency
+    : context.currency;
+
+  // Register as super properties (attached to all future events)
+  posthog.register({
+    country_code: context.country_code,
+    city_id: context.city_id,
+    currency: currency,
+    payment_processor: context.payment_processor || paymentProcessor,
+    role: context.role,
+    locale: context.locale,
+  });
+}
+
+/**
+ * Clear super properties (call on logout)
+ */
+export function clearMultiCountryContext() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  posthog.unregister("country_code");
+  posthog.unregister("city_id");
+  posthog.unregister("currency");
+  posthog.unregister("payment_processor");
+  posthog.unregister("role");
+  posthog.unregister("locale");
+}
+
+/**
  * Track error
  */
 export function trackError(error: Error, context?: Record<string, any>) {

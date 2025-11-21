@@ -4,6 +4,7 @@ import { Clock01Icon, Location01Icon, UserIcon } from "@hugeicons/core-free-icon
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import type { BookingWithDetails } from "@/types";
 
 type BookingCardProps = {
@@ -22,7 +23,9 @@ type BookingCardProps = {
 export function BookingCard({ booking, role, onView, onCancel, onRate }: BookingCardProps) {
   const t = useTranslations("components.bookingCard");
 
-  const formatPrice = (price: number) => `$${(price / 1000).toFixed(0)}k`;
+  // Get currency from booking (default to COP for backward compatibility)
+  const currencyCode = ((booking as any).currency?.toUpperCase() || "COP") as Currency;
+  const formatPrice = (price: number) => formatFromMinorUnits(price, currencyCode);
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);

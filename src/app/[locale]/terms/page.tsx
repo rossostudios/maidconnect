@@ -55,7 +55,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             Plataforma.
           </p>
           <p className="mt-3 text-neutral-700">
-            Casaora es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, con oficinas registradas
+            Casaora es operada por <strong>Casaora SAS</strong>, con oficinas registradas
             en <strong>Colombia, Paraguay, Uruguay y Argentina</strong> (&quot;Casaora&quot;,
             &quot;nosotros&quot;, &quot;nuestro&quot;). Cada mercado opera bajo los requisitos
             regulatorios locales correspondientes.
@@ -690,7 +690,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
             (&quot;Terms&quot;). If you do not agree to these Terms, you must not use the Platform.
           </p>
           <p className="mt-3 text-neutral-700">
-            Casaora is operated by <strong>[COMPANY NAME]</strong>, with registered offices in{" "}
+            Casaora is operated by <strong>Casaora SAS</strong>, with registered offices in{" "}
             <strong>Colombia, Paraguay, Uruguay, and Argentina</strong>
             (&quot;Casaora&quot;, &quot;we&quot;, &quot;our&quot;). Each market operates under local
             regulatory requirements.

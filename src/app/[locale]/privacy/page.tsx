@@ -64,7 +64,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </h2>
           <div className="mb-4 border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
-              <strong>Razón Social:</strong> [Su empresa - Por completar]
+              <strong>Razón Social:</strong> Casaora SAS
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Oficinas Regionales:</strong> Colombia, Paraguay, Uruguay y Argentina
@@ -589,7 +589,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-4 font-bold text-2xl text-neutral-900">1. Data Controller</h2>
           <div className="mb-4 border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
-              <strong>Company Name:</strong> [Your company - To be completed]
+              <strong>Company Name:</strong> Casaora SAS
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Regional Offices:</strong> Colombia, Paraguay, Uruguay, and Argentina

@@ -447,6 +447,10 @@
         "footer": {
           "submitting": "Submitting…",
           "submit": "Submit documents"
+        },
+        "countryGuidance": {
+          "title": "Accepted ID documents for {country}",
+          "description": "Please upload one of the following valid government-issued identification documents:"
         }
       },
       "profileBuildForm": {

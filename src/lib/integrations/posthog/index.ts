@@ -60,10 +60,13 @@ export {
 } from "./user-tracking-client";
 export {
   bookingEvents,
+  clearMultiCountryContext,
   conciergeEvents,
   funnelEvents,
   identifyUser,
+  type MultiCountryContext,
   professionalEvents,
+  registerMultiCountryContext,
   resetUser,
   searchEvents,
   setUserProperties,

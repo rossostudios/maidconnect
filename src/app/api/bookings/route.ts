@@ -8,7 +8,7 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { ok, withAuth, withRateLimit } from "@/lib/api";
+import { ok, requireCountryProfile, withAuth, withRateLimit } from "@/lib/api";
 import type { BookingInsertInput } from "@/lib/bookings/booking-creation-service";
 import {
   calculateBookingAmount,
@@ -26,7 +26,17 @@ import type { CreateBookingInput } from "@/lib/validations/booking";
 import { createBookingSchema } from "@/lib/validations/booking";
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
+  // CRITICAL: Validate user has a country set for multi-country support
+  // This ensures proper currency and payment processor routing
+  const countryContext = await requireCountryProfile(supabase, user.id);
+
   const validatedData = await parseBookingRequest(request);
+
+  // Override currency with user's country-specific currency if not explicitly set
+  if (!validatedData.currency || validatedData.currency === "cop") {
+    validatedData.currency = countryContext.currency.toLowerCase();
+  }
+
   const derivedValues = deriveBookingValues(validatedData);
 
   const stripeCustomerId = await ensureStripeCustomer(supabase, user.id, user.email ?? null);
@@ -66,6 +76,9 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     totalAmount: derivedValues.amount,
     currency: validatedData.currency,
     duration: validatedData.durationMinutes ?? 0,
+    // Multi-country analytics context
+    country_code: countryContext.country,
+    payment_processor: countryContext.paymentProcessor,
   });
 
   return ok({

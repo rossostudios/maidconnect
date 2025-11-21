@@ -26,6 +26,8 @@ export type AppUser = {
   role: AppRole;
   onboardingStatus: OnboardingStatus;
   locale: string;
+  /** User's country code (e.g., "CO", "PY", "UY", "AR") */
+  country: string | null;
 };
 
 export type SessionContext = {

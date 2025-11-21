@@ -273,7 +273,7 @@ export default async function ProfessionalOnboardingPage({
                     </p>
                   </div>
                 </div>
-                <DocumentUploadForm inputClass={inputClass} />
+                <DocumentUploadForm countryCode={userCountry} inputClass={inputClass} />
               </div>
             </SectionWrapper>
           ) : null}
