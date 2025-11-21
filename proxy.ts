@@ -210,9 +210,18 @@ function validateCSRF(request: NextRequest): boolean {
 }
 
 /**
+ * Generates a cryptographically secure nonce for CSP
+ */
+function generateNonce(): string {
+  // Use crypto.randomUUID() for cryptographically secure random values
+  // Remove hyphens and take first 32 characters for a valid base64-like nonce
+  return crypto.randomUUID().replace(/-/g, "").slice(0, 32);
+}
+
+/**
  * Add security headers to response (2025 modern standards)
  */
-function addSecurityHeaders(response: NextResponse): NextResponse {
+function addSecurityHeaders(response: NextResponse, nonce: string): NextResponse {
   // Prevent clickjacking attacks
   response.headers.set("X-Frame-Options", "DENY");
 
@@ -225,8 +234,57 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   // Enforce HTTPS (2 years, include subdomains, preload eligible)
   response.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
 
-  // Content Security Policy (basic - adjust as needed)
-  response.headers.set("Content-Security-Policy", "frame-ancestors 'none';");
+  // Content Security Policy with nonce-based script protection
+  // NOTE: This provides XSS protection while allowing trusted inline scripts
+  const cspHeader = [
+    // Default source: only same origin
+    "default-src 'self'",
+
+    // Scripts: self + nonce + trusted CDNs
+    // Allow PostHog, Stripe, Vercel Analytics, and strict-dynamic for modern browsers
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://cdn.posthog.com https://js.stripe.com https://va.vercel-scripts.com`,
+
+    // Styles: self + inline styles (safe for Tailwind)
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+
+    // Images: self + data URIs + trusted domains
+    "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com",
+
+    // Fonts: self + Google Fonts
+    "font-src 'self' data: https://fonts.gstatic.com",
+
+    // Connect: self + API endpoints
+    "connect-src 'self' https://*.supabase.co https://*.stripe.com https://*.posthog.com wss://*.supabase.co https://va.vercel-scripts.com https://vercel.live https://api.betterstack.com",
+
+    // Frames: Stripe only (for payment elements)
+    "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
+
+    // Workers: self (for service workers)
+    "worker-src 'self' blob:",
+
+    // Media: self + Supabase storage
+    "media-src 'self' https://*.supabase.co",
+
+    // Object: none (prevent plugins)
+    "object-src 'none'",
+
+    // Base URI: self
+    "base-uri 'self'",
+
+    // Form actions: self
+    "form-action 'self'",
+
+    // Frame ancestors: none (prevent clickjacking)
+    "frame-ancestors 'none'",
+
+    // Upgrade insecure requests (force HTTPS)
+    "upgrade-insecure-requests",
+  ].join("; ");
+
+  response.headers.set("Content-Security-Policy", cspHeader);
+
+  // Pass nonce to Next.js layout via custom header (accessed via headers() in layout)
+  response.headers.set("x-nonce", nonce);
 
   // Permissions Policy (2025 modern syntax)
   // geolocation=(self): Allows same-origin geolocation for:
@@ -398,8 +456,11 @@ export default async function proxy(request: NextRequest) {
     },
   });
 
-  // Add security headers to all responses
-  response = addSecurityHeaders(response);
+  // Generate nonce for CSP
+  const nonce = generateNonce();
+
+  // Add security headers to all responses (with nonce for CSP)
+  response = addSecurityHeaders(response, nonce);
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
