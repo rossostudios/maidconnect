@@ -4,6 +4,7 @@ import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
@@ -17,8 +18,16 @@ import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracki
  * - Sticky positioning above navbar
  */
 export function AnnouncementBanner() {
+  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+
+  // Feature flag to disable banner entirely
+  const enabled = process.env.NEXT_PUBLIC_ANNOUNCEMENT_ENABLED !== "false";
+  const badgeEnv = process.env.NEXT_PUBLIC_ANNOUNCEMENT_BADGE;
+  const titleEnv = process.env.NEXT_PUBLIC_ANNOUNCEMENT_TITLE;
+  const ctaEnv = process.env.NEXT_PUBLIC_ANNOUNCEMENT_CTA;
+  const hrefEnv = process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF;
 
   useEffect(() => {
     // Check localStorage for dismissal
@@ -41,9 +50,25 @@ export function AnnouncementBanner() {
     setTimeout(() => setIsDismissed(true), 400);
   };
 
-  if (isDismissed) {
+  if (isDismissed || !enabled) {
     return null;
   }
+
+  const MESSAGES: Record<string, { badge: string; title: string; cta: string; href: string }> = {
+    en: {
+      badge: badgeEnv || "Now Hiring",
+      title: titleEnv || "Work with vetted families across Latin America.",
+      cta: ctaEnv || "Learn More",
+      href: hrefEnv || "/concierge",
+    },
+    es: {
+      badge: process.env.NEXT_PUBLIC_ANNOUNCEMENT_BADGE_ES || "Estamos contratando",
+      title: process.env.NEXT_PUBLIC_ANNOUNCEMENT_TITLE_ES || "Trabaja con familias verificadas en Latinoamérica.",
+      cta: process.env.NEXT_PUBLIC_ANNOUNCEMENT_CTA_ES || "Conoce más",
+      href: process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF_ES || "/concierge",
+    },
+  };
+  const message = MESSAGES[locale] || MESSAGES.en;
 
   return (
     <AnimatePresence>
@@ -80,7 +105,7 @@ export function AnnouncementBanner() {
                   initial={{ opacity: 0, y: -10 }}
                   transition={{ delay: 0.4, duration: 0.4 }}
                 >
-                  Now Hiring
+                  {message.badge}
                 </motion.span>
 
                 {/* Message - Responsive typography with optimized line breaks */}
@@ -90,13 +115,11 @@ export function AnnouncementBanner() {
                   initial={{ opacity: 0, y: -10 }}
                   transition={{ delay: 0.45, duration: 0.4 }}
                 >
-                  <span className="text-neutral-900">
-                    Join Medellín's only English-speaking boutique agency.
-                  </span>{" "}
+                  <span className="text-neutral-900">{message.title}</span>{" "}
                   <span className="hidden whitespace-nowrap md:inline">
-                    Top pay, respected families.
+                    Top pay, vetted clients, 100% of your rates.
                   </span>
-                  <span className="inline md:hidden">Top pay, respected families.</span>
+                  <span className="inline md:hidden">Top pay, vetted clients.</span>
                 </motion.p>
 
                 {/* CTA Link - Enhanced mobile tap target */}

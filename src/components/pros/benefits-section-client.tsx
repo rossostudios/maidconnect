@@ -10,48 +10,43 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 
-const benefits = [
-  {
-    icon: DollarCircleIcon,
-    title: "Set Your Own Rates",
-    description:
-      "You determine your hourly rate. Families see your rate plus a clearly-labeled Casaora platform fee — you keep 100% of what you charge.",
-  },
-  {
-    icon: Clock01Icon,
-    title: "Guaranteed Payment",
-    description:
-      "Secure payment processing ensures you're paid on time, every time. No chasing clients for payment.",
-  },
-  {
-    icon: UserMultiple02Icon,
-    title: "Quality Clients",
-    description:
-      "Connect with verified, respectful expat families who value professional domestic staff and pay fairly.",
-  },
-  {
-    icon: RepeatIcon,
-    title: "Long-Term Relationships",
-    description:
-      "Build steady income through repeat bookings with families who appreciate your work.",
-  },
-  {
-    icon: Message01Icon,
-    title: "No English? No Problem.",
-    description:
-      "Our platform translates messages automatically. You focus on your work; Amara handles the communication with high-paying expat families.",
-  },
-  {
-    icon: Shield01Icon,
-    title: "Safety First",
-    description:
-      "We verify every family just like we verify you. Zero tolerance for disrespect. If a client is rude or unsafe, we block them.",
-  },
-];
-
 export function ProsBenefitsSection() {
+  const t = useTranslations("pros.benefits");
+  const benefits = [
+    {
+      icon: DollarCircleIcon,
+      title: t("items.setRates.title"),
+      description: t("items.setRates.description"),
+    },
+    {
+      icon: Clock01Icon,
+      title: t("items.payment.title"),
+      description: t("items.payment.description"),
+    },
+    {
+      icon: UserMultiple02Icon,
+      title: t("items.clients.title"),
+      description: t("items.clients.description"),
+    },
+    {
+      icon: RepeatIcon,
+      title: t("items.longTerm.title"),
+      description: t("items.longTerm.description"),
+    },
+    {
+      icon: Message01Icon,
+      title: t("items.language.title"),
+      description: t("items.language.description"),
+    },
+    {
+      icon: Shield01Icon,
+      title: t("items.safety.title"),
+      description: t("items.safety.description"),
+    },
+  ];
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {

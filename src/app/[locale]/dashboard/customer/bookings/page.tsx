@@ -61,7 +61,7 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
         <h1 className={cn("font-semibold text-3xl text-neutral-900", geistSans.className)}>
           {t("title")}
         </h1>
-        <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+        <p className="mt-2 text-base leading-6 text-neutral-700">{t("description")}</p>
       </div>
 
       {/* Trial Credits Summary */}

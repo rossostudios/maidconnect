@@ -1274,7 +1274,7 @@
     "trustLines": {
       "backgroundChecks": "Verificación de ID y Antecedentes",
       "englishFluent": "Contratación Instantánea o Permanente",
-      "quickMatching": "Tarifa de $299 para Contratación Directa"
+      "quickMatching": "Tarifa de  para Contratación Directa"
     },
     "cta": {
       "primary": "Chatea con Amara AI",
@@ -2732,47 +2732,42 @@
     },
     "hero": {
       "title": "Precios Transparentes - Sin Tarifas Ocultas",
-      "subtitle": "Los profesionales mantienen el 100% de su tarifa. Usted ve el costo del servicio, la tarifa de la plataforma Casaora y cualquier seguro opcional antes de confirmar.",
+      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Concierge. Los profesionales mantienen el 100%. Vetting, antecedentes y seguros están incluidos.",
       "tabs": {
         "customers": "Para Clientes",
         "professionals": "Para Profesionales"
       }
     },
     "comparison": {
-      "popularBadge": "Más Popular",
-      "premiumBadge": "Servicio Premium",
-      "platformFee": "Tarifa de Servicio de Plataforma",
-      "oneTimeFee": "Tarifa Única de Colocación",
-      "forPermanentPlacement": "para colocación permanente",
-      "addedToServiceCost": "agregado al costo del servicio",
-      "bestFor": "Mejor para:",
-      "marketplace": {
-        "title": "Reserva Instantánea Amara",
-        "subtitle": "Reserva profesionales verificados en menos de 2 minutos",
+      "popularBadge": "Más popular",
+      "premiumBadge": "Servicio premium",
+      "serviceFee": "Tarifa de servicio (la paga el cliente)",
+      "serviceFeeNote": "Se suma al total. Los profesionales reciben el 100%.",
+      "prosKeepAll": "Los profesionales reciben el 100%",
+      "bestFor": "Ideal para:",
+      "instantBook": {
+        "title": "Reserva Instantánea (15%)",
+        "subtitle": "Auto-servicio en minutos con pros verificados",
         "features": [
-          "Chatea con Amara AI para reservar instantáneamente",
-          "Profesionales con verificación de ID y antecedentes",
-          "Tarifa de plataforma del 15% sobre la tarifa por hora",
-          "Perfecto para trabajos únicos o recurrentes",
-          "Mensajería directa después de la reserva",
-          "Cero comisión para profesionales"
+          "Chatea y reserva en minutos",
+          "Pros verificados con antecedentes e identidad",
+          "Mensajería, agenda y soporte incluidos",
+          "Tarifa de servicio transparente del 15% (cliente)"
         ],
-        "cta": "Chatear con Amara",
-        "bestFor": "trabajos únicos, limpieza recurrente, reservas rápidas"
+        "cta": "Ver profesionales",
+        "bestFor": "tareas rápidas, limpiezas recurrentes, ayuda por horas"
       },
       "concierge": {
-        "title": "Programa de Contratación Directa",
-        "subtitle": "Colocación permanente con contratos legales",
+        "title": "Concierge (20%)",
+        "subtitle": "Matching guiado con shortlist curada, reemplazos y soporte humano",
         "features": [
-          "Tarifa única de $299 para colocación",
-          "Contrato de empleo legal (EN/ES)",
-          "Garantía de reemplazo de 30 días",
-          "Información de contacto directo",
-          "Matching concierge de guante blanco",
-          "Cero tarifas continuas de plataforma"
+          "Coordinador dedicado y soporte humano",
+          "Vetting, antecedentes y seguros incluidos",
+          "Ayuda con agenda, reemplazos y soporte",
+          "Tarifa de servicio transparente del 20% (cliente)"
         ],
-        "cta": "Obtener Concierge",
-        "bestFor": "niñeras a tiempo completo, personal en vivo, empleados de casa permanentes"
+        "cta": "Reservar Concierge",
+        "bestFor": "necesidades con más acompañamiento, ayuda continua, reemplazos"
       }
     },
     "title": "Precios simples y transparentes",
@@ -2786,6 +2781,104 @@
       "subtitle": "Únete a miles de clientes satisfechos que usan Casaora.",
       "primary": "Iniciar Prueba Gratis",
       "secondary": "Contactar Ventas"
+    },
+    "calculator": {
+      "title": "Calcula tu costo",
+      "subtitle": "Precio completo con tarifas incluidas. Sin extras: verificación y seguros ya están cubiertos.",
+      "selectService": "Selecciona el servicio",
+      "services": {
+        "cleaning": "Aseo / Limpieza",
+        "childcare": "Cuidado de niños / Niñera",
+        "cooking": "Cocina / Meal prep",
+        "eldercare": "Cuidado de adultos mayores",
+        "petcare": "Cuidado de mascotas"
+      },
+      "serviceLevel": {
+        "label": "Nivel de servicio",
+        "instantBook": "Reserva Instantánea (15%)",
+        "instantBookHelper": "Auto-servicio en minutos",
+        "concierge": "Concierge (20%)",
+        "conciergeHelper": "Matching guiado y soporte humano"
+      },
+      "currency": {
+        "label": "Moneda de visualización",
+        "note": "Tarifas indicativas para mostrar. El cobro se hace en tu moneda local cuando aplique."
+      },
+      "hours": "Horas de servicio",
+      "serviceBase": "Costo del servicio",
+      "platformFee": "Tarifa de servicio (cliente)",
+      "total": "Costo total",
+      "professionalReceives": "Profesional recibe (100% de su tarifa)",
+      "professionalNote": "Los profesionales se quedan con el 100% de su tarifa. El 15%/20% se agrega encima y lo paga el cliente."
+    },
+    "customer": {
+      "howItWorks": {
+        "title": "Cómo funciona el precio en Casaora",
+        "description": "Dos tarifas claras: 15% en Reserva Instantánea o 20% en Concierge. Profesionales pagan 0%. Vetting y seguros incluidos.",
+        "steps": {
+          "step1": {
+            "title": "Elige nivel y horas",
+            "description": "Selecciona Reserva Instantánea (15%) o Concierge (20%) y cuántas horas necesitas."
+          },
+          "step2": {
+            "title": "Incluimos seguridad y soporte",
+            "description": "Antecedentes, vetting, seguros y soporte están cubiertos por la tarifa de servicio."
+          },
+          "step3": {
+            "title": "Ves el total por adelantado",
+            "description": "Sin extras ni sorpresas. Ves lo que pagas y lo que recibe el profesional."
+          }
+        }
+      },
+      "chooseService": {
+        "title": "Elige tu nivel de servicio"
+      },
+      "calculator": {
+        "title": "Calcula tu costo estimado",
+        "description": "Selecciona servicio y horas y ve el desglose con la tarifa del 15% o 20% incluida."
+      },
+      "cta": {
+        "title": "¿Listo para empezar?",
+        "subtitle": "Únete a quienes confían en Casaora para profesionales verificados.",
+        "primary": "Reservar Concierge",
+        "secondary": "Ver profesionales"
+      }
+    },
+    "earnings": {
+      "title": "Calcula tus ganancias",
+      "subtitle": "Define tu tarifa y horas para ver cuánto podrías ganar con Casaora.",
+      "serviceLevel": {
+        "label": "Nivel de servicio",
+        "instantBook": "Reserva Instantánea (cliente paga 15%)",
+        "instantBookHelper": "Reservas rápidas y auto-servicio",
+        "concierge": "Concierge (cliente paga 20%)",
+        "conciergeHelper": "Matching guiado y soporte humano"
+      },
+      "yourHourlyRate": "Tu tarifa por hora",
+      "rateRange": "Tarifa recomendada según tu mercado y experiencia",
+      "hoursPerWeek": "Horas por semana",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "transparency": {
+        "title": "Cómo funciona el precio",
+        "customerPays": "El cliente paga por hora (incluye tarifa)",
+        "youReceive": "Tú recibes por hora",
+        "platformFee": "Tarifa de servicio (la paga el cliente)",
+        "note": "Te quedas con el 100% de tu tarifa. El 15% o 20% se agrega encima y lo paga el cliente."
+      },
+      "feeCovers": {
+        "title": "Qué cubre la tarifa de servicio",
+        "items": [
+          "Marketing y adquisición de clientes",
+          "Procesamiento de pagos seguro",
+          "Verificación de antecedentes y validación",
+          "Cobertura de seguros",
+          "Soporte a clientes y profesionales",
+          "Tecnología de reservas y agenda"
+        ]
+      },
+      "cta": "Empieza a ganar hoy"
     }
   },
   "roadmap": {
@@ -2978,54 +3071,55 @@
       "subtitle": "Dos formas de contratar: Chatea con Amara AI para reservas instantáneas, o usa nuestro concierge para colocaciones permanentes con contratos legales y garantía de 30 días."
     },
     "customer": {
-      "title": "Para Clientes",
-      "subtitle": "Reserva Instantánea Amara (15% de tarifa) o Programa de Contratación Directa ($299 único)",
+      "title": "Para clientes",
+      "subtitle": "Elige Reserva Instantánea (15%) o Concierge (20%). Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
       "steps": {
         "search": {
-          "title": "Elige tu camino de contratación",
-          "description": "¿Necesitas ayuda para mañana? Chatea con Amara AI. ¿Contratas a tiempo completo? Usa nuestro Programa de Contratación Directa con contratos legales y una tarifa única de $299."
+          "title": "Elige tu nivel de servicio",
+          "description": "Instantánea para auto-servicio en minutos o Concierge con acompañamiento."
         },
         "book": {
-          "title": "Revisamos y curamos opciones",
-          "description": "Revisamos tu solicitud, seleccionamos profesionales que encajan con tus necesidades y compartimos una lista reducida. Cada profesional ha sido verificado por Casaora."
+          "title": "Vetting y matching incluidos",
+          "description": "Solo profesionales verificados. Antecedentes y seguros cubiertos por la tarifa."
         },
         "service": {
-          "title": "Conoces y eliges",
-          "description": "Revisas perfiles, hablas con las personas candidatas y decides quién se siente adecuada para tu hogar. Te apoyamos ante cualquier duda."
+          "title": "Ves el total por adelantado",
+          "description": "Servicio + tarifa del 15% o 20%, nada más. Los profesionales reciben el 100%."
         },
         "review": {
-          "title": "Acompañamos la relación",
-          "description": "Una vez eliges a tu profesional, te ayudamos con acuerdos, pagos y ajustes. Cuando todo va bien, volver a contratar es muy sencillo."
+          "title": "Servicio con soporte",
+          "description": "Mensajería, agenda, reemplazos y soporte incluidos."
         }
       },
-      "cta": "Comenzar tu solicitud"
+      "cta": "Reservar Concierge",
+      "ctaSecondary": "Ver profesionales"
     },
     "professional": {
-      "title": "Para Profesionales",
-      "subtitle": "Haz crecer tu negocio en 5 pasos sencillos",
+      "title": "Para profesionales",
+      "subtitle": "Define tu tarifa. El cliente paga un 15% o 20% encima. Tú recibes el 100% y pagos semanales.",
       "steps": {
         "apply": {
-          "title": "Solicita Unirte",
-          "description": "Completa nuestra solicitud simple con tu experiencia, habilidades y disponibilidad. El proceso toma menos de 10 minutos."
+          "title": "Aplica y cuéntanos tus servicios",
+          "description": "Servicios, ciudades y disponibilidad."
         },
         "verify": {
-          "title": "Verifique su Perfil",
-          "description": "Completa la verificación de antecedentes, verificación de ID y evaluación de habilidades. Nuestro equipo te guía en cada paso en inglés o español."
+          "title": "Te verificamos",
+          "description": "Antecedentes, validación y onboarding incluidos."
         },
         "match": {
-          "title": "Obtén Coincidencias",
-          "description": "Crea tu perfil, establece tus tarifas y obtén coincidencias con clientes que necesitan tus servicios. Tú controlas tu horario."
+          "title": "Recibe clientes",
+          "description": "Instantánea para trabajos rápidos; Concierge trae matches curados."
         },
         "serve": {
-          "title": "Brinda Excelente Servicio",
-          "description": "Llega a tiempo, proporciona un servicio excelente y construye tu reputación a través de opiniones y calificaciones de clientes."
+          "title": "Entrega el servicio",
+          "description": "Organízate con mensajería, agenda y soporte."
         },
         "earn": {
-          "title": "Gana y Crece",
-          "description": "Recibe pagos de forma segura después de cada trabajo. Construye una base de clientes leales, gana más mediante reservas repetidas y haz crecer tu negocio."
+          "title": "Recibe el 100% de tu tarifa",
+          "description": "El cliente paga el 15%/20% encima. Tú recibes tu tarifa completa con pagos semanales."
         }
       },
-      "cta": "Aplicar como Profesional"
+      "cta": "Sé profesional en Casaora"
     },
     "safety": {
       "title": "Seguridad y Confianza",
@@ -3068,8 +3162,40 @@
     "cta": {
       "title": "¿Listo para Comenzar?",
       "subtitle": "Únete a miles de clientes y profesionales que confían en Casaora.",
-      "browseButton": "Comenzar Su Solicitud",
-      "signUpButton": "Regístrate Gratis"
+      "browseButton": "Reservar Concierge",
+      "signUpButton": "Ver Profesionales"
+    },
+    "serviceOptions": {
+      "title": "Elige tu camino",
+      "subtitle": "Reserva Instantánea con tarifa del 15% o Concierge con tarifa del 20%. Los profesionales reciben el 100%.",
+      "instantBook": {
+        "title": "Reserva Instantánea (15%)",
+        "description": "Auto-servicio rápido para limpiezas, tareas puntuales y ayuda recurrente.",
+        "speed": "Reserva en 2 minutos",
+        "process": "Matching en tiempo real",
+        "cost": "Tarifa por hora + 15% (cliente)",
+        "features": [
+          "Pros verificados con antecedentes e identidad",
+          "Mensajería, agenda y soporte incluidos",
+          "Pago seguro; el profesional recibe el 100%",
+          "Ideal para tareas rápidas o recurrentes"
+        ],
+        "cta": "Ver profesionales"
+      },
+      "concierge": {
+        "title": "Concierge (20%)",
+        "description": "Matching guiado con shortlist curada, reemplazos y soporte humano.",
+        "speed": "Shortlist en 48h",
+        "process": "Equipo humano + verificación",
+        "cost": "Tarifa de servicio del 20% (cliente)",
+        "features": [
+          "Coordinador dedicado y soporte humano",
+          "Vetting, antecedentes y seguros incluidos",
+          "Ayuda con agenda, reemplazos y soporte",
+          "Ideal para necesidades recurrentes y de mayor cuidado"
+        ],
+        "cta": "Reservar Concierge"
+      }
     }
   },
   "help": {
@@ -3472,8 +3598,8 @@
       },
       "longTermHire": {
         "title": "Programa de Contratación Directa",
-        "description": "¿Contratas personal a tiempo completo? Obtén contratos legales, garantía de 30 días y contacto directo por una tarifa única de $299.",
-        "feature1": "Tarifa única de $299 por colocación",
+        "description": "¿Contratas personal a tiempo completo? Obtén contratos legales, garantía de 30 días y contacto directo por una tarifa única de ",
+        "feature1": "Tarifa única de  por colocación",
         "feature2": "Contratos legales y garantías",
         "feature3": "Garantía de reemplazo de 30 días",
         "cta": "Hablar con Concierge"
@@ -3481,15 +3607,15 @@
       "helpText": "Cero comisión para profesionales en reservas por hora. Soporte completo para ambas opciones."
     },
     "directHireCard": {
-      "title": "Programa de Contratación Directa — Tarifa Única de $299",
+      "title": "Programa de Contratación Directa — Tarifa Única de ",
       "description": "Contrata a este profesional permanentemente con contrato legal, garantía de reemplazo de 30 días e información de contacto directo.",
       "benefit1": "Contrato de empleo legal (EN/ES)",
       "benefit2": "Garantía de reemplazo de 30 días",
       "benefit3": "Información de contacto directo",
       "benefit4": "Cero tarifas continuas de plataforma",
-      "ctaButton": "Contratar Permanentemente por $299",
+      "ctaButton": "Contratar Permanentemente por ",
       "trustBadge": "ID y Antecedentes Verificados",
-      "detailsTitle": "Qué está incluido en la tarifa de $299:",
+      "detailsTitle": "Qué está incluido en la tarifa de ",
       "detailsCollapse": "Mostrar detalles",
       "detailsExpand": "Ocultar detalles"
     },
@@ -3626,7 +3752,7 @@
       },
       "directPlacement": {
         "title": "Nivel 3: Colocación a Tiempo Completo",
-        "description": "¿Lista para estabilidad? Las familias nos pagan una tarifa única de $299 por colocaciones permanentes — tú no pagas nada y obtienes contratos legales."
+        "description": "¿Lista para estabilidad? Las familias nos pagan una tarifa única de  por colocaciones permanentes — tú no pagas nada y obtienes contratos legales."
       },
       "ctaText": "¿Interesada en tiempo completo? Marca \"Abierta a Tiempo Completo\" en tu perfil para aparecer en búsquedas premium de familias."
     }
@@ -3754,6 +3880,139 @@
         "description": "Nuestro equipo de soporte está aquí para ayudarte. No dudes en contactarnos con cualquier pregunta o inquietud.",
         "cta": "Contactar Soporte"
       }
+    },
+    "hero": {
+      "badge": "Para Profesionales",
+      "title": "Tu talento, respetado. Tus tarifas, protegidas.",
+      "subtitle": "Únete a una plataforma donde te quedas con el 100% y trabajas con familias que valoran carreras profesionales.",
+      "primaryCta": "Postular ahora",
+      "secondaryCta": "Ver cómo funciona",
+      "pills": {
+        "free": "Gratis unirse",
+        "noUpfront": "Sin cobros por adelantado",
+        "earnFast": "Empieza a ganar en días"
+      },
+      "panel": {
+        "title": "Por qué Casaora",
+        "subtitle": "Transparencia, soporte y 100% de tus tarifas",
+        "items": {
+          "keepAll": "Recibes el 100% de tu tarifa. El cliente paga 15%/20% arriba.",
+          "customerFee": "Sin cobros a profesionales. Sin deducciones.",
+          "vetting": "Vetting, antecedentes e identidad incluidos.",
+          "support": "Soporte, agenda y reemplazos cuando se necesite."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "Cómo empezar",
+      "subtitle": "Completa tu perfil, verifica tu identidad y empieza a recibir solicitudes",
+      "steps": [
+        {
+          "title": "Completa tu perfil",
+          "description": "Dinos tu experiencia, servicios y disponibilidad. Toma 10 minutos."
+        },
+        {
+          "title": "Obtén tus insignias",
+          "description": "Sube tu documento y referencias para tu insignia Verificado. Antecedentes para el Trust Shield."
+        },
+        {
+          "title": "Recibe solicitudes",
+          "description": "Aparece en búsquedas y recibe solicitudes de familias en tu zona."
+        },
+        {
+          "title": "Confirma y cobra",
+          "description": "Acepta lo que encaje con tu horario. Pagos automáticos después de cada servicio."
+        }
+      ],
+      "cta": "Empezar solicitud"
+    },
+    "faqCta": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber para unirte a Casaora",
+      "faqs": [
+        {
+          "question": "¿Cuánto puedo ganar en Casaora?",
+          "answer": "Defines tu tarifa y tus horas. No cobramos a profesionales; el cliente paga 15%/20% encima."
+        },
+        {
+          "question": "¿Cómo me pagan?",
+          "answer": "Pagos seguros después de cada servicio; transferimos a tu cuenta bancaria."
+        },
+        {
+          "question": "¿Necesito hablar inglés?",
+          "answer": "No es obligatorio. Damos soporte bilingüe para comunicarte con clientes que no hablen español."
+        },
+        {
+          "question": "¿Qué pasa si un cliente cancela?",
+          "answer": "Política de cancelación para protegerte; pagos por cancelaciones tardías según las reglas visibles en la app."
+        },
+        {
+          "question": "¿Hay contrato o compromiso?",
+          "answer": "Sin contrato a largo plazo; tú controlas tu agenda."
+        },
+        {
+          "question": "¿Qué servicios puedo ofrecer?",
+          "answer": "Aseo, niñera, cuidado de adultos mayores, cocina, lavandería, mascotas y más."
+        }
+      ],
+      "cta": {
+        "title": "¿Listo para crecer con clientes de calidad?",
+        "subtitle": "Únete gratis en minutos. Conecta con familias verificadas y recibe apoyo bilingüe.",
+        "primary": "Crear cuenta de profesional",
+        "secondary": "Contáctanos",
+        "pills": {
+          "noHidden": "Sin tarifas ocultas",
+          "fastStart": "Empieza a ganar en 48 horas",
+          "bilingual": "Equipo de soporte bilingüe"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Por qué profesionales eligen Casaora",
+      "subtitle": "Creamos una plataforma que te pone primero: pago justo, clientes de calidad y soporte cuando lo necesites.",
+      "items": {
+        "setRates": {
+          "title": "Define tus tarifas",
+          "description": "Tú defines tu tarifa. El cliente paga 15%/20% encima; tú recibes el 100%."
+        },
+        "payment": {
+          "title": "Pago garantizado",
+          "description": "Pagos seguros a tiempo, sin perseguir clientes."
+        },
+        "clients": {
+          "title": "Clientes de calidad",
+          "description": "Familias verificadas y respetuosas que valoran tu trabajo."
+        },
+        "longTerm": {
+          "title": "Relaciones a largo plazo",
+          "description": "Construye ingresos estables con clientes recurrentes."
+        },
+        "language": {
+          "title": "¿Inglés? No es problema",
+          "description": "Soporte bilingüe y traducción de mensajes para comunicarte con clientes."
+        },
+        "safety": {
+          "title": "Seguridad primero",
+          "description": "Verificamos a cada familia como a ti. Cero tolerancia al irrespeto."
+        }
+      }
+    },
+    "earn": {
+      "title": "Tres formas de ganar",
+      "subtitle": "Elige cómo quieres trabajar. Siempre recibes el 100% de tu tarifa.",
+      "instant": {
+        "title": "Reserva instantánea (15%)",
+        "description": "Auto-servicio rápido para trabajos por hora. El cliente paga 15% arriba."
+      },
+      "recurring": {
+        "title": "Clientes recurrentes",
+        "description": "Construye relaciones estables con clientes repetitivos."
+      },
+      "placement": {
+        "title": "Concierge (20%)",
+        "description": "Matching guiado con shortlist y reemplazos. El cliente paga 20% arriba."
+      },
+      "ctaText": "Transparencia total: 0% para profesionales. 15%/20% lo paga el cliente."
     }
   }
 }

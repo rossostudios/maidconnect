@@ -29,25 +29,25 @@ const colorClasses = {
 };
 
 export function ProsThreeWaysToEarnSection() {
-  const t = useTranslations("prosLanding.threeWaysToEarn");
+  const t = useTranslations("pros.earn");
 
   const earningPaths = [
     {
       icon: SparklesIcon,
-      titleKey: "instantBookings.title",
-      descriptionKey: "instantBookings.description",
+      titleKey: "instant.title",
+      descriptionKey: "instant.description",
       color: "orange" as const,
     },
     {
       icon: Calendar03Icon,
-      titleKey: "recurringRegulars.title",
-      descriptionKey: "recurringRegulars.description",
+      titleKey: "recurring.title",
+      descriptionKey: "recurring.description",
       color: "neutral" as const,
     },
     {
       icon: BriefcaseIcon,
-      titleKey: "directPlacement.title",
-      descriptionKey: "directPlacement.description",
+      titleKey: "placement.title",
+      descriptionKey: "placement.description",
       color: "blue" as const,
     },
   ];

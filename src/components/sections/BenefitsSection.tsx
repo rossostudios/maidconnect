@@ -84,7 +84,7 @@ const TagMarquee = ({ items, direction, label, speed = 28 }: TagMarqueeProps) =>
         {repeatedItems.map((item, index) => (
           <span
             aria-hidden={index >= items.length}
-            className="flex-none whitespace-nowrap rounded-full border border-neutral-200 bg-[#f4ede6] px-5 py-2 font-medium text-neutral-700 text-sm shadow-[0_1px_0_rgba(15,23,42,0.08)] sm:text-base"
+            className="flex-none whitespace-nowrap rounded-full border border-neutral-200 bg-neutral-100 px-5 py-2 font-medium text-neutral-700 text-sm shadow-sm sm:text-base"
             key={`${item}-${index}`}
             role={index < items.length ? "listitem" : undefined}
           >
@@ -123,7 +123,7 @@ export function BenefitsSection() {
   return (
     <section className="bg-neutral-50 py-12 md:py-24" id="benefits">
       <Container className="max-w-7xl px-4 md:px-8">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl">
           {/* Section Header */}
           <motion.div
             className="border-neutral-200 border-b px-6 py-12 text-center sm:px-12"
@@ -141,7 +141,7 @@ export function BenefitsSection() {
               {t("heading")}
             </h2>
 
-            <p className="mt-5 text-lg text-neutral-600">{t("description")}</p>
+            <p className="mt-5 text-lg leading-6 text-neutral-600">{t("description")}</p>
           </motion.div>
 
           {/* 2x2 Benefits Grid with table-style dividers */}

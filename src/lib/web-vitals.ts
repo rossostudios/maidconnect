@@ -55,61 +55,82 @@ function getRating(name: string, value: number): "good" | "needs-improvement" | 
 
 /**
  * Send Web Vitals to Better Stack
+ * Uses sendBeacon for reliability during page unload, with fetch as fallback
  */
-async function sendToAnalytics(metric: Metric) {
-  try {
-    const token = process.env.NEXT_PUBLIC_LOGTAIL_TOKEN;
-    if (!token) {
-      // Silently skip in development if token not configured
-      if (process.env.NODE_ENV === "development") {
-        return;
-      }
-      console.warn("[Web Vitals] Better Stack token not configured");
+function sendToAnalytics(metric: Metric) {
+  const token = process.env.NEXT_PUBLIC_LOGTAIL_TOKEN;
+  if (!token) {
+    // Silently skip in development if token not configured
+    if (process.env.NODE_ENV === "development") {
       return;
     }
-
-    const rating = getRating(metric.name, metric.value);
-
-    const body = JSON.stringify({
-      dt: new Date().toISOString(),
-      level: rating === "poor" ? "warn" : "info",
-      message: `Web Vitals: ${metric.name}`,
-      context: {
-        metric: metric.name,
-        value: metric.value,
-        rating,
-        delta: metric.delta,
-        id: metric.id,
-        navigationType: metric.navigationType,
-        // Include route information
-        page: window.location.pathname,
-        referrer: document.referrer,
-        // Device information
-        connection: (navigator as Navigator & { connection?: { effectiveType?: string } })
-          .connection?.effectiveType,
-        deviceMemory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory,
-      },
-    });
-
-    // Send to Better Stack
-    await fetch(`https://in.logs.betterstack.com/api/v1/ingest?source_token=${token}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-      keepalive: true, // Ensure request completes even if page is closing
-    });
-
-    // Log to console in development
-    if (process.env.NODE_ENV === "development") {
-      console.log(`[Web Vitals] ${metric.name}:`, {
-        value: `${Math.round(metric.value)}${metric.name === "CLS" ? "" : "ms"}`,
-        rating,
-        page: window.location.pathname,
-      });
-    }
-  } catch (error) {
-    console.error("[Web Vitals] Failed to send metrics:", error);
+    console.warn("[Web Vitals] Better Stack token not configured");
+    return;
   }
+
+  const rating = getRating(metric.name, metric.value);
+
+  const payload = {
+    dt: new Date().toISOString(),
+    level: rating === "poor" ? "warn" : "info",
+    message: `Web Vitals: ${metric.name}`,
+    context: {
+      metric: metric.name,
+      value: metric.value,
+      rating,
+      delta: metric.delta,
+      id: metric.id,
+      navigationType: metric.navigationType,
+      // Include route information
+      page: typeof window !== "undefined" ? window.location.pathname : undefined,
+      referrer: typeof document !== "undefined" ? document.referrer : undefined,
+      // Device information
+      connection:
+        typeof navigator !== "undefined"
+          ? (navigator as Navigator & { connection?: { effectiveType?: string } }).connection
+              ?.effectiveType
+          : undefined,
+      deviceMemory:
+        typeof navigator !== "undefined"
+          ? (navigator as Navigator & { deviceMemory?: number }).deviceMemory
+          : undefined,
+    },
+  };
+
+  const url = `https://in.logs.betterstack.com/api/v1/ingest?source_token=${token}`;
+  const body = JSON.stringify(payload);
+
+  // Log to console in development
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[Web Vitals] ${metric.name}:`, {
+      value: `${Math.round(metric.value)}${metric.name === "CLS" ? "" : "ms"}`,
+      rating,
+      page: typeof window !== "undefined" ? window.location.pathname : "unknown",
+    });
+  }
+
+  // Use sendBeacon for reliability (works during page unload)
+  // Falls back to fetch if sendBeacon is unavailable or fails
+  if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+    const blob = new Blob([body], { type: "application/json" });
+    const queued = navigator.sendBeacon(url, blob);
+    if (queued) {
+      return; // Successfully queued
+    }
+    // sendBeacon failed (e.g., payload too large), fall through to fetch
+  }
+
+  // Fallback to fetch with error suppression
+  // Fire-and-forget: don't await, don't let errors propagate
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+    keepalive: true,
+  }).catch(() => {
+    // Silently ignore fetch errors - web vitals are non-critical telemetry
+    // Common causes: page navigation, network issues, ad blockers
+  });
 }
 
 /**

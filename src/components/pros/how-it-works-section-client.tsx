@@ -3,38 +3,17 @@
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
-const howItWorksSteps = [
-  {
-    step: "1",
-    title: "Complete Your Profile",
-    description:
-      "Fill out a simple application with your experience, services offered, and availability. Takes about 10 minutes.",
-  },
-  {
-    step: "2",
-    title: "Earn Your Badges",
-    description:
-      "Upload your ID and references to earn your Verified Pro badge. Add a background check to unlock the Trust Shield. Profiles with badges get 3x more bookings.",
-  },
-  {
-    step: "3",
-    title: "Start Receiving Requests",
-    description:
-      "Once approved, you'll appear in search results and receive booking requests from families in your area.",
-  },
-  {
-    step: "4",
-    title: "Confirm & Get Paid",
-    description:
-      "Accept requests that fit your schedule. After each job, payment is automatically transferred to your account.",
-  },
-];
-
 export function ProsHowItWorksSection() {
+  const t = useTranslations("pros.howItWorks");
+  const howItWorksSteps = (t.raw("steps") as Array<{ title: string; description: string }>).map(
+    (step, idx) => ({ ...step, step: (idx + 1).toString() })
+  );
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -65,11 +44,10 @@ export function ProsHowItWorksSection() {
           whileInView="visible"
         >
           <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
-            How to get started
+            {t("title")}
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-neutral-700">
-            Joining Casaora is simple. Complete your profile, get verified, and start receiving
-            booking requests.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -123,7 +101,7 @@ export function ProsHowItWorksSection() {
               whileTap={{ scale: 0.95 }}
             >
               <Button className="min-w-[250px]" size="lg">
-                Start Your Application
+                {t("cta")}
                 <HugeiconsIcon className="ml-2 h-5 w-5" icon={ArrowRight01Icon} />
               </Button>
             </motion.div>

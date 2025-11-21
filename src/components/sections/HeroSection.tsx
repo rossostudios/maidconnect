@@ -51,7 +51,7 @@ const stagger: Variants = {
 export function HeroSection() {
   const t = useTranslations("hero");
   const containerRef = useRef<HTMLElement>(null);
-  const { country, city } = useMarket();
+  const { country, city, marketInfo } = useMarket();
 
   // Subtle parallax for visual depth
   const { scrollYProgress } = useScroll({
@@ -98,21 +98,10 @@ export function HeroSection() {
     };
   }, [country, city, t]);
 
-  // All available neighborhoods by country
-  const allTrustedAreas = {
-    CO: ["El Poblado · Medellín, CO", "Chapinero · Bogotá, CO"],
-    AR: ["Palermo · Buenos Aires, AR", "Recoleta · Buenos Aires, AR"],
-    UY: ["Pocitos · Montevideo, UY", "Ciudad Vieja · Montevideo, UY"],
-    PY: ["Villa Morra · Asunción, PY", "Las Carmelitas · Asunción, PY"],
-  };
-
-  // Prioritize local neighborhoods (2-3 from selected country, rest from others)
-  const localAreas = allTrustedAreas[country] || [];
-  const otherAreas = Object.entries(allTrustedAreas)
-    .filter(([code]) => code !== country)
-    .flatMap(([, areas]) => areas);
-
-  const trustedAreas = [...localAreas, ...otherAreas.slice(0, 4)];
+  const trustedAreas = [
+    `Top-rated pros in ${marketInfo?.countryName || "your area"}`,
+    "Vetted, background-checked, insured",
+  ];
 
   return (
     <section className="relative overflow-hidden bg-neutral-50" ref={containerRef}>
@@ -141,7 +130,7 @@ export function HeroSection() {
 
               {/* Ribbon - Refined Typography */}
               <motion.p
-                className="mb-6 font-medium text-neutral-600 text-sm leading-relaxed"
+                className="mb-6 font-medium text-neutral-600 text-sm leading-6"
                 variants={fadeIn}
               >
                 {marketCopy.ribbon}
@@ -158,7 +147,7 @@ export function HeroSection() {
 
               {/* Body Copy */}
               <motion.p
-                className="mt-8 max-w-lg text-lg text-neutral-600 leading-relaxed md:text-xl"
+                className="mt-8 max-w-lg text-lg leading-6 text-neutral-600 md:text-xl md:leading-7"
                 variants={fadeIn}
               >
                 {t("subtitle") ||
@@ -318,7 +307,7 @@ export function HeroSection() {
                 style={{ y: imageY, scale: imageScale }}
               >
                 <Image
-                  alt="Casaora - Professional household staff in Medellín"
+                alt="Casaora - Professional household staff"
                   className="object-cover"
                   fill
                   priority

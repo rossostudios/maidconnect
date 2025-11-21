@@ -58,7 +58,7 @@ export function TestimonialsSection() {
           </motion.h2>
           <motion.p
             animate={{ opacity: 1, y: 0 }}
-            className="mx-auto max-w-2xl text-lg text-neutral-600"
+            className="mx-auto max-w-2xl text-lg leading-6 text-neutral-600"
             initial={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
@@ -89,7 +89,7 @@ export function TestimonialsSection() {
                 </div>
 
                 {/* Quote */}
-                <blockquote className="relative mb-8 font-serif text-2xl text-neutral-900 leading-relaxed md:text-3xl">
+                <blockquote className="relative mb-8 font-serif text-2xl leading-8 text-neutral-900 md:text-3xl md:leading-9">
                   "{testimonial.quote}"
                 </blockquote>
 
@@ -140,7 +140,7 @@ export function TestimonialsSection() {
             initial={{ opacity: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
           >
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-500 text-sm leading-6">
               More families sharing their Casaora experiences soon
             </p>
           </motion.div>

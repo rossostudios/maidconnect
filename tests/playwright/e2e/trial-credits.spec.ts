@@ -24,9 +24,8 @@ import { navigateTo } from "../utils/test-helpers";
 // CONSTANTS
 // ============================================================================
 
-const DEFAULT_DIRECT_HIRE_FEE_USD = 299;
-const MAX_CREDIT_USD = 150; // 50% of $299
-
+const DEFAULT_DIRECT_HIRE_FEE_USD = 0; // deprecated fixed fee removed
+const MAX_CREDIT_USD = 0; // deprecated fixed fee removed
 // ============================================================================
 // TRIAL CREDITS - DASHBOARD VIEW
 // ============================================================================
@@ -198,7 +197,7 @@ test.describe("Trial Credits - Direct Hire Application", () => {
 		//   await expect(creditBadge).toContainText(/\\$\\d+/);
 
 		//   // Verify original price is struck through
-		//   const originalPrice = directHireCard.locator('text=/\\$299/');
+		//   const originalPrice = directHireCard.locator('text=/\\20% concierge fee/');
 		//   await expect(originalPrice).toHaveCSS("text-decoration", /line-through/);
 
 		//   // Verify discounted price is displayed
@@ -219,16 +218,14 @@ test.describe("Trial Credits - Direct Hire Application", () => {
 
 	test("should calculate correct discounted price", async ({ page: _page }) => {
 		// This test would verify:
-		// - Original price: $299
-		// - Credit amount: $50 (from 1 booking)
+		// - Original price: 20% concierge fee// - Credit amount: $50 (from 1 booking)
 		// - Discounted price: $249
 		// Skip - requires professional profile access
 	});
 
 	test("should apply maximum credit discount ($150)", async ({ page: _page }) => {
 		// This test would verify:
-		// - Original price: $299
-		// - Credit amount: $150 (maxed out)
+		// - Original price: 20% concierge fee// - Credit amount: $150 (maxed out)
 		// - Discounted price: $149
 		// Skip - requires test user with max credits
 	});
@@ -268,8 +265,7 @@ test.describe("Trial Credits - Payment Integration", () => {
 	test("should handle partial credit application", async ({ page: _page }) => {
 		// This test would verify:
 		// - User has $50 credit
-		// - Direct hire fee is $299
-		// - Payment amount is $249 (difference)
+		// - Direct hire fee is 20% concierge fee// - Payment amount is $249 (difference)
 		// - Credit is fully consumed after payment
 		// Skip - requires payment flow
 	});
@@ -346,7 +342,7 @@ test.describe("Trial Credits - Edge Cases", () => {
 				if (creditText) {
 					const creditAmount = Number.parseInt(creditText.match(/\\d+/)?.[0] || "0", 10);
 
-					// Verify credit never exceeds $150 (50% of $299)
+					// Verify credit never exceeds $150 (50% of 20% concierge fee)
 					expect(creditAmount).toBeLessThanOrEqual(MAX_CREDIT_USD);
 
 					// Verify percentage never exceeds 100%

@@ -19,6 +19,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { LiaProDoubleSidebar } from "./lia-pro-double-sidebar";
@@ -54,29 +55,32 @@ export function LiaProShell({
   onboardingCompletion = 100,
   countryCode,
 }: Props) {
+  const [sidebarVisible, setSidebarVisible] = useState(true);
+
   return (
     <div className={cn("flex h-screen overflow-hidden bg-white", geistSans.className)}>
       {/* Dual Sidebar - Desktop Only (304px: 64px icon rail + 240px content sidebar) */}
-      <div className="hidden lg:flex lg:w-[304px]">
-        <LiaProDoubleSidebar
-          pendingLeadsCount={pendingLeadsCount}
-          userAvatarUrl={userAvatarUrl}
-          userEmail={userEmail}
-          userName={userName}
-        />
-      </div>
+      {sidebarVisible && (
+        <div className="hidden lg:flex lg:w-[304px]">
+          <LiaProDoubleSidebar
+            countryCode={countryCode}
+            pendingLeadsCount={pendingLeadsCount}
+            userAvatarUrl={userAvatarUrl}
+            userEmail={userEmail}
+            userName={userName}
+          />
+        </div>
+      )}
 
       {/* Main Content Area */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Header */}
         <ProHeader
-          countryCode={countryCode}
           onboardingCompletion={onboardingCompletion}
           onboardingStatus={onboardingStatus}
+          onToggleSidebar={() => setSidebarVisible((prev) => !prev)}
           pendingLeadsCount={pendingLeadsCount}
           unreadMessagesCount={unreadMessagesCount}
-          userEmail={userEmail}
-          userName={userName}
         />
 
         {/* Main Content - Scrollable */}

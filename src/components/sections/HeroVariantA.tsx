@@ -47,21 +47,9 @@ export function HeroVariantA() {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  // All available neighborhoods by country
-  const allTrustedAreas = {
-    CO: ["El Poblado · Medellín, CO", "Chapinero · Bogotá, CO"],
-    AR: ["Palermo · Buenos Aires, AR", "Recoleta · Buenos Aires, AR"],
-    UY: ["Pocitos · Montevideo, UY", "Ciudad Vieja · Montevideo, UY"],
-    PY: ["Villa Morra · Asunción, PY", "Las Carmelitas · Asunción, PY"],
-  };
-
-  // Prioritize local neighborhoods (2-3 from selected country, rest from others)
-  const localAreas = allTrustedAreas[country] || [];
-  const otherAreas = Object.entries(allTrustedAreas)
-    .filter(([code]) => code !== country)
-    .flatMap(([, areas]) => areas);
-
-  const trustedAreas = [...localAreas, ...otherAreas.slice(0, 4)];
+  const highlightLocations = marketInfo?.countryName
+    ? [`Top-rated pros in ${marketInfo.countryName}`]
+    : ["Top-rated pros near you"];
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
@@ -195,7 +183,7 @@ export function HeroVariantA() {
           >
             <motion.div className="relative aspect-[16/9] overflow-hidden rounded-2xl" style={{ y: y1 }}>
               <Image
-                alt="Casaora - Professional household staff in Medellín"
+                alt="Casaora - Professional household staff"
                 className="object-cover"
                 fill
                 priority

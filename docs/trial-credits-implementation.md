@@ -8,7 +8,7 @@
 
 ## Overview
 
-The Trial Credits system gamifies the transition from gig work to direct hire by offering customers 50% credit on completed bookings (up to 3 bookings) toward the $299 USD direct hire placement fee.
+The Trial Credits system gamifies the transition from gig work to direct hire by offering customers 50% credit on completed bookings (up to 3 bookings) toward the 20% concierge fee direct hire placement fee.
 
 ### Key Features
 
@@ -17,7 +17,7 @@ The Trial Credits system gamifies the transition from gig work to direct hire by
 - **Scope:** Per-professional (separate credits with different pros)
 - **Booking Source:** Any source counts (Amara, web, etc.)
 - **Partial Credit:** Can direct hire after 1, 2, or 3 bookings
-- **Pricing Fix:** Corrected 2,000,000 COP → 1,196,000 COP ($299 USD at 4,000 COP/USD)
+- **Pricing Fix:** Corrected 2,000,000 COP → 1,196,000 COP (20% concierge fee at 4,000 COP/USD)
 
 ---
 
@@ -246,7 +246,7 @@ npx playwright test tests/playwright/e2e/trial-credits.spec.ts
 ## Constants
 
 ```typescript
-DEFAULT_DIRECT_HIRE_FEE_COP = 1_196_000  // $299 USD
+DEFAULT_DIRECT_HIRE_FEE_COP =   // 20% concierge fee
 COP_TO_USD_EXCHANGE_RATE = 4000
 MAX_CREDIT_COP = 598_000                 // 50% of direct hire fee (~$150 USD)
 ```

@@ -12,7 +12,6 @@ import {
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { CustomerFlowSectionClient } from "./customer-flow-section-client";
-import { DirectHireValueSectionClient } from "./direct-hire-value-section-client";
 import { HeroSectionClient } from "./hero-section-client";
 import { ProfessionalFlowSectionClient } from "./professional-flow-section-client";
 import { SafetyTrustSectionClient } from "./safety-trust-section-client";
@@ -25,7 +24,6 @@ export default async function HowItWorksPage() {
       <main className="flex-1">
         <HeroSection />
         <ServiceOptionsSection />
-        <DirectHireValueSection />
         <CustomerFlowSectionClient />
         <ProfessionalFlowSectionClient />
         <SafetyTrustSectionClient />
@@ -111,22 +109,6 @@ async function ServiceOptionsSection() {
   );
 }
 
-async function DirectHireValueSection() {
-  const t = await getTranslations("howItWorks.directHireValue");
-
-  return (
-    <DirectHireValueSectionClient
-      benefits={t.raw("benefits") as Array<{
-        icon: "legal" | "background" | "medical" | "guarantee";
-        title: string;
-        description: string;
-      }>}
-      subtitle={t("subtitle")}
-      title={t("title")}
-    />
-  );
-}
-
 async function CTASection() {
   const t = await getTranslations("howItWorks.cta");
 
@@ -139,13 +121,13 @@ async function CTASection() {
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
-              href="/professionals"
+              href="/concierge"
             >
               {t("browseButton")}
             </Link>
             <Link
               className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
-              href="/concierge"
+              href="/professionals"
             >
               {t("signUpButton")}
             </Link>

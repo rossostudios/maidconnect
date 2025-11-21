@@ -11,7 +11,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { motion, Variants } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
-import { EarningsCalculator } from "./earnings-calculator";
 
 export function ProfessionalPricingTab() {
   const t = useTranslations("pricing.professional");
@@ -119,34 +118,6 @@ export function ProfessionalPricingTab() {
           </div>
         </motion.div>
       </Container>
-
-      {/* Earnings Calculator */}
-      <section className="bg-neutral-50 py-24">
-        <Container>
-          <motion.div
-            className="mb-16 text-center"
-            initial="hidden"
-            variants={fadeInUp}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView="visible"
-          >
-            <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
-              {t("calculator.title")}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed">
-              {t("calculator.description")}
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <EarningsCalculator />
-          </motion.div>
-        </Container>
-      </section>
 
       {/* Benefits */}
       <Container>

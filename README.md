@@ -22,7 +22,7 @@ Whether you need a cleaner for tomorrow or a full-time nanny with a legal contra
 - 🤖 **Amara Instant Book** - Chat with our AI to book vetted help in under 2 minutes
 - 💼 **Direct Hire Program** - Permanently hire staff with legal contracts & a 30-day replacement guarantee
 - 🛡️ **Verified Trust Badges** - See exactly who is ID-checked, background-checked, and interviewed
-- 💰 **Transparent Fees** - Clear distinction between hourly booking fees and one-time hiring fees ($299 placement)
+- 💰 **Transparent Fees** - Clear distinction between hourly booking fees and one-time hiring fees (20% concierge feeplacement)
 - 💬 **English-First Support** - Bilingual contracts and coordinators for seamless communication
 - 💳 **Secure Payments** - Integrated Stripe processing for both hourly gigs and placement fees
 - ⭐ **Quality Guarantee** - Satisfaction guaranteed with responsive support and 30-day replacement for direct hires
@@ -281,7 +281,7 @@ UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
 
 # Business Logic
-NEXT_PUBLIC_DIRECT_HIRE_FEE_AMOUNT=29900  # Cent value (e.g., $299.00 USD)
+NEXT_PUBLIC_DIRECT_HIRE_FEE_AMOUNT=20% concierge fee00  # Cent value (e.g., 20% concierge fee)
 NEXT_PUBLIC_ENABLE_DIRECT_HIRE=true       # Feature flag for Direct Hire system
 ```
 
@@ -562,7 +562,7 @@ See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for up
 
 **Current Focus (Q4 2025):**
 - ✅ **Product Analytics** - PostHog integration complete (feature flags, session recording, funnels)
-- 💎 **Direct Hire System** - Implementation of $299 placement fee, contract generation, and 30-day guarantees
+- 💎 **Direct Hire System** - Implementation of 20% concierge feeplacement fee, contract generation, and 30-day guarantees
 - 🛡️ **Trust & Safety V2** - Visual verification badges and enhanced background check integration
 - 🤖 **Amara AI Evolution** - Transitioning from simple chat to full "Instant Booking" intent handling
 - 🏗️ **Professional Network** - Scaling the "Top 5%" supply across Latin America (17+ cities in CO, PY, UY, AR)

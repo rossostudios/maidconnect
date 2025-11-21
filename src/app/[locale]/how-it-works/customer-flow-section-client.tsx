@@ -147,16 +147,16 @@ export function CustomerFlowSectionClient() {
               >
                 <Link
                   className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/20"
-                  href="/brief"
+                  href="/concierge"
                 >
                   {t("cta")}
                   <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
                 </Link>
                 <Link
                   className="inline-flex items-center gap-2 rounded-xl px-8 py-4 font-semibold text-base text-neutral-700 hover:bg-neutral-50"
-                  href="/concierge"
+                  href="/professionals"
                 >
-                  Talk to a concierge
+                  {t("ctaSecondary")}
                 </Link>
               </motion.div>
             </motion.div>

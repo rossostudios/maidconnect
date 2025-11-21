@@ -3,44 +3,15 @@
 import { ArrowRight01Icon, CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
-const faqs = [
-  {
-    question: "How much can I earn on Casaora?",
-    answer:
-      "You set your own hourly rate and choose how many hours you want to work. There are no fees to join or list your services — families pay a clearly-labeled Casaora platform fee on top of your rate.",
-  },
-  {
-    question: "How do I get paid?",
-    answer:
-      "After completing a booking, payment is processed securely through our platform and transferred to your bank account or preferred payment method within 2-3 business days.",
-  },
-  {
-    question: "Do I need to speak English?",
-    answer:
-      "Not required, but helpful! Many of our families are English-speaking expats. We provide bilingual support to help you communicate with clients who don't speak Spanish.",
-  },
-  {
-    question: "What if a family cancels a booking?",
-    answer:
-      "Our cancellation policy protects you. If a family cancels with less than 24 hours notice, you'll receive 50% of the booking fee. Last-minute cancellations (less than 4 hours) result in full payment.",
-  },
-  {
-    question: "Is there a contract or commitment?",
-    answer:
-      "No long-term contract required. You control your schedule and can accept or decline booking requests as you wish. You're free to leave the platform at any time.",
-  },
-  {
-    question: "What services can I offer?",
-    answer:
-      "You can offer housekeeping, childcare, eldercare, cooking, laundry, pet care, estate management, or specialized services. Simply specify what you offer in your profile.",
-  },
-];
-
 export function ProsFaqCtaSection() {
+  const t = useTranslations("pros.faqCta");
+  const faqs = t.raw("faqs") as Array<{ question: string; answer: string }>;
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -73,10 +44,10 @@ export function ProsFaqCtaSection() {
             whileInView="visible"
           >
             <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
-              Frequently asked questions
+              {t("title")}
             </h2>
             <p className="text-lg text-neutral-700">
-              Everything you need to know about joining Casaora
+              {t("subtitle")}
             </p>
           </motion.div>
 
@@ -119,11 +90,10 @@ export function ProsFaqCtaSection() {
               className="mb-6 font-bold text-4xl leading-tight sm:text-5xl"
               variants={fadeInUp}
             >
-              Ready to grow your income with quality families?
+              {t("cta.title")}
             </motion.h2>
             <motion.p className="mb-8 text-orange-50 text-xl" variants={fadeInUp}>
-              Join a growing network of trusted professionals on Casaora. Apply today — it's free
-              and takes just 10 minutes.
+              {t("cta.subtitle")}
             </motion.p>
 
             <motion.div
@@ -141,7 +111,7 @@ export function ProsFaqCtaSection() {
                     size="lg"
                     variant="outline"
                   >
-                    Create Professional Account
+                    {t("cta.primary")}
                     <HugeiconsIcon className="ml-2 h-5 w-5" icon={ArrowRight01Icon} />
                   </Button>
                 </motion.div>
@@ -157,7 +127,7 @@ export function ProsFaqCtaSection() {
                     size="lg"
                     variant="ghost"
                   >
-                    Contact Us
+                    {t("cta.secondary")}
                   </Button>
                 </motion.div>
               </Link>
@@ -169,15 +139,15 @@ export function ProsFaqCtaSection() {
             >
               <div className="flex items-center gap-2">
                 <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
-                <span>No hidden fees</span>
+                <span>{t("cta.pills.noHidden")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
-                <span>Start earning in 48 hours</span>
+                <span>{t("cta.pills.fastStart")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
-                <span>Bilingual support team</span>
+                <span>{t("cta.pills.bilingual")}</span>
               </div>
             </motion.div>
           </motion.div>

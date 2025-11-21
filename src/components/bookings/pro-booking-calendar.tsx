@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock01Icon } from "@hugeicons/core-free-icons";
+import { Calendar03Icon, Clock01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -141,12 +141,10 @@ export function ProBookingCalendar({ bookings }: Props) {
             }}
             locale="en-US"
             onDateSelect={setSelectedDate}
-            renderDayContent={(calendarDate, dayAvailability) => (
+            renderDayContent={(calendarDate, _dayAvailability) => (
               <CustomDayContent
-                availability={dayAvailability}
                 bookingsCount={bookingsByDate.get(formatDateKey(calendarDate))?.length ?? 0}
                 date={calendarDate}
-                t={t}
               />
             )}
             selectedDate={selectedDate}
@@ -161,21 +159,11 @@ export function ProBookingCalendar({ bookings }: Props) {
         {/* Booking Details Sidebar */}
         <div className="flex flex-col bg-neutral-50">
           <div className="border-neutral-200 border-b bg-white px-6 py-4">
-            <h4
-              className={cn(
-                "font-semibold text-neutral-900 text-sm",
-                geistSans.className
-              )}
-            >
+            <h4 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
               {t("details")}
             </h4>
             {selectedDate && (
-              <p
-                className={cn(
-                  "mt-1 font-normal text-neutral-500 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 font-normal text-neutral-500 text-xs", geistSans.className)}>
                 {selectedDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
@@ -189,7 +177,7 @@ export function ProBookingCalendar({ bookings }: Props) {
             {selectedBookings.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-100 bg-orange-50">
-                  <span className="text-3xl text-orange-500">📅</span>
+                  <HugeiconsIcon className="h-7 w-7 text-orange-500" icon={Calendar03Icon} />
                 </div>
                 <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                   {t("noBookings")}
@@ -213,7 +201,10 @@ export function ProBookingCalendar({ bookings }: Props) {
                     const statusLabel = getStatusLabel(booking.status);
                     const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                     return (
-                      <li className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md" key={booking.id}>
+                      <li
+                        className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md"
+                        key={booking.id}
+                      >
                         <div className="p-4">
                           <div className="flex items-center justify-between gap-3">
                             <span
@@ -240,12 +231,7 @@ export function ProBookingCalendar({ bookings }: Props) {
                               className="h-3.5 w-3.5 text-neutral-400"
                               icon={Clock01Icon}
                             />
-                            <span
-                              className={cn(
-                                "text-neutral-600 text-xs",
-                                geistSans.className
-                              )}
-                            >
+                            <span className={cn("text-neutral-600 text-xs", geistSans.className)}>
                               {statusLabel}
                             </span>
                           </div>
@@ -265,17 +251,7 @@ export function ProBookingCalendar({ bookings }: Props) {
 /**
  * Custom day cell content showing booking count
  */
-function CustomDayContent({
-  date,
-  availability: _availability,
-  bookingsCount,
-  t,
-}: {
-  date: Date;
-  availability: DayAvailability | null;
-  bookingsCount: number;
-  t: (key: string) => string;
-}) {
+function CustomDayContent({ date, bookingsCount }: { date: Date; bookingsCount: number }) {
   return (
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center gap-1.5">
       <span className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>

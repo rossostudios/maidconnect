@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Force dark variants to class-based (no auto dark via prefers-color-scheme) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Colors - Anthropic-Inspired Palette (Lia Design System) */
 

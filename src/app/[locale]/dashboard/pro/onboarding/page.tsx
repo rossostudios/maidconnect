@@ -1,6 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import {
@@ -8,7 +9,7 @@ import {
   getStepClassName,
   transformProfileData,
 } from "@/lib/onboarding/profile-data-transformer";
-import { COUNTRIES, DEFAULT_MARKET, type CountryCode } from "@/lib/shared/config/territories";
+import { COUNTRIES, type CountryCode, DEFAULT_MARKET } from "@/lib/shared/config/territories";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { Currency } from "@/lib/utils/format";
 import { ApplicationForm } from "./application-form";
@@ -63,6 +64,7 @@ type SupabaseProfessionalProfile = {
   availability: { schedule?: ProfileInitialData["availability"] } | null;
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: onboarding flow wiring
 export default async function ProfessionalOnboardingPage({
   params,
 }: {
@@ -108,12 +110,9 @@ export default async function ProfessionalOnboardingPage({
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
-        <Link
-          className="inline-flex items-center rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
-          href="/dashboard/pro"
-        >
-          {t("backToDashboard")}
-        </Link>
+        <Button asChild className="min-w-[160px] justify-center" size="sm" variant="outline">
+          <Link href="/dashboard/pro">{t("backToDashboard")}</Link>
+        </Button>
       </header>
 
       {isActive ? null : (
@@ -222,10 +221,7 @@ export default async function ProfessionalOnboardingPage({
               subtitle={t("sections.applicationDetails.description")}
               title={t("sections.applicationDetails.title")}
             >
-              <ApplicationForm
-                inputClass={inputClass}
-                services={APPLICATION_SERVICE_OPTIONS}
-              />
+              <ApplicationForm inputClass={inputClass} services={APPLICATION_SERVICE_OPTIONS} />
             </SectionWrapper>
           ) : null}
 

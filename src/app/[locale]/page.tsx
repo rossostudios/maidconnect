@@ -2,7 +2,6 @@ import { setRequestLocale } from "next-intl/server";
 import { ServiceSelectionWidget } from "@/components/homepage/service-selection-widget";
 import { FaqSection } from "@/components/marketing/faq-section";
 import { WelcomeTour } from "@/components/onboarding";
-import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { HeroSectionWithABTest } from "@/components/sections/HeroSectionWithABTest";
 import { PricingSection } from "@/components/sections/PricingSection";
@@ -24,7 +23,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <HeroSectionWithABTest />
         <ServiceSelectionWidget />
         <BenefitsSection />
-        <BenefitsGrid />
         <TestimonialsSection />
         <PricingSection />
         <FaqSection />

@@ -13,7 +13,16 @@ import { useTranslations } from "next-intl";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { SiteFooterActions } from "@/components/sections/SiteFooterActions";
 import { Container } from "@/components/ui/container";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Link } from "@/i18n/routing";
+import { useMarket } from "@/lib/contexts/MarketContext";
+import { COUNTRIES, COUNTRY_OPTIONS, type CountryCode } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
 
 /**
@@ -52,6 +61,7 @@ export function SiteFooter() {
   const t = useTranslations("footer");
   const year = new Date().getFullYear();
   const shouldReduceMotion = useReducedMotion();
+  const { country, setCountry } = useMarket();
 
   const footerColumns = [
     {
@@ -123,7 +133,8 @@ export function SiteFooter() {
 
                 {/* Tagline */}
                 <p className="max-w-xs text-base text-neutral-600 leading-relaxed">
-                  Boutique household staffing across Latin America. Colombia, Paraguay, Uruguay, and Argentina.
+                  Boutique household staffing across Latin America. Colombia, Paraguay, Uruguay, and
+                  Argentina.
                 </p>
 
                 {/* Contact */}
@@ -277,9 +288,37 @@ export function SiteFooter() {
               </p>
             </motion.div>
 
-            <motion.div className="flex items-center gap-4 sm:gap-6" custom={1} variants={fadeIn}>
-              <FeedbackLink>Feedback</FeedbackLink>
-              <SiteFooterActions />
+            <motion.div className="flex flex-col gap-6" custom={1} variants={fadeIn}>
+              <div className="w-full max-w-xs">
+                <Select
+                  onSelectionChange={(value) => setCountry(value as CountryCode)}
+                  selectedKey={country}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COUNTRY_OPTIONS.map((option) => {
+                      const currencyCode = COUNTRIES[option.value as CountryCode]?.currencyCode;
+                      return (
+                        <SelectItem key={option.value} value={option.value}>
+                          <div className="flex w-full items-center justify-between gap-3">
+                            <span>{option.label}</span>
+                            <span className="rounded-full border border-neutral-200 bg-white px-3 py-1 font-semibold text-neutral-700 text-xs">
+                              {currencyCode}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center gap-4 sm:gap-6">
+                <FeedbackLink>Feedback</FeedbackLink>
+                <SiteFooterActions />
+              </div>
             </motion.div>
           </motion.div>
         </Container>

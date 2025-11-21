@@ -1295,7 +1295,7 @@
     "trustLines": {
       "backgroundChecks": "ID & Background Verified",
       "englishFluent": "Instant or Permanent Hire",
-      "quickMatching": "$299 Direct Hire Fee"
+      "quickMatching": " Direct Hire Fee"
     },
     "cta": {
       "primary": "Chat with Amara AI",
@@ -2753,53 +2753,48 @@
     },
     "hero": {
       "title": "Transparent Pricing - No Hidden Fees",
-      "subtitle": "Professionals keep 100% of their rate. You see the service cost, Casaora platform fee, and any optional insurance before you confirm.",
+      "subtitle": "Customers pay 15% for Instant Book or 20% for Concierge. Pros keep 100%. Vetting, background checks, and insurance are included.",
       "tabs": {
         "customers": "For Customers",
         "professionals": "For Professionals"
       }
     },
     "comparison": {
-      "popularBadge": "Most Popular",
-      "premiumBadge": "Permanent Hire",
-      "platformFee": "Platform Service Fee",
-      "oneTimeFee": "One-Time Placement Fee",
-      "forPermanentPlacement": "for permanent placement",
-      "addedToServiceCost": "added to service cost",
+      "popularBadge": "Most popular",
+      "premiumBadge": "White-glove",
+      "serviceFee": "Service fee (customer pays)",
+      "serviceFeeNote": "Added on top. Pros keep 100%.",
+      "prosKeepAll": "Pros keep 100%",
       "bestFor": "Best for:",
-      "marketplace": {
-        "title": "Amara Instant Book",
-        "subtitle": "Book vetted professionals in under 2 minutes",
+      "instantBook": {
+        "title": "Instant Book (15%)",
+        "subtitle": "Self-serve in minutes with verified pros",
         "features": [
-          "Chat with Amara AI to book instantly",
-          "ID & background verified pros",
-          "15% platform fee on hourly rate",
-          "Perfect for one-time or recurring jobs",
-          "Direct messaging after booking",
-          "Zero commission for professionals"
+          "Chat and book in minutes",
+          "Verified pros with background checks included",
+          "Messaging, scheduling, and support included",
+          "Transparent 15% service fee (customer)"
         ],
-        "cta": "Chat with Amara AI",
-        "bestFor": "quick bookings, recurring tasks, hourly help"
+        "cta": "Browse professionals",
+        "bestFor": "quick tasks, recurring cleanings, hourly help"
       },
       "concierge": {
-        "title": "Direct Hire Program",
-        "subtitle": "Permanent placement with legal contracts",
+        "title": "Concierge (20%)",
+        "subtitle": "Guided matching with curated shortlist, replacements, and human support",
         "features": [
-          "$299 one-time placement fee",
-          "Legal employment contract (EN/ES)",
-          "30-day replacement guarantee",
-          "Direct contact information",
-          "White-glove concierge matching",
-          "Zero ongoing platform fees"
+          "Dedicated coordinator and human support",
+          "Vetting, background checks, and insurance included",
+          "Help with scheduling, replacements, and support",
+          "Transparent 20% service fee (customer)"
         ],
-        "cta": "Get Direct Hire Service",
-        "bestFor": "full-time staff, permanent placements, nannies"
+        "cta": "Book Concierge",
+        "bestFor": "higher-touch needs, ongoing help, replacements handled"
       }
     },
     "calculator": {
-      "title": "Estimate Your Cost",
-      "subtitle": "See exactly what you'll pay before booking. No surprises, no hidden fees.",
-      "selectService": "Select Service",
+      "title": "Estimate your cost",
+      "subtitle": "See the full price with fees included. No add-ons — background checks and insurance are already covered.",
+      "selectService": "Select service",
       "services": {
         "cleaning": "Housekeeping / Cleaning",
         "childcare": "Childcare / Nanny",
@@ -2807,15 +2802,23 @@
         "eldercare": "Elder Care",
         "petcare": "Pet Care"
       },
-      "hours": "Hours of Service",
-      "addInsurance": "Add Insurance Protection",
-      "insuranceDescription": "Professional liability coverage",
-      "serviceBase": "Service Cost",
-      "platformFee": "Platform Fee",
-      "insurance": "Insurance",
-      "total": "Total Cost",
-      "professionalReceives": "Professional Receives",
-      "professionalNote": "Professionals keep 100% of their service rate. Platform fee is paid by customer."
+      "serviceLevel": {
+        "label": "Service level",
+        "instantBook": "Instant Book (15% service fee)",
+        "instantBookHelper": "Self-serve booking in minutes",
+        "concierge": "Concierge (20% service fee)",
+        "conciergeHelper": "White-glove matching with human support"
+      },
+      "currency": {
+        "label": "Display currency",
+        "note": "Indicative rates for display. Final charge is in your local currency where available."
+      },
+      "hours": "Hours of service",
+      "serviceBase": "Service cost",
+      "platformFee": "Service fee (customer pays)",
+      "total": "Total cost",
+      "professionalReceives": "Professional receives (100% of their rate)",
+      "professionalNote": "Professionals keep 100% of their rate. The 15%/20% service fee is added on top and paid by the customer."
     },
     "feeExplainer": {
       "title": "What's Included in the Platform Fee?",
@@ -2895,35 +2898,35 @@
     },
     "customer": {
       "howItWorks": {
-        "title": "How Casaora Pricing Works",
-        "description": "We believe in complete transparency. You see exactly what you pay, what the professional earns, and what our platform fee covers.",
+        "title": "How Casaora pricing works",
+        "description": "Two clear fees: 15% for Instant Book or 20% for Concierge. Pros pay 0%. Vetting, background checks, and insurance are included.",
         "steps": {
           "step1": {
-            "title": "Professional Sets Their Rate",
-            "description": "Each professional sets their own hourly rate based on their experience, skills, and services offered."
+            "title": "Pick your level and hours",
+            "description": "Choose Instant Book (15%) or Concierge (20%) and how many hours you need."
           },
           "step2": {
-            "title": "We Add Our Transparent Fee",
-            "description": "Casaora adds a clear platform fee on top of the professional’s rate. This fee funds vetting, support, and the technology that keeps everyone safe."
+            "title": "We include safety and support",
+            "description": "Background checks, vetting, insurance, and support are covered by the service fee."
           },
           "step3": {
-            "title": "You See the Total Upfront",
-            "description": "No hidden charges. The total you see at checkout is exactly what you pay."
+            "title": "See the total upfront",
+            "description": "No add-ons or surprises. You see what you pay and what the pro earns."
           }
         }
       },
       "chooseService": {
-        "title": "Choose Your Service Level"
+        "title": "Choose your service level"
       },
       "calculator": {
-        "title": "Calculate Your Estimated Cost",
-        "description": "Select your service, hours, and see the full breakdown instantly."
+        "title": "Calculate your estimated cost",
+        "description": "Select your service, hours, and view the full breakdown with the 15% or 20% fee included."
       },
       "cta": {
-        "title": "Ready to Get Started?",
-        "subtitle": "Join hundreds of satisfied customers who trust Casaora for verified, background-checked household services.",
-        "primary": "Submit Your Request",
-        "secondary": "Get Concierge Service"
+        "title": "Ready to get started?",
+        "subtitle": "Join customers who trust Casaora for vetted professionals.",
+        "primary": "Book Concierge",
+        "secondary": "Browse professionals"
       }
     },
     "professional": {
@@ -3021,33 +3024,40 @@
       }
     },
     "earnings": {
-      "title": "Calculate Your Earnings",
+      "title": "Calculate your earnings",
       "subtitle": "See exactly how much you'll earn with Casaora. Set your rate and hours to get your potential income.",
-      "yourHourlyRate": "Your Hourly Rate",
+      "serviceLevel": {
+        "label": "Service level",
+        "instantBook": "Instant Book (customer pays 15%)",
+        "instantBookHelper": "Fast, self-serve bookings",
+        "concierge": "Concierge (customer pays 20%)",
+        "conciergeHelper": "White-glove matching and support"
+      },
+      "yourHourlyRate": "Your hourly rate",
       "rateRange": "Recommended rate based on your experience and local market",
-      "hoursPerWeek": "Hours Per Week",
+      "hoursPerWeek": "Hours per week",
       "weekly": "Weekly",
       "monthly": "Monthly",
       "yearly": "Yearly",
       "transparency": {
-        "title": "How Pricing Works",
-        "customerPays": "Customer pays per hour",
+        "title": "How pricing works",
+        "customerPays": "Customer pays per hour (incl. service fee)",
         "youReceive": "You receive per hour",
-        "platformFee": "Platform fee (paid by customer)",
-        "note": "You keep 100% of your hourly rate. The platform fee is added on top and paid by the customer."
+        "platformFee": "Service fee (paid by customer)",
+        "note": "You keep 100% of your hourly rate. The 15% or 20% fee is added on top and paid by the customer."
       },
       "feeCovers": {
-        "title": "What the Platform Fee Covers",
+        "title": "What the service fee covers",
         "items": [
           "Customer marketing and acquisition",
-          "Secure payment processing via certified processors",
+          "Secure payment processing",
           "Background checks and verification",
-          "Professional liability insurance",
-          "24/7 customer and professional support",
-          "Technology platform and tools"
+          "Insurance coverage",
+          "Customer and professional support",
+          "Booking and scheduling technology"
         ]
       },
-      "cta": "Start Earning Today"
+      "cta": "Start earning today"
     },
     "faq": {
       "title": "Pricing FAQ",
@@ -3263,7 +3273,7 @@
   "howItWorks": {
     "meta": {
       "title": "How It Works - Instant Booking or Permanent Hire | Casaora",
-      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program ($299) for permanent placements with legal contracts and guarantees."
+      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program ( for permanent placements with legal contracts and guarantees."
     },
     "hero": {
       "title": "How Casaora Works",
@@ -3271,53 +3281,54 @@
     },
     "customer": {
       "title": "For Customers",
-      "subtitle": "Amara Instant Book (15% fee) or Direct Hire Program ($299 one-time)",
+      "subtitle": "Pick Instant Book (15%) or Concierge (20%). Pros keep 100%. Background checks and insurance included.",
       "steps": {
         "search": {
-          "title": "Choose your hiring path",
-          "description": "Need help tomorrow? Chat with Amara AI. Hiring full-time? Use our Direct Hire Program with legal contracts and a $299 one-time fee."
+          "title": "Choose your service level",
+          "description": "Instant Book for self-serve in minutes or Concierge for guided matching."
         },
         "book": {
-          "title": "Get matched instantly or through concierge",
-          "description": "Amara books you in 2 minutes. Our concierge curates candidates for permanent roles, complete with background checks and interviews."
+          "title": "We vet and match",
+          "description": "Verified pros only. Background checks and insurance are covered by the service fee."
         },
         "service": {
-          "title": "Book or hire with confidence",
-          "description": "Hourly bookings include messaging and ratings. Direct hires get legal contracts (EN/ES), direct contact, and a 30-day replacement guarantee."
+          "title": "See the total upfront",
+          "description": "Service + 15% or 20% fee, nothing else. Pros receive 100% of their rate."
         },
         "review": {
-          "title": "Zero commission for professionals",
-          "description": "Professionals keep 100% of their hourly rate. We charge customers a 15% platform fee or a $299 placement fee for direct hires."
+          "title": "Service with support",
+          "description": "Messaging, scheduling, replacements, and support are included."
         }
       },
-      "cta": "Chat with Amara AI"
+      "cta": "Book Concierge",
+      "ctaSecondary": "Browse professionals"
     },
     "professional": {
       "title": "For Professionals",
-      "subtitle": "Grow your business in 5 straightforward steps",
+      "subtitle": "Set your rate. Customers pay a 15% or 20% fee on top. You receive 100% of your rate.",
       "steps": {
         "apply": {
-          "title": "Apply to Join",
-          "description": "Fill out our simple application with your experience, skills, and availability. The process takes less than 10 minutes."
+          "title": "Apply and share your skills",
+          "description": "Tell us your services, cities, and availability."
         },
         "verify": {
-          "title": "Get Verified",
-          "description": "Complete background checks, ID verification, and skills assessment. Our concierge team guides you through every step in English or Spanish."
+          "title": "Get vetted",
+          "description": "Background checks, verification, and onboarding are included."
         },
         "match": {
-          "title": "Get Matched",
-          "description": "Create your profile, set your rates, and get matched with customers who need your services. You're in control of your schedule."
+          "title": "Get matched to customers",
+          "description": "Instant Book for fast jobs; Concierge brings curated matches."
         },
         "serve": {
-          "title": "Deliver Great Service",
-          "description": "Show up on time, provide excellent service, and build your reputation through customer reviews and ratings."
+          "title": "Deliver great service",
+          "description": "Stay organized with messaging, scheduling, and support tools."
         },
         "earn": {
-          "title": "Keep 100% of Your Rate",
-          "description": "Unlike apps that take 20-30%, Casaora charges customers a separate fee. If you charge 20,000 COP, you keep 20,000 COP. This is why the best talent works with us."
+          "title": "Get paid 100% of your rate",
+          "description": "Customers pay the 15%/20% fee on top. You keep your full rate with weekly payouts."
         }
       },
-      "cta": "Apply as a Professional"
+      "cta": "Become a Professional"
     },
     "safety": {
       "title": "Safety & Trust",
@@ -3360,44 +3371,44 @@
     "cta": {
       "title": "Ready to Get Started?",
       "subtitle": "Join thousands of customers and professionals who trust Casaora.",
-      "browseButton": "Browse Professionals",
-      "signUpButton": "Sign Up Free"
+      "browseButton": "Book Concierge",
+      "signUpButton": "Browse Professionals"
     },
     "serviceOptions": {
-      "title": "Choose Your Path",
-      "subtitle": "Select the service level that fits your needs—instant booking for quick jobs or white-glove concierge for permanent placements.",
+      "title": "Choose your path",
+      "subtitle": "Instant Book with a 15% fee or Concierge with a 20% fee. Professionals receive 100% of their rate.",
       "instantBook": {
-        "title": "Option A: Instant Book (Marketplace)",
-        "description": "Perfect for cleaning, babysitting, one-off help, and short-term projects.",
+        "title": "Instant Book (15%)",
+        "description": "Fast self-serve for cleanings, quick tasks, and recurring help.",
         "speed": "Book in 2 minutes",
-        "process": "AI Matching & Real-Time Availability",
-        "cost": "Hourly Rate + 15% Service Fee",
+        "process": "Real-time matching",
+        "cost": "Hourly rate + 15% (customer pays)",
         "features": [
-          "Browse 100+ verified professionals",
-          "See availability and book instantly",
-          "Secure payment after service",
-          "Perfect for one-time or occasional needs"
+          "Verified pros with background checks included",
+          "Messaging, scheduling, and support included",
+          "Secure payments; pro keeps 100% of rate",
+          "Ideal for quick or recurring tasks"
         ],
-        "cta": "Browse Professionals"
+        "cta": "Browse professionals"
       },
       "concierge": {
-        "title": "Option B: Concierge Search (Direct Hire)",
-        "description": "Best for full-time nannies, chefs, house managers, and permanent staff.",
-        "speed": "Curated matches in 48 hours",
-        "process": "Human Interviews & Expert Vetting",
-        "cost": "$299 Direct Hire Fee + Legal Contracts",
+        "title": "Concierge (20%)",
+        "description": "Guided matching with a curated shortlist, replacements, and human support.",
+        "speed": "Shortlist in 48h",
+        "process": "Human team + vetting",
+        "cost": "20% service fee (customer pays)",
         "features": [
-          "Personal coordinator who understands expats",
-          "3-5 handpicked, vetted candidates",
-          "Interview scheduling & negotiation help",
-          "30-day replacement guarantee"
+          "Dedicated coordinator and human support",
+          "Vetting, background checks, and insurance included",
+          "Help with scheduling, replacements, and support",
+          "Ideal for ongoing or higher-care needs"
         ],
-        "cta": "Start Concierge Brief"
+        "cta": "Book Concierge"
       }
     },
     "directHireValue": {
       "title": "Hiring Full-Time? Here's What the Direct Hire Fee Covers",
-      "subtitle": "Our $299 Direct Hire Fee isn't just a charge—it's comprehensive protection and peace of mind for permanent placements.",
+      "subtitle": "Our  Direct Hire Fee isn't just a charge—it's comprehensive protection and peace of mind for permanent placements.",
       "benefits": [
         {
           "icon": "legal",
@@ -3735,8 +3746,8 @@
       },
       "longTermHire": {
         "title": "Direct Hire Program",
-        "description": "Hiring full-time staff? Get legal contracts, a 30-day guarantee, and direct contact for a one-time $299 fee.",
-        "feature1": "$299 one-time placement fee",
+        "description": "Hiring full-time staff? Get legal contracts, a 30-day guarantee, and direct contact for a one-time  fee.",
+        "feature1": " one-time placement fee",
         "feature2": "Legal contracts & guarantees",
         "feature3": "30-day replacement guarantee",
         "cta": "Talk to Concierge"
@@ -3744,15 +3755,15 @@
       "helpText": "Zero commission for professionals on hourly bookings. Full support for both options."
     },
     "directHireCard": {
-      "title": "Direct Hire Program — $299 One-Time Fee",
+      "title": "Direct Hire Program —  One-Time Fee",
       "description": "Hire this professional permanently with a legal contract, 30-day replacement guarantee, and direct contact information.",
       "benefit1": "Legal employment contract (EN/ES)",
       "benefit2": "30-day replacement guarantee",
       "benefit3": "Direct contact information",
       "benefit4": "Zero ongoing platform fees",
-      "ctaButton": "Hire Permanently for $299",
+      "ctaButton": "Hire Permanently for ",
       "trustBadge": "ID & Background Verified",
-      "detailsTitle": "What's included in the $299 fee:",
+      "detailsTitle": "What's included in the  fee:",
       "detailsCollapse": "Show details",
       "detailsExpand": "Hide details"
     },
@@ -3889,7 +3900,7 @@
       },
       "directPlacement": {
         "title": "Level 3: Full-Time Placement",
-        "description": "Ready for stability? Families pay us a $299 finder's fee for permanent placements — you pay nothing and get legal contracts."
+        "description": "Ready for stability? Families pay us a  finder's fee for permanent placements — you pay nothing and get legal contracts."
       },
       "ctaText": "Interested in full-time? Check \"Open to Full-Time\" on your profile to appear in premium family searches."
     }
@@ -4017,6 +4028,139 @@
         "description": "Our support team is here to help. Don't hesitate to reach out if you have questions about your rights or need assistance.",
         "cta": "Contact Support"
       }
+    },
+    "hero": {
+      "badge": "For Professionals",
+      "title": "Your talent, respected. Your rates, protected.",
+      "subtitle": "Join a platform where you keep 100% and work with families who value professional careers, not temp gigs.",
+      "primaryCta": "Apply to Join Now",
+      "secondaryCta": "See How It Works",
+      "pills": {
+        "free": "Free to join",
+        "noUpfront": "No upfront fees",
+        "earnFast": "Start earning in days"
+      },
+      "panel": {
+        "title": "Why Casaora",
+        "subtitle": "Transparency, support, and 100% of your rates",
+        "items": {
+          "keepAll": "You keep 100% of your rate. Customer pays 15%/20% on top.",
+          "customerFee": "No pro fees. No deductions.",
+          "vetting": "Vetting, background checks, and ID verification included.",
+          "support": "Support, scheduling, and replacements when needed."
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "How to get started",
+      "subtitle": "Complete your profile, get verified, and start receiving requests",
+      "steps": [
+        {
+          "title": "Complete your profile",
+          "description": "Tell us your experience, services, and availability. Takes ~10 minutes."
+        },
+        {
+          "title": "Earn your badges",
+          "description": "Upload ID and references for Verified; add background check for Trust Shield."
+        },
+        {
+          "title": "Start receiving requests",
+          "description": "Show up in search and get requests from families in your area."
+        },
+        {
+          "title": "Confirm and get paid",
+          "description": "Accept what fits your schedule. Payments transfer automatically after each job."
+        }
+      ],
+      "cta": "Start your application"
+    },
+    "faqCta": {
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about joining Casaora",
+      "faqs": [
+        {
+          "question": "How much can I earn on Casaora?",
+          "answer": "You set your rate and hours. We don’t charge pros; customers pay 15%/20% on top."
+        },
+        {
+          "question": "How do I get paid?",
+          "answer": "Secure payments after each job; we transfer to your bank."
+        },
+        {
+          "question": "Do I need to speak English?",
+          "answer": "Not required. We offer bilingual support to help with English-speaking clients."
+        },
+        {
+          "question": "What if a family cancels a booking?",
+          "answer": "Cancellation policy protects you; late cancellations pay per our rules in the app."
+        },
+        {
+          "question": "Is there a contract or commitment?",
+          "answer": "No long-term contract; you control your schedule."
+        },
+        {
+          "question": "What services can I offer?",
+          "answer": "Housekeeping, childcare, eldercare, cooking, laundry, pets, and more."
+        }
+      ],
+      "cta": {
+        "title": "Ready to grow your income with quality families?",
+        "subtitle": "Join free in minutes. Connect with verified families and get bilingual support.",
+        "primary": "Create Professional Account",
+        "secondary": "Contact Us",
+        "pills": {
+          "noHidden": "No hidden fees",
+          "fastStart": "Start earning in 48 hours",
+          "bilingual": "Bilingual support team"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Why professionals choose Casaora",
+      "subtitle": "We built a platform that puts you first—fair pay, quality clients, and support when you need it.",
+      "items": {
+        "setRates": {
+          "title": "Set your own rates",
+          "description": "You set your rate. Customer pays 15%/20% on top; you receive 100%."
+        },
+        "payment": {
+          "title": "Guaranteed payment",
+          "description": "Secure, on-time payments without chasing clients."
+        },
+        "clients": {
+          "title": "Quality clients",
+          "description": "Verified, respectful families who value your work."
+        },
+        "longTerm": {
+          "title": "Long-term relationships",
+          "description": "Build steady income with repeat clients."
+        },
+        "language": {
+          "title": "English? Not required",
+          "description": "Bilingual support and message translation help you communicate with clients."
+        },
+        "safety": {
+          "title": "Safety first",
+          "description": "We verify every family just like we verify you. Zero tolerance for disrespect."
+        }
+      }
+    },
+    "earn": {
+      "title": "Three ways to earn",
+      "subtitle": "Pick how you want to work. You always receive 100% of your rate.",
+      "instant": {
+        "title": "Instant Book (15%)",
+        "description": "Fast self-serve hourly work. Customer pays 15% on top."
+      },
+      "recurring": {
+        "title": "Recurring regulars",
+        "description": "Build steady work with repeat clients."
+      },
+      "placement": {
+        "title": "Concierge (20%)",
+        "description": "Guided matching with shortlist and replacements. Customer pays 20% on top."
+      },
+      "ctaText": "Total transparency: 0% for pros. 15%/20% paid by customer."
     }
   }
 }

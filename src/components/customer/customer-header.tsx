@@ -5,6 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { CustomerMobileSidebar } from "@/components/customer/customer-mobile-sidebar";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { Link } from "@/i18n/routing";
@@ -33,8 +34,9 @@ export function CustomerHeader({ unreadMessagesCount = 0 }: Props) {
           </div>
         </div>
 
-        {/* Right: Actions (Messages + Notifications) */}
+        {/* Right: Actions (Language + Messages + Notifications) */}
         <div className="flex flex-shrink-0 items-center gap-3 pr-8">
+          <LanguageSwitcher />
           {/* Messages */}
           <Link
             aria-label="Messages"

@@ -83,8 +83,8 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   CO: {
     currency: "COP",
     commission: {
-      marketplaceRate: 0.15, // 15% commission on hourly bookings
-      directHireRate: 0.15, // 15% commission on direct hire placements (percentage of agreed rate)
+      marketplaceRate: 0.15, // Customer service fee
+      directHireRate: 0.2, // Customer service fee
     },
     constraints: {
       minPrice: 2_000_000, // ~$5 USD minimum
@@ -108,8 +108,8 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   PY: {
     currency: "PYG",
     commission: {
-      marketplaceRate: 0.15, // 15% commission on hourly bookings
-      directHireRate: 0.15, // 15% commission on direct hire placements
+      marketplaceRate: 0.15,
+      directHireRate: 0.2,
     },
     constraints: {
       minPrice: 3_650_000, // ~$5 USD minimum
@@ -132,8 +132,8 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   UY: {
     currency: "UYU",
     commission: {
-      marketplaceRate: 0.15, // 15% commission on hourly bookings
-      directHireRate: 0.15, // 15% commission on direct hire placements
+      marketplaceRate: 0.15,
+      directHireRate: 0.2,
     },
     constraints: {
       minPrice: 19_750, // ~$5 USD minimum
@@ -156,8 +156,8 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   AR: {
     currency: "ARS",
     commission: {
-      marketplaceRate: 0.15, // 15% commission on hourly bookings
-      directHireRate: 0.15, // 15% commission on direct hire placements
+      marketplaceRate: 0.15,
+      directHireRate: 0.2,
     },
     constraints: {
       minPrice: 475_000, // ~$5 USD minimum

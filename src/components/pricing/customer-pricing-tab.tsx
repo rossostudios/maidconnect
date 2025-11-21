@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { ConciergeJustification } from "./concierge-justification";
 import { FeeExplainer } from "./fee-explainer";
-import { PricingCalculator } from "./pricing-calculator";
 import { PricingComparisonCards } from "./pricing-comparison-cards";
 
 export function CustomerPricingTab() {
@@ -86,34 +85,6 @@ export function CustomerPricingTab() {
           <PricingComparisonCards highlightConcierge />
         </motion.div>
       </Container>
-
-      {/* Calculator Section */}
-      <section className="bg-neutral-50 py-24">
-        <Container>
-          <motion.div
-            className="mb-16 text-center"
-            initial="hidden"
-            variants={fadeInUp}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView="visible"
-          >
-            <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
-              {t("calculator.title")}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed">
-              Estimate your potential costs based on typical rates. Final prices are set by professionals.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <PricingCalculator />
-          </motion.div>
-        </Container>
-      </section>
 
       {/* Fee Explainer */}
       <motion.div

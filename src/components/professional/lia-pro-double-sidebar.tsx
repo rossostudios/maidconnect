@@ -1,13 +1,8 @@
 "use client";
 
 import {
-  ArrowDown01Icon,
-  Calendar03Icon,
-  Clock01Icon,
   DollarCircleIcon,
-  FileAttachmentIcon,
   Home09Icon,
-  Image02Icon,
   Logout01Icon,
   Search01Icon,
   Settings02Icon,
@@ -18,8 +13,11 @@ import Image from "next/image";
 import { useMemo, useState, useTransition } from "react";
 import { signOutAction } from "@/app/[locale]/auth/actions";
 import { geistSans } from "@/app/fonts";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { LiaTooltip } from "@/components/ui/lia-tooltip";
 import { Link, usePathname } from "@/i18n/routing";
+import { useMarket } from "@/lib/contexts/MarketContext";
+import { COUNTRIES, type CountryCode } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
@@ -43,9 +41,10 @@ type Props = {
   userName?: string;
   userAvatarUrl?: string;
   pendingLeadsCount?: number;
+  countryCode?: string;
 };
 
-const createCategories = (pendingLeadsCount = 0): CategorySection[] => [
+const createCategories = (_pendingLeadsCount = 0): CategorySection[] => [
   {
     id: "overview",
     icon: Home09Icon,
@@ -119,12 +118,14 @@ export function LiaProDoubleSidebar({
   userName,
   userAvatarUrl,
   pendingLeadsCount = 0,
+  countryCode,
 }: Props) {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [_showProfileMenu, setShowProfileMenu] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const { country } = useMarket();
 
   const categories = useMemo(() => createCategories(pendingLeadsCount), [pendingLeadsCount]);
 
@@ -156,7 +157,6 @@ export function LiaProDoubleSidebar({
   const accountName = userName || "Professional";
   const firstName = accountName.split(" ")[0] || accountName;
   const accountEmail = userEmail || "";
-  const accountRole = "Professional";
   const userInitials =
     accountName
       .split(" ")
@@ -165,6 +165,15 @@ export function LiaProDoubleSidebar({
       .slice(0, 2)
       .join("")
       .toUpperCase() || "PR";
+  const workingCountry = (countryCode as CountryCode | undefined) || country;
+  const workingConfig = COUNTRIES[workingCountry] || COUNTRIES.CO;
+  const countryFlag =
+    {
+      CO: "🇨🇴",
+      PY: "🇵🇾",
+      UY: "🇺🇾",
+      AR: "🇦🇷",
+    }[workingCountry] || "🌍";
 
   const handleSignOut = () => {
     setIsSigningOut(true);
@@ -267,7 +276,7 @@ export function LiaProDoubleSidebar({
                     icon={selectedCategoryData.icon}
                   />
                 </div>
-                <div className="min-w-0 flex-1 flex flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                   <h2
                     className={cn(
                       "font-semibold text-neutral-900 text-sm leading-none",
@@ -348,18 +357,22 @@ export function LiaProDoubleSidebar({
             </div>
           )}
         </nav>
+        {/* Footer controls */}
+        <div className="space-y-3 border-neutral-200 border-t bg-white p-3">
+          <LanguageSwitcher />
 
-        {/* User Profile */}
-        <div className="border-neutral-200 border-t bg-white p-3">
+          <div className="space-y-1.5">
+            <p className="font-semibold text-neutral-600 text-xs uppercase tracking-wide">
+              País de trabajo
+            </p>
+            <div className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-neutral-900 text-sm">
+              <span>{countryFlag}</span>
+              <span>{workingConfig.nameEs}</span>
+            </div>
+          </div>
+
           <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
-            <button
-              aria-controls="pro-profile-menu"
-              aria-expanded={showProfileMenu}
-              className="flex w-full items-center gap-2.5 p-3 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
-              onClick={() => setShowProfileMenu((prev) => !prev)}
-              type="button"
-            >
-              {/* Avatar */}
+            <div className="flex w-full items-center gap-2.5 p-3 text-left">
               <div className="relative flex-shrink-0">
                 {userAvatarUrl ? (
                   <Image
@@ -374,11 +387,7 @@ export function LiaProDoubleSidebar({
                     {userInitials}
                   </div>
                 )}
-                {/* Online status indicator */}
-                <span className="-bottom-0.5 -right-0.5 absolute h-3 w-3 rounded-full border-2 border-white bg-emerald-500" />
               </div>
-
-              {/* User Info */}
               <div className="min-w-0 flex-1">
                 <p
                   className={cn(
@@ -392,72 +401,31 @@ export function LiaProDoubleSidebar({
                   <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
                 )}
               </div>
+            </div>
+            <div className="space-y-1.5 border-neutral-200 border-t bg-neutral-50 p-3">
+              <Link
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-xs transition-colors hover:bg-neutral-50"
+                href="/dashboard/pro/onboarding"
+                onClick={() => {
+                  setSelectedCategory("profile");
+                }}
+              >
+                <span>Settings</span>
+                <HugeiconsIcon className="h-3.5 w-3.5 text-neutral-400" icon={Settings02Icon} />
+              </Link>
 
-              {/* Chevron */}
-              <HugeiconsIcon
+              <button
                 className={cn(
-                  "h-4 w-4 flex-shrink-0 text-neutral-400 transition-transform",
-                  showProfileMenu && "rotate-180"
+                  "flex w-full items-center justify-between rounded-lg bg-orange-500 px-3 py-2 font-medium text-white text-xs transition-colors hover:bg-orange-600",
+                  isLoading && "cursor-wait opacity-70"
                 )}
-                icon={ArrowDown01Icon}
-              />
-            </button>
-
-            {/* Dropdown Menu */}
-            <div
-              className={cn(
-                "overflow-hidden transition-[max-height,opacity] duration-200",
-                showProfileMenu ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              )}
-              id="pro-profile-menu"
-            >
-              <div className="border-neutral-200 border-t bg-neutral-50 p-3">
-                <div className="mb-2 flex items-center justify-between">
-                  <span
-                    className={cn(
-                      "font-semibold text-neutral-500 text-xs tracking-wider",
-                      geistSans.className
-                    )}
-                  >
-                    Role
-                  </span>
-                  <span
-                    className={cn(
-                      "rounded-full border border-neutral-700 bg-neutral-700 px-2 py-0.5 font-semibold text-white text-xs tracking-wider",
-                      geistSans.className
-                    )}
-                  >
-                    {accountRole}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5">
-                  <Link
-                    className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white px-3 py-2 font-medium text-neutral-900 text-xs transition-colors hover:bg-neutral-50"
-                    href="/dashboard/pro/onboarding"
-                    onClick={() => {
-                      setShowProfileMenu(false);
-                      setSelectedCategory("profile");
-                    }}
-                  >
-                    <span>Settings</span>
-                    <HugeiconsIcon className="h-3.5 w-3.5 text-neutral-400" icon={Settings02Icon} />
-                  </Link>
-
-                  <button
-                    className={cn(
-                      "flex w-full items-center justify-between rounded-lg bg-orange-500 px-3 py-2 font-medium text-white text-xs transition-colors hover:bg-orange-600",
-                      isLoading && "cursor-wait opacity-70"
-                    )}
-                    disabled={isLoading}
-                    onClick={handleSignOut}
-                    type="button"
-                  >
-                    <span>{isLoading ? "Signing out..." : "Sign Out"}</span>
-                    <HugeiconsIcon className="h-3.5 w-3.5 text-white" icon={Logout01Icon} />
-                  </button>
-                </div>
-              </div>
+                disabled={isLoading}
+                onClick={handleSignOut}
+                type="button"
+              >
+                <span>{isLoading ? "Signing out..." : "Sign Out"}</span>
+                <HugeiconsIcon className="h-3.5 w-3.5 text-white" icon={Logout01Icon} />
+              </button>
             </div>
           </div>
         </div>

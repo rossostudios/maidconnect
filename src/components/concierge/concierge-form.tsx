@@ -135,7 +135,7 @@ export function ConciergeForm() {
           Permanent Placement with Legal Contracts
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-neutral-600 leading-relaxed">
-          $299 one-time fee for full-time placements. Our white-glove team handles everything from matching to legal contracts and 30-day replacement guarantee.
+          20% concierge service fee (paid by the customer). Our white-glove team handles matching, legal contracts, and a 30-day replacement guarantee.
         </p>
       </div>
 
@@ -229,7 +229,7 @@ export function ConciergeForm() {
                 </th>
                 <th className="p-4 text-center font-semibold text-orange-600">
                   Direct Hire
-                  <div className="mt-1 font-normal text-orange-500 text-xs">$299 one-time fee</div>
+                  <div className="mt-1 font-normal text-orange-500 text-xs">20% concierge service fee (customer pays)</div>
                 </th>
               </tr>
             </thead>
@@ -317,7 +317,7 @@ export function ConciergeForm() {
         <div className="mb-8 text-center">
           <h2 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">Request Direct Hire Service</h2>
           <p className="text-neutral-600 leading-relaxed">
-            Fill out this short form and we'll respond within 2 hours (during business hours). $299 one-time fee for permanent placements.
+            Fill out this short form and we'll respond within 2 hours (during business hours). 20% concierge service fee (customer pays) for placements.
           </p>
         </div>
 
