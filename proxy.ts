@@ -450,14 +450,20 @@ export default async function proxy(request: NextRequest) {
     });
   }
 
+  // Generate nonce for CSP BEFORE creating response
+  // This allows the nonce to be set on request headers for Server Components to access
+  const nonce = generateNonce();
+
+  // Create new request headers with nonce for Server Components
+  // Layout accesses this via headers().get("x-nonce")
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
+
   let response = NextResponse.next({
     request: {
-      headers: request.headers,
+      headers: requestHeaders,
     },
   });
-
-  // Generate nonce for CSP
-  const nonce = generateNonce();
 
   // Add security headers to all responses (with nonce for CSP)
   response = addSecurityHeaders(response, nonce);
