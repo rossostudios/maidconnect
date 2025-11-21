@@ -21,7 +21,7 @@
 
 #### 2. Content Security Policy (CSP) with Nonce
 - **Status:** ✅ COMPLETE
-- **Implementation:** `middleware.ts` (Next.js 16 edge middleware)
+- **Implementation:** `proxy.ts` (Next.js 16 edge middleware)
 - **Features:**
   - Nonce-based script protection (`strict-dynamic`)
   - XSS prevention via CSP header
