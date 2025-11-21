@@ -50,8 +50,7 @@ export async function createBookingFromAmara(
       return { success: false, error: "Authentication required" };
     }
 
-    // Get professional's default service ID for the requested service type
-    // This is a simplified approach - you may want to add service ID to AmaraBookingInput
+    // Get professional's default service and profile info (including country)
     const { data: professionalService, error: serviceError } = await supabase
       .from("professional_services")
       .select("id, pricing_tiers(id)")
@@ -66,6 +65,16 @@ export async function createBookingFromAmara(
         error: "Could not find active service for this professional",
       };
     }
+
+    // Get professional's country for multi-country support
+    const { data: professionalProfile } = await supabase
+      .from("professional_profiles")
+      .select("country_code")
+      .eq("profile_id", input.professionalId)
+      .maybeSingle();
+
+    // Use professional's country or fallback to CO for backward compatibility
+    const professionalCountry = professionalProfile?.country_code || "CO";
 
     // Calculate scheduled times
     const scheduledDateTime = new Date(`${input.selectedDate}T${input.selectedTime}:00`);
@@ -87,7 +96,8 @@ export async function createBookingFromAmara(
       customerNotes: input.customerNotes,
       specialRequirements: input.specialRequirements || [],
       // Address will be collected later in the booking flow
-      serviceAddressCountry: "CO", // Default to Colombia
+      // Country is derived from professional's country for multi-country support
+      serviceAddressCountry: professionalCountry,
     };
 
     // Create the booking using existing booking creation logic

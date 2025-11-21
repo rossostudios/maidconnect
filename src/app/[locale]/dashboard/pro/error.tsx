@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle01Icon } from "hugeicons-react";
+import { Alert01Icon } from "hugeicons-react";
 import { useEffect } from "react";
 
 /**
@@ -33,7 +33,7 @@ export default function ProDashboardError({
           {/* Icon */}
           <div className="mb-6 flex justify-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-50">
-              <AlertTriangle01Icon className="h-8 w-8 text-orange-500" />
+              <Alert01Icon className="h-8 w-8 text-orange-500" />
             </div>
           </div>
 

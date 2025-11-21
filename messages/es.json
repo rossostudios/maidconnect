@@ -1459,7 +1459,18 @@
       "cali": "Cali",
       "barranquilla": "Barranquilla",
       "cartagena": "Cartagena",
-      "bucaramanga": "Bucaramanga"
+      "bucaramanga": "Bucaramanga",
+      "pereira": "Pereira",
+      "asuncion": "Asunción",
+      "ciudad-del-este": "Ciudad del Este",
+      "encarnacion": "Encarnación",
+      "montevideo": "Montevideo",
+      "punta-del-este": "Punta del Este",
+      "maldonado": "Maldonado",
+      "buenos-aires": "Buenos Aires",
+      "cordoba": "Córdoba",
+      "rosario": "Rosario",
+      "mendoza": "Mendoza"
     },
     "services": {
       "cleaning": "Limpieza del Hogar",

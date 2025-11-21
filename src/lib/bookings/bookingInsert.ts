@@ -1,4 +1,9 @@
 // Booking insert builder - Extract booking insert object creation logic
+//
+// MULTI-COUNTRY SUPPORT:
+// - serviceAddressCountry should ALWAYS be explicitly set by callers
+// - CO fallback exists only for backward compatibility with legacy data
+// - New code should derive country from professional's country_code field
 
 import type { CreateBookingInput } from "@/types";
 
@@ -42,6 +47,14 @@ export function buildBookingInsertData(
   input: CreateBookingInput,
   pricing: PricingData
 ): BookingInsertData {
+  // Log warning if country not explicitly set (helps catch missing country in new code)
+  if (!input.serviceAddressCountry) {
+    console.warn(
+      "[BookingInsert] serviceAddressCountry not set, using CO fallback. " +
+        "New bookings should explicitly set country from professional's country_code."
+    );
+  }
+
   return {
     customer_id: customerId,
     professional_id: input.professionalId,

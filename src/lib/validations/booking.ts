@@ -33,7 +33,8 @@ export const addressSchema = z.object({
   state: z.string().min(1).max(100).optional(),
   postalCode: z.string().min(1).max(20).optional(),
   // ISO 3166-1 alpha-2 country code (CO, PY, UY, AR)
-  // Default to CO for backward compatibility, but forms should explicitly set country
+  // MULTI-COUNTRY: Default to CO for backward compatibility only
+  // New forms MUST explicitly set country from user selection or professional's country_code
   country: z.string().min(2).max(2).default("CO"),
   latitude: z.number().min(-90).max(90).optional(),
   longitude: z.number().min(-180).max(180).optional(),
