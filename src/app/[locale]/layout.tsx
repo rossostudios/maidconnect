@@ -1,3 +1,6 @@
+// Environment validation - fail fast on boot if config is invalid
+import "@/env";
+
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
