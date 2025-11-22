@@ -571,3 +571,99 @@
     transform: translateX(0) !important;
   }
 }
+
+/* FullCalendar - Lia Design System Overrides */
+.fc {
+  --fc-border-color: #e8e6dc;
+  --fc-button-bg-color: #faf9f5;
+  --fc-button-border-color: #e8e6dc;
+  --fc-button-text-color: #141413;
+  --fc-button-hover-bg-color: #fff7f0;
+  --fc-button-hover-border-color: #d97757;
+  --fc-button-active-bg-color: #d97757;
+  --fc-button-active-border-color: #d97757;
+  --fc-today-bg-color: #fff7f0;
+  --fc-neutral-bg-color: #faf9f5;
+  --fc-page-bg-color: white;
+  --fc-event-border-color: transparent;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.fc .fc-button {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  transition: all 150ms ease;
+}
+
+.fc .fc-button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgba(217, 119, 87, 0.3);
+}
+
+.fc .fc-toolbar-title {
+  font-weight: 600;
+  color: #141413;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #6e6c63;
+}
+
+.fc .fc-daygrid-day-number,
+.fc .fc-timegrid-slot-label-cushion {
+  font-weight: 500;
+  color: #4e4c43;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: #fff7f0 !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background-color: #d97757;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: #d97757;
+  border-width: 2px;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-color: #d97757;
+}
+
+.fc .fc-event {
+  border-radius: 8px;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  border-width: 2px;
+  cursor: pointer;
+}
+
+.fc .fc-event:hover {
+  filter: brightness(0.95);
+}
+
+.fc .fc-timegrid-event {
+  border-radius: 8px;
+}
+
+.fc .fc-non-business {
+  background-color: #faf9f5;
+}
+
+.fc .fc-highlight {
+  background-color: rgba(217, 119, 87, 0.15);
+}

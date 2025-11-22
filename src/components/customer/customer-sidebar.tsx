@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  Alert01Icon,
   Calendar03Icon,
   CreditCardIcon,
+  CrownIcon,
   FavouriteIcon,
   Home09Icon,
   Location01Icon,
@@ -10,6 +12,7 @@ import {
   Message01Icon,
   RepeatIcon,
   Settings02Icon,
+  StarIcon,
   UserCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -48,14 +51,17 @@ const navSections: NavSection[] = [
       // Removed "Find Professionals" link for direct-hire-focused migration
       // Professional matching now handled via /direct-hire
       { href: "/dashboard/customer/favorites", label: "Favorites", icon: FavouriteIcon },
+      { href: "/dashboard/customer/reviews", label: "Reviews", icon: StarIcon },
       { href: "/dashboard/customer/recurring-plans", label: "Recurring Plans", icon: RepeatIcon },
     ],
   },
   {
     title: "Account",
     items: [
+      { href: "/dashboard/customer/subscription", label: "Subscription", icon: CrownIcon },
       { href: "/dashboard/customer/addresses", label: "Addresses", icon: Location01Icon },
       { href: "/dashboard/customer/payments", label: "Payments", icon: CreditCardIcon },
+      { href: "/dashboard/customer/disputes", label: "Disputes", icon: Alert01Icon },
       { href: "/dashboard/customer/settings", label: "Settings", icon: Settings02Icon },
     ],
   },

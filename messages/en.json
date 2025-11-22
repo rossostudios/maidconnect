@@ -11,7 +11,44 @@
     "signUp": "Sign up",
     "dashboard": "Dashboard",
     "logout": "Logout",
-    "product": "Product"
+    "product": "Product",
+    "resources": "Resources",
+    "dropdown": {
+      "professionals": {
+        "title": "Professionals",
+        "featuredDesc": "Find vetted, background-checked home service professionals ready to help.",
+        "howItWorks": "How It Works",
+        "howItWorksDesc": "Learn how Casaora connects you with trusted professionals",
+        "vettingProcess": "Vetting Process",
+        "vettingProcessDesc": "Our rigorous screening ensures quality and safety",
+        "pricing": "Pricing",
+        "pricingDesc": "Transparent pricing with no hidden fees",
+        "browse": "Browse Professionals",
+        "browseDesc": "Find trusted professionals for any home service need"
+      },
+      "customers": {
+        "title": "Customers",
+        "featuredDesc": "Everything you need to book and manage home services with confidence.",
+        "bookNow": "Book Now",
+        "bookNowDesc": "Schedule your first service in minutes",
+        "reviews": "Reviews",
+        "reviewsDesc": "Read verified reviews from real customers",
+        "helpCenter": "Help Center",
+        "helpCenterDesc": "Find answers to common questions",
+        "support": "Contact Support",
+        "supportDesc": "Get help from our customer service team"
+      },
+      "company": {
+        "title": "Company",
+        "featuredDesc": "Learn about our mission to transform home services in Latin America.",
+        "about": "About Us",
+        "aboutDesc": "Our story and mission",
+        "blog": "Blog",
+        "blogDesc": "News, tips, and industry insights",
+        "careers": "Careers",
+        "careersDesc": "Join our growing team"
+      }
+    }
   },
   "professionals": {
     "title": "Find your perfect professional",
@@ -36,25 +73,143 @@
     }
   },
   "features": {
-    "title": "Why choose Casaora®",
+    "title": "Why choose Casaora",
+    "tag": "Trust & Safety",
+    "subtitle": "Your home is personal. That's why we built every feature with safety and trust at the core.",
     "verifiedProfessionals": {
       "title": "Verified professionals",
-      "description": "Every professional undergoes background checks and identity verification"
+      "description": "Every professional passes ID verification and background checks. See real reviews from families in your area."
     },
     "securePayments": {
       "title": "Secure payments",
-      "description": "Pay safely through certified payment processors with escrow protection until service completion"
+      "description": "Payments are held safely until the job is complete. No cash, no hassle."
     },
     "realTimeBooking": {
-      "title": "Real-time booking",
-      "description": "See availability and book instantly or request approval for custom needs"
+      "title": "Instant booking",
+      "description": "Find available professionals and book in minutes. No back-and-forth needed."
     },
     "reviewSystem": {
-      "title": "Review system",
-      "description": "Two-way reviews ensure accountability and help you make informed decisions"
+      "title": "Real reviews",
+      "description": "Read honest feedback from families who've hired the same professionals."
+    },
+    "backgroundChecks": {
+      "title": "Background checks",
+      "description": "Comprehensive verification including identity, criminal records, and references."
+    },
+    "dedicatedSupport": {
+      "title": "Dedicated support",
+      "description": "Our team is here to help resolve any issues and keep everyone safe."
+    },
+    "allServices": {
+      "title": "All your home needs",
+      "description": "From cleaning to childcare to cooking—find help for every household task."
     }
   },
   "home": {
+    "hero": {
+      "headline": "Find trusted home professionals in Latin America",
+      "subheadline": "Book vetted housekeepers, nannies, caregivers and more in just a few taps. Simple, safe and fair for families and professionals.",
+      "searchPlaceholder": "What do you need?",
+      "locationPlaceholder": "Where?",
+      "datePlaceholder": "When?",
+      "searchButton": "Search",
+      "trustBadges": {
+        "vetted": "Vetted & reviewed professionals",
+        "payments": "Secure in-app payments",
+        "pricing": "Fair and transparent pricing",
+        "instant": "Instant booking"
+      }
+    },
+    "process": {
+      "title": "How Casaora works for your home",
+      "description": "Three simple steps connect you with trusted household professionals",
+      "step1": {
+        "title": "Tell us what you need",
+        "description": "Choose the type of help: cleaning, childcare, elderly care, cooking and more. Add your schedule, location and preferences."
+      },
+      "step2": {
+        "title": "Match with professionals",
+        "description": "We show you vetted professionals who fit your needs, with profiles, experience, and reviews from other families."
+      },
+      "step3": {
+        "title": "Book & pay securely",
+        "description": "Confirm the booking, chat through the app, and pay safely online. No cash, no stress, full transparency."
+      },
+      "cta": "Find help now",
+      "steps": {
+        "search": "Search",
+        "match": "Match",
+        "book": "Book",
+        "getStarted": "Get Started"
+      }
+    },
+    "verification": {
+      "badge": "Trust & Safety",
+      "title": "Every professional, thoroughly verified",
+      "subtitle": "Comprehensive screening so you can hire with confidence.",
+      "features": {
+        "verification": {
+          "title": "3-step verification process",
+          "description": "Our streamlined process ensures every professional meets our high standards through application review, identity verification, and comprehensive background screening."
+        },
+        "background": {
+          "title": "Criminal background checks",
+          "description": "Every professional undergoes comprehensive criminal background screening through certified agencies. We verify national and local records to ensure your family's safety."
+        },
+        "identity": {
+          "title": "Identity verification",
+          "description": "Government ID verification confirms each professional's identity. We cross-reference documents and use biometric checks to prevent fraud."
+        },
+        "references": {
+          "title": "Reference validation",
+          "description": "We contact previous employers and personal references to verify work history, reliability, and character before approval."
+        }
+      }
+    },
+    "guarantee": {
+      "badge": "Service Guarantee",
+      "title": "Your satisfaction, guaranteed",
+      "subtitle": "If something's not right, we'll make it right — or your money back.",
+      "features": {
+        "quality": {
+          "title": "Quality assurance",
+          "description": "Every professional on our platform is held to the highest standards. We monitor ratings, reviews, and service quality to ensure consistent excellence."
+        },
+        "reporting": {
+          "title": "Easy issue reporting",
+          "description": "Something not right? Report issues directly in the app within 24 hours of your service. Our team reviews every case personally."
+        },
+        "reservice": {
+          "title": "Free re-service",
+          "description": "If the service doesn't meet expectations, we'll send a professional back at no additional cost to make it right."
+        },
+        "refund": {
+          "title": "Money-back guarantee",
+          "description": "If we can't resolve the issue to your satisfaction, you'll receive a full refund. No questions asked, no hassle."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Why families and professionals choose Casaora",
+      "family": {
+        "title": "For families",
+        "items": [
+          "Find trusted help faster",
+          "See real reviews and experience",
+          "Transparent pricing & contracts",
+          "Ongoing or one-time bookings"
+        ]
+      },
+      "professional": {
+        "title": "For professionals",
+        "items": [
+          "More job opportunities",
+          "Fair and punctual payment",
+          "Respectful, serious clients",
+          "Tools to manage your work"
+        ]
+      }
+    },
     "pricing": {
       "badge": "Transparent Pricing",
       "title": "Simple, transparent pricing",
@@ -913,6 +1068,16 @@
           "fetchFailed": "Failed to load bank account information",
           "connectFailed": "Failed to connect to Stripe. Please try again."
         }
+      },
+      "subscription": {
+        "title": "Subscription",
+        "description": "Manage your professional subscription plan and unlock premium features.",
+        "currentPlan": "Current Plan",
+        "availablePlans": "Available Plans",
+        "noPlan": {
+          "title": "No Active Subscription",
+          "description": "You're currently on the free plan. Upgrade to unlock premium features."
+        }
       }
     },
     "customer": {
@@ -1022,6 +1187,16 @@
           }
         }
       },
+      "subscription": {
+        "title": "Subscription",
+        "description": "Manage your subscription plan and unlock premium features like priority support.",
+        "currentPlan": "Current Plan",
+        "availablePlans": "Available Plans",
+        "noPlan": {
+          "title": "No Active Subscription",
+          "description": "You're currently on the free plan. Upgrade to unlock premium features."
+        }
+      },
       "bookingList": {
         "emptyState": {
           "noBookings": "No bookings yet.",
@@ -1054,8 +1229,51 @@
             "reschedule": "Reschedule",
             "cancel": "Cancel",
             "leaveReview": "Leave Review",
+            "downloadReceipt": "Download Receipt",
             "bookAgain": "Book Again"
           }
+        }
+      },
+      "receipt": {
+        "title": "Service Receipt",
+        "receiptNumber": "Receipt #",
+        "dateIssued": "Date Issued",
+        "serviceDetails": "Service Details",
+        "service": "Service",
+        "date": "Date",
+        "time": "Time",
+        "duration": "Duration",
+        "location": "Location",
+        "professional": "Professional",
+        "paymentSummary": "Payment Summary",
+        "serviceTotal": "Service Total",
+        "tip": "Tip",
+        "totalPaid": "Total Paid",
+        "paymentMethod": "Payment Method",
+        "paymentDate": "Payment Date",
+        "thankYou": "Thank you for choosing Casaora!",
+        "print": "Print",
+        "download": "Download"
+      },
+      "payments": {
+        "title": "Payment Methods",
+        "description": "Manage your saved payment methods for quick and secure bookings.",
+        "savedCards": "Saved Cards",
+        "addCard": "Add Card",
+        "emptyState": {
+          "title": "No payment methods saved",
+          "description": "Add a card to enable fast, secure payments for your bookings."
+        },
+        "default": "Default",
+        "expires": "Expires",
+        "setDefault": "Set as default",
+        "setting": "Setting...",
+        "delete": "Delete",
+        "retry": "Try again",
+        "confirmDelete": "Are you sure you want to delete this payment method?",
+        "securityInfo": {
+          "title": "Your payments are secure",
+          "description": "We use industry-standard encryption and never store your full card details. Payments are processed securely through Stripe."
         }
       },
       "favoritesList": {
@@ -1257,6 +1475,10 @@
         "addresses": {
           "title": "Saved Addresses"
         }
+      },
+      "disputes": {
+        "title": "My Disputes",
+        "description": "Track and manage disputes filed for your bookings"
       }
     }
   },
@@ -2748,16 +2970,83 @@
   },
   "pricing": {
     "meta": {
-      "title": "Transparent Pricing - No Hidden Fees | Casaora",
-      "description": "Understand exactly what you'll pay. Professionals set their own rates, and Casaora adds a clear platform fee on top so you see the full cost upfront."
+      "title": "Simple, Transparent Pricing | Casaora",
+      "description": "One simple 15% platform fee covers everything. Professionals set their rates, you pay a clear service fee. No hidden costs."
     },
     "hero": {
-      "title": "Transparent Pricing - No Hidden Fees",
-      "subtitle": "Customers pay 15% for Instant Book or 20% for Direct Hire. Pros keep 100%. Vetting, background checks, and insurance are included.",
-      "tabs": {
-        "customers": "For Customers",
-        "professionals": "For Professionals"
+      "badge": "Transparent Pricing",
+      "title": "Simple pricing, no surprises",
+      "subtitle": "Professionals set their own rates. We add a clear 15% service fee that covers vetting, background checks, insurance, and support."
+    },
+    "fees": {
+      "instantBook": {
+        "badge": "Most Popular",
+        "title": "Instant Book",
+        "feeLabel": "service fee",
+        "description": "Book verified professionals in minutes. Perfect for one-time or recurring services.",
+        "feature1": "Book and pay instantly",
+        "feature2": "Verified professionals with reviews",
+        "feature3": "Flexible scheduling"
+      },
+      "concierge": {
+        "badge": "White-Glove",
+        "title": "Concierge Service",
+        "feeLabel": "service fee",
+        "description": "Human-powered matching with dedicated coordinators. Ideal for complex or recurring needs.",
+        "feature1": "Personal matching coordinator",
+        "feature2": "Priority support & scheduling",
+        "feature3": "Replacement guarantee"
+      },
+      "proNote": {
+        "highlight": "Professionals keep 100% of their rate.",
+        "text": "The service fee is added on top and paid by customers."
       }
+    },
+    "included": {
+      "title": "What's included in the service fee",
+      "subtitle": "Your 15% covers comprehensive safety and support services",
+      "vetting": {
+        "title": "Professional Vetting",
+        "description": "Skills assessment and interview screening"
+      },
+      "backgroundChecks": {
+        "title": "Background Checks",
+        "description": "Criminal records and identity verification"
+      },
+      "insurance": {
+        "title": "Insurance Coverage",
+        "description": "Liability protection for your home"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "English and Spanish assistance"
+      }
+    },
+    "faq": {
+      "title": "Common questions",
+      "subtitle": "Everything you need to know about our pricing",
+      "q1": {
+        "question": "Why is there a service fee?",
+        "answer": "The 15% service fee covers background checks, professional vetting, insurance coverage, payment processing, and 24/7 customer support. This ensures every professional on our platform is verified and you have protection if anything goes wrong."
+      },
+      "q2": {
+        "question": "Do professionals pay any fees?",
+        "answer": "No. Professionals keep 100% of their rate. The service fee is added on top and paid entirely by the customer. This allows professionals to set fair rates without losing a portion to platform fees."
+      },
+      "q3": {
+        "question": "What's the difference between Instant Book and Direct Hire?",
+        "answer": "Instant Book is for one-time or recurring services where you book and pay instantly. Direct Hire is for full-time placements with legal employment contracts, dedicated matching support, and a 30-day satisfaction guarantee."
+      },
+      "q4": {
+        "question": "Are there any hidden fees?",
+        "answer": "No hidden fees. You see the professional's rate plus the 15% service fee upfront before booking. That's the total cost—no surprises, no add-ons."
+      }
+    },
+    "cta": {
+      "title": "Ready to find trusted help?",
+      "subtitle": "Join families across Latin America who trust Casaora for verified home professionals.",
+      "browseButton": "Browse Professionals",
+      "signUpButton": "Become a Professional"
     },
     "comparison": {
       "popularBadge": "Most popular",
@@ -3058,36 +3347,6 @@
         ]
       },
       "cta": "Start earning today"
-    },
-    "faq": {
-      "title": "Pricing FAQ",
-      "subtitle": "Common questions about how Casaora pricing works.",
-      "questions": {
-        "howMuchDoesItCost": {
-          "question": "How much does it cost to use Casaora?",
-          "answer": "For customers: You pay the professional's rate plus a clearly-labeled Casaora platform fee. For professionals: It's free to join. You keep 100% of your rate—customers pay the platform fee."
-        },
-        "whyPlatformFee": {
-          "question": "Why is there a platform fee?",
-          "answer": "The platform fee covers background checks, insurance, payment processing, 24/7 support, and the technology that keeps Casaora safe and reliable. It ensures you're working with verified professionals."
-        },
-        "directHireService": {
-          "question": "How does the Direct Hire matching service work?",
-          "answer": "Our team matches you with thoroughly vetted professionals based on your needs. We provide bilingual coordinators, handle all communication, offer priority booking, and include a satisfaction guarantee. Share your needs and we'll connect you with perfect matches."
-        },
-        "professionalKeepsRate": {
-          "question": "Do professionals really keep 100% of their rate?",
-          "answer": "Yes! If a professional charges 25,000 COP/hour, they receive 25,000 COP/hour. The platform fee is added on top and paid by the customer. This is different from other platforms that deduct fees from professional earnings."
-        },
-        "paymentSecurity": {
-          "question": "How are payments secured?",
-          "answer": "All payments are processed through certified processors with escrow protection. Funds are authorized when you book, but only captured after service completion. If there's a dispute, we handle refunds fairly."
-        },
-        "cancellationPolicy": {
-          "question": "What's the cancellation policy?",
-          "answer": "Free cancellation up to 24 hours before service. Late cancellations (within 24 hours) incur a 50% fee to compensate professionals for lost work."
-        }
-      }
     }
   },
   "roadmap": {
@@ -3273,11 +3532,77 @@
   "howItWorks": {
     "meta": {
       "title": "How It Works - Instant Booking or Permanent Hire | Casaora",
-      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program ( for permanent placements with legal contracts and guarantees."
+      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program for permanent placements with legal contracts and guarantees."
     },
     "hero": {
-      "title": "How Casaora Works",
-      "subtitle": "Two ways to hire: Instant Book for quick jobs, or Direct Hire for permanent placements with legal contracts and a 30-day guarantee."
+      "badge": "How It Works",
+      "title": "Find trusted home help with confidence",
+      "subtitle": "Casaora provides compliant hiring journeys optimized for quality. Built with the standards of modern families top of mind."
+    },
+    "everythingYouNeed": {
+      "title": "Everything you need, and more",
+      "description": "Access vetted, background-checked home professionals and fine-tune every detail to fit your household needs.",
+      "features": {
+        "vettedProfessionals": "Vetted professionals",
+        "backgroundChecks": "Background checks included",
+        "transparentPricing": "Transparent pricing",
+        "flexibleScheduling": "Flexible scheduling",
+        "qualityGuarantee": "Quality guarantee",
+        "securePayments": "Secure payments"
+      },
+      "diagram": {
+        "search": "Search Professionals",
+        "searchDesc": "Filter by service and availability",
+        "verify": "Review Profiles",
+        "verifyDesc": "Check reviews and credentials",
+        "book": "Book Service",
+        "bookDesc": "Schedule and pay securely",
+        "review": "Leave Review",
+        "reviewDesc": "Share your experience"
+      }
+    },
+    "adaptiveJourneys": {
+      "title": "Adaptive journeys for every need",
+      "description": "Avoid friction by asking basic information at account creation, and collecting additional details based on your service needs.",
+      "features": {
+        "stagedOnboarding": "Staged onboarding for a smooth start",
+        "privateInteractions": "Private, secure interactions",
+        "multiServiceBooking": "Multi-service booking options",
+        "smartMatching": "Smart matching based on your preferences"
+      },
+      "card": {
+        "preferences": "Preferences",
+        "requirements": "Requirements",
+        "serviceType": "Service type",
+        "serviceTypeValue": "Housekeeping",
+        "location": "Location",
+        "locationValue": "Your city",
+        "frequency": "Frequency",
+        "frequencyValue": "Weekly",
+        "backgroundCheck": "Background check",
+        "reviews": "Verified reviews",
+        "availability": "Real-time availability"
+      }
+    },
+    "designedForConversion": {
+      "title": "Designed for trust",
+      "description": "We obsess over every detail of the hiring flow — from ID verification to the smallest interactions. With Casaora, you have a team of professionals working continually to ensure quality on your behalf.",
+      "features": {
+        "instantAvailability": "Instant availability check",
+        "realTimeUpdates": "Real-time updates",
+        "deepLocalization": "Deep localization",
+        "descriptiveProfiles": "Descriptive profiles",
+        "multipleOptions": "Multiple service options",
+        "dynamicPricing": "Dynamic pricing display",
+        "autoCompletion": "Auto-completion for easy booking",
+        "smartReminders": "Smart reminders"
+      },
+      "diagram": {
+        "selectService": "Select service type",
+        "choosePro": "Choose your professional",
+        "verifyDetails": "Verify booking details",
+        "confirmBooking": "Confirm and pay"
+      }
     },
     "customer": {
       "title": "For Customers",
@@ -3906,6 +4231,28 @@
     }
   },
   "pros": {
+    "hero": {
+      "badge": "For Professionals",
+      "title": "Earn more, work safely, and control your schedule",
+      "subtitle": "Join the network of trusted home professionals in Latin America. We verify clients, guarantee payments, and treat you with dignity.",
+      "primaryCta": "Join as a Professional",
+      "secondaryCta": "How it works",
+      "pills": {
+        "free": "Free to join",
+        "noUpfront": "No upfront fees",
+        "earnFast": "Earn fast"
+      },
+      "panel": {
+        "title": "Why join?",
+        "subtitle": "Better than an agency",
+        "items": {
+          "keepAll": "Keep 100% of your rate",
+          "customerFee": "Customers pay the fee",
+          "vetting": "Vetted, safe clients",
+          "support": "24/7 Support team"
+        }
+      }
+    },
     "safety": {
       "title": "Worker Safety & Protection",
       "description": "Your safety, rights, and well-being are our top priority. Learn about your protections as a household professional.",
@@ -4027,28 +4374,6 @@
         "title": "Questions or Concerns?",
         "description": "Our support team is here to help. Don't hesitate to reach out if you have questions about your rights or need assistance.",
         "cta": "Contact Support"
-      }
-    },
-    "hero": {
-      "badge": "For Professionals",
-      "title": "Your talent, respected. Your rates, protected.",
-      "subtitle": "Join a platform where you keep 100% and work with families who value professional careers, not temp gigs.",
-      "primaryCta": "Apply to Join Now",
-      "secondaryCta": "See How It Works",
-      "pills": {
-        "free": "Free to join",
-        "noUpfront": "No upfront fees",
-        "earnFast": "Start earning in days"
-      },
-      "panel": {
-        "title": "Why Casaora",
-        "subtitle": "Transparency, support, and 100% of your rates",
-        "items": {
-          "keepAll": "You keep 100% of your rate. Customer pays 15%/20% on top.",
-          "customerFee": "No pro fees. No deductions.",
-          "vetting": "Vetting, background checks, and ID verification included.",
-          "support": "Support, scheduling, and replacements when needed."
-        }
       }
     },
     "howItWorks": {

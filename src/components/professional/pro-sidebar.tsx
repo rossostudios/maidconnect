@@ -4,13 +4,16 @@ import {
   ArrowDown01Icon,
   Calendar03Icon,
   Clock01Icon,
+  CrownIcon,
   DollarCircleIcon,
   FileAttachmentIcon,
   Home09Icon,
   Image02Icon,
   Logout01Icon,
+  Message01Icon,
   Settings02Icon,
   UserIcon,
+  UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
@@ -18,6 +21,7 @@ import { useState, useTransition } from "react";
 import { signOutAction } from "@/app/[locale]/auth/actions";
 import { geistSans } from "@/app/fonts";
 import { Link, usePathname } from "@/i18n/routing";
+import { isFeatureEnabled } from "@/lib/shared/config/featureFlags";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 import { ProOnboardingBadge } from "./pro-onboarding-badge";
@@ -41,33 +45,47 @@ type NavSection = {
   items: NavItem[];
 };
 
-const navSections: NavSection[] = [
-  {
-    title: "Overview",
-    items: [
-      { href: "/dashboard/pro", label: "Dashboard", icon: Home09Icon },
-      // Removed Lead Queue for direct-hire-focused migration
-      // Professionals now receive curated assignments from direct hire team
-      { href: "/dashboard/pro/bookings", label: "Bookings", icon: Calendar03Icon },
-    ],
-  },
-  {
-    title: "Business",
-    items: [
-      { href: "/dashboard/pro/finances", label: "Finances", icon: DollarCircleIcon },
-      { href: "/dashboard/pro/availability", label: "Availability", icon: Clock01Icon },
-      { href: "/dashboard/pro/portfolio", label: "Portfolio", icon: Image02Icon },
-    ],
-  },
-  {
-    title: "Profile",
-    items: [
-      { href: "/dashboard/pro/profile", label: "My Profile", icon: UserIcon },
-      { href: "/dashboard/pro/documents", label: "Documents", icon: FileAttachmentIcon },
-      { href: "/dashboard/pro/onboarding", label: "Settings", icon: Settings02Icon },
-    ],
-  },
-];
+const buildNavSections = (showLeadQueue: boolean): NavSection[] => {
+  const overviewItems: NavItem[] = [
+    { href: "/dashboard/pro", label: "Dashboard", icon: Home09Icon },
+    { href: "/dashboard/pro/bookings", label: "Bookings", icon: Calendar03Icon },
+    { href: "/dashboard/pro/messages", label: "Messages", icon: Message01Icon },
+  ];
+
+  if (showLeadQueue) {
+    overviewItems.splice(2, 0, {
+      href: "/dashboard/pro/leads",
+      label: "Lead Queue",
+      icon: UserMultiple02Icon,
+    });
+  }
+
+  return [
+    {
+      title: "Overview",
+      items: overviewItems,
+    },
+    {
+      title: "Business",
+      items: [
+        { href: "/dashboard/pro/subscription", label: "Subscription", icon: CrownIcon },
+        { href: "/dashboard/pro/finances", label: "Finances", icon: DollarCircleIcon },
+        { href: "/dashboard/pro/availability", label: "Availability", icon: Clock01Icon },
+        { href: "/dashboard/pro/portfolio", label: "Portfolio", icon: Image02Icon },
+        { href: "/dashboard/pro/service-addons", label: "Service Add-ons", icon: Settings02Icon },
+      ],
+    },
+    {
+      title: "Profile",
+      items: [
+        { href: "/dashboard/pro/profile", label: "My Profile", icon: UserIcon },
+        { href: "/dashboard/pro/documents", label: "Documents", icon: FileAttachmentIcon },
+        { href: "/dashboard/pro/onboarding", label: "Onboarding", icon: Settings02Icon },
+        { href: "/dashboard/pro/settings/profile", label: "Settings", icon: Settings02Icon },
+      ],
+    },
+  ];
+};
 
 type Props = {
   isCollapsed?: boolean;
@@ -91,6 +109,8 @@ export function ProSidebar({
   userAvatarUrl,
 }: Props) {
   const pathname = usePathname();
+  const showLeadQueue = pendingLeadsCount > 0 || isFeatureEnabled("enable_lead_queue");
+  const navSections = buildNavSections(showLeadQueue);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [isSigningOut, setIsSigningOut] = useState(false);

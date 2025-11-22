@@ -106,7 +106,7 @@ export function PricingSection() {
                 <Link href={plan.ctaHref}>{plan.ctaText} →</Link>
               </Button>
               <Button asChild className="w-full sm:w-auto" size="lg" variant="outline">
-                <Link href="/direct-hire">{t("footer.link")}</Link>
+                <Link href="/pricing">{t("footer.link")}</Link>
               </Button>
             </div>
 

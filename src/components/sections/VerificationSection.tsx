@@ -11,38 +11,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-
-const features = [
-  {
-    id: "verification",
-    icon: CheckmarkCircle02Icon,
-    title: "3-step verification process",
-    description:
-      "Our streamlined process ensures every professional meets our high standards through application review, identity verification, and comprehensive background screening.",
-  },
-  {
-    id: "background",
-    icon: Search01Icon,
-    title: "Criminal background checks",
-    description:
-      "Every professional undergoes comprehensive criminal background screening through certified agencies. We verify national and local records to ensure your family's safety.",
-  },
-  {
-    id: "identity",
-    icon: Shield01Icon,
-    title: "Identity verification",
-    description:
-      "Government ID verification confirms each professional's identity. We cross-reference documents and use biometric checks to prevent fraud.",
-  },
-  {
-    id: "references",
-    icon: Message01Icon,
-    title: "Reference validation",
-    description:
-      "We contact previous employers and personal references to verify work history, reliability, and character before approval.",
-  },
-];
 
 // Different visual states for each feature
 const visualConfigs = {
@@ -195,9 +165,11 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
 function FeatureList({
   activeFeature,
   setActiveFeature,
+  features,
 }: {
   activeFeature: string;
   setActiveFeature: (id: string) => void;
+  features: { id: string; icon: any; title: string; description: string }[];
 }) {
   return (
     <div className="space-y-2 sm:space-y-3">
@@ -265,28 +237,54 @@ function FeatureList({
 }
 
 export function VerificationSection() {
+  const t = useTranslations("home.verification");
   const [activeFeature, setActiveFeature] = useState<string>("background");
+
+  const features = [
+    {
+      id: "verification",
+      icon: CheckmarkCircle02Icon,
+      title: t("features.verification.title"),
+      description: t("features.verification.description"),
+    },
+    {
+      id: "background",
+      icon: Search01Icon,
+      title: t("features.background.title"),
+      description: t("features.background.description"),
+    },
+    {
+      id: "identity",
+      icon: Shield01Icon,
+      title: t("features.identity.title"),
+      description: t("features.identity.description"),
+    },
+    {
+      id: "references",
+      icon: Message01Icon,
+      title: t("features.references.title"),
+      description: t("features.references.description"),
+    },
+  ];
 
   return (
     <section className="bg-neutral-50 py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-10 sm:gap-6 md:flex-row md:items-center lg:mb-12">
           <div>
             {/* Badge */}
             <span className="mb-3 inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 font-medium text-neutral-600 text-xs sm:mb-4">
-              Trust & Safety
+              {t("badge")}
             </span>
 
             {/* Headline - responsive sizing */}
             <h2 className="mb-2 font-semibold text-2xl text-neutral-900 tracking-tight sm:mb-3 sm:text-3xl md:text-4xl">
-              Every professional, thoroughly verified
+              {t("title")}
             </h2>
 
             {/* Subtitle */}
-            <p className="max-w-xl text-base text-neutral-600 sm:text-lg">
-              Comprehensive screening so you can hire with confidence.
-            </p>
+            <p className="max-w-xl text-base text-neutral-600 sm:text-lg">{t("subtitle")}</p>
           </div>
 
           {/* Explore button - full width on mobile */}
@@ -311,7 +309,11 @@ export function VerificationSection() {
 
           {/* Feature List - acts as tabs */}
           <div className="order-2 lg:order-2">
-            <FeatureList activeFeature={activeFeature} setActiveFeature={setActiveFeature} />
+            <FeatureList
+              activeFeature={activeFeature}
+              features={features}
+              setActiveFeature={setActiveFeature}
+            />
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ export function PricingFooterHero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#f7f2e9]/50 to-[#f7f2e9]" />
       </div>
 
-      <Container className="relative z-10 mx-auto flex min-h-[520px] max-w-screen-xl flex-col items-center justify-center px-4 py-16 text-center text-white sm:py-20">
+      <Container className="relative z-10 mx-auto flex min-h-[400px] max-w-screen-xl flex-col items-center justify-center py-16 text-center text-white sm:min-h-[520px] sm:py-20">
         <div className="flex flex-col gap-3 sm:gap-4">
           <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-4xl leading-tight drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl md:text-6xl">
             <span className="block">Simple, transparent pricing.</span>
@@ -43,7 +43,7 @@ export function PricingFooterHero() {
               View pricing
             </Button>
           </Link>
-          <Link href="/direct-hire">
+          <Link href="/contact">
             <Button
               className="rounded-full border border-white/80 bg-transparent px-6 py-3 text-white hover:bg-white/10"
               variant="outline"

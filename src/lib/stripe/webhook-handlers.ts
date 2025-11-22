@@ -11,6 +11,7 @@ import {
   trackBookingCompletedServer,
 } from "@/lib/integrations/posthog/server";
 import { logger } from "@/lib/logger";
+import { generateNextRecurringBooking } from "@/lib/recurring-plans/generate-next-booking";
 import { BalanceService } from "@/lib/services/balance/balance-service";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
@@ -132,6 +133,25 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
         });
         // Don't fail the webhook if stats update fails
         // The payment succeeded and booking is valid
+      }
+
+      // Generate next recurring booking if this was a recurring booking (on-demand)
+      try {
+        const recurringResult = await generateNextRecurringBooking(supabaseAdmin, bookingId);
+        if (recurringResult.bookingId) {
+          logger.info("[Stripe Webhook] Generated next recurring booking", {
+            completedBookingId: bookingId,
+            nextBookingId: recurringResult.bookingId,
+            nextBookingDate: recurringResult.nextBookingDate,
+          });
+        }
+      } catch (error) {
+        logger.error("[Stripe Webhook] Recurring booking generation error", {
+          bookingId,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
+        // Don't fail the webhook if recurring booking generation fails
+        // The original payment succeeded and booking is valid
       }
     }
   }
@@ -385,6 +405,216 @@ export async function handlePayoutFailed(event: Stripe.Event): Promise<void> {
 }
 
 /**
+ * Handle customer.subscription.created event
+ * Creates or updates local subscription record when subscription is created
+ */
+export async function handleSubscriptionCreated(event: Stripe.Event): Promise<void> {
+  const subscription = event.data.object as Stripe.Subscription;
+  const userId = subscription.metadata?.user_id;
+  const planSlug = subscription.metadata?.plan_slug;
+
+  if (!(userId && planSlug)) {
+    logger.warn("[Stripe Webhook] Subscription created but missing metadata", {
+      subscriptionId: subscription.id,
+      hasUserId: !!userId,
+      hasPlanSlug: !!planSlug,
+    });
+    return;
+  }
+
+  // Get plan ID from database
+  const { data: plan, error: planError } = await supabaseAdmin
+    .from("subscription_plans")
+    .select("id")
+    .eq("slug", planSlug)
+    .single();
+
+  if (planError || !plan) {
+    logger.error("[Stripe Webhook] Failed to find plan for subscription", {
+      subscriptionId: subscription.id,
+      planSlug,
+      error: planError?.message,
+    });
+    return;
+  }
+
+  // Upsert subscription record
+  const { error } = await supabaseAdmin.from("user_subscriptions").upsert(
+    {
+      user_id: userId,
+      plan_id: plan.id,
+      stripe_subscription_id: subscription.id,
+      stripe_customer_id:
+        typeof subscription.customer === "string"
+          ? subscription.customer
+          : subscription.customer.id,
+      status: subscription.status,
+      current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+      current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+      trial_start: subscription.trial_start
+        ? new Date(subscription.trial_start * 1000).toISOString()
+        : null,
+      trial_end: subscription.trial_end
+        ? new Date(subscription.trial_end * 1000).toISOString()
+        : null,
+      cancel_at_period_end: subscription.cancel_at_period_end,
+    },
+    {
+      onConflict: "stripe_subscription_id",
+    }
+  );
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to create subscription record", {
+      subscriptionId: subscription.id,
+      userId,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Subscription record created", {
+      subscriptionId: subscription.id,
+      userId,
+      planSlug,
+      status: subscription.status,
+    });
+  }
+}
+
+/**
+ * Handle customer.subscription.updated event
+ * Updates local subscription record when subscription changes
+ */
+export async function handleSubscriptionUpdated(event: Stripe.Event): Promise<void> {
+  const subscription = event.data.object as Stripe.Subscription;
+
+  const { error } = await supabaseAdmin
+    .from("user_subscriptions")
+    .update({
+      status: subscription.status,
+      current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+      current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+      cancel_at_period_end: subscription.cancel_at_period_end,
+      canceled_at: subscription.canceled_at
+        ? new Date(subscription.canceled_at * 1000).toISOString()
+        : null,
+    })
+    .eq("stripe_subscription_id", subscription.id);
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to update subscription record", {
+      subscriptionId: subscription.id,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Subscription record updated", {
+      subscriptionId: subscription.id,
+      status: subscription.status,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    });
+  }
+}
+
+/**
+ * Handle customer.subscription.deleted event
+ * Updates local subscription record when subscription is canceled
+ */
+export async function handleSubscriptionDeleted(event: Stripe.Event): Promise<void> {
+  const subscription = event.data.object as Stripe.Subscription;
+
+  const { error } = await supabaseAdmin
+    .from("user_subscriptions")
+    .update({
+      status: "canceled",
+      canceled_at: new Date().toISOString(),
+    })
+    .eq("stripe_subscription_id", subscription.id);
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to update subscription record on deletion", {
+      subscriptionId: subscription.id,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Subscription record marked as canceled", {
+      subscriptionId: subscription.id,
+    });
+  }
+}
+
+/**
+ * Handle invoice.payment_succeeded event for subscriptions
+ * Updates subscription period and status
+ */
+export async function handleInvoicePaymentSucceeded(event: Stripe.Event): Promise<void> {
+  const invoice = event.data.object as Stripe.Invoice;
+
+  // Only handle subscription invoices
+  if (!invoice.subscription) {
+    return;
+  }
+
+  const subscriptionId =
+    typeof invoice.subscription === "string" ? invoice.subscription : invoice.subscription.id;
+
+  const { error } = await supabaseAdmin
+    .from("user_subscriptions")
+    .update({
+      status: "active",
+    })
+    .eq("stripe_subscription_id", subscriptionId);
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to update subscription on invoice success", {
+      invoiceId: invoice.id,
+      subscriptionId,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Subscription payment succeeded", {
+      invoiceId: invoice.id,
+      subscriptionId,
+      amount: invoice.amount_paid,
+    });
+  }
+}
+
+/**
+ * Handle invoice.payment_failed event for subscriptions
+ * Updates subscription status to past_due
+ */
+export async function handleInvoicePaymentFailed(event: Stripe.Event): Promise<void> {
+  const invoice = event.data.object as Stripe.Invoice;
+
+  // Only handle subscription invoices
+  if (!invoice.subscription) {
+    return;
+  }
+
+  const subscriptionId =
+    typeof invoice.subscription === "string" ? invoice.subscription : invoice.subscription.id;
+
+  const { error } = await supabaseAdmin
+    .from("user_subscriptions")
+    .update({
+      status: "past_due",
+    })
+    .eq("stripe_subscription_id", subscriptionId);
+
+  if (error) {
+    logger.error("[Stripe Webhook] Failed to update subscription on invoice failure", {
+      invoiceId: invoice.id,
+      subscriptionId,
+      error: error.message,
+    });
+  } else {
+    logger.info("[Stripe Webhook] Subscription payment failed, marked as past_due", {
+      invoiceId: invoice.id,
+      subscriptionId,
+    });
+  }
+}
+
+/**
  * Route webhook event to appropriate handler
  */
 export async function processWebhookEvent(event: Stripe.Event): Promise<void> {
@@ -406,6 +636,22 @@ export async function processWebhookEvent(event: Stripe.Event): Promise<void> {
       break;
     case "payout.failed":
       await handlePayoutFailed(event);
+      break;
+    // Subscription events
+    case "customer.subscription.created":
+      await handleSubscriptionCreated(event);
+      break;
+    case "customer.subscription.updated":
+      await handleSubscriptionUpdated(event);
+      break;
+    case "customer.subscription.deleted":
+      await handleSubscriptionDeleted(event);
+      break;
+    case "invoice.payment_succeeded":
+      await handleInvoicePaymentSucceeded(event);
+      break;
+    case "invoice.payment_failed":
+      await handleInvoicePaymentFailed(event);
       break;
     default:
       logger.info("[Stripe Webhook] Unhandled event type", {

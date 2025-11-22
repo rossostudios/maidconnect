@@ -19,6 +19,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
@@ -721,70 +722,6 @@ type BentoCard = {
   expandable?: boolean;
 };
 
-const bentoCards: BentoCard[] = [
-  {
-    id: "verified",
-    title: "Verified professionals",
-    description:
-      "Every professional passes ID verification and background checks. See real reviews from families in your area.",
-    visual: ({ isExpanded, setIsExpanded }) => (
-      <VerifiedProfileVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-    ),
-    span: "md:col-span-2 md:row-span-2",
-    gradient: "from-orange-50/80 via-white to-amber-50/40",
-    expandable: true,
-  },
-  {
-    id: "payments",
-    title: "Secure payments",
-    description: "Payments are held safely until the job is complete. No cash, no hassle.",
-    visual: <SecurePaymentVisual />,
-    span: "md:col-span-2",
-    gradient: "from-sky-50/60 via-white to-slate-50/40",
-  },
-  {
-    id: "reviews",
-    title: "Real reviews",
-    description: "Read honest feedback from families who've hired the same professionals.",
-    visual: ({ isExpanded, setIsExpanded }) => (
-      <ReviewsVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-    ),
-    span: "md:col-span-2 md:row-span-2",
-    gradient: "from-amber-50/60 via-white to-orange-50/40",
-    expandable: true,
-  },
-  {
-    id: "background",
-    title: "Background checks",
-    description: "Comprehensive verification including identity, criminal records, and references.",
-    visual: <BackgroundCheckVisual />,
-    span: "md:col-span-2",
-    gradient: "from-emerald-50/60 via-white to-green-50/40",
-  },
-  {
-    id: "booking",
-    title: "Instant booking",
-    description: "Find available professionals and book in minutes. No back-and-forth needed.",
-    visual: <InstantBookingVisual />,
-    span: "md:col-span-2",
-  },
-  {
-    id: "support",
-    title: "Dedicated support",
-    description: "Our team is here to help resolve any issues and keep everyone safe.",
-    visual: <SupportChatVisual />,
-    span: "md:col-span-2",
-  },
-  {
-    id: "services",
-    title: "All your home needs",
-    description: "From cleaning to childcare to cooking—find help for every household task.",
-    visual: <ServicesVisual />,
-    span: "md:col-span-2",
-    gradient: "from-violet-50/40 via-white to-pink-50/40",
-  },
-];
-
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
@@ -802,12 +739,76 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] },
+    transition: { duration: 0.5, ease: "easeInOut" },
   },
 };
 
 export function BenefitsSection() {
+  const t = useTranslations("features");
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+
+  const bentoCards: BentoCard[] = [
+    {
+      id: "verified",
+      title: t("verifiedProfessionals.title"),
+      description: t("verifiedProfessionals.description"),
+      visual: ({ isExpanded, setIsExpanded }) => (
+        <VerifiedProfileVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      ),
+      span: "md:col-span-2 md:row-span-2",
+      gradient: "from-orange-50/80 via-white to-amber-50/40",
+      expandable: true,
+    },
+    {
+      id: "payments",
+      title: t("securePayments.title"),
+      description: t("securePayments.description"),
+      visual: <SecurePaymentVisual />,
+      span: "md:col-span-2",
+      gradient: "from-sky-50/60 via-white to-slate-50/40",
+    },
+    {
+      id: "reviews",
+      title: t("reviewSystem.title"),
+      description: t("reviewSystem.description"),
+      visual: ({ isExpanded, setIsExpanded }) => (
+        <ReviewsVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      ),
+      span: "md:col-span-2 md:row-span-2",
+      gradient: "from-amber-50/60 via-white to-orange-50/40",
+      expandable: true,
+    },
+    {
+      id: "background",
+      title: t("backgroundChecks.title"),
+      description: t("backgroundChecks.description"),
+      visual: <BackgroundCheckVisual />,
+      span: "md:col-span-2",
+      gradient: "from-emerald-50/60 via-white to-green-50/40",
+    },
+    {
+      id: "booking",
+      title: t("realTimeBooking.title"),
+      description: t("realTimeBooking.description"),
+      visual: <InstantBookingVisual />,
+      span: "md:col-span-2",
+    },
+    {
+      id: "support",
+      title: t("dedicatedSupport.title"),
+      description: t("dedicatedSupport.description"),
+      visual: <SupportChatVisual />,
+      span: "md:col-span-2",
+    },
+    {
+      id: "services",
+      title: t("allServices.title"),
+      description: t("allServices.description"),
+      visual: <ServicesVisual />,
+      span: "md:col-span-2",
+      gradient: "from-violet-50/40 via-white to-pink-50/40",
+    },
+  ];
 
   return (
     <section className="bg-neutral-50 py-16 md:py-24" id="benefits">
@@ -820,7 +821,7 @@ export function BenefitsSection() {
             initial={{ opacity: 0, y: 10 }}
           >
             <span className="h-2 w-2 rounded-full bg-orange-500" />
-            <span className="font-medium text-orange-700 text-sm">Trust & Safety</span>
+            <span className="font-medium text-orange-700 text-sm">{t("tag")}</span>
           </motion.div>
 
           <motion.h2
@@ -829,7 +830,7 @@ export function BenefitsSection() {
             initial={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.1 }}
           >
-            Why families choose Casaora
+            {t("title")}
           </motion.h2>
 
           <motion.p
@@ -838,8 +839,7 @@ export function BenefitsSection() {
             initial={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.2 }}
           >
-            Your home is personal. That's why we built every feature with safety and trust at the
-            core.
+            {t("subtitle")}
           </motion.p>
         </div>
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 type FeatureFlags = {
   recurring_bookings: boolean;
-  amara_ai: boolean;
+
   auto_translate: boolean;
   gps_verification: boolean;
   one_tap_rebook: boolean;
@@ -71,11 +71,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
       name: "Recurring Bookings",
       description: "Allow customers to schedule recurring cleaning services",
     },
-    {
-      key: "amara_ai" as const,
-      name: "Amara AI Assistant",
-      description: "Enable AI-powered booking assistant for customers",
-    },
+
     {
       key: "auto_translate" as const,
       name: "Auto-Translate Chat",

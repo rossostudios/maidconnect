@@ -11,7 +11,44 @@
     "signUp": "Registrarse",
     "dashboard": "Panel",
     "logout": "Cerrar sesión",
-    "product": "Producto"
+    "product": "Producto",
+    "resources": "Recursos",
+    "dropdown": {
+      "professionals": {
+        "title": "Profesionales",
+        "featuredDesc": "Encuentra profesionales verificados y con antecedentes comprobados listos para ayudarte.",
+        "howItWorks": "Cómo Funciona",
+        "howItWorksDesc": "Aprende cómo Casaora te conecta con profesionales de confianza",
+        "vettingProcess": "Proceso de Verificación",
+        "vettingProcessDesc": "Nuestra rigurosa selección garantiza calidad y seguridad",
+        "pricing": "Precios",
+        "pricingDesc": "Precios transparentes sin costos ocultos",
+        "browse": "Explorar Profesionales",
+        "browseDesc": "Encuentra profesionales de confianza para cualquier necesidad del hogar"
+      },
+      "customers": {
+        "title": "Clientes",
+        "featuredDesc": "Todo lo que necesitas para reservar y gestionar servicios del hogar con confianza.",
+        "bookNow": "Reservar Ahora",
+        "bookNowDesc": "Agenda tu primer servicio en minutos",
+        "reviews": "Reseñas",
+        "reviewsDesc": "Lee reseñas verificadas de clientes reales",
+        "helpCenter": "Centro de Ayuda",
+        "helpCenterDesc": "Encuentra respuestas a preguntas frecuentes",
+        "support": "Contactar Soporte",
+        "supportDesc": "Obtén ayuda de nuestro equipo de atención al cliente"
+      },
+      "company": {
+        "title": "Empresa",
+        "featuredDesc": "Conoce nuestra misión de transformar los servicios del hogar en América Latina.",
+        "about": "Nosotros",
+        "aboutDesc": "Nuestra historia y misión",
+        "blog": "Blog",
+        "blogDesc": "Noticias, consejos e información del sector",
+        "careers": "Carreras",
+        "careersDesc": "Únete a nuestro equipo en crecimiento"
+      }
+    }
   },
   "professionals": {
     "title": "Encuentra tu profesional perfecto",
@@ -36,25 +73,143 @@
     }
   },
   "features": {
-    "title": "Por qué elegir Casaora®",
+    "title": "Por qué elegir Casaora",
+    "tag": "Confianza y Seguridad",
+    "subtitle": "Tu hogar es personal. Por eso construimos cada función con la seguridad y la confianza como eje central.",
     "verifiedProfessionals": {
       "title": "Profesionales verificados",
-      "description": "Cada profesional se somete a verificación de antecedentes e identidad"
+      "description": "Cada profesional pasa por verificación de identidad y antecedentes. Vea reseñas reales de familias en su área."
     },
     "securePayments": {
       "title": "Pagos seguros",
-      "description": "Pague de forma segura a través de procesadores de pago certificados con protección de depósito en garantía hasta completar el servicio"
+      "description": "Los pagos se mantienen seguros hasta que se completa el trabajo. Sin efectivo, sin complicaciones."
     },
     "realTimeBooking": {
-      "title": "Reserva en tiempo real",
-      "description": "Vea la disponibilidad y reserve instantáneamente o solicite aprobación para necesidades personalizadas"
+      "title": "Reserva instantánea",
+      "description": "Encuentre profesionales disponibles y reserve en minutos. Sin idas y vueltas."
     },
     "reviewSystem": {
-      "title": "Sistema de reseñas",
-      "description": "Las reseñas bidireccionales garantizan responsabilidad y te ayudan a tomar decisiones informadas"
+      "title": "Reseñas reales",
+      "description": "Lea comentarios honestos de familias que han contratado a los mismos profesionales."
+    },
+    "backgroundChecks": {
+      "title": "Verificación de antecedentes",
+      "description": "Verificación completa incluyendo identidad, antecedentes penales y referencias."
+    },
+    "dedicatedSupport": {
+      "title": "Soporte dedicado",
+      "description": "Nuestro equipo está aquí para ayudar a resolver cualquier problema y mantener a todos seguros."
+    },
+    "allServices": {
+      "title": "Todo lo que tu hogar necesita",
+      "description": "Desde limpieza hasta cuidado de niños y cocina: encuentre ayuda para cada tarea del hogar."
     }
   },
   "home": {
+    "hero": {
+      "headline": "Encuentra profesionales de confianza para tu hogar en Latinoamérica",
+      "subheadline": "Reserva trabajadoras y trabajadores del hogar verificados — limpieza, niñera, cuidado de adultos mayores y más — en pocos clics. Simple, seguro y justo para familias y profesionales.",
+      "searchPlaceholder": "¿Qué necesitas?",
+      "locationPlaceholder": "¿Dónde?",
+      "datePlaceholder": "¿Cuándo?",
+      "searchButton": "Buscar",
+      "trustBadges": {
+        "vetted": "Profesionales verificados y con reseñas",
+        "payments": "Pagos seguros en la app",
+        "pricing": "Precios justos y transparentes",
+        "instant": "Reserva instantánea"
+      }
+    },
+    "process": {
+      "title": "Cómo funciona Casaora para tu hogar",
+      "description": "Tres simples pasos te conectan con profesionales del hogar de confianza",
+      "step1": {
+        "title": "Cuéntanos qué necesitas",
+        "description": "Elige el tipo de ayuda: limpieza, cuidado de niños, personas mayores, cocina y más. Indica horario, ubicación y preferencias."
+      },
+      "step2": {
+        "title": "Te conectamos con profesionales",
+        "description": "Te mostramos perfiles verificados que encajan contigo, con experiencia y reseñas de otras familias."
+      },
+      "step3": {
+        "title": "Reserva y paga de forma segura",
+        "description": "Confirma el servicio, conversa por la app y paga en línea. Sin efectivo, sin sorpresas, todo transparente."
+      },
+      "cta": "Encontrar ayuda ahora",
+      "steps": {
+        "search": "Buscar",
+        "match": "Conectar",
+        "book": "Reservar",
+        "getStarted": "Empezar"
+      }
+    },
+    "verification": {
+      "badge": "Confianza y Seguridad",
+      "title": "Cada profesional, minuciosamente verificado",
+      "subtitle": "Evaluación completa para que puedas contratar con confianza.",
+      "features": {
+        "verification": {
+          "title": "Proceso de verificación de 3 pasos",
+          "description": "Nuestro proceso simplificado asegura que cada profesional cumpla con nuestros altos estándares mediante revisión de solicitud, verificación de identidad y antecedentes completos."
+        },
+        "background": {
+          "title": "Verificación de antecedentes penales",
+          "description": "Cada profesional se somete a una verificación exhaustiva de antecedentes penales a través de agencias certificadas. Verificamos registros nacionales y locales para garantizar la seguridad de su familia."
+        },
+        "identity": {
+          "title": "Verificación de identidad",
+          "description": "La verificación de identificación gubernamental confirma la identidad de cada profesional. Cruzamos documentos y utilizamos controles biométricos para prevenir fraudes."
+        },
+        "references": {
+          "title": "Validación de referencias",
+          "description": "Contactamos a empleadores anteriores y referencias personales para verificar el historial laboral, la confiabilidad y el carácter antes de la aprobación."
+        }
+      }
+    },
+    "guarantee": {
+      "badge": "Garantía de Servicio",
+      "title": "Tu satisfacción, garantizada",
+      "subtitle": "Si algo no está bien, lo solucionaremos — o te devolvemos tu dinero.",
+      "features": {
+        "quality": {
+          "title": "Aseguramiento de calidad",
+          "description": "Cada profesional en nuestra plataforma cumple con los más altos estándares. Monitoreamos calificaciones, reseñas y calidad del servicio para asegurar excelencia constante."
+        },
+        "reporting": {
+          "title": "Reporte de problemas fácil",
+          "description": "¿Algo no está bien? Reporte problemas directamente en la aplicación dentro de las 24 horas posteriores a su servicio. Nuestro equipo revisa cada caso personalmente."
+        },
+        "reservice": {
+          "title": "Re-servicio gratuito",
+          "description": "Si el servicio no cumple con las expectativas, enviaremos a un profesional de regreso sin costo adicional para solucionarlo."
+        },
+        "refund": {
+          "title": "Garantía de devolución de dinero",
+          "description": "Si no podemos resolver el problema a su satisfacción, recibirá un reembolso completo. Sin preguntas, sin complicaciones."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Por qué familias y profesionales eligen Casaora",
+      "family": {
+        "title": "Para familias",
+        "items": [
+          "Encuentra ayuda de confianza más rápido",
+          "Ver reseñas y experiencia real",
+          "Precios y contratos transparentes",
+          "Reservas recurrentes o puntuales"
+        ]
+      },
+      "professional": {
+        "title": "Para profesionales",
+        "items": [
+          "Más oportunidades de trabajo",
+          "Pago justo y puntual",
+          "Clientes serios y respetuosos",
+          "Herramientas para gestionar tu trabajo"
+        ]
+      }
+    },
     "pricing": {
       "badge": "Precios Transparentes",
       "title": "Precios simples y transparentes",
@@ -892,6 +1047,16 @@
           "fetchFailed": "Error al cargar la información de la cuenta bancaria",
           "connectFailed": "Error al conectar con Stripe. Por favor intenta nuevamente."
         }
+      },
+      "subscription": {
+        "title": "Suscripción",
+        "description": "Administra tu plan de suscripción profesional y desbloquea funciones premium.",
+        "currentPlan": "Plan Actual",
+        "availablePlans": "Planes Disponibles",
+        "noPlan": {
+          "title": "Sin Suscripción Activa",
+          "description": "Actualmente estás en el plan gratuito. Mejora para desbloquear funciones premium."
+        }
       }
     },
     "customer": {
@@ -1001,6 +1166,16 @@
           }
         }
       },
+      "subscription": {
+        "title": "Suscripción",
+        "description": "Administra tu plan de suscripción y desbloquea funciones premium como soporte prioritario.",
+        "currentPlan": "Plan Actual",
+        "availablePlans": "Planes Disponibles",
+        "noPlan": {
+          "title": "Sin Suscripción Activa",
+          "description": "Actualmente estás en el plan gratuito. Mejora para desbloquear funciones premium."
+        }
+      },
       "bookingList": {
         "emptyState": {
           "noBookings": "Aún no hay reservas.",
@@ -1033,8 +1208,51 @@
             "reschedule": "Reprogramar",
             "cancel": "Cancelar",
             "leaveReview": "Dejar Reseña",
+            "downloadReceipt": "Descargar Recibo",
             "bookAgain": "Reservar de Nuevo"
           }
+        }
+      },
+      "receipt": {
+        "title": "Recibo del Servicio",
+        "receiptNumber": "Recibo #",
+        "dateIssued": "Fecha de Emisión",
+        "serviceDetails": "Detalles del Servicio",
+        "service": "Servicio",
+        "date": "Fecha",
+        "time": "Hora",
+        "duration": "Duración",
+        "location": "Ubicación",
+        "professional": "Profesional",
+        "paymentSummary": "Resumen del Pago",
+        "serviceTotal": "Total del Servicio",
+        "tip": "Propina",
+        "totalPaid": "Total Pagado",
+        "paymentMethod": "Método de Pago",
+        "paymentDate": "Fecha de Pago",
+        "thankYou": "¡Gracias por elegir Casaora!",
+        "print": "Imprimir",
+        "download": "Descargar"
+      },
+      "payments": {
+        "title": "Métodos de Pago",
+        "description": "Administra tus métodos de pago guardados para reservas rápidas y seguras.",
+        "savedCards": "Tarjetas Guardadas",
+        "addCard": "Agregar Tarjeta",
+        "emptyState": {
+          "title": "No hay métodos de pago guardados",
+          "description": "Agrega una tarjeta para habilitar pagos rápidos y seguros para tus reservas."
+        },
+        "default": "Predeterminado",
+        "expires": "Vence",
+        "setDefault": "Establecer como predeterminado",
+        "setting": "Configurando...",
+        "delete": "Eliminar",
+        "retry": "Intentar de nuevo",
+        "confirmDelete": "¿Estás seguro de que deseas eliminar este método de pago?",
+        "securityInfo": {
+          "title": "Tus pagos están seguros",
+          "description": "Usamos encriptación de nivel industrial y nunca almacenamos los datos completos de tu tarjeta. Los pagos se procesan de forma segura a través de Stripe."
         }
       },
       "favoritesList": {
@@ -1236,6 +1454,10 @@
         "addresses": {
           "title": "Direcciones Guardadas"
         }
+      },
+      "disputes": {
+        "title": "Mis Disputas",
+        "description": "Rastrea y gestiona las disputas presentadas para tus reservas"
       }
     }
   },
@@ -2727,16 +2949,83 @@
   },
   "pricing": {
     "meta": {
-      "title": "Precios - Planes Simples y Transparentes | Casaora",
-      "description": "Elija el plan perfecto para sus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualice para funciones premium."
+      "title": "Precios Simples y Transparentes | Casaora",
+      "description": "Una tarifa de servicio simple del 15% cubre todo. Los profesionales fijan sus tarifas, tú pagas una comisión clara. Sin costos ocultos."
     },
     "hero": {
-      "title": "Precios Transparentes - Sin Tarifas Ocultas",
-      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Contratación Directa. Los profesionales mantienen el 100%. Vetting, antecedentes y seguros están incluidos.",
-      "tabs": {
-        "customers": "Para Clientes",
-        "professionals": "Para Profesionales"
+      "badge": "Precios Transparentes",
+      "title": "Precios simples, sin sorpresas",
+      "subtitle": "Los profesionales fijan sus propias tarifas. Agregamos una tarifa de servicio clara del 15% que cubre verificación, antecedentes, seguro y soporte."
+    },
+    "fees": {
+      "instantBook": {
+        "badge": "Más Popular",
+        "title": "Reserva Instantánea",
+        "feeLabel": "tarifa de servicio",
+        "description": "Reserva profesionales verificados en minutos. Perfecto para servicios únicos o recurrentes.",
+        "feature1": "Reserva y paga al instante",
+        "feature2": "Profesionales verificados con reseñas",
+        "feature3": "Horarios flexibles"
+      },
+      "concierge": {
+        "badge": "Guante Blanco",
+        "title": "Servicio Concierge",
+        "feeLabel": "tarifa de servicio",
+        "description": "Matching personalizado con coordinadores dedicados. Ideal para necesidades complejas o recurrentes.",
+        "feature1": "Coordinador de matching personal",
+        "feature2": "Soporte y programación prioritaria",
+        "feature3": "Garantía de reemplazo"
+      },
+      "proNote": {
+        "highlight": "Los profesionales mantienen el 100% de su tarifa.",
+        "text": "La tarifa de servicio se suma al total y la pagan los clientes."
       }
+    },
+    "included": {
+      "title": "Qué incluye la tarifa de servicio",
+      "subtitle": "Tu 15% cubre servicios completos de seguridad y soporte",
+      "vetting": {
+        "title": "Verificación Profesional",
+        "description": "Evaluación de habilidades y entrevistas"
+      },
+      "backgroundChecks": {
+        "title": "Verificación de Antecedentes",
+        "description": "Registros criminales y verificación de identidad"
+      },
+      "insurance": {
+        "title": "Cobertura de Seguro",
+        "description": "Protección de responsabilidad para tu hogar"
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Asistencia en inglés y español"
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre nuestros precios",
+      "q1": {
+        "question": "¿Por qué hay una tarifa de servicio?",
+        "answer": "La tarifa de servicio del 15% cubre verificación de antecedentes, evaluación profesional, cobertura de seguro, procesamiento de pagos y soporte al cliente 24/7. Esto asegura que cada profesional en nuestra plataforma esté verificado y tengas protección si algo sale mal."
+      },
+      "q2": {
+        "question": "¿Los profesionales pagan alguna tarifa?",
+        "answer": "No. Los profesionales mantienen el 100% de su tarifa. La tarifa de servicio se suma al total y la paga completamente el cliente. Esto permite a los profesionales establecer tarifas justas sin perder una parte en comisiones."
+      },
+      "q3": {
+        "question": "¿Cuál es la diferencia entre Reserva Instantánea y Contratación Directa?",
+        "answer": "Reserva Instantánea es para servicios únicos o recurrentes donde reservas y pagas al instante. Contratación Directa es para colocaciones de tiempo completo con contratos de empleo legales, soporte de matching dedicado y garantía de satisfacción de 30 días."
+      },
+      "q4": {
+        "question": "¿Hay tarifas ocultas?",
+        "answer": "No hay tarifas ocultas. Ves la tarifa del profesional más la tarifa de servicio del 15% antes de reservar. Ese es el costo total—sin sorpresas, sin extras."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para encontrar ayuda confiable?",
+      "subtitle": "Únete a familias en toda Latinoamérica que confían en Casaora para profesionales del hogar verificados.",
+      "browseButton": "Ver Profesionales",
+      "signUpButton": "Ser Profesional"
     },
     "comparison": {
       "popularBadge": "Más popular",
@@ -2772,7 +3061,7 @@
     },
     "title": "Precios simples y transparentes",
     "subtitle": "Elija el plan que funcione para ti. Todos los planes incluyen nuestras funciones principales sin tarifas ocultas.",
-    "faq": {
+    "oldFaq": {
       "title": "Preguntas frecuentes",
       "subtitle": "¿tiene preguntas? Estamos aquí para ayudar."
     },
@@ -3067,8 +3356,74 @@
       "description": "Descubre cómo Casaora ayuda a familias en América Latina a contratar profesionales del hogar de confianza. Reserva instantánea o contratación directa con contratos legales y garantía de satisfacción."
     },
     "hero": {
-      "title": "Cómo Funciona Casaora",
-      "subtitle": "Dos formas de contratar: Reserva Instantánea para auto-servicio en minutos, o Contratación Directa para colocaciones permanentes con contratos legales y garantía de 30 días."
+      "badge": "Cómo Funciona",
+      "title": "Encuentra ayuda doméstica de confianza",
+      "subtitle": "Casaora proporciona procesos de contratación diseñados para la calidad. Construido con los estándares de las familias modernas en mente."
+    },
+    "everythingYouNeed": {
+      "title": "Todo lo que necesitas, y más",
+      "description": "Accede a profesionales del hogar verificados con antecedentes comprobados y ajusta cada detalle según las necesidades de tu hogar.",
+      "features": {
+        "vettedProfessionals": "Profesionales verificados",
+        "backgroundChecks": "Verificación de antecedentes incluida",
+        "transparentPricing": "Precios transparentes",
+        "flexibleScheduling": "Horarios flexibles",
+        "qualityGuarantee": "Garantía de calidad",
+        "securePayments": "Pagos seguros"
+      },
+      "diagram": {
+        "search": "Buscar Profesionales",
+        "searchDesc": "Filtra por servicio y disponibilidad",
+        "verify": "Revisar Perfiles",
+        "verifyDesc": "Consulta reseñas y credenciales",
+        "book": "Reservar Servicio",
+        "bookDesc": "Agenda y paga de forma segura",
+        "review": "Dejar Reseña",
+        "reviewDesc": "Comparte tu experiencia"
+      }
+    },
+    "adaptiveJourneys": {
+      "title": "Procesos adaptativos para cada necesidad",
+      "description": "Evita fricciones solicitando información básica al crear la cuenta, y recopilando detalles adicionales según tus necesidades de servicio.",
+      "features": {
+        "stagedOnboarding": "Onboarding por etapas para un inicio fluido",
+        "privateInteractions": "Interacciones privadas y seguras",
+        "multiServiceBooking": "Opciones de reserva multi-servicio",
+        "smartMatching": "Matching inteligente según tus preferencias"
+      },
+      "card": {
+        "preferences": "Preferencias",
+        "requirements": "Requisitos",
+        "serviceType": "Tipo de servicio",
+        "serviceTypeValue": "Limpieza del hogar",
+        "location": "Ubicación",
+        "locationValue": "Tu ciudad",
+        "frequency": "Frecuencia",
+        "frequencyValue": "Semanal",
+        "backgroundCheck": "Verificación de antecedentes",
+        "reviews": "Reseñas verificadas",
+        "availability": "Disponibilidad en tiempo real"
+      }
+    },
+    "designedForConversion": {
+      "title": "Diseñado para la confianza",
+      "description": "Nos obsesionamos con cada detalle del proceso de contratación — desde la verificación de identidad hasta las interacciones más pequeñas. Con Casaora, tienes un equipo de profesionales trabajando continuamente para asegurar la calidad en tu nombre.",
+      "features": {
+        "instantAvailability": "Verificación de disponibilidad instantánea",
+        "realTimeUpdates": "Actualizaciones en tiempo real",
+        "deepLocalization": "Localización profunda",
+        "descriptiveProfiles": "Perfiles descriptivos",
+        "multipleOptions": "Múltiples opciones de servicio",
+        "dynamicPricing": "Visualización dinámica de precios",
+        "autoCompletion": "Auto-completado para reservas fáciles",
+        "smartReminders": "Recordatorios inteligentes"
+      },
+      "diagram": {
+        "selectService": "Selecciona tipo de servicio",
+        "choosePro": "Elige tu profesional",
+        "verifyDetails": "Verifica detalles de la reserva",
+        "confirmBooking": "Confirma y paga"
+      }
     },
     "customer": {
       "title": "Para clientes",
@@ -3758,6 +4113,28 @@
     }
   },
   "pros": {
+    "hero": {
+      "badge": "Para Profesionales",
+      "title": "Gana más, trabaja seguro y controla tu horario",
+      "subtitle": "Únete a la red de profesionales del hogar de confianza en América Latina. Verificamos clientes, garantizamos pagos y te tratamos con dignidad.",
+      "primaryCta": "Únete como Profesional",
+      "secondaryCta": "Cómo funciona",
+      "pills": {
+        "free": "Gratis para unirse",
+        "noUpfront": "Sin costos iniciales",
+        "earnFast": "Gana rápido"
+      },
+      "panel": {
+        "title": "¿Por qué unirse?",
+        "subtitle": "Mejor que una agencia",
+        "items": {
+          "keepAll": "Conserva el 100% de tu tarifa",
+          "customerFee": "Los clientes pagan la tarifa",
+          "vetting": "Clientes verificados y seguros",
+          "support": "Equipo de soporte 24/7"
+        }
+      }
+    },
     "safety": {
       "title": "Seguridad y Protección del Trabajador",
       "description": "Tu seguridad, derechos y bienestar son nuestra máxima prioridad. Conoce tus protecciones como profesional del hogar.",
@@ -3879,28 +4256,6 @@
         "title": "¿Necesitas Ayuda?",
         "description": "Nuestro equipo de soporte está aquí para ayudarte. No dudes en contactarnos con cualquier pregunta o inquietud.",
         "cta": "Contactar Soporte"
-      }
-    },
-    "hero": {
-      "badge": "Para Profesionales",
-      "title": "Tu talento, respetado. Tus tarifas, protegidas.",
-      "subtitle": "Únete a una plataforma donde te quedas con el 100% y trabajas con familias que valoran carreras profesionales.",
-      "primaryCta": "Postular ahora",
-      "secondaryCta": "Ver cómo funciona",
-      "pills": {
-        "free": "Gratis unirse",
-        "noUpfront": "Sin cobros por adelantado",
-        "earnFast": "Empieza a ganar en días"
-      },
-      "panel": {
-        "title": "Por qué Casaora",
-        "subtitle": "Transparencia, soporte y 100% de tus tarifas",
-        "items": {
-          "keepAll": "Recibes el 100% de tu tarifa. El cliente paga 15%/20% arriba.",
-          "customerFee": "Sin cobros a profesionales. Sin deducciones.",
-          "vetting": "Vetting, antecedentes e identidad incluidos.",
-          "support": "Soporte, agenda y reemplazos cuando se necesite."
-        }
       }
     },
     "howItWorks": {

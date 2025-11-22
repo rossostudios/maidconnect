@@ -1,0 +1,48 @@
+{
+  "name": "Casaora",
+  "short_name": "Casaora",
+  "description": "Find trusted home service professionals in your neighborhood",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F5",
+  "theme_color": "#D97757",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["lifestyle", "business", "utilities"],
+  "icons": [
+    {
+      "src": "/isologo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/casaora-platform.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Casaora home service marketplace"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book a Service",
+      "short_name": "Book",
+      "description": "Find and book a home service professional",
+      "url": "/professionals",
+      "icons": [{ "src": "/isologo.svg", "sizes": "any" }]
+    },
+    {
+      "name": "My Bookings",
+      "short_name": "Bookings",
+      "description": "View your upcoming bookings",
+      "url": "/dashboard/customer/bookings",
+      "icons": [{ "src": "/isologo.svg", "sizes": "any" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

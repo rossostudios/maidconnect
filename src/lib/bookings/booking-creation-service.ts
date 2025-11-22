@@ -7,6 +7,10 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { notifyProfessionalNewBooking } from "@/lib/notifications";
+import {
+  getCityName,
+  sendJobAlertNotifications,
+} from "@/lib/services/notifications/job-alerts-service";
 import { stripe } from "@/lib/stripe";
 
 export type BookingInsertInput = {
@@ -261,4 +265,42 @@ export async function cleanupFailedBooking(
   bookingId: string
 ): Promise<void> {
   await supabase.from("bookings").delete().eq("id", bookingId);
+}
+
+/**
+ * Send job alert notifications to nearby professionals
+ * Fire-and-forget - doesn't fail booking creation if notifications fail
+ *
+ * PWA Growth Feature: Notifies professionals in the same city about new job opportunities
+ */
+export async function sendNearbyJobAlertNotifications(
+  supabase: SupabaseClient,
+  bookingId: string,
+  professionalId: string,
+  serviceName: string | null,
+  cityId: string,
+  scheduledStart: string | null,
+  estimatedAmount: number,
+  currency: string
+): Promise<void> {
+  if (!(scheduledStart && serviceName)) {
+    return; // Skip if missing required info
+  }
+
+  // Get city name for notification
+  const cityName = await getCityName(supabase, cityId);
+
+  await sendJobAlertNotifications(supabase, {
+    id: bookingId,
+    serviceName,
+    cityId,
+    cityName,
+    scheduledStart,
+    estimatedPay: estimatedAmount,
+    currency,
+    professionalId,
+  }).catch((error) => {
+    // Don't fail booking creation if job alerts fail
+    console.error("[booking-creation] Failed to send job alert notifications:", error);
+  });
 }

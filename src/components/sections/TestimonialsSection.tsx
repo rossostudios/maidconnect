@@ -19,7 +19,10 @@ export function TestimonialsSection() {
   const authorRole = "Family · Medellín, Colombia";
 
   return (
-    <section className="bg-neutral-50 px-4 py-10 sm:px-6 md:py-14 lg:px-8" id="testimonials">
+    <section
+      className="bg-neutral-50 px-5 py-10 sm:px-8 md:py-14 lg:px-12 xl:px-16"
+      id="testimonials"
+    >
       <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-900/10 shadow-xl">
         {/* Gradient illustration backdrop */}
         <div className="absolute inset-0">
@@ -34,7 +37,7 @@ export function TestimonialsSection() {
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/45 via-neutral-900/15 to-neutral-900/50" />
         </div>
 
-        <Container className="relative max-w-5xl px-4 py-10 sm:px-7 md:py-14 lg:px-10">
+        <Container className="relative max-w-5xl py-10 md:py-14">
           <div className="text-center text-white">
             <motion.p
               animate={{ opacity: 1, y: 0 }}

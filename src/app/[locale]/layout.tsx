@@ -8,10 +8,11 @@ import { draftMode, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
 import "../globals.css";
-import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
+
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { UnifiedCommandPaletteWrapper } from "@/components/command-palette/unified-command-palette-wrapper";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -36,24 +37,20 @@ import { geistSans } from "../fonts";
 export const metadata: Metadata = {
   metadataBase: new URL("https://casaora.co"),
   title: {
-    default: "Casaora® · The Art of Home",
+    default: "Casaora® · Trusted Marketplace for Home Professionals",
     template: "%s · Casaora®",
   },
   description:
-    "Casaora is Latin America's premier boutique domestic staffing agency. Operating in Colombia, Paraguay, Uruguay, and Argentina. Browse our curated network of exceptional household professionals—only the top 5% make it onto our platform. Pre-vetted excellence for discerning homes.",
+    "Casaora is the trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers including nannies, housekeepers, caregivers, and cooks. Simple, fair, and dignified.",
   keywords: [
     "Casaora®",
-    "luxury domestic staffing Latin America",
-    "private household staff Bogotá",
-    "boutique staffing agency",
-    "premium housekeepers Colombia",
-    "private chef Cartagena",
-    "estate staff Medellín",
-    "household staff Asunción Paraguay",
-    "domestic staff Montevideo Uruguay",
-    "housekeepers Buenos Aires Argentina",
-    "private staff Ciudad del Este",
-    "estate staff Punta del Este",
+    "domestic help marketplace",
+    "hire housekeeper Latin America",
+    "nanny services Colombia",
+    "caregivers Mexico",
+    "private chef booking",
+    "verified home professionals",
+    "household staff marketplace",
   ],
   icons: {
     icon: [
@@ -62,10 +59,16 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/isologo.svg", type: "image/svg+xml" }],
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Casaora",
+  },
   openGraph: {
-    title: "Casaora® · The Art of Home",
+    title: "Casaora® · Trusted Marketplace for Home Professionals",
     description:
-      "Latin America's premier boutique domestic staffing agency. Serving Colombia, Paraguay, Uruguay, and Argentina. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
+      "The trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers. Simple, fair, and dignified.",
     url: "https://casaora.co",
     siteName: "Casaora®",
     locale: "en_US",
@@ -73,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Casaora® · The Art of Home",
+    title: "Casaora® · Trusted Marketplace for Home Professionals",
     description:
-      "Browse Latin America's most exceptional household professionals. Operating in CO, PY, UY, AR. Pre-vetted, curated excellence. The Art of Home.",
+      "The trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers.",
   },
 };
 
@@ -130,13 +133,15 @@ export default async function RootLayout({
                       <SupabaseProvider>
                         <RealtimeProvider>
                           <QueryProvider>
-                            <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                            <KeyboardShortcutsProvider>
+                              <NuqsAdapter>{children}</NuqsAdapter>
+                            </KeyboardShortcutsProvider>
                           </QueryProvider>
                         </RealtimeProvider>
                       </SupabaseProvider>
                     </Suspense>
                     <Suspense fallback={null}>
-                      <AmaraFloatingButton locale={locale} />
+                      {/* <AmaraFloatingButton locale={locale} /> */}
                     </Suspense>
                     <CookieConsent />
                   </UnifiedCommandPaletteWrapper>

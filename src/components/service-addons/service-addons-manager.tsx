@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { confirm } from "@/lib/toast";
 
 export type ServiceAddon = {
@@ -31,6 +32,11 @@ export function ServiceAddonsManager({
   const [addons, setAddons] = useState<ServiceAddon[]>(initialAddons);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [submittingId, setSubmittingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    setAddons(initialAddons);
+  }, [initialAddons]);
 
   const handleAddonsUpdate = (newAddons: ServiceAddon[]) => {
     setAddons(newAddons);
@@ -47,33 +53,120 @@ export function ServiceAddonsManager({
     setIsAdding(false);
   };
 
-  const handleToggleActive = (id: string) => {
-    const newAddons = addons.map((addon) =>
-      addon.id === id ? { ...addon, is_active: !addon.is_active } : addon
-    );
-    handleAddonsUpdate(newAddons);
+  const persistAddon = async (
+    payload: Omit<ServiceAddon, "id" | "created_at" | "updated_at" | "professional_id"> & {
+      id?: string;
+    }
+  ): Promise<ServiceAddon | null> => {
+    try {
+      setSubmittingId(payload.id ?? "new");
+
+      // Update existing
+      if (payload.id) {
+        const response = await fetch(`/api/professional/addons/${payload.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: payload.name,
+            description: payload.description,
+            price_cop: payload.price_cop,
+            duration_minutes: payload.duration_minutes,
+            is_active: payload.is_active,
+          }),
+        });
+
+        const body = await response.json();
+        if (!response.ok) {
+          throw new Error(body?.error || "Failed to update add-on");
+        }
+        return body.addon as ServiceAddon;
+      }
+
+      // Create new
+      const response = await fetch("/api/professional/addons", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: payload.name,
+          description: payload.description,
+          price_cop: payload.price_cop,
+          duration_minutes: payload.duration_minutes,
+          is_active: payload.is_active,
+        }),
+      });
+
+      const body = await response.json();
+      if (!response.ok) {
+        throw new Error(body?.error || "Failed to create add-on");
+      }
+      return body.addon as ServiceAddon;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unexpected error";
+      toast.error(message);
+      return null;
+    } finally {
+      setSubmittingId(null);
+    }
+  };
+
+  const handleToggleActive = async (id: string) => {
+    const target = addons.find((addon) => addon.id === id);
+    if (!target) return;
+
+    const updated = await persistAddon({
+      id,
+      name: target.name,
+      description: target.description || undefined,
+      price_cop: target.price_cop,
+      duration_minutes: target.duration_minutes,
+      is_active: !target.is_active,
+    });
+
+    if (updated) {
+      handleAddonsUpdate(addons.map((addon) => (addon.id === id ? updated : addon)));
+    }
   };
 
   const handleDelete = async (id: string) => {
     const confirmed = await confirm(t("deleteConfirm"), "Delete Service Addon");
-    if (confirmed) {
-      const newAddons = addons.filter((addon) => addon.id !== id);
-      handleAddonsUpdate(newAddons);
+    if (!confirmed) return;
+
+    try {
+      setSubmittingId(id);
+      const response = await fetch(`/api/professional/addons/${id}`, { method: "DELETE" });
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body?.error || "Failed to delete add-on");
+      }
+      handleAddonsUpdate(addons.filter((addon) => addon.id !== id));
+      toast.success(t("deleted"));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unexpected error";
+      toast.error(message);
+    } finally {
+      setSubmittingId(null);
     }
   };
 
-  const handleSave = (addon: ServiceAddon) => {
-    let newAddons: ServiceAddon[];
+  const handleSave = async (addon: ServiceAddon) => {
+    const result = await persistAddon({
+      id: editingId ?? addon.id,
+      name: addon.name,
+      description: addon.description,
+      price_cop: addon.price_cop,
+      duration_minutes: addon.duration_minutes,
+      is_active: addon.is_active,
+    });
 
-    if (editingId) {
-      // Editing existing
-      newAddons = addons.map((a) => (a.id === editingId ? addon : a));
-    } else {
-      // Adding new
-      newAddons = [...addons, addon];
+    if (result) {
+      const exists = addons.some((a) => a.id === result.id);
+      const newAddons = exists
+        ? addons.map((a) => (a.id === result.id ? result : a))
+        : [...addons, result];
+      handleAddonsUpdate(newAddons);
+      toast.success(editingId ? t("updated") : t("created"));
     }
 
-    handleAddonsUpdate(newAddons);
     setIsAdding(false);
     setEditingId(null);
   };
@@ -99,6 +192,7 @@ export function ServiceAddonsManager({
           {activeAddons.map((addon) => (
             <AddonCard
               addon={addon}
+              isLoading={submittingId === addon.id}
               key={addon.id}
               onDelete={() => handleDelete(addon.id)}
               onEdit={() => handleEdit(addon.id)}
@@ -117,6 +211,7 @@ export function ServiceAddonsManager({
           {inactiveAddons.map((addon) => (
             <AddonCard
               addon={addon}
+              isLoading={submittingId === addon.id}
               key={addon.id}
               onDelete={() => handleDelete(addon.id)}
               onEdit={() => handleEdit(addon.id)}
@@ -170,11 +265,13 @@ function AddonCard({
   onEdit,
   onToggleActive,
   onDelete,
+  isLoading,
 }: {
   addon: ServiceAddon;
   onEdit: () => void;
   onToggleActive: () => void;
   onDelete: () => void;
+  isLoading: boolean;
 }) {
   const t = useTranslations("dashboard.pro.serviceAddons");
   const priceFormatted = new Intl.NumberFormat("es-CO", {
@@ -221,6 +318,7 @@ function AddonCard({
         <div className="flex gap-2">
           <button
             className="px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
+            disabled={isLoading}
             onClick={onEdit}
             type="button"
           >
@@ -228,6 +326,7 @@ function AddonCard({
           </button>
           <button
             className="px-2 py-1 font-medium text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-500]"
+            disabled={isLoading}
             onClick={onToggleActive}
             type="button"
           >
@@ -235,6 +334,7 @@ function AddonCard({
           </button>
           <button
             className="px-2 py-1 font-medium text-[neutral-500] text-xs transition hover:bg-[neutral-500]/10"
+            disabled={isLoading}
             onClick={onDelete}
             type="button"
           >

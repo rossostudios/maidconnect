@@ -78,8 +78,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
     <div className="space-y-6">
       {/* Success/Error Messages */}
       {success && (
-        <div className="flex items-center gap-3 border border-[#FF5200] bg-orange-50 p-4">
-          <HugeiconsIcon className="h-5 w-5 text-[#FF5200]" icon={CheckmarkCircle01Icon} />
+        <div className="flex items-center gap-3 rounded-lg border border-green-500 bg-green-50 p-4">
+          <HugeiconsIcon className="h-5 w-5 text-green-600" icon={CheckmarkCircle01Icon} />
           <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
             {t("success")}
           </p>
@@ -87,10 +87,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       )}
 
       {error && (
-        <div className="border border-neutral-200 bg-white p-4">
-          <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-            {error}
-          </p>
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+          <p className={cn("font-semibold text-red-700 text-sm", geistSans.className)}>{error}</p>
         </div>
       )}
 
@@ -101,7 +99,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             className={cn(
               "flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition",
               activeTab === "hours"
-                ? "border-[#FF5200] text-neutral-900"
+                ? "border-orange-500 text-neutral-900"
                 : "border-transparent text-neutral-700 hover:text-neutral-900",
               geistSans.className
             )}
@@ -115,7 +113,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             className={cn(
               "flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition",
               activeTab === "blocked"
-                ? "border-[#FF5200] text-neutral-900"
+                ? "border-orange-500 text-neutral-900"
                 : "border-transparent text-neutral-700 hover:text-neutral-900",
               geistSans.className
             )}
@@ -125,7 +123,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
-              <span className="border border-[#FF5200] bg-orange-50 px-2 py-0.5 font-semibold text-[#FF5200] text-xs">
+              <span className="rounded-full border border-orange-500 bg-orange-50 px-2 py-0.5 font-semibold text-orange-600 text-xs">
                 {blockedDates.length}
               </span>
             )}
@@ -171,7 +169,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         </div>
         <button
           className={cn(
-            "border border-[#FF5200] bg-[#FF5200] px-8 py-3 font-semibold text-base text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-orange-200 disabled:bg-orange-200 disabled:text-neutral-700",
+            "rounded-lg border border-orange-500 bg-orange-500 px-8 py-3 font-semibold text-base text-white transition hover:border-orange-600 hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-orange-200 disabled:bg-orange-200 disabled:text-neutral-700",
             geistSans.className
           )}
           disabled={loading}

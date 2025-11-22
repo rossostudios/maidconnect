@@ -117,24 +117,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // SEO-safe 301 redirects for concierge-only migration
-  // Redirect professional directory to concierge matching service
-  async redirects() {
-    return [
-      // Professional directory listing page
-      {
-        source: "/:locale(en|es)/professionals",
-        destination: "/:locale/concierge",
-        permanent: true, // 301 redirect for SEO
-      },
-      // Individual professional profile pages
-      {
-        source: "/:locale(en|es)/professionals/:id",
-        destination: "/:locale/concierge",
-        permanent: true, // 301 redirect for SEO
-      },
-    ];
-  },
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));

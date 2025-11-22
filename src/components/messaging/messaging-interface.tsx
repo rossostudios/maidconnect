@@ -15,6 +15,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 import { QuickReplies } from "@/components/messaging/quick-replies";
+import { TypingIndicator } from "@/components/messaging/typing-indicator";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useConversations } from "@/hooks/use-conversations";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
@@ -22,6 +23,7 @@ import { useMessageTranslation } from "@/hooks/use-message-translation";
 import { useMessages } from "@/hooks/use-messages";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
+import { useTypingIndicator } from "@/hooks/use-typing-indicator";
 import {
   getConversationUnreadCount,
   getTotalUnreadCount,
@@ -146,6 +148,23 @@ export function MessagingInterface({ userId, userRole }: Props) {
     selectedConversationId: selectedConversation?.id,
     onNewMessage: handleNewMessage,
     onConversationUpdate: handleConversationUpdate,
+  });
+
+  // Get the other user's name for typing indicator display
+  const getOtherUserName = useCallback(() => {
+    if (!selectedConversation) return "User";
+    if (userRole === "customer") {
+      return selectedConversation.professional?.profile?.full_name || "Professional";
+    }
+    return selectedConversation.customer?.full_name || "Customer";
+  }, [selectedConversation, userRole]);
+
+  // Typing indicator for real-time typing status
+  const { typingUsers, setTyping, isOtherUserTyping } = useTypingIndicator({
+    conversationId: selectedConversation?.id || null,
+    userId,
+    userName: getOtherUserName(), // This will be current user's name shown to others
+    enabled: !!selectedConversation,
   });
 
   // Monitor for new messages and show notifications - simplified with utility
@@ -439,10 +458,16 @@ export function MessagingInterface({ userId, userRole }: Props) {
               messages={optimisticMessages}
               targetLanguage={targetLanguage}
               translationEnabled={translationEnabled}
+              typingUsers={typingUsers}
             />
 
             {/* Message Input */}
-            <MessageInput isPending={isPending} onSend={sendMessage} userRole={userRole} />
+            <MessageInput
+              isPending={isPending}
+              onSend={sendMessage}
+              onTyping={setTyping}
+              userRole={userRole}
+            />
           </>
         ) : (
           <div className="flex flex-1 items-center justify-center p-12">
@@ -477,18 +502,26 @@ export function MessagingInterface({ userId, userRole }: Props) {
   );
 }
 
+type TypingUser = {
+  id: string;
+  name: string;
+  typingAt: number;
+};
+
 function MessageThread({
   messages,
   currentUserId,
   loading,
   translationEnabled,
   targetLanguage,
+  typingUsers = [],
 }: {
   messages: Message[];
   currentUserId: string;
   loading: boolean;
   translationEnabled: boolean;
   targetLanguage: SupportedLanguage;
+  typingUsers?: TypingUser[];
 }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -568,6 +601,10 @@ function MessageThread({
           );
         })
       )}
+
+      {/* Typing Indicator */}
+      {typingUsers.length > 0 && <TypingIndicator typingUsers={typingUsers} />}
+
       <div ref={messagesEndRef} />
     </div>
   );
@@ -595,10 +632,12 @@ function MessageInput({
   onSend,
   isPending,
   userRole,
+  onTyping,
 }: {
   onSend: (message: string) => void;
   isPending: boolean;
   userRole: "customer" | "professional";
+  onTyping?: (isTyping: boolean) => void;
 }) {
   const [message, setMessage] = useState("");
   const [hasShownWarning, setHasShownWarning] = useState(false);
@@ -609,6 +648,8 @@ function MessageInput({
     async (_prevState: { success: boolean }, formData: FormData) => {
       const messageText = formData.get("message") as string;
       if (messageText?.trim()) {
+        // Stop typing indicator before sending
+        onTyping?.(false);
         await onSend(messageText);
         setMessage("");
         setHasShownWarning(false); // Reset warning state after sending
@@ -622,10 +663,19 @@ function MessageInput({
 
   const isSending = isFormPending || isPending;
 
-  // Handle message input changes with contact detection
+  // Handle message input changes with contact detection and typing indicator
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMessage = e.target.value;
     setMessage(newMessage);
+
+    // Trigger typing indicator
+    if (onTyping) {
+      if (newMessage.trim()) {
+        onTyping(true);
+      } else {
+        onTyping(false);
+      }
+    }
 
     // Only show warning once per message composition
     if (!hasShownWarning && newMessage.trim()) {

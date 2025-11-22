@@ -18,6 +18,7 @@ import {
   createPendingBooking,
   ensureStripeCustomer,
   linkPaymentIntentToBooking,
+  sendNearbyJobAlertNotifications,
   sendNewBookingNotification,
 } from "@/lib/bookings/booking-creation-service";
 import { ValidationError } from "@/lib/errors";
@@ -67,6 +68,19 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     validatedData.serviceName ?? null,
     user.id,
     validatedData.scheduledStart ?? null
+  );
+
+  // PWA Growth Feature: Notify nearby professionals about new job opportunity
+  // Fire-and-forget - doesn't block booking creation
+  sendNearbyJobAlertNotifications(
+    supabase,
+    booking.id,
+    validatedData.professionalId,
+    validatedData.serviceName ?? null,
+    countryContext.cityId,
+    validatedData.scheduledStart ?? null,
+    derivedValues.amount,
+    validatedData.currency
   );
 
   await trackBookingSubmittedServer(user.id, {

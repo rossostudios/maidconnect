@@ -23,6 +23,9 @@ const RescheduleBookingModal = dynamic(
   () => import("./reschedule-booking-modal").then((mod) => mod.RescheduleBookingModal),
   { ssr: false }
 );
+const ReceiptModal = dynamic(() => import("./receipt-modal").then((mod) => mod.ReceiptModal), {
+  ssr: false,
+});
 
 type BookingStatus =
   | "pending_payment"
@@ -130,6 +133,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [showDisputeModal, setShowDisputeModal] = useState(false);
   const [showRebookModal, setShowRebookModal] = useState(false);
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
 
   // Week 3-4: Check if booking is within 48-hour dispute window
   const canReportIssue = isWithinDisputeWindow(booking, booking.completed_at);
@@ -240,6 +244,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
               >
                 {t("card.actions.leaveReview")}
               </button>
+              <button
+                className="inline-flex items-center justify-center rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-600"
+                onClick={() => setShowReceiptModal(true)}
+                type="button"
+              >
+                {t("card.actions.downloadReceipt")}
+              </button>
               {canReportIssue && (
                 <button
                   className="inline-flex items-center justify-center rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-700 text-sm transition hover:bg-neutral-50"
@@ -287,6 +298,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
         booking={booking}
         isOpen={showRebookModal}
         onClose={() => setShowRebookModal(false)}
+      />
+
+      {/* Receipt Modal */}
+      <ReceiptModal
+        booking={booking}
+        isOpen={showReceiptModal}
+        onClose={() => setShowReceiptModal(false)}
       />
     </div>
   );

@@ -288,6 +288,17 @@ export function UnifiedCommandPalette({
       keywords: ["portfolio", "gallery", "work", "photos"],
       action: () => navigate("/dashboard/pro/portfolio"),
     },
+    // Navigation - Service Add-ons (professional only)
+    {
+      id: "goto-service-addons",
+      label: "Go to Service Add-ons",
+      description: "Manage upsells and extras",
+      icon: DashboardSquare01Icon,
+      category: "Navigation",
+      roles: ["professional"],
+      keywords: ["addons", "extras", "upsells"],
+      action: () => navigate("/dashboard/pro/service-addons"),
+    },
     // Navigation - Lead Queue (professional only)
     {
       id: "goto-leads",
@@ -366,7 +377,7 @@ export function UnifiedCommandPalette({
           navigate("/dashboard/customer/settings");
         }
         if (role === "professional") {
-          navigate("/dashboard/pro/settings");
+          navigate("/dashboard/pro/settings/profile");
         }
       },
     },

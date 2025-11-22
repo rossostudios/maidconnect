@@ -7,7 +7,6 @@
 import { Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { RoadmapBoard } from "@/components/roadmap/roadmap-board";
@@ -23,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RoadmapPage() {
-  const t = useTranslations("roadmap");
+export default async function RoadmapPage() {
+  const t = await getTranslations("roadmap");
 
   return (
     <>

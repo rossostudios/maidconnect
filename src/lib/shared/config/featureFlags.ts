@@ -6,10 +6,9 @@
  */
 
 export type FeatureFlag =
-  // Business Model Controls (Direct Hire Migration)
+  // Business Model Controls
   | "enable_professional_directory" // Show /professionals browsing/listing pages
   | "enable_lead_queue" // Show Lead Queue in professional dashboard
-  | "direct_hire_mode" // Master flag: enable direct hire focused operation
 
   // Week 1-2 Features
   | "show_match_wizard" // Match wizard for first booking
@@ -52,11 +51,9 @@ export type FeatureFlag =
  * Can be overridden by environment variables: NEXT_PUBLIC_FEATURE_<FLAG_NAME>=true
  */
 const defaultFlags: Record<FeatureFlag, boolean> = {
-  // Business Model Controls (Direct Hire Migration)
-  // Set to false initially for safe rollout - can be toggled via env vars
-  enable_professional_directory: false, // Disabled: redirects to /direct-hire
+  // Business Model Controls
+  enable_professional_directory: true, // Enabled: /pros shows professional directory
   enable_lead_queue: false, // Disabled: hides Lead Queue from pro dashboard
-  direct_hire_mode: true, // Enabled: full direct hire operation
 
   // Week 1-2 (Ready to enable)
   show_match_wizard: true,

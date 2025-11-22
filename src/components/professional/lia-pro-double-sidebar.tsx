@@ -17,6 +17,7 @@ import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { LiaTooltip } from "@/components/ui/lia-tooltip";
 import { Link, usePathname } from "@/i18n/routing";
 import { useMarket } from "@/lib/contexts/MarketContext";
+import { isFeatureEnabled } from "@/lib/shared/config/featureFlags";
 import { COUNTRIES, type CountryCode } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
@@ -44,64 +45,95 @@ type Props = {
   countryCode?: string;
 };
 
-const createCategories = (_pendingLeadsCount = 0): CategorySection[] => [
-  {
-    id: "overview",
-    icon: Home09Icon,
-    label: "Overview",
-    description: "Your dashboard",
-    items: [
-      { href: "/dashboard/pro", label: "Dashboard", description: "Overview & stats" },
-      { href: "/dashboard/pro/bookings", label: "Bookings", description: "Your assignments" },
-    ],
-  },
-  {
-    id: "business",
-    icon: DollarCircleIcon,
-    label: "Business",
-    description: "Manage your services",
-    items: [
-      {
-        href: "/dashboard/pro/finances",
-        label: "Finances",
-        description: "Earnings & payouts",
-      },
-      {
-        href: "/dashboard/pro/availability",
-        label: "Availability",
-        description: "Your schedule",
-      },
-      {
-        href: "/dashboard/pro/portfolio",
-        label: "Portfolio",
-        description: "Showcase work",
-      },
-    ],
-  },
-  {
-    id: "profile",
-    icon: UserIcon,
-    label: "Profile",
-    description: "Account & settings",
-    items: [
-      {
-        href: "/dashboard/pro/profile",
-        label: "My Profile",
-        description: "Public profile",
-      },
-      {
-        href: "/dashboard/pro/documents",
-        label: "Documents",
-        description: "Verification",
-      },
-      {
-        href: "/dashboard/pro/onboarding",
-        label: "Settings",
-        description: "Account settings",
-      },
-    ],
-  },
-];
+const createCategories = (pendingLeadsCount = 0): CategorySection[] => {
+  const showLeadQueue = pendingLeadsCount > 0 || isFeatureEnabled("enable_lead_queue");
+
+  const overviewItems: NavItem[] = [
+    { href: "/dashboard/pro", label: "Dashboard", description: "Overview & stats" },
+    { href: "/dashboard/pro/bookings", label: "Bookings", description: "Your assignments" },
+  ];
+
+  if (showLeadQueue) {
+    overviewItems.push({
+      href: "/dashboard/pro/leads",
+      label: "Lead Queue",
+      description: "Pending requests",
+      badge: pendingLeadsCount,
+    });
+  }
+
+  overviewItems.push({
+    href: "/dashboard/pro/messages",
+    label: "Messages",
+    description: "Chat with clients",
+  });
+
+  return [
+    {
+      id: "overview",
+      icon: Home09Icon,
+      label: "Overview",
+      description: "Your dashboard",
+      items: overviewItems,
+    },
+    {
+      id: "business",
+      icon: DollarCircleIcon,
+      label: "Business",
+      description: "Manage your services",
+      items: [
+        {
+          href: "/dashboard/pro/finances",
+          label: "Finances",
+          description: "Earnings & payouts",
+        },
+        {
+          href: "/dashboard/pro/availability",
+          label: "Availability",
+          description: "Your schedule",
+        },
+        {
+          href: "/dashboard/pro/portfolio",
+          label: "Portfolio",
+          description: "Showcase work",
+        },
+        {
+          href: "/dashboard/pro/service-addons",
+          label: "Service Add-ons",
+          description: "Upsells & extras",
+        },
+      ],
+    },
+    {
+      id: "profile",
+      icon: UserIcon,
+      label: "Profile",
+      description: "Account & settings",
+      items: [
+        {
+          href: "/dashboard/pro/profile",
+          label: "My Profile",
+          description: "Public profile",
+        },
+        {
+          href: "/dashboard/pro/documents",
+          label: "Documents",
+          description: "Verification",
+        },
+        {
+          href: "/dashboard/pro/onboarding",
+          label: "Onboarding",
+          description: "Complete setup",
+        },
+        {
+          href: "/dashboard/pro/settings/profile",
+          label: "Settings",
+          description: "Profile settings",
+        },
+      ],
+    },
+  ];
+};
 
 /**
  * LiaProDoubleSidebar - Lia Design System

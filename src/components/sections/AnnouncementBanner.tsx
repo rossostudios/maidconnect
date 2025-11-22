@@ -59,7 +59,7 @@ export function AnnouncementBanner() {
       badge: badgeEnv || "Now Hiring",
       title: titleEnv || "Work with vetted families across Latin America.",
       cta: ctaEnv || "Learn More",
-      href: hrefEnv || "/direct-hire",
+      href: hrefEnv || "/pros",
     },
     es: {
       badge: process.env.NEXT_PUBLIC_ANNOUNCEMENT_BADGE_ES || "Estamos contratando",
@@ -67,7 +67,7 @@ export function AnnouncementBanner() {
         process.env.NEXT_PUBLIC_ANNOUNCEMENT_TITLE_ES ||
         "Trabaja con familias verificadas en Latinoamérica.",
       cta: process.env.NEXT_PUBLIC_ANNOUNCEMENT_CTA_ES || "Conoce más",
-      href: process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF_ES || "/direct-hire",
+      href: process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF_ES || "/pros",
     },
   };
   const message = MESSAGES[locale] || MESSAGES.en;
@@ -132,10 +132,10 @@ export function AnnouncementBanner() {
                 >
                   <Link
                     className="group relative inline-flex flex-shrink-0 items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700 sm:text-sm md:text-base"
-                    href="/direct-hire"
+                    href="/pros"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
-                        ctaType: "direct-hire",
+                        ctaType: "browse_pros",
                         location: "announcement_banner",
                         ctaText: "Learn More",
                         variant: "control",

@@ -156,16 +156,16 @@ export const conciergeEvents = {
     }
   ) => trackEvent("Concierge Chat Started", data),
 
-  /** Customer requests direct hire placement (higher-fee service) */
-  directHireRequested: (
+  /** Customer requests white-glove concierge matching service (20% fee) */
+  serviceRequested: (
     data: RequiredEventProperties & {
       serviceType: string;
-      estimatedSalaryRange?: string;
+      estimatedBudget?: string;
       urgency: "immediate" | "within_week" | "within_month" | "flexible";
     }
-  ) => trackEvent("Concierge Direct Hire Requested", data),
+  ) => trackEvent("Concierge Service Requested", data),
 
-  /** Concierge team completes a direct hire placement */
+  /** Concierge team completes a professional placement */
   placementCompleted: (
     data: RequiredEventProperties & {
       placementId: string;

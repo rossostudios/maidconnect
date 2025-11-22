@@ -1,11 +1,32 @@
 # Casaora
 
-> The hybrid household staffing platform for expats in Latin America
+**The trusted marketplace for home professionals in Latin America.**
 
-**Casaora** is the hybrid household staffing platform for expats in Latin America. Currently operating in **Colombia, Paraguay, Uruguay, and Argentina**, we combine **Amara AI** for instant bookings with a **White-Glove Concierge** for permanent placements.
+Casaora connects families with vetted domestic home professionals—nannies, housekeepers, caregivers, and more—through a simple, fair, and safe experience for everyone.
 
-Whether you need a cleaner for tomorrow or a full-time nanny with a legal contract, Casaora provides the vetting, payments, and legal framework to hire with confidence.
+## Mission
 
+To dignify domestic work and make it simple, safe, and fair for families in Latin America to work with professional home helpers.
+
+## Vision
+
+A Latin America where every home professional has access to decent work, and every household can rely on trusted support at home.
+
+## Core Values
+
+- **Dignidad primero (Dignity First):** We treat every professional with the respect they deserve.
+- **Transparencia total (Total Transparency):** No hidden fees, clear rules.
+- **Seguridad y confianza (Safety & Trust):** Rigorous vetting for peace of mind.
+- **Simplicidad radical (Radical Simplicity):** Booking help should be as easy as ordering a ride.
+- **Latam en el corazón (Latam at Heart):** Built for the unique needs of our region.
+
+## Features
+
+- **Verified Professionals:** Identity and background checks for every pro.
+- **Secure Payments:** Cashless, transparent transactions held in escrow.
+- **Real Reviews:** Honest feedback from other families.
+- **Instant Booking:** Find help when you need it, without the back-and-forth.
+- **Fair Work:** We ensure professionals are paid fairly and treated well.
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)

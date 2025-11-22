@@ -193,7 +193,7 @@ export function DatePicker({
       </button>
 
       {open ? (
-        <div className="fade-in zoom-in-95 absolute right-0 z-50 mt-2 w-[320px] animate-in rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 duration-200">
+        <div className="fade-in zoom-in-95 absolute right-0 z-[100] mt-2 w-[320px] animate-in rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 duration-200">
           <div className="mb-4 flex items-center justify-between">
             <button
               className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"

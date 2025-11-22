@@ -4,6 +4,7 @@ import {
   DollarCircleIcon,
   FileAttachmentIcon,
   Image02Icon,
+  Message01Icon,
   Settings02Icon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
@@ -240,7 +241,7 @@ export default async function ProfessionalDashboardPage() {
             Quick Actions
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/bookings"
@@ -311,6 +312,40 @@ export default async function ProfessionalDashboardPage() {
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
+              href="/dashboard/pro/messages"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Message01Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Messages
+              </h3>
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                Chat with customers
+              </p>
+            </Link>
+
+            <Link
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
+              href="/dashboard/pro/service-addons"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Service Add-ons
+              </h3>
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                Create upsells & extras
+              </p>
+            </Link>
+
+            <Link
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/documents"
             >
               <div className="mb-4 flex items-center justify-between">
@@ -340,6 +375,23 @@ export default async function ProfessionalDashboardPage() {
               </h3>
               <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Update your profile
+              </p>
+            </Link>
+
+            <Link
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
+              href="/dashboard/pro/settings/profile"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                Settings
+              </h3>
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                Vanity URL & visibility
               </p>
             </Link>
           </div>

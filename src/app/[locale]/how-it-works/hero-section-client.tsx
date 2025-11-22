@@ -20,35 +20,34 @@ const stagger: Variants = {
 };
 
 interface HeroSectionClientProps {
+  badge: string;
   title: string;
   subtitle: string;
 }
 
-export function HeroSectionClient({ title, subtitle }: HeroSectionClientProps) {
+export function HeroSectionClient({ badge, title, subtitle }: HeroSectionClientProps) {
   return (
-    <section className="bg-neutral-50 py-12 md:py-24">
-      <Container className="max-w-5xl">
+    <section className="bg-white py-16 md:py-24 lg:py-32">
+      <Container className="max-w-4xl">
         <motion.div animate="visible" className="text-center" initial="hidden" variants={stagger}>
-          {/* Badge */}
-          <motion.div
-            className="mb-6 inline-flex items-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]"
-            variants={fadeIn}
-          >
-            <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
-            How It Works
+          {/* Pill Badge - Dunas style */}
+          <motion.div className="mb-8" variants={fadeIn}>
+            <span className="inline-flex rounded-full bg-neutral-100 px-4 py-1.5 font-medium text-neutral-600 text-sm">
+              {badge}
+            </span>
           </motion.div>
 
-          {/* Title */}
+          {/* Title - Large centered headline */}
           <motion.h1
-            className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]"
+            className="font-[family-name:var(--font-geist-sans)] font-medium text-4xl text-neutral-900 leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl"
             variants={fadeIn}
           >
             {title}
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - Clean description */}
           <motion.p
-            className="mx-auto mt-6 max-w-3xl text-lg text-neutral-600 leading-relaxed md:text-xl"
+            className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed"
             variants={fadeIn}
           >
             {subtitle}

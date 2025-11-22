@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils/core";
 
 export const metadata = {
   title: "Analytics | Admin",
-  description: "Platform metrics and concierge matching insights",
+  description: "Platform metrics and marketplace analytics",
 };
 
 export default async function AdminAnalyticsPage() {
@@ -29,9 +29,9 @@ export default async function AdminAnalyticsPage() {
     activeProsResult,
     totalCustomersResult,
     newCustomersResult,
-    directHireResult,
-    directHire30Result,
-    directHirePaidResult,
+    conciergeResult,
+    concierge30Result,
+    conciergePaidResult,
   ] = await Promise.all([
     supabase.from("bookings").select("id", { count: "exact", head: true }),
     supabase
@@ -63,18 +63,18 @@ export default async function AdminAnalyticsPage() {
       .select("id", { count: "exact", head: true })
       .eq("role", "customer")
       .gte("created_at", thirtyDaysAgo.toISOString()),
-    // Direct hire metrics - all time
+    // Concierge service metrics - all time (legacy data)
     supabase
       .from("bookings")
       .select("id", { count: "exact", head: true })
       .eq("booking_type", "direct_hire"),
-    // Direct hire metrics - last 30 days
+    // Concierge service metrics - last 30 days
     supabase
       .from("bookings")
       .select("id", { count: "exact", head: true })
       .eq("booking_type", "direct_hire")
       .gte("created_at", thirtyDaysAgo.toISOString()),
-    // Direct hire paid/completed transactions
+    // Concierge service paid/completed transactions
     supabase
       .from("bookings")
       .select("id", { count: "exact", head: true })
@@ -91,9 +91,9 @@ export default async function AdminAnalyticsPage() {
   const activeProfessionals = activeProsResult.count ?? 0;
   const totalCustomers = totalCustomersResult.count ?? 0;
   const newCustomers = newCustomersResult.count ?? 0;
-  const directHireTotal = directHireResult.count ?? 0;
-  const directHireLast30 = directHire30Result.count ?? 0;
-  const directHirePaid = directHirePaidResult.count ?? 0;
+  const conciergeTotal = conciergeResult.count ?? 0;
+  const conciergeLast30 = concierge30Result.count ?? 0;
+  const conciergePaid = conciergePaidResult.count ?? 0;
 
   const completionRate = totalBookings ? Math.round((completedBookings / totalBookings) * 100) : 0;
   const fillRate30 = requestsLast30 ? Math.round((completedLast30 / requestsLast30) * 100) : 0;
@@ -101,12 +101,12 @@ export default async function AdminAnalyticsPage() {
     ? Math.round((activeProfessionals / totalProfessionals) * 100)
     : 0;
 
-  // Direct hire revenue calculations (default fee: 2,000,000 COP = ~$500 USD)
-  const defaultDirectHireFee = 2_000_000; // COP
-  const directHireRevenueCOP = directHirePaid * defaultDirectHireFee;
-  const directHireRevenueUSD = Math.round(directHireRevenueCOP / 4000); // ~4000 COP/USD
-  const directHireConversionRate = directHireTotal
-    ? Math.round((directHirePaid / directHireTotal) * 100)
+  // Concierge service revenue calculations (20% fee on avg booking)
+  const defaultConciergeFee = 2_000_000; // COP (legacy calculation)
+  const conciergeRevenueCOP = conciergePaid * defaultConciergeFee;
+  const conciergeRevenueUSD = Math.round(conciergeRevenueCOP / 4000); // ~4000 COP/USD
+  const conciergeConversionRate = conciergeTotal
+    ? Math.round((conciergePaid / conciergeTotal) * 100)
     : 0;
 
   const headlineMetrics = [
@@ -159,18 +159,18 @@ export default async function AdminAnalyticsPage() {
       descriptor: "Pros cleared",
     },
     {
-      label: "Direct Hire (30d)",
-      value: directHireLast30,
-      descriptor: "Finder fees",
+      label: "Concierge (30d)",
+      value: conciergeLast30,
+      descriptor: "Premium service",
     },
     {
-      label: "Direct Hire Revenue",
-      value: `$${directHireRevenueUSD.toLocaleString()}`,
+      label: "Concierge Revenue",
+      value: `$${conciergeRevenueUSD.toLocaleString()}`,
       descriptor: "Lifetime USD",
     },
     {
-      label: "Direct Hire Rate",
-      value: `${directHireConversionRate}%`,
+      label: "Concierge Rate",
+      value: `${conciergeConversionRate}%`,
       descriptor: "Conversion",
     },
   ];

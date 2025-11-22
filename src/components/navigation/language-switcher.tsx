@@ -44,15 +44,15 @@ export function LanguageSwitcher() {
         {announcement}
       </div>
 
-      {/* Segmented Control - Sharp Lia Aesthetic */}
+      {/* Segmented Control - Rounded Lia Aesthetic */}
       <div
         aria-label="Language selection"
-        className="relative inline-flex border border-neutral-200 bg-white p-1"
+        className="relative inline-flex rounded-lg border border-neutral-200 bg-white p-1"
         role="group"
       >
         {/* Sliding orange background indicator */}
         <div
-          className="absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] bg-orange-500 transition-all duration-300 ease-out"
+          className="absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-md bg-orange-500 transition-all duration-300 ease-out"
           style={{
             left: locale === "en" ? "4px" : "calc(50% + 0px)",
           }}

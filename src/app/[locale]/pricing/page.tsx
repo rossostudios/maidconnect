@@ -1,18 +1,15 @@
 /**
- * Pricing Page - Transparent Marketplace Pricing
+ * Pricing Page - Simple Airbnb-style Platform Fee
  *
- * Displays dual-audience pricing (customers vs professionals)
- * with transparent fee structure (15% marketplace, 25% concierge)
+ * Clear, transparent pricing with 15% platform fee for both
+ * Instant Book and Direct Hire services.
  */
 
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { CustomerPricingTab } from "@/components/pricing/customer-pricing-tab";
-import { PricingFaqSection } from "@/components/pricing/pricing-faq-section";
-import { PricingHero } from "@/components/pricing/pricing-hero";
-import { ProfessionalPricingTab } from "@/components/pricing/professional-pricing-tab";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
+import { PricingPageClient } from "./pricing-client";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pricing.meta");
@@ -25,18 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PricingPage() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-white">
       <SiteHeader />
-      <main className="min-h-screen">
-        <PricingHero
-          customerContent={<CustomerPricingTab />}
-          professionalContent={<ProfessionalPricingTab />}
-        />
-
-        {/* FAQ Section */}
-        <PricingFaqSection />
+      <main className="flex-1">
+        <PricingPageClient />
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }

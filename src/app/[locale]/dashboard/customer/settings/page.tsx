@@ -1,10 +1,12 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { updateNotificationPreferencesAction } from "@/app/actions/update-notification-preferences";
 import { geistSans } from "@/app/fonts";
 import {
   type SavedAddress,
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
+import { NotificationPreferences } from "@/components/settings/notification-preferences";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
@@ -29,7 +31,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       .maybeSingle(),
     supabase
       .from("customer_profiles")
-      .select("property_preferences, saved_addresses")
+      .select("property_preferences, saved_addresses, notification_preferences")
       .eq("profile_id", user.id)
       .maybeSingle(),
   ]);
@@ -46,12 +48,14 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
     (customerData as {
       property_preferences: Record<string, unknown> | null;
       saved_addresses: unknown;
+      notification_preferences: Record<string, boolean> | null;
     } | null) ?? null;
 
   const savedAddressesRaw = customerProfile?.saved_addresses;
   const savedAddresses: SavedAddress[] = Array.isArray(savedAddressesRaw) ? savedAddressesRaw : [];
   const propertyType =
     (customerProfile?.property_preferences?.property_type as string | undefined) ?? null;
+  const notificationPreferences = customerProfile?.notification_preferences ?? null;
 
   return (
     <section className="space-y-6">
@@ -137,6 +141,21 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
           {t("addresses.title")}
         </h2>
         <SavedAddressesManager addresses={savedAddresses} />
+      </div>
+
+      {/* Notification Preferences */}
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+        <h2 className={cn("mb-6 font-semibold text-neutral-900 text-xl", geistSans.className)}>
+          Notification Preferences
+        </h2>
+        <NotificationPreferences
+          initialPreferences={
+            notificationPreferences as Parameters<
+              typeof NotificationPreferences
+            >[0]["initialPreferences"]
+          }
+          onSave={updateNotificationPreferencesAction}
+        />
       </div>
     </section>
   );

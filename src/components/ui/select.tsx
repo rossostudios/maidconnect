@@ -186,8 +186,8 @@ export const SelectContent = ({ className, children, ref }: SelectContentProps) 
   return (
     <Popover
       className={cn(
-        // Base positioning
-        "z-50",
+        // Base positioning - z-[100] to appear above sticky header (z-50)
+        "z-[100]",
         // Animation states
         "data-[entering]:fade-in-0 data-[entering]:zoom-in-95 data-[entering]:animate-in",
         "data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95 data-[exiting]:animate-out",

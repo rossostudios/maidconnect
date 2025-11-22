@@ -25,11 +25,11 @@ export interface CountryPricingConfig {
     /** Commission rate for marketplace bookings (decimal, e.g., 0.15 = 15%) */
     marketplaceRate: number;
     /**
-     * Commission rate for direct hire placements (decimal, e.g., 0.15 = 15%)
+     * Commission rate for concierge/white-glove service (decimal, e.g., 0.20 = 20%)
      * This is a percentage of the professional's agreed rate, not a fixed fee.
-     * Simpler and more fair across all countries and price points.
+     * Higher rate covers personal matching coordinator and priority support.
      */
-    directHireRate: number;
+    conciergeRate: number;
   };
 
   /** Service pricing constraints */
@@ -84,7 +84,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
     currency: "COP",
     commission: {
       marketplaceRate: 0.15, // Customer service fee
-      directHireRate: 0.2, // Customer service fee
+      conciergeRate: 0.2, // Customer service fee
     },
     constraints: {
       minPrice: 2_000_000, // ~$5 USD minimum
@@ -109,7 +109,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
     currency: "PYG",
     commission: {
       marketplaceRate: 0.15,
-      directHireRate: 0.2,
+      conciergeRate: 0.2,
     },
     constraints: {
       minPrice: 3_650_000, // ~$5 USD minimum
@@ -133,7 +133,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
     currency: "UYU",
     commission: {
       marketplaceRate: 0.15,
-      directHireRate: 0.2,
+      conciergeRate: 0.2,
     },
     constraints: {
       minPrice: 19_750, // ~$5 USD minimum
@@ -157,7 +157,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
     currency: "ARS",
     commission: {
       marketplaceRate: 0.15,
-      directHireRate: 0.2,
+      conciergeRate: 0.2,
     },
     constraints: {
       minPrice: 475_000, // ~$5 USD minimum
@@ -213,10 +213,10 @@ export function isValidPrice(price: number, countryCode: CountryCode): boolean {
 export function calculateCommission(
   price: number,
   countryCode: CountryCode,
-  isDirectHire: boolean
+  isConcierge: boolean
 ): number {
   const { commission } = getPricingConfig(countryCode);
-  const rate = isDirectHire ? commission.directHireRate : commission.marketplaceRate;
+  const rate = isConcierge ? commission.conciergeRate : commission.marketplaceRate;
   return Math.round(price * rate);
 }
 
@@ -242,11 +242,11 @@ export function isPaymentProcessorSupported(
 // ============================================================================
 
 /**
- * @deprecated Direct hire fees are now percentage-based, not fixed amounts.
- * Use getPricingConfig(countryCode).commission.directHireRate instead.
+ * @deprecated Concierge fees are now percentage-based, not fixed amounts.
+ * Use getPricingConfig(countryCode).commission.conciergeRate instead.
  * This constant should not be used in new code and will be removed.
  */
-export const DIRECT_HIRE_FEE_COP = 0; // No longer applicable
+export const CONCIERGE_FEE_COP = 0; // No longer applicable - use percentage-based rate
 
 /**
  * @deprecated Use getPricingConfig(countryCode).commission.marketplaceRate instead

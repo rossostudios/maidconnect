@@ -2,7 +2,9 @@
 
 import { Facebook02Icon, InstagramIcon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -53,63 +55,122 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="bg-[#f7f2e9] text-neutral-900" id="footer">
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-12 px-4 py-14 md:px-10 md:py-20 lg:px-12">
-        <div className="flex flex-col gap-3">
-          <span className="font-[family-name:var(--font-geist-sans)] font-semibold text-xl uppercase tracking-tight md:text-2xl">
-            CASAORA®
-          </span>
-          <p className="max-w-2xl text-neutral-700 text-sm leading-relaxed md:text-base">
-            Trusted home professionals in Latin America. Simple, safe, and fair for families and
-            professionals.
-          </p>
-        </div>
+    <footer className="relative flex min-h-[480px] flex-col overflow-hidden" id="footer">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          alt="Casaora - Home in Latin America"
+          className="object-cover object-center"
+          fill
+          priority
+          sizes="100vw"
+          src="/casaorafooter.png"
+        />
+      </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 md:gap-12">
-          {footerColumns.map((column) => (
-            <div className="flex flex-col gap-4" key={column.title}>
-              <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-600 text-xs uppercase tracking-wider">
-                {column.title}
-              </h3>
-              <ul className="space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm no-underline transition-colors hover:text-orange-600"
-                      href={link.href}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+      {/* Top gradient - blends page into sky */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24"
+        style={{
+          background: `linear-gradient(
+            to bottom,
+            white 0%,
+            rgba(255, 255, 255, 0.9) 30%,
+            rgba(255, 255, 255, 0.5) 60%,
+            transparent 100%
+          )`,
+        }}
+      />
+
+      {/* Floating Card Container */}
+      <div className="relative z-30 mx-auto w-full max-w-screen-xl px-4 pt-12 md:px-6 lg:px-8">
+        {/* Floating Card */}
+        <div className="rounded-2xl bg-white/95 px-6 py-6 shadow-xl md:px-8 md:py-8">
+          {/* Main Footer Content */}
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            {/* Footer Links - left side */}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4 md:gap-x-10">
+              {footerColumns.map((column) => (
+                <div className="flex flex-col gap-3" key={column.title}>
+                  <h3
+                    className={cn(
+                      "font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider",
+                      "text-neutral-500"
+                    )}
+                  >
+                    {column.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {column.links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          className={cn(
+                            "font-[family-name:var(--font-geist-sans)] text-sm no-underline transition-colors duration-200",
+                            "text-neutral-700",
+                            "hover:text-orange-600"
+                          )}
+                          href={link.href}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="flex flex-col gap-4 pt-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-2">
-            {socialLinks.map(({ label, href, icon }) => (
-              <a
-                aria-label={label}
+            {/* Brand - right side */}
+            <div className="flex flex-col gap-2 lg:max-w-xs lg:text-right">
+              <span
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 text-neutral-700 transition-all",
-                  "hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
+                  "font-[family-name:var(--font-geist-sans)] font-bold text-xl uppercase tracking-wider",
+                  "text-neutral-900"
                 )}
-                href={href}
-                key={label}
-                rel="noreferrer"
-                target="_blank"
               >
-                <HugeiconsIcon className="h-5 w-5" icon={icon} strokeWidth={1.5} />
-              </a>
-            ))}
+                CASAORA®
+              </span>
+              <p className={cn("text-sm leading-relaxed", "text-neutral-600")}>
+                Trusted home professionals in Latin America. Simple, safe, and fair.
+              </p>
+            </div>
           </div>
-          <p className="font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm">
-            © {year} Casaora. All rights reserved.
-          </p>
+
+          {/* Bottom Bar */}
+          <div className="mt-6 flex flex-col gap-4 border-neutral-200 border-t pt-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                {socialLinks.map(({ label, href, icon }) => (
+                  <a
+                    aria-label={label}
+                    className={cn(
+                      "flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200",
+                      "text-neutral-500 hover:bg-neutral-100",
+                      "hover:text-orange-600"
+                    )}
+                    href={href}
+                    key={label}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <HugeiconsIcon className="h-4 w-4" icon={icon} strokeWidth={1.5} />
+                  </a>
+                ))}
+              </div>
+              {/* Language Toggle */}
+              <div className="border-neutral-200 border-l pl-4">
+                <LanguageSwitcher />
+              </div>
+            </div>
+            <p className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+              © {year} Casaora. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Spacer to show landscape below card */}
+      <div className="flex-1" />
     </footer>
   );
 }

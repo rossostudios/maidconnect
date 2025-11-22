@@ -406,6 +406,52 @@ export async function notifyProfessionalDisputeFiled(
   });
 }
 
+export async function notifyCustomerDisputeResolved(
+  customerId: string,
+  dispute: {
+    id: string;
+    bookingId: string;
+    resolution: "resolved" | "dismissed";
+    resolutionNotes?: string;
+    serviceName: string;
+  }
+) {
+  const isResolved = dispute.resolution === "resolved";
+  return sendPushNotification({
+    userId: customerId,
+    title: isResolved ? "Dispute Resolved ✅" : "Dispute Update",
+    body: isResolved
+      ? `Your dispute for "${dispute.serviceName}" has been resolved. ${dispute.resolutionNotes ? "Check your dashboard for details." : ""}`
+      : `Your dispute for "${dispute.serviceName}" has been reviewed and closed. Contact support if you have questions.`,
+    url: "/dashboard/customer/disputes",
+    tag: `dispute-resolved-${dispute.id}`,
+    requireInteraction: true,
+  });
+}
+
+export async function notifyProfessionalDisputeResolved(
+  professionalId: string,
+  dispute: {
+    id: string;
+    bookingId: string;
+    resolution: "resolved" | "dismissed";
+    customerName: string;
+    serviceName: string;
+  }
+) {
+  const isDismissed = dispute.resolution === "dismissed";
+  return sendPushNotification({
+    userId: professionalId,
+    title: isDismissed ? "Dispute Dismissed ✅" : "Dispute Resolved",
+    body: isDismissed
+      ? `The dispute filed by ${dispute.customerName} for "${dispute.serviceName}" has been dismissed in your favor.`
+      : `The dispute filed by ${dispute.customerName} for "${dispute.serviceName}" has been resolved. Check your dashboard for details.`,
+    url: "/dashboard/pro#bookings",
+    tag: `dispute-resolved-${dispute.id}`,
+    requireInteraction: true,
+  });
+}
+
 /**
  * ADMIN NOTIFICATIONS (Critical Alerts)
  */
@@ -505,6 +551,67 @@ export async function notifyAllAdmins(
     // Don't throw - notifications are nice-to-have
     return { success: false, error };
   }
+}
+
+/**
+ * NEW JOB NEARBY NOTIFICATIONS (PWA Growth Feature)
+ * Notifies professionals when new jobs are posted in their service area
+ */
+
+export async function notifyProfessionalNewJobNearby(
+  professionalId: string,
+  job: {
+    serviceName: string;
+    cityName: string;
+    scheduledDate: string;
+    estimatedPay: number;
+    currency?: string;
+  }
+) {
+  const date = new Date(job.scheduledDate).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+
+  const currencyCode = job.currency || "COP";
+  const payFormatted = new Intl.NumberFormat(currencyCode === "COP" ? "es-CO" : "en-US", {
+    style: "currency",
+    currency: currencyCode,
+    minimumFractionDigits: 0,
+  }).format(job.estimatedPay);
+
+  return sendPushNotification({
+    userId: professionalId,
+    title: "New Job Nearby! 📍",
+    body: `${job.serviceName} in ${job.cityName} for ${date} - ${payFormatted}. Apply now!`,
+    url: "/dashboard/pro#opportunities",
+    tag: `job-nearby-${Date.now()}`,
+    requireInteraction: true,
+  });
+}
+
+/**
+ * Notify multiple professionals about a new job opportunity
+ */
+export async function notifyNearbyProfessionalsNewJob(
+  professionalIds: string[],
+  job: {
+    serviceName: string;
+    cityName: string;
+    scheduledDate: string;
+    estimatedPay: number;
+    currency?: string;
+  }
+) {
+  const results = await Promise.allSettled(
+    professionalIds.map((id) => notifyProfessionalNewJobNearby(id, job))
+  );
+
+  const successful = results.filter((r) => r.status === "fulfilled").length;
+  const failed = results.filter((r) => r.status === "rejected").length;
+
+  return { successful, failed, total: professionalIds.length };
 }
 
 /**

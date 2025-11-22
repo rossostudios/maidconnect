@@ -12,38 +12,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-
-const features = [
-  {
-    id: "quality",
-    icon: Shield01Icon,
-    title: "Quality assurance",
-    description:
-      "Every professional on our platform is held to the highest standards. We monitor ratings, reviews, and service quality to ensure consistent excellence.",
-  },
-  {
-    id: "reporting",
-    icon: Message01Icon,
-    title: "Easy issue reporting",
-    description:
-      "Something not right? Report issues directly in the app within 24 hours of your service. Our team reviews every case personally.",
-  },
-  {
-    id: "reservice",
-    icon: RefreshIcon,
-    title: "Free re-service",
-    description:
-      "If the service doesn't meet expectations, we'll send a professional back at no additional cost to make it right.",
-  },
-  {
-    id: "refund",
-    icon: CreditCardIcon,
-    title: "Money-back guarantee",
-    description:
-      "If we can't resolve the issue to your satisfaction, you'll receive a full refund. No questions asked, no hassle.",
-  },
-];
 
 // Different visual states for each feature
 const visualConfigs = {
@@ -214,9 +184,11 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
 function FeatureList({
   activeFeature,
   setActiveFeature,
+  features,
 }: {
   activeFeature: string;
   setActiveFeature: (id: string) => void;
+  features: { id: string; icon: any; title: string; description: string }[];
 }) {
   return (
     <div className="space-y-2 sm:space-y-3">
@@ -284,28 +256,54 @@ function FeatureList({
 }
 
 export function GuaranteeSection() {
+  const t = useTranslations("home.guarantee");
   const [activeFeature, setActiveFeature] = useState<string>("reservice");
+
+  const features = [
+    {
+      id: "quality",
+      icon: Shield01Icon,
+      title: t("features.quality.title"),
+      description: t("features.quality.description"),
+    },
+    {
+      id: "reporting",
+      icon: Message01Icon,
+      title: t("features.reporting.title"),
+      description: t("features.reporting.description"),
+    },
+    {
+      id: "reservice",
+      icon: RefreshIcon,
+      title: t("features.reservice.title"),
+      description: t("features.reservice.description"),
+    },
+    {
+      id: "refund",
+      icon: CreditCardIcon,
+      title: t("features.refund.title"),
+      description: t("features.refund.description"),
+    },
+  ];
 
   return (
     <section className="bg-white py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-10 sm:gap-6 md:flex-row md:items-center lg:mb-12">
           <div>
             {/* Badge */}
             <span className="mb-3 inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 font-medium text-neutral-600 text-xs sm:mb-4">
-              Service Guarantee
+              {t("badge")}
             </span>
 
             {/* Headline - responsive sizing */}
             <h2 className="mb-2 font-semibold text-2xl text-neutral-900 tracking-tight sm:mb-3 sm:text-3xl md:text-4xl">
-              Your satisfaction, guaranteed
+              {t("title")}
             </h2>
 
             {/* Subtitle */}
-            <p className="max-w-xl text-base text-neutral-600 sm:text-lg">
-              If something's not right, we'll make it right — or your money back.
-            </p>
+            <p className="max-w-xl text-base text-neutral-600 sm:text-lg">{t("subtitle")}</p>
           </div>
 
           {/* Learn more button - full width on mobile */}
@@ -325,7 +323,11 @@ export function GuaranteeSection() {
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Feature List - shows first on mobile */}
           <div className="order-2 lg:order-1">
-            <FeatureList activeFeature={activeFeature} setActiveFeature={setActiveFeature} />
+            <FeatureList
+              activeFeature={activeFeature}
+              features={features}
+              setActiveFeature={setActiveFeature}
+            />
           </div>
 
           {/* Flow Diagram - shows second on mobile for context after selecting */}

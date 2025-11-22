@@ -88,7 +88,7 @@ export async function GET() {
         title: "Connect Payment Account",
         description: "Set up Stripe to receive payments",
         isComplete: !!professional.stripe_connect_account_id,
-        href: "/dashboard/pro/settings",
+        href: "/dashboard/pro/settings/profile",
       },
     ];
 

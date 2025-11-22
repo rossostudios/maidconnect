@@ -59,15 +59,15 @@ export function HeroVariantA() {
           <Container className="max-w-6xl px-4 md:px-8">
             <p className="text-center text-neutral-700 text-sm sm:text-base">
               <strong className="font-semibold text-neutral-900">
-                Looking for long-term help?
+                Trusted professionals, verified backgrounds.
               </strong>{" "}
-              Try our Direct Hire service — dedicated coordinator, curated matches in 5 days.{" "}
+              Every professional on Casaora is vetted with background checks and references.{" "}
               <Link
                 className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
-                href="/direct-hire"
+                href="/how-it-works#vetting"
                 onClick={() =>
                   conversionTracking.heroCTAClicked({
-                    ctaType: "direct-hire",
+                    ctaType: "learn-vetting",
                     location: "banner",
                     ctaText: "Learn More",
                     variant: "variant_a",
@@ -165,9 +165,9 @@ export function HeroVariantA() {
                 </Link>
                 <Link
                   className="text-center font-semibold text-neutral-600 text-sm transition hover:text-neutral-900 sm:text-base"
-                  href="/direct-hire"
+                  href="/pros"
                 >
-                  Request direct hire →
+                  Browse Professionals →
                 </Link>
               </motion.div>
             </div>

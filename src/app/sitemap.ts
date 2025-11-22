@@ -72,9 +72,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // Professional Directory - REMOVED for direct-hire-focused migration
-    // /professionals now redirects to /direct-hire via 301 in next.config.ts
-    // Individual professional profiles remain viewable only by admins for vetting
+    // Professional Directory
+    // /pros is now the main browsing page for customers to find professionals
 
     // Contact
     {
