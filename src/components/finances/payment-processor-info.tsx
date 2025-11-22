@@ -14,9 +14,9 @@
  * ```
  */
 
+import { Alert01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useMarket } from "@/lib/contexts/MarketContext";
-import { Alert01Icon } from "hugeicons-react";
 
 export function PaymentProcessorInfo() {
   const t = useTranslations("dashboard.pro.finances");
@@ -27,12 +27,10 @@ export function PaymentProcessorInfo() {
   const processorIcon = isStripeCountry ? "💳" : "🔵";
 
   return (
-    <div className="space-y-4 border border-neutral-200 bg-white p-6 rounded-lg shadow-sm">
+    <div className="space-y-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 items-center justify-center text-2xl">
-          {processorIcon}
-        </div>
+        <div className="flex h-10 w-10 items-center justify-center text-2xl">{processorIcon}</div>
         <div className="flex-1">
           <h3 className="font-semibold text-lg text-neutral-900">
             {t("paymentProcessor.title", { processor: processorName })}
@@ -49,8 +47,8 @@ export function PaymentProcessorInfo() {
       {/* Stripe Instructions (Colombia) */}
       {isStripeCountry && (
         <div className="space-y-4 border-neutral-200 border-t pt-4">
-          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 p-4 rounded-lg">
-            <Alert01Icon className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <Alert01Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-600" />
             <div className="text-blue-900 text-sm">
               <p className="font-medium">{t("paymentProcessor.stripe.setup.title")}</p>
               <p className="mt-1">{t("paymentProcessor.stripe.setup.description")}</p>
@@ -91,8 +89,8 @@ export function PaymentProcessorInfo() {
       {/* PayPal Instructions (Paraguay/Uruguay/Argentina) */}
       {!isStripeCountry && (
         <div className="space-y-4 border-neutral-200 border-t pt-4">
-          <div className="flex items-start gap-3 bg-orange-50 border border-orange-200 p-4 rounded-lg">
-            <Alert01Icon className="h-5 w-5 text-orange-600 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 rounded-lg border border-orange-200 bg-orange-50 p-4">
+            <Alert01Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-600" />
             <div className="text-orange-900 text-sm">
               <p className="font-medium">{t("paymentProcessor.paypal.setup.title")}</p>
               <p className="mt-1">{t("paymentProcessor.paypal.setup.description")}</p>
@@ -128,7 +126,7 @@ export function PaymentProcessorInfo() {
             </p>
           </div>
 
-          <div className="bg-neutral-50 border border-neutral-200 p-4 rounded-lg">
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
             <p className="font-medium text-neutral-900 text-sm">
               {t("paymentProcessor.paypal.note.title")}
             </p>

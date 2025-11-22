@@ -1,18 +1,18 @@
 import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
   ActivityIndicator,
-  ViewStyle,
+  StyleSheet,
+  Text,
   TextStyle,
-} from 'react-native';
-import { Colors } from '@/constants/colors';
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
+import { Colors } from "@/constants/colors";
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
   loading?: boolean;
   disabled?: boolean;
   style?: ViewStyle;
@@ -22,8 +22,8 @@ interface ButtonProps {
 export function Button({
   title,
   onPress,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   loading = false,
   disabled = false,
   style,
@@ -47,15 +47,13 @@ export function Button({
 
   return (
     <TouchableOpacity
-      style={buttonStyles}
-      onPress={onPress}
-      disabled={disabled || loading}
       activeOpacity={0.7}
+      disabled={disabled || loading}
+      onPress={onPress}
+      style={buttonStyles}
     >
       {loading ? (
-        <ActivityIndicator
-          color={variant === 'primary' ? Colors.white : Colors.orange[500]}
-        />
+        <ActivityIndicator color={variant === "primary" ? Colors.white : Colors.orange[500]} />
       ) : (
         <Text style={textStyles}>{title}</Text>
       )}
@@ -67,9 +65,9 @@ const styles = StyleSheet.create({
   // Base styles with Anthropic rounded corners
   base: {
     borderRadius: 12, // Anthropic rounded-lg equivalent (12px)
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 
   // Variants
@@ -80,12 +78,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue[500],
   },
   outline: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 2,
     borderColor: Colors.orange[500],
   },
   ghost: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
 
   // Sizes
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
 
   // Text styles
   baseText: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
   primaryText: {
     color: Colors.white,

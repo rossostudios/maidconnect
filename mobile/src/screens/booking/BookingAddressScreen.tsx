@@ -1,31 +1,31 @@
-import { useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { CITIES_BY_COUNTRY, getNeighborhoodsByCity } from '@/types/territories';
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Input } from "@/components/Input";
+import { Colors } from "@/constants/colors";
+import type { MainTabScreenProps } from "@/types/navigation";
+import { CITIES_BY_COUNTRY, getNeighborhoodsByCity } from "@/types/territories";
 
-type Props = MainTabScreenProps<'BookingAddress'>;
+type Props = MainTabScreenProps<"BookingAddress">;
 
 export function BookingAddressScreen({ route, navigation }: Props) {
   const { professionalId, serviceType, durationHours, startTime } = route.params;
 
-  const [street, setStreet] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState('');
-  const [notes, setNotes] = useState('');
+  const [street, setStreet] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState("");
+  const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   // For now, default to Colombia cities
@@ -36,11 +36,11 @@ export function BookingAddressScreen({ route, navigation }: Props) {
     const newErrors: { [key: string]: string } = {};
 
     if (!street.trim()) {
-      newErrors.street = 'La dirección es requerida';
+      newErrors.street = "La dirección es requerida";
     }
 
     if (!selectedCity) {
-      newErrors.city = 'La ciudad es requerida';
+      newErrors.city = "La ciudad es requerida";
     }
 
     setErrors(newErrors);
@@ -50,7 +50,7 @@ export function BookingAddressScreen({ route, navigation }: Props) {
   const handleContinue = () => {
     if (!validateForm()) return;
 
-    navigation.navigate('BookingConfirm', {
+    navigation.navigate("BookingConfirm", {
       professionalId,
       serviceType,
       durationHours,
@@ -65,17 +65,17 @@ export function BookingAddressScreen({ route, navigation }: Props) {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text.primary} />
+          <Ionicons color={Colors.text.primary} name="arrow-back" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Dirección</Text>
         <View style={styles.headerRight} />
       </View>
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
         <ScrollView
@@ -86,26 +86,26 @@ export function BookingAddressScreen({ route, navigation }: Props) {
           <Card style={styles.section}>
             <Text style={styles.sectionTitle}>Dirección completa</Text>
             <Input
+              error={errors.street}
               label="Calle y número"
-              placeholder="Ej: Carrera 7 #45-67"
-              value={street}
               onChangeText={(text) => {
                 setStreet(text);
                 if (errors.street) {
-                  setErrors({ ...errors, street: '' });
+                  setErrors({ ...errors, street: "" });
                 }
               }}
-              error={errors.street}
+              placeholder="Ej: Carrera 7 #45-67"
+              value={street}
             />
 
             <Input
               label="Notas adicionales (opcional)"
-              placeholder="Ej: Apartamento 302, Torre B"
-              value={notes}
-              onChangeText={setNotes}
               multiline
               numberOfLines={3}
+              onChangeText={setNotes}
+              placeholder="Ej: Apartamento 302, Torre B"
               style={styles.notesInput}
+              value={notes}
             />
           </Card>
 
@@ -117,15 +117,15 @@ export function BookingAddressScreen({ route, navigation }: Props) {
                 const isSelected = selectedCity === city.value;
                 return (
                   <TouchableOpacity
+                    activeOpacity={0.7}
                     key={city.value}
                     onPress={() => {
                       setSelectedCity(city.value);
-                      setSelectedNeighborhood(''); // Reset neighborhood
+                      setSelectedNeighborhood(""); // Reset neighborhood
                       if (errors.city) {
-                        setErrors({ ...errors, city: '' });
+                        setErrors({ ...errors, city: "" });
                       }
                     }}
-                    activeOpacity={0.7}
                   >
                     <View style={[styles.cityCard, isSelected && styles.cityCardSelected]}>
                       <Text style={[styles.cityText, isSelected && styles.cityTextSelected]}>
@@ -144,17 +144,17 @@ export function BookingAddressScreen({ route, navigation }: Props) {
             <Card style={styles.section}>
               <Text style={styles.sectionTitle}>Barrio (opcional)</Text>
               <ScrollView
+                contentContainerStyle={styles.neighborhoodsScroll}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.neighborhoodsScroll}
               >
                 {neighborhoods.map((neighborhood) => {
                   const isSelected = selectedNeighborhood === neighborhood.value;
                   return (
                     <TouchableOpacity
+                      activeOpacity={0.7}
                       key={neighborhood.value}
                       onPress={() => setSelectedNeighborhood(neighborhood.value)}
-                      activeOpacity={0.7}
                     >
                       <View
                         style={[
@@ -181,22 +181,18 @@ export function BookingAddressScreen({ route, navigation }: Props) {
           {/* Info Card */}
           <Card style={styles.infoCard}>
             <View style={styles.infoIconContainer}>
-              <Ionicons name="location-outline" size={20} color={Colors.blue[500]} />
+              <Ionicons color={Colors.blue[500]} name="location-outline" size={20} />
             </View>
             <Text style={styles.infoText}>
-              El profesional utilizará esta dirección para llegar a tu ubicación en la fecha y hora programada.
+              El profesional utilizará esta dirección para llegar a tu ubicación en la fecha y hora
+              programada.
             </Text>
           </Card>
         </ScrollView>
 
         {/* Bottom CTA */}
         <View style={styles.bottomBar}>
-          <Button
-            title="Continuar"
-            onPress={handleContinue}
-            variant="primary"
-            size="lg"
-          />
+          <Button onPress={handleContinue} size="lg" title="Continuar" variant="primary" />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -209,9 +205,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -220,11 +216,11 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   headerRight: {
@@ -243,17 +239,17 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
   notesInput: {
     height: 80,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
   citiesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
   },
   cityCard: {
@@ -270,7 +266,7 @@ const styles = StyleSheet.create({
   },
   cityText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   cityTextSelected: {
@@ -298,14 +294,14 @@ const styles = StyleSheet.create({
   },
   neighborhoodText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.text.secondary,
   },
   neighborhoodTextSelected: {
     color: Colors.orange[600],
   },
   infoCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     backgroundColor: Colors.blue[50],
     borderWidth: 1,
@@ -321,7 +317,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,

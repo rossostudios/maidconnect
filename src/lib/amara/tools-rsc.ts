@@ -5,9 +5,9 @@
  * These tools render interactive UI elements directly in the chat stream.
  */
 
-import { z } from 'zod';
-import { formatLocation, parseServices } from '@/lib/professionals/transformers';
-import { createSupabaseAnonClient } from '@/lib/supabase/server-client';
+import { z } from "zod";
+import { formatLocation, parseServices } from "@/lib/professionals/transformers";
+import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 /**
  * Type for professional data returned from database
@@ -45,11 +45,8 @@ export const searchProfessionalsSchema = z.object({
     .string()
     .optional()
     .describe('City where service is needed (e.g., "Medellín", "Bogotá", "Cali")'),
-  maxBudgetCop: z
-    .number()
-    .optional()
-    .describe('Maximum budget in Colombian Pesos (COP) per hour'),
-  minRating: z.number().min(0).max(5).optional().describe('Minimum average rating (0-5)'),
+  maxBudgetCop: z.number().optional().describe("Maximum budget in Colombian Pesos (COP) per hour"),
+  minRating: z.number().min(0).max(5).optional().describe("Minimum average rating (0-5)"),
   languages: z
     .array(z.string())
     .optional()
@@ -60,30 +57,28 @@ export const searchProfessionalsSchema = z.object({
  * Check availability tool schema
  */
 export const checkAvailabilitySchema = z.object({
-  professionalId: z.string().describe('The professional ID to check availability for'),
+  professionalId: z.string().describe("The professional ID to check availability for"),
   startDate: z.string().describe('Start date in YYYY-MM-DD format (e.g., "2025-01-15")'),
   endDate: z
     .string()
     .optional()
-    .describe(
-      'End date in YYYY-MM-DD format (e.g., "2025-01-22"). Defaults to 7 days from start.'
-    ),
+    .describe('End date in YYYY-MM-DD format (e.g., "2025-01-22"). Defaults to 7 days from start.'),
 });
 
 /**
  * Create booking draft tool schema
  */
 export const createBookingDraftSchema = z.object({
-  professionalId: z.string().describe('The professional ID to book'),
-  professionalName: z.string().describe('The professional name'),
+  professionalId: z.string().describe("The professional ID to book"),
+  professionalName: z.string().describe("The professional name"),
   serviceName: z.string().describe('Name of the service (e.g., "Deep Cleaning")'),
   scheduledStart: z
     .string()
-    .describe('When the service should start (ISO format: YYYY-MM-DDTHH:mm:ssZ)'),
-  durationHours: z.number().min(1).max(8).describe('Duration of service in hours (1-8)'),
-  hourlyRateCop: z.number().describe('Hourly rate in Colombian Pesos'),
-  address: z.string().optional().describe('Service address (street, city, neighborhood)'),
-  specialInstructions: z.string().optional().describe('Any special instructions or requirements'),
+    .describe("When the service should start (ISO format: YYYY-MM-DDTHH:mm:ssZ)"),
+  durationHours: z.number().min(1).max(8).describe("Duration of service in hours (1-8)"),
+  hourlyRateCop: z.number().describe("Hourly rate in Colombian Pesos"),
+  address: z.string().optional().describe("Service address (street, city, neighborhood)"),
+  specialInstructions: z.string().optional().describe("Any special instructions or requirements"),
 });
 
 /**
@@ -101,22 +96,22 @@ export async function searchProfessionalsAction({
   totalFound: number;
   error?: string;
 }> {
-  'use server';
+  "use server";
 
   try {
     const supabase = createSupabaseAnonClient();
 
     // Call the list_active_professionals stored procedure
-    const { data, error } = await supabase.rpc('list_active_professionals', {
+    const { data, error } = await supabase.rpc("list_active_professionals", {
       p_customer_lat: null,
       p_customer_lon: null,
     });
 
     if (error) {
-      console.error('Error searching professionals:', error);
+      console.error("Error searching professionals:", error);
       return {
         success: false,
-        error: 'Failed to search professionals',
+        error: "Failed to search professionals",
         professionals: [],
         totalFound: 0,
       };
@@ -136,24 +131,24 @@ export async function searchProfessionalsAction({
       const primaryService =
         services.find((s) => s.name)?.name || row.primary_services?.[0] || null;
       const hourlyRate =
-        services.find((s) => typeof s.hourlyRateCop === 'number')?.hourlyRateCop || null;
+        services.find((s) => typeof s.hourlyRateCop === "number")?.hourlyRateCop || null;
 
       return {
         id: row.profile_id,
-        name: row.full_name || 'Casaora Professional',
+        name: row.full_name || "Casaora Professional",
         service: primaryService,
         experienceYears: row.experience_years || 0,
         hourlyRateCop: hourlyRate,
         languages: Array.isArray(row.languages) ? row.languages : [],
         city: row.city,
         country: row.country,
-        location: formatLocation(row.city, row.country) || 'Colombia',
+        location: formatLocation(row.city, row.country) || "Colombia",
         bio: row.bio,
         rating: row.rating || 0,
         reviewCount: row.review_count || 0,
         onTimeRate: row.on_time_rate || 0,
         totalCompletedBookings: row.total_completed_bookings || 0,
-        verificationLevel: row.verification_level || 'none',
+        verificationLevel: row.verification_level || "none",
         avatar_url: row.avatar_url || null,
       };
     });
@@ -205,10 +200,10 @@ export async function searchProfessionalsAction({
       totalFound: professionals.length,
     };
   } catch (error) {
-    console.error('Error in searchProfessionalsAction:', error);
+    console.error("Error in searchProfessionalsAction:", error);
     return {
       success: false,
-      error: 'An unexpected error occurred while searching',
+      error: "An unexpected error occurred while searching",
       professionals: [],
       totalFound: 0,
     };
@@ -231,23 +226,21 @@ export async function checkAvailabilityAction({
   instantBooking?: any;
   error?: string;
 }> {
-  'use server';
+  "use server";
 
   try {
     // Calculate end date if not provided (7 days from start)
     const end =
       endDate ||
-      new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split('T')[0];
+      new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
 
     // Fetch availability from the API
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/professionals/${professionalId}/availability?startDate=${startDate}&endDate=${end}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/professionals/${professionalId}/availability?startDate=${startDate}&endDate=${end}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
@@ -255,7 +248,7 @@ export async function checkAvailabilityAction({
     if (!response.ok) {
       return {
         success: false,
-        error: 'Failed to fetch availability',
+        error: "Failed to fetch availability",
         professionalId,
         startDate,
         endDate: end,
@@ -273,10 +266,10 @@ export async function checkAvailabilityAction({
       instantBooking: data.instantBooking || null,
     };
   } catch (error) {
-    console.error('Error in checkAvailabilityAction:', error);
+    console.error("Error in checkAvailabilityAction:", error);
     return {
       success: false,
-      error: 'An unexpected error occurred while checking availability',
+      error: "An unexpected error occurred while checking availability",
       professionalId,
       startDate,
       endDate: endDate || startDate,
@@ -302,7 +295,7 @@ export async function createBookingDraftAction({
   bookingDraft?: any;
   error?: string;
 }> {
-  'use server';
+  "use server";
 
   try {
     // Calculate total cost
@@ -326,16 +319,16 @@ export async function createBookingDraftAction({
         durationMinutes,
         hourlyRateCop,
         estimatedCostCop,
-        address: address || 'To be provided',
-        specialInstructions: specialInstructions || 'None',
+        address: address || "To be provided",
+        specialInstructions: specialInstructions || "None",
       },
     };
   } catch (error) {
-    console.error('Error in createBookingDraftAction:', error);
+    console.error("Error in createBookingDraftAction:", error);
     return {
       success: false,
       isDraft: false,
-      error: 'Failed to create booking draft',
+      error: "Failed to create booking draft",
     };
   }
 }

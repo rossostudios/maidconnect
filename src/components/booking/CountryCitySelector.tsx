@@ -23,6 +23,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -30,8 +31,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { COUNTRY_OPTIONS, COUNTRIES, type CountryCode, getCityOptions } from "@/lib/shared/config/territories";
+import {
+  COUNTRIES,
+  COUNTRY_OPTIONS,
+  type CountryCode,
+  getCityOptions,
+} from "@/lib/shared/config/territories";
 
 export interface CountryCitySelectorProps {
   /**
@@ -101,18 +106,19 @@ export function CountryCitySelector({
           </SelectTrigger>
           <SelectContent>
             {COUNTRY_OPTIONS.map((option) => {
-              const paymentProcessor = COUNTRIES[option.value as CountryCode]?.paymentProcessor || "stripe";
+              const paymentProcessor =
+                COUNTRIES[option.value as CountryCode]?.paymentProcessor || "stripe";
               const isStripe = paymentProcessor === "stripe";
 
               return (
                 <SelectItem key={option.value} value={option.value}>
-                  <div className="flex items-center justify-between gap-3 w-full">
+                  <div className="flex w-full items-center justify-between gap-3">
                     <span>{option.label}</span>
                     <Badge
                       className={`text-xs ${
                         isStripe
-                          ? "bg-blue-50 text-blue-700 border-blue-200"
-                          : "bg-orange-50 text-orange-700 border-orange-200"
+                          ? "border-blue-200 bg-blue-50 text-blue-700"
+                          : "border-orange-200 bg-orange-50 text-orange-700"
                       }`}
                       variant="outline"
                     >

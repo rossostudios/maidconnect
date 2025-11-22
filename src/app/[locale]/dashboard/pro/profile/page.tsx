@@ -57,7 +57,6 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
 
       {/* Intro Video Upload */}
       <IntroVideoUpload
-        userId={user.id}
         countryCode={(profileData?.country_code as "CO" | "PY" | "UY" | "AR") || "CO"}
         currentVideoPath={profileData?.intro_video_path}
         currentVideoStatus={
@@ -65,6 +64,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
         }
         currentVideoThumbnailPath={profileData?.intro_video_thumbnail_path}
         rejectionReason={profileData?.intro_video_rejection_reason}
+        userId={user.id}
       />
 
       {/* Earnings Badge Settings */}

@@ -1,15 +1,21 @@
 "use client";
 
-import { useState, useRef } from "react";
+import {
+  Cancel01Icon,
+  Clock01Icon,
+  Tick02Icon,
+  Upload01Icon,
+  Video01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils/core";
-import { videoEvents } from "@/lib/integrations/posthog";
 import type { RequiredEventProperties } from "@/lib/integrations/posthog";
-import { Upload01Icon, Tick02Icon, Clock01Icon, Cancel01Icon, Video01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { videoEvents } from "@/lib/integrations/posthog";
+import { cn } from "@/lib/utils/core";
 
 type VideoStatus = "none" | "pending_review" | "approved" | "rejected";
 
@@ -47,7 +53,9 @@ export function IntroVideoUpload({
 
   const [videoStatus, setVideoStatus] = useState<VideoStatus>(currentVideoStatus);
   const [videoPath, setVideoPath] = useState<string | null>(currentVideoPath || null);
-  const [thumbnailPath, setThumbnailPath] = useState<string | null>(currentVideoThumbnailPath || null);
+  const [thumbnailPath, setThumbnailPath] = useState<string | null>(
+    currentVideoThumbnailPath || null
+  );
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,8 +96,8 @@ export function IntroVideoUpload({
     }
   };
 
-  const getVideoDuration = (file: File): Promise<number> => {
-    return new Promise((resolve, reject) => {
+  const getVideoDuration = (file: File): Promise<number> =>
+    new Promise((resolve, reject) => {
       const video = document.createElement("video");
       video.preload = "metadata";
 
@@ -104,7 +112,6 @@ export function IntroVideoUpload({
 
       video.src = window.URL.createObjectURL(file);
     });
-  };
 
   const uploadVideo = async (file: File, duration: number, fileSizeMB: number) => {
     setIsUploading(true);
@@ -164,28 +171,28 @@ export function IntroVideoUpload({
     switch (videoStatus) {
       case "pending_review":
         return (
-          <Badge variant="warning" className="flex items-center gap-2">
+          <Badge className="flex items-center gap-2" variant="warning">
             <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             {t("status.pendingReview")}
           </Badge>
         );
       case "approved":
         return (
-          <Badge variant="success" className="flex items-center gap-2">
+          <Badge className="flex items-center gap-2" variant="success">
             <HugeiconsIcon className="h-4 w-4" icon={Tick02Icon} />
             {t("status.approved")}
           </Badge>
         );
       case "rejected":
         return (
-          <Badge variant="destructive" className="flex items-center gap-2">
+          <Badge className="flex items-center gap-2" variant="destructive">
             <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
             {t("status.rejected")}
           </Badge>
         );
       default:
         return (
-          <Badge variant="default" className="flex items-center gap-2">
+          <Badge className="flex items-center gap-2" variant="default">
             <HugeiconsIcon className="h-4 w-4" icon={Video01Icon} />
             {t("status.noVideo")}
           </Badge>
@@ -194,11 +201,11 @@ export function IntroVideoUpload({
   };
 
   return (
-    <Card className={cn("p-8 space-y-6", className)}>
+    <Card className={cn("space-y-6 p-8", className)}>
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <h2 className="font-semibold text-xl text-neutral-900">{t("title")}</h2>
+          <h2 className="font-semibold text-neutral-900 text-xl">{t("title")}</h2>
           <p className="text-base text-neutral-700 leading-relaxed">{t("description")}</p>
         </div>
         {getStatusBadge()}
@@ -207,11 +214,7 @@ export function IntroVideoUpload({
       {/* Video Preview (if exists) */}
       {videoPath && thumbnailPath && (
         <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-900">
-          <img
-            src={thumbnailPath}
-            alt={t("thumbnailAlt")}
-            className="h-full w-full object-cover"
-          />
+          <img alt={t("thumbnailAlt")} className="h-full w-full object-cover" src={thumbnailPath} />
           <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/30">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90">
               <HugeiconsIcon className="h-8 w-8 text-neutral-900" icon={Video01Icon} />
@@ -223,15 +226,15 @@ export function IntroVideoUpload({
       {/* Rejection Reason */}
       {videoStatus === "rejected" && rejectionReason && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-          <h3 className="font-semibold text-sm text-red-900">{t("rejectionReasonTitle")}</h3>
-          <p className="mt-1 text-sm text-red-700">{rejectionReason}</p>
+          <h3 className="font-semibold text-red-900 text-sm">{t("rejectionReasonTitle")}</h3>
+          <p className="mt-1 text-red-700 text-sm">{rejectionReason}</p>
         </div>
       )}
 
       {/* Guidelines */}
-      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 space-y-4">
+      <div className="space-y-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
         <h3 className="font-semibold text-base text-neutral-900">{t("guidelines.title")}</h3>
-        <ul className="space-y-2 text-sm text-neutral-700">
+        <ul className="space-y-2 text-neutral-700 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-orange-500">•</span>
             <span>{t("guidelines.duration", { maxDuration: MAX_DURATION_SECONDS })}</span>
@@ -254,18 +257,18 @@ export function IntroVideoUpload({
       {/* Upload Button */}
       <div className="space-y-4">
         <input
-          ref={fileInputRef}
-          type="file"
           accept={ALLOWED_VIDEO_TYPES.join(",")}
-          onChange={handleFileSelect}
           className="hidden"
           disabled={isUploading}
+          onChange={handleFileSelect}
+          ref={fileInputRef}
+          type="file"
         />
 
         <Button
-          onClick={() => fileInputRef.current?.click()}
-          disabled={isUploading}
           className="w-full"
+          disabled={isUploading}
+          onClick={() => fileInputRef.current?.click()}
           size="lg"
         >
           {isUploading ? (
@@ -284,7 +287,7 @@ export function IntroVideoUpload({
         {/* Error Message */}
         {error && (
           <div className="rounded-lg border border-red-200 bg-red-50 p-3">
-            <p className="text-sm text-red-700">{error}</p>
+            <p className="text-red-700 text-sm">{error}</p>
           </div>
         )}
       </div>

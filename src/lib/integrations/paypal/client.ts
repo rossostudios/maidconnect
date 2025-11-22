@@ -50,7 +50,14 @@ export interface PayPalPayoutResponse {
       value: string;
       currency: string;
     };
-    transactionStatus: "SUCCESS" | "FAILED" | "PENDING" | "UNCLAIMED" | "RETURNED" | "ONHOLD" | "BLOCKED";
+    transactionStatus:
+      | "SUCCESS"
+      | "FAILED"
+      | "PENDING"
+      | "UNCLAIMED"
+      | "RETURNED"
+      | "ONHOLD"
+      | "BLOCKED";
   }>;
 }
 
@@ -69,7 +76,7 @@ interface PayPalTokenResponse {
 class PayPalClient {
   private config: PayPalConfig;
   private accessToken: string | null = null;
-  private tokenExpiry: number = 0;
+  private tokenExpiry = 0;
 
   constructor(config: PayPalConfig) {
     this.config = config;
@@ -201,12 +208,13 @@ class PayPalClient {
     return {
       payoutBatchId: data.batch_header.payout_batch_id,
       batchStatus: data.batch_header.batch_status,
-      items: data.items?.map((item: any) => ({
-        payoutItemId: item.payout_item_id,
-        recipientEmail: item.payout_item.receiver,
-        amount: item.payout_item.amount,
-        transactionStatus: item.transaction_status,
-      })) || [],
+      items:
+        data.items?.map((item: any) => ({
+          payoutItemId: item.payout_item_id,
+          recipientEmail: item.payout_item.receiver,
+          amount: item.payout_item.amount,
+          transactionStatus: item.transaction_status,
+        })) || [],
     };
   }
 
@@ -453,7 +461,7 @@ function getPayPalInstance(): PayPalClient {
     const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
     const environment = (process.env.PAYPAL_ENVIRONMENT || "sandbox") as PayPalEnvironment;
 
-    if (!clientId || !clientSecret) {
+    if (!(clientId && clientSecret)) {
       throw new Error(
         "PayPal credentials not configured. Add PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET to environment."
       );
@@ -488,7 +496,7 @@ export function assertPayPalSignature(request: NextRequest) {
   const certUrl = request.headers.get("paypal-cert-url");
   const authAlgo = request.headers.get("paypal-auth-algo");
 
-  if (!transmissionId || !transmissionSig || !transmissionTime || !certUrl || !authAlgo) {
+  if (!(transmissionId && transmissionSig && transmissionTime && certUrl && authAlgo)) {
     throw new Error("Missing PayPal webhook signature headers");
   }
 

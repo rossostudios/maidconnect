@@ -12,13 +12,46 @@ type BookingStats = {
   completed: number;
 };
 
+/** Admin profile reference for suspension records */
+interface AdminProfile {
+  id: string;
+  full_name: string | null;
+}
+
+/** Professional profile data */
+interface ProfessionalProfile {
+  id: string;
+  bio: string | null;
+  hourly_rate_cents: number;
+  services: string[];
+  is_verified: boolean;
+  rating: number | null;
+  total_reviews: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Suspension history record from database */
+interface SuspensionRecord {
+  id: string;
+  suspension_type: string;
+  reason: string;
+  details: string | null;
+  suspended_at: string;
+  expires_at: string | null;
+  lifted_at: string | null;
+  lift_reason: string | null;
+  suspended_by_profile: AdminProfile | null;
+  lifted_by_profile: AdminProfile | null;
+}
+
 type ActiveSuspension = {
   id: string;
   type: string;
   reason: string;
   suspended_at: string;
   expires_at: string | null;
-  suspended_by: any;
+  suspended_by: AdminProfile | null;
 } | null;
 
 /**
@@ -53,7 +86,7 @@ async function fetchProfessionalProfile(
   supabase: SupabaseClient,
   userId: string,
   role: UserRole
-): Promise<any> {
+): Promise<ProfessionalProfile | null> {
   if (role !== "professional") {
     return null;
   }
@@ -64,13 +97,16 @@ async function fetchProfessionalProfile(
     .eq("id", userId)
     .single();
 
-  return proProfile;
+  return proProfile as ProfessionalProfile | null;
 }
 
 /**
  * Fetch suspension history with admin details
  */
-async function fetchSuspensionHistory(supabase: SupabaseClient, userId: string) {
+async function fetchSuspensionHistory(
+  supabase: SupabaseClient,
+  userId: string
+): Promise<SuspensionRecord[]> {
   const { data: suspensionHistory } = await supabase
     .from("user_suspensions")
     .select(`
@@ -88,13 +124,13 @@ async function fetchSuspensionHistory(supabase: SupabaseClient, userId: string) 
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
-  return suspensionHistory || [];
+  return (suspensionHistory as SuspensionRecord[] | null) || [];
 }
 
 /**
  * Find active suspension from history
  */
-function findActiveSuspension(suspensionHistory: any[]): ActiveSuspension {
+function findActiveSuspension(suspensionHistory: SuspensionRecord[]): ActiveSuspension {
   const active = suspensionHistory.find(
     (s) =>
       !s.lifted_at &&

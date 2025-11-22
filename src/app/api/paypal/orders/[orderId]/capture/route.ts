@@ -14,13 +14,10 @@
 
 import { NextResponse } from "next/server";
 import { paypal } from "@/lib/integrations/paypal";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { logger } from "@/lib/logger";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function POST(
-  request: Request,
-  { params }: { params: Promise<{ orderId: string }> }
-) {
+export async function POST(request: Request, { params }: { params: Promise<{ orderId: string }> }) {
   try {
     const { orderId } = await params;
 
@@ -53,10 +50,7 @@ export async function POST(
             orderUserId: metadata.userId,
             requestUserId: user.id,
           });
-          return NextResponse.json(
-            { error: "Order does not belong to user" },
-            { status: 403 }
-          );
+          return NextResponse.json({ error: "Order does not belong to user" }, { status: 403 });
         }
       }
     } catch (error) {
@@ -158,9 +152,6 @@ export async function POST(
     });
   } catch (error) {
     logger.error("[PayPal Capture] Error capturing payment", { error });
-    return NextResponse.json(
-      { error: "Failed to capture PayPal payment" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to capture PayPal payment" }, { status: 500 });
   }
 }

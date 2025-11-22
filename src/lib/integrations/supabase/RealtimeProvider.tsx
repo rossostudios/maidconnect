@@ -24,16 +24,10 @@
  * ```
  */
 
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
-import {
-  getConnectionManager,
   type ConnectionHealth,
+  getConnectionManager,
   type RealtimeConnectionManager,
 } from "./realtime-connection-manager";
 
@@ -69,9 +63,7 @@ type RealtimeProviderProps = {
  */
 export function RealtimeProvider({ children }: RealtimeProviderProps) {
   const [manager] = useState(() => getConnectionManager());
-  const [health, setHealth] = useState<ConnectionHealth>(() =>
-    manager.getHealth()
-  );
+  const [health, setHealth] = useState<ConnectionHealth>(() => manager.getHealth());
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Subscribe to connection state changes

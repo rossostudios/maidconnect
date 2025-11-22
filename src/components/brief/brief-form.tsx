@@ -8,11 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
-import {
-  COUNTRY_OPTIONS,
-  getCityOptions,
-  type CountryCode,
-} from "@/lib/shared/config/territories";
+import { COUNTRY_OPTIONS, type CountryCode, getCityOptions } from "@/lib/shared/config/territories";
 
 // Form validation schema
 const briefSchema = z.object({

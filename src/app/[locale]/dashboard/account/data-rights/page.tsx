@@ -512,8 +512,8 @@ function LegalNoticeSection() {
       </ul>
       <p className="mt-4 text-neutral-500 text-sm">
         For questions about your data rights, contact us at{" "}
-        <a className="font-semibold text-orange-500 underline" href="mailto:privacy@casaora.com">
-          privacy@casaora.com
+        <a className="font-semibold text-orange-500 underline" href="mailto:privacy@casaora.co">
+          privacy@casaora.co
         </a>
       </p>
     </section>

@@ -132,16 +132,10 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
           >
             Real-time Activity
           </h2>
-          <p
-            className={cn(
-              "text-neutral-600 text-sm leading-none",
-              geistSans.className
-            )}
-          >
+          <p className={cn("text-neutral-600 text-sm leading-none", geistSans.className)}>
             Monitoring active users and sessions
           </p>
         </div>
-
       </div>
 
       {/* Activity Stats Grid */}
@@ -245,10 +239,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
                 No recent activity
               </p>
               <p
-                className={cn(
-                  "mt-1 text-neutral-400 text-xs tracking-wider",
-                  geistSans.className
-                )}
+                className={cn("mt-1 text-neutral-400 text-xs tracking-wider", geistSans.className)}
               >
                 Activity will appear here in real-time
               </p>
@@ -352,12 +343,7 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
               </div>
             ))}
             {onlineUsers.length > 5 && (
-              <p
-                className={cn(
-                  "mt-2 text-neutral-500 text-xs tracking-wide",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-2 text-neutral-500 text-xs tracking-wide", geistSans.className)}>
                 +{onlineUsers.length - 5} more online
               </p>
             )}

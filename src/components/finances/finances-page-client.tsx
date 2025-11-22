@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { trackFinancesDashboardViewed } from "@/lib/analytics/professional-events";
@@ -189,24 +189,24 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
       {/* Payout History */}
       <PayoutHistory
         currencyCode={currencyCode}
-        transfers={transfers}
         isLoading={isLoadingHistory}
         professionalId={professionalId}
+        transfers={transfers}
       />
 
       {/* Instant Payout Modal */}
       {balanceData && (
         <InstantPayoutModal
-          currencyCode={currencyCode}
-          open={showPayoutModal}
-          onClose={() => setShowPayoutModal(false)}
           availableBalanceCop={balanceData.balance.availableCop}
-          pendingBalanceCop={balanceData.balance.pendingCop}
-          professionalId={professionalId}
+          currencyCode={currencyCode}
           feePercentage={balanceData.feeInfo.feePercentage}
           minThresholdCop={balanceData.feeInfo.minThresholdCop}
-          onSuccess={handlePayoutSuccess}
+          onClose={() => setShowPayoutModal(false)}
           onError={handlePayoutError}
+          onSuccess={handlePayoutSuccess}
+          open={showPayoutModal}
+          pendingBalanceCop={balanceData.balance.pendingCop}
+          professionalId={professionalId}
         />
       )}
     </div>

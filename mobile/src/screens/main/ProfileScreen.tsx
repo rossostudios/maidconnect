@@ -1,76 +1,70 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '@/hooks/useAuth';
+import { Ionicons } from "@expo/vector-icons";
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { useAuth } from "@/hooks/useAuth";
+import type { MainTabScreenProps } from "@/types/navigation";
 
-type Props = MainTabScreenProps<'Profile'>;
+type Props = MainTabScreenProps<"Profile">;
 
 export function ProfileScreen({ navigation }: Props) {
   const { user, signOut } = useAuth();
 
   const handleSignOut = () => {
-    Alert.alert(
-      'Cerrar Sesión',
-      '¿Estás seguro que deseas cerrar sesión?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Cerrar Sesión',
-          style: 'destructive',
-          onPress: async () => {
-            await signOut();
-          },
+    Alert.alert("Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?", [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Cerrar Sesión",
+        style: "destructive",
+        onPress: async () => {
+          await signOut();
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const menuItems = [
     {
-      icon: 'person-outline' as const,
-      title: 'Información Personal',
+      icon: "person-outline" as const,
+      title: "Información Personal",
       onPress: () => {},
     },
     {
-      icon: 'card-outline' as const,
-      title: 'Métodos de Pago',
+      icon: "card-outline" as const,
+      title: "Métodos de Pago",
       onPress: () => {},
     },
     {
-      icon: 'location-outline' as const,
-      title: 'Direcciones',
+      icon: "location-outline" as const,
+      title: "Direcciones",
       onPress: () => {},
     },
     {
-      icon: 'notifications-outline' as const,
-      title: 'Notificaciones',
+      icon: "notifications-outline" as const,
+      title: "Notificaciones",
       onPress: () => {},
     },
     {
-      icon: 'help-circle-outline' as const,
-      title: 'Ayuda y Soporte',
+      icon: "help-circle-outline" as const,
+      title: "Ayuda y Soporte",
       onPress: () => {},
     },
     {
-      icon: 'settings-outline' as const,
-      title: 'Configuración',
+      icon: "settings-outline" as const,
+      title: "Configuración",
       onPress: () => {},
     },
   ];
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Profile Header */}
         <Card style={styles.profileCard}>
           <View style={styles.avatar} />
-          <Text style={styles.name}>
-            {user?.user_metadata?.full_name || 'Usuario'}
-          </Text>
+          <Text style={styles.name}>{user?.user_metadata?.full_name || "Usuario"}</Text>
           <Text style={styles.email}>{user?.email}</Text>
         </Card>
 
@@ -78,34 +72,26 @@ export function ProfileScreen({ navigation }: Props) {
         <View style={styles.menuSection}>
           {menuItems.map((item, index) => (
             <TouchableOpacity
-              key={index}
-              style={styles.menuItem}
-              onPress={item.onPress}
               activeOpacity={0.7}
+              key={index}
+              onPress={item.onPress}
+              style={styles.menuItem}
             >
               <View style={styles.menuItemLeft}>
-                <Ionicons
-                  name={item.icon}
-                  size={24}
-                  color={Colors.text.primary}
-                />
+                <Ionicons color={Colors.text.primary} name={item.icon} size={24} />
                 <Text style={styles.menuItemText}>{item.title}</Text>
               </View>
-              <Ionicons
-                name="chevron-forward"
-                size={20}
-                color={Colors.neutral[400]}
-              />
+              <Ionicons color={Colors.neutral[400]} name="chevron-forward" size={20} />
             </TouchableOpacity>
           ))}
         </View>
 
         {/* Sign Out Button */}
         <Button
-          title="Cerrar Sesión"
           onPress={handleSignOut}
-          variant="outline"
           style={styles.signOutButton}
+          title="Cerrar Sesión"
+          variant="outline"
         />
 
         <Text style={styles.version}>Versión 1.0.0</Text>
@@ -125,7 +111,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   profileCard: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 32,
     marginBottom: 24,
   },
@@ -138,7 +124,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 4,
   },
@@ -150,21 +136,21 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
   },
   menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 16,
   },
   menuItemText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.text.primary,
   },
   signOutButton: {
@@ -173,7 +159,7 @@ const styles = StyleSheet.create({
   version: {
     fontSize: 12,
     color: Colors.text.tertiary,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 24,
   },
 });

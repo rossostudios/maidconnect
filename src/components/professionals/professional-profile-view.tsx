@@ -12,7 +12,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AvailabilityCalendar as LargeAvailabilityCalendar } from "@/components/shared/availability-calendar";
 
 // Dynamic import for sheet (lazy load on demand)
@@ -34,8 +34,11 @@ import type { VerificationData } from "@/components/professionals/verification-b
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
+import {
+  trackEarningsBadgeViewed,
+  trackVanityUrlViewed,
+} from "@/lib/analytics/professional-events";
 import type { AppUser } from "@/lib/auth/types";
-import { trackVanityUrlViewed, trackEarningsBadgeViewed } from "@/lib/analytics/professional-events";
 import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
 
@@ -109,7 +112,9 @@ export function ProfessionalProfileView({
   useEffect(() => {
     trackVanityUrlViewed({
       professionalId: professional.id,
-      hasEarningsBadge: Boolean(professional.shareEarningsBadge && professional.totalBookingsCompleted),
+      hasEarningsBadge: Boolean(
+        professional.shareEarningsBadge && professional.totalBookingsCompleted
+      ),
       slug: window.location.pathname.split("/").pop() || "",
     });
   }, [professional.id, professional.shareEarningsBadge, professional.totalBookingsCompleted]);
@@ -178,7 +183,10 @@ export function ProfessionalProfileView({
         <div className="mt-8 overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
           <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
-            <div className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full" data-testid="professional-avatar">
+            <div
+              className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full"
+              data-testid="professional-avatar"
+            >
               <Image
                 alt={professional.name}
                 className="object-cover"
@@ -293,11 +301,11 @@ export function ProfessionalProfileView({
           professional.introVideoDurationSeconds && (
             <div className="mt-8">
               <IntroVideoPlayer
+                countryCode="CO"
+                durationSeconds={professional.introVideoDurationSeconds}
                 professionalId={professional.id}
                 professionalName={professional.name}
-                videoPath={professional.introVideoPath}
-                durationSeconds={professional.introVideoDurationSeconds}
-                countryCode="CO" // TODO: Get from professional data when available
+                videoPath={professional.introVideoPath} // TODO: Get from professional data when available
               />
             </div>
           )}
@@ -380,7 +388,10 @@ export function ProfessionalProfileView({
                 {activeTab === "about" && (
                   <div className="space-y-6">
                     <h3 className="font-semibold text-2xl text-[neutral-900]">{t("tabs.about")}</h3>
-                    <p className="text-[neutral-400] text-base leading-relaxed" data-testid="professional-bio">
+                    <p
+                      className="text-[neutral-400] text-base leading-relaxed"
+                      data-testid="professional-bio"
+                    >
                       {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>

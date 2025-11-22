@@ -263,7 +263,7 @@ export function LiaCustomerDoubleSidebar({
                     icon={selectedCategoryData.icon}
                   />
                 </div>
-                <div className="min-w-0 flex-1 flex flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                   <h2
                     className={cn(
                       "font-semibold text-neutral-900 text-sm leading-none",

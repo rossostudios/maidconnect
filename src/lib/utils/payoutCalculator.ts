@@ -12,13 +12,8 @@
  */
 
 import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
+import { type CountryCode, getPricingConfig } from "@/lib/shared/config/pricing";
 import { type Currency, formatCurrency } from "@/lib/utils/format";
-import {
-  calculateCommission as calculateCommissionFromPricing,
-  getPricingConfig,
-  type CountryCode,
-} from "@/lib/shared/config/pricing";
-import { COUNTRIES } from "@/lib/shared/config/territories";
 
 // Default commission rate (fallback if country not specified)
 // @deprecated Use getPricingConfig(countryCode).commission.marketplaceRate instead
@@ -50,14 +45,14 @@ export type PayoutCalculation = {
  */
 function getCurrencyCountry(currency: Currency): CountryCode {
   const currencyCountryMap: Record<Currency, CountryCode> = {
-    COP: 'CO',
-    PYG: 'PY',
-    UYU: 'UY',
-    ARS: 'AR',
-    USD: 'CO', // Default to Colombia for USD (legacy)
-    EUR: 'CO', // Default to Colombia for EUR (legacy)
+    COP: "CO",
+    PYG: "PY",
+    UYU: "UY",
+    ARS: "AR",
+    USD: "CO", // Default to Colombia for USD (legacy)
+    EUR: "CO", // Default to Colombia for EUR (legacy)
   };
-  return currencyCountryMap[currency] || 'CO';
+  return currencyCountryMap[currency] || "CO";
 }
 
 /**
@@ -209,7 +204,11 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
 
     // Use pricing rule if found, otherwise use country-specific baseline rate from pricing.ts
     const rate = pricingRule?.commission_rate || baselineRate;
-    const { commissionAmount } = calculateCommission(booking.final_amount_captured || 0, undefined, rate);
+    const { commissionAmount } = calculateCommission(
+      booking.final_amount_captured || 0,
+      undefined,
+      rate
+    );
     totalCommission += commissionAmount;
   }
 

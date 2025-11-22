@@ -25,7 +25,7 @@ setup("authenticate as customer", async ({ page }) => {
   await loginAsCustomer(page, email, password);
 
   // Wait for successful redirect to dashboard
-  await page.waitForURL("**/dashboard**", { timeout: 10000 });
+  await page.waitForURL("**/dashboard**", { timeout: 10_000 });
 
   console.log("[auth.setup] Login successful, saving authentication state...");
 

@@ -3,9 +3,8 @@
 import { motion, Variants } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
-import { ConciergeJustification } from "./concierge-justification";
+import { DirectHireJustification } from "./direct-hire-justification";
 import { FeeExplainer } from "./fee-explainer";
-import { PricingComparisonCards } from "./pricing-comparison-cards";
 
 export function CustomerPricingTab() {
   const t = useTranslations("pricing.customer");
@@ -43,9 +42,7 @@ export function CustomerPricingTab() {
           <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             {t("howItWorks.title")}
           </h2>
-          <p className="text-lg text-neutral-600 leading-relaxed">
-            {t("howItWorks.description")}
-          </p>
+          <p className="text-lg text-neutral-600 leading-relaxed">{t("howItWorks.description")}</p>
         </motion.div>
 
         {/* Steps */}
@@ -70,20 +67,6 @@ export function CustomerPricingTab() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Comparison Cards */}
-        <motion.div
-          className="mb-24"
-          initial="hidden"
-          variants={fadeInUp}
-          viewport={{ once: true, margin: "-100px" }}
-          whileInView="visible"
-        >
-          <h2 className="mb-12 text-center font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900 tracking-tight md:text-4xl">
-            {t("chooseService.title")}
-          </h2>
-          <PricingComparisonCards highlightConcierge />
-        </motion.div>
       </Container>
 
       {/* Fee Explainer */}
@@ -96,7 +79,7 @@ export function CustomerPricingTab() {
         <FeeExplainer />
       </motion.div>
 
-      {/* Concierge Justification */}
+      {/* Direct Hire Justification */}
       <motion.div
         className="pb-24"
         initial="hidden"
@@ -104,7 +87,7 @@ export function CustomerPricingTab() {
         viewport={{ once: true, margin: "-100px" }}
         whileInView="visible"
       >
-        <ConciergeJustification />
+        <DirectHireJustification />
       </motion.div>
     </div>
   );

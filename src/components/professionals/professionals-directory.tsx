@@ -650,10 +650,12 @@ const ProfessionalsDirectoryComponent = memo(
                           <VerificationBadge level="reference-checked" size="sm" />
                         )}
                         {/* Fallback to basic badge if no detailed verification data */}
-                        {!professional.verification.backgroundCheckPassed &&
-                          !professional.verification.documentsVerified &&
-                          !professional.verification.interviewCompleted &&
-                          !professional.verification.referencesVerified &&
+                        {!(
+                          professional.verification.backgroundCheckPassed ||
+                          professional.verification.documentsVerified ||
+                          professional.verification.interviewCompleted ||
+                          professional.verification.referencesVerified
+                        ) &&
                           professional.verificationLevel &&
                           professional.verificationLevel !== "none" && (
                             <VerificationBadge level={professional.verificationLevel} size="sm" />
@@ -663,29 +665,30 @@ const ProfessionalsDirectoryComponent = memo(
                       professional.verificationLevel &&
                       professional.verificationLevel !== "none" ? (
                       <VerificationBadge level={professional.verificationLevel} size="sm" />
-                    ) : !showEnhancedTrustBadges ? (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900] rounded-lg">
+                    ) : showEnhancedTrustBadges ? null : (
+                      <span className="inline-flex items-center gap-1 rounded-lg bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
                         <HugeiconsIcon className="h-3.5 w-3.5 text-[neutral-900]" icon={StarIcon} />
                         {t("card.newBadge")}
                       </span>
-                    ) : null}
-
-                    {/* Intro Video Badge (Phase 2.3) */}
-                    {professional.introVideoStatus === "approved" && professional.introVideoPath && (
-                      <span className="inline-flex items-center gap-1 bg-orange-50 border border-orange-200 px-3 py-1.5 font-semibold text-orange-600 rounded-lg">
-                        <HugeiconsIcon className="h-3.5 w-3.5" icon={Video01Icon} />
-                        {t("card.hasIntroVideo")}
-                      </span>
                     )}
 
+                    {/* Intro Video Badge (Phase 2.3) */}
+                    {professional.introVideoStatus === "approved" &&
+                      professional.introVideoPath && (
+                        <span className="inline-flex items-center gap-1 rounded-lg border border-orange-200 bg-orange-50 px-3 py-1.5 font-semibold text-orange-600">
+                          <HugeiconsIcon className="h-3.5 w-3.5" icon={Video01Icon} />
+                          {t("card.hasIntroVideo")}
+                        </span>
+                      )}
+
                     {professional.languages.length > 0 && (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900] rounded-lg">
+                      <span className="inline-flex items-center gap-1 rounded-lg bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
                         {professional.languages.join(" / ")}
                       </span>
                     )}
 
                     {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50] rounded-lg">
+                      <span className="inline-flex items-center gap-1 rounded-lg bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50]">
                         {t("filters.availableToday")}
                       </span>
                     )}

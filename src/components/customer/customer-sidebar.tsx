@@ -45,8 +45,8 @@ const navSections: NavSection[] = [
   {
     title: "Services",
     items: [
-      // Removed "Find Professionals" link for concierge-only migration
-      // Professional matching now handled via /concierge
+      // Removed "Find Professionals" link for direct-hire-focused migration
+      // Professional matching now handled via /direct-hire
       { href: "/dashboard/customer/favorites", label: "Favorites", icon: FavouriteIcon },
       { href: "/dashboard/customer/recurring-plans", label: "Recurring Plans", icon: RepeatIcon },
     ],

@@ -1,27 +1,27 @@
-import { useState, useEffect } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
   ActivityIndicator,
+  Alert,
   Image,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { getProfessionalById } from '@/lib/api/professionals';
-import { createBooking } from '@/lib/api/bookings';
-import type { Professional } from '@/types/api/professional';
-import { formatCurrency, formatDateTime } from '@/lib/format';
-import type { CurrencyCode } from '@/types/territories';
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { createBooking } from "@/lib/api/bookings";
+import { getProfessionalById } from "@/lib/api/professionals";
+import { formatCurrency, formatDateTime } from "@/lib/format";
+import type { Professional } from "@/types/api/professional";
+import type { MainTabScreenProps } from "@/types/navigation";
+import type { CurrencyCode } from "@/types/territories";
 
-type Props = MainTabScreenProps<'BookingConfirm'>;
+type Props = MainTabScreenProps<"BookingConfirm">;
 
 export function BookingConfirmScreen({ route, navigation }: Props) {
   const { professionalId, serviceType, durationHours, startTime, address } = route.params;
@@ -39,8 +39,8 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
       const data = await getProfessionalById(professionalId);
       setProfessional(data);
     } catch (error) {
-      console.error('Error loading professional:', error);
-      Alert.alert('Error', 'No se pudo cargar la información del profesional');
+      console.error("Error loading professional:", error);
+      Alert.alert("Error", "No se pudo cargar la información del profesional");
     } finally {
       setLoading(false);
     }
@@ -48,12 +48,12 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
 
   const getCurrencyCode = (countryCode: string): CurrencyCode => {
     const currencyMap: Record<string, CurrencyCode> = {
-      CO: 'COP',
-      PY: 'PYG',
-      UY: 'UYU',
-      AR: 'ARS',
+      CO: "COP",
+      PY: "PYG",
+      UY: "UYU",
+      AR: "ARS",
     };
-    return currencyMap[countryCode] || 'COP';
+    return currencyMap[countryCode] || "COP";
   };
 
   const handleConfirmBooking = async () => {
@@ -64,21 +64,21 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
       const booking = await createBooking({
         professional_id: professionalId,
         service_type: serviceType,
-        booking_type: 'marketplace',
+        booking_type: "marketplace",
         start_time: startTime,
         duration_hours: durationHours,
         address,
       });
 
       // Navigate to payment screen with booking details
-      navigation.navigate('PaymentMethod', {
+      navigation.navigate("PaymentMethod", {
         bookingId: booking.id,
         amount_cents: Math.round(totalAmount * 100),
         currency_code: currencyCode,
       });
     } catch (error) {
-      console.error('Error creating booking:', error);
-      Alert.alert('Error', 'No se pudo crear la reserva. Por favor intenta nuevamente.');
+      console.error("Error creating booking:", error);
+      Alert.alert("Error", "No se pudo crear la reserva. Por favor intenta nuevamente.");
     } finally {
       setSubmitting(false);
     }
@@ -86,9 +86,9 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView edges={["top"]} style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.orange[500]} />
+          <ActivityIndicator color={Colors.orange[500]} size="large" />
         </View>
       </SafeAreaView>
     );
@@ -96,10 +96,10 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
 
   if (!professional) {
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView edges={["top"]} style={styles.container}>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Error al cargar los datos</Text>
-          <Button title="Volver" onPress={() => navigation.goBack()} />
+          <Button onPress={() => navigation.goBack()} title="Volver" />
         </View>
       </SafeAreaView>
     );
@@ -110,10 +110,10 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
   const totalAmount = hourlyRate * durationHours;
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text.primary} />
+          <Ionicons color={Colors.text.primary} name="arrow-back" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Confirmar Reserva</Text>
         <View style={styles.headerRight} />
@@ -125,25 +125,22 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
           <Text style={styles.sectionTitle}>Profesional</Text>
           <View style={styles.professionalRow}>
             {professional.profile_picture_url ? (
-              <Image
-                source={{ uri: professional.profile_picture_url }}
-                style={styles.avatar}
-              />
+              <Image source={{ uri: professional.profile_picture_url }} style={styles.avatar} />
             ) : (
               <View style={styles.avatarPlaceholder}>
-                <Ionicons name="person" size={32} color={Colors.neutral[400]} />
+                <Ionicons color={Colors.neutral[400]} name="person" size={32} />
               </View>
             )}
             <View style={styles.professionalInfo}>
               <View style={styles.professionalNameRow}>
                 <Text style={styles.professionalName}>{professional.full_name}</Text>
                 {professional.verified && (
-                  <Ionicons name="checkmark-circle" size={18} color={Colors.blue[500]} />
+                  <Ionicons color={Colors.blue[500]} name="checkmark-circle" size={18} />
                 )}
               </View>
               {professional.rating && (
                 <View style={styles.ratingRow}>
-                  <Ionicons name="star" size={14} color={Colors.orange[500]} />
+                  <Ionicons color={Colors.orange[500]} name="star" size={14} />
                   <Text style={styles.ratingText}>{professional.rating.toFixed(1)}</Text>
                 </View>
               )}
@@ -156,7 +153,7 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
           <Text style={styles.sectionTitle}>Detalles del Servicio</Text>
           <View style={styles.detailRow}>
             <View style={styles.detailIcon}>
-              <Ionicons name="construct-outline" size={20} color={Colors.orange[500]} />
+              <Ionicons color={Colors.orange[500]} name="construct-outline" size={20} />
             </View>
             <View style={styles.detailContent}>
               <Text style={styles.detailLabel}>Servicio</Text>
@@ -165,22 +162,24 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
           </View>
           <View style={styles.detailRow}>
             <View style={styles.detailIcon}>
-              <Ionicons name="time-outline" size={20} color={Colors.orange[500]} />
+              <Ionicons color={Colors.orange[500]} name="time-outline" size={20} />
             </View>
             <View style={styles.detailContent}>
               <Text style={styles.detailLabel}>Fecha y Hora</Text>
               <Text style={styles.detailValue}>
-                {formatDateTime(new Date(startTime), 'PPp', 'es')}
+                {formatDateTime(new Date(startTime), "PPp", "es")}
               </Text>
             </View>
           </View>
           <View style={styles.detailRow}>
             <View style={styles.detailIcon}>
-              <Ionicons name="hourglass-outline" size={20} color={Colors.orange[500]} />
+              <Ionicons color={Colors.orange[500]} name="hourglass-outline" size={20} />
             </View>
             <View style={styles.detailContent}>
               <Text style={styles.detailLabel}>Duración</Text>
-              <Text style={styles.detailValue}>{durationHours} hora{durationHours > 1 ? 's' : ''}</Text>
+              <Text style={styles.detailValue}>
+                {durationHours} hora{durationHours > 1 ? "s" : ""}
+              </Text>
             </View>
           </View>
         </Card>
@@ -190,7 +189,7 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
           <Text style={styles.sectionTitle}>Dirección</Text>
           <View style={styles.detailRow}>
             <View style={styles.detailIcon}>
-              <Ionicons name="location-outline" size={20} color={Colors.orange[500]} />
+              <Ionicons color={Colors.orange[500]} name="location-outline" size={20} />
             </View>
             <View style={styles.detailContent}>
               <Text style={styles.detailValue}>{address.street}</Text>
@@ -198,9 +197,7 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
                 {address.neighborhood && `${address.neighborhood}, `}
                 {address.city}
               </Text>
-              {address.notes && (
-                <Text style={styles.addressNotes}>{address.notes}</Text>
-              )}
+              {address.notes && <Text style={styles.addressNotes}>{address.notes}</Text>}
             </View>
           </View>
         </Card>
@@ -212,26 +209,23 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
             <Text style={styles.priceLabel}>
               {formatCurrency(hourlyRate, currencyCode)}/hora × {durationHours}h
             </Text>
-            <Text style={styles.priceValue}>
-              {formatCurrency(totalAmount, currencyCode)}
-            </Text>
+            <Text style={styles.priceValue}>{formatCurrency(totalAmount, currencyCode)}</Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Total Estimado</Text>
-            <Text style={styles.totalValue}>
-              {formatCurrency(totalAmount, currencyCode)}
-            </Text>
+            <Text style={styles.totalValue}>{formatCurrency(totalAmount, currencyCode)}</Text>
           </View>
         </Card>
 
         {/* Info Card */}
         <Card style={styles.infoCard}>
           <View style={styles.infoIconContainer}>
-            <Ionicons name="information-circle-outline" size={20} color={Colors.blue[500]} />
+            <Ionicons color={Colors.blue[500]} name="information-circle-outline" size={20} />
           </View>
           <Text style={styles.infoText}>
-            El precio final puede variar según la complejidad del trabajo. El profesional te confirmará el costo exacto.
+            El precio final puede variar según la complejidad del trabajo. El profesional te
+            confirmará el costo exacto.
           </Text>
         </Card>
       </ScrollView>
@@ -240,17 +234,15 @@ export function BookingConfirmScreen({ route, navigation }: Props) {
       <View style={styles.bottomBar}>
         <View style={styles.totalContainer}>
           <Text style={styles.bottomTotalLabel}>Total</Text>
-          <Text style={styles.bottomTotalValue}>
-            {formatCurrency(totalAmount, currencyCode)}
-          </Text>
+          <Text style={styles.bottomTotalValue}>{formatCurrency(totalAmount, currencyCode)}</Text>
         </View>
         <Button
-          title="Confirmar Reserva"
-          onPress={handleConfirmBooking}
           loading={submitting}
-          variant="primary"
+          onPress={handleConfirmBooking}
           size="lg"
           style={styles.confirmButton}
+          title="Confirmar Reserva"
+          variant="primary"
         />
       </View>
     </SafeAreaView>
@@ -263,9 +255,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -274,11 +266,11 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   headerRight: {
@@ -286,20 +278,20 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 24,
     gap: 16,
   },
   errorText: {
     fontSize: 16,
     color: Colors.text.secondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   scrollContent: {
     paddingHorizontal: 24,
@@ -311,12 +303,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
   professionalRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
   },
   avatar: {
@@ -330,36 +322,36 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 28, // rounded-full
     backgroundColor: Colors.neutral[100],
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   professionalInfo: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   professionalNameRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginBottom: 4,
   },
   professionalName: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   ratingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   ratingText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.secondary,
   },
   detailRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     marginBottom: 16,
   },
@@ -368,12 +360,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20, // rounded-full
     backgroundColor: Colors.orange[50],
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   detailContent: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   detailLabel: {
     fontSize: 12,
@@ -382,14 +374,14 @@ const styles = StyleSheet.create({
   },
   detailValue: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   addressNotes: {
     fontSize: 12,
     color: Colors.text.secondary,
     marginTop: 4,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   priceCard: {
     marginBottom: 16,
@@ -398,9 +390,9 @@ const styles = StyleSheet.create({
     borderColor: Colors.orange[200],
   },
   priceRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   priceLabel: {
@@ -409,7 +401,7 @@ const styles = StyleSheet.create({
   },
   priceValue: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   divider: {
@@ -418,22 +410,22 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   totalRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   totalLabel: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   totalValue: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.orange[600],
   },
   infoCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     backgroundColor: Colors.blue[50],
     borderWidth: 1,
@@ -449,7 +441,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
@@ -468,9 +460,9 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   totalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   bottomTotalLabel: {
@@ -479,10 +471,10 @@ const styles = StyleSheet.create({
   },
   bottomTotalValue: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.orange[600],
   },
   confirmButton: {
-    width: '100%',
+    width: "100%",
   },
 });

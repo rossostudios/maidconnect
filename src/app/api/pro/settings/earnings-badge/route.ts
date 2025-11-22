@@ -8,8 +8,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { logger } from "@/lib/logger";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // ========================================
 // Validation Schema
@@ -56,10 +56,7 @@ export async function GET() {
       error: error instanceof Error ? error.message : "Unknown error",
     });
 
-    return NextResponse.json(
-      { error: "Failed to fetch earnings badge setting" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch earnings badge setting" }, { status: 500 });
   }
 }
 

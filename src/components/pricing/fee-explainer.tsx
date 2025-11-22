@@ -40,13 +40,13 @@ export function FeeExplainer() {
             const Icon = feature.icon;
             return (
               <div
-                className="group rounded-2xl border border-neutral-200 bg-white p-8 transition-all duration-200 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-900/5"
+                className="group rounded-2xl border border-neutral-200 bg-white p-8 transition-all duration-200 hover:border-orange-200 hover:shadow-orange-900/5 hover:shadow-xl"
                 key={feature.key}
               >
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-neutral-50 text-neutral-600 transition-colors group-hover:bg-orange-50 group-hover:text-orange-600">
                   <HugeiconsIcon className="h-7 w-7" icon={Icon} />
                 </div>
-                <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-xl text-neutral-900">
+                <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-neutral-900 text-xl">
                   {t(`features.${feature.key}.title`)}
                 </h3>
                 <p className="text-base text-neutral-600 leading-relaxed">

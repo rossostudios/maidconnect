@@ -1,17 +1,25 @@
-import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '@/hooks/useAuth';
-import { getFeaturedProfessionals } from '@/lib/api/professionals';
-import type { Professional } from '@/types/api/professional';
-import { formatCurrency } from '@/lib/format';
-import type { CurrencyCode } from '@/types/territories';
+import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { useAuth } from "@/hooks/useAuth";
+import { getFeaturedProfessionals } from "@/lib/api/professionals";
+import { formatCurrency } from "@/lib/format";
+import type { Professional } from "@/types/api/professional";
+import type { MainTabScreenProps } from "@/types/navigation";
+import type { CurrencyCode } from "@/types/territories";
 
-type Props = MainTabScreenProps<'Home'>;
+type Props = MainTabScreenProps<"Home">;
 
 export function HomeScreen({ navigation }: Props) {
   const { user } = useAuth();
@@ -27,7 +35,7 @@ export function HomeScreen({ navigation }: Props) {
       const professionals = await getFeaturedProfessionals(5);
       setFeaturedProfessionals(professionals);
     } catch (error) {
-      console.error('Error loading featured professionals:', error);
+      console.error("Error loading featured professionals:", error);
     }
   };
 
@@ -39,34 +47,32 @@ export function HomeScreen({ navigation }: Props) {
 
   const getCurrencyCode = (countryCode: string): CurrencyCode => {
     const currencyMap: Record<string, CurrencyCode> = {
-      CO: 'COP',
-      PY: 'PYG',
-      UY: 'UYU',
-      AR: 'ARS',
+      CO: "COP",
+      PY: "PYG",
+      UY: "UYU",
+      AR: "ARS",
     };
-    return currencyMap[countryCode] || 'COP';
+    return currencyMap[countryCode] || "COP";
   };
 
   const services = [
-    { id: 1, name: 'Limpieza', icon: 'sparkles-outline' as const },
-    { id: 2, name: 'Plomería', icon: 'water-outline' as const },
-    { id: 3, name: 'Electricidad', icon: 'flash-outline' as const },
-    { id: 4, name: 'Jardinería', icon: 'leaf-outline' as const },
-    { id: 5, name: 'Pintura', icon: 'brush-outline' as const },
-    { id: 6, name: 'Carpintería', icon: 'hammer-outline' as const },
+    { id: 1, name: "Limpieza", icon: "sparkles-outline" as const },
+    { id: 2, name: "Plomería", icon: "water-outline" as const },
+    { id: 3, name: "Electricidad", icon: "flash-outline" as const },
+    { id: 4, name: "Jardinería", icon: "leaf-outline" as const },
+    { id: 5, name: "Pintura", icon: "brush-outline" as const },
+    { id: 6, name: "Carpintería", icon: "hammer-outline" as const },
   ];
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}
       >
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
-          <Text style={styles.greeting}>Hola, {user?.user_metadata?.full_name || 'Usuario'}</Text>
+          <Text style={styles.greeting}>Hola, {user?.user_metadata?.full_name || "Usuario"}</Text>
           <Text style={styles.subtitle}>¿Qué servicio necesitas hoy?</Text>
         </View>
 
@@ -76,17 +82,13 @@ export function HomeScreen({ navigation }: Props) {
           <View style={styles.servicesGrid}>
             {services.map((service) => (
               <TouchableOpacity
-                key={service.id}
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate('Search')}
+                key={service.id}
+                onPress={() => navigation.navigate("Search")}
               >
                 <Card style={styles.serviceCard}>
                   <View style={styles.serviceIcon}>
-                    <Ionicons
-                      name={service.icon}
-                      size={32}
-                      color={Colors.orange[500]}
-                    />
+                    <Ionicons color={Colors.orange[500]} name={service.icon} size={32} />
                   </View>
                   <Text style={styles.serviceName}>{service.name}</Text>
                 </Card>
@@ -99,15 +101,15 @@ export function HomeScreen({ navigation }: Props) {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Reservas Recientes</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Bookings')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Bookings")}>
               <Text style={styles.seeAllText}>Ver todo</Text>
             </TouchableOpacity>
           </View>
           <Card style={styles.emptyCard}>
             <Ionicons
+              color={Colors.neutral[300]}
               name="calendar-outline"
               size={48}
-              color={Colors.neutral[300]}
               style={styles.emptyIcon}
             />
             <Text style={styles.emptyText}>No tienes reservas recientes</Text>
@@ -121,20 +123,18 @@ export function HomeScreen({ navigation }: Props) {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Profesionales Destacados</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Search")}>
               <Text style={styles.seeAllText}>Ver más</Text>
             </TouchableOpacity>
           </View>
           <ScrollView
+            contentContainerStyle={styles.professionalsScroll}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.professionalsScroll}
           >
             {featuredProfessionals.length === 0 ? (
               <Card style={styles.emptyProfessionalsCard}>
-                <Text style={styles.emptyProfessionalsText}>
-                  Cargando profesionales...
-                </Text>
+                <Text style={styles.emptyProfessionalsText}>Cargando profesionales...</Text>
               </Card>
             ) : (
               featuredProfessionals.map((professional) => {
@@ -143,10 +143,10 @@ export function HomeScreen({ navigation }: Props) {
 
                 return (
                   <TouchableOpacity
-                    key={professional.id}
                     activeOpacity={0.7}
+                    key={professional.id}
                     onPress={() =>
-                      navigation.navigate('ProfessionalDetail', {
+                      navigation.navigate("ProfessionalDetail", {
                         professionalId: professional.id,
                       })
                     }
@@ -159,20 +159,16 @@ export function HomeScreen({ navigation }: Props) {
                         />
                       ) : (
                         <View style={styles.professionalAvatar}>
-                          <Ionicons
-                            name="person"
-                            size={32}
-                            color={Colors.neutral[400]}
-                          />
+                          <Ionicons color={Colors.neutral[400]} name="person" size={32} />
                         </View>
                       )}
-                      <Text style={styles.professionalName} numberOfLines={1}>
+                      <Text numberOfLines={1} style={styles.professionalName}>
                         {professional.full_name}
                       </Text>
                       <View style={styles.professionalRating}>
-                        <Ionicons name="star" size={14} color={Colors.orange[500]} />
+                        <Ionicons color={Colors.orange[500]} name="star" size={14} />
                         <Text style={styles.ratingText}>
-                          {professional.rating?.toFixed(1) || '5.0'}
+                          {professional.rating?.toFixed(1) || "5.0"}
                         </Text>
                       </View>
                       <Text style={styles.professionalPrice}>
@@ -205,7 +201,7 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 4,
   },
@@ -218,31 +214,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
   seeAllText: {
     fontSize: 14,
     color: Colors.orange[600],
-    fontWeight: '600',
+    fontWeight: "600",
   },
   servicesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
     marginHorizontal: -6,
   },
   serviceCard: {
     width: 100,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 20,
     margin: 6,
   },
@@ -251,18 +247,18 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 28, // rounded-full
     backgroundColor: Colors.orange[50],
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 8,
   },
   serviceName: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   emptyCard: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 40,
   },
   emptyIcon: {
@@ -270,14 +266,14 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
     marginBottom: 4,
   },
   emptySubtext: {
     fontSize: 14,
     color: Colors.text.secondary,
-    textAlign: 'center',
+    textAlign: "center",
     maxWidth: 240,
   },
   professionalsScroll: {
@@ -285,17 +281,17 @@ const styles = StyleSheet.create({
   },
   emptyProfessionalsCard: {
     width: 140,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 32,
   },
   emptyProfessionalsText: {
     fontSize: 14,
     color: Colors.text.secondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   professionalCard: {
     width: 140,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 16,
   },
   professionalAvatar: {
@@ -304,32 +300,32 @@ const styles = StyleSheet.create({
     borderRadius: 40, // rounded-full
     backgroundColor: Colors.neutral[200],
     marginBottom: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   professionalName: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
     marginBottom: 4,
-    textAlign: 'center',
-    width: '100%',
+    textAlign: "center",
+    width: "100%",
     paddingHorizontal: 8,
   },
   professionalRating: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     marginBottom: 4,
   },
   ratingText: {
     fontSize: 12,
     color: Colors.text.secondary,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   professionalPrice: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.orange[600],
   },
 });

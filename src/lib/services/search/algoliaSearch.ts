@@ -24,6 +24,48 @@ export type SearchResult = {
   metadata?: Record<string, unknown>;
 };
 
+/** Algolia hit for help articles */
+interface HelpArticleHit {
+  objectID: string;
+  title: string;
+  excerpt: string;
+  slug: string;
+  category?: {
+    slug: string;
+    title: string;
+  };
+}
+
+/** Algolia hit for changelog entries */
+interface ChangelogHit {
+  objectID: string;
+  title: string;
+  summary: string;
+  slug: string;
+  sprintNumber?: number;
+  categories?: string[];
+  publishedAt?: string;
+}
+
+/** Algolia hit for roadmap items */
+interface RoadmapHit {
+  objectID: string;
+  title: string;
+  description: string;
+  slug: string;
+  status?: string;
+  category?: string;
+}
+
+/** Algolia hit for city pages */
+interface CityPageHit {
+  objectID: string;
+  name: string;
+  heroSubtitle: string;
+  slug: string;
+  services?: string[];
+}
+
 /**
  * Search help articles in Algolia
  */
@@ -34,7 +76,7 @@ async function searchHelpArticles(query: string, locale: string): Promise<Search
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit: any) => {
+  return response.hits.map((hit: HelpArticleHit) => {
     const categorySlug = hit.category?.slug || "uncategorized";
     return {
       id: hit.objectID,
@@ -61,7 +103,7 @@ async function searchChangelogs(query: string, locale: string): Promise<SearchRe
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit: any) => ({
+  return response.hits.map((hit: ChangelogHit) => ({
     id: hit.objectID,
     type: "changelog" as const,
     title: hit.title,
@@ -85,7 +127,7 @@ async function searchRoadmapItems(query: string, locale: string): Promise<Search
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit: any) => ({
+  return response.hits.map((hit: RoadmapHit) => ({
     id: hit.objectID,
     type: "roadmap" as const,
     title: hit.title,
@@ -108,7 +150,7 @@ async function searchCityPages(query: string, locale: string): Promise<SearchRes
     hitsPerPage: 5,
   });
 
-  return response.hits.map((hit: any) => ({
+  return response.hits.map((hit: CityPageHit) => ({
     id: hit.objectID,
     type: "city_page" as const,
     title: hit.name,
@@ -217,22 +259,22 @@ export async function getSearchSuggestions(
   ]);
 
   const suggestions = [
-    ...helpArticles.hits.map((hit: any) => ({
+    ...helpArticles.hits.map((hit: Pick<HelpArticleHit, "objectID" | "title">) => ({
       id: hit.objectID,
       title: hit.title,
       type: "help_article" as const,
     })),
-    ...changelog.hits.map((hit: any) => ({
+    ...changelog.hits.map((hit: Pick<ChangelogHit, "objectID" | "title">) => ({
       id: hit.objectID,
       title: hit.title,
       type: "changelog" as const,
     })),
-    ...roadmap.hits.map((hit: any) => ({
+    ...roadmap.hits.map((hit: Pick<RoadmapHit, "objectID" | "title">) => ({
       id: hit.objectID,
       title: hit.title,
       type: "roadmap" as const,
     })),
-    ...cityPages.hits.map((hit: any) => ({
+    ...cityPages.hits.map((hit: Pick<CityPageHit, "objectID" | "name">) => ({
       id: hit.objectID,
       title: hit.name,
       type: "city_page" as const,

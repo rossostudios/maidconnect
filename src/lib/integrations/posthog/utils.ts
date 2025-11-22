@@ -56,7 +56,7 @@ export const bookingEvents = {
       bookingId: string;
       amount: number;
       service: string;
-    },
+    }
   ) => trackEvent("Booking Completed", data),
 
   cancelled: (data: RequiredEventProperties & { bookingId: string; reason?: string }) =>
@@ -71,7 +71,7 @@ export const searchEvents = {
     trackEvent("Search Performed", data),
 
   resultClicked: (
-    data: RequiredEventProperties & { query: string; resultId: string; position: number },
+    data: RequiredEventProperties & { query: string; resultId: string; position: number }
   ) => trackEvent("Search Result Clicked", data),
 };
 
@@ -112,7 +112,7 @@ export const videoEvents = {
       professionalId: string;
       durationSeconds: number;
       fileSizeMb: number;
-    },
+    }
   ) => trackEvent("Video Uploaded", data),
 
   /** Customer or admin views a professional's intro video */
@@ -121,7 +121,7 @@ export const videoEvents = {
       professionalId: string;
       videoStatus: "pending_review" | "approved" | "rejected";
       viewerRole: "customer" | "admin";
-    },
+    }
   ) => trackEvent("Video Viewed", data),
 
   /** Admin approves a professional's intro video */
@@ -130,7 +130,7 @@ export const videoEvents = {
       professionalId: string;
       reviewedBy: string;
       reviewTimeMinutes: number;
-    },
+    }
   ) => trackEvent("Video Approved", data),
 
   /** Admin rejects a professional's intro video */
@@ -140,7 +140,7 @@ export const videoEvents = {
       reviewedBy: string;
       rejectionReason: string;
       reviewTimeMinutes: number;
-    },
+    }
   ) => trackEvent("Video Rejected", data),
 };
 
@@ -153,7 +153,7 @@ export const conciergeEvents = {
     data: RequiredEventProperties & {
       source: "booking_flow" | "profile_page" | "help_center" | "direct";
       topic?: string;
-    },
+    }
   ) => trackEvent("Concierge Chat Started", data),
 
   /** Customer requests direct hire placement (higher-fee service) */
@@ -162,7 +162,7 @@ export const conciergeEvents = {
       serviceType: string;
       estimatedSalaryRange?: string;
       urgency: "immediate" | "within_week" | "within_month" | "flexible";
-    },
+    }
   ) => trackEvent("Concierge Direct Hire Requested", data),
 
   /** Concierge team completes a direct hire placement */
@@ -172,7 +172,7 @@ export const conciergeEvents = {
       serviceType: string;
       timeToPlacementDays: number;
       conciergeFeeCents: number;
-    },
+    }
   ) => trackEvent("Concierge Placement Completed", data),
 
   /** Concierge reassigns a professional to resolve booking issues */
@@ -182,7 +182,7 @@ export const conciergeEvents = {
       originalProfessionalId: string;
       newProfessionalId: string;
       reason: string;
-    },
+    }
   ) => trackEvent("Concierge Professional Reassigned", data),
 };
 
@@ -279,7 +279,7 @@ export function registerMultiCountryContext(context: MultiCountryContext) {
   posthog.register({
     country_code: context.country_code,
     city_id: context.city_id,
-    currency: currency,
+    currency,
     payment_processor: context.payment_processor || paymentProcessor,
     role: context.role,
     locale: context.locale,

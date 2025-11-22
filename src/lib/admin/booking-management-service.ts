@@ -87,9 +87,7 @@ export type PaginationMetadata = {
 /**
  * Parse and validate query parameters for booking filtering
  */
-export function parseBookingQueryParams(
-  searchParams: URLSearchParams
-): BookingQueryParams {
+export function parseBookingQueryParams(searchParams: URLSearchParams): BookingQueryParams {
   const page = Number.parseInt(searchParams.get("page") || "1", 10);
   const limit = Number.parseInt(searchParams.get("limit") || "20", 10);
   const status = searchParams.get("status") as BookingStatus | null;
@@ -120,10 +118,8 @@ export function buildBookingQuery(
   from: number,
   to: number
 ) {
-  let query = supabase
-    .from("bookings")
-    .select(
-      `
+  let query = supabase.from("bookings").select(
+    `
       id,
       status,
       booking_type,
@@ -139,8 +135,8 @@ export function buildBookingQuery(
       service_name,
       address
     `,
-      { count: "exact" }
-    );
+    { count: "exact" }
+  );
 
   // Apply status filter
   if (params.status) {
@@ -154,9 +150,7 @@ export function buildBookingQuery(
 
   // Apply search filter (search by service name or address)
   if (params.search) {
-    query = query.or(
-      `service_name.ilike.%${params.search}%,address.ilike.%${params.search}%`
-    );
+    query = query.or(`service_name.ilike.%${params.search}%,address.ilike.%${params.search}%`);
   }
 
   // Apply pagination and ordering
@@ -193,9 +187,7 @@ export async function fetchBookingProfiles(
     .select("id, full_name, avatar_url")
     .in("id", professionalIds);
 
-  const customerMap = new Map<string, CustomerProfile>(
-    (customers || []).map((c) => [c.id, c])
-  );
+  const customerMap = new Map<string, CustomerProfile>((customers || []).map((c) => [c.id, c]));
 
   const professionalMap = new Map<string, ProfessionalProfile>(
     (professionals || []).map((p) => [p.id, p])
@@ -213,9 +205,7 @@ export function combineBookingData(
   professionalMap: Map<string, ProfessionalProfile>
 ): CombinedBooking[] {
   return bookings.map((booking) => {
-    const customer = booking.customer_id
-      ? customerMap.get(booking.customer_id) || null
-      : null;
+    const customer = booking.customer_id ? customerMap.get(booking.customer_id) || null : null;
     const professional = professionalMap.get(booking.professional_id) || {
       id: booking.professional_id,
       full_name: null,

@@ -67,19 +67,19 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
     userId: id,
     initialSuspension: userData?.activeSuspension
       ? {
-        id: userData.activeSuspension.id,
-        user_id: id,
-        suspension_type: userData.activeSuspension.type as "temporary" | "permanent",
-        reason: userData.activeSuspension.reason,
-        suspended_at: userData.activeSuspension.suspended_at,
-        expires_at: userData.activeSuspension.expires_at,
-        is_active: true,
-        suspended_by: userData.activeSuspension.suspended_by
-          ? {
-            full_name: userData.activeSuspension.suspended_by.full_name,
-          }
-          : undefined,
-      }
+          id: userData.activeSuspension.id,
+          user_id: id,
+          suspension_type: userData.activeSuspension.type as "temporary" | "permanent",
+          reason: userData.activeSuspension.reason,
+          suspended_at: userData.activeSuspension.suspended_at,
+          expires_at: userData.activeSuspension.expires_at,
+          is_active: true,
+          suspended_by: userData.activeSuspension.suspended_by
+            ? {
+                full_name: userData.activeSuspension.suspended_by.full_name,
+              }
+            : undefined,
+        }
       : null,
     enabled: !!userData, // Only enable after initial data is loaded
   });
@@ -87,16 +87,16 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   // Map real-time suspension to component format
   const activeSuspension: Suspension | null = realtimeSuspension
     ? {
-      id: realtimeSuspension.id,
-      type: realtimeSuspension.suspension_type,
-      reason: realtimeSuspension.reason,
-      suspended_at: realtimeSuspension.suspended_at,
-      expires_at: realtimeSuspension.expires_at,
-      suspended_by: {
-        id: "", // Not available from real-time payload
-        full_name: realtimeSuspension.suspended_by?.full_name || null,
-      },
-    }
+        id: realtimeSuspension.id,
+        type: realtimeSuspension.suspension_type,
+        reason: realtimeSuspension.reason,
+        suspended_at: realtimeSuspension.suspended_at,
+        expires_at: realtimeSuspension.expires_at,
+        suspended_by: {
+          id: "", // Not available from real-time payload
+          full_name: realtimeSuspension.suspended_by?.full_name || null,
+        },
+      }
     : null;
 
   const loadUserData = useCallback(async () => {
@@ -232,10 +232,10 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
             role: user.role,
             suspension: activeSuspension
               ? {
-                type: activeSuspension.type as "temporary" | "permanent",
-                reason: activeSuspension.reason,
-                expires_at: activeSuspension.expires_at,
-              }
+                  type: activeSuspension.type as "temporary" | "permanent",
+                  reason: activeSuspension.reason,
+                  expires_at: activeSuspension.expires_at,
+                }
               : null,
           }}
         />

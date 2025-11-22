@@ -4,7 +4,7 @@ import { Clock01Icon, Location01Icon, UserIcon } from "@hugeicons/core-free-icon
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 import type { BookingWithDetails } from "@/types";
 
 type BookingCardProps = {

@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 import { type ChangeEvent, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { UnexpectedError } from "@/components/feedback/unexpected-error";
+import type { CountryCode } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
 import { submitDocuments } from "./actions";
-import type { CountryCode } from "@/lib/shared/config/territories";
 import {
   COUNTRY_DOCUMENT_TYPES,
   defaultActionState,
@@ -80,15 +80,10 @@ export function DocumentUploadForm({ inputClass, countryCode }: Props) {
             <h3 className="mb-3 font-semibold text-blue-900 text-sm">
               {t("countryGuidance.title", { country: countryDocTypes.name })}
             </h3>
-            <p className="mb-4 text-blue-800 text-sm">
-              {t("countryGuidance.description")}
-            </p>
+            <p className="mb-4 text-blue-800 text-sm">{t("countryGuidance.description")}</p>
             <ul className="space-y-2">
               {countryDocTypes.types.map((docType) => (
-                <li
-                  className="flex items-center gap-2 text-blue-800 text-sm"
-                  key={docType.code}
-                >
+                <li className="flex items-center gap-2 text-blue-800 text-sm" key={docType.code}>
                   <span className="inline-flex h-6 min-w-[2.5rem] items-center justify-center rounded bg-blue-100 px-2 font-mono font-semibold text-blue-700 text-xs">
                     {docType.code}
                   </span>

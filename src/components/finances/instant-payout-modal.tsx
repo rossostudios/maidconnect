@@ -8,18 +8,18 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { geistSans } from "@/app/fonts";
-import {
-  trackInstantPayoutModalOpened,
-  trackInstantPayoutRequested,
-  trackInstantPayoutCompleted,
-  trackInstantPayoutFailed,
-} from "@/lib/analytics/professional-events";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  trackInstantPayoutCompleted,
+  trackInstantPayoutFailed,
+  trackInstantPayoutModalOpened,
+  trackInstantPayoutRequested,
+} from "@/lib/analytics/professional-events";
 import { cn } from "@/lib/utils/core";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -158,7 +158,7 @@ export function InstantPayoutModal({
   // Support deprecated props for backward compatibility
   const balance = availableBalance ?? availableBalanceCop ?? 0;
   const pending = pendingBalance ?? pendingBalanceCop ?? 0;
-  const minAmount = minThreshold ?? minThresholdCop ?? 50000;
+  const minAmount = minThreshold ?? minThresholdCop ?? 50_000;
 
   const [step, setStep] = useState<"input" | "confirm" | "processing" | "success" | "error">(
     "input"
@@ -325,11 +325,11 @@ export function InstantPayoutModal({
   // ========================================
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog onOpenChange={handleClose} open={open}>
       <DialogContent className="max-w-lg" data-testid="instant-payout-modal">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center bg-orange-100 rounded-lg">
+            <div className="flex size-10 items-center justify-center rounded-lg bg-orange-100">
               <Zap className="size-5 text-orange-600" />
             </div>
             <span className={cn("text-neutral-900 text-xl", geistSans.className)}>
@@ -340,16 +340,19 @@ export function InstantPayoutModal({
 
         {/* Input Step */}
         {step === "input" && (
-          <form onSubmit={handleSubmit(handleConfirm)} className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit(handleConfirm)}>
             {/* Amount Input */}
             <div className="space-y-2">
-              <Label htmlFor="amount" className={cn("text-neutral-900 text-sm", geistSans.className)}>
+              <Label
+                className={cn("text-neutral-900 text-sm", geistSans.className)}
+                htmlFor="amount"
+              >
                 {t("fields.amount.label")}
               </Label>
               <Input
                 id="amount"
-                type="number"
                 placeholder="0"
+                type="number"
                 {...register("amount", { valueAsNumber: true })}
                 className={cn(
                   "font-mono text-lg",
@@ -357,7 +360,12 @@ export function InstantPayoutModal({
                 )}
               />
               {errors.amount && (
-                <p className={cn("flex items-center gap-1 text-red-600 text-sm", geistSans.className)}>
+                <p
+                  className={cn(
+                    "flex items-center gap-1 text-red-600 text-sm",
+                    geistSans.className
+                  )}
+                >
                   <AlertCircle className="size-4" />
                   {errors.amount.message}
                 </p>
@@ -367,12 +375,12 @@ export function InstantPayoutModal({
               <div className="grid grid-cols-4 gap-2 pt-2">
                 {[25, 50, 75, 100].map((percentage) => (
                   <Button
+                    className={cn("text-xs", geistSans.className)}
                     key={percentage}
+                    onClick={() => handleSetPercentage(percentage)}
+                    size="sm"
                     type="button"
                     variant="outline"
-                    size="sm"
-                    onClick={() => handleSetPercentage(percentage)}
-                    className={cn("text-xs", geistSans.className)}
                   >
                     {percentage}%
                   </Button>
@@ -381,7 +389,7 @@ export function InstantPayoutModal({
             </div>
 
             {/* Available Balance */}
-            <div className="border-neutral-200 bg-neutral-50 border p-4 rounded-lg">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
               <div className="flex items-center justify-between text-sm">
                 <span className={cn("text-neutral-600", geistSans.className)}>
                   {t("info.availableBalance")}
@@ -394,7 +402,7 @@ export function InstantPayoutModal({
 
             {/* Fee Breakdown */}
             {amount >= minAmount && (
-              <div className="space-y-3 border-neutral-200 bg-blue-50 border p-4 rounded-lg">
+              <div className="space-y-3 rounded-lg border border-neutral-200 bg-blue-50 p-4">
                 <div className="flex items-start gap-2">
                   <Info className="mt-0.5 size-4 text-blue-600" />
                   <p className={cn("text-blue-900 text-sm", geistSans.className)}>
@@ -414,7 +422,10 @@ export function InstantPayoutModal({
                     <span className={cn("text-blue-800", geistSans.className)}>
                       {t("breakdown.fee")}
                     </span>
-                    <span className={cn("font-medium text-blue-900", geistSans.className)} data-testid="fee-amount">
+                    <span
+                      className={cn("font-medium text-blue-900", geistSans.className)}
+                      data-testid="fee-amount"
+                    >
                       -{formatFromMinorUnits(feeAmount, currencyCode)}
                     </span>
                   </div>
@@ -422,7 +433,10 @@ export function InstantPayoutModal({
                     <span className={cn("text-blue-900", geistSans.className)}>
                       {t("breakdown.youReceive")}
                     </span>
-                    <span className={cn("text-green-700 text-base", geistSans.className)} data-testid="net-amount">
+                    <span
+                      className={cn("text-base text-green-700", geistSans.className)}
+                      data-testid="net-amount"
+                    >
                       {formatFromMinorUnits(netAmount, currencyCode)}
                     </span>
                   </div>
@@ -432,10 +446,10 @@ export function InstantPayoutModal({
 
             {/* Actions */}
             <div className="flex gap-3">
-              <Button type="button" variant="outline" onClick={handleClose} className="flex-1">
+              <Button className="flex-1" onClick={handleClose} type="button" variant="outline">
                 {t("actions.cancel")}
               </Button>
-              <Button type="submit" className="flex-1 gap-2">
+              <Button className="flex-1 gap-2" type="submit">
                 {t("actions.continue")}
                 <ArrowRight className="size-4" />
               </Button>
@@ -446,7 +460,7 @@ export function InstantPayoutModal({
         {/* Confirmation Step */}
         {step === "confirm" && (
           <div className="space-y-6">
-            <div className="space-y-4 border-neutral-200 bg-neutral-50 border p-6 rounded-lg">
+            <div className="space-y-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
               <div className="flex items-center justify-between">
                 <span
                   className={cn(
@@ -486,17 +500,22 @@ export function InstantPayoutModal({
               </div>
             </div>
 
-            <div className="border-amber-200 bg-amber-50 border p-4 rounded-lg">
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
               <p className={cn("text-amber-900 text-sm", geistSans.className)}>
                 {t("confirm.warning")}
               </p>
             </div>
 
             <div className="flex gap-3">
-              <Button type="button" variant="outline" onClick={() => setStep("input")} className="flex-1">
+              <Button
+                className="flex-1"
+                onClick={() => setStep("input")}
+                type="button"
+                variant="outline"
+              >
                 {t("actions.back")}
               </Button>
-              <Button onClick={handleSubmitPayout} className="flex-1 gap-2">
+              <Button className="flex-1 gap-2" onClick={handleSubmitPayout}>
                 <Zap className="size-4" />
                 {t("actions.confirmPayout")}
               </Button>
@@ -520,13 +539,13 @@ export function InstantPayoutModal({
         {/* Success Step */}
         {step === "success" && successResult && (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
-            <div className="flex size-16 items-center justify-center bg-green-100 rounded-full">
+            <div className="flex size-16 items-center justify-center rounded-full bg-green-100">
               <Check className="size-8 text-green-700" />
             </div>
             <p className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
               {t("success.title")}
             </p>
-            <div className="w-full space-y-2 border-neutral-200 bg-neutral-50 border p-4 rounded-lg text-sm">
+            <div className="w-full space-y-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm">
               <div className="flex justify-between">
                 <span className={cn("text-neutral-600", geistSans.className)}>
                   {t("success.amount")}
@@ -553,7 +572,7 @@ export function InstantPayoutModal({
         {/* Error Step */}
         {step === "error" && (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
-            <div className="flex size-16 items-center justify-center bg-red-100 rounded-full">
+            <div className="flex size-16 items-center justify-center rounded-full bg-red-100">
               <AlertCircle className="size-8 text-red-700" />
             </div>
             <p className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
@@ -562,7 +581,7 @@ export function InstantPayoutModal({
             <p className={cn("text-center text-neutral-700 text-sm", geistSans.className)}>
               {errorMessage}
             </p>
-            <Button onClick={() => setStep("input")} className="mt-4">
+            <Button className="mt-4" onClick={() => setStep("input")}>
               {t("actions.tryAgain")}
             </Button>
           </div>

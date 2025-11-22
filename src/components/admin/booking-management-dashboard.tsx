@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useAdminCountryFilter } from "@/lib/contexts/AdminCountryFilterContext";
 import type { CombinedBooking } from "@/lib/admin/booking-management-service";
+import { useAdminCountryFilter } from "@/lib/contexts/AdminCountryFilterContext";
 import { BookingManagementTable } from "./booking-management-table";
 
 /**
@@ -50,5 +50,5 @@ export function BookingManagementDashboard() {
     loadBookings();
   }, [selectedCountry]); // Reload when country filter changes
 
-  return <BookingManagementTable isLoading={isLoading} bookings={bookings} />;
+  return <BookingManagementTable bookings={bookings} isLoading={isLoading} />;
 }

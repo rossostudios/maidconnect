@@ -37,7 +37,7 @@ export function MiniSparkline({ data, color = "#FF5200", height = 40 }: Props) {
     <ResponsiveContainer height={height} width="100%">
       <AreaChart data={data}>
         <defs>
-          <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={id} x1="0" x2="0" y1="0" y2="1">
             <stop offset="5%" stopColor={color} stopOpacity={0.3} />
             <stop offset="95%" stopColor={color} stopOpacity={0} />
           </linearGradient>
@@ -45,11 +45,11 @@ export function MiniSparkline({ data, color = "#FF5200", height = 40 }: Props) {
         <Area
           animationDuration={1000}
           dataKey="value"
+          dot={false}
           fill={`url(#${id})`}
           stroke={color}
           strokeWidth={2}
           type="monotone"
-          dot={false}
         />
       </AreaChart>
     </ResponsiveContainer>

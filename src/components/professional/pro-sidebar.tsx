@@ -46,8 +46,8 @@ const navSections: NavSection[] = [
     title: "Overview",
     items: [
       { href: "/dashboard/pro", label: "Dashboard", icon: Home09Icon },
-      // Removed Lead Queue for concierge-only migration
-      // Professionals now receive curated assignments from concierge team
+      // Removed Lead Queue for direct-hire-focused migration
+      // Professionals now receive curated assignments from direct hire team
       { href: "/dashboard/pro/bookings", label: "Bookings", icon: Calendar03Icon },
     ],
   },
@@ -97,7 +97,7 @@ export function ProSidebar({
 
   const accountName = userName || "Professional";
   const firstName = accountName.split(" ")[0] || accountName;
-  const accountEmail = userEmail || "pro@casaora.com";
+  const accountEmail = userEmail || "pro@casaora.co";
   const accountRole = "Professional";
   const userInitials =
     accountName
@@ -151,10 +151,7 @@ export function ProSidebar({
                 CASAORA®
               </span>
               <span
-                className={cn(
-                  "block font-normal text-neutral-500 text-xs",
-                  geistSans.className
-                )}
+                className={cn("block font-normal text-neutral-500 text-xs", geistSans.className)}
               >
                 Professional
               </span>
@@ -174,9 +171,7 @@ export function ProSidebar({
           <div className={idx > 0 ? "mt-8" : ""} key={section.title}>
             {!isCollapsed && (
               <div className="mb-3 px-3">
-                <h3 className="font-medium text-neutral-600 text-sm">
-                  {section.title}
-                </h3>
+                <h3 className="font-medium text-neutral-600 text-sm">{section.title}</h3>
               </div>
             )}
             <div className="space-y-1">
@@ -244,7 +239,9 @@ export function ProSidebar({
                     width={40}
                   />
                 ) : (
-                  <span className={cn("font-semibold text-orange-600 text-xs", geistSans.className)}>
+                  <span
+                    className={cn("font-semibold text-orange-600 text-xs", geistSans.className)}
+                  >
                     {userInitials}
                   </span>
                 )}
@@ -271,12 +268,7 @@ export function ProSidebar({
               />
             </div>
             <div className="inline-flex items-center rounded-full border border-neutral-700 bg-neutral-700 px-2 py-1">
-              <span
-                className={cn(
-                  "font-semibold text-white text-xs",
-                  geistSans.className
-                )}
-              >
+              <span className={cn("font-semibold text-white text-xs", geistSans.className)}>
                 {accountRole}
               </span>
             </div>

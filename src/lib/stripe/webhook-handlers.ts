@@ -11,9 +11,8 @@ import {
   trackBookingCompletedServer,
 } from "@/lib/integrations/posthog/server";
 import { logger } from "@/lib/logger";
-import { supabaseAdmin } from "@/lib/supabase/admin-client";
-import { markTrialCreditUsed } from "@/lib/services/trial-credits/trialCreditService";
 import { BalanceService } from "@/lib/services/balance/balance-service";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
 /**
  * Handle payment_intent.succeeded event
@@ -55,42 +54,6 @@ export async function handlePaymentSuccess(event: Stripe.Event): Promise<void> {
       intentId: intent.id,
       amountCaptured: intent.amount_received ?? intent.amount,
     });
-
-    // Mark trial credit as used if applicable (Direct Hire with trial discount)
-    if (
-      intent.metadata?.booking_type === "direct_hire" &&
-      intent.metadata?.has_trial_discount === "true"
-    ) {
-      try {
-        const customerId = intent.metadata.customer_id;
-        const professionalId = intent.metadata.professional_id;
-        const creditApplied = parseInt(intent.metadata.trial_credit_applied_cop || "0", 10);
-
-        if (customerId && professionalId && creditApplied > 0) {
-          await markTrialCreditUsed(
-            supabaseAdmin,
-            customerId,
-            professionalId,
-            bookingId,
-            creditApplied
-          );
-          logger.info("[Stripe Webhook] Trial credit marked as used", {
-            bookingId,
-            customerId,
-            professionalId,
-            creditApplied,
-          });
-        }
-      } catch (error) {
-        logger.error("[Stripe Webhook] Failed to mark trial credit as used", {
-          bookingId,
-          intentId: intent.id,
-          error: error instanceof Error ? error.message : "Unknown error",
-        });
-        // Don't fail the webhook if credit marking fails
-        // The payment succeeded, so booking is still valid
-      }
-    }
 
     // Track booking completion in PostHog
     if (booking) {
@@ -361,7 +324,7 @@ export async function handlePayoutFailed(event: Stripe.Event): Promise<void> {
   const professionalId = payout.metadata?.professional_id;
   const amountCop = payout.amount; // Stripe amount is already in cents
 
-  if (!transferId || !professionalId) {
+  if (!(transferId && professionalId)) {
     logger.warn("[Stripe Webhook] Payout failed but missing metadata", {
       payoutId: payout.id,
       hasTransferId: !!transferId,

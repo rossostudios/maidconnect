@@ -83,7 +83,7 @@ test.describe("Digital CV - Slug Management", () => {
 
     // Wait for success message
     const successMessage = page.locator("text=/successfully updated/i");
-    await expect(successMessage).toBeVisible({ timeout: 10000 });
+    await expect(successMessage).toBeVisible({ timeout: 10_000 });
 
     // Verify new slug is displayed
     const slugDisplay = page.locator('[data-testid="current-slug"]');
@@ -275,7 +275,7 @@ test.describe("Digital CV - Social Sharing", () => {
 
     // Verify WhatsApp share URL format
     expect(href).toContain("wa.me");
-    expect(href).toContain(encodeURIComponent(`casaora.com/pro/${slug}`));
+    expect(href).toContain(encodeURIComponent(`casaora.co/pro/${slug}`));
   });
 
   test("should generate Facebook share link with correct format", async ({ page, context }) => {
@@ -298,7 +298,7 @@ test.describe("Digital CV - Social Sharing", () => {
 
     // Verify Facebook share URL format
     expect(href).toContain("facebook.com/sharer");
-    expect(href).toContain(encodeURIComponent(`casaora.com/pro/${slug}`));
+    expect(href).toContain(encodeURIComponent(`casaora.co/pro/${slug}`));
   });
 
   test("should copy profile URL to clipboard", async ({ page, context }) => {
@@ -352,7 +352,9 @@ test.describe("Digital CV - OG Image Generation", () => {
 
     // Check for OG meta tags in HTML
     const ogTitle = await publicPage.locator('meta[property="og:title"]').getAttribute("content");
-    const ogDescription = await publicPage.locator('meta[property="og:description"]').getAttribute("content");
+    const ogDescription = await publicPage
+      .locator('meta[property="og:description"]')
+      .getAttribute("content");
     const ogImage = await publicPage.locator('meta[property="og:image"]').getAttribute("content");
 
     expect(ogTitle).toBeTruthy();
@@ -398,9 +400,15 @@ test.describe("Digital CV - OG Image Generation", () => {
     await publicPage.waitForLoadState("networkidle");
 
     // Check for Twitter Card meta tags
-    const twitterCard = await publicPage.locator('meta[name="twitter:card"]').getAttribute("content");
-    const twitterTitle = await publicPage.locator('meta[name="twitter:title"]').getAttribute("content");
-    const twitterImage = await publicPage.locator('meta[name="twitter:image"]').getAttribute("content");
+    const twitterCard = await publicPage
+      .locator('meta[name="twitter:card"]')
+      .getAttribute("content");
+    const twitterTitle = await publicPage
+      .locator('meta[name="twitter:title"]')
+      .getAttribute("content");
+    const twitterImage = await publicPage
+      .locator('meta[name="twitter:image"]')
+      .getAttribute("content");
 
     expect(twitterCard).toBe("summary_large_image");
     expect(twitterTitle).toBeTruthy();

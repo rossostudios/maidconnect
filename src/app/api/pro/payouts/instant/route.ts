@@ -21,18 +21,18 @@
  * Rate Limit: 10 requests per minute (prevents spam/abuse)
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import Stripe from 'stripe';
-import { createSupabaseServerClient } from '@/lib/supabase/server-client';
-import { supabaseAdmin } from '@/lib/supabase/admin-client';
-import { BalanceService } from '@/lib/services/balance/balance-service';
-import { trackServerEvent } from '@/lib/integrations/posthog/server';
-import { logger } from '@/lib/logger';
+import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
+import { z } from "zod";
+import { trackServerEvent } from "@/lib/integrations/posthog/server";
+import { logger } from "@/lib/logger";
+import { BalanceService } from "@/lib/services/balance/balance-service";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: "2024-12-18.acacia",
   typescript: true,
 });
 
@@ -47,8 +47,8 @@ const InstantPayoutRequestSchema = z.object({
     .number()
     .int()
     .positive()
-    .min(50000, 'Minimum payout is 50,000 COP (~$12 USD)')
-    .max(100000000, 'Maximum payout is 100,000,000 COP (~$25,000 USD)'),
+    .min(50_000, "Minimum payout is 50,000 COP (~$12 USD)")
+    .max(100_000_000, "Maximum payout is 100,000,000 COP (~$25,000 USD)"),
   // Backward compatibility: accept amountCop but map to amount
   amountCop: z.number().int().positive().optional(),
 });
@@ -69,8 +69,8 @@ export async function GET(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   try {
@@ -84,21 +84,19 @@ export async function GET(request: NextRequest) {
 
     // Get minimum threshold
     const { data: minThresholdData } = await supabaseAdmin
-      .from('platform_settings')
-      .select('setting_value')
-      .eq('setting_key', 'minimum_instant_payout_cop')
+      .from("platform_settings")
+      .select("setting_value")
+      .eq("setting_key", "minimum_instant_payout_cop")
       .single();
 
-    const minThresholdCop = minThresholdData
-      ? Number(minThresholdData.setting_value)
-      : 50000;
+    const minThresholdCop = minThresholdData ? Number(minThresholdData.setting_value) : 50_000;
 
     // Check rate limits (today's count)
     const { data: rateLimitData } = await supabaseAdmin
-      .from('payout_rate_limits')
-      .select('instant_payout_count')
-      .eq('professional_id', user.id)
-      .eq('payout_date', new Date().toISOString().split('T')[0])
+      .from("payout_rate_limits")
+      .select("instant_payout_count")
+      .eq("professional_id", user.id)
+      .eq("payout_date", new Date().toISOString().split("T")[0])
       .single();
 
     const todayCount = rateLimitData?.instant_payout_count ?? 0;
@@ -106,9 +104,9 @@ export async function GET(request: NextRequest) {
 
     // Check Stripe Connect account
     const { data: profile } = await supabaseAdmin
-      .from('professional_profiles')
-      .select('stripe_account_id, instant_payout_enabled')
-      .eq('profile_id', user.id)
+      .from("professional_profiles")
+      .select("stripe_account_id, instant_payout_enabled")
+      .eq("profile_id", user.id)
       .single();
 
     const isEligible =
@@ -135,15 +133,15 @@ export async function GET(request: NextRequest) {
       },
       eligibility: {
         isEligible,
-        reasons: !isEligible
-          ? [
+        reasons: isEligible
+          ? []
+          : [
               balanceBreakdown.availableBalance < minThresholdCop &&
                 `Minimum balance is ${minThresholdCop.toLocaleString()} COP`,
               todayCount >= dailyLimit && `Daily limit reached (${dailyLimit} payouts per day)`,
-              !profile?.stripe_account_id && 'Stripe Connect account not set up',
-              !profile?.instant_payout_enabled && 'Instant payouts disabled for your account',
-            ].filter(Boolean)
-          : [],
+              !profile?.stripe_account_id && "Stripe Connect account not set up",
+              !profile?.instant_payout_enabled && "Instant payouts disabled for your account",
+            ].filter(Boolean),
       },
       feeInfo: {
         feePercentage,
@@ -154,8 +152,8 @@ export async function GET(request: NextRequest) {
       },
       estimate: {
         grossAmount: balanceBreakdown.availableBalance,
-        feeAmount: feeAmount,
-        netAmount: netAmount,
+        feeAmount,
+        netAmount,
         currencyCode: balanceBreakdown.currencyCode,
         // Backward compatibility
         grossAmountCop: balanceBreakdown.availableBalance,
@@ -165,13 +163,13 @@ export async function GET(request: NextRequest) {
       pendingClearances: balanceBreakdown.pendingClearances,
     });
   } catch (error) {
-    logger.error('[Instant Payout API] Failed to fetch eligibility', {
+    logger.error("[Instant Payout API] Failed to fetch eligibility", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
     });
 
     return NextResponse.json(
-      { error: 'Failed to fetch instant payout eligibility' },
+      { error: "Failed to fetch instant payout eligibility" },
       { status: 500 }
     );
   }
@@ -187,8 +185,8 @@ export async function POST(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   const startTime = Date.now();
@@ -204,7 +202,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         {
-          error: 'Invalid request',
+          error: "Invalid request",
           details: validation.error.format(),
         },
         { status: 400 }
@@ -214,7 +212,7 @@ export async function POST(request: NextRequest) {
     // Backward compatibility: support both amount and amountCop
     const amountCop = validation.data.amount ?? validation.data.amountCop ?? 0;
 
-    logger.info('[Instant Payout API] Request initiated', {
+    logger.info("[Instant Payout API] Request initiated", {
       professionalId: user.id,
       requestedAmount: amountCop,
     });
@@ -227,13 +225,13 @@ export async function POST(request: NextRequest) {
     const validationResult = await balanceService.validateInstantPayout(user.id, amountCop);
 
     if (!validationResult.isValid) {
-      logger.warn('[Instant Payout API] Validation failed', {
+      logger.warn("[Instant Payout API] Validation failed", {
         professionalId: user.id,
         requestedAmount: amountCop,
         errors: validationResult.errors,
       });
 
-      await trackServerEvent('instant_payout_validation_failed', {
+      await trackServerEvent("instant_payout_validation_failed", {
         professional_id: user.id,
         requested_amount_cop: amountCop,
         errors: validationResult.errors,
@@ -241,7 +239,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(
         {
-          error: 'Instant payout validation failed',
+          error: "Instant payout validation failed",
           errors: validationResult.errors,
           warnings: validationResult.warnings,
         },
@@ -254,21 +252,18 @@ export async function POST(request: NextRequest) {
     // ========================================
 
     const { data: profile, error: profileError } = await supabaseAdmin
-      .from('professional_profiles')
-      .select('stripe_account_id')
-      .eq('profile_id', user.id)
+      .from("professional_profiles")
+      .select("stripe_account_id")
+      .eq("profile_id", user.id)
       .single();
 
     if (profileError || !profile?.stripe_account_id) {
-      logger.error('[Instant Payout API] Stripe account not found', {
+      logger.error("[Instant Payout API] Stripe account not found", {
         professionalId: user.id,
         error: profileError?.message,
       });
 
-      return NextResponse.json(
-        { error: 'Stripe Connect account not configured' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Stripe Connect account not configured" }, { status: 400 });
     }
 
     // ========================================
@@ -276,7 +271,7 @@ export async function POST(request: NextRequest) {
     // ========================================
 
     const { data: rateLimitCheck, error: rateLimitError } = await supabaseAdmin.rpc(
-      'check_instant_payout_rate_limit',
+      "check_instant_payout_rate_limit",
       {
         p_professional_id: user.id,
         p_max_daily_limit: 3,
@@ -284,13 +279,13 @@ export async function POST(request: NextRequest) {
     );
 
     if (rateLimitError || !rateLimitCheck) {
-      logger.error('[Instant Payout API] Rate limit check failed', {
+      logger.error("[Instant Payout API] Rate limit check failed", {
         professionalId: user.id,
         error: rateLimitError?.message,
       });
 
       return NextResponse.json(
-        { error: 'Rate limit exceeded. Maximum 3 instant payouts per day.' },
+        { error: "Rate limit exceeded. Maximum 3 instant payouts per day." },
         { status: 429 }
       );
     }
@@ -302,7 +297,7 @@ export async function POST(request: NextRequest) {
     const deductResult = await balanceService.deductForInstantPayout(user.id, amountCop);
 
     if (!deductResult.success) {
-      logger.error('[Instant Payout API] Balance deduction failed', {
+      logger.error("[Instant Payout API] Balance deduction failed", {
         professionalId: user.id,
         requestedAmount: amountCop,
         error: deductResult.message,
@@ -316,21 +311,21 @@ export async function POST(request: NextRequest) {
     // ========================================
 
     const { data: transfer, error: transferError } = await supabaseAdmin
-      .from('payout_transfers')
+      .from("payout_transfers")
       .insert({
         professional_id: user.id,
         amount_cop: validationResult.netAmount,
-        payout_type: 'instant',
+        payout_type: "instant",
         fee_amount_cop: validationResult.feeAmount,
         fee_percentage: await balanceService.getInstantPayoutFeePercentage(),
         requested_at: new Date().toISOString(),
-        status: 'processing',
+        status: "processing",
       })
-      .select('id')
+      .select("id")
       .single();
 
     if (transferError || !transfer) {
-      logger.error('[Instant Payout API] Failed to create transfer record', {
+      logger.error("[Instant Payout API] Failed to create transfer record", {
         professionalId: user.id,
         error: transferError?.message,
       });
@@ -339,7 +334,7 @@ export async function POST(request: NextRequest) {
       await balanceService.refundFailedPayout(user.id, amountCop);
 
       return NextResponse.json(
-        { error: 'Failed to create payout transfer record' },
+        { error: "Failed to create payout transfer record" },
         { status: 500 }
       );
     }
@@ -354,13 +349,13 @@ export async function POST(request: NextRequest) {
       stripePayout = await stripe.payouts.create(
         {
           amount: validationResult.netAmount,
-          currency: 'cop',
-          method: 'instant',
-          statement_descriptor: 'Casaora Payout',
+          currency: "cop",
+          method: "instant",
+          statement_descriptor: "Casaora Payout",
           metadata: {
             transfer_id: transfer.id,
             professional_id: user.id,
-            payout_type: 'instant',
+            payout_type: "instant",
             fee_amount_cop: validationResult.feeAmount.toString(),
           },
         },
@@ -369,7 +364,7 @@ export async function POST(request: NextRequest) {
         }
       );
 
-      logger.info('[Instant Payout API] Stripe payout created', {
+      logger.info("[Instant Payout API] Stripe payout created", {
         professionalId: user.id,
         transferId: transfer.id,
         stripePayoutId: stripePayout.id,
@@ -377,29 +372,29 @@ export async function POST(request: NextRequest) {
         feeAmount: validationResult.feeAmount,
       });
     } catch (stripeError) {
-      logger.error('[Instant Payout API] Stripe payout creation failed', {
+      logger.error("[Instant Payout API] Stripe payout creation failed", {
         professionalId: user.id,
         transferId: transfer.id,
-        error: stripeError instanceof Error ? stripeError.message : 'Unknown error',
+        error: stripeError instanceof Error ? stripeError.message : "Unknown error",
       });
 
       // Update transfer status to failed
       await supabaseAdmin
-        .from('payout_transfers')
+        .from("payout_transfers")
         .update({
-          status: 'failed',
-          error_message: stripeError instanceof Error ? stripeError.message : 'Unknown error',
+          status: "failed",
+          error_message: stripeError instanceof Error ? stripeError.message : "Unknown error",
           updated_at: new Date().toISOString(),
         })
-        .eq('id', transfer.id);
+        .eq("id", transfer.id);
 
       // Refund balance
       await balanceService.refundFailedPayout(user.id, amountCop);
 
       return NextResponse.json(
         {
-          error: 'Failed to process instant payout with Stripe',
-          details: stripeError instanceof Error ? stripeError.message : 'Unknown error',
+          error: "Failed to process instant payout with Stripe",
+          details: stripeError instanceof Error ? stripeError.message : "Unknown error",
         },
         { status: 500 }
       );
@@ -410,13 +405,13 @@ export async function POST(request: NextRequest) {
     // ========================================
 
     await supabaseAdmin
-      .from('payout_transfers')
+      .from("payout_transfers")
       .update({
         stripe_payout_id: stripePayout.id,
-        status: 'pending', // Will be updated to 'completed' by webhook
+        status: "pending", // Will be updated to 'completed' by webhook
         updated_at: new Date().toISOString(),
       })
-      .eq('id', transfer.id);
+      .eq("id", transfer.id);
 
     // ========================================
     // 9. Track Analytics
@@ -424,7 +419,7 @@ export async function POST(request: NextRequest) {
 
     const duration = Date.now() - startTime;
 
-    await trackServerEvent('instant_payout_requested', {
+    await trackServerEvent("instant_payout_requested", {
       professional_id: user.id,
       transfer_id: transfer.id,
       stripe_payout_id: stripePayout.id,
@@ -445,7 +440,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Instant payout initiated successfully',
+        message: "Instant payout initiated successfully",
         payout: {
           transferId: transfer.id,
           stripePayoutId: stripePayout.id,
@@ -453,7 +448,7 @@ export async function POST(request: NextRequest) {
           feeAmount: validationResult.feeAmount,
           netAmount: validationResult.netAmount,
           currencyCode: validationResult.currencyCode,
-          status: 'processing',
+          status: "processing",
           arrivalDate: stripePayout.arrival_date
             ? new Date(stripePayout.arrival_date * 1000).toISOString()
             : null,
@@ -475,23 +470,23 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const duration = Date.now() - startTime;
 
-    logger.error('[Instant Payout API] Unexpected error', {
+    logger.error("[Instant Payout API] Unexpected error", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
       durationMs: duration,
     });
 
-    await trackServerEvent('instant_payout_error', {
+    await trackServerEvent("instant_payout_error", {
       professional_id: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
       duration_ms: duration,
     });
 
     return NextResponse.json(
       {
-        error: 'An unexpected error occurred',
-        message: error instanceof Error ? error.message : 'Unknown error',
+        error: "An unexpected error occurred",
+        message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -502,5 +497,5 @@ export async function POST(request: NextRequest) {
 // Runtime Configuration
 // ========================================
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 export const maxDuration = 30; // 30 seconds max (instant payouts should be fast)

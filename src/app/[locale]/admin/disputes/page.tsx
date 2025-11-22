@@ -149,7 +149,10 @@ export default async function AdminDisputesPage() {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {statusBreakdown.map((status) => (
-              <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5" key={status.label}>
+              <div
+                className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5"
+                key={status.label}
+              >
                 <span
                   className={cn(
                     "font-semibold text-neutral-600 text-xs uppercase tracking-wide",
@@ -283,7 +286,10 @@ export default async function AdminDisputesPage() {
         </div>
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {queueInsights.map((insight) => (
-            <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm" key={insight.label}>
+            <div
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
+              key={insight.label}
+            >
               <p
                 className={cn(
                   "font-semibold text-neutral-700 text-xs uppercase tracking-wide",

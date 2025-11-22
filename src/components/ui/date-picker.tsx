@@ -1,13 +1,9 @@
-import {
-  ArrowLeft01Icon,
-  ArrowRight01Icon,
-  Calendar03Icon,
-} from "@hugeicons/core-free-icons";
+import { ArrowLeft01Icon, ArrowRight01Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 import { geistSans } from "@/app/fonts";
+import { cn } from "@/lib/utils";
 
 type DatePickerProps = {
   value: Date | null;
@@ -15,6 +11,13 @@ type DatePickerProps = {
   placeholder?: string;
   name?: string;
   required?: boolean;
+  /**
+   * Variant controls the trigger button styling:
+   * - "default": bordered input with rounded-lg (for forms)
+   * - "inline": borderless, transparent (for search bars)
+   */
+  variant?: "default" | "inline";
+  className?: string;
 };
 
 function formatButtonLabel(date: Date | null, placeholder: string, locale: string) {
@@ -28,7 +31,15 @@ function formatButtonLabel(date: Date | null, placeholder: string, locale: strin
   }).format(date);
 }
 
-export function DatePicker({ value, onChange, placeholder, name, required }: DatePickerProps) {
+export function DatePicker({
+  value,
+  onChange,
+  placeholder,
+  name,
+  required,
+  variant = "default",
+  className,
+}: DatePickerProps) {
   const t = useTranslations("datePicker");
   const locale = useLocale();
   const [open, setOpen] = useState(false);
@@ -147,27 +158,42 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:outline-none",
+          "flex w-full items-center transition-all focus:outline-none",
+          // Default variant: bordered input for forms
+          variant === "default" && [
+            "justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm",
+            "hover:border-neutral-300 hover:bg-neutral-50",
+            "focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20",
+            open && "border-orange-500 ring-2 ring-orange-500/20",
+          ],
+          // Inline variant: borderless for search bars (Airbnb-style)
+          variant === "inline" && ["gap-2 bg-transparent"],
           !value && "text-neutral-500",
-          open && "border-orange-500 ring-2 ring-orange-500/20"
+          className
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
-        <span className="flex items-center gap-2.5">
+        {variant === "default" && (
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 text-neutral-500"
+            className="h-4 w-4 text-neutral-400"
             icon={Calendar03Icon}
           />
-          <span className={cn("font-medium text-sm text-neutral-900", geistSans.className)}>
-            {formatButtonLabel(value, placeholder || t("selectDate"), locale)}
-          </span>
+        )}
+        <span
+          className={cn(
+            variant === "default" ? "font-medium text-sm" : "text-sm",
+            value ? "text-neutral-900" : "text-neutral-500",
+            geistSans.className
+          )}
+        >
+          {formatButtonLabel(value, placeholder || t("selectDate"), locale)}
         </span>
       </button>
 
       {open ? (
-        <div className="absolute right-0 z-50 mt-2 w-[320px] rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fade-in zoom-in-95 absolute right-0 z-50 mt-2 w-[320px] animate-in rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 duration-200">
           <div className="mb-4 flex items-center justify-between">
             <button
               className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
@@ -227,9 +253,12 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                     "flex h-9 w-9 items-center justify-center rounded-lg text-sm transition-all",
                     geistSans.className,
                     inCurrentMonth ? "text-neutral-900" : "text-neutral-300",
-                    isSelected && "bg-orange-500 font-medium text-white shadow-sm hover:bg-orange-600",
-                    !isSelected && isToday && "border border-orange-500 font-medium text-orange-600",
-                    !isSelected && !isToday && inCurrentMonth && "hover:bg-neutral-100",
+                    isSelected &&
+                      "bg-orange-500 font-medium text-white shadow-sm hover:bg-orange-600",
+                    !isSelected &&
+                      isToday &&
+                      "border border-orange-500 font-medium text-orange-600",
+                    !(isSelected || isToday) && inCurrentMonth && "hover:bg-neutral-100",
                     !inCurrentMonth && "cursor-default"
                   )}
                   disabled={!inCurrentMonth}
@@ -243,7 +272,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             })}
           </div>
 
-          <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-4">
+          <div className="mt-4 flex items-center justify-between border-neutral-100 border-t pt-4">
             <button
               className={cn(
                 "rounded-md px-2 py-1 font-medium text-neutral-500 text-xs transition hover:bg-neutral-100 hover:text-neutral-900",

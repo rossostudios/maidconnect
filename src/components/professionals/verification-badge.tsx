@@ -105,13 +105,7 @@ export function VerificationBadge({ level, size = "sm", className }: Verificatio
 
   return (
     <Badge
-      className={cn(
-        verificationBadgeVariants({ size }),
-        bgColor,
-        textColor,
-        hoverColor,
-        className
-      )}
+      className={cn(verificationBadgeVariants({ size }), bgColor, textColor, hoverColor, className)}
       variant="secondary"
     >
       <HugeiconsIcon className={cn(iconSize)} icon={icon} />

@@ -247,7 +247,7 @@ export default async function CityLandingPage({ params }: { params: Params }) {
     provider: {
       "@type": "Organization",
       name: "Casaora",
-      url: `https://casaora.com/${locale}/${citySlug}`,
+      url: `https://casaora.co/${locale}/${citySlug}`,
     },
     areaServed: {
       "@type": "City",

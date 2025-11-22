@@ -13,10 +13,15 @@ export default function ApplicationsPage() {
     <div className="mx-auto max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8">
       {/* Page Header */}
       <div className="space-y-2">
-        <h1 className={cn("font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 tracking-tight",
+            geistSans.className
+          )}
+        >
           Applications
         </h1>
-        <p className={cn("text-neutral-600 text-base", geistSans.className)}>
+        <p className={cn("text-base text-neutral-600", geistSans.className)}>
           Review and manage professional applications for Casaora
         </p>
       </div>

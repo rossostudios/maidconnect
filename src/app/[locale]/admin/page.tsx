@@ -68,12 +68,7 @@ export default async function AdminHomePage() {
 
   // Calculate greeting based on time of day
   const hour = new Date().getHours();
-  const greeting =
-    hour < 12
-      ? "Good morning"
-      : hour < 18
-        ? "Good afternoon"
-        : "Good evening";
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   return (
     <div className="space-y-8">
@@ -82,7 +77,7 @@ export default async function AdminHomePage() {
         <div>
           <h1
             className={cn(
-              "font-medium text-3xl text-neutral-900 tracking-tight leading-none",
+              "font-medium text-3xl text-neutral-900 leading-none tracking-tight",
               geistSans.className
             )}
           >

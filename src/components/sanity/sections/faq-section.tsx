@@ -7,13 +7,13 @@
  * Uses Accordion component (React Aria) instead of Radix Collapsible.
  */
 
-import { Container } from "@/components/ui/container";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Container } from "@/components/ui/container";
 
 type FaqItem = {
   question: string;
@@ -40,12 +40,8 @@ export function FaqSection({ data }: FaqSectionProps) {
       <Container className="max-w-4xl">
         {(title || subtitle) && (
           <div className="mb-12 text-center">
-            {title && (
-              <h2 className="serif-display-lg text-neutral-900">{title}</h2>
-            )}
-            {subtitle && (
-              <p className="lead mt-4 text-neutral-900/70">{subtitle}</p>
-            )}
+            {title && <h2 className="serif-display-lg text-neutral-900">{title}</h2>}
+            {subtitle && <p className="lead mt-4 text-neutral-900/70">{subtitle}</p>}
           </div>
         )}
 

@@ -154,9 +154,7 @@ export function useAdminCountryFilter() {
   const context = useContext(AdminCountryFilterContext);
 
   if (context === undefined) {
-    throw new Error(
-      "useAdminCountryFilter must be used within AdminCountryFilterProvider"
-    );
+    throw new Error("useAdminCountryFilter must be used within AdminCountryFilterProvider");
   }
 
   return context;

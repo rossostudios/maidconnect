@@ -1,151 +1,116 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { testimonials } from "@/lib/content";
 
-/**
- * TestimonialsSection - Simplified Editorial Design
- *
- * Designed to work gracefully with 1-3 testimonials:
- * - Large, centered quote with generous spacing
- * - Serif typography for editorial feel
- * - Decorative quote mark
- * - Warm, refined aesthetic
- * - Staggered animations for visual interest
- * - LIA Design System: Strict 24px baseline alignment
- */
 export function TestimonialsSection() {
   if (!testimonials || testimonials.length === 0) {
     return null;
   }
 
-  // Show only first 3 testimonials for clean, focused layout
-  const displayTestimonials = testimonials.slice(0, 3);
+  // For now we only showcase a single hero testimonial
+  const featured = testimonials[0];
+  const brandLabel = "Trust & Safety";
+  const quoteText =
+    "Finding reliable help at home used to be so stressful. Casaora verified everything—background checks, interviews, reviews—so I could focus on my family. The booking process was simple, and our housekeeper has been wonderful.";
+  const authorName = "Brooke S.";
+  const authorRole = "Family · Medellín, Colombia";
 
   return (
-    <section className="relative overflow-hidden bg-white py-12 md:py-24" id="testimonials">
-      {/* Subtle background decoration */}
-      <div className="pointer-events-none absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-orange-100/60 blur-3xl" />
-      </div>
-
-      <Container className="relative max-w-5xl px-4">
-        {/* Section Header */}
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            animate={{ opacity: 1, scale: 1 }}
-            className="mb-4 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-2"
-            initial={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <span className="font-semibold text-orange-600 text-sm uppercase tracking-wider">
-              Testimonials
-            </span>
-          </motion.div>
-          <motion.h2
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-4 font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            Trusted by Families Across Colombia
-          </motion.h2>
-          <motion.p
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto max-w-2xl text-lg leading-6 text-neutral-600"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Real experiences from discerning households who trust Casaora
-          </motion.p>
-        </motion.div>
-
-        {/* Testimonials Grid */}
-        <div className="grid gap-8 md:grid-cols-1">
-          {displayTestimonials.map((testimonial, index) => (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="group relative"
-              initial={{ opacity: 0, y: 30 }}
-              key={testimonial.handle}
-              transition={{ duration: 0.7, delay: 0.5 + index * 0.15 }}
-            >
-              <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-10 shadow-lg transition-all duration-300 hover:shadow-2xl md:p-14">
-                {/* Decorative Quote Mark */}
-                <div className="absolute top-6 right-6 opacity-10 transition-opacity duration-300 group-hover:opacity-20">
-                  <svg
-                    className="h-24 w-24 text-orange-500 md:h-32 md:w-32"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                </div>
-
-                {/* Quote */}
-                <blockquote className="relative mb-8 font-serif text-2xl leading-8 text-neutral-900 md:text-3xl md:leading-9">
-                  "{testimonial.quote}"
-                </blockquote>
-
-                {/* Author Info */}
-                <div className="flex items-center gap-4 border-neutral-200 border-t pt-6">
-                  {/* Avatar */}
-                  <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-orange-200 bg-orange-50">
-                    {testimonial.avatar ? (
-                      <img
-                        alt={testimonial.name}
-                        className="h-full w-full object-cover"
-                        src={testimonial.avatar}
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center font-semibold text-2xl text-orange-600">
-                        {testimonial.name.charAt(0)}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Name & Details */}
-                  <div>
-                    <p className="font-semibold text-lg text-neutral-900">{testimonial.name}</p>
-                    <p className="text-neutral-600 text-sm">
-                      {[testimonial.role, testimonial.location].filter(Boolean).join(" · ")}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Optional: Outcome Badge */}
-                {testimonial.outcome && (
-                  <div className="absolute top-6 left-6">
-                    <div className="rounded-full bg-green-50 px-4 py-1.5 text-green-700 text-xs">
-                      ✓ {testimonial.outcome}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+    <section className="bg-neutral-50 px-4 py-10 sm:px-6 md:py-14 lg:px-8" id="testimonials">
+      <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-900/10 shadow-xl">
+        {/* Gradient illustration backdrop */}
+        <div className="absolute inset-0">
+          <Image
+            alt=""
+            className="object-cover"
+            fill
+            priority
+            sizes="100vw"
+            src="/testimoninal1.png"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/45 via-neutral-900/15 to-neutral-900/50" />
         </div>
 
-        {/* Optional: Coming Soon Message if only 1 testimonial */}
-        {displayTestimonials.length === 1 && (
+        <Container className="relative max-w-5xl px-4 py-10 sm:px-7 md:py-14 lg:px-10">
+          <div className="text-center text-white">
+            <motion.p
+              animate={{ opacity: 1, y: 0 }}
+              className="font-semibold text-white/75 text-xs uppercase tracking-[0.24em]"
+              initial={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.4, delay: 0.05 }}
+            >
+              Trusted by families across Latin America
+            </motion.p>
+            <motion.h2
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-white leading-tight sm:text-[34px] md:text-[38px]"
+              initial={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.45, delay: 0.12 }}
+            >
+              Trust and safety built in.
+            </motion.h2>
+            <motion.p
+              animate={{ opacity: 1, y: 0 }}
+              className="mx-auto mt-3 max-w-2xl text-sm text-white/80 sm:text-base"
+              initial={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.45, delay: 0.18 }}
+            >
+              Verified profiles, secure payments, and clear expectations. Simple, safe, and fair for
+              families and professionals.
+            </motion.p>
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-6 font-semibold text-sm text-white/80 uppercase tracking-[0.22em]">
+            <span className="h-px w-16 bg-white/35" />
+            <span className="whitespace-nowrap">{brandLabel}</span>
+            <span className="h-px w-16 bg-white/35" />
+          </div>
+
           <motion.div
-            animate={{ opacity: 1 }}
-            className="mt-12 text-center"
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6"
+            initial={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.55, delay: 0.22 }}
           >
-            <p className="text-neutral-500 text-sm leading-6">
-              More families sharing their Casaora experiences soon
-            </p>
+            <div className="mx-auto max-w-4xl rounded-2xl border border-neutral-200/80 bg-[#fdfaf5] shadow-[0_20px_60px_-28px_rgba(15,23,42,0.42)]">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="flex flex-col justify-between px-7 py-9 sm:px-9 md:px-10 lg:px-10 lg:py-11">
+                  <div>
+                    <p className="font-semibold text-neutral-600 text-xs uppercase tracking-[0.18em]">
+                      {brandLabel}
+                    </p>
+                    <blockquote className="mt-4 font-serif text-neutral-900 text-xl leading-[1.5] sm:text-[22px] md:text-[26px]">
+                      &ldquo;{quoteText}&rdquo;
+                    </blockquote>
+                  </div>
+
+                  <div className="border-neutral-200 border-t pt-6">
+                    <p className="font-semibold text-base text-neutral-900">{authorName}</p>
+                    <p className="mt-1 text-neutral-600 text-sm">{authorRole}</p>
+                  </div>
+                </div>
+
+                <div className="relative min-h-[240px] w-full sm:min-h-[300px] lg:order-last lg:min-h-[420px]">
+                  <div className="relative h-full w-full rounded-2xl bg-white/80 p-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.03)]">
+                    <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                      <Image
+                        alt={authorName}
+                        className="object-cover"
+                        fill
+                        sizes="(min-width: 1024px) 420px, 100vw"
+                        src="/Brooke.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
-        )}
-      </Container>
+        </Container>
+      </div>
     </section>
   );
 }

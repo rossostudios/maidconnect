@@ -13,8 +13,8 @@ export const testBookings = {
     status: "pending",
     start_time: "2024-12-25T09:00:00Z",
     end_time: "2024-12-25T11:00:00Z",
-    total_amount: 100000,
-    hourly_rate: 50000,
+    total_amount: 100_000,
+    hourly_rate: 50_000,
     hours: 2,
     location: {
       address: "Calle 85 #15-25",
@@ -34,8 +34,8 @@ export const testBookings = {
     status: "confirmed",
     start_time: "2024-12-26T12:00:00Z",
     end_time: "2024-12-26T15:00:00Z",
-    total_amount: 225000,
-    hourly_rate: 75000,
+    total_amount: 225_000,
+    hourly_rate: 75_000,
     hours: 3,
     location: {
       address: "Carrera 7 #71-21",
@@ -55,8 +55,8 @@ export const testBookings = {
     status: "completed",
     start_time: "2024-12-15T09:00:00Z",
     end_time: "2024-12-15T13:00:00Z",
-    total_amount: 200000,
-    hourly_rate: 50000,
+    total_amount: 200_000,
+    hourly_rate: 50_000,
     hours: 4,
     location: {
       address: "Calle 85 #15-25",
@@ -76,8 +76,8 @@ export const testBookings = {
     status: "cancelled",
     start_time: "2024-12-18T09:00:00Z",
     end_time: "2024-12-18T11:00:00Z",
-    total_amount: 100000,
-    hourly_rate: 50000,
+    total_amount: 100_000,
+    hourly_rate: 50_000,
     hours: 2,
     location: {
       address: "Calle 85 #15-25",

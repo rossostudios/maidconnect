@@ -58,7 +58,7 @@
     "pricing": {
       "badge": "Precios Transparentes",
       "title": "Precios simples y transparentes",
-      "subtitle": "Elija cómo quiere contratar. Marketplace o Concierge: ambos con precios claros y anticipados.",
+      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Contratación Directa. Los profesionales mantienen el 100%.",
       "platformFee": "Tarifa de Plataforma",
       "addedToServiceCost": "Agregado al costo del servicio",
       "popularBadge": "Más Popular",
@@ -1266,11 +1266,11 @@
     }
   },
   "hero": {
-    "tagline": "Felicidad en el Hogar",
-    "ribbon": "La plataforma híbrida de personal doméstico para expatriados en América Latina",
-    "title": "Reserva instantáneamente con Amara AI o contrata permanentemente con nuestro concierge",
-    "titleHighlight": "Ayuda confiable para mañana o una niñera a tiempo completo con contrato legal",
-    "subtitle": "Ya sea que necesites una empleada de limpieza para mañana o una niñera a tiempo completo, Casaora proporciona la verificación, pagos y marco legal para contratar con confianza.",
+    "tagline": "Ayuda Confiable en Casa",
+    "ribbon": "El marketplace de confianza para profesionales del hogar en América Latina",
+    "title": "Encuentra profesionales del hogar de confianza en América Latina",
+    "titleHighlight": "Reserva empleadas de limpieza, niñeras, cuidadores y más",
+    "subtitle": "Simple, seguro y justo para familias y profesionales. Perfiles verificados, pagos seguros y expectativas claras.",
     "trustLines": {
       "backgroundChecks": "Verificación de ID y Antecedentes",
       "englishFluent": "Contratación Instantánea o Permanente",
@@ -1311,68 +1311,68 @@
     "markets": {
       "CO": {
         "medellin": {
-          "ribbon": "La agencia boutique de personal doméstico de Medellín",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Medellín",
+          "ribbon": "Profesionales del hogar de confianza en Medellín",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Medellín",
           "trustBadge": "De confianza en El Poblado, Laureles y Envigado"
         },
         "bogota": {
-          "ribbon": "La agencia boutique de personal doméstico de Bogotá",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Bogotá",
+          "ribbon": "Profesionales del hogar de confianza en Bogotá",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Bogotá",
           "trustBadge": "De confianza en Chapinero, Usaquén y Rosales"
         },
         "default": {
-          "ribbon": "La agencia boutique de personal doméstico de Colombia",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Colombia",
+          "ribbon": "Profesionales del hogar de confianza en Colombia",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Colombia",
           "trustBadge": "Operando en Medellín, Bogotá, Cali y más"
         }
       },
       "PY": {
         "asuncion": {
-          "ribbon": "La agencia boutique de personal doméstico de Asunción",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Asunción",
+          "ribbon": "Profesionales del hogar de confianza en Asunción",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Asunción",
           "trustBadge": "De confianza en Villa Morra, Carmelitas y Manorá"
         },
         "default": {
-          "ribbon": "La agencia boutique de personal doméstico de Paraguay",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Paraguay",
+          "ribbon": "Profesionales del hogar de confianza en Paraguay",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Paraguay",
           "trustBadge": "Operando en Asunción, Ciudad del Este y Encarnación"
         }
       },
       "UY": {
         "montevideo": {
-          "ribbon": "La agencia boutique de personal doméstico de Montevideo",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Montevideo",
+          "ribbon": "Profesionales del hogar de confianza en Montevideo",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Montevideo",
           "trustBadge": "De confianza en Pocitos, Carrasco y Punta Gorda"
         },
         "default": {
-          "ribbon": "La agencia boutique de personal doméstico de Uruguay",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Uruguay",
+          "ribbon": "Profesionales del hogar de confianza en Uruguay",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Uruguay",
           "trustBadge": "Operando en Montevideo, Punta del Este y Maldonado"
         }
       },
       "AR": {
         "buenosAires": {
-          "ribbon": "La agencia boutique de personal doméstico de Buenos Aires",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Buenos Aires",
+          "ribbon": "Profesionales del hogar de confianza en Buenos Aires",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Buenos Aires",
           "trustBadge": "De confianza en Palermo, Recoleta y Belgrano"
         },
         "default": {
-          "ribbon": "La agencia boutique de personal doméstico de Argentina",
-          "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza en Argentina",
+          "ribbon": "Profesionales del hogar de confianza en Argentina",
+          "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza en Argentina",
           "trustBadge": "Operando en Buenos Aires, Córdoba, Rosario y Mendoza"
         }
       },
       "default": {
-        "ribbon": "La agencia boutique de personal doméstico de América Latina",
-        "title": "Contrata niñeras, empleadas del hogar y personal privado de confianza",
+        "ribbon": "Profesionales del hogar de confianza en América Latina",
+        "title": "Encuentra empleadas de limpieza, niñeras y cuidadores de confianza",
         "trustBadge": "Operando en Colombia, Paraguay, Uruguay y Argentina"
       }
     }
   },
   "benefits": {
     "badge": "POR QUÉ CASAORA",
-    "heading": "Servicio Doméstico Premium Simplificado",
-    "description": "Conectamos familias expatriadas con los mejores profesionales domésticos de América Latina a través de una plataforma construida para la confianza y excelencia.",
+    "heading": "Ayuda Confiable en Casa, Simplificada",
+    "description": "Conectamos familias con profesionales del hogar verificados a través de un marketplace construido para la confianza, seguridad y transparencia.",
     "englishSupport": {
       "title": "Soporte en Inglés",
       "description": "Plataforma bilingüe y profesionales que se comunican fluidamente en inglés para una coordinación sin problemas."
@@ -1392,11 +1392,11 @@
     "tags": {
       "primary": [
         "Días de prueba agendados en la app",
-        "Preparación de entrevistas con concierge",
+        "Preparación guiada de entrevistas",
         "Expedientes de referencias y antecedentes",
         "Guía en seguros y nómina",
         "Coordinación bilingüe",
-        "Red confiable de expatriados",
+        "Comunidad confiable de familias",
         "Bóveda segura de documentos",
         "Seguimiento de desempeño"
       ],
@@ -1404,10 +1404,10 @@
         "Selección de chefs, niñeras y housekeepers",
         "Opciones internas y medio tiempo",
         "Reemplazos en la misma semana",
-        "Contratos y trámites de visa",
+        "Contratos y cumplimiento legal",
         "Aliados de choferes privados",
         "Equipo listo para viajar",
-        "Concierge disponible on-call",
+        "Soporte disponible on-call",
         "Manual personalizado del hogar"
       ]
     }
@@ -1416,7 +1416,7 @@
     "highlights": {
       "tagline": "EXPERIENCIA A MEDIDA",
       "title": "Un enfoque minimalista para el cuidado doméstico",
-      "subtitle": "Concierge boutique que planifica cada visita y confirma cada detalle para que todo se sienta sin esfuerzo.",
+      "subtitle": "Soporte dedicado que planifica cada visita y confirma cada detalle para que todo se sienta sin esfuerzo.",
       "items": {
         "curated": {
           "title": "Seleccionado para la calma",
@@ -1427,8 +1427,8 @@
           "description": "Agendamiento inteligente, recordatorios automáticos y notas que preservan la memoria del hogar."
         },
         "support": {
-          "title": "Soporte tipo concierge",
-          "description": "Anfitriones dedicados responden en minutos, coordinan cambios urgentes y anticipan tus necesidades."
+          "title": "Soporte dedicado",
+          "description": "Nuestro equipo responde en minutos, coordina cambios urgentes y anticipa tus necesidades."
         }
       }
     },
@@ -1550,11 +1550,11 @@
       }
     }
   },
-  "concierge": {
+  "directHire": {
     "title": "¿Listo para encontrar tu pareja perfecta?",
-    "subtitle": "Programa una consulta para conversar sobre las necesidades de tu hogar en Medellín. Te presentaremos profesionales verificados lo antes posible.",
+    "subtitle": "Cuéntanos sobre las necesidades de tu hogar. Te presentaremos profesionales verificados con contratos legales y garantía de satisfacción.",
     "browseProfessionals": "Explorar profesionales",
-    "bookConsultation": "Reservar una consulta",
+    "bookConsultation": "Solicitar Contratación Directa",
     "cities": "Operando en Colombia, Paraguay, Uruguay y Argentina",
     "languages": "Soporte en inglés y español"
   },
@@ -1624,7 +1624,7 @@
     }
   },
   "footer": {
-    "description": "Servicio Doméstico Premium",
+    "description": "Profesionales del hogar de confianza en América Latina",
     "platform": "Plataforma",
     "company": "Empresa",
     "mobile": "Móvil",
@@ -1697,7 +1697,7 @@
         "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil.",
         "primaryCTA": "Explorar Profesionales",
         "secondaryCTA": "Más Información",
-        "badge": "Reserva flexible y servicio concierge"
+        "badge": "Reserva simple y segura"
       },
       "features": {
         "title": "Potentes funciones de reserva",
@@ -2407,13 +2407,13 @@
         "createOneNow": "Crear una ahora"
       },
       "footer": {
-        "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
+        "support": "Soporte disponible 7 días a la semana para asistencia con la incorporación."
       },
       "sidebar": {
         "imageAlt": "Hospitalidad Casaora",
         "badge": "Talento doméstico de confianza",
-        "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
-        "description": "Nuestro equipo bilingüe de conserjería verifique cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
+        "title": "Profesionales meticulosos seleccionados para tu hogar.",
+        "description": "Nuestro equipo verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
       }
     },
     "signUp": {
@@ -2465,11 +2465,11 @@
         "signInInstead": "Iniciar sesión"
       },
       "footer": {
-        "support": "le guiaremos con incorporación de conserjería después de enviar sus detalles."
+        "support": "Le guiaremos durante la incorporación después de enviar sus detalles."
       },
       "sidebar": {
         "imageAlt": "Incorporación Casaora",
-        "badge": "Incorporación de conserjería",
+        "badge": "Incorporación guiada",
         "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
         "description": "Construya confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
       }
@@ -2732,7 +2732,7 @@
     },
     "hero": {
       "title": "Precios Transparentes - Sin Tarifas Ocultas",
-      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Concierge. Los profesionales mantienen el 100%. Vetting, antecedentes y seguros están incluidos.",
+      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Contratación Directa. Los profesionales mantienen el 100%. Vetting, antecedentes y seguros están incluidos.",
       "tabs": {
         "customers": "Para Clientes",
         "professionals": "Para Profesionales"
@@ -2757,17 +2757,17 @@
         "cta": "Ver profesionales",
         "bestFor": "tareas rápidas, limpiezas recurrentes, ayuda por horas"
       },
-      "concierge": {
-        "title": "Concierge (20%)",
-        "subtitle": "Matching guiado con shortlist curada, reemplazos y soporte humano",
+      "directHire": {
+        "title": "Contratación Directa (20%)",
+        "subtitle": "Colocación de tiempo completo con contratos legales y garantía de 30 días",
         "features": [
-          "Coordinador dedicado y soporte humano",
+          "Contratos legales y soporte de cumplimiento",
           "Vetting, antecedentes y seguros incluidos",
-          "Ayuda con agenda, reemplazos y soporte",
+          "Garantía de satisfacción de 30 días con reemplazos",
           "Tarifa de servicio transparente del 20% (cliente)"
         ],
-        "cta": "Reservar Concierge",
-        "bestFor": "necesidades con más acompañamiento, ayuda continua, reemplazos"
+        "cta": "Solicitar Contratación Directa",
+        "bestFor": "ayuda de tiempo completo, colocaciones a largo plazo, empleo legal"
       }
     },
     "title": "Precios simples y transparentes",
@@ -2797,8 +2797,8 @@
         "label": "Nivel de servicio",
         "instantBook": "Reserva Instantánea (15%)",
         "instantBookHelper": "Auto-servicio en minutos",
-        "concierge": "Concierge (20%)",
-        "conciergeHelper": "Matching guiado y soporte humano"
+        "directHire": "Contratación Directa (20%)",
+        "directHireHelper": "Colocación de tiempo completo con contratos legales"
       },
       "currency": {
         "label": "Moneda de visualización",
@@ -2814,11 +2814,11 @@
     "customer": {
       "howItWorks": {
         "title": "Cómo funciona el precio en Casaora",
-        "description": "Dos tarifas claras: 15% en Reserva Instantánea o 20% en Concierge. Profesionales pagan 0%. Vetting y seguros incluidos.",
+        "description": "Dos tarifas claras: 15% en Reserva Instantánea o 20% en Contratación Directa. Profesionales pagan 0%. Vetting y seguros incluidos.",
         "steps": {
           "step1": {
             "title": "Elige nivel y horas",
-            "description": "Selecciona Reserva Instantánea (15%) o Concierge (20%) y cuántas horas necesitas."
+            "description": "Selecciona Reserva Instantánea (15%) o Contratación Directa (20%) y cuántas horas necesitas."
           },
           "step2": {
             "title": "Incluimos seguridad y soporte",
@@ -2840,7 +2840,7 @@
       "cta": {
         "title": "¿Listo para empezar?",
         "subtitle": "Únete a quienes confían en Casaora para profesionales verificados.",
-        "primary": "Reservar Concierge",
+        "primary": "Solicitar Contratación Directa",
         "secondary": "Ver profesionales"
       }
     },
@@ -2851,8 +2851,8 @@
         "label": "Nivel de servicio",
         "instantBook": "Reserva Instantánea (cliente paga 15%)",
         "instantBookHelper": "Reservas rápidas y auto-servicio",
-        "concierge": "Concierge (cliente paga 20%)",
-        "conciergeHelper": "Matching guiado y soporte humano"
+        "directHire": "Contratación Directa (cliente paga 20%)",
+        "directHireHelper": "Colocación de tiempo completo con contratos legales"
       },
       "yourHourlyRate": "Tu tarifa por hora",
       "rateRange": "Tarifa recomendada según tu mercado y experiencia",
@@ -2932,19 +2932,19 @@
   "about": {
     "meta": {
       "title": "Sobre Nosotros - Nuestra Historia | Casaora",
-      "description": "Conoce la misión de Casaora de conectar expatriados en América Latina con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
+      "description": "Conoce la misión de Casaora de conectar familias en América Latina con profesionales del hogar verificados a través de nuestro marketplace construido para la confianza y seguridad."
     },
     "story": {
-      "title": "Conectando Culturas, Construyendo Confianza",
-      "subtitle": "Estamos construyendo el marketplace confiable que conecta extranjeros en América Latina con profesionales de servicios domésticos verificados y bilingües.",
+      "title": "Confianza y Seguridad, Simplificados",
+      "subtitle": "Estamos construyendo el marketplace de confianza que conecta familias con profesionales del hogar verificados en América Latina.",
       "problem": {
         "title": "El Desafío que Estamos Resolviendo",
-        "paragraph1": "Mudarse a un nuevo país es emocionante, pero encontrar ayuda doméstica confiable no debería ser estresante. Los expatriados en América Latina enfrentan barreras idiomáticas, incertidumbre sobre confianza y seguridad, y falta de profesionales verificados que comprendan sus necesidades.",
-        "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen el soporte bilingüe, verificación o asistencia continua que los extranjeros realmente necesitan."
+        "paragraph1": "Encontrar ayuda doméstica confiable no debería ser estresante. Las familias en América Latina enfrentan incertidumbre sobre confianza y seguridad, y falta de profesionales verificados con expectativas claras.",
+        "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen la verificación, pagos seguros o soporte continuo que las familias realmente necesitan."
       },
       "solution": {
         "title": "Nuestra Solución",
-        "paragraph1": "Casaora es el primer marketplace con asistencia personalizada diseñado específicamente para expatriados. Combinamos tecnología con toque humano para crear una experiencia fluida y confiable:",
+        "paragraph1": "Casaora es el marketplace de confianza para profesionales del hogar en América Latina. Combinamos tecnología con toque humano para crear una experiencia simple, segura y justa:",
         "feature1": {
           "title": "Profesionales Verificados",
           "description": "Cada profesional pasa por verificaciones de antecedentes, verificación de identidad y evaluación de habilidades antes de unirse a nuestra plataforma."
@@ -2960,7 +2960,7 @@
       },
       "journey": {
         "title": "Nuestro Camino",
-        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, Casaora nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a familias expatriadas y empoderar a profesionales locales en América Latina."
+        "paragraph1": "Casaora nació de una idea simple: encontrar ayuda doméstica confiable debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a familias y empoderar a profesionales en toda América Latina."
       }
     },
     "missionVision": {
@@ -2968,11 +2968,11 @@
       "sectionSubtitle": "Estamos en una misión de hacer los servicios domésticos accesibles, transparentes y confiables para todos.",
       "mission": {
         "title": "Nuestra Misión",
-        "description": "Conectar a extranjeros viviendo en América Latina con profesionales de servicios domésticos bilingües y verificados a través de un marketplace seguro y transparente impulsado por soporte personalizado y tecnología moderna."
+        "description": "Conectar familias con profesionales del hogar verificados a través de un marketplace seguro y transparente impulsado por soporte dedicado y tecnología moderna."
       },
       "vision": {
         "title": "Nuestra Visión",
-        "description": "Convertirnos en la plataforma más confiable para servicios de expatriados en América Latina, empoderando tanto a clientes como a profesionales con seguridad, transparencia y oportunidad."
+        "description": "Convertirnos en la plataforma más confiable para profesionales del hogar en América Latina, empoderando tanto a familias como a profesionales con seguridad, transparencia y oportunidad."
       },
       "values": {
         "title": "Nuestros Valores Fundamentales",
@@ -2991,16 +2991,16 @@
         },
         "empowerment": {
           "title": "Empoderamiento",
-          "description": "Empoderamos tanto a expatriados para encontrar ayuda confiable como a profesionales locales para desarrollar negocios sostenibles."
+          "description": "Empoderamos tanto a familias para encontrar ayuda confiable como a profesionales para desarrollar carreras sostenibles."
         }
       }
     },
     "team": {
       "title": "Nuestro Equipo Remoto",
-      "subtitle": "Somos un equipo distribuido que abarca América Latina y Estados Unidos, unidos por nuestra misión de servir a expatriados y profesionales.",
+      "subtitle": "Somos un equipo distribuido que abarca América Latina y Estados Unidos, unidos por nuestra misión de servir a familias y profesionales.",
       "remoteFirst": {
-        "title": "Construido para Impacto Global",
-        "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y una comprensión genuina de la experiencia de los expatriados. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte 24/7 a nuestra comunidad."
+        "title": "Construido para Impacto Regional",
+        "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y comprensión genuina de las necesidades de familias y profesionales. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte continuo a nuestra comunidad."
       },
       "stats": {
         "locations": "2+",
@@ -3013,7 +3013,7 @@
       "benefits": {
         "distributed": {
           "title": "Globalmente Distribuido",
-          "description": "Nuestro equipo abarca América Latina y EE.UU., dándonos una visión profunda de las necesidades tanto de expatriados como locales."
+          "description": "Nuestro equipo abarca América Latina y EE.UU., dándonos una visión profunda de las necesidades tanto de familias como profesionales del hogar."
         },
         "bilingual": {
           "title": "Completamente Bilingüe",
@@ -3030,7 +3030,7 @@
       },
       "joinTeam": {
         "title": "¿quiere Unirte a Nuestra Misión?",
-        "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de expatriados y profesionales.",
+        "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de familias y profesionales del hogar.",
         "cta": "Contáctanos"
       }
     },
@@ -3056,7 +3056,7 @@
     },
     "cta": {
       "title": "¿Listo para Experimentar la Diferencia?",
-      "subtitle": "Únete a miles de expatriados que confían en Casaora para sus necesidades de servicios domésticos.",
+      "subtitle": "Únete a miles de familias que confían en Casaora para encontrar profesionales del hogar verificados.",
       "browseProfessionals": "Explorar Profesionales",
       "signUp": "Regístrate Gratis"
     }
@@ -3064,19 +3064,19 @@
   "howItWorks": {
     "meta": {
       "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | Casaora",
-      "description": "Descubre cómo Casaora ayuda a familias extranjeras y locales en Medellín a contratar profesionales de servicio doméstico de confianza mediante un proceso de matching tipo concierge, con pasos claros y acompañamiento en cada etapa."
+      "description": "Descubre cómo Casaora ayuda a familias en América Latina a contratar profesionales del hogar de confianza. Reserva instantánea o contratación directa con contratos legales y garantía de satisfacción."
     },
     "hero": {
       "title": "Cómo Funciona Casaora",
-      "subtitle": "Dos formas de contratar: Chatea con Amara AI para reservas instantáneas, o usa nuestro concierge para colocaciones permanentes con contratos legales y garantía de 30 días."
+      "subtitle": "Dos formas de contratar: Reserva Instantánea para auto-servicio en minutos, o Contratación Directa para colocaciones permanentes con contratos legales y garantía de 30 días."
     },
     "customer": {
       "title": "Para clientes",
-      "subtitle": "Elige Reserva Instantánea (15%) o Concierge (20%). Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
+      "subtitle": "Elige Reserva Instantánea (15%) o Contratación Directa (20%). Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
       "steps": {
         "search": {
           "title": "Elige tu nivel de servicio",
-          "description": "Instantánea para auto-servicio en minutos o Concierge con acompañamiento."
+          "description": "Instantánea para auto-servicio en minutos o Contratación Directa con acompañamiento."
         },
         "book": {
           "title": "Vetting y matching incluidos",
@@ -3091,7 +3091,7 @@
           "description": "Mensajería, agenda, reemplazos y soporte incluidos."
         }
       },
-      "cta": "Reservar Concierge",
+      "cta": "Solicitar Contratación Directa",
       "ctaSecondary": "Ver profesionales"
     },
     "professional": {
@@ -3108,7 +3108,7 @@
         },
         "match": {
           "title": "Recibe clientes",
-          "description": "Instantánea para trabajos rápidos; Concierge trae matches curados."
+          "description": "Instantánea para trabajos rápidos; Contratación Directa trae matches curados."
         },
         "serve": {
           "title": "Entrega el servicio",
@@ -3162,12 +3162,12 @@
     "cta": {
       "title": "¿Listo para Comenzar?",
       "subtitle": "Únete a miles de clientes y profesionales que confían en Casaora.",
-      "browseButton": "Reservar Concierge",
+      "browseButton": "Solicitar Contratación Directa",
       "signUpButton": "Ver Profesionales"
     },
     "serviceOptions": {
       "title": "Elige tu camino",
-      "subtitle": "Reserva Instantánea con tarifa del 15% o Concierge con tarifa del 20%. Los profesionales reciben el 100%.",
+      "subtitle": "Reserva Instantánea con tarifa del 15% o Contratación Directa con tarifa del 20%. Los profesionales reciben el 100%.",
       "instantBook": {
         "title": "Reserva Instantánea (15%)",
         "description": "Auto-servicio rápido para limpiezas, tareas puntuales y ayuda recurrente.",
@@ -3182,19 +3182,19 @@
         ],
         "cta": "Ver profesionales"
       },
-      "concierge": {
-        "title": "Concierge (20%)",
-        "description": "Matching guiado con shortlist curada, reemplazos y soporte humano.",
+      "directHire": {
+        "title": "Contratación Directa (20%)",
+        "description": "Colocación de tiempo completo con contratos legales, vetting y garantía de 30 días.",
         "speed": "Shortlist en 48h",
         "process": "Equipo humano + verificación",
         "cost": "Tarifa de servicio del 20% (cliente)",
         "features": [
-          "Coordinador dedicado y soporte humano",
+          "Contratos legales y soporte de cumplimiento",
           "Vetting, antecedentes y seguros incluidos",
-          "Ayuda con agenda, reemplazos y soporte",
-          "Ideal para necesidades recurrentes y de mayor cuidado"
+          "Garantía de satisfacción de 30 días con reemplazos",
+          "Ideal para ayuda de tiempo completo y colocaciones a largo plazo"
         ],
-        "cta": "Reservar Concierge"
+        "cta": "Solicitar Contratación Directa"
       }
     }
   },
@@ -3587,7 +3587,7 @@
     },
     "serviceSelectionWidget": {
       "title": "¿Cómo podemos ayudarte hoy?",
-      "description": "Elige entre reserva instantánea con Amara AI o contratación permanente con nuestro concierge",
+      "description": "Elige entre reserva instantánea con Amara AI o contratación permanente con nuestro programa de Contratación Directa",
       "quickJob": {
         "title": "Reserva Instantánea Amara",
         "description": "¿Necesitas ayuda para mañana? Chatea con nuestra IA para reservar profesionales verificados en menos de 2 minutos.",
@@ -3602,7 +3602,7 @@
         "feature1": "Tarifa única de  por colocación",
         "feature2": "Contratos legales y garantías",
         "feature3": "Garantía de reemplazo de 30 días",
-        "cta": "Hablar con Concierge"
+        "cta": "Solicitar Contratación Directa"
       },
       "helpText": "Cero comisión para profesionales en reservas por hora. Soporte completo para ambas opciones."
     },
@@ -4009,8 +4009,8 @@
         "description": "Construye relaciones estables con clientes repetitivos."
       },
       "placement": {
-        "title": "Concierge (20%)",
-        "description": "Matching guiado con shortlist y reemplazos. El cliente paga 20% arriba."
+        "title": "Contratación Directa (20%)",
+        "description": "Colocación de tiempo completo con contratos legales y reemplazos. El cliente paga 20% arriba."
       },
       "ctaText": "Transparencia total: 0% para profesionales. 15%/20% lo paga el cliente."
     }

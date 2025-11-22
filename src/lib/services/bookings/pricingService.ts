@@ -149,7 +149,7 @@ export async function calculateDirectHireFee(
     return { success: false, error: "Professional profile not found" };
   }
 
-  const feeCOP = profile.direct_hire_fee_cop ?? 2000000; // Default 2M COP
+  const feeCOP = profile.direct_hire_fee_cop ?? 2_000_000; // Default 2M COP
   const feeUSD = Math.round(feeCOP / 4000); // Approximate USD conversion
 
   return {

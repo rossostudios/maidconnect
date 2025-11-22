@@ -481,7 +481,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition-colors hover:bg-orange-600"
+                        className="ml-6 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-orange-600"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -607,7 +607,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-sm transition-colors hover:bg-orange-600 sm:ml-6"
+                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-orange-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -733,7 +733,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-sm transition-colors hover:bg-orange-600 sm:ml-6"
+                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-orange-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

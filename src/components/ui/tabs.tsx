@@ -21,18 +21,19 @@
  * ```
  */
 
+import * as React from "react";
 import {
   Tabs as AriaTabs,
-  TabList,
-  Tab,
-  TabPanel,
   type TabsProps as AriaTabsProps,
+  Tab,
+  TabList,
+  TabPanel,
 } from "react-aria-components";
-import * as React from "react";
 import { cn } from "@/lib/utils/core";
 
 /**
  * Tabs Root Props
+ * React 19: ref is a regular prop, no forwardRef needed.
  */
 export interface TabsProps extends Omit<AriaTabsProps, "children"> {
   /**
@@ -55,6 +56,10 @@ export interface TabsProps extends Omit<AriaTabsProps, "children"> {
    * Callback when tab selection changes
    */
   onValueChange?: (value: string) => void;
+  /**
+   * Ref to the tabs container element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -62,43 +67,46 @@ export interface TabsProps extends Omit<AriaTabsProps, "children"> {
  *
  * Container for tabs with state management.
  * Uses React Aria for accessibility and keyboard navigation.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
-  (
-    { className, children, defaultValue, value, onValueChange, ...props },
-    ref
-  ) => {
-    // Handle both React Aria (selectedKey/onSelectionChange) and Radix (value/onValueChange) props
-    const selectedKey = value ?? props.selectedKey;
-    const defaultSelectedKey = defaultValue ?? props.defaultSelectedKey;
+export const Tabs = ({
+  className,
+  children,
+  defaultValue,
+  value,
+  onValueChange,
+  ref,
+  ...props
+}: TabsProps) => {
+  // Handle both React Aria (selectedKey/onSelectionChange) and Radix (value/onValueChange) props
+  const selectedKey = value ?? props.selectedKey;
+  const defaultSelectedKey = defaultValue ?? props.defaultSelectedKey;
 
-    const handleSelectionChange = React.useCallback(
-      (key: React.Key) => {
-        onValueChange?.(String(key));
-        props.onSelectionChange?.(key);
-      },
-      [onValueChange, props]
-    );
+  const handleSelectionChange = React.useCallback(
+    (key: React.Key) => {
+      onValueChange?.(String(key));
+      props.onSelectionChange?.(key);
+    },
+    [onValueChange, props]
+  );
 
-    return (
-      <AriaTabs
-        ref={ref}
-        className={cn("w-full", className)}
-        selectedKey={selectedKey}
-        defaultSelectedKey={defaultSelectedKey}
-        onSelectionChange={handleSelectionChange}
-        {...props}
-      >
-        {children}
-      </AriaTabs>
-    );
-  }
-);
-
-Tabs.displayName = "Tabs";
+  return (
+    <AriaTabs
+      className={cn("w-full", className)}
+      defaultSelectedKey={defaultSelectedKey}
+      onSelectionChange={handleSelectionChange}
+      ref={ref}
+      selectedKey={selectedKey}
+      {...props}
+    >
+      {children}
+    </AriaTabs>
+  );
+};
 
 /**
  * Tabs List Props
+ * React 19: ref is a regular prop.
  */
 export interface TabsListProps {
   /**
@@ -109,6 +117,10 @@ export interface TabsListProps {
    * Tab trigger elements
    */
   children: React.ReactNode;
+  /**
+   * Ref to the tab list element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -116,35 +128,33 @@ export interface TabsListProps {
  *
  * Container for tab triggers.
  * Lia Design System: neutral-50 background, rounded-lg (Anthropic).
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, children }, ref) => {
-    return (
-      <TabList
-        ref={ref}
-        className={cn(
-          // Layout
-          "inline-flex h-12 items-center justify-center",
-          // Background and text (Lia Design System)
-          "bg-neutral-50 text-neutral-400",
-          // Shape - Lia Design System: rounded-lg (Anthropic)
-          "rounded-lg",
-          // Spacing
-          "p-1",
-          // Additional classes
-          className
-        )}
-      >
-        {children}
-      </TabList>
-    );
-  }
-);
-
-TabsList.displayName = "TabsList";
+export const TabsList = ({ className, children, ref }: TabsListProps) => {
+  return (
+    <TabList
+      className={cn(
+        // Layout
+        "inline-flex h-12 items-center justify-center",
+        // Background and text (Lia Design System)
+        "bg-neutral-50 text-neutral-400",
+        // Shape - Lia Design System: rounded-lg (Anthropic)
+        "rounded-lg",
+        // Spacing
+        "p-1",
+        // Additional classes
+        className
+      )}
+      ref={ref}
+    >
+      {children}
+    </TabList>
+  );
+};
 
 /**
  * Tabs Trigger Props
+ * React 19: ref is a regular prop.
  */
 export interface TabsTriggerProps {
   /**
@@ -159,6 +169,10 @@ export interface TabsTriggerProps {
    * Trigger content
    */
   children: React.ReactNode;
+  /**
+   * Ref to the tab button element
+   */
+  ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
 /**
@@ -166,46 +180,44 @@ export interface TabsTriggerProps {
  *
  * Individual tab button.
  * Lia Design System: orange-500 focus ring, rounded (Anthropic).
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ className, value, children }, ref) => {
-    return (
-      <Tab
-        ref={ref}
-        id={value}
-        className={cn(
-          // Base layout
-          "inline-flex items-center justify-center whitespace-nowrap",
-          // Spacing
-          "px-6 py-2",
-          // Typography
-          "text-sm font-medium",
-          // Shape - Lia Design System: rounded (Anthropic)
-          "rounded",
-          // Transition
-          "transition-all",
-          // Focus state - orange ring (Lia Design System)
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
-          // Disabled state
-          "disabled:pointer-events-none disabled:opacity-50",
-          // Selected state (Lia Design System)
-          "data-[selected]:bg-white data-[selected]:text-neutral-900 data-[selected]:shadow-sm",
-          // Inactive state
-          "data-[selected=false]:text-neutral-400 data-[selected=false]:hover:text-neutral-900",
-          // Additional classes
-          className
-        )}
-      >
-        {children}
-      </Tab>
-    );
-  }
-);
-
-TabsTrigger.displayName = "TabsTrigger";
+export const TabsTrigger = ({ className, value, children, ref }: TabsTriggerProps) => {
+  return (
+    <Tab
+      className={cn(
+        // Base layout
+        "inline-flex items-center justify-center whitespace-nowrap",
+        // Spacing
+        "px-6 py-2",
+        // Typography
+        "font-medium text-sm",
+        // Shape - Lia Design System: rounded (Anthropic)
+        "rounded",
+        // Transition
+        "transition-all",
+        // Focus state - orange ring (Lia Design System)
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        // Disabled state
+        "disabled:pointer-events-none disabled:opacity-50",
+        // Selected state (Lia Design System)
+        "data-[selected]:bg-white data-[selected]:text-neutral-900 data-[selected]:shadow-sm",
+        // Inactive state
+        "data-[selected=false]:text-neutral-400 data-[selected=false]:hover:text-neutral-900",
+        // Additional classes
+        className
+      )}
+      id={value}
+      ref={ref}
+    >
+      {children}
+    </Tab>
+  );
+};
 
 /**
  * Tabs Content Props
+ * React 19: ref is a regular prop.
  */
 export interface TabsContentProps {
   /**
@@ -220,6 +232,10 @@ export interface TabsContentProps {
    * Content to display when tab is active
    */
   children: React.ReactNode;
+  /**
+   * Ref to the tab panel element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -227,26 +243,23 @@ export interface TabsContentProps {
  *
  * Content panel for each tab.
  * Lia Design System: orange-500 focus ring.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
-  ({ className, value, children }, ref) => {
-    return (
-      <TabPanel
-        ref={ref}
-        id={value}
-        className={cn(
-          // Spacing
-          "mt-6",
-          // Focus state - orange ring (Lia Design System)
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
-          // Additional classes
-          className
-        )}
-      >
-        {children}
-      </TabPanel>
-    );
-  }
-);
-
-TabsContent.displayName = "TabsContent";
+export const TabsContent = ({ className, value, children, ref }: TabsContentProps) => {
+  return (
+    <TabPanel
+      className={cn(
+        // Spacing
+        "mt-6",
+        // Focus state - orange ring (Lia Design System)
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        // Additional classes
+        className
+      )}
+      id={value}
+      ref={ref}
+    >
+      {children}
+    </TabPanel>
+  );
+};

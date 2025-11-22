@@ -32,17 +32,17 @@
  * ```
  */
 
-import { useEffect, useState, useCallback } from "react";
-import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import { useCallback, useEffect, useState } from "react";
+import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
+import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
 import {
+  type DisputePayload,
+  isDeleteEvent,
   isInsertEvent,
   isUpdateEvent,
-  isDeleteEvent,
-  type DisputePayload,
   type ProfessionalReviewPayload,
 } from "@/lib/realtime/admin-channels";
-import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 
 /**
  * Dispute record structure
@@ -171,12 +171,7 @@ type AdminModerationReturn = {
 export function useRealtimeAdminModeration(
   options: AdminModerationOptions = {}
 ): AdminModerationReturn {
-  const {
-    enabled = true,
-    disputeStatus,
-    reviewStatus,
-    flagStatus,
-  } = options;
+  const { enabled = true, disputeStatus, reviewStatus, flagStatus } = options;
 
   const [disputes, setDisputes] = useState<Dispute[]>([]);
   const [reviews, setReviews] = useState<ProfessionalReview[]>([]);
@@ -196,32 +191,20 @@ export function useRealtimeAdminModeration(
   }, []);
 
   // Optimistic update for reviews
-  const updateOptimisticReview = useCallback(
-    (id: string, updates: Partial<ProfessionalReview>) => {
-      setReviews((prev) =>
-        prev.map((review) =>
-          review.id === id
-            ? { ...review, ...updates, updated_at: new Date().toISOString() }
-            : review
-        )
-      );
-    },
-    []
-  );
+  const updateOptimisticReview = useCallback((id: string, updates: Partial<ProfessionalReview>) => {
+    setReviews((prev) =>
+      prev.map((review) =>
+        review.id === id ? { ...review, ...updates, updated_at: new Date().toISOString() } : review
+      )
+    );
+  }, []);
 
   // Optimistic update for moderation flags
-  const updateOptimisticFlag = useCallback(
-    (id: string, updates: Partial<ModerationFlag>) => {
-      setModerationFlags((prev) =>
-        prev.map((flag) =>
-          flag.id === id
-            ? { ...flag, ...updates }
-            : flag
-        )
-      );
-    },
-    []
-  );
+  const updateOptimisticFlag = useCallback((id: string, updates: Partial<ModerationFlag>) => {
+    setModerationFlags((prev) =>
+      prev.map((flag) => (flag.id === id ? { ...flag, ...updates } : flag))
+    );
+  }, []);
 
   // Subscribe to multiplexed realtime updates
   useEffect(() => {
@@ -262,9 +245,7 @@ export function useRealtimeAdminModeration(
                 );
               } else if (isDeleteEvent(payload)) {
                 const deletedDispute = payload.old as Dispute;
-                setDisputes((prev) =>
-                  prev.filter((dispute) => dispute.id !== deletedDispute.id)
-                );
+                setDisputes((prev) => prev.filter((dispute) => dispute.id !== deletedDispute.id));
               }
             }
           );
@@ -291,15 +272,11 @@ export function useRealtimeAdminModeration(
               } else if (isUpdateEvent(payload)) {
                 const updatedReview = payload.new as ProfessionalReview;
                 setReviews((prev) =>
-                  prev.map((review) =>
-                    review.id === updatedReview.id ? updatedReview : review
-                  )
+                  prev.map((review) => (review.id === updatedReview.id ? updatedReview : review))
                 );
               } else if (isDeleteEvent(payload)) {
                 const deletedReview = payload.old as ProfessionalReview;
-                setReviews((prev) =>
-                  prev.filter((review) => review.id !== deletedReview.id)
-                );
+                setReviews((prev) => prev.filter((review) => review.id !== deletedReview.id));
               }
             }
           );
@@ -330,9 +307,7 @@ export function useRealtimeAdminModeration(
                 );
               } else if (isDeleteEvent(payload)) {
                 const deletedFlag = payload.old as ModerationFlag;
-                setModerationFlags((prev) =>
-                  prev.filter((flag) => flag.id !== deletedFlag.id)
-                );
+                setModerationFlags((prev) => prev.filter((flag) => flag.id !== deletedFlag.id));
               }
             }
           );

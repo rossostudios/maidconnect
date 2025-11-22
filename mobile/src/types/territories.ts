@@ -67,8 +67,8 @@ export interface CountryConfig {
  * City configuration
  */
 export interface CityConfig {
-  value: string;  // Slug for forms
-  label: string;  // Display name
+  value: string; // Slug for forms
+  label: string; // Display name
   countryCode: CountryCode;
 }
 
@@ -76,8 +76,8 @@ export interface CityConfig {
  * Neighborhood configuration
  */
 export interface NeighborhoodConfig {
-  value: string;  // Slug for forms
-  label: string;  // Display name
+  value: string; // Slug for forms
+  label: string; // Display name
   citySlug: string;
 }
 
@@ -123,9 +123,7 @@ export const COUNTRIES: Record<CountryCode, CountryConfig> = {
 /**
  * Get all active countries
  */
-export const ACTIVE_COUNTRIES = Object.values(COUNTRIES).filter(
-  (country) => country.isActive
-);
+export const ACTIVE_COUNTRIES = Object.values(COUNTRIES).filter((country) => country.isActive);
 
 /**
  * Country options for dropdowns (sorted alphabetically by Spanish name)
@@ -259,9 +257,7 @@ export const NEIGHBORHOODS_BY_CITY: Record<string, NeighborhoodConfig[]> = {
 /**
  * Get neighborhoods for a specific city
  */
-export function getNeighborhoodsByCity(
-  citySlug: string
-): NeighborhoodConfig[] {
+export function getNeighborhoodsByCity(citySlug: string): NeighborhoodConfig[] {
   return NEIGHBORHOODS_BY_CITY[citySlug] || [];
 }
 
@@ -395,17 +391,16 @@ export function isValidCountryCode(code: string): code is CountryCode {
  * isOperationalMarket("BR") // false (Brazil not supported)
  */
 export function isOperationalMarket(countryCode: string): countryCode is SupportedMarket {
-  return SUPPORTED_MARKETS.includes(countryCode as SupportedMarket) &&
-         (countryCode in COUNTRIES ? COUNTRIES[countryCode as CountryCode].isActive : false);
+  return (
+    SUPPORTED_MARKETS.includes(countryCode as SupportedMarket) &&
+    (countryCode in COUNTRIES ? COUNTRIES[countryCode as CountryCode].isActive : false)
+  );
 }
 
 /**
  * Get country name in locale
  */
-export function getCountryName(
-  countryCode: CountryCode,
-  locale: "en" | "es" = "es"
-): string {
+export function getCountryName(countryCode: CountryCode, locale: "en" | "es" = "es"): string {
   const country = COUNTRIES[countryCode];
   return locale === "en" ? country.nameEn : country.nameEs;
 }

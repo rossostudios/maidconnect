@@ -22,14 +22,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     userName: "Christopher Rodriguez",
-    userEmail: "christopher@casaora.com",
+    userEmail: "christopher@casaora.co",
   },
 };
 
 export const WithAvatar: Story = {
   args: {
     userName: "Sarah Chen",
-    userEmail: "sarah.chen@casaora.com",
+    userEmail: "sarah.chen@casaora.co",
     userAvatarUrl: "https://i.pravatar.cc/150?img=5",
   },
 };
@@ -37,13 +37,13 @@ export const WithAvatar: Story = {
 export const LongName: Story = {
   args: {
     userName: "Alexander Montgomery-Richardson III",
-    userEmail: "alexander.montgomery.richardson@casaora.com",
+    userEmail: "alexander.montgomery.richardson@casaora.co",
   },
 };
 
 export const MinimalInfo: Story = {
   args: {
     userName: "Admin",
-    userEmail: "admin@casaora.com",
+    userEmail: "admin@casaora.co",
   },
 };

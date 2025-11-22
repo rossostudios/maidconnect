@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
-import { LanguageSwitcher } from "./language-switcher";
 
 type NavLink = {
   href: string;
@@ -202,17 +201,6 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 initial="hidden"
                 variants={containerVariants}
               >
-                {/* Language Switcher */}
-                <motion.div className="mb-6 flex justify-between" variants={itemVariants}>
-                  <span className="text-neutral-500 text-xs uppercase tracking-wider">
-                    Language
-                  </span>
-                  <LanguageSwitcher />
-                </motion.div>
-
-                {/* Divider */}
-                <motion.div className="mb-6 h-px bg-neutral-200" variants={itemVariants} />
-
                 {/* Nav Links */}
                 {links.map((link) => (
                   <motion.div key={link.href} variants={itemVariants}>

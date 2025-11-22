@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
 import { Video01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { cn } from "@/lib/utils/core";
-import { videoEvents } from "@/lib/integrations/posthog";
+import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
 import type { RequiredEventProperties } from "@/lib/integrations/posthog";
+import { videoEvents } from "@/lib/integrations/posthog";
+import { cn } from "@/lib/utils/core";
 
 interface IntroVideoPlayerProps {
   professionalId: string;
@@ -79,8 +79,8 @@ export function IntroVideoPlayer({
 
   if (isLoading) {
     return (
-      <div className={cn("bg-white border border-neutral-200 rounded-lg p-8", className)}>
-        <div className="aspect-video w-full rounded-lg bg-neutral-100 flex items-center justify-center">
+      <div className={cn("rounded-lg border border-neutral-200 bg-white p-8", className)}>
+        <div className="flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-100">
           <div className="flex flex-col items-center gap-4">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-orange-500" />
             <p className="text-neutral-500 text-sm">{t("loading")}</p>
@@ -95,7 +95,7 @@ export function IntroVideoPlayer({
   }
 
   return (
-    <div className={cn("bg-white border border-neutral-200 rounded-lg p-8", className)}>
+    <div className={cn("rounded-lg border border-neutral-200 bg-white p-8", className)}>
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
         <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={Video01Icon} />
@@ -105,13 +105,13 @@ export function IntroVideoPlayer({
       {/* Video Player */}
       <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-900 shadow-[0_10px_40px_rgba(22,22,22,0.08)]">
         <video
-          ref={videoRef}
-          src={signedUrl}
+          className="h-full w-full"
           controls
           controlsList="nodownload"
           onPlay={handlePlay}
-          className="h-full w-full"
           preload="metadata"
+          ref={videoRef}
+          src={signedUrl}
         >
           <track kind="captions" />
           {t("browserNotSupported")}

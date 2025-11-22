@@ -61,9 +61,7 @@ export function ProfessionalPricingTab() {
           <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             {t("howItWorks.title")}
           </h2>
-          <p className="text-lg text-neutral-600 leading-relaxed">
-            {t("howItWorks.description")}
-          </p>
+          <p className="text-lg text-neutral-600 leading-relaxed">{t("howItWorks.description")}</p>
         </motion.div>
 
         {/* Steps */}
@@ -78,7 +76,7 @@ export function ProfessionalPricingTab() {
             const Icon = step.icon;
             return (
               <motion.div className="text-center" key={step.key} variants={fadeInUp}>
-                <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-orange-100 border border-orange-200 text-orange-600">
+                <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl border border-orange-200 bg-orange-100 text-orange-600">
                   <HugeiconsIcon className="h-10 w-10" icon={Icon} />
                 </div>
                 <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-2xl text-neutral-900">
@@ -99,7 +97,7 @@ export function ProfessionalPricingTab() {
           viewport={{ once: true, margin: "-100px" }}
           whileInView={{ opacity: 1, scale: 1 }}
         >
-          <div className="mb-24 rounded-3xl border-2 border-orange-500 bg-orange-50 p-12 text-center shadow-xl shadow-orange-900/10">
+          <div className="mb-24 rounded-3xl border-2 border-orange-500 bg-orange-50 p-12 text-center shadow-orange-900/10 shadow-xl">
             <motion.div
               className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg"
               initial={{ scale: 0 }}
@@ -112,7 +110,7 @@ export function ProfessionalPricingTab() {
             <h3 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900">
               {t("keyPoint.title")}
             </h3>
-            <p className="mx-auto max-w-2xl text-xl text-neutral-700 leading-relaxed">
+            <p className="mx-auto max-w-2xl text-neutral-700 text-xl leading-relaxed">
               {t("keyPoint.description")}
             </p>
           </div>
@@ -144,7 +142,7 @@ export function ProfessionalPricingTab() {
             const Icon = benefit.icon;
             return (
               <motion.div key={benefit.key} variants={fadeInUp}>
-                <div className="group h-full rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-900/5">
+                <div className="group h-full rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-200 hover:border-orange-200 hover:shadow-orange-900/5 hover:shadow-xl">
                   <div className="text-center">
                     <motion.div
                       className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-orange-50 text-orange-600 transition-colors group-hover:bg-orange-100"
@@ -153,7 +151,7 @@ export function ProfessionalPricingTab() {
                     >
                       <HugeiconsIcon className="h-8 w-8" icon={Icon} />
                     </motion.div>
-                    <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-xl text-neutral-900">
+                    <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-neutral-900 text-xl">
                       {t(`benefits.items.${benefit.key}.title`)}
                     </h3>
                     <p className="text-base text-neutral-600 leading-relaxed">
@@ -180,9 +178,7 @@ export function ProfessionalPricingTab() {
             <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
               {t("feeCovers.title")}
             </h2>
-            <p className="text-lg text-neutral-700 leading-relaxed">
-              {t("feeCovers.description")}
-            </p>
+            <p className="text-lg text-neutral-700 leading-relaxed">{t("feeCovers.description")}</p>
           </motion.div>
 
           <motion.div
@@ -203,12 +199,10 @@ export function ProfessionalPricingTab() {
                     >
                       <span className="font-bold text-lg">✓</span>
                     </motion.div>
-                    <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-xl text-neutral-900">
+                    <h3 className="mb-3 font-[family-name:var(--font-geist-sans)] font-bold text-neutral-900 text-xl">
                       {item.title}
                     </h3>
-                    <p className="text-base text-neutral-600 leading-relaxed">
-                      {item.description}
-                    </p>
+                    <p className="text-base text-neutral-600 leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
               )
@@ -225,7 +219,7 @@ export function ProfessionalPricingTab() {
           viewport={{ once: true, margin: "-100px" }}
           whileInView={{ opacity: 1, scale: 1 }}
         >
-          <div className="rounded-3xl border border-orange-200 bg-white p-12 shadow-xl shadow-orange-900/5 md:p-16">
+          <div className="rounded-3xl border border-orange-200 bg-white p-12 shadow-orange-900/5 shadow-xl md:p-16">
             <motion.div
               className="mb-12 text-center"
               initial="hidden"
@@ -260,7 +254,7 @@ export function ProfessionalPricingTab() {
             >
               {(t.raw("payouts.features") as string[]).map((feature, idx) => (
                 <motion.div
-                  className="rounded-2xl border border-neutral-100 bg-neutral-50 p-6 text-center transition-colors duration-200 hover:bg-orange-50 hover:border-orange-100"
+                  className="rounded-2xl border border-neutral-100 bg-neutral-50 p-6 text-center transition-colors duration-200 hover:border-orange-100 hover:bg-orange-50"
                   key={idx}
                   variants={fadeInUp}
                 >
@@ -285,9 +279,9 @@ export function ProfessionalPricingTab() {
             <h2 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-white tracking-tight md:text-5xl">
               {t("cta.title")}
             </h2>
-            <p className="mb-12 text-xl text-white/90 leading-relaxed">{t("cta.subtitle")}</p>
+            <p className="mb-12 text-white/90 text-xl leading-relaxed">{t("cta.subtitle")}</p>
             <motion.a
-              className="inline-block rounded-xl bg-white px-10 py-4 font-bold text-lg text-orange-600 shadow-xl transition-all duration-200 hover:bg-neutral-50 hover:shadow-2xl hover:scale-105"
+              className="inline-block rounded-xl bg-white px-10 py-4 font-bold text-lg text-orange-600 shadow-xl transition-all duration-200 hover:scale-105 hover:bg-neutral-50 hover:shadow-2xl"
               href="/professionals/onboarding"
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               whileHover={{ scale: 1.05 }}

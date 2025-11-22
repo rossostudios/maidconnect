@@ -132,7 +132,8 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     },
     // Intro video (Phase 2.3) - only approved videos are returned by RPC
     introVideoPath: row.intro_video_path ?? null,
-    introVideoStatus: (row.intro_video_status as "none" | "pending_review" | "approved" | "rejected") ?? "none",
+    introVideoStatus:
+      (row.intro_video_status as "none" | "pending_review" | "approved" | "rejected") ?? "none",
     introVideoDurationSeconds: row.intro_video_duration_seconds ?? null,
   };
 }

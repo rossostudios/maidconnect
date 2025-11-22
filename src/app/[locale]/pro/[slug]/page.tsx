@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import {
   type ProfessionalProfileDetail,
   ProfessionalProfileView,
 } from "@/components/professionals/professional-profile-view";
+import { ShareSection } from "@/components/professionals/social-share-buttons";
 import type {
   ProfessionalBookingSummary,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
-import { ShareSection } from "@/components/professionals/social-share-buttons";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { getSession } from "@/lib/auth";
@@ -137,9 +137,7 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
  * Fetches professional profile by slug
  * Only returns profiles with profile_visibility = 'public'
  */
-async function fetchProfessionalBySlug(
-  slug: string
-): Promise<ProfessionalProfileDetail | null> {
+async function fetchProfessionalBySlug(slug: string): Promise<ProfessionalProfileDetail | null> {
   const supabase = await createSupabaseServerClient();
 
   // Look up professional by slug
@@ -284,13 +282,13 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/pro/${slug}`,
       siteName: "Casaora",
       type: "profile",
-      locale: locale,
+      locale,
       images: [
         {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${professional.name} - ${professional.service || 'Professional'}`,
+          alt: `${professional.name} - ${professional.service || "Professional"}`,
         },
       ],
     },
@@ -316,10 +314,7 @@ export default async function PublicProfessionalProfileRoute({ params }: RoutePa
   }
 
   // Fetch professional profile
-  const [professional, session] = await Promise.all([
-    fetchProfessionalBySlug(slug),
-    getSession(),
-  ]);
+  const [professional, session] = await Promise.all([fetchProfessionalBySlug(slug), getSession()]);
 
   // If profile not found or not public, show 404
   if (!professional) {
@@ -333,18 +328,18 @@ export default async function PublicProfessionalProfileRoute({ params }: RoutePa
     <div className="bg-neutral-50 text-neutral-900">
       <SiteHeader />
       <ProfessionalProfileView
+        isPublicView={true}
         locale={locale}
         professional={professional}
         viewer={session.user}
-        isPublicView={true}
       />
 
       {/* Social Share Section */}
       <div className="container mx-auto max-w-4xl px-4 py-12">
         <ShareSection
-          url={vanityUrl}
           professionalName={professional.name}
           service={professional.service ?? undefined}
+          url={vanityUrl}
         />
       </div>
 

@@ -96,7 +96,7 @@ export class TruoraClient extends BackgroundCheckProviderInterface {
           // Metadata for tracking
           metadata: {
             professional_id: professionalInfo.professionalId,
-            source: "maidconnect_onboarding",
+            source: "casaora_onboarding",
           },
         }),
       });

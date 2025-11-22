@@ -40,12 +40,7 @@ type Props = {
   sparklineData?: SparklineData[];
 };
 
-export function StatCard({
-  title,
-  value,
-  description,
-  sparklineData,
-}: Props) {
+export function StatCard({ title, value, description, sparklineData }: Props) {
   // Calculate trend color
   const trendColor = (() => {
     if (!sparklineData || sparklineData.length < 2) return "#F97316"; // Default orange
@@ -64,7 +59,7 @@ export function StatCard({
         <div className="space-y-1">
           <p
             className={cn(
-              "font-medium text-neutral-500 text-xs tracking-wider uppercase",
+              "font-medium text-neutral-500 text-xs uppercase tracking-wider",
               geistSans.className
             )}
           >

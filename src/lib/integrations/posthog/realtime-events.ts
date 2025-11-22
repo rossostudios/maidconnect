@@ -19,7 +19,7 @@
  * ```
  */
 
-import { trackEvent, trackError } from "./utils";
+import { trackError, trackEvent } from "./utils";
 
 /**
  * Connection state type
@@ -129,7 +129,7 @@ export const realtimeEvents = {
       channel_name: data.channelName,
       listener_count: data.listenerCount,
       total_subscriptions: data.totalSubscriptions,
-      is_multiplexed: data.isMultiplexed || false,
+      is_multiplexed: data.isMultiplexed,
       timestamp: new Date().toISOString(),
     });
   },
@@ -145,7 +145,7 @@ export const realtimeEvents = {
     trackEvent("realtime_subscription_removed", {
       channel_name: data.channelName,
       total_subscriptions: data.totalSubscriptions,
-      was_multiplexed: data.wasMultiplexed || false,
+      was_multiplexed: data.wasMultiplexed,
       timestamp: new Date().toISOString(),
     });
   },
@@ -163,7 +163,7 @@ export const realtimeEvents = {
       channel_name: data.channelName,
       event_type: data.eventType,
       table: data.table,
-      is_multiplexed: data.isMultiplexed || false,
+      is_multiplexed: data.isMultiplexed,
       timestamp: new Date().toISOString(),
     });
   },
@@ -171,11 +171,14 @@ export const realtimeEvents = {
   /**
    * Track connection errors
    */
-  connectionError: (error: Error, context?: {
-    state?: ConnectionState;
-    reconnectAttempts?: number;
-    subscriptionCount?: number;
-  }) => {
+  connectionError: (
+    error: Error,
+    context?: {
+      state?: ConnectionState;
+      reconnectAttempts?: number;
+      subscriptionCount?: number;
+    }
+  ) => {
     trackError(error, {
       error_type: "realtime_connection_error",
       state: context?.state,
@@ -188,10 +191,13 @@ export const realtimeEvents = {
   /**
    * Track subscription errors
    */
-  subscriptionError: (error: Error, context?: {
-    channelName?: string;
-    table?: string;
-  }) => {
+  subscriptionError: (
+    error: Error,
+    context?: {
+      channelName?: string;
+      table?: string;
+    }
+  ) => {
     trackError(error, {
       error_type: "realtime_subscription_error",
       channel_name: context?.channelName,
@@ -239,9 +245,7 @@ export const realtimeEvents = {
   /**
    * Track debug panel error clearing
    */
-  debugPanelErrorsCleared: (data: {
-    errorCount: number;
-  }) => {
+  debugPanelErrorsCleared: (data: { errorCount: number }) => {
     trackEvent("realtime_debug_panel_errors_cleared", {
       error_count: data.errorCount,
       timestamp: new Date().toISOString(),

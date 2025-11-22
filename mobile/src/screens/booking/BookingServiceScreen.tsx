@@ -1,19 +1,13 @@
-import { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import type { MainTabScreenProps } from "@/types/navigation";
 
-type Props = MainTabScreenProps<'BookingService'>;
+type Props = MainTabScreenProps<"BookingService">;
 
 export function BookingServiceScreen({ route, navigation }: Props) {
   const { professionalId } = route.params;
@@ -21,12 +15,12 @@ export function BookingServiceScreen({ route, navigation }: Props) {
   const [durationHours, setDurationHours] = useState(2);
 
   const services = [
-    { id: 'cleaning', name: 'Limpieza', icon: 'sparkles-outline' as const },
-    { id: 'plumbing', name: 'Plomería', icon: 'water-outline' as const },
-    { id: 'electrical', name: 'Electricidad', icon: 'flash-outline' as const },
-    { id: 'gardening', name: 'Jardinería', icon: 'leaf-outline' as const },
-    { id: 'painting', name: 'Pintura', icon: 'brush-outline' as const },
-    { id: 'carpentry', name: 'Carpintería', icon: 'hammer-outline' as const },
+    { id: "cleaning", name: "Limpieza", icon: "sparkles-outline" as const },
+    { id: "plumbing", name: "Plomería", icon: "water-outline" as const },
+    { id: "electrical", name: "Electricidad", icon: "flash-outline" as const },
+    { id: "gardening", name: "Jardinería", icon: "leaf-outline" as const },
+    { id: "painting", name: "Pintura", icon: "brush-outline" as const },
+    { id: "carpentry", name: "Carpintería", icon: "hammer-outline" as const },
   ];
 
   const durations = [1, 2, 3, 4, 6, 8];
@@ -34,7 +28,7 @@ export function BookingServiceScreen({ route, navigation }: Props) {
   const handleContinue = () => {
     if (!selectedService) return;
 
-    navigation.navigate('BookingDateTime', {
+    navigation.navigate("BookingDateTime", {
       professionalId,
       serviceType: selectedService,
       durationHours,
@@ -42,10 +36,10 @@ export function BookingServiceScreen({ route, navigation }: Props) {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text.primary} />
+          <Ionicons color={Colors.text.primary} name="arrow-back" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Nueva Reserva</Text>
         <View style={styles.headerRight} />
@@ -60,16 +54,16 @@ export function BookingServiceScreen({ route, navigation }: Props) {
               const isSelected = selectedService === service.id;
               return (
                 <TouchableOpacity
+                  activeOpacity={0.7}
                   key={service.id}
                   onPress={() => setSelectedService(service.id)}
-                  activeOpacity={0.7}
                 >
                   <View style={[styles.serviceCard, isSelected && styles.serviceCardSelected]}>
                     <View style={[styles.serviceIcon, isSelected && styles.serviceIconSelected]}>
                       <Ionicons
+                        color={isSelected ? Colors.white : Colors.orange[500]}
                         name={service.icon}
                         size={28}
-                        color={isSelected ? Colors.white : Colors.orange[500]}
                       />
                     </View>
                     <Text style={[styles.serviceName, isSelected && styles.serviceNameSelected]}>
@@ -90,9 +84,9 @@ export function BookingServiceScreen({ route, navigation }: Props) {
               const isSelected = durationHours === duration;
               return (
                 <TouchableOpacity
+                  activeOpacity={0.7}
                   key={duration}
                   onPress={() => setDurationHours(duration)}
-                  activeOpacity={0.7}
                   style={styles.durationItem}
                 >
                   <View style={[styles.durationCard, isSelected && styles.durationCardSelected]}>
@@ -109,10 +103,11 @@ export function BookingServiceScreen({ route, navigation }: Props) {
         {/* Info Card */}
         <Card style={styles.infoCard}>
           <View style={styles.infoIconContainer}>
-            <Ionicons name="information-circle-outline" size={20} color={Colors.blue[500]} />
+            <Ionicons color={Colors.blue[500]} name="information-circle-outline" size={20} />
           </View>
           <Text style={styles.infoText}>
-            La duración es una estimación. El profesional ajustará el tiempo según la complejidad del trabajo.
+            La duración es una estimación. El profesional ajustará el tiempo según la complejidad
+            del trabajo.
           </Text>
         </Card>
       </ScrollView>
@@ -120,11 +115,11 @@ export function BookingServiceScreen({ route, navigation }: Props) {
       {/* Bottom CTA */}
       <View style={styles.bottomBar}>
         <Button
-          title="Continuar"
-          onPress={handleContinue}
           disabled={!selectedService}
-          variant="primary"
+          onPress={handleContinue}
           size="lg"
+          title="Continuar"
+          variant="primary"
         />
       </View>
     </SafeAreaView>
@@ -137,9 +132,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -148,11 +143,11 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   headerRight: {
@@ -168,18 +163,18 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
   servicesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
   },
   serviceCard: {
     width: 100,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 16,
     paddingHorizontal: 8,
     borderRadius: 12, // Anthropic rounded-lg
@@ -196,8 +191,8 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 28, // rounded-full
     backgroundColor: Colors.orange[50],
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 8,
   },
   serviceIconSelected: {
@@ -205,16 +200,16 @@ const styles = StyleSheet.create({
   },
   serviceName: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   serviceNameSelected: {
     color: Colors.orange[600],
   },
   durationsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
   },
   durationItem: {
@@ -227,7 +222,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.neutral[200],
     backgroundColor: Colors.white,
-    alignItems: 'center',
+    alignItems: "center",
   },
   durationCardSelected: {
     borderColor: Colors.orange[500],
@@ -235,14 +230,14 @@ const styles = StyleSheet.create({
   },
   durationText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   durationTextSelected: {
     color: Colors.orange[600],
   },
   infoCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     backgroundColor: Colors.blue[50],
     borderWidth: 1,
@@ -258,7 +253,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,

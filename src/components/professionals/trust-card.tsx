@@ -3,11 +3,7 @@
 import { InformationCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
-import {
-  OnTimeRateBadge,
-  RatingBadge,
-  type VerificationLevel,
-} from "./verification-badge";
+import { OnTimeRateBadge, RatingBadge, type VerificationLevel } from "./verification-badge";
 import { VerificationBadgesGrid, type VerificationData } from "./verification-badges-grid";
 
 type TrustCardProps = {
@@ -41,8 +37,8 @@ export function TrustCard({
   };
 
   return (
-    <div className="border-2 border-neutral-200 bg-neutral-50 p-6 shadow-sm rounded-lg">
-      <h3 className="mb-4 font-semibold text-neutral-900 text-lg">{t("title")}</h3>
+    <div className="rounded-lg border-2 border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+      <h3 className="mb-4 font-semibold text-lg text-neutral-900">{t("title")}</h3>
 
       {/* Enhanced Verification Badges Grid */}
       <div className="mb-4">
@@ -50,7 +46,7 @@ export function TrustCard({
       </div>
 
       {/* Additional Trust Badges */}
-      <div className="space-y-3 mt-4">
+      <div className="mt-4 space-y-3">
         {onTimeRate && onTimeRate >= 75 && (
           <div className="flex items-center gap-2">
             <OnTimeRateBadge rate={onTimeRate} size="md" />

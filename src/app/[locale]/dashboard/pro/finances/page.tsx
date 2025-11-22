@@ -35,11 +35,16 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
     .maybeSingle();
 
   // Determine currency from country code
-  const currencyCode = professionalProfile?.country_code === "CO" ? "COP"
-    : professionalProfile?.country_code === "PY" ? "PYG"
-    : professionalProfile?.country_code === "UY" ? "UYU"
-    : professionalProfile?.country_code === "AR" ? "ARS"
-    : "COP"; // Default to COP for backward compatibility
+  const currencyCode =
+    professionalProfile?.country_code === "CO"
+      ? "COP"
+      : professionalProfile?.country_code === "PY"
+        ? "PYG"
+        : professionalProfile?.country_code === "UY"
+          ? "UYU"
+          : professionalProfile?.country_code === "AR"
+            ? "ARS"
+            : "COP"; // Default to COP for backward compatibility
 
   // Fetch bookings data for charts
   const { data: bookingsData } = await supabase

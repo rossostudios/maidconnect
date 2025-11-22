@@ -23,17 +23,18 @@
  * ```
  */
 
+import * as React from "react";
 import {
-  RadioGroup as AriaRadioGroup,
   Radio as AriaRadio,
+  RadioGroup as AriaRadioGroup,
   type RadioGroupProps as AriaRadioGroupProps,
   type RadioProps as AriaRadioProps,
 } from "react-aria-components";
-import * as React from "react";
 import { cn } from "@/lib/utils/core";
 
 /**
  * Radio Group Props
+ * React 19: ref is a regular prop.
  */
 export interface RadioGroupProps extends Omit<AriaRadioGroupProps, "children"> {
   /**
@@ -49,10 +50,15 @@ export interface RadioGroupProps extends Omit<AriaRadioGroupProps, "children"> {
    * Maps to React Aria's onChange
    */
   onValueChange?: (value: string) => void;
+  /**
+   * Ref to the radio group element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
  * Radio Group Item Props
+ * React 19: ref is a regular prop.
  */
 export interface RadioGroupItemProps extends Omit<AriaRadioProps, "children"> {
   /**
@@ -63,6 +69,10 @@ export interface RadioGroupItemProps extends Omit<AriaRadioProps, "children"> {
    * HTML id attribute (for label association)
    */
   id?: string;
+  /**
+   * Ref to the radio item element
+   */
+  ref?: React.RefObject<HTMLLabelElement | null>;
 }
 
 /**
@@ -70,37 +80,41 @@ export interface RadioGroupItemProps extends Omit<AriaRadioProps, "children"> {
  *
  * Container for radio buttons with proper accessibility.
  * Uses React Aria for robust keyboard navigation and screen reader support.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ className, children, onChange, onValueChange, ...props }, ref) => {
-    // Support both React Aria's onChange and Radix UI's onValueChange for backward compatibility
-    const handleChange = React.useCallback(
-      (value: string) => {
-        onChange?.(value);
-        onValueChange?.(value);
-      },
-      [onChange, onValueChange]
-    );
+export const RadioGroup = ({
+  className,
+  children,
+  onChange,
+  onValueChange,
+  ref,
+  ...props
+}: RadioGroupProps) => {
+  // Support both React Aria's onChange and Radix UI's onValueChange for backward compatibility
+  const handleChange = React.useCallback(
+    (value: string) => {
+      onChange?.(value);
+      onValueChange?.(value);
+    },
+    [onChange, onValueChange]
+  );
 
-    return (
-      <AriaRadioGroup
-        ref={ref}
-        className={cn(
-          // Grid layout with spacing (matching original)
-          "grid gap-2",
-          // Additional classes
-          className
-        )}
-        onChange={handleChange}
-        {...props}
-      >
-        {children}
-      </AriaRadioGroup>
-    );
-  }
-);
-
-RadioGroup.displayName = "RadioGroup";
+  return (
+    <AriaRadioGroup
+      className={cn(
+        // Grid layout with spacing (matching original)
+        "grid gap-2",
+        // Additional classes
+        className
+      )}
+      onChange={handleChange}
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </AriaRadioGroup>
+  );
+};
 
 /**
  * Radio Group Item Component
@@ -109,47 +123,44 @@ RadioGroup.displayName = "RadioGroup";
  * - Square indicator (no rounded corners - Lia Design System)
  * - Orange primary color
  * - Focus ring for accessibility
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const RadioGroupItem = React.forwardRef<HTMLLabelElement, RadioGroupItemProps>(
-  ({ className, id, ...props }, ref) => {
-    return (
-      <AriaRadio
-        ref={ref}
-        id={id}
-        className={cn(
-          // Base layout - the radio button circle container
-          "group inline-flex items-center",
-          // Additional classes
-          className
-        )}
-        {...props}
-      >
-        {({ isSelected, isDisabled }) => (
-          <div
-            className={cn(
-              // Square shape with border
-              "aspect-square h-4 w-4",
-              // Border styling (Lia Design System - orange primary)
-              "border border-orange-500",
-              // Focus ring
-              "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-orange-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
-              // Disabled state
-              isDisabled && "cursor-not-allowed opacity-50",
-              // Additional classes
-              className
-            )}
-          >
-            {/* Inner indicator (square - Lia Design System: no rounded corners) */}
-            {isSelected && (
-              <div className="flex h-full w-full items-center justify-center">
-                <div className="h-2.5 w-2.5 bg-orange-500" />
-              </div>
-            )}
-          </div>
-        )}
-      </AriaRadio>
-    );
-  }
-);
-
-RadioGroupItem.displayName = "RadioGroupItem";
+export const RadioGroupItem = ({ className, id, ref, ...props }: RadioGroupItemProps) => {
+  return (
+    <AriaRadio
+      className={cn(
+        // Base layout - the radio button circle container
+        "group inline-flex items-center",
+        // Additional classes
+        className
+      )}
+      id={id}
+      ref={ref}
+      {...props}
+    >
+      {({ isSelected, isDisabled }) => (
+        <div
+          className={cn(
+            // Square shape with border
+            "aspect-square h-4 w-4",
+            // Border styling (Lia Design System - orange primary)
+            "border border-orange-500",
+            // Focus ring
+            "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-orange-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
+            // Disabled state
+            isDisabled && "cursor-not-allowed opacity-50",
+            // Additional classes
+            className
+          )}
+        >
+          {/* Inner indicator (square - Lia Design System: no rounded corners) */}
+          {isSelected && (
+            <div className="flex h-full w-full items-center justify-center">
+              <div className="h-2.5 w-2.5 bg-orange-500" />
+            </div>
+          )}
+        </div>
+      )}
+    </AriaRadio>
+  );
+};

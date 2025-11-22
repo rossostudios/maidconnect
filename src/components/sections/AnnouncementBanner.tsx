@@ -3,8 +3,8 @@
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
+import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
@@ -59,13 +59,15 @@ export function AnnouncementBanner() {
       badge: badgeEnv || "Now Hiring",
       title: titleEnv || "Work with vetted families across Latin America.",
       cta: ctaEnv || "Learn More",
-      href: hrefEnv || "/concierge",
+      href: hrefEnv || "/direct-hire",
     },
     es: {
       badge: process.env.NEXT_PUBLIC_ANNOUNCEMENT_BADGE_ES || "Estamos contratando",
-      title: process.env.NEXT_PUBLIC_ANNOUNCEMENT_TITLE_ES || "Trabaja con familias verificadas en Latinoamérica.",
+      title:
+        process.env.NEXT_PUBLIC_ANNOUNCEMENT_TITLE_ES ||
+        "Trabaja con familias verificadas en Latinoamérica.",
       cta: process.env.NEXT_PUBLIC_ANNOUNCEMENT_CTA_ES || "Conoce más",
-      href: process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF_ES || "/concierge",
+      href: process.env.NEXT_PUBLIC_ANNOUNCEMENT_HREF_ES || "/direct-hire",
     },
   };
   const message = MESSAGES[locale] || MESSAGES.en;
@@ -130,10 +132,10 @@ export function AnnouncementBanner() {
                 >
                   <Link
                     className="group relative inline-flex flex-shrink-0 items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700 sm:text-sm md:text-base"
-                    href="/concierge"
+                    href="/direct-hire"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
-                        ctaType: "concierge",
+                        ctaType: "direct-hire",
                         location: "announcement_banner",
                         ctaText: "Learn More",
                         variant: "control",

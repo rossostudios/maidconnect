@@ -35,30 +35,30 @@ export function generateSlug(text: string, maxLength = 50): string {
   let slug = text.toLowerCase();
 
   // Replace accented characters with ASCII equivalents
-  slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   // Replace spaces with hyphens
-  slug = slug.replace(/\s+/g, '-');
+  slug = slug.replace(/\s+/g, "-");
 
   // Remove special characters (keep only letters, numbers, hyphens)
-  slug = slug.replace(/[^a-z0-9\-]/g, '');
+  slug = slug.replace(/[^a-z0-9-]/g, "");
 
   // Remove consecutive hyphens
-  slug = slug.replace(/\-+/g, '-');
+  slug = slug.replace(/-+/g, "-");
 
   // Trim leading/trailing hyphens
-  slug = slug.replace(/^\-+|\-+$/g, '');
+  slug = slug.replace(/^-+|-+$/g, "");
 
   // Limit length
   if (slug.length > maxLength) {
     slug = slug.substring(0, maxLength);
     // Remove trailing hyphen if present after truncation
-    slug = slug.replace(/\-+$/g, '');
+    slug = slug.replace(/-+$/g, "");
   }
 
   // Fallback if slug is empty
   if (!slug) {
-    slug = 'professional';
+    slug = "professional";
   }
 
   return slug;
@@ -107,7 +107,7 @@ export function generateUniqueSlug(text: string, profileId: string): string {
  * ```
  */
 export function isValidSlug(slug: string): boolean {
-  if (!slug || typeof slug !== 'string') {
+  if (!slug || typeof slug !== "string") {
     return false;
   }
 
@@ -137,15 +137,15 @@ export function isValidSlug(slug: string): boolean {
  * ```
  */
 export function sanitizeSlugInput(input: string): string {
-  if (!input || typeof input !== 'string') {
-    return '';
+  if (!input || typeof input !== "string") {
+    return "";
   }
 
   // Remove HTML tags
-  let sanitized = input.replace(/<[^>]*>/g, '');
+  let sanitized = input.replace(/<[^>]*>/g, "");
 
   // Remove special characters that could be dangerous
-  sanitized = sanitized.replace(/[<>\"'%;()&+]/g, '');
+  sanitized = sanitized.replace(/[<>"'%;()&+]/g, "");
 
   // Trim whitespace
   sanitized = sanitized.trim();
@@ -164,7 +164,7 @@ export function sanitizeSlugInput(input: string): string {
  * extractSlugFromUrl("/pro/maria-garcia-abc123");
  * // Returns: "maria-garcia-abc123"
  *
- * extractSlugFromUrl("https://casaora.com/pro/juan-perez-xyz789");
+ * extractSlugFromUrl("https://casaora.co/pro/juan-perez-xyz789");
  * // Returns: "juan-perez-xyz789"
  * ```
  */
@@ -174,7 +174,7 @@ export function extractSlugFromUrl(url: string): string | null {
   }
 
   // Match /pro/{slug} pattern
-  const match = url.match(/\/pro\/([a-z0-9\-]+)/);
+  const match = url.match(/\/pro\/([a-z0-9-]+)/);
   return match ? match[1] : null;
 }
 
@@ -188,13 +188,13 @@ export function extractSlugFromUrl(url: string): string | null {
  * @example
  * ```ts
  * buildVanityUrl("maria-garcia-abc123");
- * // Returns: "https://casaora.com/pro/maria-garcia-abc123"
+ * // Returns: "https://casaora.co/pro/maria-garcia-abc123"
  *
  * buildVanityUrl("juan-perez", "http://localhost:3000");
  * // Returns: "http://localhost:3000/pro/juan-perez"
  * ```
  */
 export function buildVanityUrl(slug: string, baseUrl?: string): string {
-  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   return `${base}/pro/${slug}`;
 }

@@ -13,8 +13,8 @@
 
 import { NextResponse } from "next/server";
 import { paypal } from "@/lib/integrations/paypal";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { logger } from "@/lib/logger";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export async function GET() {
   try {
@@ -41,9 +41,6 @@ export async function GET() {
     });
   } catch (error) {
     logger.error("[PayPal Token] Error generating client token", { error });
-    return NextResponse.json(
-      { error: "Failed to generate PayPal client token" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to generate PayPal client token" }, { status: 500 });
   }
 }

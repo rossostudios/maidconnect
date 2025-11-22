@@ -66,6 +66,7 @@ export {
   identifyUser,
   type MultiCountryContext,
   professionalEvents,
+  type RequiredEventProperties,
   registerMultiCountryContext,
   resetUser,
   searchEvents,
@@ -73,5 +74,4 @@ export {
   trackError,
   trackEvent,
   videoEvents,
-  type RequiredEventProperties,
 } from "./utils";

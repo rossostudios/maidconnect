@@ -7,11 +7,11 @@
  * Allows professionals to manage their vanity URL slug
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { createSupabaseServerClient } from '@/lib/supabase/server-client';
-import { logger } from '@/lib/logger';
-import { generateUniqueSlug, isValidSlug, sanitizeSlugInput } from '@/lib/utils/slug';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { logger } from "@/lib/logger";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { generateUniqueSlug, isValidSlug, sanitizeSlugInput } from "@/lib/utils/slug";
 
 // ========================================
 // Validation Schemas
@@ -20,9 +20,12 @@ import { generateUniqueSlug, isValidSlug, sanitizeSlugInput } from '@/lib/utils/
 const UpdateSlugSchema = z.object({
   slug: z
     .string()
-    .min(3, 'Slug must be at least 3 characters')
-    .max(60, 'Slug must be at most 60 characters')
-    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+    .min(3, "Slug must be at least 3 characters")
+    .max(60, "Slug must be at most 60 characters")
+    .regex(
+      /^[a-z0-9]+(-[a-z0-9]+)*$/,
+      "Slug can only contain lowercase letters, numbers, and hyphens"
+    ),
 });
 
 const CheckSlugSchema = z.object({
@@ -39,19 +42,19 @@ export async function GET() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   try {
     const { data: profile, error } = await supabase
-      .from('professional_profiles')
-      .select('slug, full_name, profile_visibility')
-      .eq('profile_id', user.id)
+      .from("professional_profiles")
+      .select("slug, full_name, profile_visibility")
+      .eq("profile_id", user.id)
       .maybeSingle();
 
     if (error || !profile) {
-      return NextResponse.json({ error: 'Professional profile not found' }, { status: 404 });
+      return NextResponse.json({ error: "Professional profile not found" }, { status: 404 });
     }
 
     // Generate suggested slug if none exists
@@ -64,21 +67,16 @@ export async function GET() {
       success: true,
       currentSlug: profile.slug,
       suggestedSlug,
-      profileVisibility: profile.profile_visibility || 'private',
-      vanityUrl: profile.slug
-        ? `${process.env.NEXT_PUBLIC_SITE_URL}/pro/${profile.slug}`
-        : null,
+      profileVisibility: profile.profile_visibility || "private",
+      vanityUrl: profile.slug ? `${process.env.NEXT_PUBLIC_SITE_URL}/pro/${profile.slug}` : null,
     });
   } catch (error) {
-    logger.error('[Slug API] Failed to get slug', {
+    logger.error("[Slug API] Failed to get slug", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
     });
 
-    return NextResponse.json(
-      { error: 'Failed to fetch slug information' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch slug information" }, { status: 500 });
   }
 }
 
@@ -92,8 +90,8 @@ export async function PUT(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   try {
@@ -107,7 +105,7 @@ export async function PUT(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         {
-          error: 'Invalid slug format',
+          error: "Invalid slug format",
           details: validation.error.issues,
         },
         { status: 400 }
@@ -120,7 +118,7 @@ export async function PUT(request: NextRequest) {
     const sanitizedSlug = sanitizeSlugInput(slug);
     if (!isValidSlug(sanitizedSlug)) {
       return NextResponse.json(
-        { error: 'Invalid slug format after sanitization' },
+        { error: "Invalid slug format after sanitization" },
         { status: 400 }
       );
     }
@@ -130,14 +128,14 @@ export async function PUT(request: NextRequest) {
     // ========================================
 
     const { data: existingProfile } = await supabase
-      .from('professional_profiles')
-      .select('profile_id')
-      .eq('slug', sanitizedSlug)
+      .from("professional_profiles")
+      .select("profile_id")
+      .eq("slug", sanitizedSlug)
       .maybeSingle();
 
     if (existingProfile && existingProfile.profile_id !== user.id) {
       return NextResponse.json(
-        { error: 'This slug is already taken. Please choose a different one.' },
+        { error: "This slug is already taken. Please choose a different one." },
         { status: 409 }
       );
     }
@@ -147,29 +145,26 @@ export async function PUT(request: NextRequest) {
     // ========================================
 
     const { data: updatedProfile, error: updateError } = await supabase
-      .from('professional_profiles')
+      .from("professional_profiles")
       .update({
         slug: sanitizedSlug,
         updated_at: new Date().toISOString(),
       })
-      .eq('profile_id', user.id)
-      .select('slug, profile_visibility')
+      .eq("profile_id", user.id)
+      .select("slug, profile_visibility")
       .single();
 
     if (updateError || !updatedProfile) {
-      logger.error('[Slug API] Failed to update slug', {
+      logger.error("[Slug API] Failed to update slug", {
         professionalId: user.id,
         slug: sanitizedSlug,
         error: updateError,
       });
 
-      return NextResponse.json(
-        { error: 'Failed to update slug' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update slug" }, { status: 500 });
     }
 
-    logger.info('[Slug API] Slug updated successfully', {
+    logger.info("[Slug API] Slug updated successfully", {
       professionalId: user.id,
       newSlug: sanitizedSlug,
     });
@@ -185,16 +180,13 @@ export async function PUT(request: NextRequest) {
       profileVisibility: updatedProfile.profile_visibility,
     });
   } catch (error) {
-    logger.error('[Slug API] Failed to update slug', {
+    logger.error("[Slug API] Failed to update slug", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
     });
 
-    return NextResponse.json(
-      { error: 'Failed to update slug' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update slug" }, { status: 500 });
   }
 }
 
@@ -208,8 +200,8 @@ export async function POST(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   try {
@@ -224,7 +216,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           available: false,
-          error: 'Invalid slug format',
+          error: "Invalid slug format",
         },
         { status: 200 }
       );
@@ -237,7 +229,7 @@ export async function POST(request: NextRequest) {
     if (!isValidSlug(sanitizedSlug)) {
       return NextResponse.json({
         available: false,
-        error: 'Invalid slug format',
+        error: "Invalid slug format",
       });
     }
 
@@ -246,9 +238,9 @@ export async function POST(request: NextRequest) {
     // ========================================
 
     const { data: existingProfile } = await supabase
-      .from('professional_profiles')
-      .select('profile_id')
-      .eq('slug', sanitizedSlug)
+      .from("professional_profiles")
+      .select("profile_id")
+      .eq("slug", sanitizedSlug)
       .maybeSingle();
 
     const isOwnSlug = existingProfile?.profile_id === user.id;
@@ -260,15 +252,12 @@ export async function POST(request: NextRequest) {
       isOwnSlug,
     });
   } catch (error) {
-    logger.error('[Slug API] Failed to check slug availability', {
+    logger.error("[Slug API] Failed to check slug availability", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
     });
 
-    return NextResponse.json(
-      { error: 'Failed to check slug availability' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to check slug availability" }, { status: 500 });
   }
 }
 
@@ -276,5 +265,5 @@ export async function POST(request: NextRequest) {
 // Runtime Configuration
 // ========================================
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";

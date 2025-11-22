@@ -58,7 +58,7 @@
     "pricing": {
       "badge": "Transparent Pricing",
       "title": "Simple, transparent pricing",
-      "subtitle": "Clear, upfront concierge service pricing. We match you with thoroughly vetted professionals and handle everything.",
+      "subtitle": "Clear, upfront pricing. Instant Book (15%) for quick jobs or Direct Hire (20%) for full-time placements with contracts.",
       "platformFee": "Platform Fee",
       "addedToServiceCost": "Added to service cost",
       "popularBadge": "Most Popular",
@@ -1287,11 +1287,11 @@
     }
   },
   "hero": {
-    "tagline": "Household Happiness",
-    "ribbon": "The hybrid household staffing platform for expats in Latin America",
-    "title": "Book instantly with Amara AI or hire permanently with our concierge",
-    "titleHighlight": "Trusted help for tomorrow or a full-time nanny with a legal contract",
-    "subtitle": "Whether you need a cleaner for tomorrow or a full-time nanny, Casaora provides the vetting, payments, and legal framework to hire with confidence.",
+    "tagline": "Trusted Home Help",
+    "ribbon": "The trusted marketplace for home professionals in Latin America",
+    "title": "Find trusted home professionals in Latin America",
+    "titleHighlight": "Book vetted housekeepers, nannies, caregivers, and more",
+    "subtitle": "Simple, safe, and fair for families and professionals. Verified profiles, secure payments, and clear expectations.",
     "trustLines": {
       "backgroundChecks": "ID & Background Verified",
       "englishFluent": "Instant or Permanent Hire",
@@ -1332,68 +1332,68 @@
     "markets": {
       "CO": {
         "medellin": {
-          "ribbon": "Medellín's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Medellín",
+          "ribbon": "Trusted home professionals in Medellín",
+          "title": "Find trusted housekeepers, nannies & caregivers in Medellín",
           "trustBadge": "Trusted in El Poblado, Laureles & Envigado"
         },
         "bogota": {
-          "ribbon": "Bogotá's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Bogotá",
+          "ribbon": "Trusted home professionals in Bogotá",
+          "title": "Find trusted housekeepers, nannies & caregivers in Bogotá",
           "trustBadge": "Trusted in Chapinero, Usaquén & Rosales"
         },
         "default": {
-          "ribbon": "Colombia's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Colombia",
+          "ribbon": "Trusted home professionals in Colombia",
+          "title": "Find trusted housekeepers, nannies & caregivers in Colombia",
           "trustBadge": "Operating in Medellín, Bogotá, Cali & more"
         }
       },
       "PY": {
         "asuncion": {
-          "ribbon": "Asunción's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Asunción",
+          "ribbon": "Trusted home professionals in Asunción",
+          "title": "Find trusted housekeepers, nannies & caregivers in Asunción",
           "trustBadge": "Trusted in Villa Morra, Carmelitas & Manorá"
         },
         "default": {
-          "ribbon": "Paraguay's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Paraguay",
+          "ribbon": "Trusted home professionals in Paraguay",
+          "title": "Find trusted housekeepers, nannies & caregivers in Paraguay",
           "trustBadge": "Operating in Asunción, Ciudad del Este & Encarnación"
         }
       },
       "UY": {
         "montevideo": {
-          "ribbon": "Montevideo's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Montevideo",
+          "ribbon": "Trusted home professionals in Montevideo",
+          "title": "Find trusted housekeepers, nannies & caregivers in Montevideo",
           "trustBadge": "Trusted in Pocitos, Carrasco & Punta Gorda"
         },
         "default": {
-          "ribbon": "Uruguay's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Uruguay",
+          "ribbon": "Trusted home professionals in Uruguay",
+          "title": "Find trusted housekeepers, nannies & caregivers in Uruguay",
           "trustBadge": "Operating in Montevideo, Punta del Este & Maldonado"
         }
       },
       "AR": {
         "buenosAires": {
-          "ribbon": "Buenos Aires' boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Buenos Aires",
+          "ribbon": "Trusted home professionals in Buenos Aires",
+          "title": "Find trusted housekeepers, nannies & caregivers in Buenos Aires",
           "trustBadge": "Trusted in Palermo, Recoleta & Belgrano"
         },
         "default": {
-          "ribbon": "Argentina's boutique household staffing agency",
-          "title": "Hire trusted nannies, housekeepers & private staff in Argentina",
+          "ribbon": "Trusted home professionals in Argentina",
+          "title": "Find trusted housekeepers, nannies & caregivers in Argentina",
           "trustBadge": "Operating in Buenos Aires, Córdoba, Rosario & Mendoza"
         }
       },
       "default": {
-        "ribbon": "Latin America's boutique household staffing agency",
-        "title": "Hire trusted nannies, housekeepers & private staff",
+        "ribbon": "Trusted home professionals in Latin America",
+        "title": "Find trusted housekeepers, nannies & caregivers",
         "trustBadge": "Operating in Colombia, Paraguay, Uruguay & Argentina"
       }
     }
   },
   "benefits": {
     "badge": "WHY CASAORA",
-    "heading": "Premium Household Staffing Made Simple",
-    "description": "We connect expat families with Latin America's top domestic professionals through a platform built for trust and excellence.",
+    "heading": "Trusted Home Help, Made Simple",
+    "description": "We connect families with verified home professionals through a marketplace built for trust, safety, and transparency.",
     "englishSupport": {
       "title": "English Support",
       "description": "Bilingual platform and professionals who communicate fluently in English for seamless coordination."
@@ -1413,11 +1413,11 @@
     "tags": {
       "primary": [
         "Trial days scheduled in-app",
-        "Concierge interview prep",
+        "Interview prep included",
         "Background + reference dossiers",
         "Insurance and payroll guidance",
         "Bilingual coordination",
-        "Trusted expatriate network",
+        "Trusted professional network",
         "Secure document vault",
         "Performance check-ins"
       ],
@@ -1425,10 +1425,10 @@
         "Chef, nanny and housekeeper sourcing",
         "Live-in and part-time options",
         "Same-week replacements",
-        "Contract and visa paperwork",
+        "Contract and legal paperwork",
         "Private chauffeur partners",
         "Travel-ready support staff",
-        "On-call concierge team",
+        "On-call support team",
         "Custom household playbooks"
       ]
     }
@@ -1437,7 +1437,7 @@
     "highlights": {
       "tagline": "TAILORED EXPERIENCE",
       "title": "A minimal approach to meticulous care",
-      "subtitle": "Concierge-level planning with thoughtful follow-up notes, so every visit feels effortless.",
+      "subtitle": "Thoughtful planning with follow-up notes, so every visit feels effortless.",
       "items": {
         "curated": {
           "title": "Curated for calm",
@@ -1448,15 +1448,15 @@
           "description": "Smart scheduling, automated reminders, and visit notes keep your household aligned with every professional."
         },
         "support": {
-          "title": "Concierge-level support",
-          "description": "Dedicated hosts answer in minutes, coordinate last-minute shifts, and anticipate your needs."
+          "title": "Dedicated support",
+          "description": "Our team answers in minutes, coordinates last-minute shifts, and anticipates your needs."
         }
       }
     },
     "stats": {
       "items": {
         "homes": {
-          "value": "Expat & local families",
+          "value": "Families served",
           "label": "Households we focus on"
         },
         "cities": {
@@ -1508,7 +1508,7 @@
   },
   "services": {
     "badge": "Services",
-    "title": "Exceptional Professionals in Every Category",
+    "title": "Find trusted home professionals",
     "subtitle": "Professional home services that make life easier. From cleaning to childcare, find verified professionals ready to help.",
     "viewAll": "View All Services",
     "cta": "Find Professionals",
@@ -1520,62 +1520,62 @@
     "responsesIn": "Responds in",
     "items": {
       "housekeeping": {
-        "title": "Housekeeping & Estate Care",
-        "description": "Impeccable standards, eco-conscious practices, attention to every detail. Our housekeepers transform spaces."
+        "title": "Housekeeping",
+        "description": "Reliable professionals for regular cleaning, deep cleaning, and home organization. Trusted by families across Latin America."
       },
       "childcare": {
-        "title": "Childcare & Family Support",
-        "description": "Experienced nannies with educational backgrounds, CPR certification, and language skills. Your children deserve the best."
+        "title": "Childcare",
+        "description": "Experienced nannies and babysitters. Background-checked, reviewed by other families, and ready to support yours."
       },
       "relocation": {
-        "title": "Property & Relocation Services",
-        "description": "Seamless transitions for new arrivals. Professional setup, organization, and household coordination."
+        "title": "Home Setup",
+        "description": "Professional help with organizing, unpacking, and getting your home ready. Perfect for moves or fresh starts."
       },
       "elderCare": {
-        "title": "Elder & Wellness Care",
-        "description": "Compassionate professionals providing companionship, wellness support, and dignified care."
+        "title": "Elder Care",
+        "description": "Compassionate caregivers providing companionship, daily support, and dignified care for loved ones."
       },
       "petCare": {
-        "title": "Pet & Home Management",
-        "description": "Trusted specialists for your home and beloved pets. Reliable care when you're away."
+        "title": "Pet Care",
+        "description": "Trusted pet sitters and dog walkers. Reliable care for your beloved pets when you need it."
       },
       "lifestyle": {
-        "title": "Culinary & Lifestyle Professionals",
-        "description": "Private chefs, personal assistants, and lifestyle specialists. Hospitality-trained excellence for your home."
+        "title": "Cooking",
+        "description": "Personal chefs and cooks for daily meals, special occasions, or meal prep. Bring great food to your table."
       }
     }
   },
   "process": {
     "badge": "How it works",
-    "title": "We Curate. You Choose.",
+    "title": "How Casaora works for your home",
     "steps": {
       "step1": {
         "number": "01",
-        "title": "We vet rigorously",
-        "description": "Only 5% pass. Background checks, skill tests, in-person interviews."
+        "title": "Tell us what you need",
+        "description": "Choose the type of help: cleaning, childcare, elderly care, cooking and more. Add your schedule, location and preferences."
       },
       "step2": {
         "number": "02",
-        "title": "Browse curated profiles",
-        "description": "Search by language, location, availability. Watch video intros."
+        "title": "Match with professionals",
+        "description": "We show you vetted professionals who fit your needs, with profiles, experience, and reviews from other families."
       },
       "step3": {
         "number": "03",
-        "title": "Connect & book",
-        "description": "Trial days available. Secure messaging. Your timeline."
+        "title": "Book & pay securely",
+        "description": "Confirm the booking, chat through the app, and pay safely online. No cash, no stress, full transparency."
       },
       "step4": {
         "number": "04",
-        "title": "We support you",
-        "description": "From onboarding to ongoing support. We maintain standards."
+        "title": "Get support when you need it",
+        "description": "Our team helps resolve any issues and keeps the community safe for everyone."
       }
     }
   },
-  "concierge": {
-    "title": "Ready to Find Your Exceptional Match?",
-    "subtitle": "Browse our curated network of Latin America's top household professionals. Every profile is verified, every professional is vetted, every choice is yours.",
-    "browseProfessionals": "Browse Exceptional Professionals",
-    "bookConsultation": "Schedule a Consultation",
+  "directHire": {
+    "title": "Ready to Find Your Perfect Match?",
+    "subtitle": "Tell us about your household needs. We'll introduce you to vetted professionals with legal contracts and a satisfaction guarantee.",
+    "browseProfessionals": "Browse Professionals",
+    "bookConsultation": "Request Direct Hire",
     "cities": "Serving Colombia, Paraguay, Uruguay & Argentina",
     "languages": "English, Spanish & Portuguese support"
   },
@@ -1645,7 +1645,7 @@
     }
   },
   "footer": {
-    "description": "Premium Domestic Staffing",
+    "description": "Trusted home professionals in Latin America",
     "platform": "Platform",
     "company": "Company",
     "mobile": "Mobile",
@@ -1681,7 +1681,7 @@
         "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
         "primaryCTA": "Browse Professionals",
         "secondaryCTA": "Learn More",
-        "badge": "Concierge and self-serve booking"
+        "badge": "Simple, safe booking"
       },
       "features": {
         "title": "Powerful booking features",
@@ -2391,13 +2391,13 @@
         "createOneNow": "Create one now"
       },
       "footer": {
-        "support": "Concierge support is available 7 days a week for onboarding assistance."
+        "support": "Support is available 7 days a week for onboarding assistance."
       },
       "sidebar": {
         "imageAlt": "Casaora hospitality",
         "badge": "Trusted domestic talent",
-        "title": "Meticulous professionals handpicked for expat households.",
-        "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
+        "title": "Trusted professionals vetted for your household.",
+        "description": "Our bilingual team vets every profile with interviews, background checks, and ongoing quality reviews."
       }
     },
     "signUp": {
@@ -2449,11 +2449,11 @@
         "signInInstead": "Sign in instead"
       },
       "footer": {
-        "support": "We'll guide you with concierge onboarding after you submit your details."
+        "support": "We'll guide you through onboarding after you submit your details."
       },
       "sidebar": {
         "imageAlt": "Casaora onboarding",
-        "badge": "Concierge onboarding",
+        "badge": "Guided onboarding",
         "title": "We interview, background check, and coach every professional.",
         "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
       }
@@ -2565,7 +2565,7 @@
   "professionalsDirectory": {
     "header": {
       "title": "Casaora professionals",
-      "subtitle": "We're building a curated network of vetted professionals in Medellín. Share your needs via our concierge service, and we'll notify you when we have the perfect matches."
+      "subtitle": "We're building a trusted network of vetted home professionals across Latin America. Browse profiles, compare reviews, and book with confidence."
     },
     "filters": {
       "search": "Search by name, service, or neighbourhood",
@@ -2605,7 +2605,7 @@
     "step": "Step",
     "of": "of",
     "complete": "complete",
-    "exit": "Exit wizard and speak with concierge",
+    "exit": "Exit wizard and get help",
     "location": {
       "title": "Where do you need help?",
       "description": "Select your city and neighborhood to find nearby professionals",
@@ -2753,7 +2753,7 @@
     },
     "hero": {
       "title": "Transparent Pricing - No Hidden Fees",
-      "subtitle": "Customers pay 15% for Instant Book or 20% for Concierge. Pros keep 100%. Vetting, background checks, and insurance are included.",
+      "subtitle": "Customers pay 15% for Instant Book or 20% for Direct Hire. Pros keep 100%. Vetting, background checks, and insurance are included.",
       "tabs": {
         "customers": "For Customers",
         "professionals": "For Professionals"
@@ -2778,17 +2778,17 @@
         "cta": "Browse professionals",
         "bestFor": "quick tasks, recurring cleanings, hourly help"
       },
-      "concierge": {
-        "title": "Concierge (20%)",
-        "subtitle": "Guided matching with curated shortlist, replacements, and human support",
+      "directHire": {
+        "title": "Direct Hire (20%)",
+        "subtitle": "Full-time or long-term placement with legal contracts and 30-day guarantee",
         "features": [
-          "Dedicated coordinator and human support",
+          "Legal contracts and compliance support",
           "Vetting, background checks, and insurance included",
-          "Help with scheduling, replacements, and support",
+          "30-day satisfaction guarantee with replacements",
           "Transparent 20% service fee (customer)"
         ],
-        "cta": "Book Concierge",
-        "bestFor": "higher-touch needs, ongoing help, replacements handled"
+        "cta": "Request Direct Hire",
+        "bestFor": "full-time help, long-term placements, legal employment"
       }
     },
     "calculator": {
@@ -2806,8 +2806,8 @@
         "label": "Service level",
         "instantBook": "Instant Book (15% service fee)",
         "instantBookHelper": "Self-serve booking in minutes",
-        "concierge": "Concierge (20% service fee)",
-        "conciergeHelper": "White-glove matching with human support"
+        "directHire": "Direct Hire (20% service fee)",
+        "directHireHelper": "Full-time placement with legal contracts"
       },
       "currency": {
         "label": "Display currency",
@@ -2850,13 +2850,13 @@
         }
       },
       "trustBadge": {
-        "title": "Built for expats and local families in Latin America",
+        "title": "Built for families in Latin America",
         "description": "Your platform fee ensures every professional is vetted, verified, and backed by our support. We don't take shortcuts on safety."
       }
     },
-    "concierge": {
-      "title": "Why Choose Concierge Service?",
-      "subtitle": "Designed for foreigners and first-time users who want expert guidance and English-speaking support.",
+    "directHire": {
+      "title": "Why Choose Direct Hire?",
+      "subtitle": "For families who want long-term, full-time help with legal contracts and a satisfaction guarantee.",
       "benefits": {
         "humanMatching": {
           "title": "Expert Human Matching",
@@ -2880,30 +2880,30 @@
         },
         "topProfessionals": {
           "title": "Our Most Trusted Professionals",
-          "description": "Concierge clients get matched with highly-rated, carefully vetted professionals first."
+          "description": "Direct Hire clients get matched with highly-rated, carefully vetted professionals first."
         }
       },
       "perfectFor": {
         "title": "Perfect For:",
         "audiences": [
-          "Foreigners visiting Latin America",
-          "Expats new to the region",
-          "First-time users of domestic services",
-          "Busy professionals who want concierge-level service",
-          "Anyone who values expert guidance and English support"
+          "Families needing full-time help",
+          "Those looking for long-term placements",
+          "Anyone who wants legal employment contracts",
+          "Families who value a satisfaction guarantee",
+          "Anyone who wants expert guidance and support"
         ]
       },
-      "cta": "Request Concierge Matching",
-      "ctaSubtext": "Response within 2 hours · English & Spanish support"
+      "cta": "Request Direct Hire",
+      "ctaSubtext": "30-day satisfaction guarantee · English & Spanish support"
     },
     "customer": {
       "howItWorks": {
         "title": "How Casaora pricing works",
-        "description": "Two clear fees: 15% for Instant Book or 20% for Concierge. Pros pay 0%. Vetting, background checks, and insurance are included.",
+        "description": "Two clear fees: 15% for Instant Book or 20% for Direct Hire. Pros pay 0%. Vetting, background checks, and insurance are included.",
         "steps": {
           "step1": {
             "title": "Pick your level and hours",
-            "description": "Choose Instant Book (15%) or Concierge (20%) and how many hours you need."
+            "description": "Choose Instant Book (15%) or Direct Hire (20%) and how many hours you need."
           },
           "step2": {
             "title": "We include safety and support",
@@ -2925,7 +2925,7 @@
       "cta": {
         "title": "Ready to get started?",
         "subtitle": "Join customers who trust Casaora for vetted professionals.",
-        "primary": "Book Concierge",
+        "primary": "Request Direct Hire",
         "secondary": "Browse professionals"
       }
     },
@@ -3018,7 +3018,7 @@
       },
       "cta": {
         "title": "Start Earning on Your Own Terms",
-        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Latin America's most trusted concierge service.",
+        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Latin America's most trusted platform for home professionals.",
         "button": "Become a Professional",
         "subtext": "Free to join · No hidden fees · Weekly payouts"
       }
@@ -3030,8 +3030,8 @@
         "label": "Service level",
         "instantBook": "Instant Book (customer pays 15%)",
         "instantBookHelper": "Fast, self-serve bookings",
-        "concierge": "Concierge (customer pays 20%)",
-        "conciergeHelper": "White-glove matching and support"
+        "directHire": "Direct Hire (customer pays 20%)",
+        "directHireHelper": "Full-time placement with legal contracts"
       },
       "yourHourlyRate": "Your hourly rate",
       "rateRange": "Recommended rate based on your experience and local market",
@@ -3071,9 +3071,9 @@
           "question": "Why is there a platform fee?",
           "answer": "The platform fee covers background checks, insurance, payment processing, 24/7 support, and the technology that keeps Casaora safe and reliable. It ensures you're working with verified professionals."
         },
-        "conciergeService": {
-          "question": "How does the concierge matching service work?",
-          "answer": "Our concierge team matches you with thoroughly vetted professionals based on your needs. We provide English-speaking coordinators, handle all communication, offer priority booking, and include a satisfaction guarantee. We're currently building our professional network in Medellín — share your needs and we'll notify you when we have perfect matches ready."
+        "directHireService": {
+          "question": "How does the Direct Hire matching service work?",
+          "answer": "Our team matches you with thoroughly vetted professionals based on your needs. We provide bilingual coordinators, handle all communication, offer priority booking, and include a satisfaction guarantee. Share your needs and we'll connect you with perfect matches."
         },
         "professionalKeepsRate": {
           "question": "Do professionals really keep 100% of their rate?",
@@ -3141,35 +3141,35 @@
   "about": {
     "meta": {
       "title": "About Us - Our Story | Casaora",
-      "description": "Learn about Casaora's mission to connect expats in Latin America with trusted, bilingual domestic service professionals through our concierge matching service."
+      "description": "Learn about Casaora's mission to connect families in Latin America with trusted, verified home professionals through our marketplace built for trust and safety."
     },
     "story": {
-      "title": "Bridging Cultures, Building Trust",
-      "subtitle": "We're building a trusted concierge service that connects foreigners in Latin America with verified, bilingual domestic service professionals.",
+      "title": "Trust and Safety, Simplified",
+      "subtitle": "We're building the trusted marketplace that connects families with verified home professionals across Latin America.",
       "problem": {
         "title": "The Challenge We're Solving",
-        "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Latin America face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
-        "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the bilingual support, verification, or ongoing concierge assistance that foreigners truly need."
+        "paragraph1": "Finding reliable domestic help shouldn't be stressful. Families in Latin America face uncertainty about trust and safety, informal arrangements without clear expectations, and a lack of verified professionals.",
+        "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the verification, transparency, or ongoing support that families and professionals truly need."
       },
       "solution": {
         "title": "Our Solution",
-        "paragraph1": "Casaora is a concierge service designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
+        "paragraph1": "Casaora is a marketplace built for trust and safety. We combine technology with human support to create a seamless, trustworthy experience:",
         "feature1": {
           "title": "Verified Professionals",
           "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
         },
         "feature2": {
           "title": "Bilingual Support",
-          "description": "Our entire platform and concierge team operates in both English and Spanish, eliminating communication barriers."
+          "description": "Our entire platform and support team operates in both English and Spanish, eliminating communication barriers."
         },
         "feature3": {
           "title": "Ongoing Assistance",
-          "description": "From booking to completion, our concierge team is available to help resolve any issues and ensure quality service."
+          "description": "From booking to completion, our team is available to help resolve any issues and ensure quality service."
         }
       },
       "journey": {
         "title": "Our Journey",
-        "paragraph1": "Founded by expats who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Latin America."
+        "paragraph1": "Founded by people who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help should be easy, safe, and stress-free. Today, we're proud to serve families and empower home professionals across Latin America."
       }
     },
     "missionVision": {
@@ -3177,11 +3177,11 @@
       "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
       "mission": {
         "title": "Our Mission",
-        "description": "To connect foreigners living in Latin America with verified, bilingual domestic service professionals through a secure, transparent concierge service powered by modern technology."
+        "description": "To dignify domestic work and make it simple, safe, and fair for families in Latin America to work with verified home professionals."
       },
       "vision": {
         "title": "Our Vision",
-        "description": "To become the most trusted platform for expat services across Latin America, empowering both customers and professionals with safety, transparency, and opportunity."
+        "description": "A Latin America where every home professional has access to decent work, and every household can rely on trusted support at home."
       },
       "values": {
         "title": "Our Core Values",
@@ -3200,16 +3200,16 @@
         },
         "empowerment": {
           "title": "Empowerment",
-          "description": "We empower both expats to find reliable help and local professionals to grow sustainable businesses."
+          "description": "We empower families to find reliable help and professionals to build sustainable careers."
         }
       }
     },
     "team": {
       "title": "Our Remote-First Team",
-      "subtitle": "We're a distributed team spanning Latin America and the United States, united by our mission to serve expats and professionals.",
+      "subtitle": "We're a distributed team spanning Latin America and the United States, united by our mission to serve families and professionals.",
       "remoteFirst": {
         "title": "Built for Global Impact",
-        "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives, deep local knowledge, and a genuine understanding of the expat experience. We work asynchronously across time zones to provide 24/7 support for our community."
+        "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives and deep local knowledge. We work asynchronously across time zones to provide responsive support for our community."
       },
       "stats": {
         "locations": "2+",
@@ -3222,7 +3222,7 @@
       "benefits": {
         "distributed": {
           "title": "Globally Distributed",
-          "description": "Our team spans Latin America and the US, giving us deep insight into both expat and local needs."
+          "description": "Our team spans Latin America and the US, giving us deep insight into both family and professional needs."
         },
         "bilingual": {
           "title": "Fully Bilingual",
@@ -3239,7 +3239,7 @@
       },
       "joinTeam": {
         "title": "Want to Join Our Mission?",
-        "description": "We're always looking for passionate people who want to make a difference in the lives of expats and professionals.",
+        "description": "We're always looking for passionate people who want to make a difference in the lives of families and professionals.",
         "cta": "Get in Touch"
       }
     },
@@ -3255,7 +3255,7 @@
         "description": "All transactions are processed through PCI DSS Level 1 certified processors with bank-level encryption and buyer protection."
       },
       "support": {
-        "title": "Concierge Support",
+        "title": "Dedicated Support",
         "description": "Our bilingual team is available to help resolve any issues before, during, and after your service."
       },
       "transparency": {
@@ -3265,7 +3265,7 @@
     },
     "cta": {
       "title": "Ready to Experience the Difference?",
-      "subtitle": "Join thousands of expats who trust Casaora for their domestic service needs.",
+      "subtitle": "Join thousands of families who trust Casaora for their home service needs.",
       "browseProfessionals": "Browse Professionals",
       "signUp": "Sign Up Free"
     }
@@ -3277,15 +3277,15 @@
     },
     "hero": {
       "title": "How Casaora Works",
-      "subtitle": "Two ways to hire: Chat with Amara AI for instant bookings, or use our concierge for permanent placements with legal contracts and a 30-day guarantee."
+      "subtitle": "Two ways to hire: Instant Book for quick jobs, or Direct Hire for permanent placements with legal contracts and a 30-day guarantee."
     },
     "customer": {
       "title": "For Customers",
-      "subtitle": "Pick Instant Book (15%) or Concierge (20%). Pros keep 100%. Background checks and insurance included.",
+      "subtitle": "Pick Instant Book (15%) or Direct Hire (20%). Pros keep 100%. Background checks and insurance included.",
       "steps": {
         "search": {
           "title": "Choose your service level",
-          "description": "Instant Book for self-serve in minutes or Concierge for guided matching."
+          "description": "Instant Book for self-serve in minutes or Direct Hire for guided matching."
         },
         "book": {
           "title": "We vet and match",
@@ -3300,7 +3300,7 @@
           "description": "Messaging, scheduling, replacements, and support are included."
         }
       },
-      "cta": "Book Concierge",
+      "cta": "Request Direct Hire",
       "ctaSecondary": "Browse professionals"
     },
     "professional": {
@@ -3317,7 +3317,7 @@
         },
         "match": {
           "title": "Get matched to customers",
-          "description": "Instant Book for fast jobs; Concierge brings curated matches."
+          "description": "Instant Book for fast jobs; Direct Hire brings curated matches."
         },
         "serve": {
           "title": "Deliver great service",
@@ -3342,7 +3342,7 @@
         "description": "All payments are processed through certified processors with bank-level encryption. Customers are protected, and professionals get paid reliably after each job."
       },
       "support": {
-        "title": "24/7 Concierge Support",
+        "title": "24/7 Dedicated Support",
         "description": "Our bilingual support team is available around the clock to help resolve any issues, answer questions, and ensure smooth service delivery."
       }
     },
@@ -3355,7 +3355,7 @@
       },
       "q2": {
         "question": "What if I'm not satisfied with the service?",
-        "answer": "Your satisfaction is guaranteed. If you're not happy with a service, contact our concierge team within 24 hours and we'll work to resolve the issue—whether that's arranging a redo, finding a different professional, or issuing a refund."
+        "answer": "Your satisfaction is guaranteed. If you're not happy with a service, contact our support team within 24 hours and we'll work to resolve the issue—whether that's arranging a redo, finding a different professional, or issuing a refund."
       },
       "q3": {
         "question": "How do payments work?",
@@ -3371,12 +3371,12 @@
     "cta": {
       "title": "Ready to Get Started?",
       "subtitle": "Join thousands of customers and professionals who trust Casaora.",
-      "browseButton": "Book Concierge",
+      "browseButton": "Request Direct Hire",
       "signUpButton": "Browse Professionals"
     },
     "serviceOptions": {
       "title": "Choose your path",
-      "subtitle": "Instant Book with a 15% fee or Concierge with a 20% fee. Professionals receive 100% of their rate.",
+      "subtitle": "Instant Book with a 15% fee or Direct Hire with a 20% fee. Professionals receive 100% of their rate.",
       "instantBook": {
         "title": "Instant Book (15%)",
         "description": "Fast self-serve for cleanings, quick tasks, and recurring help.",
@@ -3391,8 +3391,8 @@
         ],
         "cta": "Browse professionals"
       },
-      "concierge": {
-        "title": "Concierge (20%)",
+      "directHire": {
+        "title": "Direct Hire (20%)",
         "description": "Guided matching with a curated shortlist, replacements, and human support.",
         "speed": "Shortlist in 48h",
         "process": "Human team + vetting",
@@ -3403,7 +3403,7 @@
           "Help with scheduling, replacements, and support",
           "Ideal for ongoing or higher-care needs"
         ],
-        "cta": "Book Concierge"
+        "cta": "Request Direct Hire"
       }
     },
     "directHireValue": {
@@ -3735,7 +3735,7 @@
     },
     "serviceSelectionWidget": {
       "title": "How can we help you today?",
-      "description": "Choose between instant booking with Amara AI or permanent hiring with our concierge",
+      "description": "Choose between instant booking or permanent hiring with Direct Hire",
       "quickJob": {
         "title": "Amara Instant Book",
         "description": "Need help for tomorrow? Chat with our AI to book vetted professionals in under 2 minutes.",
@@ -3750,7 +3750,7 @@
         "feature1": " one-time placement fee",
         "feature2": "Legal contracts & guarantees",
         "feature3": "30-day replacement guarantee",
-        "cta": "Talk to Concierge"
+        "cta": "Request Direct Hire"
       },
       "helpText": "Zero commission for professionals on hourly bookings. Full support for both options."
     },
@@ -4157,7 +4157,7 @@
         "description": "Build steady work with repeat clients."
       },
       "placement": {
-        "title": "Concierge (20%)",
+        "title": "Direct Hire (20%)",
         "description": "Guided matching with shortlist and replacements. Customer pays 20% on top."
       },
       "ctaText": "Total transparency: 0% for pros. 15%/20% paid by customer."

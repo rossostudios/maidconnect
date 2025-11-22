@@ -1,9 +1,8 @@
 "use client";
 
 import { InformationCircleIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { type VerificationLevel, VerificationBadge } from "./verification-badge";
 import { cn } from "@/lib/utils/core";
+import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 
 export interface VerificationData {
   level: VerificationLevel;
@@ -79,11 +78,11 @@ export function VerificationBadgesGrid({
     return (
       <div
         className={cn(
-          "p-4 border border-neutral-200 bg-neutral-50 rounded-lg text-center",
+          "rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center",
           className
         )}
       >
-        <p className="text-sm text-neutral-500">No verification completed yet</p>
+        <p className="text-neutral-500 text-sm">No verification completed yet</p>
       </div>
     );
   }
@@ -99,19 +98,17 @@ export function VerificationBadgesGrid({
 
       {/* Explanations */}
       {showExplanations && (
-        <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-lg space-y-3">
-          <div className="flex items-center gap-2 text-sm font-medium text-neutral-900">
-            <InformationCircleIcon className="w-4 h-4 text-neutral-500" />
+        <div className="space-y-3 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <div className="flex items-center gap-2 font-medium text-neutral-900 text-sm">
+            <InformationCircleIcon className="h-4 w-4 text-neutral-500" />
             What each badge means:
           </div>
           <ul className="space-y-2">
             {visibleBadges.map(({ level: badgeLevel, explanation }) => (
-              <li key={badgeLevel} className="text-sm text-neutral-700 flex items-start gap-2">
-                <span className="text-neutral-400 mt-0.5">•</span>
+              <li className="flex items-start gap-2 text-neutral-700 text-sm" key={badgeLevel}>
+                <span className="mt-0.5 text-neutral-400">•</span>
                 <span>
-                  <strong className="text-neutral-900">
-                    {getBadgeLabel(badgeLevel)}:
-                  </strong>{" "}
+                  <strong className="text-neutral-900">{getBadgeLabel(badgeLevel)}:</strong>{" "}
                   {explanation}
                 </span>
               </li>
@@ -152,8 +149,13 @@ export function VerificationSummaryBadge({
   verification,
   className,
 }: VerificationSummaryBadgeProps) {
-  const { level, backgroundCheckPassed, documentsVerified, interviewCompleted, referencesVerified } =
-    verification;
+  const {
+    level,
+    backgroundCheckPassed,
+    documentsVerified,
+    interviewCompleted,
+    referencesVerified,
+  } = verification;
 
   let count = 0;
   if (level !== "none") count++;
@@ -169,14 +171,14 @@ export function VerificationSummaryBadge({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full",
-        "bg-green-50 border border-green-200 text-green-700",
-        "text-sm font-medium",
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5",
+        "border border-green-200 bg-green-50 text-green-700",
+        "font-medium text-sm",
         className
       )}
     >
       <svg
-        className="w-4 h-4"
+        className="h-4 w-4"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"

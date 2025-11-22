@@ -21,13 +21,12 @@ import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-short
 import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
-import { RealtimeProvider } from "@/lib/integrations/supabase/RealtimeProvider";
-import { MarketProvider } from "@/lib/contexts/MarketContext";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
-import { ConditionalAnnouncementBanner } from "@/components/sections/ConditionalAnnouncementBanner";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
+import { MarketProvider } from "@/lib/contexts/MarketContext";
+import { RealtimeProvider } from "@/lib/integrations/supabase/RealtimeProvider";
 import { geistSans } from "../fonts";
 
 // Font configuration - Lia Design System
@@ -35,7 +34,7 @@ import { geistSans } from "../fonts";
 // - Geist Mono: Numbers, data, metrics, code
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://casaora.com"),
+  metadataBase: new URL("https://casaora.co"),
   title: {
     default: "Casaora® · The Art of Home",
     template: "%s · Casaora®",
@@ -67,7 +66,7 @@ export const metadata: Metadata = {
     title: "Casaora® · The Art of Home",
     description:
       "Latin America's premier boutique domestic staffing agency. Serving Colombia, Paraguay, Uruguay, and Argentina. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
-    url: "https://casaora.com",
+    url: "https://casaora.co",
     siteName: "Casaora®",
     locale: "en_US",
     type: "website",
@@ -126,7 +125,6 @@ export default async function RootLayout({
               <PostHogProvider nonce={nonce}>
                 <FeedbackProvider>
                   <UnifiedCommandPaletteWrapper>
-                    <ConditionalAnnouncementBanner />
                     <ChangelogBanner />
                     <Suspense fallback={<div>Loading...</div>}>
                       <SupabaseProvider>

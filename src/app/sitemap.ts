@@ -8,7 +8,7 @@ import { MetadataRoute } from "next";
  */
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://casaora.com";
+  const baseUrl = "https://casaora.co";
   const currentDate = new Date();
 
   return [
@@ -72,8 +72,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // Professional Directory - REMOVED for concierge-only migration
-    // /professionals now redirects to /concierge via 301 in next.config.ts
+    // Professional Directory - REMOVED for direct-hire-focused migration
+    // /professionals now redirects to /direct-hire via 301 in next.config.ts
     // Individual professional profiles remain viewable only by admins for vetting
 
     // Contact

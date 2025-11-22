@@ -102,7 +102,7 @@ export default async function AdminAnalyticsPage() {
     : 0;
 
   // Direct hire revenue calculations (default fee: 2,000,000 COP = ~$500 USD)
-  const defaultDirectHireFee = 2000000; // COP
+  const defaultDirectHireFee = 2_000_000; // COP
   const directHireRevenueCOP = directHirePaid * defaultDirectHireFee;
   const directHireRevenueUSD = Math.round(directHireRevenueCOP / 4000); // ~4000 COP/USD
   const directHireConversionRate = directHireTotal

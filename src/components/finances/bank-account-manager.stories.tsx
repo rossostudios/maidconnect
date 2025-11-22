@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { http, HttpResponse } from "msw";
+import { HttpResponse, http } from "msw";
 import { BankAccountManager } from "./bank-account-manager";
 
 const meta = {
@@ -145,9 +145,7 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockVerifiedAccount);
-        }),
+        http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockVerifiedAccount)),
       ],
     },
   },
@@ -160,9 +158,7 @@ export const MultipleAccounts: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockMultipleAccounts);
-        }),
+        http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockMultipleAccounts)),
       ],
     },
   },
@@ -174,11 +170,7 @@ export const MultipleAccounts: Story = {
 export const NewAccount: Story = {
   parameters: {
     msw: {
-      handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockNewAccount);
-        }),
-      ],
+      handlers: [http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockNewAccount))],
     },
   },
 };
@@ -190,9 +182,7 @@ export const FailedVerification: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockFailedVerification);
-        }),
+        http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockFailedVerification)),
       ],
     },
   },
@@ -205,9 +195,7 @@ export const RequiresOnboarding: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockRequiresOnboarding);
-        }),
+        http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockRequiresOnboarding)),
       ],
     },
   },
@@ -219,11 +207,7 @@ export const RequiresOnboarding: Story = {
 export const NoAccounts: Story = {
   parameters: {
     msw: {
-      handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(mockNoAccounts);
-        }),
-      ],
+      handlers: [http.get("/api/pro/stripe/bank-account", () => HttpResponse.json(mockNoAccounts))],
     },
   },
 };
@@ -236,7 +220,7 @@ export const Loading: Story = {
     msw: {
       handlers: [
         http.get("/api/pro/stripe/bank-account", async () => {
-          await new Promise((resolve) => setTimeout(resolve, 10000));
+          await new Promise((resolve) => setTimeout(resolve, 10_000));
           return HttpResponse.json(mockVerifiedAccount);
         }),
       ],
@@ -251,12 +235,9 @@ export const ErrorState: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json(
-            { error: "Failed to fetch bank account details" },
-            { status: 500 }
-          );
-        }),
+        http.get("/api/pro/stripe/bank-account", () =>
+          HttpResponse.json({ error: "Failed to fetch bank account details" }, { status: 500 })
+        ),
       ],
     },
   },
@@ -269,12 +250,12 @@ export const PayoutsDisabled: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json({
+        http.get("/api/pro/stripe/bank-account", () =>
+          HttpResponse.json({
             ...mockVerifiedAccount,
             payoutsEnabled: false,
-          });
-        }),
+          })
+        ),
       ],
     },
   },
@@ -287,8 +268,8 @@ export const AllStatuses: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get("/api/pro/stripe/bank-account", () => {
-          return HttpResponse.json({
+        http.get("/api/pro/stripe/bank-account", () =>
+          HttpResponse.json({
             success: true,
             bankAccounts: [
               {
@@ -351,8 +332,8 @@ export const AllStatuses: Story = {
             hasVerifiedAccount: true,
             requiresOnboarding: false,
             payoutsEnabled: true,
-          });
-        }),
+          })
+        ),
       ],
     },
   },

@@ -126,10 +126,10 @@ export function ModerationQueueDashboard() {
         <div className="flex border-neutral-200 border-b">
           <button
             className={
-              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition " +
+              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedStatus === "pending" && !selectedSeverity
                 ? "bg-orange-500 text-white"
-                : "bg-white text-neutral-900 hover:bg-neutral-50 first:rounded-tl-lg")
+                : "bg-white text-neutral-900 first:rounded-tl-lg hover:bg-neutral-50")
             }
             onClick={() => {
               setSelectedStatus("pending");
@@ -144,7 +144,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition " +
+              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedSeverity === "critical"
                 ? "bg-red-600 text-white"
                 : "bg-white text-neutral-900 hover:bg-neutral-50")
@@ -160,7 +160,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition " +
+              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedSeverity === "high"
                 ? "bg-orange-600 text-white"
                 : "bg-white text-neutral-900 hover:bg-neutral-50")
@@ -176,7 +176,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition " +
+              "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedSeverity === "medium"
                 ? "bg-orange-500 text-white"
                 : "bg-white text-neutral-900 hover:bg-neutral-50")
@@ -192,10 +192,10 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "flex-1 px-6 py-4 font-medium text-sm transition " +
+              "flex-1 px-6 py-4 font-medium text-sm transition" +
               (selectedStatus === "reviewed"
                 ? "bg-orange-500 text-white"
-                : "bg-white text-neutral-900 hover:bg-neutral-50 last:rounded-tr-xl")
+                : "bg-white text-neutral-900 last:rounded-tr-xl hover:bg-neutral-50")
             }
             onClick={() => {
               setSelectedStatus("reviewed");
@@ -214,7 +214,7 @@ export function ModerationQueueDashboard() {
         <div className="flex gap-2">
           <button
             className={
-              "rounded-lg border px-4 py-2 text-sm transition " +
+              "rounded-lg border px-4 py-2 text-sm transition" +
               (selectedFlagType
                 ? "border-neutral-200 text-neutral-900 hover:border-neutral-900"
                 : "border-orange-500 bg-orange-500 text-white")
@@ -226,7 +226,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "rounded-lg border px-4 py-2 text-sm transition " +
+              "rounded-lg border px-4 py-2 text-sm transition" +
               (selectedFlagType === "booking_pattern"
                 ? "border-neutral-900 bg-neutral-900 text-white"
                 : "border-neutral-200 text-neutral-900 hover:border-neutral-900")
@@ -238,7 +238,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "rounded-lg border px-4 py-2 text-sm transition " +
+              "rounded-lg border px-4 py-2 text-sm transition" +
               (selectedFlagType === "review_manipulation"
                 ? "border-neutral-900 bg-neutral-900 text-white"
                 : "border-neutral-200 text-neutral-900 hover:border-neutral-900")
@@ -250,7 +250,7 @@ export function ModerationQueueDashboard() {
           </button>
           <button
             className={
-              "rounded-lg border px-4 py-2 text-sm transition " +
+              "rounded-lg border px-4 py-2 text-sm transition" +
               (selectedFlagType === "account_anomaly"
                 ? "border-neutral-900 bg-neutral-900 text-white"
                 : "border-neutral-200 text-neutral-900 hover:border-neutral-900")
@@ -279,7 +279,7 @@ export function ModerationQueueDashboard() {
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-200">
-                    <span className="font-medium text-neutral-600 text-lg">
+                    <span className="font-medium text-lg text-neutral-600">
                       {(flag.user.full_name || "?").charAt(0).toUpperCase()}
                     </span>
                   </div>
@@ -288,15 +288,13 @@ export function ModerationQueueDashboard() {
                       {flag.user.full_name || "Unnamed User"}
                     </p>
                     <p className="text-neutral-600 text-xs">{flag.user.email}</p>
-                    <p className="text-neutral-600 text-xs capitalize">
-                      Role: {flag.user.role}
-                    </p>
+                    <p className="text-neutral-600 text-xs capitalize">Role: {flag.user.role}</p>
                   </div>
                 </div>
 
                 <span
                   className={
-                    "rounded-full px-3 py-1 font-medium text-xs " + severityColors[flag.severity]
+                    "rounded-full px-3 py-1 font-medium text-xs" + severityColors[flag.severity]
                   }
                 >
                   {flag.severity.charAt(0).toUpperCase() + flag.severity.slice(1)}
@@ -338,7 +336,7 @@ export function ModerationQueueDashboard() {
 
               <div className="mt-4 flex gap-3 border-neutral-200 border-t pt-4">
                 <button
-                  className="flex-1 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2 font-medium text-white text-sm transition hover:bg-orange-600"
+                  className="flex-1 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-orange-600"
                   onClick={() => {
                     setSelectedUser({
                       id: flag.user.id,

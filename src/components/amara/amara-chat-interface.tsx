@@ -480,14 +480,14 @@ export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfa
                     Need help with long-term hiring or complex requirements?
                   </p>
                   <p className="mt-1 font-[family-name:var(--font-geist-sans)] text-blue-700 text-xs">
-                    Talk to our human concierge team for personalized assistance.
+                    Talk to our support team for personalized assistance.
                   </p>
                 </div>
                 <Link
                   className="flex-shrink-0 rounded-lg border border-blue-600 bg-blue-600 px-4 py-2 font-[family-name:var(--font-geist-sans)] font-semibold text-white text-xs transition-all hover:border-blue-700 hover:bg-blue-700 active:scale-95"
-                  href="/concierge"
+                  href="/direct-hire"
                 >
-                  Contact Concierge
+                  Contact Team
                 </Link>
               </div>
             </div>

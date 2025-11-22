@@ -121,7 +121,7 @@ async function CTASection() {
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
-              href="/concierge"
+              href="/direct-hire"
             >
               {t("browseButton")}
             </Link>

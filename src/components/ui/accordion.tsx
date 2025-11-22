@@ -29,12 +29,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode } from "react";
 import * as React from "react";
-import {
-  Disclosure as AriaDisclosure,
-  DisclosurePanel,
-  Button,
-  type DisclosureProps as AriaDisclosureProps,
-} from "react-aria-components";
+import { Disclosure as AriaDisclosure, Button, DisclosurePanel } from "react-aria-components";
 import { cn } from "@/lib/utils/core";
 
 /**
@@ -46,10 +41,8 @@ import { cn } from "@/lib/utils/core";
 const accordionVariants = cva("overflow-hidden transition-all", {
   variants: {
     variant: {
-      default:
-        "border border-neutral-200 bg-white rounded-lg shadow-sm hover:shadow-md",
-      bordered:
-        "border-2 border-neutral-200 bg-white rounded-lg hover:border-neutral-300",
+      default: "rounded-lg border border-neutral-200 bg-white shadow-sm hover:shadow-md",
+      bordered: "rounded-lg border-2 border-neutral-200 bg-white hover:border-neutral-300",
       minimal: "border-neutral-200 border-b",
     },
   },
@@ -139,9 +132,7 @@ type AccordionContextValue = {
   variant: "default" | "bordered" | "minimal";
 };
 
-const AccordionContext = React.createContext<AccordionContextValue | null>(
-  null
-);
+const AccordionContext = React.createContext<AccordionContextValue | null>(null);
 
 function useAccordionContext() {
   const context = React.useContext(AccordionContext);
@@ -171,9 +162,7 @@ export function Accordion({
 
   return (
     <AccordionContext.Provider value={{ variant: variant || "default" }}>
-      <div className={cn(spacing[variant || "default"], className)}>
-        {children}
-      </div>
+      <div className={cn(spacing[variant || "default"], className)}>{children}</div>
     </AccordionContext.Provider>
   );
 }
@@ -194,9 +183,7 @@ export function AccordionItem({
 
   return (
     <AriaDisclosure defaultExpanded={defaultExpanded}>
-      <div className={cn(accordionVariants({ variant }), className)}>
-        {children}
-      </div>
+      <div className={cn(accordionVariants({ variant }), className)}>{children}</div>
     </AriaDisclosure>
   );
 }
@@ -207,10 +194,7 @@ export function AccordionItem({
  * Button that toggles the accordion section.
  * Lia Design System: orange-500 focus ring.
  */
-export function AccordionTrigger({
-  children,
-  className,
-}: AccordionTriggerProps) {
+export function AccordionTrigger({ children, className }: AccordionTriggerProps) {
   const { variant } = useAccordionContext();
 
   const variantStyles = {
@@ -221,7 +205,6 @@ export function AccordionTrigger({
 
   return (
     <Button
-      slot="trigger"
       className={cn(
         // Base layout
         "flex w-full items-center justify-between text-left transition",
@@ -232,12 +215,11 @@ export function AccordionTrigger({
         // Additional classes
         className
       )}
+      slot="trigger"
     >
       {({ isExpanded }) => (
         <>
-          <span className="pr-8 font-semibold text-lg text-neutral-900">
-            {children}
-          </span>
+          <span className="pr-8 font-semibold text-lg text-neutral-900">{children}</span>
           <HugeiconsIcon
             className={cn(
               "h-6 w-6 flex-shrink-0 text-neutral-600 transition-transform duration-300",
@@ -257,10 +239,7 @@ export function AccordionTrigger({
  * Expandable content panel.
  * Lia Design System: neutral colors, smooth transitions.
  */
-export function AccordionContent({
-  children,
-  className,
-}: AccordionContentProps) {
+export function AccordionContent({ children, className }: AccordionContentProps) {
   const { variant } = useAccordionContext();
 
   const variantStyles = {
@@ -275,15 +254,13 @@ export function AccordionContent({
         // Grid animation for smooth expand/collapse
         "grid transition-all duration-300 ease-in-out",
         // Animation states
-        "data-[entering]:animate-in data-[entering]:fade-in-0 data-[entering]:slide-in-from-top-2",
-        "data-[exiting]:animate-out data-[exiting]:fade-out-0 data-[exiting]:slide-out-to-top-2"
+        "data-[entering]:fade-in-0 data-[entering]:slide-in-from-top-2 data-[entering]:animate-in",
+        "data-[exiting]:fade-out-0 data-[exiting]:slide-out-to-top-2 data-[exiting]:animate-out"
       )}
     >
       <div className="overflow-hidden">
         <div className={cn(variantStyles[variant], className)}>
-          <div className="text-base text-neutral-600 leading-relaxed">
-            {children}
-          </div>
+          <div className="text-base text-neutral-600 leading-relaxed">{children}</div>
         </div>
       </div>
     </DisclosurePanel>

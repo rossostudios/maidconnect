@@ -229,7 +229,13 @@ export function AvailabilityCalendar({
     <div className={cn("space-y-4", className)}>
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className={cn("font-semibold text-neutral-900", sizeConfig.headerText, geistSans.className)}>
+        <h3
+          className={cn(
+            "font-semibold text-neutral-900",
+            sizeConfig.headerText,
+            geistSans.className
+          )}
+        >
           {getMonthLabel(locale)}
         </h3>
         <div className={cn("flex", sizeConfig.buttonGap)}>
@@ -286,7 +292,12 @@ export function AvailabilityCalendar({
 
       {/* Error State */}
       {error && (
-        <div className={cn("rounded-lg border border-orange-200 bg-orange-50 p-4 text-center", geistSans.className)}>
+        <div
+          className={cn(
+            "rounded-lg border border-orange-200 bg-orange-50 p-4 text-center",
+            geistSans.className
+          )}
+        >
           <p className={cn("text-orange-600", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
@@ -384,7 +395,13 @@ export function AvailabilityCalendar({
 
           {/* Legend */}
           {showLegend && (
-            <div className={cn("flex flex-wrap items-center gap-4", sizeConfig.smallText, geistSans.className)}>
+            <div
+              className={cn(
+                "flex flex-wrap items-center gap-4",
+                sizeConfig.smallText,
+                geistSans.className
+              )}
+            >
               <span className="font-medium text-neutral-600">Status:</span>
               <LegendItem color="bg-green-500" label="Available" />
               <LegendItem color="bg-orange-400" label="Limited" />
@@ -400,7 +417,12 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
-          <div className={cn("rounded-lg border border-neutral-200 bg-white p-4 shadow-sm", geistSans.className)}>
+          <div
+            className={cn(
+              "rounded-lg border border-neutral-200 bg-white p-4 shadow-sm",
+              geistSans.className
+            )}
+          >
             <h4 className={cn("mb-3 font-semibold text-neutral-900", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
@@ -462,7 +484,12 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length === 0 && (
-          <div className={cn("rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center", geistSans.className)}>
+          <div
+            className={cn(
+              "rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-center",
+              geistSans.className
+            )}
+          >
             <p className={cn("text-neutral-500", sizeConfig.text)}>
               No available time slots on this date. Please choose another day.
             </p>
@@ -494,7 +521,9 @@ function DefaultDayContent({
 
   return (
     <div className={cn("flex h-full flex-col", geistSans.className)}>
-      <span className={cn("font-semibold text-neutral-900", sizeConfig.dayNumber)}>{day.label}</span>
+      <span className={cn("font-semibold text-neutral-900", sizeConfig.dayNumber)}>
+        {day.label}
+      </span>
       {availability && !day.isPast && day.inCurrentMonth && (
         <span className={cn("mt-auto h-2 w-2 rounded-full", statusColors[availability.status])} />
       )}

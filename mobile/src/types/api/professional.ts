@@ -17,7 +17,7 @@ export interface Professional {
   rating?: number;
   review_count?: number;
   verified: boolean;
-  background_check_status?: 'pending' | 'approved' | 'rejected';
+  background_check_status?: "pending" | "approved" | "rejected";
   created_at: string;
   updated_at: string;
 }

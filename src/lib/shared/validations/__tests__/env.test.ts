@@ -174,7 +174,7 @@ describe("serverEnvSchema", () => {
     it("requires valid BASE_URL", () => {
       const result = serverEnvSchema.safeParse({
         ...validServerEnv,
-        NEXT_PUBLIC_BASE_URL: "https://casaora.com",
+        NEXT_PUBLIC_BASE_URL: "https://casaora.co",
       });
       expect(result.success).toBe(true);
     });
@@ -190,7 +190,7 @@ describe("serverEnvSchema", () => {
     it("requires valid APP_URL", () => {
       const result = serverEnvSchema.safeParse({
         ...validServerEnv,
-        NEXT_PUBLIC_APP_URL: "https://app.casaora.com",
+        NEXT_PUBLIC_APP_URL: "https://app.casaora.co",
       });
       expect(result.success).toBe(true);
     });
@@ -198,7 +198,7 @@ describe("serverEnvSchema", () => {
     it("requires valid SITE_URL", () => {
       const result = serverEnvSchema.safeParse({
         ...validServerEnv,
-        SITE_URL: "https://casaora.com",
+        SITE_URL: "https://casaora.co",
       });
       expect(result.success).toBe(true);
     });
@@ -240,7 +240,7 @@ describe("serverEnvSchema", () => {
     it("requires valid email for VAPID_SUBJECT", () => {
       const result = serverEnvSchema.safeParse({
         ...validServerEnv,
-        VAPID_SUBJECT: "admin@casaora.com",
+        VAPID_SUBJECT: "admin@casaora.co",
       });
       expect(result.success).toBe(true);
     });

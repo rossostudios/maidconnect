@@ -16,7 +16,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { paypal, type PayPalWebhookEvent } from "@/lib/integrations/paypal";
+import { type PayPalWebhookEvent, paypal } from "@/lib/integrations/paypal";
 import { logger } from "@/lib/logger";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const authAlgo = request.headers.get("paypal-auth-algo");
     const transmissionSig = request.headers.get("paypal-transmission-sig");
 
-    if (!transmissionId || !transmissionTime || !certUrl || !authAlgo || !transmissionSig) {
+    if (!(transmissionId && transmissionTime && certUrl && authAlgo && transmissionSig)) {
       logger.error("[PayPal Webhook] Missing required headers");
       return NextResponse.json({ error: "Missing required headers" }, { status: 400 });
     }

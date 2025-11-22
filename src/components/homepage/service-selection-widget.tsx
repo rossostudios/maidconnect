@@ -23,6 +23,7 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
   return (
     <section
       className={cn("border-neutral-200 border-y bg-white py-12 sm:py-16 lg:py-20", className)}
+      id="services"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -99,10 +100,10 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
             </div>
           </Link>
 
-          {/* Long-Term Hire Card - Blue (Concierge) */}
+          {/* Long-Term Hire Card - Blue (Direct Hire) */}
           <Link
             className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
-            href="/concierge"
+            href="/direct-hire"
           >
             <div className="flex h-full flex-col rounded-lg border-2 border-blue-200 bg-blue-50 p-6 shadow-sm transition-all hover:border-blue-300 hover:shadow-md sm:p-8">
               {/* Icon */}

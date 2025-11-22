@@ -17,7 +17,7 @@ import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { trackEvent } from "@/lib/analytics/track-event";
 import { normalizeServiceName } from "@/lib/booking-utils";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -289,7 +289,9 @@ function ServiceDetailsStep({
           {services.map((service) => (
             <option key={service.name} value={service.name ?? ""}>
               {service.name}
-              {service.hourlyRateCop ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr` : ""}
+              {service.hourlyRateCop
+                ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr`
+                : ""}
             </option>
           ))}
         </select>
@@ -703,17 +705,23 @@ function ConfirmationStep({
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-[neutral-400]">Service</span>
-                  <span className="text-[neutral-900]">{formatCurrency(baseAmount, { currency })}</span>
+                  <span className="text-[neutral-900]">
+                    {formatCurrency(baseAmount, { currency })}
+                  </span>
                 </div>
                 {addonsTotal > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-[neutral-400]">Add-ons</span>
-                    <span className="text-[neutral-900]">{formatCurrency(addonsTotal, { currency })}</span>
+                    <span className="text-[neutral-900]">
+                      {formatCurrency(addonsTotal, { currency })}
+                    </span>
                   </div>
                 )}
                 <div className="flex justify-between border-[neutral-200] border-t pt-2 font-semibold text-base">
                   <span className="text-[neutral-900]">Total</span>
-                  <span className="text-[neutral-500]">{formatCurrency(totalAmount, { currency })}</span>
+                  <span className="text-[neutral-500]">
+                    {formatCurrency(totalAmount, { currency })}
+                  </span>
                 </div>
               </div>
             </div>

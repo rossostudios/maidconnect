@@ -456,7 +456,7 @@ docs: improve README
 
 ### Reporting Vulnerabilities
 
-Please report security vulnerabilities to: **security@casaora.com**
+Please report security vulnerabilities to: **security@casaora.co**
 
 Do not create public GitHub issues for security vulnerabilities.
 
@@ -549,8 +549,8 @@ Built with these amazing open-source projects:
 
 ## 📞 Contact & Support
 
-- **Website:** [casaora.com](https://casaora.com)
-- **Email:** support@casaora.com
+- **Website:** [casaora.co](https://casaora.co)
+- **Email:** support@casaora.co
 - **Documentation:** [Lia design system](docs/lia/README.md)
 - **Issues:** [GitHub Issues](https://github.com/rossostudios/casaora/issues)
 

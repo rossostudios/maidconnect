@@ -15,13 +15,8 @@
 
 import * as React from "react";
 import { geistSans } from "@/app/fonts";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils/core";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 /**
  * LiaTooltip Props
@@ -57,12 +52,7 @@ interface LiaTooltipProps {
  * </LiaTooltip>
  * ```
  */
-function LiaTooltip({
-  children,
-  content,
-  side = "right",
-  delayDuration = 300,
-}: LiaTooltipProps) {
+function LiaTooltip({ children, content, side = "right", delayDuration = 300 }: LiaTooltipProps) {
   return (
     <TooltipProvider delay={delayDuration}>
       <Tooltip delay={delayDuration}>
@@ -70,7 +60,7 @@ function LiaTooltip({
         <TooltipContent
           className={cn(
             // Override default dark styling with light Lia styling
-            "bg-white text-neutral-900 border border-neutral-200",
+            "border border-neutral-200 bg-white text-neutral-900",
             // Typography - Geist Sans
             "font-medium text-sm",
             geistSans.className,
@@ -89,10 +79,4 @@ function LiaTooltip({
 }
 
 // Export for backward compatibility
-export {
-  LiaTooltip,
-  TooltipProvider,
-  Tooltip as TooltipRoot,
-  TooltipTrigger,
-  TooltipContent,
-};
+export { LiaTooltip, TooltipProvider, Tooltip as TooltipRoot, TooltipTrigger, TooltipContent };

@@ -355,7 +355,7 @@ export async function requireCountryProfile(
 
   const country = profile.country as string | null;
 
-  if (!country || !["CO", "PY", "UY", "AR"].includes(country)) {
+  if (!(country && ["CO", "PY", "UY", "AR"].includes(country))) {
     throw new ValidationError(
       "Please complete your profile with a valid country before making bookings or payments. " +
         "Supported countries: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)."

@@ -3,14 +3,9 @@
  * Based on web app bookings table
  */
 
-export type BookingStatus =
-  | 'pending'
-  | 'confirmed'
-  | 'in_progress'
-  | 'completed'
-  | 'cancelled';
+export type BookingStatus = "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
 
-export type BookingType = 'marketplace' | 'direct_hire';
+export type BookingType = "marketplace" | "direct_hire";
 
 export interface Booking {
   id: string;

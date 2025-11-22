@@ -6,8 +6,8 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
-import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 import { useMarket } from "@/lib/contexts/MarketContext";
+import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
 // Swiss Design Animation - Minimal and Purposeful
 const fadeIn: Variants = {
@@ -53,19 +53,21 @@ export function HeroVariantA() {
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
-      {/* Concierge Banner - Above Hero */}
+      {/* Direct Hire Banner - Above Hero */}
       <div className="flex items-center justify-center bg-white py-4">
         <div className="w-full max-w-[1320px] border-neutral-200 border-b">
           <Container className="max-w-6xl px-4 md:px-8">
             <p className="text-center text-neutral-700 text-sm sm:text-base">
-              <strong className="font-semibold text-neutral-900">New to {marketInfo.countryName}?</strong> Try our
-              Concierge service — English-speaking coordinator, curated matches in 5 days.{" "}
+              <strong className="font-semibold text-neutral-900">
+                Looking for long-term help?
+              </strong>{" "}
+              Try our Direct Hire service — dedicated coordinator, curated matches in 5 days.{" "}
               <Link
                 className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
-                href="/concierge"
+                href="/direct-hire"
                 onClick={() =>
                   conversionTracking.heroCTAClicked({
-                    ctaType: "concierge",
+                    ctaType: "direct-hire",
                     location: "banner",
                     ctaText: "Learn More",
                     variant: "variant_a",
@@ -118,9 +120,9 @@ export function HeroVariantA() {
                 className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
                 variants={fadeIn}
               >
-                Connect with {marketInfo.countryName}'s top housekeepers, nannies, and estate staff through our
-                streamlined matching process. Every professional is vetted, English-supported, and
-                ready to start—typically within 5 business days.
+                Connect with {marketInfo.countryName}'s top housekeepers, nannies, and estate staff
+                through our streamlined matching process. Every professional is vetted,
+                English-supported, and ready to start—typically within 5 business days.
               </motion.p>
 
               {/* CTA Buttons - Variant A Copy */}
@@ -163,9 +165,9 @@ export function HeroVariantA() {
                 </Link>
                 <Link
                   className="text-center font-semibold text-neutral-600 text-sm transition hover:text-neutral-900 sm:text-base"
-                  href="/concierge"
+                  href="/direct-hire"
                 >
-                  Speak with a concierge →
+                  Request direct hire →
                 </Link>
               </motion.div>
             </div>
@@ -181,14 +183,17 @@ export function HeroVariantA() {
             initial={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <motion.div className="relative aspect-[16/9] overflow-hidden rounded-2xl" style={{ y: y1 }}>
+            <motion.div
+              className="relative aspect-[16/9] overflow-hidden rounded-2xl"
+              style={{ y: y1 }}
+            >
               <Image
                 alt="Casaora - Professional household staff"
                 className="object-cover"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 1200px"
-                src="/casaora-hero.jpg"
+                src="/casaorahero.png"
               />
               {/* Elegant fade to blend into background - subtle blend */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50/30 via-transparent to-transparent" />
@@ -201,7 +206,8 @@ export function HeroVariantA() {
           <div className="mt-24">
             <div className="border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
-                Built for expat and local households in Latin America — serving Colombia, Paraguay, Uruguay & Argentina
+                Built for expat and local households in Latin America — serving Colombia, Paraguay,
+                Uruguay & Argentina
               </p>
 
               <div className="relative overflow-hidden">

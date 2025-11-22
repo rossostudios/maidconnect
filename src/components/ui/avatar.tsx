@@ -47,6 +47,7 @@ const AvatarContext = React.createContext<AvatarContextValue>({
 
 /**
  * Avatar Root Props
+ * React 19: ref is a regular prop.
  */
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -57,6 +58,10 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
    * Children elements (typically AvatarImage and AvatarFallback)
    */
   children: React.ReactNode;
+  /**
+   * Ref to the avatar container element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -64,53 +69,51 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * Container for avatar with circular shape and overflow management.
  * Lia Design System: Uses rounded-full for perfect circles.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ className, children, ...props }, ref) => {
-    const [imageLoadingStatus, setImageLoadingStatus] =
-      React.useState<AvatarContextValue["imageLoadingStatus"]>("idle");
+export const Avatar = ({ className, children, ref, ...props }: AvatarProps) => {
+  const [imageLoadingStatus, setImageLoadingStatus] =
+    React.useState<AvatarContextValue["imageLoadingStatus"]>("idle");
 
-    const handleImageLoadingStatusChange = React.useCallback(
-      (status: "loading" | "loaded" | "error") => {
-        setImageLoadingStatus(status);
-      },
-      []
-    );
+  const handleImageLoadingStatusChange = React.useCallback(
+    (status: "loading" | "loaded" | "error") => {
+      setImageLoadingStatus(status);
+    },
+    []
+  );
 
-    return (
-      <AvatarContext.Provider
-        value={{
-          imageLoadingStatus,
-          onImageLoadingStatusChange: handleImageLoadingStatusChange,
-        }}
+  return (
+    <AvatarContext.Provider
+      value={{
+        imageLoadingStatus,
+        onImageLoadingStatusChange: handleImageLoadingStatusChange,
+      }}
+    >
+      <div
+        className={cn(
+          // Base layout
+          "relative flex shrink-0",
+          // Size (default: 40px x 40px)
+          "h-10 w-10",
+          // Shape - Lia Design System: rounded-full for avatars
+          "rounded-full",
+          // Overflow control
+          "overflow-hidden",
+          // Additional classes
+          className
+        )}
+        ref={ref}
+        {...props}
       >
-        <div
-          ref={ref}
-          className={cn(
-            // Base layout
-            "relative flex shrink-0",
-            // Size (default: 40px x 40px)
-            "h-10 w-10",
-            // Shape - Lia Design System: rounded-full for avatars
-            "rounded-full",
-            // Overflow control
-            "overflow-hidden",
-            // Additional classes
-            className
-          )}
-          {...props}
-        >
-          {children}
-        </div>
-      </AvatarContext.Provider>
-    );
-  }
-);
-
-Avatar.displayName = "Avatar";
+        {children}
+      </div>
+    </AvatarContext.Provider>
+  );
+};
 
 /**
  * Avatar Image Props
+ * React 19: ref is a regular prop.
  */
 export interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   /**
@@ -125,6 +128,10 @@ export interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageEleme
    * Additional CSS classes for the image
    */
   className?: string;
+  /**
+   * Ref to the image element
+   */
+  ref?: React.RefObject<HTMLImageElement | null>;
 }
 
 /**
@@ -132,58 +139,56 @@ export interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageEleme
  *
  * Renders the avatar image with automatic loading state management.
  * Falls back to AvatarFallback on load error.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
-  ({ className, src, alt, onLoadingStatusChange, ...props }, ref) => {
-    const { imageLoadingStatus, onImageLoadingStatusChange } = React.useContext(AvatarContext);
+export const AvatarImage = ({ className, src, alt, ref, ...props }: AvatarImageProps) => {
+  const { imageLoadingStatus, onImageLoadingStatusChange } = React.useContext(AvatarContext);
 
-    // Handle image load success
-    const handleLoad = React.useCallback(() => {
-      onImageLoadingStatusChange("loaded");
-    }, [onImageLoadingStatusChange]);
+  // Handle image load success
+  const handleLoad = React.useCallback(() => {
+    onImageLoadingStatusChange("loaded");
+  }, [onImageLoadingStatusChange]);
 
-    // Handle image load error
-    const handleError = React.useCallback(() => {
-      onImageLoadingStatusChange("error");
-    }, [onImageLoadingStatusChange]);
+  // Handle image load error
+  const handleError = React.useCallback(() => {
+    onImageLoadingStatusChange("error");
+  }, [onImageLoadingStatusChange]);
 
-    // Set loading state when src changes
-    React.useEffect(() => {
-      if (src) {
-        onImageLoadingStatusChange("loading");
-      }
-    }, [src, onImageLoadingStatusChange]);
-
-    // Don't render if image failed to load or hasn't started loading
-    if (imageLoadingStatus === "error" || imageLoadingStatus === "idle") {
-      return null;
+  // Set loading state when src changes
+  React.useEffect(() => {
+    if (src) {
+      onImageLoadingStatusChange("loading");
     }
+  }, [src, onImageLoadingStatusChange]);
 
-    return (
-      <img
-        ref={ref}
-        src={src}
-        alt={alt}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={cn(
-          // Full size to match container
-          "aspect-square h-full w-full",
-          // Object fit
-          "object-cover",
-          // Additional classes
-          className
-        )}
-        {...props}
-      />
-    );
+  // Don't render if image failed to load or hasn't started loading
+  if (imageLoadingStatus === "error" || imageLoadingStatus === "idle") {
+    return null;
   }
-);
 
-AvatarImage.displayName = "AvatarImage";
+  return (
+    <img
+      alt={alt}
+      className={cn(
+        // Full size to match container
+        "aspect-square h-full w-full",
+        // Object fit
+        "object-cover",
+        // Additional classes
+        className
+      )}
+      onError={handleError}
+      onLoad={handleLoad}
+      ref={ref}
+      src={src}
+      {...props}
+    />
+  );
+};
 
 /**
  * Avatar Fallback Props
+ * React 19: ref is a regular prop.
  */
 export interface AvatarFallbackProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -194,6 +199,10 @@ export interface AvatarFallbackProps extends React.HTMLAttributes<HTMLDivElement
    * Fallback content (typically initials)
    */
   children: React.ReactNode;
+  /**
+   * Ref to the fallback element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -201,37 +210,34 @@ export interface AvatarFallbackProps extends React.HTMLAttributes<HTMLDivElement
  *
  * Displays fallback content when image is unavailable or loading.
  * Typically used for user initials.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const AvatarFallback = React.forwardRef<HTMLDivElement, AvatarFallbackProps>(
-  ({ className, children, ...props }, ref) => {
-    const { imageLoadingStatus } = React.useContext(AvatarContext);
+export const AvatarFallback = ({ className, children, ref, ...props }: AvatarFallbackProps) => {
+  const { imageLoadingStatus } = React.useContext(AvatarContext);
 
-    // Only show fallback if image hasn't loaded or errored
-    if (imageLoadingStatus === "loaded") {
-      return null;
-    }
-
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          // Full size to match container
-          "flex h-full w-full",
-          // Center content
-          "items-center justify-center",
-          // Background (Lia Design System - neutral background)
-          "bg-neutral-100",
-          // Text styling
-          "text-sm font-medium text-neutral-700",
-          // Additional classes
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    );
+  // Only show fallback if image hasn't loaded or errored
+  if (imageLoadingStatus === "loaded") {
+    return null;
   }
-);
 
-AvatarFallback.displayName = "AvatarFallback";
+  return (
+    <div
+      className={cn(
+        // Full size to match container
+        "flex h-full w-full",
+        // Center content
+        "items-center justify-center",
+        // Background (Lia Design System - neutral background)
+        "bg-neutral-100",
+        // Text styling
+        "font-medium text-neutral-700 text-sm",
+        // Additional classes
+        className
+      )}
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};

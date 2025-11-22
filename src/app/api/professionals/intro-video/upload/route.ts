@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { getSession } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB in bytes
 const MAX_DURATION = 60; // 60 seconds
@@ -79,10 +79,7 @@ export async function POST(request: NextRequest) {
 
     if (uploadError) {
       console.error("Storage upload error:", uploadError);
-      return NextResponse.json(
-        { error: "Failed to upload video to storage" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to upload video to storage" }, { status: 500 });
     }
 
     // Generate thumbnail (using first frame - this would need a separate service in production)
@@ -125,9 +122,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Intro video upload error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

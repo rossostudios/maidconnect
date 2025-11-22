@@ -71,7 +71,7 @@ export function ConnectionStatusIndicator() {
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium",
+        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-medium text-sm",
         style.bg,
         style.border,
         style.text
@@ -79,38 +79,26 @@ export function ConnectionStatusIndicator() {
       title={`${health.state} • ${health.subscriptionCount} active subscriptions • ${health.reconnectAttempts} reconnect attempts`}
     >
       {/* Connection status dot */}
-      <span
-        className={cn(
-          "h-2 w-2 rounded-full",
-          style.dot
-        )}
-        aria-hidden="true"
-      />
+      <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", style.dot)} />
 
       {/* Status label */}
       <span className="whitespace-nowrap">{style.label}</span>
 
       {/* Subscription count (only show if connected) */}
       {health.state === "connected" && health.subscriptionCount > 0 && (
-        <span className="text-xs opacity-75">
-          ({health.subscriptionCount})
-        </span>
+        <span className="text-xs opacity-75">({health.subscriptionCount})</span>
       )}
 
       {/* Reconnect attempts (only show if reconnecting) */}
       {health.state === "reconnecting" && health.reconnectAttempts > 0 && (
-        <span className="text-xs opacity-75">
-          ({health.reconnectAttempts}/5)
-        </span>
+        <span className="text-xs opacity-75">({health.reconnectAttempts}/5)</span>
       )}
 
       {/* Screen reader text */}
       <span className="sr-only">
         Realtime connection status: {health.state}.
-        {health.subscriptionCount > 0 &&
-          ` ${health.subscriptionCount} active subscriptions.`}
-        {health.reconnectAttempts > 0 &&
-          ` ${health.reconnectAttempts} reconnect attempts.`}
+        {health.subscriptionCount > 0 && ` ${health.subscriptionCount} active subscriptions.`}
+        {health.reconnectAttempts > 0 && ` ${health.reconnectAttempts} reconnect attempts.`}
       </span>
     </div>
   );
@@ -139,12 +127,9 @@ export function ConnectionStatusDot() {
 
   return (
     <span
-      className={cn(
-        "h-2 w-2 rounded-full inline-block",
-        stateStyles[health.state]
-      )}
-      title={`Realtime: ${health.state} (${health.subscriptionCount} subscriptions)`}
       aria-label={`Realtime connection: ${health.state}`}
+      className={cn("inline-block h-2 w-2 rounded-full", stateStyles[health.state])}
+      title={`Realtime: ${health.state} (${health.subscriptionCount} subscriptions)`}
     />
   );
 }

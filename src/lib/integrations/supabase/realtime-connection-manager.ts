@@ -12,8 +12,8 @@
  */
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import { createSupabaseBrowserClient } from "./browserClient";
 import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
+import { createSupabaseBrowserClient } from "./browserClient";
 
 /**
  * Connection state

@@ -9,18 +9,28 @@ export type CheckStatus = "pending" | "clear" | "consider" | "suspended";
 export type CheckRecommendation = "approved" | "review_required" | "rejected";
 export type CheckType = "criminal" | "identity" | "disciplinary";
 
+/** Individual record from a background check provider */
+export interface BackgroundCheckRecord {
+  id?: string;
+  date?: string;
+  description?: string;
+  severity?: string;
+  source?: string;
+  [key: string]: unknown; // Provider-specific fields
+}
+
 export type BackgroundCheckResultData = {
   criminal?: {
     status?: string;
-    records?: any[];
+    records?: BackgroundCheckRecord[];
   };
   identity?: {
     status?: string;
-    records?: any[];
+    records?: BackgroundCheckRecord[];
   };
   disciplinary?: {
     status?: string;
-    records?: any[];
+    records?: BackgroundCheckRecord[];
   };
 };
 
@@ -131,11 +141,40 @@ function buildResultsObject(
   };
 }
 
+/** Transformed background check for component consumption */
+export interface TransformedBackgroundCheck {
+  id: string;
+  providerCheckId: string;
+  provider: string;
+  professionalId: string;
+  status: CheckStatus;
+  checksPerformed: CheckType[];
+  completedAt: string | null;
+  results: {
+    criminal?: { status: string; records: BackgroundCheckRecord[] };
+    identity?: { status: string; records: BackgroundCheckRecord[] };
+    disciplinary?: { status: string; records: BackgroundCheckRecord[] };
+  };
+  recommendation: CheckRecommendation;
+  rawData: BackgroundCheckResultData;
+  createdAt: string;
+  updatedAt: string;
+  professional: {
+    id: string;
+    full_name: string;
+    email: string;
+    phone: string;
+    city: string;
+    country: string;
+  };
+  daysWaiting: number;
+}
+
 /**
  * Transform raw database check into component-friendly format
  * Extracts professional info, calculates metrics, determines recommendation
  */
-export function transformBackgroundCheck(check: RawBackgroundCheck) {
+export function transformBackgroundCheck(check: RawBackgroundCheck): TransformedBackgroundCheck {
   const daysWaiting = calculateDaysWaiting(check.created_at);
   const resultData = check.result_data || {};
   const checksPerformed = extractChecksPerformed(resultData);
@@ -170,7 +209,7 @@ export function transformBackgroundCheck(check: RawBackgroundCheck) {
 /**
  * Group checks by status for dashboard display
  */
-export function groupChecksByStatus(checks: any[]) {
+export function groupChecksByStatus(checks: TransformedBackgroundCheck[]) {
   return {
     pending: checks.filter((check) => check.status === "pending"),
     clear: checks.filter((check) => check.status === "clear"),

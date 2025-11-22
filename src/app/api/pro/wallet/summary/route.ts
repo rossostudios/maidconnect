@@ -31,7 +31,9 @@ export async function GET() {
   try {
     const { data: profile, error } = await supabase
       .from("professional_profiles")
-      .select("total_earnings_cop, total_bookings_completed, share_earnings_badge, slug, country_code")
+      .select(
+        "total_earnings_cop, total_bookings_completed, share_earnings_badge, slug, country_code"
+      )
       .eq("profile_id", user.id)
       .maybeSingle();
 

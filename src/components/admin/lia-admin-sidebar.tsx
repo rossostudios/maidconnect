@@ -63,7 +63,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const accountName = userName || "Admin User";
   const firstName = accountName.split(" ")[0] || accountName;
-  const accountEmail = userEmail || "admin@casaora.com";
+  const accountEmail = userEmail || "admin@casaora.co";
   const accountRole = "Administrator";
   const userInitials =
     accountName

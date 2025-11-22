@@ -213,7 +213,7 @@ export function isValidPrice(price: number, countryCode: CountryCode): boolean {
 export function calculateCommission(
   price: number,
   countryCode: CountryCode,
-  isDirectHire: boolean,
+  isDirectHire: boolean
 ): number {
   const { commission } = getPricingConfig(countryCode);
   const rate = isDirectHire ? commission.directHireRate : commission.marketplaceRate;
@@ -232,7 +232,7 @@ export function getPrimaryPaymentProcessor(countryCode: CountryCode): PaymentPro
  */
 export function isPaymentProcessorSupported(
   processor: PaymentProcessor,
-  countryCode: CountryCode,
+  countryCode: CountryCode
 ): boolean {
   return getPricingConfig(countryCode).paymentProcessors.supported.includes(processor);
 }

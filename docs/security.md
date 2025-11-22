@@ -121,7 +121,7 @@ const safeUrl = sanitizeURL(userProvidedUrl);
 ```typescript
 // src/app/api/redirect/route.ts
 
-const ALLOWED_HOSTS = ['connect.stripe.com', 'dashboard.stripe.com', 'casaora.com'];
+const ALLOWED_HOSTS = ['connect.stripe.com', 'dashboard.stripe.com', 'casaora.co'];
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -569,7 +569,7 @@ const nextConfig = {
 
 1. **DO NOT** create a public GitHub issue
 2. **DO NOT** commit fixes directly to `main` or `develop`
-3. **DO** email security@casaora.com with details
+3. **DO** email security@casaora.co with details
 4. **DO** create a private security advisory on GitHub
 
 **For critical production vulnerabilities:**
@@ -582,9 +582,9 @@ const nextConfig = {
 
 ### Security Contacts
 
-- **Security Team:** security@casaora.com
+- **Security Team:** security@casaora.co
 - **Incident Response:** Christopher (CTO)
-- **GitHub Security Advisories:** [Repository Security Tab](https://github.com/casaora/maidconnect/security)
+- **GitHub Security Advisories:** [Repository Security Tab](https://github.com/casaora/casaora/security)
 
 ---
 

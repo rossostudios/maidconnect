@@ -36,13 +36,13 @@
  * ```
  */
 
+import * as React from "react";
 import {
   Tooltip as AriaTooltip,
-  TooltipTrigger as AriaTooltipTrigger,
   type TooltipProps as AriaTooltipProps,
+  TooltipTrigger as AriaTooltipTrigger,
   OverlayArrow,
 } from "react-aria-components";
-import * as React from "react";
 import { cn } from "@/lib/utils/core";
 
 /**
@@ -82,6 +82,7 @@ export function TooltipProvider({ children, delay = 700 }: TooltipProviderProps)
 
 /**
  * Tooltip Props
+ * React 19: ref is a regular prop.
  */
 export interface TooltipProps extends Omit<AriaTooltipProps, "delay"> {
   /**
@@ -92,6 +93,10 @@ export interface TooltipProps extends Omit<AriaTooltipProps, "delay"> {
    * Optional delay override (milliseconds)
    */
   delay?: number;
+  /**
+   * Ref to the tooltip container element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -99,24 +104,22 @@ export interface TooltipProps extends Omit<AriaTooltipProps, "delay"> {
  *
  * Container for tooltip trigger and content.
  * Manages tooltip visibility and positioning.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  ({ children, delay: delayOverride, ...props }, ref) => {
-    const { delay: contextDelay } = React.useContext(TooltipContext);
-    const delay = delayOverride ?? contextDelay;
+export const Tooltip = ({ children, delay: delayOverride, ref, ...props }: TooltipProps) => {
+  const { delay: contextDelay } = React.useContext(TooltipContext);
+  const delay = delayOverride ?? contextDelay;
 
-    return (
-      <AriaTooltipTrigger delay={delay} {...props}>
-        {children}
-      </AriaTooltipTrigger>
-    );
-  }
-);
-
-Tooltip.displayName = "Tooltip";
+  return (
+    <AriaTooltipTrigger delay={delay} {...props}>
+      {children}
+    </AriaTooltipTrigger>
+  );
+};
 
 /**
  * Tooltip Trigger Props
+ * React 19: ref is a regular prop.
  */
 export interface TooltipTriggerProps {
   /**
@@ -127,27 +130,27 @@ export interface TooltipTriggerProps {
    * Additional CSS classes
    */
   className?: string;
+  /**
+   * Ref to the trigger element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
  * Tooltip Trigger Component
  *
  * Wraps the element that triggers the tooltip on hover/focus.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const TooltipTrigger = React.forwardRef<HTMLDivElement, TooltipTriggerProps>(
-  ({ children, className }, ref) => {
-    return (
-      <div ref={ref} className={className}>
-        {children}
-      </div>
-    );
-  }
+export const TooltipTrigger = ({ children, className, ref }: TooltipTriggerProps) => (
+  <div className={className} ref={ref}>
+    {children}
+  </div>
 );
-
-TooltipTrigger.displayName = "TooltipTrigger";
 
 /**
  * Tooltip Content Props
+ * React 19: ref is a regular prop.
  */
 export interface TooltipContentProps {
   /**
@@ -162,6 +165,10 @@ export interface TooltipContentProps {
    * Show arrow pointer (default: true)
    */
   showArrow?: boolean;
+  /**
+   * Ref to the tooltip content element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -169,63 +176,61 @@ export interface TooltipContentProps {
  *
  * The actual tooltip popup with content.
  * Lia Design System: Uses rounded-lg, neutral colors, shadow.
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  ({ children, className, showArrow = true, ...props }, ref) => {
-    return (
-      <AriaTooltip
-        ref={ref}
-        offset={8}
+export const TooltipContent = ({
+  children,
+  className,
+  showArrow = true,
+  ref,
+  ...props
+}: TooltipContentProps) => {
+  return (
+    <AriaTooltip
+      className={cn(
+        // Base styling
+        "z-50",
+        // Positioning
+        "will-change-transform",
+        // Animation
+        "data-[entering]:fade-in-0 data-[entering]:zoom-in-95 data-[entering]:animate-in",
+        "data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95 data-[exiting]:animate-out",
+        // Additional classes
+        className
+      )}
+      offset={8}
+      ref={ref}
+      {...props}
+    >
+      {/* Arrow */}
+      {showArrow && (
+        <OverlayArrow>
+          <svg className="block fill-neutral-900" height={12} viewBox="0 0 12 12" width={12}>
+            <path d="M0 0 L6 6 L12 0" />
+          </svg>
+        </OverlayArrow>
+      )}
+
+      {/* Content */}
+      <div
         className={cn(
-          // Base styling
-          "z-50",
-          // Positioning
-          "will-change-transform",
-          // Animation
-          "data-[entering]:animate-in data-[entering]:fade-in-0 data-[entering]:zoom-in-95",
-          "data-[exiting]:animate-out data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95",
-          // Additional classes
-          className
+          // Background and border (Lia Design System)
+          "bg-neutral-900",
+          "border border-neutral-700",
+          // Shape - Lia Design System: rounded-lg
+          "rounded-lg",
+          // Padding
+          "px-3 py-2",
+          // Shadow
+          "shadow-lg",
+          // Text styling (Lia Design System)
+          "text-sm text-white",
+          // Max width
+          "max-w-xs"
         )}
-        {...props}
       >
-        {/* Arrow */}
-        {showArrow && (
-          <OverlayArrow>
-            <svg
-              width={12}
-              height={12}
-              viewBox="0 0 12 12"
-              className="block fill-neutral-900"
-            >
-              <path d="M0 0 L6 6 L12 0" />
-            </svg>
-          </OverlayArrow>
-        )}
-
-        {/* Content */}
-        <div
-          className={cn(
-            // Background and border (Lia Design System)
-            "bg-neutral-900",
-            "border border-neutral-700",
-            // Shape - Lia Design System: rounded-lg
-            "rounded-lg",
-            // Padding
-            "px-3 py-2",
-            // Shadow
-            "shadow-lg",
-            // Text styling (Lia Design System)
-            "text-sm text-white",
-            // Max width
-            "max-w-xs"
-          )}
-        >
-          {children}
-        </div>
-      </AriaTooltip>
-    );
-  }
-);
-
-TooltipContent.displayName = "TooltipContent";
+        {children}
+      </div>
+    </AriaTooltip>
+  );
+};

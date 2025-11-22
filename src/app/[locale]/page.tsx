@@ -1,13 +1,11 @@
 import { setRequestLocale } from "next-intl/server";
-import { ServiceSelectionWidget } from "@/components/homepage/service-selection-widget";
-import { FaqSection } from "@/components/marketing/faq-section";
-import { WelcomeTour } from "@/components/onboarding";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
-import { HeroSectionWithABTest } from "@/components/sections/HeroSectionWithABTest";
-import { PricingSection } from "@/components/sections/PricingSection";
+import { GuaranteeSection } from "@/components/sections/GuaranteeSection";
+import { MarketplaceHero } from "@/components/sections/MarketplaceHero";
+import { ProcessSection } from "@/components/sections/ProcessSection";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { VerificationSection } from "@/components/sections/VerificationSection";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   // Get the locale from params
@@ -17,18 +15,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale);
 
   return (
-    <div className="relative min-h-screen bg-neutral-50 text-neutral-900">
-      <SiteHeader />
-      <main className="bg-neutral-50" data-tour="welcome" id="main-content" tabIndex={-1}>
-        <HeroSectionWithABTest />
-        <ServiceSelectionWidget />
+    <>
+      <SiteHeader overlay />
+      <main id="main-content" tabIndex={-1}>
+        <MarketplaceHero />
         <BenefitsSection />
-        <TestimonialsSection />
-        <PricingSection />
-        <FaqSection />
+        <ProcessSection />
+        <VerificationSection />
+        <GuaranteeSection />
       </main>
       <SiteFooter />
-      <WelcomeTour autoStart />
-    </div>
+    </>
   );
 }

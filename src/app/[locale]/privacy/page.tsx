@@ -71,8 +71,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                privacy@casaora.com
+              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                privacy@casaora.co
               </a>
             </p>
           </div>
@@ -230,8 +230,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Correo electrónico:</strong>{" "}
-                <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                  privacy@casaora.com
+                <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                  privacy@casaora.co
                 </a>
               </li>
               <li>
@@ -272,7 +272,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             5.2 Revocación del Consentimiento
           </h3>
           <p className="mb-4 text-neutral-700">
-            Puede revocar su autorización en cualquier momento contactando a privacy@casaora.com. La
+            Puede revocar su autorización en cualquier momento contactando a privacy@casaora.co. La
             revocación no tendrá efectos retroactivos.
           </p>
         </section>
@@ -297,9 +297,12 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               </p>
             </div>
             <div className="border border-neutral-200 bg-neutral-50 p-3">
-              <p className="mb-1 font-semibold text-neutral-900">PayPal Holdings Inc. (Estados Unidos)</p>
+              <p className="mb-1 font-semibold text-neutral-900">
+                PayPal Holdings Inc. (Estados Unidos)
+              </p>
               <p className="text-neutral-500 text-sm">
-                Finalidad: Procesamiento de pagos (Paraguay, Uruguay, Argentina) | Certificación: PCI DSS Level 1
+                Finalidad: Procesamiento de pagos (Paraguay, Uruguay, Argentina) | Certificación:
+                PCI DSS Level 1
               </p>
             </div>
             <div className="border border-neutral-200 bg-neutral-50 p-3">
@@ -535,8 +538,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                privacy@casaora.com
+              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                privacy@casaora.co
               </a>
             </p>
             <p className="mb-2 text-neutral-900">
@@ -596,8 +599,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                privacy@casaora.com
+              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                privacy@casaora.co
               </a>
             </p>
           </div>
@@ -669,8 +672,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Email:</strong>{" "}
-                <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                  privacy@casaora.com
+                <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                  privacy@casaora.co
                 </a>
               </li>
               <li>
@@ -770,8 +773,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.com">
-                privacy@casaora.com
+              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                privacy@casaora.co
               </a>
             </p>
             <p className="text-neutral-900">

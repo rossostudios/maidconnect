@@ -4,7 +4,6 @@ import {
   CheckmarkCircle01Icon,
   File02Icon,
   MedicalMaskIcon,
-  Search01Icon,
   Shield01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -62,7 +61,10 @@ export function DirectHireValueSectionClient({
           </motion.div>
 
           {/* Benefits Grid */}
-          <motion.div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4" variants={stagger}>
+          <motion.div
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
+            variants={stagger}
+          >
             {benefits.map((benefit, idx) => {
               const IconComponent = iconMap[benefit.icon];
               return (
@@ -82,7 +84,7 @@ export function DirectHireValueSectionClient({
                       className="h-5 w-5 flex-shrink-0 text-green-600"
                       icon={CheckmarkCircle01Icon}
                     />
-                    <h3 className="font-semibold text-neutral-900 text-lg">{benefit.title}</h3>
+                    <h3 className="font-semibold text-lg text-neutral-900">{benefit.title}</h3>
                   </div>
 
                   {/* Description */}
@@ -97,11 +99,11 @@ export function DirectHireValueSectionClient({
             className="mt-16 rounded-2xl border border-blue-100 bg-blue-50/50 p-8 text-center"
             variants={fadeIn}
           >
-            <p className="font-semibold text-blue-900 text-xl">
-              Your Safety Guarantee
-            </p>
-            <p className="mx-auto mt-3 max-w-2xl text-blue-700 text-base leading-relaxed">
-              The Direct Hire Fee isn't just a charge—it's your comprehensive protection plan. It covers rigorous background checks, legal contract preparation, and medical clearances to ensure your peace of mind.
+            <p className="font-semibold text-blue-900 text-xl">Your Safety Guarantee</p>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-blue-700 leading-relaxed">
+              The Direct Hire Fee isn't just a charge—it's your comprehensive protection plan. It
+              covers rigorous background checks, legal contract preparation, and medical clearances
+              to ensure your peace of mind.
             </p>
           </motion.div>
         </motion.div>

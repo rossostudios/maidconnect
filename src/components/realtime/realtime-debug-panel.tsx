@@ -20,12 +20,12 @@
  */
 
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 import { useRealtime } from "@/lib/integrations/supabase/RealtimeProvider";
 import { cn } from "@/lib/utils/core";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 
 /**
  * Format timestamp to readable string
@@ -98,9 +98,8 @@ export function RealtimeDebugPanel() {
       }, 1000);
 
       return () => clearInterval(interval);
-    } else {
-      setConnectionUptime(0);
     }
+    setConnectionUptime(0);
   }, [health.lastConnected, health.state]);
 
   // Map connection states to badge variants
@@ -130,25 +129,23 @@ export function RealtimeDebugPanel() {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-neutral-900">
+            <h3 className="font-semibold text-lg text-neutral-900">
               Realtime Connection Debug Panel
             </h3>
-            <p className="mt-1 text-sm text-neutral-600">
+            <p className="mt-1 text-neutral-600 text-sm">
               Detailed diagnostics and performance metrics
             </p>
           </div>
-          <Badge variant={stateBadgeVariant[health.state]}>
-            {health.state.toUpperCase()}
-          </Badge>
+          <Badge variant={stateBadgeVariant[health.state]}>{health.state.toUpperCase()}</Badge>
         </div>
 
         {/* Health Score */}
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-neutral-700">Connection Health</span>
+            <span className="font-medium text-neutral-700 text-sm">Connection Health</span>
             <span
               className={cn(
-                "text-sm font-semibold",
+                "font-semibold text-sm",
                 healthScore >= 80 && "text-green-600",
                 healthScore >= 50 && healthScore < 80 && "text-orange-600",
                 healthScore < 50 && "text-red-600"
@@ -174,43 +171,41 @@ export function RealtimeDebugPanel() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {/* Connection State */}
           <div className="space-y-1">
-            <div className="text-xs font-medium text-neutral-500">Status</div>
+            <div className="font-medium text-neutral-500 text-xs">Status</div>
             <div className="flex items-center gap-2">
               <span
                 className={cn(
                   "h-2 w-2 rounded-full",
                   health.state === "connected" && "bg-green-500",
-                  health.state === "connecting" && "bg-blue-500 animate-pulse",
-                  health.state === "reconnecting" && "bg-orange-500 animate-pulse",
+                  health.state === "connecting" && "animate-pulse bg-blue-500",
+                  health.state === "reconnecting" && "animate-pulse bg-orange-500",
                   health.state === "error" && "bg-red-500",
                   health.state === "disconnected" && "bg-neutral-400"
                 )}
               />
-              <span className="text-sm font-medium text-neutral-900">{health.state}</span>
+              <span className="font-medium text-neutral-900 text-sm">{health.state}</span>
             </div>
           </div>
 
           {/* Active Subscriptions */}
           <div className="space-y-1">
-            <div className="text-xs font-medium text-neutral-500">Active Subscriptions</div>
-            <div className="text-xl font-semibold text-neutral-900">
-              {health.subscriptionCount}
-            </div>
+            <div className="font-medium text-neutral-500 text-xs">Active Subscriptions</div>
+            <div className="font-semibold text-neutral-900 text-xl">{health.subscriptionCount}</div>
           </div>
 
           {/* Reconnect Attempts */}
           <div className="space-y-1">
-            <div className="text-xs font-medium text-neutral-500">Reconnect Attempts</div>
-            <div className="text-xl font-semibold text-neutral-900">
+            <div className="font-medium text-neutral-500 text-xs">Reconnect Attempts</div>
+            <div className="font-semibold text-neutral-900 text-xl">
               {health.reconnectAttempts}
-              <span className="ml-1 text-sm font-normal text-neutral-500">/ 5</span>
+              <span className="ml-1 font-normal text-neutral-500 text-sm">/ 5</span>
             </div>
           </div>
 
           {/* Connection Uptime */}
           <div className="space-y-1">
-            <div className="text-xs font-medium text-neutral-500">Uptime</div>
-            <div className="text-xl font-semibold text-neutral-900">
+            <div className="font-medium text-neutral-500 text-xs">Uptime</div>
+            <div className="font-semibold text-neutral-900 text-xl">
               {health.state === "connected" ? formatDuration(connectionUptime) : "—"}
             </div>
           </div>
@@ -220,26 +215,24 @@ export function RealtimeDebugPanel() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {/* Last Connected */}
           <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-            <div className="text-xs font-medium text-neutral-500">Last Connected</div>
-            <div className="mt-1 text-sm font-medium text-neutral-900">
+            <div className="font-medium text-neutral-500 text-xs">Last Connected</div>
+            <div className="mt-1 font-medium text-neutral-900 text-sm">
               {formatTimestamp(health.lastConnected)}
             </div>
           </div>
 
           {/* Latency */}
           <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-            <div className="text-xs font-medium text-neutral-500">Latency</div>
-            <div className="mt-1 text-sm font-medium text-neutral-900">
+            <div className="font-medium text-neutral-500 text-xs">Latency</div>
+            <div className="mt-1 font-medium text-neutral-900 text-sm">
               {health.latency !== null ? `${health.latency}ms` : "—"}
             </div>
           </div>
 
           {/* Error Count */}
           <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-            <div className="text-xs font-medium text-neutral-500">Total Errors</div>
-            <div className="mt-1 text-sm font-medium text-neutral-900">
-              {health.errors.length}
-            </div>
+            <div className="font-medium text-neutral-500 text-xs">Total Errors</div>
+            <div className="mt-1 font-medium text-neutral-900 text-sm">{health.errors.length}</div>
           </div>
         </div>
 
@@ -250,21 +243,21 @@ export function RealtimeDebugPanel() {
               <svg
                 className="mt-0.5 h-5 w-5 text-orange-600"
                 fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
                 stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
               >
                 <path
+                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
                 />
               </svg>
               <div className="flex-1">
-                <h4 className="text-sm font-semibold text-orange-900">
+                <h4 className="font-semibold text-orange-900 text-sm">
                   Connection Issues Detected
                 </h4>
-                <p className="mt-1 text-sm text-orange-700">
+                <p className="mt-1 text-orange-700 text-sm">
                   Multiple reconnection attempts failed ({health.reconnectAttempts}/5). If this
                   persists, check your internet connection or contact support.
                 </p>
@@ -277,7 +270,7 @@ export function RealtimeDebugPanel() {
         {health.errors.length > 0 && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-semibold text-neutral-900">
+              <h4 className="font-semibold text-neutral-900 text-sm">
                 Recent Errors ({health.errors.length})
               </h4>
               <Button onClick={handleClearErrors} size="sm" variant="ghost">
@@ -287,14 +280,14 @@ export function RealtimeDebugPanel() {
             <div className="max-h-60 space-y-2 overflow-y-auto">
               {health.errors.slice(-5).map((error, index) => (
                 <div
-                  key={index}
                   className="break-all rounded-lg border border-red-200 bg-red-50 p-3"
+                  key={index}
                 >
-                  <p className="break-all font-mono text-sm text-red-900">{error}</p>
+                  <p className="break-all font-mono text-red-900 text-sm">{error}</p>
                 </div>
               ))}
               {health.errors.length > 5 && (
-                <p className="text-xs text-neutral-500">
+                <p className="text-neutral-500 text-xs">
                   + {health.errors.length - 5} more errors (showing last 5)
                 </p>
               )}
@@ -309,19 +302,19 @@ export function RealtimeDebugPanel() {
               <svg
                 className="h-5 w-5 text-green-600"
                 fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
                 stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
               >
                 <path
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
               <div>
-                <p className="text-sm font-medium text-green-900">Connection Healthy</p>
-                <p className="text-sm text-green-700">
+                <p className="font-medium text-green-900 text-sm">Connection Healthy</p>
+                <p className="text-green-700 text-sm">
                   All realtime subscriptions are active and running smoothly.
                 </p>
               </div>
@@ -335,19 +328,19 @@ export function RealtimeDebugPanel() {
             <svg
               className="mt-0.5 h-5 w-5 text-blue-600"
               fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
               stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
             >
               <path
+                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
               />
             </svg>
             <div className="flex-1">
-              <h4 className="text-sm font-semibold text-blue-900">Optimization Active</h4>
-              <p className="mt-1 text-sm text-blue-700">
+              <h4 className="font-semibold text-blue-900 text-sm">Optimization Active</h4>
+              <p className="mt-1 text-blue-700 text-sm">
                 Channel multiplexing is active. Admin dashboard uses ~{health.subscriptionCount}{" "}
                 channels instead of ~7-10 (40-60% reduction in WebSocket overhead).
               </p>
@@ -357,11 +350,11 @@ export function RealtimeDebugPanel() {
 
         {/* Debug Info */}
         <details className="rounded-lg border border-neutral-200 bg-neutral-50">
-          <summary className="cursor-pointer p-4 text-sm font-semibold text-neutral-900">
+          <summary className="cursor-pointer p-4 font-semibold text-neutral-900 text-sm">
             Raw Debug Data
           </summary>
-          <div className="border-t border-neutral-200 p-4">
-            <pre className="overflow-x-auto text-xs text-neutral-700">
+          <div className="border-neutral-200 border-t p-4">
+            <pre className="overflow-x-auto text-neutral-700 text-xs">
               {JSON.stringify(
                 {
                   state: health.state,
@@ -371,8 +364,8 @@ export function RealtimeDebugPanel() {
                   latency: health.latency,
                   errorCount: health.errors.length,
                   errors: health.errors,
-                  connectionUptime: connectionUptime,
-                  healthScore: healthScore,
+                  connectionUptime,
+                  healthScore,
                 },
                 null,
                 2
@@ -412,8 +405,8 @@ export function RealtimeDebugWidget() {
         className={cn(
           "h-2 w-2 rounded-full",
           health.state === "connected" && "bg-green-500",
-          health.state === "connecting" && "bg-blue-500 animate-pulse",
-          health.state === "reconnecting" && "bg-orange-500 animate-pulse",
+          health.state === "connecting" && "animate-pulse bg-blue-500",
+          health.state === "reconnecting" && "animate-pulse bg-orange-500",
           health.state === "error" && "bg-red-500",
           health.state === "disconnected" && "bg-neutral-400"
         )}
@@ -422,7 +415,7 @@ export function RealtimeDebugWidget() {
         {health.subscriptionCount} active
       </span>
       {health.reconnectAttempts > 0 && (
-        <span className="text-xs text-orange-600">({health.reconnectAttempts} retries)</span>
+        <span className="text-orange-600 text-xs">({health.reconnectAttempts} retries)</span>
       )}
     </div>
   );

@@ -107,7 +107,7 @@ function getLinkedInUrl(url: string): string {
  * @example
  * ```tsx
  * <SocialShareButtons
- *   url="https://casaora.com/pro/maria-garcia-abc123"
+ *   url="https://casaora.co/pro/maria-garcia-abc123"
  *   title="María García - House Cleaning Professional"
  *   description="Book verified cleaning services in Bogotá"
  * />
@@ -249,7 +249,10 @@ export function SocialShareButtons({
   const iconSize = compact ? "size-4" : "size-5";
 
   return (
-    <div className={cn("flex flex-wrap items-center gap-2", className)} data-testid="social-share-buttons">
+    <div
+      className={cn("flex flex-wrap items-center gap-2", className)}
+      data-testid="social-share-buttons"
+    >
       {/* Native Share (Mobile) */}
       {typeof navigator !== "undefined" && navigator.share && (
         <Button className="gap-2" onClick={handleNativeShare} size={buttonSize} variant="outline">
@@ -262,10 +265,10 @@ export function SocialShareButtons({
       <Button
         aria-label={t("whatsapp")}
         className="gap-2 border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800"
+        data-testid="share-whatsapp"
         onClick={handleWhatsAppShare}
         size={buttonSize}
         variant="outline"
-        data-testid="share-whatsapp"
       >
         <MessageCircle className={iconSize} />
         {!compact && t("whatsapp")}
@@ -275,10 +278,10 @@ export function SocialShareButtons({
       <Button
         aria-label={t("facebook")}
         className="gap-2 border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
+        data-testid="share-facebook"
         onClick={handleFacebookShare}
         size={buttonSize}
         variant="outline"
-        data-testid="share-facebook"
       >
         <Facebook className={iconSize} />
         {!compact && t("facebook")}
@@ -316,10 +319,10 @@ export function SocialShareButtons({
           copied &&
             "border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800"
         )}
+        data-testid="copy-profile-url"
         onClick={handleCopyLink}
         size={buttonSize}
         variant="outline"
-        data-testid="copy-profile-url"
       >
         {copied ? (
           <>
@@ -356,7 +359,7 @@ type ShareSectionProps = {
  * @example
  * ```tsx
  * <ShareSection
- *   url="https://casaora.com/pro/maria-garcia-abc123"
+ *   url="https://casaora.co/pro/maria-garcia-abc123"
  *   professionalName="María García"
  *   service="House Cleaning"
  * />

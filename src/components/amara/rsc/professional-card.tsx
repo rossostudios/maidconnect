@@ -5,8 +5,7 @@
  * Follows Lia Design System (Anthropic rounded corners, Geist fonts, warm neutrals).
  */
 
-import type { ReactNode } from 'react';
-import { ProfessionalCardActions } from '../client/professional-card-actions';
+import { ProfessionalCardActions } from "../client/professional-card-actions";
 
 /**
  * Professional data type
@@ -38,22 +37,22 @@ type ProfessionalCardProps = {
  * Verification badge component
  */
 function VerificationBadge({ level }: { level: string }) {
-  if (level === 'none') {
+  if (level === "none") {
     return null;
   }
 
   const badges: Record<string, { label: string; color: string }> = {
     basic: {
-      label: 'ID Verified',
-      color: 'bg-blue-50 text-blue-700 border-blue-200',
+      label: "ID Verified",
+      color: "bg-blue-50 text-blue-700 border-blue-200",
     },
     enhanced: {
-      label: 'Background Check',
-      color: 'bg-green-50 text-green-700 border-green-200',
+      label: "Background Check",
+      color: "bg-green-50 text-green-700 border-green-200",
     },
     premium: {
-      label: 'Premium Verified',
-      color: 'bg-orange-50 text-orange-700 border-orange-200',
+      label: "Premium Verified",
+      color: "bg-orange-50 text-orange-700 border-orange-200",
     },
   };
 
@@ -64,20 +63,20 @@ function VerificationBadge({ level }: { level: string }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${badge.color}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 font-medium text-xs ${badge.color}`}
     >
       <svg
+        aria-hidden="true"
         className="h-3 w-3"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
-        aria-hidden="true"
       >
         <path
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
       {badge.label}
@@ -101,25 +100,25 @@ function RatingStars({ rating, reviewCount }: { rating: number; reviewCount: num
 
           return (
             <svg
+              aria-hidden="true"
+              className={`h-4 w-4 ${isFilled || isHalf ? "text-orange-500" : "text-neutral-200"}`}
+              fill={isFilled ? "currentColor" : "none"}
               key={index}
-              className={`h-4 w-4 ${isFilled || isHalf ? 'text-orange-500' : 'text-neutral-200'}`}
-              fill={isFilled ? 'currentColor' : 'none'}
               stroke="currentColor"
               viewBox="0 0 24 24"
-              aria-hidden="true"
             >
               <path
+                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
               />
             </svg>
           );
         })}
       </div>
-      <span className="text-sm font-medium text-neutral-900">{rating.toFixed(1)}</span>
-      <span className="text-sm text-neutral-500">({reviewCount})</span>
+      <span className="font-medium text-neutral-900 text-sm">{rating.toFixed(1)}</span>
+      <span className="text-neutral-500 text-sm">({reviewCount})</span>
     </div>
   );
 }
@@ -135,21 +134,21 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
         <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-200">
           {professional.avatar_url ? (
             <img
-              src={professional.avatar_url}
               alt={professional.name}
               className="h-full w-full object-cover"
+              src={professional.avatar_url}
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-orange-100 text-xl font-medium text-orange-700">
+            <div className="flex h-full w-full items-center justify-center bg-orange-100 font-medium text-orange-700 text-xl">
               {professional.name.charAt(0).toUpperCase()}
             </div>
           )}
         </div>
 
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-semibold text-neutral-900">{professional.name}</h3>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-semibold text-lg text-neutral-900">{professional.name}</h3>
           {professional.service && (
-            <p className="mt-0.5 text-sm text-neutral-600">{professional.service}</p>
+            <p className="mt-0.5 text-neutral-600 text-sm">{professional.service}</p>
           )}
           <div className="mt-2">
             <VerificationBadge level={professional.verificationLevel} />
@@ -163,27 +162,27 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
         <RatingStars rating={professional.rating} reviewCount={professional.reviewCount} />
 
         {/* Location and Experience */}
-        <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-700">
+        <div className="flex flex-wrap items-center gap-4 text-neutral-700 text-sm">
           {professional.location && (
             <div className="flex items-center gap-1.5">
               <svg
+                aria-hidden="true"
                 className="h-4 w-4 text-neutral-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                aria-hidden="true"
               >
                 <path
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                 />
                 <path
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
               <span>{professional.location}</span>
@@ -193,17 +192,17 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
           {professional.experienceYears > 0 && (
             <div className="flex items-center gap-1.5">
               <svg
+                aria-hidden="true"
                 className="h-4 w-4 text-neutral-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                aria-hidden="true"
               >
                 <path
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
               <span>{professional.experienceYears} years exp.</span>
@@ -216,8 +215,8 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
           <div className="flex flex-wrap gap-1.5">
             {professional.languages.map((lang) => (
               <span
+                className="inline-flex rounded-full bg-neutral-100 px-2.5 py-1 text-neutral-700 text-xs"
                 key={lang}
-                className="inline-flex rounded-full bg-neutral-100 px-2.5 py-1 text-xs text-neutral-700"
               >
                 {lang}
               </span>
@@ -227,7 +226,7 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
 
         {/* Bio */}
         {professional.bio && (
-          <p className="text-sm leading-relaxed text-neutral-600 line-clamp-2">
+          <p className="line-clamp-2 text-neutral-600 text-sm leading-relaxed">
             {professional.bio}
           </p>
         )}
@@ -237,17 +236,17 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
           <div className="flex items-center gap-4 rounded-lg bg-neutral-50 px-3 py-2 text-sm">
             <div className="flex items-center gap-1.5">
               <svg
+                aria-hidden="true"
                 className="h-4 w-4 text-green-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                aria-hidden="true"
               >
                 <path
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
               <span className="text-neutral-700">
@@ -264,17 +263,17 @@ export function ProfessionalCard({ professional }: ProfessionalCardProps) {
       </div>
 
       {/* Footer with Pricing and CTA */}
-      <div className="flex items-center justify-between border-t border-neutral-200 bg-neutral-50 px-4 py-4">
+      <div className="flex items-center justify-between border-neutral-200 border-t bg-neutral-50 px-4 py-4">
         <div>
           {professional.hourlyRateCop ? (
             <>
-              <div className="text-2xl font-semibold text-orange-600">
+              <div className="font-semibold text-2xl text-orange-600">
                 {professional.hourlyRateCop.toLocaleString()} <span className="text-base">COP</span>
               </div>
-              <div className="text-sm text-neutral-600">per hour</div>
+              <div className="text-neutral-600 text-sm">per hour</div>
             </>
           ) : (
-            <div className="text-sm text-neutral-600">Contact for pricing</div>
+            <div className="text-neutral-600 text-sm">Contact for pricing</div>
           )}
         </div>
 

@@ -1,11 +1,11 @@
-import { supabase } from '../supabase';
 import type {
-  PaymentIntent,
-  PaymentMethod,
-  CreatePaymentIntentParams,
   ConfirmPaymentParams,
+  CreatePaymentIntentParams,
+  PaymentIntent,
   PaymentIntentResponse,
-} from '@/types/api/payment';
+  PaymentMethod,
+} from "@/types/api/payment";
+import { supabase } from "../supabase";
 
 /**
  * Create a payment intent for a booking
@@ -13,13 +13,13 @@ import type {
 export async function createPaymentIntent(
   params: CreatePaymentIntentParams
 ): Promise<PaymentIntentResponse> {
-  const { data, error } = await supabase.functions.invoke('create-payment-intent', {
+  const { data, error } = await supabase.functions.invoke("create-payment-intent", {
     body: params,
   });
 
   if (error) {
-    console.error('Error creating payment intent:', error);
-    throw new Error('Failed to create payment intent');
+    console.error("Error creating payment intent:", error);
+    throw new Error("Failed to create payment intent");
   }
 
   return data;
@@ -28,16 +28,14 @@ export async function createPaymentIntent(
 /**
  * Confirm a payment intent
  */
-export async function confirmPayment(
-  params: ConfirmPaymentParams
-): Promise<PaymentIntent> {
-  const { data, error } = await supabase.functions.invoke('confirm-payment', {
+export async function confirmPayment(params: ConfirmPaymentParams): Promise<PaymentIntent> {
+  const { data, error } = await supabase.functions.invoke("confirm-payment", {
     body: params,
   });
 
   if (error) {
-    console.error('Error confirming payment:', error);
-    throw new Error('Failed to confirm payment');
+    console.error("Error confirming payment:", error);
+    throw new Error("Failed to confirm payment");
   }
 
   return data.payment_intent;
@@ -47,11 +45,11 @@ export async function confirmPayment(
  * Get user's saved payment methods
  */
 export async function getPaymentMethods(): Promise<PaymentMethod[]> {
-  const { data, error } = await supabase.functions.invoke('get-payment-methods');
+  const { data, error } = await supabase.functions.invoke("get-payment-methods");
 
   if (error) {
-    console.error('Error fetching payment methods:', error);
-    throw new Error('Failed to fetch payment methods');
+    console.error("Error fetching payment methods:", error);
+    throw new Error("Failed to fetch payment methods");
   }
 
   return data.payment_methods || [];
@@ -60,16 +58,14 @@ export async function getPaymentMethods(): Promise<PaymentMethod[]> {
 /**
  * Save a new payment method
  */
-export async function savePaymentMethod(
-  payment_method_id: string
-): Promise<PaymentMethod> {
-  const { data, error } = await supabase.functions.invoke('save-payment-method', {
+export async function savePaymentMethod(payment_method_id: string): Promise<PaymentMethod> {
+  const { data, error } = await supabase.functions.invoke("save-payment-method", {
     body: { payment_method_id },
   });
 
   if (error) {
-    console.error('Error saving payment method:', error);
-    throw new Error('Failed to save payment method');
+    console.error("Error saving payment method:", error);
+    throw new Error("Failed to save payment method");
   }
 
   return data.payment_method;
@@ -79,28 +75,26 @@ export async function savePaymentMethod(
  * Delete a payment method
  */
 export async function deletePaymentMethod(payment_method_id: string): Promise<void> {
-  const { error } = await supabase.functions.invoke('delete-payment-method', {
+  const { error } = await supabase.functions.invoke("delete-payment-method", {
     body: { payment_method_id },
   });
 
   if (error) {
-    console.error('Error deleting payment method:', error);
-    throw new Error('Failed to delete payment method');
+    console.error("Error deleting payment method:", error);
+    throw new Error("Failed to delete payment method");
   }
 }
 
 /**
  * Set default payment method
  */
-export async function setDefaultPaymentMethod(
-  payment_method_id: string
-): Promise<void> {
-  const { error } = await supabase.functions.invoke('set-default-payment-method', {
+export async function setDefaultPaymentMethod(payment_method_id: string): Promise<void> {
+  const { error } = await supabase.functions.invoke("set-default-payment-method", {
     body: { payment_method_id },
   });
 
   if (error) {
-    console.error('Error setting default payment method:', error);
-    throw new Error('Failed to set default payment method');
+    console.error("Error setting default payment method:", error);
+    throw new Error("Failed to set default payment method");
   }
 }

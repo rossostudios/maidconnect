@@ -94,9 +94,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
                       <p className="font-medium text-neutral-900 text-xs">
                         {userName || "Admin User"}
                       </p>
-                      {userEmail && (
-                        <p className="mt-0.5 text-neutral-700 text-xs">{userEmail}</p>
-                      )}
+                      {userEmail && <p className="mt-0.5 text-neutral-700 text-xs">{userEmail}</p>}
                     </div>
                     <div className="py-0.5">
                       <Link

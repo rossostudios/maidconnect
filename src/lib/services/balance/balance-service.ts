@@ -15,8 +15,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "@/types/supabase";
 import type { Currency } from "@/lib/utils/format";
+import type { Database } from "@/types/supabase";
 
 // ========================================
 // Type Definitions

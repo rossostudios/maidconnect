@@ -7,10 +7,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import { geistSans } from "@/app/fonts";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils/core";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -115,7 +115,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
   // Initial fetch and auto-refresh every 30 seconds
   useEffect(() => {
     fetchBalance();
-    const interval = setInterval(fetchBalance, 30000); // 30 seconds
+    const interval = setInterval(fetchBalance, 30_000); // 30 seconds
     return () => clearInterval(interval);
   }, [fetchBalance]);
 
@@ -127,11 +127,11 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
     return (
       <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
         <CardHeader className="p-8 pb-6">
-          <div className="h-6 w-32 animate-pulse bg-neutral-200 rounded-lg" />
+          <div className="h-6 w-32 animate-pulse rounded-lg bg-neutral-200" />
         </CardHeader>
         <CardContent className="space-y-6 p-8 pt-0">
-          <div className="h-20 w-full animate-pulse bg-neutral-100 rounded-lg" />
-          <div className="h-20 w-full animate-pulse bg-neutral-100 rounded-lg" />
+          <div className="h-20 w-full animate-pulse rounded-lg bg-neutral-100" />
+          <div className="h-20 w-full animate-pulse rounded-lg bg-neutral-100" />
         </CardContent>
       </Card>
     );
@@ -162,12 +162,15 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
   const { balance, eligibility, feeInfo, estimate, pendingClearances } = data;
 
   return (
-    <Card className={cn("border-neutral-200 bg-white shadow-sm", className)} data-testid="balance-card">
+    <Card
+      className={cn("border-neutral-200 bg-white shadow-sm", className)}
+      data-testid="balance-card"
+    >
       {/* Header */}
       <CardHeader className="p-8 pb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center bg-orange-100 rounded-lg">
+            <div className="flex size-10 items-center justify-center rounded-lg bg-orange-100">
               <Wallet className="size-5 text-orange-600" />
             </div>
             <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
@@ -175,12 +178,12 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
             </h2>
           </div>
           <Button
+            className="gap-2"
+            data-testid="instant-payout-button"
             disabled={!eligibility.isEligible}
             onClick={onRequestPayout}
             size="sm"
             variant="default"
-            className="gap-2"
-            data-testid="instant-payout-button"
           >
             <Zap className="size-4" />
             {t("actions.instantPayout")}
@@ -190,7 +193,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
 
       <CardContent className="space-y-6 p-8 pt-0">
         {/* Available Balance - Large Display */}
-        <div className="border-neutral-200 bg-neutral-50 border p-6 rounded-lg">
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
           <div className="flex items-baseline justify-between">
             <div>
               <p
@@ -219,7 +222,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
 
           {/* Instant Payout Fee Estimate */}
           {balance.availableCop >= feeInfo.minThresholdCop && (
-            <div className="mt-4 border-neutral-200 bg-white border-t pt-4">
+            <div className="mt-4 border-neutral-200 border-t bg-white pt-4">
               <div className="flex items-center justify-between text-sm">
                 <span className={cn("text-neutral-600", geistSans.className)}>
                   {t("estimate.fee", { percentage: feeInfo.feePercentage })}
@@ -241,13 +244,14 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
         </div>
 
         {/* Pending Balance */}
-        <div className="flex items-center justify-between border-neutral-200 bg-blue-50 border p-4 rounded-lg" data-testid="pending-balance">
+        <div
+          className="flex items-center justify-between rounded-lg border border-neutral-200 bg-blue-50 p-4"
+          data-testid="pending-balance"
+        >
           <div className="flex items-center gap-3">
             <Clock className="size-5 text-blue-600" />
             <div>
-              <p
-                className={cn("font-semibold text-blue-900 text-sm", geistSans.className)}
-              >
+              <p className={cn("font-semibold text-blue-900 text-sm", geistSans.className)}>
                 {t("pending.label")}
               </p>
               <p className={cn("text-blue-700 text-xs", geistSans.className)}>
@@ -274,8 +278,8 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
             <div className="space-y-2">
               {pendingClearances.slice(0, 3).map((clearance) => (
                 <div
+                  className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-sm"
                   key={clearance.bookingId}
-                  className="flex items-center justify-between border-neutral-200 bg-neutral-50 border p-3 rounded-lg text-sm"
                 >
                   <div className="flex items-center gap-2">
                     <TrendingUp className="size-4 text-neutral-500" />
@@ -303,21 +307,16 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
 
         {/* Eligibility Status */}
         {!eligibility.isEligible && eligibility.reasons.length > 0 && (
-          <div className="border-amber-200 bg-amber-50 border p-4 rounded-lg">
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
             <div className="flex items-start gap-3">
               <AlertCircle className="mt-0.5 size-5 text-amber-600" />
               <div className="flex-1">
-                <p
-                  className={cn("font-semibold text-amber-900 text-sm", geistSans.className)}
-                >
+                <p className={cn("font-semibold text-amber-900 text-sm", geistSans.className)}>
                   {t("ineligible.title")}
                 </p>
                 <ul className="mt-2 space-y-1">
                   {eligibility.reasons.map((reason, index) => (
-                    <li
-                      key={index}
-                      className={cn("text-amber-800 text-xs", geistSans.className)}
-                    >
+                    <li className={cn("text-amber-800 text-xs", geistSans.className)} key={index}>
                       • {reason}
                     </li>
                   ))}

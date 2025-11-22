@@ -15,8 +15,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { paypal } from "@/lib/integrations/paypal";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { logger } from "@/lib/logger";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const CreateOrderSchema = z.object({
   bookingId: z.string().uuid(),
@@ -71,10 +71,7 @@ export async function POST(request: Request) {
 
     // Verify booking is not already paid
     if (booking.payment_status === "paid") {
-      return NextResponse.json(
-        { error: "Booking is already paid" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Booking is already paid" }, { status: 400 });
     }
 
     // Verify amount matches booking total
@@ -116,9 +113,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     logger.error("[PayPal Order] Error creating order", { error });
-    return NextResponse.json(
-      { error: "Failed to create PayPal order" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create PayPal order" }, { status: 500 });
   }
 }

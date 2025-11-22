@@ -55,8 +55,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             Plataforma.
           </p>
           <p className="mt-3 text-neutral-700">
-            Casaora es operada por <strong>Casaora SAS</strong>, con oficinas registradas
-            en <strong>Colombia, Paraguay, Uruguay y Argentina</strong> (&quot;Casaora&quot;,
+            Casaora es operada por <strong>Casaora SAS</strong>, con oficinas registradas en{" "}
+            <strong>Colombia, Paraguay, Uruguay y Argentina</strong> (&quot;Casaora&quot;,
             &quot;nosotros&quot;, &quot;nuestro&quot;). Cada mercado opera bajo los requisitos
             regulatorios locales correspondientes.
           </p>
@@ -584,8 +584,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             17. Ley Aplicable y Jurisdicción
           </h2>
           <p className="text-neutral-700">
-            Estos Términos se rigen por las leyes del país donde el Usuario reside o donde se
-            presta el servicio:
+            Estos Términos se rigen por las leyes del país donde el Usuario reside o donde se presta
+            el servicio:
           </p>
           <ul className="mt-2 ml-6 list-disc space-y-1 text-neutral-700">
             <li>
@@ -647,7 +647,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </p>
           <ul className="mt-2 ml-6 list-none space-y-1 text-neutral-700">
             <li>
-              <strong>Correo electrónico:</strong> legal@casaora.com
+              <strong>Correo electrónico:</strong> legal@casaora.co
             </li>
             <li>
               <strong>Soporte regional:</strong> Disponible en Colombia, Paraguay, Uruguay y
@@ -833,7 +833,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
           <p className="text-neutral-700">For questions about these Terms, contact us:</p>
           <ul className="mt-2 ml-6 list-none space-y-1 text-neutral-700">
             <li>
-              <strong>Email:</strong> legal@casaora.com
+              <strong>Email:</strong> legal@casaora.co
             </li>
             <li>
               <strong>Regional Support:</strong> Available in Colombia, Paraguay, Uruguay, and

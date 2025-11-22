@@ -6,13 +6,13 @@
  */
 
 export type FeatureFlag =
-  // Business Model Controls (Concierge Migration)
+  // Business Model Controls (Direct Hire Migration)
   | "enable_professional_directory" // Show /professionals browsing/listing pages
   | "enable_lead_queue" // Show Lead Queue in professional dashboard
-  | "concierge_only_mode" // Master flag: disable all self-service marketplace features
+  | "direct_hire_mode" // Master flag: enable direct hire focused operation
 
   // Week 1-2 Features
-  | "show_match_wizard" // Concierge match wizard for first booking
+  | "show_match_wizard" // Match wizard for first booking
   | "enable_web_vitals" // Web Vitals reporting
 
   // Week 3-4 Features
@@ -52,11 +52,11 @@ export type FeatureFlag =
  * Can be overridden by environment variables: NEXT_PUBLIC_FEATURE_<FLAG_NAME>=true
  */
 const defaultFlags: Record<FeatureFlag, boolean> = {
-  // Business Model Controls (Concierge Migration)
+  // Business Model Controls (Direct Hire Migration)
   // Set to false initially for safe rollout - can be toggled via env vars
-  enable_professional_directory: false, // Disabled: redirects to /concierge
+  enable_professional_directory: false, // Disabled: redirects to /direct-hire
   enable_lead_queue: false, // Disabled: hides Lead Queue from pro dashboard
-  concierge_only_mode: true, // Enabled: full concierge-only operation
+  direct_hire_mode: true, // Enabled: full direct hire operation
 
   // Week 1-2 (Ready to enable)
   show_match_wizard: true,

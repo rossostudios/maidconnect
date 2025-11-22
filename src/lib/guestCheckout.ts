@@ -26,8 +26,8 @@ export type GuestCheckoutData = {
   phone?: string;
 };
 
-const GUEST_TOKEN_KEY = "maidconnect_guest_token";
-const GUEST_SESSION_KEY = "maidconnect_guest_session";
+const GUEST_TOKEN_KEY = "casaora_guest_token";
+const GUEST_SESSION_KEY = "casaora_guest_session";
 
 /**
  * Generate a secure random token for guest sessions

@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  BriefcaseIcon,
-  Calendar03Icon,
-  SparklesIcon,
-} from "@hugeicons/core-free-icons";
+import { BriefcaseIcon, Calendar03Icon, SparklesIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
@@ -105,13 +101,19 @@ export function ProsThreeWaysToEarnSection() {
                 key={path.titleKey}
                 variants={fadeInUp}
               >
-                <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${colors.bg} shadow-sm`}>
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-lg ${colors.bg} shadow-sm`}
+                >
                   <HugeiconsIcon className={`h-6 w-6 ${colors.text}`} icon={Icon} />
                 </div>
 
                 <div>
-                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-lg text-neutral-900">{t(path.titleKey)}</h3>
-                  <p className="text-neutral-600 leading-relaxed text-sm">{t(path.descriptionKey)}</p>
+                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-lg text-neutral-900">
+                    {t(path.titleKey)}
+                  </h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">
+                    {t(path.descriptionKey)}
+                  </p>
                 </div>
               </motion.div>
             );

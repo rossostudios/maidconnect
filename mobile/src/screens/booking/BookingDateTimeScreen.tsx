@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Platform,
   ActivityIndicator,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { getProfessionalAvailability } from '@/lib/api/bookings';
-import type { TimeSlot } from '@/types/api/booking';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { getProfessionalAvailability } from "@/lib/api/bookings";
+import type { TimeSlot } from "@/types/api/booking";
+import type { MainTabScreenProps } from "@/types/navigation";
 
-type Props = MainTabScreenProps<'BookingDateTime'>;
+type Props = MainTabScreenProps<"BookingDateTime">;
 
 export function BookingDateTimeScreen({ route, navigation }: Props) {
   const { professionalId, serviceType, durationHours } = route.params;
@@ -38,18 +38,18 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
   const loadAvailability = async () => {
     setLoading(true);
     try {
-      const dateStr = format(selectedDate, 'yyyy-MM-dd');
+      const dateStr = format(selectedDate, "yyyy-MM-dd");
       const availability = await getProfessionalAvailability(professionalId, dateStr);
       setTimeSlots(availability.slots);
     } catch (error) {
-      console.error('Error loading availability:', error);
+      console.error("Error loading availability:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDateChange = (event: any, date?: Date) => {
-    setShowDatePicker(Platform.OS === 'ios');
+    setShowDatePicker(Platform.OS === "ios");
     if (date) {
       setSelectedDate(date);
       setSelectedTime(null); // Reset time when date changes
@@ -59,7 +59,7 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
   const handleContinue = () => {
     if (!selectedTime) return;
 
-    navigation.navigate('BookingAddress', {
+    navigation.navigate("BookingAddress", {
       professionalId,
       serviceType,
       durationHours,
@@ -81,10 +81,10 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
   const nextDays = getNextDays();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text.primary} />
+          <Ionicons color={Colors.text.primary} name="arrow-back" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Fecha y Hora</Text>
         <View style={styles.headerRight} />
@@ -95,37 +95,38 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
         <Card style={styles.section}>
           <Text style={styles.sectionTitle}>Selecciona la fecha</Text>
 
-          {Platform.OS === 'ios' ? (
+          {Platform.OS === "ios" ? (
             <DateTimePicker
-              value={selectedDate}
-              mode="date"
               display="inline"
-              onChange={handleDateChange}
-              minimumDate={new Date()}
               locale="es-ES"
+              minimumDate={new Date()}
+              mode="date"
+              onChange={handleDateChange}
               style={styles.iosDatePicker}
+              value={selectedDate}
             />
           ) : (
             <>
               <ScrollView
+                contentContainerStyle={styles.datesScroll}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.datesScroll}
               >
                 {nextDays.map((date, index) => {
-                  const isSelected = format(date, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd');
-                  const dayName = format(date, 'EEE', { locale: es });
-                  const dayNumber = format(date, 'd');
-                  const monthName = format(date, 'MMM', { locale: es });
+                  const isSelected =
+                    format(date, "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd");
+                  const dayName = format(date, "EEE", { locale: es });
+                  const dayNumber = format(date, "d");
+                  const monthName = format(date, "MMM", { locale: es });
 
                   return (
                     <TouchableOpacity
+                      activeOpacity={0.7}
                       key={index}
                       onPress={() => {
                         setSelectedDate(date);
                         setSelectedTime(null);
                       }}
-                      activeOpacity={0.7}
                     >
                       <View style={[styles.dateCard, isSelected && styles.dateCardSelected]}>
                         <Text style={[styles.dayName, isSelected && styles.dayNameSelected]}>
@@ -145,11 +146,11 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
 
               {showDatePicker && (
                 <DateTimePicker
-                  value={selectedDate}
-                  mode="date"
                   display="default"
-                  onChange={handleDateChange}
                   minimumDate={new Date()}
+                  mode="date"
+                  onChange={handleDateChange}
+                  value={selectedDate}
                 />
               )}
             </>
@@ -162,20 +163,20 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
 
           {loading ? (
             <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color={Colors.orange[500]} />
+              <ActivityIndicator color={Colors.orange[500]} size="large" />
             </View>
           ) : (
             <View style={styles.timeSlotsGrid}>
               {timeSlots.map((slot, index) => {
                 const isSelected = selectedTime === slot.start;
-                const timeStr = format(new Date(slot.start), 'h:mm a');
+                const timeStr = format(new Date(slot.start), "h:mm a");
 
                 return (
                   <TouchableOpacity
+                    activeOpacity={0.7}
+                    disabled={!slot.available}
                     key={index}
                     onPress={() => slot.available && setSelectedTime(slot.start)}
-                    disabled={!slot.available}
-                    activeOpacity={0.7}
                   >
                     <View
                       style={[
@@ -204,7 +205,7 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
         {/* Info Card */}
         <Card style={styles.infoCard}>
           <View style={styles.infoIconContainer}>
-            <Ionicons name="information-circle-outline" size={20} color={Colors.blue[500]} />
+            <Ionicons color={Colors.blue[500]} name="information-circle-outline" size={20} />
           </View>
           <Text style={styles.infoText}>
             Los horarios mostrados son estimados. El profesional confirmará la disponibilidad final.
@@ -215,11 +216,11 @@ export function BookingDateTimeScreen({ route, navigation }: Props) {
       {/* Bottom CTA */}
       <View style={styles.bottomBar}>
         <Button
-          title="Continuar"
-          onPress={handleContinue}
           disabled={!selectedTime}
-          variant="primary"
+          onPress={handleContinue}
           size="lg"
+          title="Continuar"
+          variant="primary"
         />
       </View>
     </SafeAreaView>
@@ -232,9 +233,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -243,11 +244,11 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   headerRight: {
@@ -263,12 +264,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
   iosDatePicker: {
-    width: '100%',
+    width: "100%",
   },
   datesScroll: {
     gap: 12,
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.neutral[200],
     backgroundColor: Colors.white,
-    alignItems: 'center',
+    alignItems: "center",
   },
   dateCardSelected: {
     borderColor: Colors.orange[500],
@@ -288,9 +289,9 @@ const styles = StyleSheet.create({
   },
   dayName: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.text.secondary,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
     marginBottom: 4,
   },
   dayNameSelected: {
@@ -298,7 +299,7 @@ const styles = StyleSheet.create({
   },
   dayNumber: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 2,
   },
@@ -307,20 +308,20 @@ const styles = StyleSheet.create({
   },
   monthName: {
     fontSize: 11,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.text.tertiary,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
   monthNameSelected: {
     color: Colors.orange[500],
   },
   loadingContainer: {
     paddingVertical: 40,
-    alignItems: 'center',
+    alignItems: "center",
   },
   timeSlotsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
   },
   timeSlot: {
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.neutral[200],
     backgroundColor: Colors.white,
     minWidth: 90,
-    alignItems: 'center',
+    alignItems: "center",
   },
   timeSlotSelected: {
     borderColor: Colors.orange[500],
@@ -343,7 +344,7 @@ const styles = StyleSheet.create({
   },
   timeSlotText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   timeSlotTextSelected: {
@@ -353,7 +354,7 @@ const styles = StyleSheet.create({
     color: Colors.neutral[400],
   },
   infoCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     backgroundColor: Colors.blue[50],
     borderWidth: 1,
@@ -369,7 +370,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,

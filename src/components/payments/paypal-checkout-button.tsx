@@ -25,11 +25,7 @@ interface PayPalCheckoutButtonProps {
   bookingId: string;
   amount: string;
   currency: "USD" | "ARS" | "UYU" | "PYG";
-  onSuccess?: (data: {
-    orderId: string;
-    captureId?: string;
-    bookingId: string;
-  }) => void;
+  onSuccess?: (data: { orderId: string; captureId?: string; bookingId: string }) => void;
   onError?: (error: Error) => void;
   onCancel?: () => void;
 }
@@ -111,7 +107,7 @@ export function PayPalCheckoutButton({
 
   // Render PayPal button once SDK is loaded
   useEffect(() => {
-    if (!isScriptLoaded || !window.paypal || !buttonContainerRef.current) {
+    if (!(isScriptLoaded && window.paypal && buttonContainerRef.current)) {
       return;
     }
 
@@ -203,7 +199,7 @@ export function PayPalCheckoutButton({
   if (error) {
     return (
       <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-        <p className="text-sm text-red-800">Error loading PayPal: {error}</p>
+        <p className="text-red-800 text-sm">Error loading PayPal: {error}</p>
       </div>
     );
   }
@@ -213,7 +209,7 @@ export function PayPalCheckoutButton({
       <div className="flex items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 p-8">
         <div className="flex items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-300 border-t-orange-500" />
-          <p className="text-sm text-neutral-600">Loading PayPal...</p>
+          <p className="text-neutral-600 text-sm">Loading PayPal...</p>
         </div>
       </div>
     );
@@ -221,7 +217,7 @@ export function PayPalCheckoutButton({
 
   return (
     <div className="w-full">
-      <div ref={buttonContainerRef} id="paypal-button-container" className="min-h-[150px]" />
+      <div className="min-h-[150px]" id="paypal-button-container" ref={buttonContainerRef} />
     </div>
   );
 }

@@ -5,6 +5,9 @@
  *
  * Catches React errors and displays a fallback UI.
  * Logs errors to Better Stack for monitoring.
+ *
+ * Note: React error boundaries require class components.
+ * This is the only exception to our functional component rule.
  */
 
 import { useLogger } from "@logtail/next";
@@ -12,19 +15,23 @@ import type { ErrorInfo, ReactNode } from "react";
 import { Component, useEffect } from "react";
 import { trackError } from "@/lib/integrations/posthog";
 
-type ErrorBoundaryProps = {
+interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode;
-};
+}
 
-type ErrorBoundaryState = {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
-};
+}
 
 /**
  * Error Boundary Component
- * Wraps the application to catch and handle React errors
+ *
+ * Wraps the application to catch and handle React errors.
+ * Class component is required by React for error boundaries.
+ *
+ * @see https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
  */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -43,11 +50,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // Log error details to console
-    console.error("Error Boundary caught an error:", error, errorInfo);
-
-    // Error will be logged to Better Stack via the ErrorDisplay component
+  componentDidCatch(_error: Error, _errorInfo: ErrorInfo): void {
+    // Error logging is handled in ErrorDisplay component via Better Stack and PostHog
+    // No console.error here - use structured logging only
   }
 
   render() {
@@ -94,14 +99,14 @@ function ErrorDisplay({ error }: { error: Error }) {
   }, [error, logger]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[neutral-50] px-4">
-      <div className="w-full max-w-md border border-[neutral-200] bg-[neutral-50] p-8 shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 px-4">
+      <div className="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-8 shadow-lg">
         {/* Error Icon */}
         <div className="mb-6 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center bg-[neutral-500]/10">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-50">
             <svg
               aria-label="Error"
-              className="h-8 w-8 text-[neutral-500]"
+              className="h-8 w-8 text-orange-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -118,20 +123,20 @@ function ErrorDisplay({ error }: { error: Error }) {
         </div>
 
         {/* Error Message */}
-        <h1 className="mb-2 text-center font-semibold text-2xl text-[neutral-900]">
+        <h1 className="mb-2 text-center font-semibold text-2xl text-neutral-900">
           Something went wrong
         </h1>
-        <p className="mb-6 text-center text-[neutral-400] text-sm">
+        <p className="mb-6 text-center text-neutral-500 text-sm">
           We've been notified and are working to fix the issue.
         </p>
 
         {/* Error Details (development only) */}
         {process.env.NODE_ENV === "development" && (
-          <details className="mb-6 bg-[neutral-500]/10 p-4">
-            <summary className="cursor-pointer font-medium text-[neutral-500] text-sm">
+          <details className="mb-6 rounded-lg bg-neutral-100 p-4">
+            <summary className="cursor-pointer font-medium text-neutral-700 text-sm">
               Error Details (Development Only)
             </summary>
-            <pre className="mt-2 overflow-x-auto text-[neutral-500] text-xs">
+            <pre className="mt-2 overflow-x-auto text-neutral-600 text-xs">
               {error.name}: {error.message}
               {"\n\n"}
               {error.stack}
@@ -142,14 +147,14 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full bg-[neutral-500] px-4 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+            className="w-full rounded-lg bg-orange-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-orange-600"
             onClick={() => window.location.reload()}
             type="button"
           >
             Reload Page
           </button>
           <button
-            className="w-full border border-[neutral-200] bg-[neutral-50] px-4 py-3 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
+            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50"
             onClick={() => (window.location.href = "/")}
             type="button"
           >
@@ -158,9 +163,9 @@ function ErrorDisplay({ error }: { error: Error }) {
         </div>
 
         {/* Support Link */}
-        <p className="mt-6 text-center text-[neutral-400] text-xs">
+        <p className="mt-6 text-center text-neutral-500 text-xs">
           Need help?{" "}
-          <a className="text-[neutral-500] underline hover:text-[neutral-500]" href="/contact">
+          <a className="text-orange-600 underline hover:text-orange-700" href="/contact">
             Contact Support
           </a>
         </p>

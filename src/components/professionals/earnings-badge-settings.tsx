@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { geistSans } from "@/app/fonts";
 import { Toggle } from "@/components/ui/anthropic-components";
 import {
-  trackEarningsBadgeEnabled,
   trackEarningsBadgeDisabled,
+  trackEarningsBadgeEnabled,
 } from "@/lib/analytics/professional-events";
 import { getBadgeFromBookings } from "@/lib/professionals/earnings-badges";
 import { cn } from "@/lib/utils/core";
@@ -203,7 +203,10 @@ export function EarningsBadgeSettings() {
       </div>
 
       {/* Toggle Control */}
-      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4" data-testid="share-earnings-badge-toggle">
+      <div
+        className="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+        data-testid="share-earnings-badge-toggle"
+      >
         <div className="mb-2">
           <Toggle
             checked={enabled}

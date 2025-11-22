@@ -3,365 +3,260 @@
 import { motion, useScroll, useTransform, type Variants } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
-import { useMarket } from "@/lib/contexts/MarketContext";
 
-// Anthropic-Inspired Animation - Refined and Purposeful
+// Refined easing for elegant motion
+const smoothEase = [0.25, 0.1, 0.25, 1];
+const springEase = [0.34, 1.56, 0.64, 1];
+
 const fadeIn: Variants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.7, ease: smoothEase },
   },
 };
 
 const fadeInScale: Variants = {
-  hidden: { opacity: 0, scale: 0.96 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: smoothEase },
+  },
+};
+
+const slideUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: smoothEase },
+  },
+};
+
+const buttonVariants: Variants = {
+  hidden: { opacity: 0, y: 15, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: springEase },
   },
 };
 
 const stagger: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
   },
 };
 
-/**
- * HeroSection - Anthropic-Inspired Lia Design
- *
- * Refined split-screen hero with exceptional typography and spatial balance:
- * - Geist Sans for display typography (geometric, precise)
- * - Two-column layout: text left, visual right
- * - Anthropic rounded corners (12px cards, 9999px pills)
- * - 4px spacing grid with generous breathing room
- * - Strategic orange accents on warm neutral base
- * - Elevated white cards on neutral-50 background
- * - Strict 24px baseline alignment
- */
+const imageStagger: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.4 },
+  },
+};
+
 export function HeroSection() {
   const t = useTranslations("hero");
-  const containerRef = useRef<HTMLElement>(null);
-  const { country, city, marketInfo } = useMarket();
+  const sectionRef = useRef<HTMLElement>(null);
 
-  // Subtle parallax for visual depth
+  // Parallax scroll effect
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
-  // Get market-specific copy based on selected country and city
-  const marketCopy = useMemo(() => {
-    // Try country-city specific first (e.g., CO.medellin)
-    if (country && city) {
-      const cityKey = city.replace(/-/g, "").toLowerCase(); // Convert ciudad-del-este → ciudaddeleste
-      const marketKey = `markets.${country}.${cityKey}`;
+  const heroTitle = "Trusted Household Staff for Expats in Latin America.";
+  const heroSubtitle =
+    "From on-demand cleaning to full-time nannies. We handle the vetting, contracts, and payments so you can settle in with confidence.";
+  const primaryCta = "Book Instantly with Amara";
+  const secondaryCta = "Find Permanent Staff";
 
-      // Check if translation exists for this specific city
-      const cityRibbon = t(`${marketKey}.ribbon`, { defaultValue: null });
-      if (cityRibbon) {
-        return {
-          ribbon: cityRibbon,
-          title: t(`${marketKey}.title`),
-          trustBadge: t(`${marketKey}.trustBadge`),
-        };
-      }
-    }
-
-    // Fallback to country default (e.g., CO.default)
-    if (country) {
-      const marketKey = `markets.${country}.default`;
-      return {
-        ribbon: t(`${marketKey}.ribbon`),
-        title: t(`${marketKey}.title`),
-        trustBadge: t(`${marketKey}.trustBadge`),
-      };
-    }
-
-    // Ultimate fallback to global default
-    return {
-      ribbon: t("markets.default.ribbon"),
-      title: t("markets.default.title"),
-      trustBadge: t("markets.default.trustBadge"),
-    };
-  }, [country, city, t]);
-
-  const trustedAreas = [
-    `Top-rated pros in ${marketInfo?.countryName || "your area"}`,
-    "Vetted, background-checked, insured",
-  ];
+  // Split title into words for staggered animation
+  const titleWords = heroTitle.split(" ");
 
   return (
-    <section className="relative overflow-hidden bg-neutral-50" ref={containerRef}>
-      {/* Split-Screen Hero Layout */}
-      {/* LIA: py-12 (48px = 2 baselines) mobile, py-24 (96px = 4 baselines) desktop */}
-      <div className="py-12 md:py-24">
-        <Container className="relative max-w-screen-2xl px-4 md:px-12 lg:px-16">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center md:gap-20 lg:gap-24 xl:gap-32">
-            {/* LEFT: Content Column */}
-            <motion.div
-              animate="visible"
-              className="flex flex-col"
-              initial="hidden"
+    <section
+      className="relative overflow-hidden bg-gradient-to-b from-[#fffaf5] via-[#fffefd] to-[#f3f6f9] text-neutral-900"
+      ref={sectionRef}
+    >
+      {/* Subtle gradient overlays */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent" />
+
+      {/* Subtle decorative elements */}
+      <div className="pointer-events-none absolute top-1/3 left-1/4 h-[500px] w-[500px] rounded-full bg-orange-100/30 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full bg-blue-100/20 blur-3xl" />
+
+      <Container className="relative z-10 max-w-screen-2xl px-4 md:px-8 lg:px-12">
+        <motion.div
+          animate="visible"
+          className="grid grid-cols-1 items-center gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-16 lg:py-28"
+          initial="hidden"
+          style={{ opacity: contentOpacity }}
+          variants={stagger}
+        >
+          {/* Left Content Column */}
+          <div className="flex flex-col gap-6 lg:col-span-6 lg:gap-8">
+            {/* Word-by-word animated headline */}
+            <motion.h1
+              className="max-w-2xl font-[family-name:var(--font-geist-sans)] text-[40px] text-neutral-950 leading-[1.05] tracking-tight sm:text-[50px] md:text-[60px]"
               variants={stagger}
             >
-              {/* Tagline Badge */}
-              <motion.div
-                className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2"
-                variants={fadeIn}
-              >
-                <div className="h-2 w-2 animate-pulse rounded-full bg-orange-500" />
-                <span className="font-medium text-orange-900 text-xs uppercase tracking-wider">
-                  {t("tagline") || "Household Happiness"}
-                </span>
-              </motion.div>
+              {titleWords.map((word, index) => (
+                <motion.span
+                  className="mr-[0.25em] inline-block"
+                  key={`${word}-${index}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 20, rotateX: -20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      transition: {
+                        duration: 0.5,
+                        ease: smoothEase,
+                        delay: index * 0.05,
+                      },
+                    },
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.h1>
 
-              {/* Ribbon - Refined Typography */}
-              <motion.p
-                className="mb-6 font-medium text-neutral-600 text-sm leading-6"
-                variants={fadeIn}
-              >
-                {marketCopy.ribbon}
-              </motion.p>
+            <motion.p
+              className="max-w-xl text-lg text-neutral-600 leading-relaxed md:text-[19px]"
+              variants={slideUp}
+            >
+              {heroSubtitle}
+            </motion.p>
 
-              {/* Display Heading - Large, Refined Hierarchy */}
-              {/* LIA: text-5xl (48px) mobile, text-[72px] (72px) desktop. Leading matches size. */}
-              <motion.h1
-                className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 leading-[1.1] tracking-tight lg:text-[72px] lg:leading-[1]"
-                variants={fadeIn}
-              >
-                {marketCopy.title}
-              </motion.h1>
-
-              {/* Body Copy */}
-              <motion.p
-                className="mt-8 max-w-lg text-lg leading-6 text-neutral-600 md:text-xl md:leading-7"
-                variants={fadeIn}
-              >
-                {t("subtitle") ||
-                  "We're the boutique agency that saves you months of stress. Every candidate is background-checked, reference-verified, and hand-matched to your family."}
-              </motion.p>
-
-              {/* Trust Badges - Elevated Cards */}
-              <motion.div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3" variants={fadeIn}>
-                {[
-                  {
-                    icon: (
-                      <svg
-                        aria-hidden="true"
-                        className="h-5 w-5 text-orange-600"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    ),
-                    text: t("trustLines.backgroundChecks") || "Background Checks",
-                  },
-                  {
-                    icon: (
-                      <svg
-                        aria-hidden="true"
-                        className="h-5 w-5 text-orange-600"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    ),
-                    text: t("trustLines.englishFluent") || "English Fluent",
-                  },
-                  {
-                    icon: (
-                      <svg
-                        aria-hidden="true"
-                        className="h-5 w-5 text-orange-600"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    ),
-                    text: t("trustLines.quickMatching") || "5 Days or Less",
-                  },
-                ].map((item, idx) => (
-                  <div
-                    className="flex items-center gap-2.5 rounded-lg border border-neutral-200 bg-white px-4 py-3 shadow-sm transition-shadow hover:shadow-md"
-                    key={idx}
-                  >
-                    {item.icon}
-                    <span className="font-medium text-neutral-700 text-xs">{item.text}</span>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* CTA Buttons - Clear Hierarchy */}
-              <motion.div
-                className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center"
-                variants={fadeIn}
-              >
-                {/* Primary CTA */}
+            {/* CTA Buttons with enhanced hover */}
+            <motion.div className="flex flex-wrap items-center gap-3 md:gap-4" variants={stagger}>
+              <motion.div variants={buttonVariants}>
                 <Link href="/brief">
                   <Button
-                    className="w-full justify-center shadow-lg shadow-orange-500/20 transition-all hover:shadow-orange-500/30 hover:shadow-xl sm:w-auto"
+                    className="group hover:-translate-y-0.5 relative rounded-full bg-orange-500 px-7 py-3.5 text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:bg-orange-600 hover:shadow-orange-500/30 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
                         ctaType: "start_brief",
                         location: "hero",
-                        ctaText: t("cta.primary") || "Tell Us What You Need",
+                        ctaText: primaryCta,
                         variant: "control",
                       })
                     }
                     size="lg"
                   >
-                    {t("cta.primary") || "Tell Us What You Need"} →
+                    <span className="relative z-10">{primaryCta}</span>
                   </Button>
                 </Link>
-
-                {/* Secondary Actions */}
-                <Link
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-5 py-2.5 font-medium text-neutral-700 text-sm transition-all hover:border-orange-200 hover:bg-orange-50 hover:text-orange-700"
-                  href="/concierge"
-                  onClick={() =>
-                    conversionTracking.heroCTAClicked({
-                      ctaType: "concierge",
-                      location: "hero",
-                      ctaText: t("cta.bookCall") || "Book a Free Call",
-                      variant: "control",
-                    })
-                  }
-                >
-                  {t("cta.bookCall") || "Book a Free Call"}
-                </Link>
               </motion.div>
 
-              {/* Subtle Learn More Link */}
-              <motion.div className="mt-6" variants={fadeIn}>
-                <Link
-                  className="inline-flex items-center gap-1.5 font-medium text-neutral-600 text-sm transition-colors hover:text-orange-600"
-                  href="/how-it-works"
-                  onClick={() =>
-                    conversionTracking.heroCTAClicked({
-                      ctaType: "learn_more",
-                      location: "hero",
-                      ctaText: t("cta.howItWorks") || "How Casaora Works",
-                      variant: "control",
-                    })
-                  }
-                >
-                  {t("cta.howItWorks") || "How Casaora Works"}
-                  <svg
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
+              <motion.div variants={buttonVariants}>
+                <Link href="/how-it-works">
+                  <Button
+                    className="hover:-translate-y-0.5 rounded-full border-2 border-neutral-200 bg-white px-7 py-3.5 text-neutral-800 shadow-sm transition-all duration-300 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-md focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+                    onClick={() =>
+                      conversionTracking.heroCTAClicked({
+                        ctaType: "learn_more",
+                        location: "hero",
+                        ctaText: secondaryCta,
+                        variant: "control",
+                      })
+                    }
+                    size="lg"
+                    variant="outline"
                   >
-                    <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                    {secondaryCta}
+                  </Button>
                 </Link>
               </motion.div>
             </motion.div>
 
-            {/* RIGHT: Visual Column */}
-            <motion.div
-              animate="visible"
-              className="relative"
-              initial="hidden"
-              variants={fadeInScale}
-            >
-              {/* Hero Image with Elegant Fade */}
-              <motion.div
-                className="relative aspect-[4/5] overflow-hidden rounded-2xl"
-                style={{ y: imageY, scale: imageScale }}
-              >
-                <Image
-                alt="Casaora - Professional household staff"
-                  className="object-cover"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  src="/casaora-hero.jpg"
-                />
-                {/* Elegant fade to blend into background - subtle blend */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50/30 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50/40" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50/20 via-transparent to-transparent" />
-              </motion.div>
-            </motion.div>
-          </div>
-        </Container>
-      </div>
-
-      {/* Trusted Areas Marquee - Refined Card */}
-      <div className="pb-20 md:pb-32">
-        <Container className="max-w-screen-2xl px-4 md:px-12 lg:px-16">
-          <div className="rounded-lg border border-neutral-200 bg-white px-8 py-12 shadow-sm md:px-12 lg:px-16">
-            <p className="mb-6 text-center font-medium text-neutral-600 text-xs uppercase tracking-widest">
-              {marketCopy.trustBadge}
-            </p>
-
-            <div className="relative overflow-hidden">
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent" />
-
-              <motion.div
-                animate={{
-                  x: [0, -960],
-                }}
-                className="flex gap-12"
-                transition={{
-                  duration: 30,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "linear",
-                }}
-              >
-                {[...trustedAreas, ...trustedAreas].map((area, index) => (
+            {/* Trust indicator */}
+            <motion.div className="flex items-center gap-3" variants={fadeIn}>
+              <div className="-space-x-1.5 flex">
+                {[1, 2, 3, 4].map((i) => (
                   <div
-                    className="flex min-w-[180px] items-center justify-center"
-                    key={`${area}-${index}`}
-                  >
-                    <span className="whitespace-nowrap font-medium text-neutral-700 text-sm">
-                      {area}
-                    </span>
-                  </div>
+                    className="h-7 w-7 rounded-full border-2 border-white bg-gradient-to-br from-neutral-100 to-neutral-200"
+                    key={i}
+                  />
                 ))}
-              </motion.div>
-            </div>
+              </div>
+              <p className="font-medium text-neutral-600 text-sm">
+                <span className="text-neutral-900">500+</span> families matched with trusted staff
+              </p>
+            </motion.div>
           </div>
-        </Container>
-      </div>
+
+          {/* Right Image Column with Parallax */}
+          <motion.div
+            className="relative lg:col-span-6"
+            style={{ y: imageY }}
+            variants={imageStagger}
+          >
+            <motion.div
+              className="group relative mx-auto max-w-2xl rounded-[28px] border border-neutral-200/80 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] transition-all duration-500 hover:shadow-[0_32px_100px_rgba(15,23,42,0.12)]"
+              transition={{ duration: 0.3 }}
+              variants={fadeInScale}
+              whileHover={{ y: -4 }}
+            >
+              <div className="relative overflow-hidden rounded-t-[26px]">
+                <div className="relative aspect-[5/4]">
+                  <Image
+                    alt="Casaora - Professional household staff"
+                    className="object-cover brightness-[1.02] contrast-[1.02] saturate-[1.05] transition-transform duration-700 group-hover:scale-[1.02]"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 900px"
+                    src="/casaorahero.png"
+                  />
+                </div>
+                {/* Subtle gradient overlay on image */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent" />
+              </div>
+              <motion.div
+                className="flex items-center justify-between gap-3 rounded-b-[28px] border-neutral-200/80 border-t bg-neutral-50/80 px-5 py-4 text-neutral-700 text-sm"
+                variants={slideUp}
+              >
+                <div>
+                  <div className="font-semibold text-[13px] text-neutral-900">
+                    On-demand & permanent staffing
+                  </div>
+                  <div className="text-neutral-500 text-xs">Vetted, insured, contract-ready</div>
+                </div>
+                <motion.span
+                  animate={{
+                    scale: [1, 1.02, 1],
+                  }}
+                  className="rounded-full bg-emerald-100 px-3.5 py-1.5 font-semibold text-emerald-700 text-xs"
+                  transition={{
+                    duration: 2,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                >
+                  5-Day Matches
+                </motion.span>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </Container>
     </section>
   );
 }

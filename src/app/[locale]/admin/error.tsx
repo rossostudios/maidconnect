@@ -38,7 +38,7 @@ export default function AdminError({
           </div>
 
           {/* Title */}
-          <h1 className="mb-3 text-center text-2xl font-semibold text-neutral-900">
+          <h1 className="mb-3 text-center font-semibold text-2xl text-neutral-900">
             Something went wrong
           </h1>
 
@@ -51,12 +51,12 @@ export default function AdminError({
           {/* Error details (development only) */}
           {process.env.NODE_ENV === "development" && (
             <div className="mb-6 rounded-lg bg-neutral-50 p-4">
-              <p className="mb-2 font-mono text-sm font-semibold text-neutral-900">
+              <p className="mb-2 font-mono font-semibold text-neutral-900 text-sm">
                 Error Details:
               </p>
-              <p className="font-mono text-xs text-neutral-700">{error.message}</p>
+              <p className="font-mono text-neutral-700 text-xs">{error.message}</p>
               {error.digest && (
-                <p className="mt-2 font-mono text-xs text-neutral-500">Digest: {error.digest}</p>
+                <p className="mt-2 font-mono text-neutral-500 text-xs">Digest: {error.digest}</p>
               )}
             </div>
           )}
@@ -64,15 +64,15 @@ export default function AdminError({
           {/* Actions */}
           <div className="space-y-3">
             <button
-              onClick={reset}
               className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+              onClick={reset}
               type="button"
             >
               Try again
             </button>
             <a
-              href="/en/admin"
               className="block w-full rounded-lg border-2 border-neutral-200 px-6 py-3 text-center font-semibold text-neutral-900 transition hover:border-orange-500 hover:text-orange-600"
+              href="/en/admin"
             >
               Go to Admin Home
             </a>
@@ -80,9 +80,9 @@ export default function AdminError({
         </div>
 
         {/* Support link */}
-        <p className="mt-6 text-center text-sm text-neutral-500">
+        <p className="mt-6 text-center text-neutral-500 text-sm">
           Need help?{" "}
-          <a href="/en/support" className="font-medium text-orange-600 hover:text-orange-700">
+          <a className="font-medium text-orange-600 hover:text-orange-700" href="/en/support">
             Contact Support
           </a>
         </p>

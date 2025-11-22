@@ -33,7 +33,10 @@ function BlogSkeleton() {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {[1, 2, 3].map((i) => (
-        <div className="animate-pulse overflow-hidden rounded-lg border border-neutral-200 bg-white" key={i}>
+        <div
+          className="animate-pulse overflow-hidden rounded-lg border border-neutral-200 bg-white"
+          key={i}
+        >
           <div className="h-48 bg-neutral-100" />
           <div className="p-6">
             <div className="mb-3 h-4 w-24 rounded-full bg-neutral-100" />

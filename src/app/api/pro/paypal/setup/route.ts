@@ -90,10 +90,7 @@ export async function POST(request: Request) {
 
     if (updateError) {
       console.error("[PayPal Setup] Failed to update profile:", updateError);
-      return NextResponse.json(
-        { error: "Failed to update PayPal configuration" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update PayPal configuration" }, { status: 500 });
     }
 
     return NextResponse.json({

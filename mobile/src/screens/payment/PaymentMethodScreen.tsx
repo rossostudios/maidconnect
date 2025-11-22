@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
   ActivityIndicator,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { CardField, useStripe } from '@stripe/stripe-react-native';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { createPaymentIntent } from '@/lib/api/payments';
-import { formatCurrency } from '@/lib/format';
-import type { CurrencyCode } from '@/types/territories';
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { createPaymentIntent } from "@/lib/api/payments";
+import { formatCurrency } from "@/lib/format";
+import type { MainTabScreenProps } from "@/types/navigation";
+import type { CurrencyCode } from "@/types/territories";
 
-type Props = MainTabScreenProps<'PaymentMethod'>;
+type Props = MainTabScreenProps<"PaymentMethod">;
 
 export function PaymentMethodScreen({ route, navigation }: Props) {
   const { bookingId, amount_cents, currency_code } = route.params;
@@ -41,14 +41,14 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
         booking_id: bookingId,
         amount_cents,
         currency_code: currency_code as CurrencyCode,
-        payment_method: 'stripe',
+        payment_method: "stripe",
       });
 
       setClientSecret(response.client_secret);
       setPublishableKey(response.publishable_key);
     } catch (error) {
-      console.error('Error initializing payment:', error);
-      Alert.alert('Error', 'No se pudo inicializar el pago. Intenta nuevamente.');
+      console.error("Error initializing payment:", error);
+      Alert.alert("Error", "No se pudo inicializar el pago. Intenta nuevamente.");
     } finally {
       setLoading(false);
     }
@@ -56,55 +56,48 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
 
   const handlePayment = async () => {
     if (!clientSecret) {
-      Alert.alert('Error', 'No se pudo procesar el pago. Intenta nuevamente.');
+      Alert.alert("Error", "No se pudo procesar el pago. Intenta nuevamente.");
       return;
     }
 
     setLoading(true);
     try {
       const { paymentIntent, error } = await confirmPayment(clientSecret, {
-        paymentMethodType: 'Card',
+        paymentMethodType: "Card",
       });
 
       if (error) {
-        console.error('Payment confirmation error:', error);
+        console.error("Payment confirmation error:", error);
         Alert.alert(
-          'Error de Pago',
-          error.message || 'No se pudo procesar el pago. Verifica tus datos.'
+          "Error de Pago",
+          error.message || "No se pudo procesar el pago. Verifica tus datos."
         );
       } else if (paymentIntent) {
-        Alert.alert(
-          '¡Pago Exitoso!',
-          'Tu pago ha sido procesado exitosamente.',
-          [
-            {
-              text: 'Ver Reserva',
-              onPress: () => {
-                navigation.reset({
-                  index: 0,
-                  routes: [
-                    { name: 'Bookings' },
-                    { name: 'BookingDetail', params: { bookingId } },
-                  ],
-                });
-              },
+        Alert.alert("¡Pago Exitoso!", "Tu pago ha sido procesado exitosamente.", [
+          {
+            text: "Ver Reserva",
+            onPress: () => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Bookings" }, { name: "BookingDetail", params: { bookingId } }],
+              });
             },
-          ]
-        );
+          },
+        ]);
       }
     } catch (error) {
-      console.error('Payment error:', error);
-      Alert.alert('Error', 'Ocurrió un error al procesar el pago.');
+      console.error("Payment error:", error);
+      Alert.alert("Error", "Ocurrió un error al procesar el pago.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text.primary} />
+          <Ionicons color={Colors.text.primary} name="arrow-back" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Método de Pago</Text>
         <View style={styles.headerRight} />
@@ -126,26 +119,26 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
           {/* Stripe Card Input */}
           <View style={styles.paymentOption}>
             <View style={styles.paymentHeader}>
-              <Ionicons name="card-outline" size={24} color={Colors.orange[500]} />
+              <Ionicons color={Colors.orange[500]} name="card-outline" size={24} />
               <Text style={styles.paymentTitle}>Tarjeta de Crédito/Débito</Text>
             </View>
 
             {loading && !clientSecret ? (
               <View style={styles.loadingContainer}>
-                <ActivityIndicator size="small" color={Colors.orange[500]} />
+                <ActivityIndicator color={Colors.orange[500]} size="small" />
                 <Text style={styles.loadingText}>Preparando pago...</Text>
               </View>
             ) : (
               <CardField
-                postalCodeEnabled={false}
-                placeholder={{
-                  number: '4242 4242 4242 4242',
-                }}
                 cardStyle={styles.cardField}
-                style={styles.cardFieldContainer}
                 onCardChange={(cardDetails) => {
                   setCardComplete(cardDetails.complete);
                 }}
+                placeholder={{
+                  number: "4242 4242 4242 4242",
+                }}
+                postalCodeEnabled={false}
+                style={styles.cardFieldContainer}
               />
             )}
           </View>
@@ -153,10 +146,8 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
           {/* Future: PayPal Option */}
           <View style={[styles.paymentOption, styles.paymentOptionDisabled]}>
             <View style={styles.paymentHeader}>
-              <Ionicons name="logo-paypal" size={24} color={Colors.neutral[400]} />
-              <Text style={[styles.paymentTitle, styles.paymentTitleDisabled]}>
-                PayPal
-              </Text>
+              <Ionicons color={Colors.neutral[400]} name="logo-paypal" size={24} />
+              <Text style={[styles.paymentTitle, styles.paymentTitleDisabled]}>PayPal</Text>
             </View>
             <Text style={styles.comingSoonText}>Próximamente</Text>
           </View>
@@ -165,7 +156,7 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
         {/* Security Info */}
         <Card style={styles.infoCard}>
           <View style={styles.infoIconContainer}>
-            <Ionicons name="shield-checkmark" size={20} color={Colors.green[500]} />
+            <Ionicons color={Colors.green[500]} name="shield-checkmark" size={20} />
           </View>
           <View style={styles.infoTextContainer}>
             <Text style={styles.infoTitle}>Pago Seguro</Text>
@@ -179,13 +170,13 @@ export function PaymentMethodScreen({ route, navigation }: Props) {
       {/* Bottom CTA */}
       <View style={styles.bottomBar}>
         <Button
-          title="Pagar Ahora"
-          onPress={handlePayment}
+          disabled={!(cardComplete && clientSecret)}
           loading={loading}
-          disabled={!cardComplete || !clientSecret}
-          variant="primary"
+          onPress={handlePayment}
           size="lg"
           style={styles.payButton}
+          title="Pagar Ahora"
+          variant="primary"
         />
       </View>
     </SafeAreaView>
@@ -198,9 +189,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -209,11 +200,11 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   headerRight: {
@@ -225,7 +216,7 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   amountCard: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 24,
     marginBottom: 16,
     backgroundColor: Colors.orange[50],
@@ -239,7 +230,7 @@ const styles = StyleSheet.create({
   },
   amountValue: {
     fontSize: 36,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.orange[600],
   },
   section: {
@@ -247,7 +238,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 16,
   },
@@ -261,14 +252,14 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   paymentHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
     marginBottom: 16,
   },
   paymentTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   paymentTitleDisabled: {
@@ -286,8 +277,8 @@ const styles = StyleSheet.create({
     placeholderColor: Colors.text.tertiary,
   },
   loadingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
     paddingVertical: 16,
   },
@@ -298,10 +289,10 @@ const styles = StyleSheet.create({
   comingSoonText: {
     fontSize: 12,
     color: Colors.text.tertiary,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   infoCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     backgroundColor: Colors.green[50],
     borderWidth: 1,
@@ -315,7 +306,7 @@ const styles = StyleSheet.create({
   },
   infoTitle: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
     marginBottom: 4,
   },
@@ -325,7 +316,7 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
@@ -344,6 +335,6 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   payButton: {
-    width: '100%',
+    width: "100%",
   },
 });

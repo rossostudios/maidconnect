@@ -119,7 +119,7 @@ export function CustomerFlowSectionClient() {
                       >
                         {/* Step indicator */}
                         <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
-                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-orange-100 shadow-lg shadow-orange-900/5 text-orange-600">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-100 bg-white text-orange-600 shadow-lg shadow-orange-900/5">
                             <span className="font-bold text-lg">{index + 1}</span>
                           </div>
                         </div>
@@ -147,7 +147,7 @@ export function CustomerFlowSectionClient() {
               >
                 <Link
                   className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/20"
-                  href="/concierge"
+                  href="/direct-hire"
                 >
                   {t("cta")}
                   <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />

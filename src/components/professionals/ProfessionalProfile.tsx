@@ -14,8 +14,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AvailabilityCalendar as LargeAvailabilityCalendar } from "@/components/shared/availability-calendar";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
 import { COUNTRIES } from "@/lib/shared/config/territories";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 
 // Dynamic import for sheet (lazy load on demand)
 const BookingSheet = dynamic(
@@ -77,7 +77,8 @@ export function ProfessionalProfileView({
   currency,
 }: ProfessionalProfileViewProps) {
   // Derive currency from professional's country if not provided
-  const professionalCurrency: Currency = currency ||
+  const professionalCurrency: Currency =
+    currency ||
     (professional.country && COUNTRIES[professional.country as keyof typeof COUNTRIES]?.currency) ||
     "COP";
   const t = useTranslations("pages.professionalProfile");
@@ -219,15 +220,15 @@ export function ProfessionalProfileView({
         {professional.directHireFeeCOP && professional.directHireFeeCOP > 0 && (
           <div className="mt-8">
             <DirectHireCard
-              professionalName={professional.name}
-              professionalId={professional.id}
+              currency={professionalCurrency}
               feeCOP={professional.directHireFeeCOP}
               feeUSD={Math.round(professional.directHireFeeCOP / 4000)}
-              currency={professionalCurrency}
               onRequestContact={() => {
                 // TODO: Implement direct hire payment flow with Stripe Elements
                 alert("Direct hire payment flow coming soon!");
               }}
+              professionalId={professional.id}
+              professionalName={professional.name}
             />
           </div>
         )}
@@ -341,7 +342,9 @@ export function ProfessionalProfileView({
                                   />
                                 ) : (
                                   <div className="font-semibold text-[neutral-500] text-lg">
-                                    {formatCurrency(service.hourlyRateCop, { currency: professionalCurrency })}
+                                    {formatCurrency(service.hourlyRateCop, {
+                                      currency: professionalCurrency,
+                                    })}
                                   </div>
                                 )
                               ) : (

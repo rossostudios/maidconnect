@@ -67,7 +67,7 @@ export function ServiceOptionsSectionClient({
           <motion.div className="grid grid-cols-1 gap-8 lg:grid-cols-2" variants={stagger}>
             {/* Instant Book Option (Amara/Marketplace) */}
             <motion.div
-              className="flex flex-col rounded-2xl border border-orange-100 bg-white p-8 shadow-xl shadow-orange-900/5 transition-all hover:shadow-2xl hover:shadow-orange-900/10"
+              className="flex flex-col rounded-2xl border border-orange-100 bg-white p-8 shadow-orange-900/5 shadow-xl transition-all hover:shadow-2xl hover:shadow-orange-900/10"
               variants={fadeIn}
             >
               {/* Icon */}
@@ -122,7 +122,7 @@ export function ServiceOptionsSectionClient({
 
             {/* Concierge Option (Direct Hire) */}
             <motion.div
-              className="flex flex-col rounded-2xl border border-blue-100 bg-white p-8 shadow-xl shadow-blue-900/5 transition-all hover:shadow-2xl hover:shadow-blue-900/10"
+              className="flex flex-col rounded-2xl border border-blue-100 bg-white p-8 shadow-blue-900/5 shadow-xl transition-all hover:shadow-2xl hover:shadow-blue-900/10"
               variants={fadeIn}
             >
               {/* Icon */}
@@ -168,8 +168,8 @@ export function ServiceOptionsSectionClient({
 
               {/* CTA */}
               <Link
-                className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/20"
-                href="/concierge"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white transition-all hover:bg-blue-700 hover:shadow-blue-600/20 hover:shadow-lg"
+                href="/direct-hire"
               >
                 {concierge.cta}
               </Link>
@@ -177,10 +177,7 @@ export function ServiceOptionsSectionClient({
           </motion.div>
 
           {/* Help Text */}
-          <motion.p
-            className="mt-12 text-center text-neutral-600 text-sm"
-            variants={fadeIn}
-          >
+          <motion.p className="mt-12 text-center text-neutral-600 text-sm" variants={fadeIn}>
             Not sure which path is right for you?{" "}
             <Link className="font-medium text-orange-600 hover:text-orange-700" href="/contact">
               Contact our team

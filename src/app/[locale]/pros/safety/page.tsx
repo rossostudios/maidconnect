@@ -1,7 +1,7 @@
+import { Alert01Icon, Briefcase01Icon, CheckmarkCircle01Icon } from "hugeicons-react";
 import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils/core";
-import { Alert01Icon, CheckmarkCircle01Icon, Briefcase01Icon } from "hugeicons-react";
 
 /**
  * Worker Safety & Protection Page
@@ -14,7 +14,11 @@ import { Alert01Icon, CheckmarkCircle01Icon, Briefcase01Icon } from "hugeicons-r
  * - Labor law compliance
  * - Local emergency contacts
  */
-export default async function WorkerSafetyPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function WorkerSafetyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pros.safety" });
 
@@ -36,34 +40,45 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
           >
             {t("title")}
           </h1>
-          <p className={cn("mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed", geistSans.className)}>
+          <p
+            className={cn(
+              "mx-auto max-w-2xl text-lg text-neutral-600 leading-relaxed",
+              geistSans.className
+            )}
+          >
             {t("description")}
           </p>
         </div>
 
         {/* Key Protections Overview */}
         <div className="mb-12 grid gap-6 sm:grid-cols-3">
-          <div className="border border-neutral-200 bg-white p-6 rounded-lg shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
               <CheckmarkCircle01Icon className="h-6 w-6 text-blue-600" />
             </div>
-            <h3 className="mb-2 font-semibold text-lg text-neutral-900">{t("overview.legal.title")}</h3>
+            <h3 className="mb-2 font-semibold text-lg text-neutral-900">
+              {t("overview.legal.title")}
+            </h3>
             <p className="text-neutral-600 text-sm">{t("overview.legal.description")}</p>
           </div>
 
-          <div className="border border-neutral-200 bg-white p-6 rounded-lg shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
               <CheckmarkCircle01Icon className="h-6 w-6 text-green-600" />
             </div>
-            <h3 className="mb-2 font-semibold text-lg text-neutral-900">{t("overview.safety.title")}</h3>
+            <h3 className="mb-2 font-semibold text-lg text-neutral-900">
+              {t("overview.safety.title")}
+            </h3>
             <p className="text-neutral-600 text-sm">{t("overview.safety.description")}</p>
           </div>
 
-          <div className="border border-neutral-200 bg-white p-6 rounded-lg shadow-sm">
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
               <Briefcase01Icon className="h-6 w-6 text-orange-600" />
             </div>
-            <h3 className="mb-2 font-semibold text-lg text-neutral-900">{t("overview.support.title")}</h3>
+            <h3 className="mb-2 font-semibold text-lg text-neutral-900">
+              {t("overview.support.title")}
+            </h3>
             <p className="text-neutral-600 text-sm">{t("overview.support.description")}</p>
           </div>
         </div>
@@ -71,47 +86,65 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
         {/* Main Content Sections */}
         <div className="space-y-8">
           {/* Worker Rights */}
-          <section className="border border-neutral-200 bg-white p-8 rounded-lg shadow-sm">
-            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">{t("workerRights.title")}</h2>
+          <section className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">
+              {t("workerRights.title")}
+            </h2>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <span className="mt-1 text-lg text-orange-500">✓</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("workerRights.contracts.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("workerRights.contracts.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("workerRights.contracts.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("workerRights.contracts.description")}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <span className="mt-1 text-lg text-orange-500">✓</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("workerRights.minimumWage.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("workerRights.minimumWage.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("workerRights.minimumWage.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("workerRights.minimumWage.description")}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <span className="mt-1 text-lg text-orange-500">✓</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("workerRights.workingHours.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("workerRights.workingHours.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("workerRights.workingHours.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("workerRights.workingHours.description")}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <span className="mt-1 text-lg text-orange-500">✓</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("workerRights.benefits.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("workerRights.benefits.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("workerRights.benefits.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("workerRights.benefits.description")}
+                  </p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Anti-Harassment Policy */}
-          <section className="border border-orange-200 bg-orange-50 p-8 rounded-lg">
+          <section className="rounded-lg border border-orange-200 bg-orange-50 p-8">
             <div className="flex items-start gap-4">
-              <Alert01Icon className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
+              <Alert01Icon className="mt-1 h-6 w-6 flex-shrink-0 text-orange-600" />
               <div>
                 <h2 className="mb-3 font-semibold text-2xl text-orange-900">
                   {t("antiHarassment.title")}
@@ -119,7 +152,9 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
                 <p className="mb-4 text-orange-800">{t("antiHarassment.description")}</p>
 
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-lg text-orange-900">{t("antiHarassment.zeroTolerance.title")}</h3>
+                  <h3 className="font-semibold text-lg text-orange-900">
+                    {t("antiHarassment.zeroTolerance.title")}
+                  </h3>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2 text-orange-800 text-sm">
                       <span className="mt-1">•</span>
@@ -144,20 +179,24 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
           </section>
 
           {/* How to Report Issues */}
-          <section className="border border-neutral-200 bg-white p-8 rounded-lg shadow-sm">
+          <section className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
             <h2 className="mb-6 font-semibold text-2xl text-neutral-900">{t("reporting.title")}</h2>
             <p className="mb-6 text-neutral-600">{t("reporting.description")}</p>
 
             <div className="space-y-6">
               <div>
-                <h3 className="mb-3 font-semibold text-lg text-neutral-900">{t("reporting.channels.title")}</h3>
+                <h3 className="mb-3 font-semibold text-lg text-neutral-900">
+                  {t("reporting.channels.title")}
+                </h3>
                 <div className="space-y-3">
                   <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
-                    <h4 className="font-semibold text-neutral-900">{t("reporting.channels.casaoraSupport.title")}</h4>
+                    <h4 className="font-semibold text-neutral-900">
+                      {t("reporting.channels.casaoraSupport.title")}
+                    </h4>
                     <p className="mt-1 text-neutral-600 text-sm">
                       {t("reporting.channels.casaoraSupport.description")}
                     </p>
-                    <p className="mt-2 font-mono text-neutral-900 text-sm">support@casaora.com</p>
+                    <p className="mt-2 font-mono text-neutral-900 text-sm">support@casaora.co</p>
                   </div>
 
                   <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
@@ -173,7 +212,9 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
                   </div>
 
                   <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
-                    <h4 className="font-semibold text-neutral-900">{t("reporting.channels.localAuthorities.title")}</h4>
+                    <h4 className="font-semibold text-neutral-900">
+                      {t("reporting.channels.localAuthorities.title")}
+                    </h4>
                     <p className="mt-1 text-neutral-600 text-sm">
                       {t("reporting.channels.localAuthorities.description")}
                     </p>
@@ -181,107 +222,135 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-900">{t("reporting.confidentiality.title")}</h4>
-                <p className="mt-1 text-blue-800 text-sm">{t("reporting.confidentiality.description")}</p>
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <h4 className="font-semibold text-blue-900">
+                  {t("reporting.confidentiality.title")}
+                </h4>
+                <p className="mt-1 text-blue-800 text-sm">
+                  {t("reporting.confidentiality.description")}
+                </p>
               </div>
             </div>
           </section>
 
           {/* Legal Contracts & Documentation */}
-          <section className="border border-neutral-200 bg-white p-8 rounded-lg shadow-sm">
-            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">{t("legalContracts.title")}</h2>
+          <section className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
+            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">
+              {t("legalContracts.title")}
+            </h2>
             <p className="mb-6 text-neutral-600">{t("legalContracts.description")}</p>
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-blue-500">📄</span>
+                <span className="mt-1 text-blue-500 text-lg">📄</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("legalContracts.written.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("legalContracts.written.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("legalContracts.written.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("legalContracts.written.description")}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-blue-500">💰</span>
+                <span className="mt-1 text-blue-500 text-lg">💰</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("legalContracts.payment.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("legalContracts.payment.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("legalContracts.payment.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("legalContracts.payment.description")}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-blue-500">🔒</span>
+                <span className="mt-1 text-blue-500 text-lg">🔒</span>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("legalContracts.termination.title")}</h4>
-                  <p className="mt-1 text-neutral-600 text-sm">{t("legalContracts.termination.description")}</p>
+                  <h4 className="font-semibold text-neutral-900">
+                    {t("legalContracts.termination.title")}
+                  </h4>
+                  <p className="mt-1 text-neutral-600 text-sm">
+                    {t("legalContracts.termination.description")}
+                  </p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Country-Specific Information */}
-          <section className="border border-neutral-200 bg-neutral-50 p-8 rounded-lg">
-            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">{t("countrySpecific.title")}</h2>
+          <section className="rounded-lg border border-neutral-200 bg-neutral-50 p-8">
+            <h2 className="mb-6 font-semibold text-2xl text-neutral-900">
+              {t("countrySpecific.title")}
+            </h2>
             <p className="mb-6 text-neutral-600">{t("countrySpecific.description")}</p>
 
             <div className="grid gap-6 sm:grid-cols-2">
-              <div className="border border-neutral-200 bg-white p-6 rounded-lg">
+              <div className="rounded-lg border border-neutral-200 bg-white p-6">
                 <h3 className="mb-3 font-semibold text-lg text-neutral-900">
                   {t("countrySpecific.laborMinistry.title")}
                 </h3>
-                <p className="text-neutral-600 text-sm">{t("countrySpecific.laborMinistry.description")}</p>
+                <p className="text-neutral-600 text-sm">
+                  {t("countrySpecific.laborMinistry.description")}
+                </p>
               </div>
 
-              <div className="border border-neutral-200 bg-white p-6 rounded-lg">
+              <div className="rounded-lg border border-neutral-200 bg-white p-6">
                 <h3 className="mb-3 font-semibold text-lg text-neutral-900">
                   {t("countrySpecific.minimumWageInfo.title")}
                 </h3>
-                <p className="text-neutral-600 text-sm">{t("countrySpecific.minimumWageInfo.description")}</p>
+                <p className="text-neutral-600 text-sm">
+                  {t("countrySpecific.minimumWageInfo.description")}
+                </p>
               </div>
 
-              <div className="border border-neutral-200 bg-white p-6 rounded-lg">
+              <div className="rounded-lg border border-neutral-200 bg-white p-6">
                 <h3 className="mb-3 font-semibold text-lg text-neutral-900">
                   {t("countrySpecific.healthSafety.title")}
                 </h3>
-                <p className="text-neutral-600 text-sm">{t("countrySpecific.healthSafety.description")}</p>
+                <p className="text-neutral-600 text-sm">
+                  {t("countrySpecific.healthSafety.description")}
+                </p>
               </div>
 
-              <div className="border border-neutral-200 bg-white p-6 rounded-lg">
+              <div className="rounded-lg border border-neutral-200 bg-white p-6">
                 <h3 className="mb-3 font-semibold text-lg text-neutral-900">
                   {t("countrySpecific.emergencyContacts.title")}
                 </h3>
-                <p className="text-neutral-600 text-sm">{t("countrySpecific.emergencyContacts.description")}</p>
+                <p className="text-neutral-600 text-sm">
+                  {t("countrySpecific.emergencyContacts.description")}
+                </p>
               </div>
             </div>
           </section>
 
           {/* Additional Resources */}
-          <section className="border border-green-200 bg-green-50 p-8 rounded-lg">
+          <section className="rounded-lg border border-green-200 bg-green-50 p-8">
             <h2 className="mb-4 font-semibold text-2xl text-green-900">{t("resources.title")}</h2>
             <p className="mb-6 text-green-800">{t("resources.description")}</p>
 
             <div className="space-y-3">
               <a
-                className="block border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50 rounded-lg"
+                className="block rounded-lg border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50"
                 href="/help/worker-rights"
               >
                 {t("resources.links.workerRightsGuide")} →
               </a>
               <a
-                className="block border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50 rounded-lg"
+                className="block rounded-lg border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50"
                 href="/help/contracts"
               >
                 {t("resources.links.contractTemplates")} →
               </a>
               <a
-                className="block border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50 rounded-lg"
+                className="block rounded-lg border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50"
                 href="/help/dispute-resolution"
               >
                 {t("resources.links.disputeResolution")} →
               </a>
               <a
-                className="block border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50 rounded-lg"
+                className="block rounded-lg border border-green-200 bg-white px-6 py-4 font-medium text-green-900 transition hover:bg-green-50"
                 href="/contact"
               >
                 {t("resources.links.contactSupport")} →
@@ -291,12 +360,12 @@ export default async function WorkerSafetyPage({ params }: { params: Promise<{ l
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-12 border border-neutral-200 bg-white p-8 text-center rounded-lg shadow-sm">
+        <div className="mt-12 rounded-lg border border-neutral-200 bg-white p-8 text-center shadow-sm">
           <h2 className="mb-3 font-semibold text-2xl text-neutral-900">{t("footer.title")}</h2>
           <p className="mb-6 text-neutral-600">{t("footer.description")}</p>
           <a
-            className="inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-white transition hover:bg-orange-600 rounded-lg"
-            href="mailto:support@casaora.com"
+            className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white transition hover:bg-orange-600"
+            href="mailto:support@casaora.co"
           >
             {t("footer.cta")}
           </a>

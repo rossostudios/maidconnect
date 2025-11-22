@@ -5,9 +5,9 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import {
   COUNTRY_OPTIONS,
+  type CountryCode,
   getCityOptions,
   getNeighborhoodOptions,
-  type CountryCode,
 } from "@/lib/shared/config/territories";
 import type { WizardData } from "../match-wizard";
 
@@ -30,7 +30,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
   };
 
   const handleNext = () => {
-    if (!data.country || !data.city) {
+    if (!(data.country && data.city)) {
       return;
     }
     onNext();
@@ -148,7 +148,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
         </button>
         <button
           className="flex-1 rounded-lg bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={!data.country || !data.city}
+          disabled={!(data.country && data.city)}
           onClick={handleNext}
           type="button"
         >

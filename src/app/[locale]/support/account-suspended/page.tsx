@@ -13,7 +13,7 @@ export default function AccountSuspendedPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link
             className="border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[var(--red)] hover:bg-neutral-900"
-            href="mailto:support@casaora.com"
+            href="mailto:support@casaora.co"
           >
             Email support
           </Link>

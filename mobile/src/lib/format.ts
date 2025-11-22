@@ -1,6 +1,6 @@
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import type { CurrencyCode } from '@/types/territories';
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import type { CurrencyCode } from "@/types/territories";
 
 /**
  * Format currency based on currency code
@@ -8,18 +8,18 @@ import type { CurrencyCode } from '@/types/territories';
 export function formatCurrency(
   amount: number,
   currencyCode: CurrencyCode,
-  locale: 'en' | 'es' = 'es'
+  locale: "en" | "es" = "es"
 ): string {
   const currencyMap: Record<CurrencyCode, { symbol: string; decimals: number }> = {
-    COP: { symbol: '$', decimals: 0 },
-    PYG: { symbol: '₲', decimals: 0 },
-    UYU: { symbol: '$U', decimals: 2 },
-    ARS: { symbol: '$', decimals: 2 },
-    USD: { symbol: '$', decimals: 2 },
+    COP: { symbol: "$", decimals: 0 },
+    PYG: { symbol: "₲", decimals: 0 },
+    UYU: { symbol: "$U", decimals: 2 },
+    ARS: { symbol: "$", decimals: 2 },
+    USD: { symbol: "$", decimals: 2 },
   };
 
   const config = currencyMap[currencyCode];
-  const formatted = amount.toLocaleString(locale === 'es' ? 'es-ES' : 'en-US', {
+  const formatted = amount.toLocaleString(locale === "es" ? "es-ES" : "en-US", {
     minimumFractionDigits: config.decimals,
     maximumFractionDigits: config.decimals,
   });
@@ -32,12 +32,12 @@ export function formatCurrency(
  */
 export function formatDate(
   date: Date | string,
-  formatStr: string = 'PPP',
-  locale: 'en' | 'es' = 'es'
+  formatStr = "PPP",
+  locale: "en" | "es" = "es"
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === "string" ? new Date(date) : date;
   return format(dateObj, formatStr, {
-    locale: locale === 'es' ? es : undefined,
+    locale: locale === "es" ? es : undefined,
   });
 }
 
@@ -46,11 +46,11 @@ export function formatDate(
  */
 export function formatDateTime(
   date: Date | string,
-  formatStr: string = 'PPp',
-  locale: 'en' | 'es' = 'es'
+  formatStr = "PPp",
+  locale: "en" | "es" = "es"
 ): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === "string" ? new Date(date) : date;
   return format(dateObj, formatStr, {
-    locale: locale === 'es' ? es : undefined,
+    locale: locale === "es" ? es : undefined,
   });
 }

@@ -1,14 +1,14 @@
-import type { CurrencyCode } from '../territories';
+import type { CurrencyCode } from "../territories";
 
-export type PaymentProcessor = 'stripe' | 'paypal';
+export type PaymentProcessor = "stripe" | "paypal";
 
 export type PaymentStatus =
-  | 'pending'
-  | 'processing'
-  | 'succeeded'
-  | 'failed'
-  | 'cancelled'
-  | 'refunded';
+  | "pending"
+  | "processing"
+  | "succeeded"
+  | "failed"
+  | "cancelled"
+  | "refunded";
 
 export interface PaymentIntent {
   id: string;
@@ -24,7 +24,7 @@ export interface PaymentIntent {
 
 export interface PaymentMethod {
   id: string;
-  type: 'card' | 'paypal';
+  type: "card" | "paypal";
   card?: {
     brand: string;
     last4: string;
@@ -39,7 +39,7 @@ export interface CreatePaymentIntentParams {
   booking_id: string;
   amount_cents: number;
   currency_code: CurrencyCode;
-  payment_method?: 'stripe' | 'paypal';
+  payment_method?: "stripe" | "paypal";
 }
 
 export interface ConfirmPaymentParams {

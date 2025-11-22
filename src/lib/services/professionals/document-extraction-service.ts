@@ -38,7 +38,7 @@ import { trackDocumentExtraction } from "@/lib/integrations/amara/tracking";
  *
  * // From URL
  * const data = await extractDocumentData(
- *   "https://storage.casaora.com/docs/id123.jpg",
+ *   "https://storage.casaora.co/docs/id123.jpg",
  *   "url",
  *   "background_check_report"
  * );

@@ -10,9 +10,9 @@
 "use client";
 
 import { useState } from "react";
+import { DateRange, DateRangePicker } from "@/components/ui/date-range-picker";
 import { useRealtimeAdminStats } from "@/hooks/use-realtime-admin-stats";
 import { formatCurrency } from "@/lib/utils/format";
-import { DateRange, DateRangePicker } from "@/components/ui/date-range-picker";
 import { StatCard } from "./StatCard";
 
 type RealtimeStatsPanelProps = {
@@ -82,17 +82,17 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
       {/* Section Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <h2 className="font-medium text-2xl text-neutral-900 leading-none">Performance Overview</h2>
+          <h2 className="font-medium text-2xl text-neutral-900 leading-none">
+            Performance Overview
+          </h2>
           <p className="mt-1 text-neutral-600 text-sm leading-none">
-            {isFiltered ? "Overview of key performance indicators" : "Real-time statistics updated automatically"}
+            {isFiltered
+              ? "Overview of key performance indicators"
+              : "Real-time statistics updated automatically"}
           </p>
         </div>
         <div className="w-full sm:w-auto">
-          <DateRangePicker
-            onChange={setDateRange}
-            placeholder="Filter by date"
-            value={dateRange}
-          />
+          <DateRangePicker onChange={setDateRange} placeholder="Filter by date" value={dateRange} />
         </div>
       </div>
 
@@ -137,7 +137,9 @@ export function RealtimeStatsPanel({ enabled = true }: RealtimeStatsPanelProps) 
       {!isFiltered && (
         <div className="flex items-center justify-end gap-2 text-neutral-500 text-xs">
           <span>Last updated:</span>
-          <time dateTime={stats.lastUpdated}>{new Date(stats.lastUpdated).toLocaleTimeString()}</time>
+          <time dateTime={stats.lastUpdated}>
+            {new Date(stats.lastUpdated).toLocaleTimeString()}
+          </time>
         </div>
       )}
     </div>

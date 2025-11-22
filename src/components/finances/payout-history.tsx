@@ -1,12 +1,11 @@
 "use client";
 
 import { format, parseISO } from "date-fns";
-import { ArrowUpRight, Clock, CheckCircle2, XCircle, Filter, Zap, Calendar } from "lucide-react";
+import { ArrowUpRight, Calendar, CheckCircle2, Clock, Filter, XCircle, Zap } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { geistSans } from "@/app/fonts";
-import { trackPayoutHistoryFiltered } from "@/lib/analytics/professional-events";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -17,8 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { trackPayoutHistoryFiltered } from "@/lib/analytics/professional-events";
 import { cn } from "@/lib/utils/core";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 // ========================================
 // Types
@@ -107,8 +107,7 @@ export function PayoutHistory({
 
   const filteredTransfers = useMemo(() => {
     const filtered = transfers.filter((transfer) => {
-      const matchesPayoutType =
-        payoutFilter === "all" || transfer.payout_type === payoutFilter;
+      const matchesPayoutType = payoutFilter === "all" || transfer.payout_type === payoutFilter;
       const matchesStatus = statusFilter === "all" || transfer.status === statusFilter;
       return matchesPayoutType && matchesStatus;
     });
@@ -156,12 +155,12 @@ export function PayoutHistory({
     return (
       <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
         <CardHeader className="p-6 pb-4">
-          <div className="h-7 w-48 animate-pulse bg-neutral-200 rounded" />
+          <div className="h-7 w-48 animate-pulse rounded bg-neutral-200" />
         </CardHeader>
         <CardContent className="p-6 pt-0">
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 animate-pulse bg-neutral-100 rounded" />
+              <div className="h-16 animate-pulse rounded bg-neutral-100" key={i} />
             ))}
           </div>
         </CardContent>
@@ -184,7 +183,7 @@ export function PayoutHistory({
 
           {/* Filters */}
           <div className="flex gap-2">
-            <Select value={payoutFilter} onValueChange={(v) => setPayoutFilter(v as PayoutFilter)}>
+            <Select onValueChange={(v) => setPayoutFilter(v as PayoutFilter)} value={payoutFilter}>
               <SelectTrigger className="w-36">
                 <SelectValue placeholder={t("filters.type.placeholder")} />
               </SelectTrigger>
@@ -205,10 +204,7 @@ export function PayoutHistory({
               </SelectContent>
             </Select>
 
-            <Select
-              value={statusFilter}
-              onValueChange={(v) => setStatusFilter(v as StatusFilter)}
-            >
+            <Select onValueChange={(v) => setStatusFilter(v as StatusFilter)} value={statusFilter}>
               <SelectTrigger className="w-36">
                 <SelectValue placeholder={t("filters.status.placeholder")} />
               </SelectTrigger>
@@ -226,7 +222,7 @@ export function PayoutHistory({
         {/* Stats Summary */}
         {transfers.length > 0 && (
           <div className="mt-4 grid gap-4 sm:grid-cols-4">
-            <div className="border-neutral-200 bg-neutral-50 border p-3 rounded-lg">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
               <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
                 {t("stats.totalPayouts")}
               </div>
@@ -234,7 +230,7 @@ export function PayoutHistory({
                 {formatFromMinorUnits(stats.totalPayouts, currencyCode)}
               </div>
             </div>
-            <div className="border-neutral-200 bg-neutral-50 border p-3 rounded-lg">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
               <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
                 {t("stats.instantPayouts")}
               </div>
@@ -242,7 +238,7 @@ export function PayoutHistory({
                 {stats.instantCount}
               </div>
             </div>
-            <div className="border-neutral-200 bg-neutral-50 border p-3 rounded-lg">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
               <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
                 {t("stats.batchPayouts")}
               </div>
@@ -250,7 +246,7 @@ export function PayoutHistory({
                 {stats.batchCount}
               </div>
             </div>
-            <div className="border-neutral-200 bg-neutral-50 border p-3 rounded-lg">
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
               <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
                 {t("stats.totalFees")}
               </div>
@@ -266,7 +262,7 @@ export function PayoutHistory({
         {/* Empty State */}
         {filteredTransfers.length === 0 && (
           <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-            <div className="flex size-12 items-center justify-center bg-neutral-100 rounded-full">
+            <div className="flex size-12 items-center justify-center rounded-full bg-neutral-100">
               <Filter className="size-6 text-neutral-400" />
             </div>
             <div>
@@ -279,13 +275,13 @@ export function PayoutHistory({
             </div>
             {(payoutFilter !== "all" || statusFilter !== "all") && (
               <Button
-                variant="outline"
-                size="sm"
+                className="mt-2"
                 onClick={() => {
                   setPayoutFilter("all");
                   setStatusFilter("all");
                 }}
-                className="mt-2"
+                size="sm"
+                variant="outline"
               >
                 {t("empty.clearFilters")}
               </Button>
@@ -297,7 +293,13 @@ export function PayoutHistory({
         {filteredTransfers.length > 0 && (
           <div className="space-y-3">
             {filteredTransfers.map((transfer) => (
-              <TransferRow key={transfer.id} transfer={transfer} locale={locale} t={t} currencyCode={currencyCode} />
+              <TransferRow
+                currencyCode={currencyCode}
+                key={transfer.id}
+                locale={locale}
+                t={t}
+                transfer={transfer}
+              />
             ))}
           </div>
         )}
@@ -357,18 +359,21 @@ function TransferRow({
   const isInstant = transfer.payout_type === "instant";
 
   return (
-    <div className="border-neutral-200 bg-neutral-50 border p-4 rounded-lg transition-colors hover:bg-neutral-100" data-testid="payout-entry">
+    <div
+      className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 transition-colors hover:bg-neutral-100"
+      data-testid="payout-entry"
+    >
       <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             {/* Payout Type Badge */}
             {isInstant ? (
-              <Badge variant="default" className="gap-1">
+              <Badge className="gap-1" variant="default">
                 <Zap className="size-3" />
                 {t("type.instant")}
               </Badge>
             ) : (
-              <Badge variant="secondary" className="gap-1">
+              <Badge className="gap-1" variant="secondary">
                 <Calendar className="size-3" />
                 {t("type.batch")}
               </Badge>
@@ -376,8 +381,8 @@ function TransferRow({
 
             {/* Status Badge */}
             <Badge
-              variant="outline"
               className={cn("gap-1", config.bg, config.border, config.color)}
+              variant="outline"
             >
               <StatusIcon className="size-3" />
               {config.label}
@@ -386,7 +391,7 @@ function TransferRow({
 
           {/* Amount and Fee */}
           <div className="mt-2">
-            <p className={cn("font-semibold text-neutral-900 text-lg", geistSans.className)}>
+            <p className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
               {formatFromMinorUnits(transfer.amount_cop, currencyCode)}
             </p>
             {isInstant && transfer.fee_amount_cop && (

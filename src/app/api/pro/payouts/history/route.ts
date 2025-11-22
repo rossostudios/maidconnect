@@ -17,20 +17,20 @@
  * - stats: Aggregate statistics
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { createSupabaseServerClient } from '@/lib/supabase/server-client';
-import { supabaseAdmin } from '@/lib/supabase/admin-client';
-import { logger } from '@/lib/logger';
-import type { Currency } from '@/lib/utils/format';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { logger } from "@/lib/logger";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import type { Currency } from "@/lib/utils/format";
 
 // ========================================
 // Query Parameter Schema
 // ========================================
 
 const HistoryQuerySchema = z.object({
-  type: z.enum(['instant', 'batch', 'all']).default('all'),
-  status: z.enum(['completed', 'pending', 'processing', 'failed', 'all']).default('all'),
+  type: z.enum(["instant", "batch", "all"]).default("all"),
+  status: z.enum(["completed", "pending", "processing", "failed", "all"]).default("all"),
   limit: z.coerce.number().int().positive().max(100).default(50),
   offset: z.coerce.number().int().min(0).default(0),
 });
@@ -47,8 +47,8 @@ export async function GET(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || user.user_metadata?.role !== 'professional') {
-    return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!user || user.user_metadata?.role !== "professional") {
+    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
   }
 
   try {
@@ -58,10 +58,10 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
     const queryParams = {
-      type: searchParams.get('type') || 'all',
-      status: searchParams.get('status') || 'all',
-      limit: searchParams.get('limit') || '50',
-      offset: searchParams.get('offset') || '0',
+      type: searchParams.get("type") || "all",
+      status: searchParams.get("status") || "all",
+      limit: searchParams.get("limit") || "50",
+      offset: searchParams.get("offset") || "0",
     };
 
     const validation = HistoryQuerySchema.safeParse(queryParams);
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         {
-          error: 'Invalid query parameters',
+          error: "Invalid query parameters",
           details: validation.error.format(),
         },
         { status: 400 }
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
 
     const { type, status, limit, offset } = validation.data;
 
-    logger.info('[Payout History API] Fetching history', {
+    logger.info("[Payout History API] Fetching history", {
       professionalId: user.id,
       type,
       status,
@@ -91,19 +91,19 @@ export async function GET(request: NextRequest) {
     // ========================================
 
     let query = supabaseAdmin
-      .from('payout_transfers')
-      .select('*', { count: 'exact' })
-      .eq('professional_id', user.id)
-      .order('requested_at', { ascending: false });
+      .from("payout_transfers")
+      .select("*", { count: "exact" })
+      .eq("professional_id", user.id)
+      .order("requested_at", { ascending: false });
 
     // Apply payout type filter
-    if (type !== 'all') {
-      query = query.eq('payout_type', type);
+    if (type !== "all") {
+      query = query.eq("payout_type", type);
     }
 
     // Apply status filter
-    if (status !== 'all') {
-      query = query.eq('status', status);
+    if (status !== "all") {
+      query = query.eq("status", status);
     }
 
     // Apply pagination
@@ -112,19 +112,19 @@ export async function GET(request: NextRequest) {
     const { data: transfers, error: transfersError, count } = await query;
 
     if (transfersError) {
-      logger.error('[Payout History API] Failed to fetch transfers', {
+      logger.error("[Payout History API] Failed to fetch transfers", {
         professionalId: user.id,
         error: transfersError.message,
       });
 
-      return NextResponse.json({ error: 'Failed to fetch payout history' }, { status: 500 });
+      return NextResponse.json({ error: "Failed to fetch payout history" }, { status: 500 });
     }
 
     // ========================================
     // 3. Calculate Statistics
     // ========================================
 
-    const { data: stats } = await supabaseAdmin.rpc('get_payout_transfer_stats', {
+    const { data: stats } = await supabaseAdmin.rpc("get_payout_transfer_stats", {
       p_professional_id: user.id,
     });
 
@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
     // ========================================
 
     // TODO: Derive currencyCode from professional's country after multi-currency migration
-    const currencyCode: Currency = 'COP';
+    const currencyCode: Currency = "COP";
 
     // Add currencyCode to each transfer record
     // Database still has _cop columns (migration pending)
@@ -182,16 +182,16 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('[Payout History API] Unexpected error', {
+    logger.error("[Payout History API] Unexpected error", {
       professionalId: user.id,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
     });
 
     return NextResponse.json(
       {
-        error: 'An unexpected error occurred',
-        message: error instanceof Error ? error.message : 'Unknown error',
+        error: "An unexpected error occurred",
+        message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -202,5 +202,5 @@ export async function GET(request: NextRequest) {
 // Runtime Configuration
 // ========================================
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic'; // Always fetch fresh data
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic"; // Always fetch fresh data

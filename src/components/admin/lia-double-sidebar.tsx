@@ -58,8 +58,16 @@ const categories: CategorySection[] = [
     description: "Member Management",
     items: [
       { href: "/admin/users", label: "User Directory", description: "Comprehensive member list" },
-      { href: "/admin/applications", label: "Applications", description: "Professional verification requests" },
-      { href: "/admin/moderation", label: "Safety & Moderation", description: "Content review & safety tools" },
+      {
+        href: "/admin/applications",
+        label: "Applications",
+        description: "Professional verification requests",
+      },
+      {
+        href: "/admin/moderation",
+        label: "Safety & Moderation",
+        description: "Content review & safety tools",
+      },
     ],
   },
   {
@@ -68,7 +76,11 @@ const categories: CategorySection[] = [
     label: "Operations",
     description: "System Operations",
     items: [
-      { href: "/admin/bulk-operations", label: "Bulk Actions", description: "Batch processing tools" },
+      {
+        href: "/admin/bulk-operations",
+        label: "Bulk Actions",
+        description: "Batch processing tools",
+      },
       { href: "/admin/disputes", label: "Resolution Center", description: "Dispute management" },
       { href: "/admin/audit-logs", label: "Audit Trail", description: "System activity logs" },
     ],
@@ -79,7 +91,11 @@ const categories: CategorySection[] = [
     label: "Configuration",
     description: "Platform Configuration",
     items: [
-      { href: "/admin/content", label: "Content Management", description: "Editorial & static content" },
+      {
+        href: "/admin/content",
+        label: "Content Management",
+        description: "Editorial & static content",
+      },
       { href: "/admin/pricing", label: "Monetization", description: "Pricing & revenue settings" },
       { href: "/admin/feedback", label: "User Feedback", description: "Community suggestions" },
       { href: "/admin/roadmap", label: "Product Roadmap", description: "Future development plans" },
@@ -131,7 +147,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
 
   const accountName = userName || "Admin User";
   const firstName = accountName.split(" ")[0] || accountName;
-  const accountEmail = userEmail || "admin@casaora.com";
+  const accountEmail = userEmail || "admin@casaora.co";
   const accountRole = "Administrator";
   const userInitials =
     accountName
@@ -380,7 +396,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
               </div>
 
               {/* User Info */}
-              <div className="min-w-0 flex-1 flex flex-col justify-center gap-0.5">
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
                 <p
                   className={cn(
                     "truncate font-semibold text-neutral-900 text-sm leading-none",

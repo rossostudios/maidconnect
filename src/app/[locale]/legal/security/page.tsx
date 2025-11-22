@@ -488,13 +488,13 @@ function SecureDevelopmentSection({ isSpanish }: SectionProps) {
 function DisclosureSection({ isSpanish }: SectionProps) {
   const howToReport = isSpanish
     ? [
-        "Envíe un email a security@casaora.com",
+        "Envíe un email a security@casaora.co",
         "Incluya una descripción detallada del problema",
         "Proporcione pasos para reproducir la vulnerabilidad",
         "NO divulgue públicamente la vulnerabilidad hasta que la hayamos solucionado",
       ]
     : [
-        "Send an email to security@casaora.com",
+        "Send an email to security@casaora.co",
         "Include a detailed description of the issue",
         "Provide steps to reproduce the vulnerability",
         "DO NOT publicly disclose the vulnerability until we've fixed it",
@@ -563,9 +563,9 @@ function SecurityContactSection({ isSpanish }: SectionProps) {
       </p>
       <a
         className="inline-flex items-center gap-2 bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-600"
-        href="mailto:security@casaora.com"
+        href="mailto:security@casaora.co"
       >
-        security@casaora.com
+        security@casaora.co
       </a>
     </section>
   );

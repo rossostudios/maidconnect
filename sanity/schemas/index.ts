@@ -24,27 +24,27 @@ import statsSection from "./objects/stats-section";
 import testimonialsSection from "./objects/testimonials-section";
 
 export const schemaTypes = [
-	// Documents
-	helpArticle,
-	helpCategory,
-	helpTag,
-	changelog,
-	roadmapItem,
-	page,
-	cityPage,
-	blogCategory,
-	blogPost,
-	marketContent,
+  // Documents
+  helpArticle,
+  helpCategory,
+  helpTag,
+  changelog,
+  roadmapItem,
+  page,
+  cityPage,
+  blogCategory,
+  blogPost,
+  marketContent,
 
-	// Objects
-	blockContent,
-	callout,
-	divider,
-	seoMetadata,
-	heroSection,
-	featuresSection,
-	statsSection,
-	testimonialsSection,
-	ctaSection,
-	faqSection,
+  // Objects
+  blockContent,
+  callout,
+  divider,
+  seoMetadata,
+  heroSection,
+  featuresSection,
+  statsSection,
+  testimonialsSection,
+  ctaSection,
+  faqSection,
 ];

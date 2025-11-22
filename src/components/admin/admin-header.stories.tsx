@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     userName: "Admin User",
-    userEmail: "admin@casaora.com",
+    userEmail: "admin@casaora.co",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin",
   },
 };
@@ -41,7 +41,7 @@ export const Default: Story = {
 export const WithoutAvatar: Story = {
   args: {
     userName: "Admin User",
-    userEmail: "admin@casaora.com",
+    userEmail: "admin@casaora.co",
   },
 };
 
@@ -56,7 +56,7 @@ export const MinimalInfo: Story = {
 export const LongInformation: Story = {
   args: {
     userName: "Administrator with a Very Long Name",
-    userEmail: "administrator.with.very.long.email@casaora.com",
+    userEmail: "administrator.with.very.long.email@casaora.co",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=LongName",
   },
 };

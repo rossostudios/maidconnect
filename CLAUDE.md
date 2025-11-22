@@ -1,7 +1,5 @@
 # Casaora - AI Development Guide
 
-> **Note:** "MaidConnect" is the internal codebase name. The product is branded as "Casaora".
-
 ## CRITICAL COMPATIBILITY NOTE
 
 **⚠️ IMPORTANT: We use Tailwind CSS 4.1, NOT Vanilla Extract CSS-in-JS**
@@ -126,9 +124,33 @@ supabase db diff          # Generate migration from schema changes
 
 ### Production Deployment
 
-**⚠️ Current State:** Production has schema but NO migration history tracked in `supabase_migrations.schema_migrations`
+**⚠️ Current State:** Production migrations are tracked and applied via Supabase MCP server.
 
-**Migration Workflow (Ideal - when CLI works):**
+**Migration Workflow (Recommended - via MCP):**
+
+Claude Code has a Supabase MCP server configured that connects directly to production. This is the preferred method for applying migrations:
+
+```
+# AI Agent applies migrations using MCP tools:
+1. mcp__supabase__apply_migration  - Apply new migration to production
+2. mcp__supabase__execute_sql      - Run verification queries
+3. mcp__supabase__list_migrations  - View applied migrations
+4. mcp__supabase__list_tables      - Verify schema changes
+```
+
+**How MCP Migrations Work:**
+1. Create migration file in `supabase/migrations/YYYYMMDDHHMMSS_name.sql`
+2. Ask Claude to "apply migration to PROD" with the file path
+3. Claude uses `mcp__supabase__apply_migration` tool directly
+4. Migration is applied AND tracked in `supabase_migrations` automatically
+5. Verify with `mcp__supabase__execute_sql` queries
+
+**MCP Connection Details:**
+- **Project URL:** `https://hvnetxfsrtplextvtwfx.supabase.co`
+- **Configuration:** MCP server configured in Claude Code settings
+- **Authentication:** Uses Supabase access token (configured externally)
+
+**Migration Workflow (CLI Fallback - when MCP unavailable):**
 ```bash
 # 1. Test migration locally first
 supabase db reset
@@ -141,7 +163,7 @@ supabase db push --linked
 # Check Supabase Dashboard → Database → Migrations
 ```
 
-**Migration Workflow (Manual - when pooler saturated):**
+**Migration Workflow (Manual - when CLI pooler saturated):**
 
 If `supabase db push --linked` fails with `MaxClientsInSessionMode` error:
 
@@ -164,6 +186,7 @@ cp supabase/migrations/20251119HHMMSS_migration_name.sql \
 ```
 
 **Troubleshooting:**
+- **MCP Not Connected:** Check Claude Code MCP server configuration
 - **Pooler Saturated:** Use manual workflow above (Dashboard SQL Editor)
 - **Migration Already Applied:** Check `supabase_migrations.schema_migrations` table
 - **Schema Mismatch:** Run queries to compare production vs local schema
@@ -840,5 +863,5 @@ bun run build              # Test build
 
 ---
 
-**Last Updated:** 2025-11-19
-**Version:** 1.5.1 - Database Sync Workflow (Manual Migration Process + Production State Documentation)
+**Last Updated:** 2025-11-21
+**Version:** 1.6.0 - Supabase MCP Integration (Added MCP-based migration workflow as primary method)

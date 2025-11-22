@@ -26,7 +26,7 @@ setup("authenticate as professional", async ({ page }) => {
   await loginAsProfessional(page, email, password);
 
   // Wait for successful redirect to professional dashboard
-  await page.waitForURL("**/dashboard/pro**", { timeout: 10000 });
+  await page.waitForURL("**/dashboard/pro**", { timeout: 10_000 });
 
   console.log("[pro-auth.setup] Login successful, saving authentication state...");
 

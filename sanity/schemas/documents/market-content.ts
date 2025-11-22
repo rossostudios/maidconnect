@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineField, defineType } from "sanity";
 
 /**
  * Market Content Schema
@@ -54,7 +54,8 @@ export default defineType({
           name: "city",
           title: "City (Optional)",
           type: "string",
-          description: "City slug (e.g., 'medellin', 'bogota'). Leave empty for country-wide content.",
+          description:
+            "City slug (e.g., 'medellin', 'bogota'). Leave empty for country-wide content.",
         },
       ],
     }),
@@ -98,14 +99,16 @@ export default defineType({
                   title: "English",
                   type: "text",
                   rows: 2,
-                  description: "E.g., 'Hire trusted nannies, housekeepers & private staff in Medellín'",
+                  description:
+                    "E.g., 'Hire trusted nannies, housekeepers & private staff in Medellín'",
                 },
                 {
                   name: "es",
                   title: "Spanish",
                   type: "text",
                   rows: 2,
-                  description: "E.g., 'Contrata niñeras, empleadas del hogar y personal privado de confianza en Medellín'",
+                  description:
+                    "E.g., 'Contrata niñeras, empleadas del hogar y personal privado de confianza en Medellín'",
                 },
               ],
             },

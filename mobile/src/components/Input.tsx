@@ -1,37 +1,31 @@
-import { useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import {
-  View,
+  StyleSheet,
   Text,
   TextInput,
-  StyleSheet,
-  ViewStyle,
   TextInputProps,
   TouchableOpacity,
-} from 'react-native';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
+  View,
+  ViewStyle,
+} from "react-native";
+import { Colors } from "@/constants/colors";
 
 interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
   containerStyle?: ViewStyle;
-  type?: 'text' | 'password' | 'email';
+  type?: "text" | "password" | "email";
 }
 
-export function Input({
-  label,
-  error,
-  containerStyle,
-  type = 'text',
-  ...props
-}: InputProps) {
+export function Input({ label, error, containerStyle, type = "text", ...props }: InputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const inputProps: TextInputProps = {
     ...props,
-    secureTextEntry: type === 'password' && !isPasswordVisible,
-    keyboardType: type === 'email' ? 'email-address' : 'default',
-    autoCapitalize: type === 'email' ? 'none' : props.autoCapitalize,
+    secureTextEntry: type === "password" && !isPasswordVisible,
+    keyboardType: type === "email" ? "email-address" : "default",
+    autoCapitalize: type === "email" ? "none" : props.autoCapitalize,
   };
 
   return (
@@ -39,19 +33,19 @@ export function Input({
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.inputWrapper}>
         <TextInput
-          style={[styles.input, error && styles.inputError]}
           placeholderTextColor={Colors.neutral[500]}
+          style={[styles.input, error && styles.inputError]}
           {...inputProps}
         />
-        {type === 'password' && (
+        {type === "password" && (
           <TouchableOpacity
-            style={styles.passwordToggle}
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            style={styles.passwordToggle}
           >
             <Ionicons
-              name={isPasswordVisible ? 'eye-off-outline' : 'eye-outline'}
-              size={20}
               color={Colors.neutral[500]}
+              name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+              size={20}
             />
           </TouchableOpacity>
         )}
@@ -67,12 +61,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
     marginBottom: 8,
   },
   inputWrapper: {
-    position: 'relative',
+    position: "relative",
   },
   input: {
     borderRadius: 12, // Anthropic rounded-lg equivalent (12px)
@@ -89,7 +83,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.error,
   },
   passwordToggle: {
-    position: 'absolute',
+    position: "absolute",
     right: 12,
     top: 14,
   },

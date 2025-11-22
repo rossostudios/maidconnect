@@ -28,12 +28,9 @@
  * ```
  */
 
-import {
-  Button as AriaButton,
-  type ButtonProps as AriaButtonProps,
-} from "react-aria-components";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
+import { Button as AriaButton, type ButtonProps as AriaButtonProps } from "react-aria-components";
 import { cn } from "@/lib/utils/core";
 
 /**
@@ -80,15 +77,22 @@ const buttonVariants = cva(
 );
 
 /**
+ * Slot Props
+ */
+interface SlotProps extends React.HTMLAttributes<HTMLElement> {
+  children: React.ReactElement;
+  ref?: React.RefObject<HTMLElement | null>;
+}
+
+/**
  * Custom Slot Component
  *
  * Replaces Radix UI Slot. Merges props with the child element.
  * Allows composition with other components (e.g., Next.js Link).
+ *
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-const Slot = React.forwardRef<
-  HTMLElement,
-  React.HTMLAttributes<HTMLElement> & { children: React.ReactElement }
->(({ children, ...props }, ref) => {
+const Slot = ({ children, ref, ...props }: SlotProps) => {
   // Clone the child element and merge props
   if (React.isValidElement(children)) {
     return React.cloneElement(children, {
@@ -97,19 +101,18 @@ const Slot = React.forwardRef<
       // Merge className
       className: cn(props.className, children.props.className),
       // Merge refs
-      ref: ref,
+      ref,
     } as React.HTMLAttributes<HTMLElement>);
   }
 
   return children;
-});
-
-Slot.displayName = "Slot";
+};
 
 /**
  * Button Props
  *
  * Extends React Aria Button props with variant configuration.
+ * React 19: ref is a regular prop, no forwardRef needed.
  */
 export interface ButtonProps
   extends Omit<AriaButtonProps, "className">,
@@ -123,6 +126,10 @@ export interface ButtonProps
    * When true, the button will merge its props with its child component
    */
   asChild?: boolean;
+  /**
+   * Ref to the button element (React 19 regular prop)
+   */
+  ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
 /**
@@ -130,21 +137,19 @@ export interface ButtonProps
  *
  * Primary interactive component with accessible focus states,
  * keyboard navigation, and Lia Design System styling.
+ *
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : AriaButton;
+const Button = ({ className, variant, size, asChild = false, ref, ...props }: ButtonProps) => {
+  const Comp = asChild ? Slot : AriaButton;
 
-    return (
-      <Comp
-        ref={ref as any}
-        className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
-      />
-    );
-  }
-);
-
-Button.displayName = "Button";
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size }), className)}
+      ref={ref as any}
+      {...props}
+    />
+  );
+};
 
 export { Button, buttonVariants };

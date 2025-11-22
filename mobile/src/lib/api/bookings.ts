@@ -1,5 +1,5 @@
-import { supabase } from '../supabase';
-import type { Booking, BookingCreateParams, AvailabilityResponse } from '@/types/api/booking';
+import type { AvailabilityResponse, Booking, BookingCreateParams } from "@/types/api/booking";
+import { supabase } from "../supabase";
 
 /**
  * Create a new booking
@@ -7,10 +7,10 @@ import type { Booking, BookingCreateParams, AvailabilityResponse } from '@/types
 export async function createBooking(params: BookingCreateParams): Promise<Booking> {
   try {
     const { data, error } = await supabase
-      .from('bookings')
+      .from("bookings")
       .insert({
         ...params,
-        status: 'pending',
+        status: "pending",
       })
       .select()
       .single();
@@ -19,7 +19,7 @@ export async function createBooking(params: BookingCreateParams): Promise<Bookin
 
     return data as Booking;
   } catch (error) {
-    console.error('[createBooking] Error:', error);
+    console.error("[createBooking] Error:", error);
     throw error;
   }
 }
@@ -27,17 +27,12 @@ export async function createBooking(params: BookingCreateParams): Promise<Bookin
 /**
  * Get bookings for current user
  */
-export async function getMyBookings(
-  status?: string
-): Promise<Booking[]> {
+export async function getMyBookings(status?: string): Promise<Booking[]> {
   try {
-    let query = supabase
-      .from('bookings')
-      .select('*')
-      .order('start_time', { ascending: false });
+    let query = supabase.from("bookings").select("*").order("start_time", { ascending: false });
 
     if (status) {
-      query = query.eq('status', status);
+      query = query.eq("status", status);
     }
 
     const { data, error } = await query;
@@ -46,7 +41,7 @@ export async function getMyBookings(
 
     return (data || []) as Booking[];
   } catch (error) {
-    console.error('[getMyBookings] Error:', error);
+    console.error("[getMyBookings] Error:", error);
     return [];
   }
 }
@@ -56,17 +51,13 @@ export async function getMyBookings(
  */
 export async function getBookingById(id: string): Promise<Booking | null> {
   try {
-    const { data, error } = await supabase
-      .from('bookings')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const { data, error } = await supabase.from("bookings").select("*").eq("id", id).single();
 
     if (error) throw error;
 
     return data as Booking;
   } catch (error) {
-    console.error('[getBookingById] Error:', error);
+    console.error("[getBookingById] Error:", error);
     throw error;
   }
 }
@@ -85,8 +76,8 @@ export async function getProfessionalAvailability(
     // Generate time slots for the day (8 AM to 8 PM)
     const slots = [];
     for (let hour = 8; hour < 20; hour++) {
-      const start = `${date}T${hour.toString().padStart(2, '0')}:00:00`;
-      const end = `${date}T${(hour + 1).toString().padStart(2, '0')}:00:00`;
+      const start = `${date}T${hour.toString().padStart(2, "0")}:00:00`;
+      const end = `${date}T${(hour + 1).toString().padStart(2, "0")}:00:00`;
 
       slots.push({
         start,
@@ -100,7 +91,7 @@ export async function getProfessionalAvailability(
       slots,
     };
   } catch (error) {
-    console.error('[getProfessionalAvailability] Error:', error);
+    console.error("[getProfessionalAvailability] Error:", error);
     throw error;
   }
 }
@@ -111,13 +102,13 @@ export async function getProfessionalAvailability(
 export async function cancelBooking(bookingId: string): Promise<void> {
   try {
     const { error } = await supabase
-      .from('bookings')
-      .update({ status: 'cancelled' })
-      .eq('id', bookingId);
+      .from("bookings")
+      .update({ status: "cancelled" })
+      .eq("id", bookingId);
 
     if (error) throw error;
   } catch (error) {
-    console.error('[cancelBooking] Error:', error);
+    console.error("[cancelBooking] Error:", error);
     throw error;
   }
 }

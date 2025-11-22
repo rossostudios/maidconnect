@@ -72,9 +72,9 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
             Tell Us Your Needs
           </Button>
         </Link>
-        <Link className="w-full" href="/concierge">
+        <Link className="w-full" href="/direct-hire">
           <Button className="w-full" size="lg" variant="outline">
-            Request Concierge Service
+            Request Direct Hire
           </Button>
         </Link>
       </div>

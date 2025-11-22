@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils/core";
 
 /**
  * Separator Props
+ * React 19: ref is a regular prop.
  */
 export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -38,6 +39,10 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default true
    */
   decorative?: boolean;
+  /**
+   * Ref to the separator element
+   */
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -46,29 +51,32 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
  * Provides a visual divider line with proper accessibility.
  * - Decorative separators (default) are hidden from screen readers
  * - Semantic separators use proper ARIA role
+ * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
-  ({ className, orientation = "horizontal", decorative = true, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        role={decorative ? "none" : "separator"}
-        aria-orientation={decorative ? undefined : orientation}
-        aria-hidden={decorative ? "true" : undefined}
-        className={cn(
-          // Base styles
-          "shrink-0",
-          // Lia Design System - border color (replacing bg-border with explicit neutral-200)
-          "bg-neutral-200",
-          // Size based on orientation
-          orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
-          // Additional classes
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-
-Separator.displayName = "Separator";
+export const Separator = ({
+  className,
+  orientation = "horizontal",
+  decorative = true,
+  ref,
+  ...props
+}: SeparatorProps) => {
+  return (
+    <div
+      aria-hidden={decorative ? "true" : undefined}
+      aria-orientation={decorative ? undefined : orientation}
+      className={cn(
+        // Base styles
+        "shrink-0",
+        // Lia Design System - border color (replacing bg-border with explicit neutral-200)
+        "bg-neutral-200",
+        // Size based on orientation
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        // Additional classes
+        className
+      )}
+      ref={ref}
+      role={decorative ? "none" : "separator"}
+      {...props}
+    />
+  );
+};

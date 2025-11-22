@@ -8,8 +8,8 @@ import { geistSans } from "@/app/fonts";
 import { LiaDataTable, LiaDataTableColumnHeader } from "@/components/admin/data-table";
 import { Link } from "@/i18n/routing";
 import type { CombinedBooking } from "@/lib/admin/booking-management-service";
-import { formatCurrency, formatDate } from "@/lib/utils/format";
 import { cn } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils/format";
 
 const getStatusBadgeColor = (status: string) => {
   switch (status) {
@@ -67,9 +67,7 @@ const columns: ColumnDef<CombinedBooking>[] = [
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100">
               <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={UserCircleIcon} />
             </div>
-            <span className={cn("text-neutral-500 text-sm", geistSans.className)}>
-              Guest
-            </span>
+            <span className={cn("text-neutral-500 text-sm", geistSans.className)}>Guest</span>
           </div>
         );
       }
@@ -169,9 +167,7 @@ const columns: ColumnDef<CombinedBooking>[] = [
       const scheduledStart = row.getValue("scheduled_start") as string | null;
       if (!scheduledStart) {
         return (
-          <span className={cn("text-neutral-500 text-sm", geistSans.className)}>
-            Not scheduled
-          </span>
+          <span className={cn("text-neutral-500 text-sm", geistSans.className)}>Not scheduled</span>
         );
       }
       return (
@@ -189,11 +185,7 @@ const columns: ColumnDef<CombinedBooking>[] = [
       const currency = row.original.currency || "COP";
 
       if (amount === null) {
-        return (
-          <span className={cn("text-neutral-500 text-sm", geistSans.className)}>
-            N/A
-          </span>
-        );
+        return <span className={cn("text-neutral-500 text-sm", geistSans.className)}>N/A</span>;
       }
 
       return (
@@ -211,9 +203,7 @@ const columns: ColumnDef<CombinedBooking>[] = [
       return (
         <div className="flex items-center gap-1.5">
           <span className="text-base">{getCountryFlag(countryCode)}</span>
-          <span className={cn("text-neutral-900 text-sm", geistSans.className)}>
-            {countryCode}
-          </span>
+          <span className={cn("text-neutral-900 text-sm", geistSans.className)}>{countryCode}</span>
         </div>
       );
     },

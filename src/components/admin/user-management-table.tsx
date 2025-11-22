@@ -71,12 +71,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
         {isBanned ? "Banned" : "Suspended"}
       </span>
       {suspension.expires_at && (
-        <p
-          className={cn(
-            "font-normal text-neutral-500 text-xs",
-            geistSans.className
-          )}
-        >
+        <p className={cn("font-normal text-neutral-500 text-xs", geistSans.className)}>
           Until {new Date(suspension.expires_at).toLocaleDateString()}
         </p>
       )}
@@ -113,10 +108,7 @@ const columns: ColumnDef<User>[] = [
             </p>
             {user.email && (
               <p
-                className={cn(
-                  "truncate font-normal text-neutral-500 text-xs",
-                  geistSans.className
-                )}
+                className={cn("truncate font-normal text-neutral-500 text-xs", geistSans.className)}
               >
                 {user.email}
               </p>
@@ -182,9 +174,7 @@ const columns: ColumnDef<User>[] = [
     accessorKey: "created_at",
     header: ({ column }) => <LiaDataTableColumnHeader column={column} title="Joined" />,
     cell: ({ row }) => (
-      <p
-        className={cn("font-normal text-neutral-500 text-sm", geistSans.className)}
-      >
+      <p className={cn("font-normal text-neutral-500 text-sm", geistSans.className)}>
         {new Date(row.original.created_at).toLocaleDateString()}
       </p>
     ),

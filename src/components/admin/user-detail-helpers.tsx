@@ -69,7 +69,7 @@ export function UserProfileHeader({
           )}
         </div>
         <div>
-          <h2 className="font-semibold text-xl text-neutral-900 tracking-tight">
+          <h2 className="font-semibold text-neutral-900 text-xl tracking-tight">
             {user.full_name || "Unnamed User"}
           </h2>
           <p className="text-neutral-500 text-sm">{user.email}</p>
@@ -129,9 +129,7 @@ export function SuspensionAlert({ suspension }: { suspension: Suspension }) {
           <p className="font-semibold text-red-900 text-sm">
             {isPermanent ? "Account Banned" : "Account Suspended"}
           </p>
-          <p className="mt-1 text-red-700 text-sm">
-            Reason: {suspension.reason}
-          </p>
+          <p className="mt-1 text-red-700 text-sm">Reason: {suspension.reason}</p>
           <div className="mt-2 flex items-center gap-3 text-red-600 text-xs">
             <span>By: {suspension.suspended_by.full_name || "Admin"}</span>
             {suspension.expires_at && (
@@ -178,7 +176,7 @@ export function SuspensionHistoryList({
 }) {
   if (suspensionHistory.length === 0) {
     return (
-      <div className="flex h-32 items-center justify-center rounded-xl border border-dashed border-neutral-200 bg-neutral-50">
+      <div className="flex h-32 items-center justify-center rounded-xl border border-neutral-200 border-dashed bg-neutral-50">
         <p className="text-neutral-500 text-sm">No suspension history</p>
       </div>
     );
@@ -200,10 +198,9 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
     <div className="rounded-xl border border-neutral-200 bg-white p-4 transition-shadow hover:shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <span
-          className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${isPermanent
-              ? "bg-red-50 text-red-700"
-              : "bg-orange-50 text-orange-700"
-            }`}
+          className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${
+            isPermanent ? "bg-red-50 text-red-700" : "bg-orange-50 text-orange-700"
+          }`}
         >
           {isPermanent ? "Banned" : "Suspended"}
         </span>
@@ -213,9 +210,7 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
           </span>
         )}
       </div>
-      <p className="mb-2 font-medium text-neutral-900 text-sm">
-        {suspension.reason}
-      </p>
+      <p className="mb-2 font-medium text-neutral-900 text-sm">{suspension.reason}</p>
       <p className="text-neutral-500 text-xs">
         Suspended on {new Date(suspension.suspended_at).toLocaleDateString()}
       </p>
@@ -233,9 +228,7 @@ export function UserStatsCard({
 }) {
   return (
     <div className="rounded-xl border border-neutral-200 bg-white p-6">
-      <h3 className="mb-4 font-semibold text-lg text-neutral-900 tracking-tight">
-        Activity Stats
-      </h3>
+      <h3 className="mb-4 font-semibold text-lg text-neutral-900 tracking-tight">Activity Stats</h3>
       <div className="grid grid-cols-2 gap-4">
         {stats.bookings && (
           <>
@@ -243,25 +236,21 @@ export function UserStatsCard({
               <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
                 Total Bookings
               </p>
-              <p className="font-bold text-2xl text-neutral-900">
-                {stats.bookings.total}
-              </p>
+              <p className="font-bold text-2xl text-neutral-900">{stats.bookings.total}</p>
             </div>
             <div className="rounded-lg bg-neutral-50 p-4">
               <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
                 Completed
               </p>
-              <p className="font-bold text-2xl text-neutral-900">
-                {stats.bookings.completed}
-              </p>
+              <p className="font-bold text-2xl text-neutral-900">{stats.bookings.completed}</p>
             </div>
           </>
         )}
         <div className="rounded-lg bg-neutral-50 p-4">
-          <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">Disputes</p>
-          <p className="font-bold text-2xl text-neutral-900">
-            {stats.disputes}
+          <p className="mb-1 font-medium text-neutral-500 text-xs uppercase tracking-wider">
+            Disputes
           </p>
+          <p className="font-bold text-2xl text-neutral-900">{stats.disputes}</p>
         </div>
       </div>
     </div>

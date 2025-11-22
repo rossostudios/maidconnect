@@ -70,7 +70,7 @@ log_success "Prerequisites checked"
 echo ""
 
 run_local_query() {
-    docker exec -i supabase_db_maidconnect psql -U postgres -d postgres -t -A -c "$1" 2>/dev/null || echo "ERROR"
+    docker exec -i supabase_db_casaora psql -U postgres -d postgres -t -A -c "$1" 2>/dev/null || echo "ERROR"
 }
 
 run_remote_query() {

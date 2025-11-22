@@ -18,10 +18,10 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { trackAmaraV2Enabled } from "@/lib/analytics/amara-events";
+import { isAmaraV2Enabled } from "@/lib/feature-flags/amara-flags";
 import { isFeatureEnabled } from "@/lib/featureFlags";
 import { cn } from "@/lib/utils";
-import { isAmaraV2Enabled } from "@/lib/feature-flags/amara-flags";
-import { trackAmaraV2Enabled } from "@/lib/analytics/amara-events";
 import { AmaraOnboardingTooltip } from "./AmaraOnboarding";
 
 // Dynamically import V1 chat interface (original API route version)
@@ -131,8 +131,8 @@ export function AmaraFloatingButton({ className, locale, userId }: AmaraFloating
         <AmaraChatInterfaceV2
           isOpen={isOpen}
           locale={locale}
-          userId={userId}
           onClose={() => setIsOpen(false)}
+          userId={userId}
         />
       ) : (
         <AmaraChatInterface isOpen={isOpen} locale={locale} onClose={() => setIsOpen(false)} />

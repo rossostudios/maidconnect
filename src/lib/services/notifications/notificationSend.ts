@@ -35,10 +35,33 @@ export type ValidationResult = {
   error?: string;
 };
 
+/** Input data for notification request validation (before parsing) */
+type NotificationRequestInput = {
+  userId?: unknown;
+  title?: unknown;
+  body?: unknown;
+  url?: unknown;
+  tag?: unknown;
+  requireInteraction?: unknown;
+};
+
+/** WebPush module interface for sending notifications */
+interface WebPushModule {
+  sendNotification: (
+    subscription: { endpoint: string; keys: { p256dh: string; auth: string } },
+    payload: string
+  ) => Promise<void>;
+}
+
+/** WebPush error with status code */
+interface WebPushError extends Error {
+  statusCode?: number;
+}
+
 /**
  * Validate notification request has required fields
  */
-export function validateNotificationRequest(data: any): ValidationResult {
+export function validateNotificationRequest(data: NotificationRequestInput): ValidationResult {
   if (!(data.userId && data.title && data.body)) {
     return {
       valid: false,
@@ -59,7 +82,7 @@ export function configureVAPIDKeys(): {
 } | null {
   const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
   const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
-  const vapidSubject = process.env.VAPID_SUBJECT || "mailto:support@casaora.com";
+  const vapidSubject = process.env.VAPID_SUBJECT || "mailto:support@casaora.co";
 
   if (!(vapidPublicKey && vapidPrivateKey)) {
     return null;
@@ -105,7 +128,7 @@ export function buildPushSubscription(subscription: NotificationSubscription) {
  * Handles 410 (Gone) errors by deleting expired subscriptions
  */
 export async function sendToSubscription(
-  webPush: any,
+  webPush: WebPushModule,
   subscription: NotificationSubscription,
   payload: string,
   supabase: SupabaseClient
@@ -118,7 +141,8 @@ export async function sendToSubscription(
       success: true,
       endpoint: subscription.endpoint,
     };
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as WebPushError;
     // If subscription is invalid (410 Gone), delete it
     if (error.statusCode === 410) {
       await supabase.from("notification_subscriptions").delete().eq("id", subscription.id);
@@ -137,7 +161,7 @@ export async function sendToSubscription(
  * Returns array of results for each subscription
  */
 export async function sendToAllSubscriptions(
-  webPush: any,
+  webPush: WebPushModule,
   subscriptions: NotificationSubscription[],
   payload: string,
   supabase: SupabaseClient

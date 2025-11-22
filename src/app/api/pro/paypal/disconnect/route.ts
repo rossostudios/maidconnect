@@ -66,10 +66,7 @@ export async function POST() {
 
     if (updateError) {
       console.error("[PayPal Disconnect] Failed to update profile:", updateError);
-      return NextResponse.json(
-        { error: "Failed to disconnect PayPal account" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to disconnect PayPal account" }, { status: 500 });
     }
 
     return NextResponse.json({

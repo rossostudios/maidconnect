@@ -4,7 +4,6 @@
  * Unified exports for PayPal Payouts API
  */
 
-export { paypal, assertPayPalSignature } from "./client";
 export type {
   PayPalConfig,
   PayPalEnvironment,
@@ -12,3 +11,4 @@ export type {
   PayPalPayoutResponse,
   PayPalWebhookEvent,
 } from "./client";
+export { assertPayPalSignature, paypal } from "./client";

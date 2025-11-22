@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { http, HttpResponse, delay } from "msw";
+import { delay, HttpResponse, http } from "msw";
 import { useState } from "react";
 import { InstantPayoutModal } from "./instant-payout-modal";
 
@@ -24,10 +24,10 @@ function InstantPayoutModalWrapper(props: any) {
 
   return (
     <div>
-      <button type="button" onClick={() => setOpen(true)}>
+      <button onClick={() => setOpen(true)} type="button">
         Open Modal
       </button>
-      <InstantPayoutModal {...props} open={open} onClose={() => setOpen(false)} />
+      <InstantPayoutModal {...props} onClose={() => setOpen(false)} open={open} />
     </div>
   );
 }
@@ -42,9 +42,9 @@ const successResponse = {
   payout: {
     transferId: "transfer-123",
     stripePayoutId: "po_123456789",
-    grossAmountCop: 2500000,
-    feeAmountCop: 37500,
-    netAmountCop: 2462500,
+    grossAmountCop: 2_500_000,
+    feeAmountCop: 37_500,
+    netAmountCop: 2_462_500,
     status: "processing",
     arrivalDate: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
     requestedAt: new Date().toISOString(),
@@ -70,14 +70,14 @@ const errorResponse = {
 export const Default: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
-      onSuccess={(result: any) => {
-        console.log("Payout successful:", result);
-      }}
+      minThresholdCop={50_000}
       onError={(error: string) => {
         console.error("Payout failed:", error);
+      }}
+      onSuccess={(result: any) => {
+        console.log("Payout successful:", result);
       }}
     />
   ),
@@ -99,9 +99,9 @@ export const Default: Story = {
 export const LowBalance: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={25000}
+      availableBalanceCop={25_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onSuccess={(result: any) => {
         console.log("Payout successful:", result);
       }}
@@ -131,9 +131,9 @@ export const LowBalance: Story = {
 export const HighBalance: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={15000000}
+      availableBalanceCop={15_000_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onSuccess={(result: any) => {
         console.log("Payout successful:", result);
       }}
@@ -148,9 +148,9 @@ export const HighBalance: Story = {
             ...successResponse,
             payout: {
               ...successResponse.payout,
-              grossAmountCop: 15000000,
-              feeAmountCop: 225000,
-              netAmountCop: 14775000,
+              grossAmountCop: 15_000_000,
+              feeAmountCop: 225_000,
+              netAmountCop: 14_775_000,
             },
           });
         }),
@@ -165,9 +165,9 @@ export const HighBalance: Story = {
 export const RateLimitError: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onError={(error: string) => {
         console.error("Payout failed:", error);
       }}
@@ -191,9 +191,9 @@ export const RateLimitError: Story = {
 export const InsufficientBalance: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onError={(error: string) => {
         console.error("Payout failed:", error);
       }}
@@ -223,9 +223,9 @@ export const InsufficientBalance: Story = {
 export const StripeError: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onError={(error: string) => {
         console.error("Payout failed:", error);
       }}
@@ -255,9 +255,9 @@ export const StripeError: Story = {
 export const SlowNetwork: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onSuccess={(result: any) => {
         console.log("Payout successful:", result);
       }}
@@ -281,9 +281,9 @@ export const SlowNetwork: Story = {
 export const QuickSuccess: Story = {
   render: () => (
     <InstantPayoutModalWrapper
-      availableBalanceCop={2500000}
+      availableBalanceCop={2_500_000}
       feePercentage={1.5}
-      minThresholdCop={50000}
+      minThresholdCop={50_000}
       onSuccess={(result: any) => {
         console.log("Payout successful:", result);
       }}

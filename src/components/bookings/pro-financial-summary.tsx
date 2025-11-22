@@ -4,7 +4,7 @@ import { AlertCircleIcon, DollarCircleIcon, RefreshIcon } from "@hugeicons/core-
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState, useTransition } from "react";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 import type { HugeIcon } from "@/types/icons";
 
 type FinancialBooking = {
@@ -44,15 +44,18 @@ function isSameMonth(dateInput: string | null, reference: Date) {
   );
 }
 
-export function ProFinancialSummary({ bookings, connectAccountId, connectStatus, currency }: Props) {
+export function ProFinancialSummary({
+  bookings,
+  connectAccountId,
+  connectStatus,
+  currency,
+}: Props) {
   const t = useTranslations("dashboard.pro.financialSummary");
   const [onboardingError, setOnboardingError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   // Derive currency from first booking or use prop override
-  const displayCurrency: Currency = currency ||
-    (bookings[0]?.currency as Currency) ||
-    "COP";
+  const displayCurrency: Currency = currency || (bookings[0]?.currency as Currency) || "COP";
 
   const totals = useMemo(() => {
     const summary: Totals = {
@@ -237,7 +240,15 @@ type SummaryCardProps = {
   accent: string;
 };
 
-function SummaryCard({ icon, title, amount, currency, description, tone, accent }: SummaryCardProps) {
+function SummaryCard({
+  icon,
+  title,
+  amount,
+  currency,
+  description,
+  tone,
+  accent,
+}: SummaryCardProps) {
   return (
     <div className={`border border-[neutral-200] ${tone} p-4`}>
       <div className="flex items-center gap-2">
@@ -246,7 +257,9 @@ function SummaryCard({ icon, title, amount, currency, description, tone, accent 
           {title}
         </dt>
       </div>
-      <dd className="mt-2 font-semibold text-[neutral-900] text-xl">{formatCurrency(amount, { currency })}</dd>
+      <dd className="mt-2 font-semibold text-[neutral-900] text-xl">
+        {formatCurrency(amount, { currency })}
+      </dd>
       <p className="mt-1 text-[neutral-400] text-xs">{description}</p>
     </div>
   );

@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { AlertCircle, Building2, CheckCircle2, ExternalLink, Plus, RefreshCw } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Building2, CheckCircle2, AlertCircle, ExternalLink, RefreshCw, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { geistSans } from "@/app/fonts";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils/core";
 import { trackBankAccountAdded } from "@/lib/analytics/professional-events";
+import { cn } from "@/lib/utils/core";
 
 // ========================================
 // Types
@@ -173,12 +173,12 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
     return (
       <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
         <CardHeader className="p-6 pb-4">
-          <div className="h-7 w-48 animate-pulse bg-neutral-200 rounded-lg" />
+          <div className="h-7 w-48 animate-pulse rounded-lg bg-neutral-200" />
         </CardHeader>
         <CardContent className="p-6 pt-0">
           <div className="space-y-4">
             {[1, 2].map((i) => (
-              <div key={i} className="h-24 animate-pulse bg-neutral-100 rounded-lg" />
+              <div className="h-24 animate-pulse rounded-lg bg-neutral-100" key={i} />
             ))}
           </div>
         </CardContent>
@@ -208,11 +208,11 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
           </div>
 
           <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleRefresh}
-            disabled={isRefreshing}
             className="gap-2"
+            disabled={isRefreshing}
+            onClick={handleRefresh}
+            size="sm"
+            variant="ghost"
           >
             <RefreshCw className={cn("size-4", isRefreshing && "animate-spin")} />
             {t("refresh.button")}
@@ -223,8 +223,8 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
       <CardContent className="p-6 pt-0">
         {/* Requires Onboarding State */}
         {accountData.requiresOnboarding && (
-          <div className="border-neutral-200 bg-neutral-50 border p-6 rounded-lg text-center">
-            <div className="flex size-12 mx-auto items-center justify-center bg-orange-100 rounded-full">
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-center">
+            <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-orange-100">
               <Building2 className="size-6 text-orange-600" />
             </div>
             <h3 className={cn("mt-4 font-semibold text-neutral-900", geistSans.className)}>
@@ -233,11 +233,7 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
             <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
               {t("onboarding.description")}
             </p>
-            <Button
-              onClick={handleManageAccount}
-              disabled={isConnecting}
-              className="mt-4 gap-2"
-            >
+            <Button className="mt-4 gap-2" disabled={isConnecting} onClick={handleManageAccount}>
               {isConnecting ? (
                 <>
                   <RefreshCw className="size-4 animate-spin" />
@@ -257,14 +253,14 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
         {!accountData.requiresOnboarding && accountData.bankAccounts.length > 0 && (
           <div className="space-y-3">
             {accountData.bankAccounts.map((account) => (
-              <BankAccountCard key={account.id} account={account} t={t} />
+              <BankAccountCard account={account} key={account.id} t={t} />
             ))}
 
             <Button
-              variant="outline"
-              onClick={handleManageAccount}
-              disabled={isConnecting}
               className="mt-4 w-full gap-2"
+              disabled={isConnecting}
+              onClick={handleManageAccount}
+              variant="outline"
             >
               {isConnecting ? (
                 <>
@@ -283,8 +279,8 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
 
         {/* Empty State */}
         {!accountData.requiresOnboarding && accountData.bankAccounts.length === 0 && (
-          <div className="border-neutral-200 bg-neutral-50 border p-6 rounded-lg text-center">
-            <div className="flex size-12 mx-auto items-center justify-center bg-neutral-100 rounded-full">
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-center">
+            <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-neutral-100">
               <Building2 className="size-6 text-neutral-400" />
             </div>
             <h3 className={cn("mt-4 font-semibold text-neutral-900", geistSans.className)}>
@@ -293,11 +289,7 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
             <p className={cn("mt-2 text-neutral-600 text-sm", geistSans.className)}>
               {t("empty.description")}
             </p>
-            <Button
-              onClick={handleManageAccount}
-              disabled={isConnecting}
-              className="mt-4 gap-2"
-            >
+            <Button className="mt-4 gap-2" disabled={isConnecting} onClick={handleManageAccount}>
               {isConnecting ? (
                 <>
                   <RefreshCw className="size-4 animate-spin" />
@@ -315,9 +307,9 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
 
         {/* Payouts Status Warning */}
         {!accountData.payoutsEnabled && accountData.bankAccounts.length > 0 && (
-          <div className="border-orange-200 bg-orange-50 mt-4 border p-4 rounded-lg">
+          <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-4">
             <div className="flex gap-3">
-              <AlertCircle className="size-5 text-orange-600 flex-shrink-0" />
+              <AlertCircle className="size-5 flex-shrink-0 text-orange-600" />
               <div>
                 <h4 className={cn("font-medium text-orange-900 text-sm", geistSans.className)}>
                   {t("warning.payoutsDisabled.title")}
@@ -381,10 +373,13 @@ function BankAccountCard({ account, t }: { account: BankAccount; t: any }) {
   const StatusIcon = config.icon;
 
   return (
-    <div className="border-neutral-200 bg-neutral-50 border p-4 rounded-lg" data-testid="bank-account-info">
+    <div
+      className="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+      data-testid="bank-account-info"
+    >
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3">
-          <div className="flex size-10 items-center justify-center bg-neutral-100 rounded-lg">
+          <div className="flex size-10 items-center justify-center rounded-lg bg-neutral-100">
             <Building2 className="size-5 text-neutral-600" />
           </div>
 
@@ -394,7 +389,7 @@ function BankAccountCard({ account, t }: { account: BankAccount; t: any }) {
                 {account.bankName}
               </h3>
               {account.isDefault && (
-                <Badge variant="default" className="text-xs">
+                <Badge className="text-xs" variant="default">
                   {t("default")}
                 </Badge>
               )}
@@ -410,8 +405,8 @@ function BankAccountCard({ account, t }: { account: BankAccount; t: any }) {
 
             <div className="mt-2">
               <Badge
-                variant="outline"
                 className={cn("gap-1", config.bg, config.border, config.color)}
+                variant="outline"
               >
                 <StatusIcon className="size-3" />
                 {config.label}

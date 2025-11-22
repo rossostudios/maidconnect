@@ -24,15 +24,57 @@ export type BookingInsertInput = {
   service_hourly_rate: number | null;
 };
 
+/** Booking record returned from database */
+export type BookingRecord = {
+  id: string;
+  customer_id: string;
+  professional_id: string;
+  scheduled_start: string | null;
+  scheduled_end: string | null;
+  duration_minutes: number | null;
+  status: string;
+  amount_estimated: number;
+  currency: string;
+  special_instructions: string | null;
+  address: string | null;
+  service_name: string | null;
+  service_hourly_rate: number | null;
+  stripe_payment_intent_id: string | null;
+  stripe_payment_status: string | null;
+  amount_authorized: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
+/** Stripe payment intent with fields we use */
+export type StripePaymentIntent = {
+  id: string;
+  status: string;
+  client_secret: string | null;
+  amount: number;
+  currency: string;
+};
+
+/** Address structure for booking location */
+export type BookingAddress = {
+  street?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  zipCode?: string;
+  apartment?: string;
+  instructions?: string;
+};
+
 export type BookingCreationResult = {
   success: boolean;
-  booking?: any;
+  booking?: BookingRecord;
   error?: string;
 };
 
 export type PaymentIntentResult = {
   success: boolean;
-  paymentIntent?: any;
+  paymentIntent?: StripePaymentIntent;
   error?: string;
 };
 
@@ -286,7 +328,7 @@ export async function createCompleteBooking({
     amount?: number;
     currency: string;
     specialInstructions?: string;
-    address?: any;
+    address?: BookingAddress;
     serviceName?: string;
     serviceHourlyRate?: number;
   };

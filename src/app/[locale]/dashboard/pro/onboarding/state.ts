@@ -37,7 +37,11 @@ export const COUNTRY_DOCUMENT_TYPES = {
   AR: {
     name: "Argentina",
     types: [
-      { code: "DNI", label: "Documento Nacional de Identidad", description: "Argentine national ID" },
+      {
+        code: "DNI",
+        label: "Documento Nacional de Identidad",
+        description: "Argentine national ID",
+      },
       { code: "PA", label: "Passport", description: "Valid passport" },
     ],
   },

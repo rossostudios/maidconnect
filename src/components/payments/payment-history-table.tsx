@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { formatCurrency as formatAmount, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency as formatAmount } from "@/lib/utils/format";
 
 type Booking = {
   id: string;
@@ -96,11 +96,16 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => (
           <div>
             <p className="font-medium text-neutral-900">
-              {formatBookingCurrency(info.row.original.amount_captured || info.getValue(), info.row.original.currency)}
+              {formatBookingCurrency(
+                info.row.original.amount_captured || info.getValue(),
+                info.row.original.currency
+              )}
             </p>
             {info.row.original.amount_captured &&
               info.getValue() !== info.row.original.amount_captured && (
-                <p className="text-neutral-600 text-sm">Auth: {formatBookingCurrency(info.getValue(), info.row.original.currency)}</p>
+                <p className="text-neutral-600 text-sm">
+                  Auth: {formatBookingCurrency(info.getValue(), info.row.original.currency)}
+                </p>
               )}
           </div>
         ),

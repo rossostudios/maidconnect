@@ -1,23 +1,15 @@
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import { Colors } from '@/constants/colors';
+import { StyleSheet, View, ViewStyle } from "react-native";
+import { Colors } from "@/constants/colors";
 
 interface CardProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  variant?: 'default' | 'outlined';
+  variant?: "default" | "outlined";
 }
 
-export function Card({ children, style, variant = 'default' }: CardProps) {
+export function Card({ children, style, variant = "default" }: CardProps) {
   return (
-    <View
-      style={[
-        styles.base,
-        variant === 'outlined' && styles.outlined,
-        style,
-      ]}
-    >
-      {children}
-    </View>
+    <View style={[styles.base, variant === "outlined" && styles.outlined, style]}>{children}</View>
   );
 }
 

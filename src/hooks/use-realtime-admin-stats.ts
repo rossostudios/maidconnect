@@ -26,11 +26,11 @@
  * ```
  */
 
+import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import { getConnectionManager } from "@/lib/integrations/supabase/realtime-connection-manager";
-import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
-import { realtimeEvents } from "@/lib/integrations/posthog/realtime-events";
 
 /**
  * Dashboard statistics structure
@@ -154,9 +154,7 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
           const startISO = startOfDay.toISOString();
           const endISO = endOfDay.toISOString();
 
-          bookingsQuery = bookingsQuery
-            .gte("created_at", startISO)
-            .lte("created_at", endISO);
+          bookingsQuery = bookingsQuery.gte("created_at", startISO).lte("created_at", endISO);
           usersQuery = usersQuery.gte("created_at", startISO).lte("created_at", endISO);
           professionalsQuery = professionalsQuery
             .gte("created_at", startISO)
@@ -244,129 +242,124 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
     const manager = getConnectionManager();
 
     // Create a single multiplexed channel with 3 postgres_changes listeners
-    const subscription = manager.createSubscription(
-      `admin-stats-${Date.now()}`,
-      (channel) => {
-        // Listener 1: Bookings table (all events)
-        channel.on(
-          "postgres_changes",
-          {
-            event: "*",
-            schema: "public",
-            table: "bookings",
-          },
-          (payload: RealtimePostgresChangesPayload<BookingRecord>) => {
-            if (payload.eventType === "INSERT") {
-              const newRecord = payload.new;
-              setStats((prev) =>
-                prev
-                  ? {
-                      ...prev,
-                      totalBookings: prev.totalBookings + 1,
-                      pendingBookings:
-                        newRecord.status === "pending"
-                          ? prev.pendingBookings + 1
-                          : prev.pendingBookings,
-                      lastUpdated: new Date().toISOString(),
-                    }
-                  : prev
-              );
-            } else if (payload.eventType === "UPDATE") {
-              const oldRecord = payload.old;
-              const newRecord = payload.new;
-              const oldStatus = oldRecord.status;
-              const newStatus = newRecord.status;
-
-              setStats((prev) => {
-                if (!prev) return prev;
-
-                let pendingBookings = prev.pendingBookings;
-
-                // Handle status transitions
-                if (oldStatus === "pending" && newStatus !== "pending") {
-                  pendingBookings = Math.max(0, pendingBookings - 1);
-                } else if (oldStatus !== "pending" && newStatus === "pending") {
-                  pendingBookings = pendingBookings + 1;
-                }
-
-                // Handle completed bookings (add to revenue)
-                let totalRevenue = prev.totalRevenue;
-                if (
-                  oldStatus !== "completed" &&
-                  newStatus === "completed" &&
-                  newRecord.final_amount_captured
-                ) {
-                  totalRevenue = totalRevenue + newRecord.final_amount_captured;
-                }
-
-                return {
-                  ...prev,
-                  pendingBookings,
-                  totalRevenue,
-                  lastUpdated: new Date().toISOString(),
-                };
-              });
-            }
-          }
-        );
-
-        // Listener 2: Profiles table filtered by role=user (INSERT only)
-        channel.on(
-          "postgres_changes",
-          {
-            event: "INSERT",
-            schema: "public",
-            table: "profiles",
-            filter: "role=eq.user",
-          },
-          (payload: RealtimePostgresChangesPayload<ProfileRecord>) => {
+    const subscription = manager.createSubscription(`admin-stats-${Date.now()}`, (channel) => {
+      // Listener 1: Bookings table (all events)
+      channel.on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "bookings",
+        },
+        (payload: RealtimePostgresChangesPayload<BookingRecord>) => {
+          if (payload.eventType === "INSERT") {
             const newRecord = payload.new;
-            if (newRecord.role === "user") {
-              setStats((prev) =>
-                prev
-                  ? {
-                      ...prev,
-                      activeUsers: prev.activeUsers + 1,
-                      lastUpdated: new Date().toISOString(),
-                    }
-                  : prev
-              );
-            }
-          }
-        );
-
-        // Listener 3: Profiles table filtered by role=professional (INSERT only)
-        channel.on(
-          "postgres_changes",
-          {
-            event: "INSERT",
-            schema: "public",
-            table: "profiles",
-            filter: "role=eq.professional",
-          },
-          (payload: RealtimePostgresChangesPayload<ProfileRecord>) => {
+            setStats((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    totalBookings: prev.totalBookings + 1,
+                    pendingBookings:
+                      newRecord.status === "pending"
+                        ? prev.pendingBookings + 1
+                        : prev.pendingBookings,
+                    lastUpdated: new Date().toISOString(),
+                  }
+                : prev
+            );
+          } else if (payload.eventType === "UPDATE") {
+            const oldRecord = payload.old;
             const newRecord = payload.new;
-            if (newRecord.role === "professional") {
-              setStats((prev) =>
-                prev
-                  ? {
-                      ...prev,
-                      newProfessionals: prev.newProfessionals + 1,
-                      lastUpdated: new Date().toISOString(),
-                    }
-                  : prev
-              );
-            }
+            const oldStatus = oldRecord.status;
+            const newStatus = newRecord.status;
+
+            setStats((prev) => {
+              if (!prev) return prev;
+
+              let pendingBookings = prev.pendingBookings;
+
+              // Handle status transitions
+              if (oldStatus === "pending" && newStatus !== "pending") {
+                pendingBookings = Math.max(0, pendingBookings - 1);
+              } else if (oldStatus !== "pending" && newStatus === "pending") {
+                pendingBookings = pendingBookings + 1;
+              }
+
+              // Handle completed bookings (add to revenue)
+              let totalRevenue = prev.totalRevenue;
+              if (
+                oldStatus !== "completed" &&
+                newStatus === "completed" &&
+                newRecord.final_amount_captured
+              ) {
+                totalRevenue = totalRevenue + newRecord.final_amount_captured;
+              }
+
+              return {
+                ...prev,
+                pendingBookings,
+                totalRevenue,
+                lastUpdated: new Date().toISOString(),
+              };
+            });
           }
-        );
+        }
+      );
 
-        return channel;
-      }
-    );
+      // Listener 2: Profiles table filtered by role=user (INSERT only)
+      channel.on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "profiles",
+          filter: "role=eq.user",
+        },
+        (payload: RealtimePostgresChangesPayload<ProfileRecord>) => {
+          const newRecord = payload.new;
+          if (newRecord.role === "user") {
+            setStats((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    activeUsers: prev.activeUsers + 1,
+                    lastUpdated: new Date().toISOString(),
+                  }
+                : prev
+            );
+          }
+        }
+      );
 
-    console.info(
-      "[Admin Stats] Multiplexed subscription created (3 listeners on 1 channel)"
-    );
+      // Listener 3: Profiles table filtered by role=professional (INSERT only)
+      channel.on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "profiles",
+          filter: "role=eq.professional",
+        },
+        (payload: RealtimePostgresChangesPayload<ProfileRecord>) => {
+          const newRecord = payload.new;
+          if (newRecord.role === "professional") {
+            setStats((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    newProfessionals: prev.newProfessionals + 1,
+                    lastUpdated: new Date().toISOString(),
+                  }
+                : prev
+            );
+          }
+        }
+      );
+
+      return channel;
+    });
+
+    console.info("[Admin Stats] Multiplexed subscription created (3 listeners on 1 channel)");
 
     // Track multiplexing optimization impact
     realtimeEvents.multiplexingImpact({

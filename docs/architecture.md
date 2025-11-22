@@ -1,11 +1,9 @@
 # Casaora - Architecture Documentation
 
-> **Note:** "MaidConnect" is the internal codebase name. The product is branded as "Casaora".
-
 ## Project Structure
 
 ```
-maidconnect/
+casaora/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── [locale]/          # Internationalized routes

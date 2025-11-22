@@ -20,12 +20,12 @@ const SUPPORTED_CURRENCIES = ["cop", "usd", "eur", "pyg", "uyu", "ars"];
 // Maximum amounts per currency (in minor units - centavos/céntimos)
 // These limits are set to reasonable maximums for booking transactions
 const MAX_AMOUNTS: Record<string, number> = {
-  cop: 50_000_000_00,   // 50M COP (Colombian Peso)
-  pyg: 500_000_000_00,  // 500M PYG (Paraguayan Guaraní - no decimal)
-  uyu: 5_000_000_00,    // 5M UYU (Uruguayan Peso)
-  ars: 50_000_000_00,   // 50M ARS (Argentine Peso)
-  usd: 100_000_00,      // 100K USD
-  eur: 100_000_00,      // 100K EUR
+  cop: 5_000_000_000, // 50M COP (Colombian Peso)
+  pyg: 50_000_000_000, // 500M PYG (Paraguayan Guaraní - no decimal)
+  uyu: 500_000_000, // 5M UYU (Uruguayan Peso)
+  ars: 5_000_000_000, // 50M ARS (Argentine Peso)
+  usd: 10_000_000, // 100K USD
+  eur: 10_000_000, // 100K EUR
 };
 
 // Default max for backward compatibility

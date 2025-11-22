@@ -1,14 +1,11 @@
-// @ts-nocheck
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
 
 /**
- * Casaora Button Component
+ * Button Component Stories
  *
- * Design System:
- * - Brand Colors: Orange (#F44A22), Silver (#FEF8E8), Grey (#E4E2E3), Midnight (#161616), Stone (#A8AAAC)
- * - Typography: Inter font
- * - Style: Clean, minimal, professional
+ * Showcases the Button component variants from the Lia Design System.
+ * Uses React Aria for accessibility and Tailwind CSS for styling.
  */
 const meta = {
   title: "UI/Button",
@@ -18,7 +15,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A versatile button component following the Casaora design system. Supports multiple variants (primary, secondary, ghost, card, luxury), sizes (sm, md, lg), icons, and keyboard shortcuts.",
+          "A versatile button component following the Lia Design System. Supports multiple variants (default, outline, secondary, ghost, link), sizes (sm, default, lg, icon), and composition via asChild.",
       },
     },
   },
@@ -26,38 +23,30 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "ghost", "card", "luxury"],
+      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
       description: "Visual style variant",
       table: {
-        defaultValue: { summary: "primary" },
+        defaultValue: { summary: "default" },
       },
     },
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
+      options: ["default", "sm", "lg", "icon"],
       description: "Button size",
       table: {
-        defaultValue: { summary: "md" },
+        defaultValue: { summary: "default" },
       },
     },
-    icon: {
+    isDisabled: {
       control: "boolean",
-      description: "Show arrow icon",
+      description: "Disables the button",
       table: {
         defaultValue: { summary: "false" },
       },
     },
-    kbd: {
+    children: {
       control: "text",
-      description: 'Keyboard shortcut to display (e.g., "⌘K")',
-    },
-    label: {
-      control: "text",
-      description: "Button text",
-    },
-    href: {
-      control: "text",
-      description: "Link destination",
+      description: "Button content",
     },
   },
 } satisfies Meta<typeof Button>;
@@ -66,74 +55,68 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Primary button - Main call-to-action
- * Uses orange (#F44A22) background with white text
+ * Default button - Primary orange CTA
  */
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    label: "Get Started",
-    href: "/en",
-    variant: "primary",
-    size: "md",
-    icon: true,
+    children: "Get Started",
+    variant: "default",
+    size: "default",
   },
 };
 
 /**
- * Secondary button - Less prominent actions
- * Orange border with transparent background
+ * Outline button - Border with orange accent on hover
+ */
+export const Outline: Story = {
+  args: {
+    children: "Learn More",
+    variant: "outline",
+    size: "default",
+  },
+};
+
+/**
+ * Secondary button - Neutral background
  */
 export const Secondary: Story = {
   args: {
-    label: "Learn More",
-    href: "/en/about",
+    children: "Cancel",
     variant: "secondary",
-    size: "md",
-    icon: true,
+    size: "default",
   },
 };
 
 /**
- * Ghost button - Subtle actions
- * Transparent with hover state
+ * Ghost button - Transparent with hover state
  */
 export const Ghost: Story = {
   args: {
-    label: "View Details",
-    href: "/en/professionals",
+    children: "View Details",
     variant: "ghost",
-    size: "md",
+    size: "default",
   },
 };
 
 /**
- * Card button - Full-width actions in cards
- * Prominent call-to-action for booking flows
+ * Link button - Text-only with orange accent
  */
-export const Card: Story = {
+export const Link: Story = {
   args: {
-    label: "Book Now",
-    href: "/en/professionals",
-    variant: "card",
-    size: "lg",
-    icon: true,
-  },
-  parameters: {
-    layout: "padded",
+    children: "Read more",
+    variant: "link",
+    size: "default",
   },
 };
 
 /**
- * Luxury button - Premium services
- * Inverted colors for high-end offerings
+ * Destructive button - For dangerous actions
  */
-export const Luxury: Story = {
+export const Destructive: Story = {
   args: {
-    label: "Premium Service",
-    href: "/en/pricing",
-    variant: "luxury",
-    size: "lg",
-    icon: true,
+    children: "Delete",
+    variant: "destructive",
+    size: "default",
   },
 };
 
@@ -143,24 +126,9 @@ export const Luxury: Story = {
  */
 export const Small: Story = {
   args: {
-    label: "Small Button",
-    href: "/en",
-    variant: "primary",
+    children: "Small Button",
+    variant: "default",
     size: "sm",
-    icon: true,
-  },
-};
-
-/**
- * Medium button - Standard size (default)
- */
-export const Medium: Story = {
-  args: {
-    label: "Medium Button",
-    href: "/en",
-    variant: "primary",
-    size: "md",
-    icon: true,
   },
 };
 
@@ -169,71 +137,65 @@ export const Medium: Story = {
  */
 export const Large: Story = {
   args: {
-    label: "Large Button",
-    href: "/en",
-    variant: "primary",
+    children: "Large Button",
+    variant: "default",
     size: "lg",
-    icon: true,
-  },
-};
-
-// Special Cases
-/**
- * Button with keyboard shortcut
- * Common for search and navigation
- */
-export const WithKeyboardShortcut: Story = {
-  args: {
-    label: "Search",
-    href: "/en/professionals",
-    variant: "secondary",
-    size: "md",
-    kbd: "⌘K",
   },
 };
 
 /**
- * Button without icon
- * Cleaner look for certain contexts
+ * Icon button - Square for icon-only buttons
  */
-export const WithoutIcon: Story = {
+export const Icon: Story = {
   args: {
-    label: "Simple Button",
-    href: "/en",
-    variant: "primary",
-    size: "md",
-    icon: false,
+    children: "X",
+    variant: "outline",
+    size: "icon",
+  },
+};
+
+/**
+ * Disabled button - Non-interactive state
+ */
+export const Disabled: Story = {
+  args: {
+    children: "Disabled",
+    variant: "default",
+    size: "default",
+    isDisabled: true,
   },
 };
 
 // Showcase Stories
 /**
  * All button variants side-by-side
- * Useful for design review and consistency checks
  */
 export const AllVariants: Story = {
-  args: {} as any,
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <span className="w-24 text-sm text-stone">Primary:</span>
-        <Button href="/en" icon label="Primary" size="md" variant="primary" />
+        <span className="w-24 text-neutral-500 text-sm">Default:</span>
+        <Button variant="default">Default</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-24 text-sm text-stone">Secondary:</span>
-        <Button href="/en" icon label="Secondary" size="md" variant="secondary" />
+        <span className="w-24 text-neutral-500 text-sm">Outline:</span>
+        <Button variant="outline">Outline</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-24 text-sm text-stone">Ghost:</span>
-        <Button href="/en" icon label="Ghost" size="md" variant="ghost" />
+        <span className="w-24 text-neutral-500 text-sm">Secondary:</span>
+        <Button variant="secondary">Secondary</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-24 text-sm text-stone">Card:</span>
-        <Button href="/en" icon label="Card" size="md" variant="card" />
+        <span className="w-24 text-neutral-500 text-sm">Ghost:</span>
+        <Button variant="ghost">Ghost</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-24 text-sm text-stone">Luxury:</span>
-        <Button href="/en" icon label="Luxury" size="md" variant="luxury" />
+        <span className="w-24 text-neutral-500 text-sm">Link:</span>
+        <Button variant="link">Link</Button>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="w-24 text-neutral-500 text-sm">Destructive:</span>
+        <Button variant="destructive">Destructive</Button>
       </div>
     </div>
   ),
@@ -244,23 +206,25 @@ export const AllVariants: Story = {
 
 /**
  * All button sizes comparison
- * Shows how buttons scale across different sizes
  */
 export const AllSizes: Story = {
-  args: {} as any,
   render: () => (
     <div className="flex flex-col items-start gap-4">
       <div className="flex items-center gap-3">
-        <span className="w-20 text-sm text-stone">Small:</span>
-        <Button href="/en" icon label="Small" size="sm" variant="primary" />
+        <span className="w-20 text-neutral-500 text-sm">Small:</span>
+        <Button size="sm">Small</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-20 text-sm text-stone">Medium:</span>
-        <Button href="/en" icon label="Medium" size="md" variant="primary" />
+        <span className="w-20 text-neutral-500 text-sm">Default:</span>
+        <Button size="default">Default</Button>
       </div>
       <div className="flex items-center gap-3">
-        <span className="w-20 text-sm text-stone">Large:</span>
-        <Button href="/en" icon label="Large" size="lg" variant="primary" />
+        <span className="w-20 text-neutral-500 text-sm">Large:</span>
+        <Button size="lg">Large</Button>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="w-20 text-neutral-500 text-sm">Icon:</span>
+        <Button size="icon">+</Button>
       </div>
     </div>
   ),

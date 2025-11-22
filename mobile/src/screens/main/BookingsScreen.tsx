@@ -1,30 +1,30 @@
-import { useState, useEffect } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  RefreshControl,
-  TouchableOpacity,
   ActivityIndicator,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { MainTabScreenProps } from '@/types/navigation';
-import { Card } from '@/components/Card';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { getMyBookings } from '@/lib/api/bookings';
-import type { Booking } from '@/types/api/booking';
-import { formatDateTime, formatCurrency } from '@/lib/format';
-import type { CurrencyCode } from '@/types/territories';
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Card } from "@/components/Card";
+import { Colors } from "@/constants/colors";
+import { getMyBookings } from "@/lib/api/bookings";
+import { formatCurrency, formatDateTime } from "@/lib/format";
+import type { Booking } from "@/types/api/booking";
+import type { MainTabScreenProps } from "@/types/navigation";
+import type { CurrencyCode } from "@/types/territories";
 
-type Props = MainTabScreenProps<'Bookings'>;
+type Props = MainTabScreenProps<"Bookings">;
 
 export function BookingsScreen({ navigation }: Props) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [activeTab, setActiveTab] = useState<'active' | 'past'>('active');
+  const [activeTab, setActiveTab] = useState<"active" | "past">("active");
 
   useEffect(() => {
     loadBookings();
@@ -36,7 +36,7 @@ export function BookingsScreen({ navigation }: Props) {
       const data = await getMyBookings();
       setBookings(data);
     } catch (error) {
-      console.error('Error loading bookings:', error);
+      console.error("Error loading bookings:", error);
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ export function BookingsScreen({ navigation }: Props) {
     setRefreshing(false);
   };
 
-  const getStatusColor = (status: Booking['status']) => {
+  const getStatusColor = (status: Booking["status"]) => {
     const colors = {
       pending: Colors.orange[500],
       confirmed: Colors.blue[500],
@@ -59,67 +59,65 @@ export function BookingsScreen({ navigation }: Props) {
     return colors[status];
   };
 
-  const getStatusLabel = (status: Booking['status']) => {
+  const getStatusLabel = (status: Booking["status"]) => {
     const labels = {
-      pending: 'Pendiente',
-      confirmed: 'Confirmada',
-      in_progress: 'En Progreso',
-      completed: 'Completada',
-      cancelled: 'Cancelada',
+      pending: "Pendiente",
+      confirmed: "Confirmada",
+      in_progress: "En Progreso",
+      completed: "Completada",
+      cancelled: "Cancelada",
     };
     return labels[status];
   };
 
-  const getStatusIcon = (status: Booking['status']) => {
-    const icons: Record<Booking['status'], keyof typeof Ionicons.glyphMap> = {
-      pending: 'time-outline',
-      confirmed: 'checkmark-circle-outline',
-      in_progress: 'play-circle-outline',
-      completed: 'checkmark-done-outline',
-      cancelled: 'close-circle-outline',
+  const getStatusIcon = (status: Booking["status"]) => {
+    const icons: Record<Booking["status"], keyof typeof Ionicons.glyphMap> = {
+      pending: "time-outline",
+      confirmed: "checkmark-circle-outline",
+      in_progress: "play-circle-outline",
+      completed: "checkmark-done-outline",
+      cancelled: "close-circle-outline",
     };
     return icons[status];
   };
 
-  const activeBookings = bookings.filter(
-    (b) => ['pending', 'confirmed', 'in_progress'].includes(b.status)
+  const activeBookings = bookings.filter((b) =>
+    ["pending", "confirmed", "in_progress"].includes(b.status)
   );
 
-  const pastBookings = bookings.filter(
-    (b) => ['completed', 'cancelled'].includes(b.status)
-  );
+  const pastBookings = bookings.filter((b) => ["completed", "cancelled"].includes(b.status));
 
-  const displayedBookings = activeTab === 'active' ? activeBookings : pastBookings;
+  const displayedBookings = activeTab === "active" ? activeBookings : pastBookings;
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView edges={["top"]} style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.orange[500]} />
+          <ActivityIndicator color={Colors.orange[500]} size="large" />
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       {/* Tabs */}
       <View style={styles.tabsContainer}>
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'active' && styles.tabActive]}
-          onPress={() => setActiveTab('active')}
           activeOpacity={0.7}
+          onPress={() => setActiveTab("active")}
+          style={[styles.tab, activeTab === "active" && styles.tabActive]}
         >
-          <Text style={[styles.tabText, activeTab === 'active' && styles.tabTextActive]}>
+          <Text style={[styles.tabText, activeTab === "active" && styles.tabTextActive]}>
             Activas ({activeBookings.length})
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'past' && styles.tabActive]}
-          onPress={() => setActiveTab('past')}
           activeOpacity={0.7}
+          onPress={() => setActiveTab("past")}
+          style={[styles.tab, activeTab === "past" && styles.tabActive]}
         >
-          <Text style={[styles.tabText, activeTab === 'past' && styles.tabTextActive]}>
+          <Text style={[styles.tabText, activeTab === "past" && styles.tabTextActive]}>
             Pasadas ({pastBookings.length})
           </Text>
         </TouchableOpacity>
@@ -127,25 +125,23 @@ export function BookingsScreen({ navigation }: Props) {
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl onRefresh={onRefresh} refreshing={refreshing} />}
       >
         {displayedBookings.length === 0 ? (
           <Card style={styles.emptyCard}>
             <Ionicons
+              color={Colors.neutral[300]}
               name="calendar-outline"
               size={64}
-              color={Colors.neutral[300]}
               style={styles.emptyIcon}
             />
             <Text style={styles.emptyTitle}>
-              {activeTab === 'active' ? 'No tienes reservas activas' : 'No tienes reservas pasadas'}
+              {activeTab === "active" ? "No tienes reservas activas" : "No tienes reservas pasadas"}
             </Text>
             <Text style={styles.emptyText}>
-              {activeTab === 'active'
-                ? 'Cuando hagas una reserva, aparecerá aquí'
-                : 'Tus reservas completadas o canceladas aparecerán aquí'}
+              {activeTab === "active"
+                ? "Cuando hagas una reserva, aparecerá aquí"
+                : "Tus reservas completadas o canceladas aparecerán aquí"}
             </Text>
           </Card>
         ) : (
@@ -156,60 +152,42 @@ export function BookingsScreen({ navigation }: Props) {
 
             return (
               <TouchableOpacity
-                key={booking.id}
                 activeOpacity={0.7}
+                key={booking.id}
                 onPress={() => {
-                  navigation.navigate('BookingDetail', { bookingId: booking.id });
+                  navigation.navigate("BookingDetail", { bookingId: booking.id });
                 }}
               >
                 <Card style={styles.bookingCard}>
                   <View style={styles.bookingHeader}>
                     <View style={styles.serviceInfo}>
-                      <Ionicons
-                        name="construct-outline"
-                        size={20}
-                        color={Colors.orange[500]}
-                      />
+                      <Ionicons color={Colors.orange[500]} name="construct-outline" size={20} />
                       <Text style={styles.serviceType}>{booking.service_type}</Text>
                     </View>
                     <View style={[styles.statusBadge, { backgroundColor: `${statusColor}15` }]}>
-                      <Ionicons name={statusIcon} size={14} color={statusColor} />
-                      <Text style={[styles.statusText, { color: statusColor }]}>
-                        {statusLabel}
-                      </Text>
+                      <Ionicons color={statusColor} name={statusIcon} size={14} />
+                      <Text style={[styles.statusText, { color: statusColor }]}>{statusLabel}</Text>
                     </View>
                   </View>
 
                   <View style={styles.bookingBody}>
                     <View style={styles.detailRow}>
-                      <Ionicons
-                        name="calendar-outline"
-                        size={16}
-                        color={Colors.neutral[500]}
-                      />
+                      <Ionicons color={Colors.neutral[500]} name="calendar-outline" size={16} />
                       <Text style={styles.detailText}>
-                        {formatDateTime(new Date(booking.start_time), 'PPp', 'es')}
+                        {formatDateTime(new Date(booking.start_time), "PPp", "es")}
                       </Text>
                     </View>
 
                     <View style={styles.detailRow}>
-                      <Ionicons
-                        name="time-outline"
-                        size={16}
-                        color={Colors.neutral[500]}
-                      />
+                      <Ionicons color={Colors.neutral[500]} name="time-outline" size={16} />
                       <Text style={styles.detailText}>
-                        {booking.duration_hours} hora{booking.duration_hours > 1 ? 's' : ''}
+                        {booking.duration_hours} hora{booking.duration_hours > 1 ? "s" : ""}
                       </Text>
                     </View>
 
                     <View style={styles.detailRow}>
-                      <Ionicons
-                        name="location-outline"
-                        size={16}
-                        color={Colors.neutral[500]}
-                      />
-                      <Text style={styles.detailText} numberOfLines={1}>
+                      <Ionicons color={Colors.neutral[500]} name="location-outline" size={16} />
+                      <Text numberOfLines={1} style={styles.detailText}>
                         {booking.address.street}, {booking.address.city}
                       </Text>
                     </View>
@@ -222,7 +200,7 @@ export function BookingsScreen({ navigation }: Props) {
                         booking.currency_code as CurrencyCode
                       )}
                     </Text>
-                    <Ionicons name="chevron-forward" size={20} color={Colors.neutral[400]} />
+                    <Ionicons color={Colors.neutral[400]} name="chevron-forward" size={20} />
                   </View>
                 </Card>
               </TouchableOpacity>
@@ -241,11 +219,11 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   tabsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 24,
     paddingTop: 16,
     paddingBottom: 8,
@@ -258,7 +236,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderWidth: 2,
     borderColor: Colors.neutral[200],
-    alignItems: 'center',
+    alignItems: "center",
   },
   tabActive: {
     backgroundColor: Colors.orange[50],
@@ -266,7 +244,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.secondary,
   },
   tabTextActive: {
@@ -278,7 +256,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   emptyCard: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 60,
   },
   emptyIcon: {
@@ -286,38 +264,38 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 8,
   },
   emptyText: {
     fontSize: 16,
     color: Colors.text.secondary,
-    textAlign: 'center',
+    textAlign: "center",
     maxWidth: 280,
   },
   bookingCard: {
     marginBottom: 12,
   },
   bookingHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   serviceInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   serviceType: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.text.primary,
   },
   statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -325,15 +303,15 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   bookingBody: {
     gap: 8,
     marginBottom: 12,
   },
   detailRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   detailText: {
@@ -342,16 +320,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bookingFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingTop: 12,
     borderTopWidth: 1,
     borderTopColor: Colors.border,
   },
   price: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.orange[600],
   },
 });

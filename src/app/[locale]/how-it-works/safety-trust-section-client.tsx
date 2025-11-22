@@ -100,14 +100,9 @@ export function SafetyTrustSectionClient() {
           {safetyFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
-                className="group h-full"
-                key={index}
-                variants={fadeIn}
-                whileHover="hover"
-              >
+              <motion.div className="group h-full" key={index} variants={fadeIn} whileHover="hover">
                 <motion.div
-                  className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-10 text-center shadow-sm transition-all group-hover:border-orange-200 group-hover:shadow-xl group-hover:shadow-orange-900/5"
+                  className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-10 text-center shadow-sm transition-all group-hover:border-orange-200 group-hover:shadow-orange-900/5 group-hover:shadow-xl"
                   variants={cardHover}
                 >
                   {/* Icon */}

@@ -5,10 +5,10 @@
  * Handles click events and PostHog tracking.
  */
 
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { Professional } from '../rsc/professional-card';
+import { useState } from "react";
+import type { Professional } from "../rsc/professional-card";
 
 type ProfessionalCardActionsProps = {
   professional: Professional;
@@ -25,10 +25,10 @@ export function ProfessionalCardActions({ professional }: ProfessionalCardAction
 
     try {
       // Track PostHog event
-      if (typeof window !== 'undefined' && (window as any).posthog) {
-        (window as any).posthog.capture('amara_component_clicked', {
-          component_type: 'professional_card',
-          action: 'book_now',
+      if (typeof window !== "undefined" && (window as any).posthog) {
+        (window as any).posthog.capture("amara_component_clicked", {
+          component_type: "professional_card",
+          action: "book_now",
           professional_id: professional.id,
           professional_name: professional.name,
           timestamp: new Date().toISOString(),
@@ -38,9 +38,9 @@ export function ProfessionalCardActions({ professional }: ProfessionalCardAction
       // TODO: Trigger availability check in chat
       // This will be handled by sending a message back to Amara
       // For now, just log the action
-      console.log('Book professional:', professional.id);
+      console.log("Book professional:", professional.id);
     } catch (error) {
-      console.error('Error tracking book click:', error);
+      console.error("Error tracking book click:", error);
     } finally {
       setIsLoading(false);
     }
@@ -48,19 +48,14 @@ export function ProfessionalCardActions({ professional }: ProfessionalCardAction
 
   return (
     <button
-      type="button"
-      onClick={handleBookClick}
+      className="rounded-lg bg-orange-500 px-6 py-2.5 font-medium text-sm text-white transition-colors hover:bg-orange-600 active:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
       disabled={isLoading}
-      className="rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 active:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
+      onClick={handleBookClick}
+      type="button"
     >
       {isLoading ? (
         <span className="flex items-center gap-2">
-          <svg
-            className="h-4 w-4 animate-spin"
-            fill="none"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
+          <svg aria-hidden="true" className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
               cx="12"
@@ -71,14 +66,14 @@ export function ProfessionalCardActions({ professional }: ProfessionalCardAction
             />
             <path
               className="opacity-75"
-              fill="currentColor"
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              fill="currentColor"
             />
           </svg>
           Loading...
         </span>
       ) : (
-        'Book Now'
+        "Book Now"
       )}
     </button>
   );

@@ -1,14 +1,14 @@
 "use client";
 
+import { ArrowLeft01Icon, Cancel01Icon, Tick02Icon, Video01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils/core";
-import { Tick02Icon, Cancel01Icon, ArrowLeft01Icon, Video01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 
 interface IntroVideoReviewPageProps {
   params: Promise<{ professionalId: string; locale: string }>;
@@ -79,7 +79,7 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/intro-videos">
-            <Button variant="ghost" size="sm">
+            <Button size="sm" variant="ghost">
               <HugeiconsIcon className="mr-2 h-4 w-4" icon={ArrowLeft01Icon} />
               Back to Reviews
             </Button>
@@ -98,8 +98,8 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       <Card className="p-8">
         <div className="space-y-6">
           <div>
-            <h2 className="font-semibold text-xl text-neutral-900">Video Preview</h2>
-            <p className="mt-2 text-sm text-neutral-600">
+            <h2 className="font-semibold text-neutral-900 text-xl">Video Preview</h2>
+            <p className="mt-2 text-neutral-600 text-sm">
               Review the professional's intro video before approving
             </p>
           </div>
@@ -109,10 +109,8 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
             <div className="flex h-full items-center justify-center">
               <div className="text-center">
                 <HugeiconsIcon className="mx-auto h-16 w-16 text-neutral-400" icon={Video01Icon} />
-                <p className="mt-4 text-sm text-neutral-400">
-                  Video player implementation pending
-                </p>
-                <p className="mt-1 text-xs text-neutral-500">
+                <p className="mt-4 text-neutral-400 text-sm">Video player implementation pending</p>
+                <p className="mt-1 text-neutral-500 text-xs">
                   Use signed URL from Supabase Storage
                 </p>
               </div>
@@ -122,19 +120,19 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
           {/* Video Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-neutral-600">Professional</p>
+              <p className="text-neutral-600 text-sm">Professional</p>
               <p className="mt-1 font-medium text-base text-neutral-900">Loading...</p>
             </div>
             <div>
-              <p className="text-sm text-neutral-600">Duration</p>
+              <p className="text-neutral-600 text-sm">Duration</p>
               <p className="mt-1 font-medium text-base text-neutral-900">-- seconds</p>
             </div>
             <div>
-              <p className="text-sm text-neutral-600">Uploaded</p>
+              <p className="text-neutral-600 text-sm">Uploaded</p>
               <p className="mt-1 font-medium text-base text-neutral-900">Loading...</p>
             </div>
             <div>
-              <p className="text-sm text-neutral-600">Market</p>
+              <p className="text-neutral-600 text-sm">Market</p>
               <p className="mt-1 font-medium text-base text-neutral-900">--</p>
             </div>
           </div>
@@ -142,9 +140,9 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       </Card>
 
       {/* Quality Guidelines */}
-      <Card className="p-6 border-neutral-200 bg-neutral-50">
+      <Card className="border-neutral-200 bg-neutral-50 p-6">
         <h3 className="font-semibold text-base text-neutral-900">Quality Guidelines</h3>
-        <ul className="mt-4 space-y-2 text-sm text-neutral-700">
+        <ul className="mt-4 space-y-2 text-neutral-700 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-orange-500">•</span>
             <span>Clear audio and lighting (professional quality)</span>
@@ -167,9 +165,9 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       {/* Action Buttons */}
       <div className="flex items-center gap-4">
         <Button
-          onClick={handleApprove}
-          disabled={isProcessing}
           className="flex items-center gap-2"
+          disabled={isProcessing}
+          onClick={handleApprove}
           size="lg"
         >
           <HugeiconsIcon className="h-5 w-5" icon={Tick02Icon} />
@@ -177,11 +175,11 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
         </Button>
 
         <Button
-          onClick={() => setShowRejectionForm(!showRejectionForm)}
-          variant="outline"
-          disabled={isProcessing}
           className="flex items-center gap-2"
+          disabled={isProcessing}
+          onClick={() => setShowRejectionForm(!showRejectionForm)}
           size="lg"
+          variant="outline"
         >
           <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
           Reject Video
@@ -190,40 +188,40 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
 
       {/* Rejection Form */}
       {showRejectionForm && (
-        <Card className="p-6 border-red-200 bg-red-50">
+        <Card className="border-red-200 bg-red-50 p-6">
           <h3 className="font-semibold text-base text-red-900">Rejection Reason</h3>
-          <p className="mt-1 text-sm text-red-700">
+          <p className="mt-1 text-red-700 text-sm">
             Provide specific feedback so the professional can improve their video
           </p>
 
           <textarea
-            value={rejectionReason}
-            onChange={(e) => setRejectionReason(e.target.value)}
-            placeholder="Example: Background noise is too loud, please re-record in a quiet environment"
             className={cn(
-              "mt-4 w-full rounded-lg border border-red-200 bg-white px-4 py-3 text-sm text-neutral-900",
+              "mt-4 w-full rounded-lg border border-red-200 bg-white px-4 py-3 text-neutral-900 text-sm",
               "placeholder:text-neutral-500 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             )}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            placeholder="Example: Background noise is too loud, please re-record in a quiet environment"
             rows={4}
+            value={rejectionReason}
           />
 
           <div className="mt-4 flex items-center gap-3">
             <Button
-              onClick={handleReject}
               disabled={isProcessing || !rejectionReason.trim()}
-              variant="destructive"
+              onClick={handleReject}
               size="sm"
+              variant="destructive"
             >
               Confirm Rejection
             </Button>
             <Button
+              disabled={isProcessing}
               onClick={() => {
                 setShowRejectionForm(false);
                 setRejectionReason("");
               }}
-              variant="ghost"
               size="sm"
-              disabled={isProcessing}
+              variant="ghost"
             >
               Cancel
             </Button>

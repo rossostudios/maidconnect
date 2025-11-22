@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
+  Alert,
   KeyboardAvoidingView,
   Platform,
-  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import type { AuthStackScreenProps } from '@/types/navigation';
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
-import { Colors } from '@/constants/colors';
-import { useAuth } from '@/hooks/useAuth';
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Colors } from "@/constants/colors";
+import { useAuth } from "@/hooks/useAuth";
+import type { AuthStackScreenProps } from "@/types/navigation";
 
-type Props = AuthStackScreenProps<'SignIn'>;
+type Props = AuthStackScreenProps<"SignIn">;
 
 export function SignInScreen({ navigation }: Props) {
   const { signIn } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
@@ -29,15 +29,15 @@ export function SignInScreen({ navigation }: Props) {
     const newErrors: { email?: string; password?: string } = {};
 
     if (!email) {
-      newErrors.email = 'El correo electrónico es requerido';
+      newErrors.email = "El correo electrónico es requerido";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Correo electrónico inválido';
+      newErrors.email = "Correo electrónico inválido";
     }
 
     if (!password) {
-      newErrors.password = 'La contraseña es requerida';
+      newErrors.password = "La contraseña es requerida";
     } else if (password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
     }
 
     setErrors(newErrors);
@@ -51,19 +51,19 @@ export function SignInScreen({ navigation }: Props) {
     try {
       const { error } = await signIn(email, password);
       if (error) {
-        Alert.alert('Error', error.message || 'No se pudo iniciar sesión');
+        Alert.alert("Error", error.message || "No se pudo iniciar sesión");
       }
     } catch (error) {
-      Alert.alert('Error', 'Ocurrió un error inesperado');
+      Alert.alert("Error", "Ocurrió un error inesperado");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
         <ScrollView
@@ -77,45 +77,43 @@ export function SignInScreen({ navigation }: Props) {
 
           <View style={styles.form}>
             <Input
-              label="Correo Electrónico"
-              placeholder="tu@email.com"
-              value={email}
-              onChangeText={setEmail}
-              error={errors.email}
-              type="email"
               autoCapitalize="none"
+              error={errors.email}
+              label="Correo Electrónico"
+              onChangeText={setEmail}
+              placeholder="tu@email.com"
+              type="email"
+              value={email}
             />
 
             <Input
-              label="Contraseña"
-              placeholder="••••••••"
-              value={password}
-              onChangeText={setPassword}
               error={errors.password}
+              label="Contraseña"
+              onChangeText={setPassword}
+              placeholder="••••••••"
               type="password"
+              value={password}
             />
 
             <TouchableOpacity
-              onPress={() => navigation.navigate('ForgotPassword')}
+              onPress={() => navigation.navigate("ForgotPassword")}
               style={styles.forgotPassword}
             >
-              <Text style={styles.forgotPasswordText}>
-                ¿Olvidaste tu contraseña?
-              </Text>
+              <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
             </TouchableOpacity>
 
             <Button
-              title="Iniciar Sesión"
-              onPress={handleSignIn}
               loading={loading}
-              variant="primary"
+              onPress={handleSignIn}
               size="lg"
               style={styles.submitButton}
+              title="Iniciar Sesión"
+              variant="primary"
             />
 
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>¿No tienes una cuenta? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
                 <Text style={styles.signUpLink}>Crear cuenta</Text>
               </TouchableOpacity>
             </View>
@@ -144,7 +142,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: '700',
+    fontWeight: "700",
     color: Colors.text.primary,
     marginBottom: 8,
   },
@@ -156,21 +154,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   forgotPassword: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginTop: -8,
     marginBottom: 24,
   },
   forgotPasswordText: {
     fontSize: 14,
     color: Colors.orange[600],
-    fontWeight: '600',
+    fontWeight: "600",
   },
   submitButton: {
     marginTop: 8,
   },
   signUpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 24,
   },
   signUpText: {
@@ -180,6 +178,6 @@ const styles = StyleSheet.create({
   signUpLink: {
     fontSize: 14,
     color: Colors.orange[600],
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });

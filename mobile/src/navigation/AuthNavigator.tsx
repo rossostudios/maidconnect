@@ -1,9 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import type { AuthStackParamList } from '@/types/navigation';
-import { WelcomeScreen } from '@/screens/auth/WelcomeScreen';
-import { SignInScreen } from '@/screens/auth/SignInScreen';
-import { SignUpScreen } from '@/screens/auth/SignUpScreen';
-import { ForgotPasswordScreen } from '@/screens/auth/ForgotPasswordScreen';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ForgotPasswordScreen } from "@/screens/auth/ForgotPasswordScreen";
+import { SignInScreen } from "@/screens/auth/SignInScreen";
+import { SignUpScreen } from "@/screens/auth/SignUpScreen";
+import { WelcomeScreen } from "@/screens/auth/WelcomeScreen";
+import type { AuthStackParamList } from "@/types/navigation";
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -14,10 +14,10 @@ export function AuthNavigator() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      <Stack.Screen name="SignIn" component={SignInScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen component={WelcomeScreen} name="Welcome" />
+      <Stack.Screen component={SignInScreen} name="SignIn" />
+      <Stack.Screen component={SignUpScreen} name="SignUp" />
+      <Stack.Screen component={ForgotPasswordScreen} name="ForgotPassword" />
     </Stack.Navigator>
   );
 }

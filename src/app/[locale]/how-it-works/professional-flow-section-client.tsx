@@ -150,7 +150,7 @@ export function ProfessionalFlowSectionClient() {
                       >
                         {/* Step indicator */}
                         <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
-                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-orange-100 shadow-lg shadow-orange-900/5 text-orange-600">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-100 bg-white text-orange-600 shadow-lg shadow-orange-900/5">
                             <span className="font-bold text-lg">{index + 1}</span>
                           </div>
                         </div>

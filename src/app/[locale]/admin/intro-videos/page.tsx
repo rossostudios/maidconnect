@@ -1,14 +1,13 @@
 "use client";
 
-import { Tick02Icon, Video01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
-import { Icon } from "@/components/ui/icon";
-import { useState, useEffect } from "react";
+import { Cancel01Icon, Tick02Icon, Video01Icon } from "@hugeicons/core-free-icons";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Icon } from "@/components/ui/icon";
 import { Link } from "@/i18n/routing";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
-import { cn } from "@/lib/utils/core";
 import { formatDate } from "@/lib/utils/format";
 
 interface IntroVideoReviewData {
@@ -83,7 +82,7 @@ export default function AdminIntroVideosPage() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-neutral-600">Pending Review</p>
+              <p className="text-neutral-600 text-sm">Pending Review</p>
               <p className="mt-2 font-semibold text-3xl text-neutral-900">{pendingVideos.length}</p>
             </div>
             <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
@@ -95,7 +94,7 @@ export default function AdminIntroVideosPage() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-neutral-600">Approved</p>
+              <p className="text-neutral-600 text-sm">Approved</p>
               <p className="mt-2 font-semibold text-3xl text-neutral-900">
                 {approvedVideos.length}
               </p>
@@ -109,7 +108,7 @@ export default function AdminIntroVideosPage() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-neutral-600">Rejected</p>
+              <p className="text-neutral-600 text-sm">Rejected</p>
               <p className="mt-2 font-semibold text-3xl text-neutral-900">
                 {rejectedVideos.length}
               </p>
@@ -124,51 +123,51 @@ export default function AdminIntroVideosPage() {
       {/* Pending Videos Section */}
       {pendingVideos.length > 0 && (
         <div>
-          <h2 className="mb-4 font-semibold text-xl text-neutral-900">
+          <h2 className="mb-4 font-semibold text-neutral-900 text-xl">
             Pending Review ({pendingVideos.length})
           </h2>
           <Card className="overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-neutral-200 bg-neutral-50">
+                <thead className="border-neutral-200 border-b bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Professional
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Market
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Services
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Duration
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Uploaded
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-white">
                   {pendingVideos.map((video) => (
-                    <tr key={video.id} className="hover:bg-neutral-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                    <tr className="hover:bg-neutral-50" key={video.id}>
+                      <td className="whitespace-nowrap px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
                             <Icon className="h-5 w-5 text-neutral-600" icon={Video01Icon} />
                           </div>
                           <div>
-                            <div className="font-medium text-sm text-neutral-900">
+                            <div className="font-medium text-neutral-900 text-sm">
                               {video.full_name}
                             </div>
-                            <div className="text-xs text-neutral-500">ID: {video.profile_id}</div>
+                            <div className="text-neutral-500 text-xs">ID: {video.profile_id}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="whitespace-nowrap px-6 py-4">
                         <Badge variant="default">{video.country_code}</Badge>
                       </td>
                       <td className="px-6 py-4">
@@ -182,18 +181,16 @@ export default function AdminIntroVideosPage() {
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">
+                      <td className="whitespace-nowrap px-6 py-4 text-neutral-700 text-sm">
                         {video.intro_video_duration_seconds}s
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">
+                      <td className="whitespace-nowrap px-6 py-4 text-neutral-700 text-sm">
                         {formatDate(new Date(video.intro_video_uploaded_at), "short")}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
+                      <td className="whitespace-nowrap px-6 py-4 text-right text-sm">
                         <div className="flex items-center justify-end gap-2">
-                          <Link
-                            href={`/admin/intro-videos/${video.profile_id}`}
-                          >
-                            <Button variant="outline" size="sm">
+                          <Link href={`/admin/intro-videos/${video.profile_id}`}>
+                            <Button size="sm" variant="outline">
                               Review
                             </Button>
                           </Link>
@@ -211,48 +208,48 @@ export default function AdminIntroVideosPage() {
       {/* Approved Videos Section */}
       {approvedVideos.length > 0 && (
         <div>
-          <h2 className="mb-4 font-semibold text-xl text-neutral-900">
+          <h2 className="mb-4 font-semibold text-neutral-900 text-xl">
             Approved ({approvedVideos.length})
           </h2>
           <Card className="overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-neutral-200 bg-neutral-50">
+                <thead className="border-neutral-200 border-b bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Professional
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Market
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-white">
                   {approvedVideos.map((video) => (
-                    <tr key={video.id} className="hover:bg-neutral-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-medium text-sm text-neutral-900">{video.full_name}</div>
+                    <tr className="hover:bg-neutral-50" key={video.id}>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <div className="font-medium text-neutral-900 text-sm">
+                          {video.full_name}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="whitespace-nowrap px-6 py-4">
                         <Badge variant="default">{video.country_code}</Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="whitespace-nowrap px-6 py-4">
                         <Badge variant="success">
                           <Icon className="mr-1 h-3 w-3" icon={Tick02Icon} />
                           Approved
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <Link
-                          href={`/admin/intro-videos/${video.profile_id}`}
-                        >
-                          <Button variant="ghost" size="sm">
+                      <td className="whitespace-nowrap px-6 py-4 text-right">
+                        <Link href={`/admin/intro-videos/${video.profile_id}`}>
+                          <Button size="sm" variant="ghost">
                             View
                           </Button>
                         </Link>
@@ -269,48 +266,48 @@ export default function AdminIntroVideosPage() {
       {/* Rejected Videos Section */}
       {rejectedVideos.length > 0 && (
         <div>
-          <h2 className="mb-4 font-semibold text-xl text-neutral-900">
+          <h2 className="mb-4 font-semibold text-neutral-900 text-xl">
             Rejected ({rejectedVideos.length})
           </h2>
           <Card className="overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-neutral-200 bg-neutral-50">
+                <thead className="border-neutral-200 border-b bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Professional
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Market
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-neutral-700 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right font-medium text-neutral-700 text-xs uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-white">
                   {rejectedVideos.map((video) => (
-                    <tr key={video.id} className="hover:bg-neutral-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-medium text-sm text-neutral-900">{video.full_name}</div>
+                    <tr className="hover:bg-neutral-50" key={video.id}>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <div className="font-medium text-neutral-900 text-sm">
+                          {video.full_name}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="whitespace-nowrap px-6 py-4">
                         <Badge variant="default">{video.country_code}</Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="whitespace-nowrap px-6 py-4">
                         <Badge variant="destructive">
                           <Icon className="mr-1 h-3 w-3" icon={Cancel01Icon} />
                           Rejected
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <Link
-                          href={`/admin/intro-videos/${video.profile_id}`}
-                        >
-                          <Button variant="ghost" size="sm">
+                      <td className="whitespace-nowrap px-6 py-4 text-right">
+                        <Link href={`/admin/intro-videos/${video.profile_id}`}>
+                          <Button size="sm" variant="ghost">
                             View
                           </Button>
                         </Link>
@@ -332,7 +329,7 @@ export default function AdminIntroVideosPage() {
               <Icon className="h-8 w-8 text-neutral-400" icon={Video01Icon} />
             </div>
             <h3 className="mt-4 font-semibold text-lg text-neutral-900">No intro videos yet</h3>
-            <p className="mt-2 text-sm text-neutral-600">
+            <p className="mt-2 text-neutral-600 text-sm">
               Professionals haven't uploaded any intro videos to review.
             </p>
           </div>

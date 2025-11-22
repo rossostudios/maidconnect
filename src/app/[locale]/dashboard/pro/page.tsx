@@ -154,12 +154,7 @@ export default async function ProfessionalDashboardPage() {
         {/* Page Header */}
         <div className="flex items-start justify-between">
           <div>
-            <h1
-              className={cn(
-                "font-bold text-3xl text-neutral-900",
-                geistSans.className
-              )}
-            >
+            <h1 className={cn("font-bold text-3xl text-neutral-900", geistSans.className)}>
               Good morning, {userName}
             </h1>
             <p
@@ -208,12 +203,7 @@ export default async function ProfessionalDashboardPage() {
         {/* Pending Customer Ratings */}
         {completedBookings.length > 0 && (
           <div>
-            <h2
-              className={cn(
-                "mb-4 font-medium text-neutral-600 text-sm",
-                geistSans.className
-              )}
-            >
+            <h2 className={cn("mb-4 font-medium text-neutral-600 text-sm", geistSans.className)}>
               Pending Customer Ratings
             </h2>
             <Suspense fallback={<PendingRatingsSkeleton />}>
@@ -224,12 +214,7 @@ export default async function ProfessionalDashboardPage() {
 
         {/* Booking Calendar */}
         <div>
-          <h2
-            className={cn(
-              "mb-4 font-medium text-neutral-600 text-sm",
-              geistSans.className
-            )}
-          >
+          <h2 className={cn("mb-4 font-medium text-neutral-600 text-sm", geistSans.className)}>
             Booking Calendar
           </h2>
           <div className="rounded-lg border border-neutral-200 bg-white p-6">
@@ -251,12 +236,7 @@ export default async function ProfessionalDashboardPage() {
 
         {/* Quick Actions */}
         <div>
-          <h2
-            className={cn(
-              "mb-4 font-medium text-neutral-600 text-sm",
-              geistSans.className
-            )}
-          >
+          <h2 className={cn("mb-4 font-medium text-neutral-600 text-sm", geistSans.className)}>
             Quick Actions
           </h2>
 
@@ -273,12 +253,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 View All Bookings
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Complete booking history
               </p>
             </Link>
@@ -295,12 +270,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 Manage Availability
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Update your schedule
               </p>
             </Link>
@@ -317,12 +287,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 Portfolio
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Showcase your work
               </p>
             </Link>
@@ -339,12 +304,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 Finances
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Track earnings & payouts
               </p>
             </Link>
@@ -361,12 +321,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 Documents
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Manage verification
               </p>
             </Link>
@@ -383,12 +338,7 @@ export default async function ProfessionalDashboardPage() {
               <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                 Profile Settings
               </h3>
-              <p
-                className={cn(
-                  "mt-1 text-neutral-600 text-xs",
-                  geistSans.className
-                )}
-              >
+              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
                 Update your profile
               </p>
             </Link>
@@ -407,14 +357,7 @@ function LiaMetricCard({ icon, label, value }: { icon: any; label: string; value
           <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={icon} />
         </div>
       </div>
-      <dt
-        className={cn(
-          "text-neutral-600 text-sm",
-          geistSans.className
-        )}
-      >
-        {label}
-      </dt>
+      <dt className={cn("text-neutral-600 text-sm", geistSans.className)}>{label}</dt>
       <dd
         className={cn(
           "mt-3 font-semibold text-5xl text-neutral-900 tracking-tighter",

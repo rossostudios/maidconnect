@@ -14,7 +14,7 @@
  */
 
 import Image from "next/image";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 import { BookingSummaryActions } from "../client/booking-summary-actions";
 
 export type BookingSummaryProps = {
@@ -97,11 +97,11 @@ export function BookingSummary({
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
               <svg
+                aria-hidden="true"
                 className="h-5 w-5 text-neutral-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                aria-hidden="true"
               >
                 <title>Calendar</title>
                 <path
@@ -124,11 +124,11 @@ export function BookingSummary({
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
               <svg
+                aria-hidden="true"
                 className="h-5 w-5 text-neutral-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                aria-hidden="true"
               >
                 <title>Price</title>
                 <path
@@ -151,11 +151,11 @@ export function BookingSummary({
       <div className="border-neutral-200 border-t bg-neutral-50 px-6 py-4">
         <div className="flex gap-3">
           <svg
+            aria-hidden="true"
             className="h-5 w-5 flex-shrink-0 text-orange-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            aria-hidden="true"
           >
             <title>Information</title>
             <path

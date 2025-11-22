@@ -5,7 +5,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Select as AriaSelect,
   Button,
-  Label,
   ListBox,
   ListBoxItem,
   Popover,
@@ -14,10 +13,10 @@ import {
 import { geistSans } from "@/app/fonts";
 import {
   ALL_COUNTRIES,
+  type CountryFilterValue,
   getCountryFilterLabel,
   getCountryFlag,
   useAdminCountryFilter,
-  type CountryFilterValue,
 } from "@/lib/contexts/AdminCountryFilterContext";
 import type { CountryCode } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils/core";
@@ -56,8 +55,8 @@ export function AdminCountrySelector() {
   return (
     <AriaSelect
       aria-label="Filter by country"
-      selectedKey={selectedCountry}
       onSelectionChange={(key) => setSelectedCountry(key as CountryFilterValue)}
+      selectedKey={selectedCountry}
     >
       <Button
         className={cn(
@@ -69,7 +68,10 @@ export function AdminCountrySelector() {
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
         )}
       >
-        <HugeiconsIcon className="h-4 w-4 text-neutral-500 group-hover:text-orange-500" icon={Location03Icon} />
+        <HugeiconsIcon
+          className="h-4 w-4 text-neutral-500 group-hover:text-orange-500"
+          icon={Location03Icon}
+        />
         <SelectValue className="font-medium text-neutral-900">
           {({ selectedText }) => (
             <span className="flex items-center gap-1.5">
@@ -85,10 +87,10 @@ export function AdminCountrySelector() {
       <Popover
         className={cn(
           // Anthropic rounded corners
-          "rounded-lg border border-neutral-200 bg-white shadow-xl shadow-neutral-900/10",
+          "rounded-lg border border-neutral-200 bg-white shadow-neutral-900/10 shadow-xl",
           // Animations
-          "data-[entering]:animate-in data-[entering]:fade-in-0 data-[entering]:zoom-in-95",
-          "data-[exiting]:animate-out data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95"
+          "data-[entering]:fade-in-0 data-[entering]:zoom-in-95 data-[entering]:animate-in",
+          "data-[exiting]:fade-out-0 data-[exiting]:zoom-out-95 data-[exiting]:animate-out"
         )}
         offset={8}
       >

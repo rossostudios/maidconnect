@@ -167,7 +167,9 @@ export default async function AdminUsersPage() {
               >
                 Queue Load
               </span>
-              <span className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}>
+              <span
+                className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}
+              >
                 {reviewQueueCount}
               </span>
             </div>
@@ -180,7 +182,9 @@ export default async function AdminUsersPage() {
               >
                 Admin Surface
               </span>
-              <span className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}>
+              <span
+                className={cn("ml-2 font-semibold text-base text-neutral-900", geistSans.className)}
+              >
                 {adminCount}
               </span>
             </div>
@@ -198,7 +202,9 @@ export default async function AdminUsersPage() {
                 >
                   Security & Compliance
                 </p>
-                <p className={cn("mt-1 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+                <p
+                  className={cn("mt-1 font-semibold text-neutral-900 text-sm", geistSans.className)}
+                >
                   Suspensions + AML Flags
                 </p>
               </div>
@@ -213,7 +219,7 @@ export default async function AdminUsersPage() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2.5 font-medium text-white text-sm transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2.5 font-medium text-sm text-white transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/admin/users?status=suspended"
@@ -265,16 +271,14 @@ export default async function AdminUsersPage() {
                 {metric.label}
               </p>
               <p
-                className={cn("mt-2 font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}
-              >
-                {metric.value}
-              </p>
-              <p
                 className={cn(
-                  "mt-2 text-neutral-600 text-xs",
+                  "mt-2 font-semibold text-3xl text-neutral-900 tracking-tight",
                   geistSans.className
                 )}
               >
+                {metric.value}
+              </p>
+              <p className={cn("mt-2 text-neutral-600 text-xs", geistSans.className)}>
                 {metric.description}
               </p>
             </div>
@@ -299,7 +303,7 @@ export default async function AdminUsersPage() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {oversightPanels.map((panel) => (
             <Link
-              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-orange-200"
+              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-200 hover:shadow-md"
               href={panel.href}
               key={panel.label}
             >

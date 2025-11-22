@@ -13,7 +13,6 @@
  */
 
 import {
-  ArrowRight01Icon,
   Cancel01Icon,
   CheckmarkCircle02Icon,
   HelpCircleIcon,
@@ -27,7 +26,8 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState, useOptimistic, useTransition } from "react";
+import { useEffect, useOptimistic, useRef, useState, useTransition } from "react";
+import { continueConversation } from "@/app/actions/amara/chat";
 import {
   Conversation,
   ConversationContent,
@@ -43,7 +43,6 @@ import {
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
-import { continueConversation } from "@/app/actions/amara/chat";
 import {
   trackAmaraConversationStarted,
   trackAmaraMessageSent,
@@ -244,38 +243,38 @@ export function AmaraChatInterfaceV2({
     <div className="fixed inset-0 z-50 flex items-end justify-end p-4 sm:p-6">
       {/* Backdrop */}
       <div
+        aria-hidden="true"
         className="fixed inset-0 bg-neutral-900/20 backdrop-blur-sm"
         onClick={onClose}
-        aria-hidden="true"
       />
 
       {/* Chat window */}
       <Card className="relative z-10 flex h-[600px] w-full max-w-md flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-neutral-200 bg-gradient-to-r from-orange-50 to-white px-4 py-3">
+        <div className="flex items-center justify-between border-neutral-200 border-b bg-gradient-to-r from-orange-50 to-white px-4 py-3">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
               <Image
-                src="/amara-avatar.png"
                 alt="Amara"
-                width={40}
-                height={40}
                 className="rounded-lg"
+                height={40}
+                src="/amara-avatar.png"
+                width={40}
               />
             </div>
             <div>
               <h2 className="font-semibold text-neutral-900">Amara</h2>
-              <p className="text-xs text-neutral-600">{t("subtitle")}</p>
+              <p className="text-neutral-600 text-xs">{t("subtitle")}</p>
             </div>
           </div>
 
           <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
             aria-label={t("close")}
+            className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+            onClick={onClose}
+            type="button"
           >
-            <HugeiconsIcon Icon={Cancel01Icon} className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" Icon={Cancel01Icon} />
           </button>
         </div>
 
@@ -283,9 +282,9 @@ export function AmaraChatInterfaceV2({
         <Conversation className="flex-1 overflow-y-auto bg-neutral-50">
           {optimisticMessages.length === 0 ? (
             <ConversationEmptyState
-              icon={<HugeiconsIcon Icon={Message01Icon} className="h-12 w-12" />}
-              title={t("emptyStateTitle")}
               description={t("emptyStateDescription")}
+              icon={<HugeiconsIcon className="h-12 w-12" Icon={Message01Icon} />}
+              title={t("emptyStateTitle")}
             />
           ) : (
             <ConversationContent className="space-y-4 p-4">
@@ -296,7 +295,7 @@ export function AmaraChatInterfaceV2({
                     {message.display}
                     {message.role === "assistant" && (
                       <MessageActions>
-                        <AmaraMessageActions messageId={message.id} content={message.content} />
+                        <AmaraMessageActions content={message.content} messageId={message.id} />
                       </MessageActions>
                     )}
                   </MessageContent>
@@ -309,7 +308,7 @@ export function AmaraChatInterfaceV2({
                   <MessageAvatar role="assistant" />
                   <MessageContent>
                     <div className="flex items-center gap-2 text-neutral-500">
-                      <HugeiconsIcon Icon={Loading03Icon} className="h-4 w-4 animate-spin" />
+                      <HugeiconsIcon className="h-4 w-4 animate-spin" Icon={Loading03Icon} />
                       <span className="text-sm">{t("thinking")}</span>
                     </div>
                   </MessageContent>
@@ -325,14 +324,13 @@ export function AmaraChatInterfaceV2({
 
         {/* Quick Replies */}
         {quickReplies.length > 0 && !isPending && (
-          <div className="border-t border-neutral-200 bg-white px-4 py-3">
+          <div className="border-neutral-200 border-t bg-white px-4 py-3">
             <Suggestions>
               {quickReplies.map((reply) => (
                 <Suggestion
-                  key={reply.id}
-                  onClick={() => handleQuickReplySelect(reply)}
                   icon={
                     <HugeiconsIcon
+                      className="h-4 w-4"
                       Icon={
                         reply.icon === "help"
                           ? HelpCircleIcon
@@ -346,9 +344,10 @@ export function AmaraChatInterfaceV2({
                                   ? CheckmarkCircle02Icon
                                   : Message01Icon
                       }
-                      className="h-4 w-4"
                     />
                   }
+                  key={reply.id}
+                  onClick={() => handleQuickReplySelect(reply)}
                 >
                   {reply.text}
                 </Suggestion>
@@ -358,39 +357,36 @@ export function AmaraChatInterfaceV2({
         )}
 
         {/* Input */}
-        <div className="border-t border-neutral-200 bg-white p-4">
-          <form onSubmit={handleSubmit} className="flex gap-2">
+        <div className="border-neutral-200 border-t bg-white p-4">
+          <form className="flex gap-2" onSubmit={handleSubmit}>
             <input
+              className="flex-1 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 text-neutral-900 text-sm placeholder-neutral-500 transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isPending}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={t("inputPlaceholder")}
               ref={inputRef}
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t("inputPlaceholder")}
-              disabled={isPending}
-              className="flex-1 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-500 transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 disabled:cursor-not-allowed disabled:opacity-50"
             />
             <button
-              type="submit"
+              className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 font-medium text-sm text-white transition-colors hover:bg-orange-600 active:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={!input.trim() || isPending}
-              className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 active:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"
+              type="submit"
             >
               <span>{t("send")}</span>
-              <HugeiconsIcon Icon={isPending ? Loading03Icon : SentIcon} className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" Icon={isPending ? Loading03Icon : SentIcon} />
             </button>
           </form>
 
           {/* Footer links */}
-          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-neutral-500">
-            <Link
-              href="/help"
-              className="transition-colors hover:text-neutral-700 hover:underline"
-            >
+          <div className="mt-3 flex items-center justify-center gap-4 text-neutral-500 text-xs">
+            <Link className="transition-colors hover:text-neutral-700 hover:underline" href="/help">
               {t("helpCenter")}
             </Link>
             <span>•</span>
             <Link
-              href="/privacy"
               className="transition-colors hover:text-neutral-700 hover:underline"
+              href="/privacy"
             >
               {t("privacy")}
             </Link>

@@ -73,7 +73,7 @@ This file consolidates every Lia surface rule that previously lived across `mini
 
 **Key Requirements**
 - Provide escape routes for every dead end (primary CTA + support link).
-- Include inline contact `mailto:support@casaora.com` or concierge CTA for critical errors.
+- Include inline contact `mailto:support@casaora.co` or concierge CTA for critical errors.
 - Use `sonner` toasts sparingly—prefer inline status cards for reliability messaging.
 
 ## 4. Cross-Surface Grid Recipes

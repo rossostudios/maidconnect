@@ -215,7 +215,12 @@ export default function BulkOperationsPage() {
         >
           ← Back to Admin
         </button>
-        <h1 className={cn("font-semibold text-3xl text-neutral-900 tracking-tight", geistSans.className)}>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 tracking-tight",
+            geistSans.className
+          )}
+        >
           Bulk Operations
         </h1>
         <p className={cn("mt-2 text-neutral-700 text-sm", geistSans.className)}>
@@ -272,7 +277,9 @@ export default function BulkOperationsPage() {
 
       {/* Bulk Actions */}
       <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
-        <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>Bulk Actions</h2>
+        <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
+          Bulk Actions
+        </h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <button
             className="rounded-lg border border-neutral-200 bg-white px-4 py-3 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
@@ -408,7 +415,7 @@ export default function BulkOperationsPage() {
                       <div className="flex gap-3">
                         <button
                           className={
-                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition " +
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition" +
                             (suspensionType === "temporary"
                               ? "border-orange-500 bg-orange-500 text-white"
                               : "border-neutral-200 bg-white text-neutral-900")
@@ -420,7 +427,7 @@ export default function BulkOperationsPage() {
                         </button>
                         <button
                           className={
-                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition " +
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition" +
                             (suspensionType === "permanent"
                               ? "border-orange-500 bg-orange-500 text-white"
                               : "border-neutral-200 bg-white text-neutral-900")
@@ -508,7 +515,7 @@ export default function BulkOperationsPage() {
                     Cancel
                   </button>
                   <button
-                    className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={isProcessing}
                     onClick={executeBulkOperation}
                     type="button"
@@ -567,7 +574,7 @@ export default function BulkOperationsPage() {
 
                 {progress.processed === progress.total && (
                   <button
-                    className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white text-sm transition hover:bg-orange-600"
+                    className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-orange-600"
                     onClick={closeConfirmModal}
                     type="button"
                   >

@@ -44,7 +44,7 @@ export const testProfessionalProfiles = {
     first_name: "Jane",
     last_name: "Doe",
     bio: "Experienced cleaning professional with 5+ years",
-    hourly_rate: 50000,
+    hourly_rate: 50_000,
     services: ["cleaning", "deep-cleaning"],
     availability: {
       monday: ["09:00", "17:00"],
@@ -71,7 +71,7 @@ export const testProfessionalProfiles = {
     first_name: "Carlos",
     last_name: "Martinez",
     bio: "Professional chef specializing in Colombian cuisine",
-    hourly_rate: 75000,
+    hourly_rate: 75_000,
     services: ["cooking", "meal-prep"],
     availability: {
       monday: ["10:00", "18:00"],
@@ -83,7 +83,7 @@ export const testProfessionalProfiles = {
     location: {
       city: "Bogotá",
       locality: "Usaquén",
-      coordinates: { lat: 4.7000, lon: -74.0300 },
+      coordinates: { lat: 4.7, lon: -74.03 },
     },
     verified: true,
     background_check_status: "approved",

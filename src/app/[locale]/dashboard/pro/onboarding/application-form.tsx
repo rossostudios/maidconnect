@@ -2,12 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
+import { COUNTRY_OPTIONS, type CountryCode, getCityOptions } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
-import {
-  COUNTRY_OPTIONS,
-  getCityOptions,
-  type CountryCode,
-} from "@/lib/shared/config/territories";
 import { submitApplication } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 
@@ -86,7 +82,9 @@ export function ApplicationForm({ services, inputClass }: Props) {
             required
             value={selectedCountry}
           >
-            <option value="">{t("country.placeholder", { defaultValue: "Select your country" })}</option>
+            <option value="">
+              {t("country.placeholder", { defaultValue: "Select your country" })}
+            </option>
             {COUNTRY_OPTIONS.map((country) => (
               <option key={country.value} value={country.value}>
                 {country.label}
@@ -280,7 +278,10 @@ export function ApplicationForm({ services, inputClass }: Props) {
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
+      <div
+        className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
+        role="alert"
+      >
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
             <svg
@@ -306,7 +307,10 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
+      <div
+        className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
+        role="status"
+      >
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
             <svg

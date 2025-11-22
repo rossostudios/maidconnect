@@ -464,13 +464,13 @@ bun run e2e:android
 
 ### Customer Account (For Testing)
 ```
-Email: test-customer@casaora.com
+Email: test-customer@casaora.co
 Password: TestCustomer123!
 ```
 
 ### Professional Account (For Testing - Future)
 ```
-Email: test-pro@casaora.com
+Email: test-pro@casaora.co
 Password: TestPro123!
 ```
 

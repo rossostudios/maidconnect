@@ -62,7 +62,9 @@ export function PricingSection() {
           <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg leading-6 text-neutral-600">{t("subtitle")}</p>
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 leading-6">
+            {t("subtitle")}
+          </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -72,14 +74,14 @@ export function PricingSection() {
                 <p className="font-semibold text-orange-600 text-xs uppercase tracking-[0.35em]">
                   {plan.name}
                 </p>
-                <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-3xl leading-[1.15] text-neutral-900">
+                <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-neutral-900 leading-[1.15]">
                   {plan.description}
                 </h3>
-                <p className="text-base leading-6 text-neutral-600">{t("subtitle")}</p>
+                <p className="text-base text-neutral-600 leading-6">{t("subtitle")}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs uppercase tracking-[0.25em] text-neutral-600">Service Fee</p>
-                <p className="font-[family-name:var(--font-geist-mono)] text-4xl font-semibold leading-tight text-neutral-900">
+                <p className="text-neutral-600 text-xs uppercase tracking-[0.25em]">Service Fee</p>
+                <p className="font-[family-name:var(--font-geist-mono)] font-semibold text-4xl text-neutral-900 leading-tight">
                   {plan.commission}%
                 </p>
               </div>
@@ -89,35 +91,38 @@ export function PricingSection() {
               {plan.features.map((feature) => (
                 <li className="flex items-start gap-3" key={feature}>
                   <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-green-50">
-                    <HugeiconsIcon className="h-4 w-4 text-green-700" icon={CheckmarkCircle01Icon} />
+                    <HugeiconsIcon
+                      className="h-4 w-4 text-green-700"
+                      icon={CheckmarkCircle01Icon}
+                    />
                   </span>
-                  <span className="text-base leading-6 text-neutral-700">{feature}</span>
+                  <span className="text-base text-neutral-700 leading-6">{feature}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button asChild size="lg" className="w-full sm:w-auto">
+              <Button asChild className="w-full sm:w-auto" size="lg">
                 <Link href={plan.ctaHref}>{plan.ctaText} →</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link href="/concierge">{t("footer.link")}</Link>
+              <Button asChild className="w-full sm:w-auto" size="lg" variant="outline">
+                <Link href="/direct-hire">{t("footer.link")}</Link>
               </Button>
             </div>
 
-            <p className="mt-4 text-sm leading-6 text-neutral-600 sm:mt-6">
+            <p className="mt-4 text-neutral-600 text-sm leading-6 sm:mt-6">
               <span className="font-semibold text-neutral-900">{t("footer.highlight")}</span>{" "}
               {t("footer.text")}
             </p>
           </div>
 
           <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
-            <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-xl text-neutral-900">
+            <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl">
               What you get, every time
             </h3>
-            <p className="mt-3 text-base leading-6 text-neutral-600">
-              We remove risk with hands-on vetting, insurance, and concierge support that stays with you
-              after the hire.
+            <p className="mt-3 text-base text-neutral-600 leading-6">
+              We remove risk with hands-on vetting, insurance, and concierge support that stays with
+              you after the hire.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -126,11 +131,11 @@ export function PricingSection() {
                   className="rounded-lg border border-neutral-200 bg-neutral-50/60 p-4 shadow-sm"
                   key={item.title}
                 >
-                  <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900">
+                  <div className="flex items-center gap-2 font-semibold text-neutral-900 text-sm">
                     <span className="h-2 w-2 rounded-full bg-orange-600" />
                     {item.title}
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600">{item.description}</p>
+                  <p className="mt-2 text-neutral-600 text-sm leading-6">{item.description}</p>
                 </div>
               ))}
             </div>

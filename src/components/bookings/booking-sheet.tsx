@@ -11,9 +11,9 @@ import {
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
 import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -329,7 +329,9 @@ export function BookingSheet({
                   {serviceWithName.map((service) => (
                     <option key={service.name} value={service.name ?? ""}>
                       {service.name}
-                      {service.hourlyRateCop ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr` : ""}
+                      {service.hourlyRateCop
+                        ? ` · ${formatCurrency(service.hourlyRateCop, { currency })}/hr`
+                        : ""}
                     </option>
                   ))}
                 </select>
@@ -492,7 +494,9 @@ export function BookingSheet({
                   <div className="border-[neutral-200] border-t pt-3">
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[neutral-900]">Total</span>
-                      <span className="font-bold text-[neutral-500]">{formatCurrency(totalAmount, { currency })}</span>
+                      <span className="font-bold text-[neutral-500]">
+                        {formatCurrency(totalAmount, { currency })}
+                      </span>
                     </div>
                   </div>
                 </div>

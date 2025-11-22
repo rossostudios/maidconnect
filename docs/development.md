@@ -496,8 +496,8 @@ LOGTAIL_SOURCE_TOKEN=xxx
 ### Vercel Deployment
 
 **Automatic Deployments:**
-- `main` branch → Production (`casaora.com`)
-- `develop` branch → Preview (`develop.casaora.com`)
+- `main` branch → Production (`casaora.co`)
+- `develop` branch → Preview (`develop.casaora.co`)
 - Pull requests → Ephemeral preview URLs
 
 **Manual Deployment:**

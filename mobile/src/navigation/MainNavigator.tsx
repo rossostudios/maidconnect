@@ -1,18 +1,18 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import type { MainTabParamList } from '@/types/navigation';
-import { HomeScreen } from '@/screens/main/HomeScreen';
-import { SearchScreen } from '@/screens/main/SearchScreen';
-import { BookingsScreen } from '@/screens/main/BookingsScreen';
-import { ProfileScreen } from '@/screens/main/ProfileScreen';
-import { ProfessionalDetailScreen } from '@/screens/professionals/ProfessionalDetailScreen';
-import { BookingServiceScreen } from '@/screens/booking/BookingServiceScreen';
-import { BookingDateTimeScreen } from '@/screens/booking/BookingDateTimeScreen';
-import { BookingAddressScreen } from '@/screens/booking/BookingAddressScreen';
-import { BookingConfirmScreen } from '@/screens/booking/BookingConfirmScreen';
-import { BookingDetailScreen } from '@/screens/booking/BookingDetailScreen';
-import { PaymentMethodScreen } from '@/screens/payment/PaymentMethodScreen';
-import { Colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Colors } from "@/constants/colors";
+import { BookingAddressScreen } from "@/screens/booking/BookingAddressScreen";
+import { BookingConfirmScreen } from "@/screens/booking/BookingConfirmScreen";
+import { BookingDateTimeScreen } from "@/screens/booking/BookingDateTimeScreen";
+import { BookingDetailScreen } from "@/screens/booking/BookingDetailScreen";
+import { BookingServiceScreen } from "@/screens/booking/BookingServiceScreen";
+import { BookingsScreen } from "@/screens/main/BookingsScreen";
+import { HomeScreen } from "@/screens/main/HomeScreen";
+import { ProfileScreen } from "@/screens/main/ProfileScreen";
+import { SearchScreen } from "@/screens/main/SearchScreen";
+import { PaymentMethodScreen } from "@/screens/payment/PaymentMethodScreen";
+import { ProfessionalDetailScreen } from "@/screens/professionals/ProfessionalDetailScreen";
+import type { MainTabParamList } from "@/types/navigation";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -38,103 +38,103 @@ export function MainNavigator() {
           borderBottomColor: Colors.border,
         },
         headerTitleStyle: {
-          fontWeight: '600',
+          fontWeight: "600",
           fontSize: 18,
           color: Colors.text.primary,
         },
       }}
     >
       <Tab.Screen
-        name="Home"
         component={HomeScreen}
+        name="Home"
         options={{
-          title: 'Inicio',
+          title: "Inicio",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons color={color} name="home-outline" size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Search"
         component={SearchScreen}
+        name="Search"
         options={{
-          title: 'Buscar',
+          title: "Buscar",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
+            <Ionicons color={color} name="search-outline" size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Bookings"
         component={BookingsScreen}
+        name="Bookings"
         options={{
-          title: 'Reservas',
+          title: "Reservas",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
+            <Ionicons color={color} name="calendar-outline" size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Profile"
         component={ProfileScreen}
+        name="Profile"
         options={{
-          title: 'Perfil',
+          title: "Perfil",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+            <Ionicons color={color} name="person-outline" size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="ProfessionalDetail"
         component={ProfessionalDetailScreen}
+        name="ProfessionalDetail"
         options={{
           tabBarButton: () => null, // Hide from tab bar
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="BookingService"
         component={BookingServiceScreen}
+        name="BookingService"
         options={{
           tabBarButton: () => null,
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="BookingDateTime"
         component={BookingDateTimeScreen}
+        name="BookingDateTime"
         options={{
           tabBarButton: () => null,
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="BookingAddress"
         component={BookingAddressScreen}
+        name="BookingAddress"
         options={{
           tabBarButton: () => null,
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="BookingConfirm"
         component={BookingConfirmScreen}
+        name="BookingConfirm"
         options={{
           tabBarButton: () => null,
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="BookingDetail"
         component={BookingDetailScreen}
+        name="BookingDetail"
         options={{
           tabBarButton: () => null,
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="PaymentMethod"
         component={PaymentMethodScreen}
+        name="PaymentMethod"
         options={{
           tabBarButton: () => null,
           headerShown: false,

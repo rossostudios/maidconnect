@@ -128,7 +128,13 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
     );
   }
 
-  const { totalEarningsCOP, totalBookingsCompleted, shareEarningsBadge, slug, currencyCode = "COP" } = data;
+  const {
+    totalEarningsCOP,
+    totalBookingsCompleted,
+    shareEarningsBadge,
+    slug,
+    currencyCode = "COP",
+  } = data;
 
   return (
     <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>

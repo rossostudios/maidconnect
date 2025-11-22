@@ -96,7 +96,7 @@ Phase 2 focuses on making professional profiles public-facing with SEO optimizat
 - Verification: `#788C5D` (green-500) or `#6A9BCC` (blue-500)
 - Rounded badges with `borderRadius: '9999px'`
 
-**Example URL**: `https://casaora.com/api/og/pro/maria-garcia-abc123`
+**Example URL**: `https://casaora.co/api/og/pro/maria-garcia-abc123`
 
 ---
 
@@ -206,7 +206,7 @@ VALUES ('uuid-here', 'María García', 'active');
 
 **2. Manual Slug Update**:
 ```bash
-curl -X PUT https://casaora.com/api/pro/slug \
+curl -X PUT https://casaora.co/api/pro/slug \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"slug": "maria-garcia-cleaning-expert"}'
@@ -214,7 +214,7 @@ curl -X PUT https://casaora.com/api/pro/slug \
 
 **3. Check Availability**:
 ```bash
-curl -X POST https://casaora.com/api/pro/slug/check \
+curl -X POST https://casaora.co/api/pro/slug/check \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"slug": "maria-garcia"}'
@@ -224,12 +224,12 @@ curl -X POST https://casaora.com/api/pro/slug/check \
 
 **4. Access Public Profile**:
 ```
-https://casaora.com/pro/maria-garcia-abc123
+https://casaora.co/pro/maria-garcia-abc123
 ```
 
 **5. View OG Image**:
 ```
-https://casaora.com/api/og/pro/maria-garcia-abc123
+https://casaora.co/api/og/pro/maria-garcia-abc123
 ```
 
 ---

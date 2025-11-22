@@ -43,12 +43,8 @@ export function ProsHowItWorksSection() {
           viewport={{ once: true, margin: "-100px" }}
           whileInView="visible"
         >
-          <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
-            {t("title")}
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-neutral-700">
-            {t("subtitle")}
-          </p>
+          <h2 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-lg text-neutral-700">{t("subtitle")}</p>
         </motion.div>
 
         <motion.div

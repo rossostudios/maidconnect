@@ -1,17 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { getSession } from "@/lib/auth";
-import { videoEvents, type RequiredEventProperties } from "@/lib/integrations/posthog";
+import { type RequiredEventProperties, videoEvents } from "@/lib/integrations/posthog";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export async function POST(request: NextRequest) {
   try {
     // Authenticate admin
     const { user: admin } = await getSession();
     if (!admin || admin.role !== "admin") {
-      return NextResponse.json(
-        { error: "Unauthorized - Admin access required" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized - Admin access required" }, { status: 401 });
     }
 
     // Parse request body
@@ -37,7 +34,9 @@ export async function POST(request: NextRequest) {
     // Calculate review time in minutes
     const uploadedAt = new Date(profile.intro_video_uploaded_at);
     const reviewedAt = new Date();
-    const reviewTimeMinutes = Math.round((reviewedAt.getTime() - uploadedAt.getTime()) / (1000 * 60));
+    const reviewTimeMinutes = Math.round(
+      (reviewedAt.getTime() - uploadedAt.getTime()) / (1000 * 60)
+    );
 
     // Update video status to approved
     const { error: updateError } = await supabase
