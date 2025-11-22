@@ -263,21 +263,9 @@ PostgreSQL 17
 - Countries: Colombia (CO), Paraguay (PY), Uruguay (UY), Argentina (AR)
 - Cities: 17 total across all markets (CO: 7, PY: 3, UY: 3, AR: 4)
 
-**Concierge** = Human-powered support and placement service
-- **What it is:** Remote operations team handling direct hire placements, professional vetting, and customer support
-- **SLAs:** Response time varies by market, typically 24-48 hours for direct hire requests
-- **Capabilities:**
-  - Create bookings on behalf of customers
-  - Vet and approve professional intro videos
-  - Handle direct hire placements (higher-fee service)
-  - Reassign professionals if issues arise
-  - Resolve disputes and quality issues
-- **Handoff points:** Customers can start self-service bookings or request concierge assistance at any point
-- **Admin tools:** Dashboard shows today's bookings by market, pending video reviews, direct hire pipeline
-
 **Currency Handling:**
 - Customers see prices in local currency (COP, PYG, UYU, ARS)
-- Platform commissions calculated in local currency (15% marketplace, 15% direct hire)
+- Platform commissions calculated in local currency (15% marketplace fee)
 - Payment processor routing: Stripe for Colombia (CO), PayPal for Paraguay/Uruguay/Argentina (PY/UY/AR)
 
 **Configuration:**
@@ -863,5 +851,5 @@ bun run build              # Test build
 
 ---
 
-**Last Updated:** 2025-11-21
-**Version:** 1.6.0 - Supabase MCP Integration (Added MCP-based migration workflow as primary method)
+**Last Updated:** 2025-11-22
+**Version:** 1.7.0 - Removed Concierge/Direct Hire references, simplified business model

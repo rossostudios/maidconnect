@@ -7,7 +7,7 @@
 
 export type FeatureFlag =
   // Week 1-2 Features
-  | "show_match_wizard" // Concierge match wizard for first booking
+  | "show_match_wizard" // Match wizard for first booking
   | "enable_web_vitals" // Web Vitals reporting
 
   // Week 3-4 Features
@@ -25,7 +25,6 @@ export type FeatureFlag =
   | "gps_check_in_out" // GPS verification (already implemented)
   | "arrival_notifications" // Notify customer when pro is nearby
   | "time_extension_ui" // In-booking time extension requests
-  | "show_amara_assistant" // AI booking assistant with onboarding
 
   // Week 9-12 Features
   | "admin_verification_queue" // Admin moderation UI (already implemented)
@@ -39,7 +38,6 @@ export type FeatureFlag =
 
   // A/B Tests - Landing Page Optimization
   | "hero_copy_variant" // Test expat-focused vs generic hero copy
-  | "concierge_emphasis_test" // Test concierge banner placement
 
   // Beta Features
   | "caregiver_profiles" // Specialized caregiver/childcare profiles
@@ -70,7 +68,6 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   gps_check_in_out: true, // Already live
   arrival_notifications: true, // Arrival window tracker with 30-min notifications
   time_extension_ui: true, // Improved modal with preset options
-  show_amara_assistant: true, // AI assistant with onboarding tooltip
 
   // Week 9-12 (Admin queue already implemented)
   admin_verification_queue: true, // Already live
@@ -84,7 +81,6 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
 
   // A/B Tests - Landing Page Optimization
   hero_copy_variant: true, // Enable A/B test: expat-focused vs generic (50/50 split)
-  concierge_emphasis_test: false, // Test different concierge banner variations
 
   // Beta Features
   caregiver_profiles: false,
@@ -225,34 +221,3 @@ export function getHeroCopyVariant(sessionId: string): "expat_focused" | "generi
   return isInRollout(50, sessionId) ? "expat_focused" : "generic";
 }
 
-/**
- * Get concierge emphasis variant for A/B test
- * Tests different ways to promote high-value Concierge service
- *
- * Variants:
- * - 'banner_top': Banner above hero (current)
- * - 'hero_cta': Third CTA button in hero section
- * - 'callout_below': Dedicated section below hero
- *
- * @param sessionId - Session ID for deterministic bucketing
- * @returns Variant name
- */
-export function getConciergeVariant(
-  sessionId: string
-): "banner_top" | "hero_cta" | "callout_below" {
-  if (!isFeatureEnabled("concierge_emphasis_test")) {
-    return "banner_top"; // Default to current version
-  }
-
-  // 33/33/33 three-way split
-  const hash = Math.abs(sessionId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0));
-  const bucket = hash % 3;
-
-  if (bucket === 0) {
-    return "banner_top";
-  }
-  if (bucket === 1) {
-    return "hero_cta";
-  }
-  return "callout_below";
-}
