@@ -47,7 +47,7 @@ export function HeroVariantA() {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  const highlightLocations = marketInfo?.countryName
+  const _highlightLocations = marketInfo?.countryName
     ? [`Top-rated pros in ${marketInfo.countryName}`]
     : ["Top-rated pros near you"];
 

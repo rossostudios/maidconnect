@@ -21,7 +21,7 @@ import {
 } from "@/lib/shared/config/territories";
 import { cn } from "@/lib/utils";
 
-interface LocationFilterProps {
+type LocationFilterProps = {
   country: string | null;
   city: string | null;
   neighborhood: string | null;
@@ -30,7 +30,7 @@ interface LocationFilterProps {
   onNeighborhoodChange: (value: string | null) => void;
   className?: string;
   compact?: boolean;
-}
+};
 
 export function LocationFilter({
   country,

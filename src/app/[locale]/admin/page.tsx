@@ -5,6 +5,7 @@ import { geistSans } from "@/app/fonts";
 import { LiaButton } from "@/components/admin/lia-dashboard-components";
 import { RealtimeStatsPanel } from "@/components/admin/realtime-stats-panel";
 import { UserActivityPanel } from "@/components/admin/user-activity-panel";
+import { IconBox } from "@/components/ui/icon-box";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -131,19 +132,27 @@ export default async function AdminHomePage() {
               <Link href="/admin/bookings?status=pending">
                 <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                      <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Calendar03Icon} />
-                    </div>
+                    <IconBox icon={Calendar03Icon} size="lg" variant="neutral" />
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {pendingBookingsCount}
                       </span>
                     </div>
                   </div>
-                  <h3 className={cn("font-medium text-base text-neutral-900", geistSans.className)}>
+                  <h3
+                    className={cn(
+                      "font-medium text-base text-neutral-900 leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Pending Assignments
                   </h3>
-                  <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
+                  <p
+                    className={cn(
+                      "mt-0.5 text-neutral-600 text-sm leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Concierge Matching
                   </p>
                 </div>
@@ -155,19 +164,27 @@ export default async function AdminHomePage() {
               <Link href="/admin/users?role=professional&status=pending">
                 <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                      <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={ClockIcon} />
-                    </div>
+                    <IconBox icon={ClockIcon} size="lg" variant="neutral" />
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {pendingProfessionals}
                       </span>
                     </div>
                   </div>
-                  <h3 className={cn("font-medium text-base text-neutral-900", geistSans.className)}>
+                  <h3
+                    className={cn(
+                      "font-medium text-base text-neutral-900 leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Pending Reviews
                   </h3>
-                  <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
+                  <p
+                    className={cn(
+                      "mt-0.5 text-neutral-600 text-sm leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Professional applications
                   </p>
                 </div>
@@ -179,19 +196,27 @@ export default async function AdminHomePage() {
               <Link href="/admin/disputes">
                 <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                      <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Alert01Icon} />
-                    </div>
+                    <IconBox icon={Alert01Icon} size="lg" variant="neutral" />
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {activeDisputesCount}
                       </span>
                     </div>
                   </div>
-                  <h3 className={cn("font-medium text-base text-neutral-900", geistSans.className)}>
+                  <h3
+                    className={cn(
+                      "font-medium text-base text-neutral-900 leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Active Disputes
                   </h3>
-                  <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
+                  <p
+                    className={cn(
+                      "mt-0.5 text-neutral-600 text-sm leading-none",
+                      geistSans.className
+                    )}
+                  >
                     Require resolution
                   </p>
                 </div>

@@ -44,7 +44,9 @@ export function SubscriptionManager({ subscription, discount }: Props) {
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   const handleCancel = async () => {
-    if (!subscription) return;
+    if (!subscription) {
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -73,7 +75,9 @@ export function SubscriptionManager({ subscription, discount }: Props) {
   };
 
   const handleReactivate = async () => {
-    if (!subscription) return;
+    if (!subscription) {
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -98,7 +102,7 @@ export function SubscriptionManager({ subscription, discount }: Props) {
   };
 
   // No subscription state
-  if (!(subscription && subscription.plan)) {
+  if (!subscription?.plan) {
     return (
       <div className="rounded-2xl border border-neutral-200 bg-white p-8">
         <div className="mb-6">

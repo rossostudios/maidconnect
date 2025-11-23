@@ -22,12 +22,12 @@ const MAPBOX_TOKEN =
 const DEFAULT_CENTER: [number, number] = [-74.0721, 4.711];
 const DEFAULT_ZOOM = 10;
 
-interface DirectoryMapProps {
+type DirectoryMapProps = {
   professionals: DirectoryProfessional[];
   isLoading?: boolean;
   className?: string;
   onProfessionalSelect?: (professional: DirectoryProfessional) => void;
-}
+};
 
 export function DirectoryMap({
   professionals,
@@ -45,7 +45,9 @@ export function DirectoryMap({
 
   // Initialize map
   useEffect(() => {
-    if (map.current || !mapContainer.current) return;
+    if (map.current || !mapContainer.current) {
+      return;
+    }
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -124,7 +126,9 @@ export function DirectoryMap({
 
   // Update markers when professionals change
   useEffect(() => {
-    if (!map.current) return;
+    if (!map.current) {
+      return;
+    }
 
     // Clear existing markers
     markersRef.current.forEach((marker) => marker.remove());
@@ -133,11 +137,15 @@ export function DirectoryMap({
     // Filter professionals with valid coordinates
     const professionalsWithCoords = professionals.filter((p) => p.latitude && p.longitude);
 
-    if (professionalsWithCoords.length === 0) return;
+    if (professionalsWithCoords.length === 0) {
+      return;
+    }
 
     // Create new markers
     professionalsWithCoords.forEach((professional) => {
-      if (!(professional.longitude && professional.latitude)) return;
+      if (!(professional.longitude && professional.latitude)) {
+        return;
+      }
 
       const el = createMarkerElement(professional, selectedProfessional?.id === professional.id);
 
@@ -178,7 +186,9 @@ export function DirectoryMap({
 
   // Close popup on map click
   useEffect(() => {
-    if (!map.current) return;
+    if (!map.current) {
+      return;
+    }
 
     const handleClick = () => {
       setSelectedProfessional(null);
@@ -194,7 +204,9 @@ export function DirectoryMap({
 
   // Update popup position on map move
   useEffect(() => {
-    if (!(map.current && selectedProfessional)) return;
+    if (!(map.current && selectedProfessional)) {
+      return;
+    }
 
     const updatePosition = () => {
       if (selectedProfessional.longitude && selectedProfessional.latitude) {

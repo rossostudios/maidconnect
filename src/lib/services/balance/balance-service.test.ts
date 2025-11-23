@@ -74,7 +74,7 @@ describe("BalanceService", () => {
 
   describe("getInstantPayoutFeePercentage", () => {
     it("should return default fee (1.5%) if platform setting fails", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
@@ -89,7 +89,7 @@ describe("BalanceService", () => {
     });
 
     it("should parse numeric setting value", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
@@ -104,7 +104,7 @@ describe("BalanceService", () => {
     });
 
     it("should parse string setting value", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
@@ -121,7 +121,7 @@ describe("BalanceService", () => {
 
   describe("getMinimumPayoutAmount", () => {
     it("should return default minimum (50,000 COP) if platform setting fails", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
@@ -136,7 +136,7 @@ describe("BalanceService", () => {
     });
 
     it("should parse numeric setting value", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
       mockSupabase.from = vi.fn(() => ({
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
@@ -157,7 +157,7 @@ describe("BalanceService", () => {
 
   describe("validateInstantPayout", () => {
     it("should reject payout below minimum threshold", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       // Mock professional profile with sufficient balance
       mockSupabase.from = vi.fn((table: string) => {
@@ -216,7 +216,7 @@ describe("BalanceService", () => {
     });
 
     it("should reject payout if available balance is insufficient", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       mockSupabase.from = vi.fn((table: string) => {
         if (table === "professional_profiles") {
@@ -270,7 +270,7 @@ describe("BalanceService", () => {
     });
 
     it("should reject if Stripe Connect is not set up", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       mockSupabase.from = vi.fn((table: string) => {
         if (table === "professional_profiles") {
@@ -324,7 +324,7 @@ describe("BalanceService", () => {
     });
 
     it("should reject if daily rate limit is reached", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       mockSupabase.from = vi.fn((table: string) => {
         if (table === "professional_profiles") {
@@ -380,7 +380,7 @@ describe("BalanceService", () => {
     });
 
     it("should calculate fee correctly (1.5% default)", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       mockSupabase.from = vi.fn((table: string) => {
         if (table === "professional_profiles") {
@@ -448,7 +448,7 @@ describe("BalanceService", () => {
     });
 
     it("should pass validation for valid payout request", async () => {
-      const mockSupabase = service["supabase"] as any;
+      const mockSupabase = service.supabase as any;
 
       mockSupabase.from = vi.fn((table: string) => {
         if (table === "professional_profiles") {

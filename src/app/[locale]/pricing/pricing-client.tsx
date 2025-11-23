@@ -37,7 +37,7 @@ const stagger: Variants = {
 };
 
 export function PricingPageClient() {
-  const t = useTranslations("pricing");
+  const _t = useTranslations("pricing");
 
   return (
     <div className="flex flex-col">

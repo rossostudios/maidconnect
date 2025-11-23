@@ -10,12 +10,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { SERVICE_CATEGORIES } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
-interface ServiceFilterProps {
+type ServiceFilterProps = {
   value: string | null;
   onChange: (value: string | null) => void;
   className?: string;
   compact?: boolean;
-}
+};
 
 export function ServiceFilter({ value, onChange, className, compact = false }: ServiceFilterProps) {
   // Parse comma-separated values into array
@@ -34,7 +34,9 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
   if (compact) {
     const count = selectedServices.length;
     const getLabel = () => {
-      if (count === 0) return "All Services";
+      if (count === 0) {
+        return "All Services";
+      }
       if (count === 1) {
         return SERVICE_CATEGORIES.find((c) => c.value === selectedServices[0])?.label;
       }

@@ -20,13 +20,13 @@ import { RatingFilter } from "./RatingFilter";
 import { ServiceFilter } from "./ServiceFilter";
 import { VerificationFilter } from "./VerificationFilter";
 
-interface FilterSheetProps {
+type FilterSheetProps = {
   filters: ReturnType<typeof useDirectoryFilters>["filters"];
   setFilter: ReturnType<typeof useDirectoryFilters>["setFilter"];
   clearFilters: ReturnType<typeof useDirectoryFilters>["clearFilters"];
   activeFilterCount: number;
   className?: string;
-}
+};
 
 export function FilterSheet({
   filters,

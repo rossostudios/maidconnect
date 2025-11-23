@@ -111,7 +111,9 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
 
   // Fetch initial stats on mount
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     async function fetchInitialStats() {
       try {
@@ -187,18 +189,23 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
         ]);
 
         // Check for errors with detailed logging
-        if (bookingsResult.error)
+        if (bookingsResult.error) {
           throw new Error(`Failed to fetch bookings: ${bookingsResult.error.message}`);
-        if (usersResult.error)
+        }
+        if (usersResult.error) {
           throw new Error(`Failed to fetch users: ${usersResult.error.message}`);
-        if (professionalsResult.error)
+        }
+        if (professionalsResult.error) {
           throw new Error(`Failed to fetch professionals: ${professionalsResult.error.message}`);
-        if (revenueResult.error)
+        }
+        if (revenueResult.error) {
           throw new Error(`Failed to fetch revenue: ${revenueResult.error.message}`);
-        if (pendingBookingsResult.error)
+        }
+        if (pendingBookingsResult.error) {
           throw new Error(
             `Failed to fetch pending bookings: ${pendingBookingsResult.error.message}`
           );
+        }
 
         // Calculate total revenue
         const totalRevenue =
@@ -233,11 +240,13 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
     }
 
     fetchInitialStats();
-  }, [enabled, dateRange]);
+  }, [enabled, dateRange, generateSparklineData]);
 
   // Subscribe to multiplexed realtime updates
   useEffect(() => {
-    if (!(enabled && stats)) return;
+    if (!(enabled && stats)) {
+      return;
+    }
 
     const manager = getConnectionManager();
 
@@ -274,7 +283,9 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
             const newStatus = newRecord.status;
 
             setStats((prev) => {
-              if (!prev) return prev;
+              if (!prev) {
+                return prev;
+              }
 
               let pendingBookings = prev.pendingBookings;
 
@@ -282,7 +293,7 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
               if (oldStatus === "pending" && newStatus !== "pending") {
                 pendingBookings = Math.max(0, pendingBookings - 1);
               } else if (oldStatus !== "pending" && newStatus === "pending") {
-                pendingBookings = pendingBookings + 1;
+                pendingBookings += 1;
               }
 
               // Handle completed bookings (add to revenue)
@@ -292,7 +303,7 @@ export function useRealtimeAdminStats(options: AdminStatsOptions = {}) {
                 newStatus === "completed" &&
                 newRecord.final_amount_captured
               ) {
-                totalRevenue = totalRevenue + newRecord.final_amount_captured;
+                totalRevenue += newRecord.final_amount_captured;
               }
 
               return {

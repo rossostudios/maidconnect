@@ -167,18 +167,20 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 </span>
               </div>
 
-              <div className="min-w-0 flex-1 space-y-1.5">
+              <div className="min-w-0 flex-1">
                 <p
                   className={cn(
-                    "min-w-0 break-words font-medium text-base text-neutral-900 leading-tight",
+                    "min-w-0 break-words font-medium text-base text-neutral-900 leading-none",
                     geistSans.className
                   )}
                 >
                   {firstName}
                 </p>
-                <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
+                <p className="mt-0.5 truncate text-neutral-500 text-xs leading-none">
+                  {accountEmail}
+                </p>
                 {!showProfileMenu && (
-                  <span className="inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs tracking-wider">
+                  <span className="mt-1.5 inline-flex items-center rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs tracking-wider">
                     {accountRole}
                   </span>
                 )}

@@ -260,7 +260,7 @@ export function ProBookingCalendar({
     if (api) {
       setTitle(api.view.title);
     }
-  }, [currentView]);
+  }, []);
 
   return (
     <div className="space-y-6">

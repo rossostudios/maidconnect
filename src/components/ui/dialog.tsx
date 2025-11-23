@@ -46,7 +46,7 @@ import { cn } from "@/lib/utils/core";
 /**
  * Dialog Root Props
  */
-export interface DialogProps {
+export type DialogProps = {
   /**
    * Whether the dialog is open (controlled)
    */
@@ -63,7 +63,7 @@ export interface DialogProps {
    * Children elements (DialogTrigger and DialogContent)
    */
   children: React.ReactNode;
-}
+};
 
 /**
  * Dialog Root Component
@@ -85,7 +85,7 @@ Dialog.displayName = "Dialog";
  * Button that opens the dialog.
  * Wraps children - typically a Button component.
  */
-export interface DialogTriggerProps {
+export type DialogTriggerProps = {
   /**
    * Additional CSS classes
    */
@@ -102,7 +102,7 @@ export interface DialogTriggerProps {
    * Ref to the trigger button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 export const DialogTrigger = ({ className, children, asChild, ref }: DialogTriggerProps) => {
   // If asChild is true, just render the children directly
@@ -130,7 +130,7 @@ DialogPortal.displayName = "DialogPortal";
 /**
  * Dialog Overlay Props
  */
-export interface DialogOverlayProps {
+export type DialogOverlayProps = {
   /**
    * Additional CSS classes
    */
@@ -139,7 +139,7 @@ export interface DialogOverlayProps {
    * Ref to the overlay element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Dialog Overlay Component
@@ -441,7 +441,7 @@ export const DialogDescription = ({
  * Use Button with slot="close" instead in most cases.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export interface DialogCloseProps {
+export type DialogCloseProps = {
   /**
    * Additional CSS classes
    */
@@ -458,7 +458,7 @@ export interface DialogCloseProps {
    * Ref to the button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 export const DialogClose = ({ className, children, asChild, ref }: DialogCloseProps) => {
   // If asChild, just render children - parent should be a Button

@@ -11,7 +11,7 @@ export function TestimonialsSection() {
   }
 
   // For now we only showcase a single hero testimonial
-  const featured = testimonials[0];
+  const _featured = testimonials[0];
   const brandLabel = "Trust & Safety";
   const quoteText =
     "Finding reliable help at home used to be so stressful. Casaora verified everything—background checks, interviews, reviews—so I could focus on my family. The booking process was simple, and our housekeeper has been wonderful.";

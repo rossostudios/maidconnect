@@ -10,14 +10,14 @@ export type CheckRecommendation = "approved" | "review_required" | "rejected";
 export type CheckType = "criminal" | "identity" | "disciplinary";
 
 /** Individual record from a background check provider */
-export interface BackgroundCheckRecord {
+export type BackgroundCheckRecord = {
   id?: string;
   date?: string;
   description?: string;
   severity?: string;
   source?: string;
   [key: string]: unknown; // Provider-specific fields
-}
+};
 
 export type BackgroundCheckResultData = {
   criminal?: {
@@ -142,7 +142,7 @@ function buildResultsObject(
 }
 
 /** Transformed background check for component consumption */
-export interface TransformedBackgroundCheck {
+export type TransformedBackgroundCheck = {
   id: string;
   providerCheckId: string;
   provider: string;
@@ -168,7 +168,7 @@ export interface TransformedBackgroundCheck {
     country: string;
   };
   daysWaiting: number;
-}
+};
 
 /**
  * Transform raw database check into component-friendly format

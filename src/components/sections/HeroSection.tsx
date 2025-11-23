@@ -65,7 +65,7 @@ const imageStagger: Variants = {
 };
 
 export function HeroSection() {
-  const t = useTranslations("hero");
+  const _t = useTranslations("hero");
   const sectionRef = useRef<HTMLElement>(null);
 
   // Parallax scroll effect

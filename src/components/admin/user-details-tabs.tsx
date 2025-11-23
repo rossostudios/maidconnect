@@ -389,7 +389,7 @@ function VerificationBadge({ label, status }: { label: string; status: string })
   );
 }
 
-function OnboardingStep({ label, complete }: { label: string; complete: boolean }) {
+function _OnboardingStep({ label, complete }: { label: string; complete: boolean }) {
   return (
     <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-4">
       <span className="font-[family-name:var(--font-geist-sans)] text-neutral-900">{label}</span>
@@ -1383,7 +1383,7 @@ function ReviewCard({
  * - Adapts content based on user role (professional vs customer)
  */
 export function UserDetailsTabs({ user, defaultTab = "overview" }: Props) {
-  const [activeTab, setActiveTab] = useState<TabId>(defaultTab);
+  const [_activeTab, setActiveTab] = useState<TabId>(defaultTab);
   const [tabData, setTabData] = useState<TabData>({});
   const [loadingTabs, setLoadingTabs] = useState<Set<TabId>>(new Set());
 
@@ -1446,7 +1446,7 @@ export function UserDetailsTabs({ user, defaultTab = "overview" }: Props) {
     loadTabData(defaultTab);
   });
 
-  const isProfessional = user.role === "professional";
+  const _isProfessional = user.role === "professional";
 
   return (
     <Tabs className="w-full" defaultValue={defaultTab} onValueChange={handleTabChange}>

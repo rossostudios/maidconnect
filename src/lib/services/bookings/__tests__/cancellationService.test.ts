@@ -31,7 +31,7 @@ mock.module("@/lib/integrations/stripe/client", () => ({
 
 // Mock calculateCancellationPolicy
 mock.module("@/lib/utils/bookings/cancellation-policy", () => ({
-  calculateCancellationPolicy: mock((scheduledStart: string, status: string) => ({
+  calculateCancellationPolicy: mock((_scheduledStart: string, _status: string) => ({
     canCancel: true,
     refundPercentage: 100,
     reason: null,

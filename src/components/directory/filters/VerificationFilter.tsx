@@ -11,7 +11,7 @@ import { CheckmarkCircle01Icon, Shield01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/lib/utils";
 
-interface VerificationFilterProps {
+type VerificationFilterProps = {
   verifiedOnly: boolean;
   /** @deprecated Background checks are now mandatory - this prop is ignored */
   backgroundChecked?: boolean;
@@ -20,7 +20,7 @@ interface VerificationFilterProps {
   onBackgroundCheckedChange?: (value: boolean) => void;
   className?: string;
   compact?: boolean;
-}
+};
 
 export function VerificationFilter({
   verifiedOnly,

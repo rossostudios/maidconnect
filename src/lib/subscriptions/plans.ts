@@ -9,7 +9,7 @@ export type PlanType = "customer" | "professional";
 
 export type BillingInterval = "month" | "year";
 
-export interface SubscriptionPlan {
+export type SubscriptionPlan = {
   id: string;
   slug: string;
   name: string;
@@ -24,7 +24,7 @@ export interface SubscriptionPlan {
   discountPercentage: number;
   stripePriceId?: string;
   popular?: boolean;
-}
+};
 
 /**
  * Customer subscription plans

@@ -14,16 +14,16 @@ export async function GET(request: NextRequest) {
     // Parse query parameters
     const country = searchParams.get("country");
     const city = searchParams.get("city");
-    const neighborhood = searchParams.get("neighborhood");
+    const _neighborhood = searchParams.get("neighborhood");
     const service = searchParams.get("service");
-    const minRate = searchParams.get("minRate");
-    const maxRate = searchParams.get("maxRate");
+    const _minRate = searchParams.get("minRate");
+    const _maxRate = searchParams.get("maxRate");
     const minExperience = searchParams.get("minExperience");
-    const availableToday = searchParams.get("availableToday") === "true";
-    const date = searchParams.get("date");
+    const _availableToday = searchParams.get("availableToday") === "true";
+    const _date = searchParams.get("date");
     const minRating = searchParams.get("minRating");
     const verifiedOnly = searchParams.get("verifiedOnly") === "true";
-    const backgroundChecked = searchParams.get("backgroundChecked") === "true";
+    const _backgroundChecked = searchParams.get("backgroundChecked") === "true";
     const query = searchParams.get("query");
     const sort = searchParams.get("sort") || "rating";
     const page = Number.parseInt(searchParams.get("page") || "1", 10);

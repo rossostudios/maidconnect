@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils/core";
 /**
  * LiaTooltip Props
  */
-interface LiaTooltipProps {
+type LiaTooltipProps = {
   /**
    * Trigger element
    */
@@ -38,7 +38,7 @@ interface LiaTooltipProps {
    * Delay before showing tooltip in milliseconds (default: 300)
    */
   delayDuration?: number;
-}
+};
 
 /**
  * LiaTooltip Component

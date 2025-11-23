@@ -228,7 +228,12 @@ export function MetricCard({
           )}
 
           {/* Title */}
-          <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+          <h3
+            className={cn(
+              "font-semibold text-neutral-900 text-sm leading-none",
+              geistSans.className
+            )}
+          >
             {title}
           </h3>
 
@@ -242,7 +247,7 @@ export function MetricCard({
             >
               <p
                 className={cn(
-                  "font-semibold text-4xl text-neutral-900 tracking-tight",
+                  "font-semibold text-4xl text-neutral-900 leading-none tracking-tight",
                   geistSans.className
                 )}
               >
@@ -261,7 +266,9 @@ export function MetricCard({
 
             {/* Description */}
             {description && (
-              <p className={cn("text-neutral-500 text-sm", geistSans.className)}>{description}</p>
+              <p className={cn("text-neutral-500 text-sm leading-none", geistSans.className)}>
+                {description}
+              </p>
             )}
           </div>
 

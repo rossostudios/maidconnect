@@ -84,10 +84,18 @@ export function useAdminNotifications(options: NotificationOptions = {}) {
    * Determine notification severity based on event type
    */
   const getSeverity = useCallback((type: NotificationEventType): NotificationSeverity => {
-    if (type === "dispute_created") return "error";
-    if (type.includes("failed")) return "error";
-    if (type.includes("warning")) return "warning";
-    if (type.includes("success") || type.includes("completed")) return "success";
+    if (type === "dispute_created") {
+      return "error";
+    }
+    if (type.includes("failed")) {
+      return "error";
+    }
+    if (type.includes("warning")) {
+      return "warning";
+    }
+    if (type.includes("success") || type.includes("completed")) {
+      return "success";
+    }
     return "info";
   }, []);
 
@@ -320,7 +328,9 @@ export function useAdminNotifications(options: NotificationOptions = {}) {
    * Subscribe to real-time events
    */
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     subscriptionRef.current = subscribeToTables([
       {

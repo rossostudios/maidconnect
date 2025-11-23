@@ -76,7 +76,7 @@ describe("Payment API Routes", () => {
           amount: 100_000,
         };
 
-        const DEFAULT_CURRENCY = "cop";
+        const _DEFAULT_CURRENCY = "cop";
         expect(input).not.toHaveProperty("currency");
         // Schema would apply default: "cop"
       });

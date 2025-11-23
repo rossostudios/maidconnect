@@ -11,12 +11,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-interface EmptyStateProps {
+type EmptyStateProps = {
   title?: string;
   description?: string;
   onClearFilters?: () => void;
   className?: string;
-}
+};
 
 export function EmptyState({
   title = "No professionals found",

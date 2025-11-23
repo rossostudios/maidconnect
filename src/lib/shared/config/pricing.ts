@@ -16,7 +16,7 @@ export type CurrencyCode = "COP" | "PYG" | "UYU" | "ARS" | "USD";
 
 export type PaymentProcessor = "stripe" | "paypal";
 
-export interface CountryPricingConfig {
+export type CountryPricingConfig = {
   /** ISO 4217 currency code */
   currency: CurrencyCode;
 
@@ -63,7 +63,7 @@ export interface CountryPricingConfig {
     /** Decimal separator (e.g., ".") */
     decimalSeparator: string;
   };
-}
+};
 
 // ============================================================================
 // Country Pricing Configurations

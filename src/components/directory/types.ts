@@ -19,7 +19,7 @@ export type IntroVideoStatus = "none" | "pending_review" | "approved" | "rejecte
 /**
  * Professional data for directory listing
  */
-export interface DirectoryProfessional {
+export type DirectoryProfessional = {
   id: string;
   name: string;
   avatarUrl: string | null;
@@ -61,7 +61,7 @@ export interface DirectoryProfessional {
   // Geo coordinates (for map view)
   latitude: number | null;
   longitude: number | null;
-}
+};
 
 /**
  * Professional card display size variants
@@ -71,21 +71,21 @@ export type CardSize = "sm" | "md" | "lg";
 /**
  * API response for directory listing
  */
-export interface DirectoryResponse {
+export type DirectoryResponse = {
   professionals: DirectoryProfessional[];
   total: number;
   page: number;
   totalPages: number;
   limit: number;
-}
+};
 
 /**
  * Filter counts for faceted search
  */
-export interface FilterCounts {
+export type FilterCounts = {
   services: Array<{ value: string; label: string; count: number }>;
   cities: Array<{ value: string; label: string; count: number }>;
   countries: Array<{ value: string; label: string; count: number }>;
   priceRange: { min: number; max: number };
   ratingDistribution: Array<{ rating: number; count: number }>;
-}
+};

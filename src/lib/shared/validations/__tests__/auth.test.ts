@@ -229,7 +229,7 @@ describe("professionalProfileSchema", () => {
   it("should reject more than 10 languages", () => {
     const result = professionalProfileSchema.safeParse({
       ...validProfessional,
-      languages: Array(11).fill("Language"),
+      languages: new Array(11).fill("Language"),
     });
     expect(result.success).toBe(false);
   });
@@ -245,7 +245,7 @@ describe("professionalProfileSchema", () => {
   it("should reject more than 20 certifications", () => {
     const result = professionalProfileSchema.safeParse({
       ...validProfessional,
-      certifications: Array(21).fill("Certificate"),
+      certifications: new Array(21).fill("Certificate"),
     });
     expect(result.success).toBe(false);
   });
@@ -269,7 +269,7 @@ describe("professionalProfileSchema", () => {
   it("should reject more than 10 specialties", () => {
     const result = professionalProfileSchema.safeParse({
       ...validProfessional,
-      specialties: Array(11).fill("Specialty"),
+      specialties: new Array(11).fill("Specialty"),
     });
     expect(result.success).toBe(false);
   });
@@ -530,7 +530,7 @@ describe("signUpSchema", () => {
   it("should reject password longer than 100 characters", () => {
     const result = signUpSchema.safeParse({
       ...validSignUp,
-      password: "A".repeat(50) + "a".repeat(50) + "1",
+      password: `${"A".repeat(50) + "a".repeat(50)}1`,
     });
     expect(result.success).toBe(false);
   });

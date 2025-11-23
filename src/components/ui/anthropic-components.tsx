@@ -118,11 +118,11 @@ export const Textarea: React.FC<TextareaProps> = ({
 // CARD COMPONENT
 // ============================================
 
-interface CardProps {
+type CardProps = {
   children: React.ReactNode;
   variant?: "default" | "elevated" | "bordered";
   className?: string;
-}
+};
 
 export const Card: React.FC<CardProps> = ({ children, variant = "default", className = "" }) => {
   const variants = {
@@ -138,11 +138,11 @@ export const Card: React.FC<CardProps> = ({ children, variant = "default", class
 // BADGE COMPONENT
 // ============================================
 
-interface BadgeProps {
+type BadgeProps = {
   children: React.ReactNode;
   variant?: "orange" | "blue" | "green" | "gray";
   className?: string;
-}
+};
 
 export const Badge: React.FC<BadgeProps> = ({ children, variant = "orange", className = "" }) => {
   const variants = {
@@ -165,11 +165,11 @@ export const Badge: React.FC<BadgeProps> = ({ children, variant = "orange", clas
 // ALERT COMPONENT
 // ============================================
 
-interface AlertProps {
+type AlertProps = {
   children: React.ReactNode;
   variant?: "info" | "success" | "warning" | "error";
   className?: string;
-}
+};
 
 export const Alert: React.FC<AlertProps> = ({ children, variant = "info", className = "" }) => {
   const variants = {
@@ -190,12 +190,12 @@ export const Alert: React.FC<AlertProps> = ({ children, variant = "info", classN
 // TOGGLE/SWITCH COMPONENT
 // ============================================
 
-interface ToggleProps {
+type ToggleProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: string;
   disabled?: boolean;
-}
+};
 
 export const Toggle: React.FC<ToggleProps> = ({ checked, onChange, label, disabled = false }) => (
   <label className="flex cursor-pointer items-center">
@@ -302,10 +302,10 @@ export const Radio: React.FC<RadioProps> = ({ label, className = "", ...props })
 // DIVIDER COMPONENT
 // ============================================
 
-interface DividerProps {
+type DividerProps = {
   className?: string;
   orientation?: "horizontal" | "vertical";
-}
+};
 
 export const Divider: React.FC<DividerProps> = ({ className = "", orientation = "horizontal" }) => (
   <div

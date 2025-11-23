@@ -16,11 +16,11 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { useDirectoryFilters } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
-interface QuickFiltersProps {
+type QuickFiltersProps = {
   filters: ReturnType<typeof useDirectoryFilters>["filters"];
   setFilter: ReturnType<typeof useDirectoryFilters>["setFilter"];
   className?: string;
-}
+};
 
 export function QuickFilters({ filters, setFilter, className }: QuickFiltersProps) {
   const quickOptions = [

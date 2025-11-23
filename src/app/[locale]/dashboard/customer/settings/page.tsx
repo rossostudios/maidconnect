@@ -1,12 +1,14 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { updateNotificationPreferencesAction } from "@/app/actions/update-notification-preferences";
+import { updateProfileAction } from "@/app/actions/update-profile";
 import { geistSans } from "@/app/fonts";
 import {
   type SavedAddress,
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import { NotificationPreferences } from "@/components/settings/notification-preferences";
+import { ProfileEditForm } from "@/components/settings/profile-edit-form";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
@@ -26,7 +28,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
   const [{ data: profileData }, { data: customerData }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("phone, city, country, full_name")
+      .select("phone, city, country, full_name, avatar_url")
       .eq("id", user.id)
       .maybeSingle(),
     supabase
@@ -42,6 +44,7 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       city: string | null;
       country: string | null;
       full_name: string | null;
+      avatar_url: string | null;
     } | null) ?? null;
 
   const customerProfile =
@@ -66,50 +69,18 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
         <p className="mt-2 text-base text-neutral-700 leading-relaxed">{t("description")}</p>
       </div>
 
-      {/* Profile Information */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
-        <h2 className={cn("mb-6 font-semibold text-neutral-900 text-xl", geistSans.className)}>
-          {t("profile.title")}
-        </h2>
-        <div className="space-y-6">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-wider">
-                {t("profile.fullName")}
-              </div>
-              <p className="text-neutral-900">{profile?.full_name || "—"}</p>
-            </div>
-            <div>
-              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-wider">
-                {t("profile.email")}
-              </div>
-              <p className="text-neutral-900">{user.email || "—"}</p>
-            </div>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-wider">
-                {t("profile.phone")}
-              </div>
-              <p className="text-neutral-900">{profile?.phone || "—"}</p>
-            </div>
-            <div>
-              <div className="mb-2 block font-semibold text-neutral-700 text-xs uppercase tracking-wider">
-                {t("profile.city")}
-              </div>
-              <p className="text-neutral-900">{profile?.city || "—"}</p>
-            </div>
-          </div>
-
-          <div className="rounded-lg bg-neutral-50 p-4">
-            <p className="text-neutral-500 text-sm">
-              <strong className="text-neutral-900">{t("profile.note")}:</strong>{" "}
-              {t("profile.noteDescription")}
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Profile Information - Editable */}
+      <ProfileEditForm
+        initialData={{
+          fullName: profile?.full_name ?? null,
+          email: user.email || "",
+          phone: profile?.phone ?? null,
+          city: profile?.city ?? null,
+          country: profile?.country ?? null,
+          avatarUrl: profile?.avatar_url ?? null,
+        }}
+        onSave={updateProfileAction}
+      />
 
       {/* Property Preferences */}
       <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">

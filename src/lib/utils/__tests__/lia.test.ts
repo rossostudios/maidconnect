@@ -203,27 +203,27 @@ describe("typography", () => {
 
   describe("baseline alignment", () => {
     it("all display line heights are baseline-aligned", () => {
-      expect(Number.parseInt(typography.display("xl").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.display("lg").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.display("md").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.display("sm").lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(typography.display("xl").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.display("lg").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.display("md").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.display("sm").lineHeight, 10) % 24).toBe(0);
     });
 
     it("all heading line heights are baseline-aligned", () => {
-      expect(Number.parseInt(typography.heading("h1").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.heading("h2").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.heading("h3").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.heading("h4").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.heading("h5").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.heading("h6").lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h1").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h2").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h3").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h4").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h5").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.heading("h6").lineHeight, 10) % 24).toBe(0);
     });
 
     it("all body line heights are baseline-aligned", () => {
-      expect(Number.parseInt(typography.body("xl").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.body("lg").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.body("base").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.body("sm").lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(typography.body("xs").lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(typography.body("xl").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.body("lg").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.body("base").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.body("sm").lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(typography.body("xs").lineHeight, 10) % 24).toBe(0);
     });
   });
 });
@@ -391,7 +391,7 @@ describe("Lia Design System Integration", () => {
     ];
 
     for (const typo of sizes) {
-      const lineHeight = Number.parseInt(typo.lineHeight);
+      const lineHeight = Number.parseInt(typo.lineHeight, 10);
       expect(lineHeight % spacing.baselineUnit).toBe(0);
     }
   });

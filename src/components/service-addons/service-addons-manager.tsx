@@ -111,7 +111,9 @@ export function ServiceAddonsManager({
 
   const handleToggleActive = async (id: string) => {
     const target = addons.find((addon) => addon.id === id);
-    if (!target) return;
+    if (!target) {
+      return;
+    }
 
     const updated = await persistAddon({
       id,
@@ -129,7 +131,9 @@ export function ServiceAddonsManager({
 
   const handleDelete = async (id: string) => {
     const confirmed = await confirm(t("deleteConfirm"), "Delete Service Addon");
-    if (!confirmed) return;
+    if (!confirmed) {
+      return;
+    }
 
     try {
       setSubmittingId(id);

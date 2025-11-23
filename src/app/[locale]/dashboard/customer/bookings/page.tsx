@@ -1,7 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
-import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
+import { CustomerBookingsView } from "@/components/bookings/customer-bookings-view";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
@@ -59,10 +59,8 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
         <p className="mt-2 text-base text-neutral-700 leading-6">{t("description")}</p>
       </div>
 
-      {/* Bookings List */}
-      <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
-        <CustomerBookingList bookings={bookings} />
-      </div>
+      {/* Bookings View with List/Calendar Toggle */}
+      <CustomerBookingsView bookings={bookings} />
     </section>
   );
 }

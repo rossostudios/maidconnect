@@ -10,14 +10,14 @@ import { format, parse } from "date-fns";
 import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
 
-interface AvailabilityFilterProps {
+type AvailabilityFilterProps = {
   availableToday: boolean;
   date: string | null;
   onAvailableTodayChange: (value: boolean) => void;
   onDateChange: (value: string | null) => void;
   className?: string;
   compact?: boolean;
-}
+};
 
 export function AvailabilityFilter({
   availableToday,

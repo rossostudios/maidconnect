@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
-import { Link } from "@/i18n/routing";
+import { EmptyState, EmptyStateInlineLink } from "@/components/shared/empty-state";
 import { cn } from "@/lib/utils";
 import { isWithinDisputeWindow } from "./dispute-modal";
 
@@ -59,19 +59,19 @@ export function CustomerBookingList({ bookings }: Props) {
 
   if (bookings.length === 0) {
     return (
-      <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center">
-        <p className="text-base text-neutral-600">{t("emptyState.noBookings")}</p>
-        <p className="mt-3 text-base text-neutral-600">
-          {t("emptyState.browseText")}{" "}
-          <Link
-            className="font-semibold text-orange-600 hover:text-orange-700"
-            href="/professionals"
-          >
-            {t("emptyState.professionalDirectory")}
-          </Link>{" "}
-          {t("emptyState.bookFirstService")}
-        </p>
-      </div>
+      <EmptyState
+        description={
+          <>
+            {t("emptyState.browseText")}{" "}
+            <EmptyStateInlineLink href="/professionals">
+              {t("emptyState.professionalDirectory")}
+            </EmptyStateInlineLink>{" "}
+            {t("emptyState.bookFirstService")}
+          </>
+        }
+        title={t("emptyState.noBookings")}
+        variant="bookings"
+      />
     );
   }
 

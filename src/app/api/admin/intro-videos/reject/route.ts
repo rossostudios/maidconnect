@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Professional ID required" }, { status: 400 });
     }
 
-    if (!(rejectionReason && rejectionReason.trim())) {
+    if (!rejectionReason?.trim()) {
       return NextResponse.json({ error: "Rejection reason required" }, { status: 400 });
     }
 

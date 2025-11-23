@@ -27,7 +27,7 @@ type AutoFlagRequestBody = {
 
 async function handleAutoFlag(request: Request) {
   try {
-    const admin = await requireAdmin();
+    const _admin = await requireAdmin();
     const supabase = await createSupabaseServerClient();
 
     const body: AutoFlagRequestBody = await request.json();

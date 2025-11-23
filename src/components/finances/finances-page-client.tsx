@@ -81,11 +81,11 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
   // State
   const [balanceData, setBalanceData] = useState<BalanceEligibilityResponse | null>(null);
   const [transfers, setTransfers] = useState<PayoutTransfer[]>([]);
-  const [isLoadingBalance, setIsLoadingBalance] = useState(true);
+  const [_isLoadingBalance, setIsLoadingBalance] = useState(true);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [professionalId, setProfessionalId] = useState<string>("");
-  const [hasBankAccount, setHasBankAccount] = useState(false);
+  const [_hasBankAccount, _setHasBankAccount] = useState(false);
 
   // ========================================
   // Data Fetching
@@ -152,7 +152,7 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
     setShowPayoutModal(true);
   };
 
-  const handlePayoutSuccess = (result: any) => {
+  const handlePayoutSuccess = (_result: any) => {
     toast.success(t("payout.success"), {
       description: t("payout.successDescription"),
     });

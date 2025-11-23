@@ -69,9 +69,11 @@ export function ReferralCard({
         <div>
           <div className="mb-2 flex items-center gap-2">
             <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={GiftIcon} />
-            <h2 className="font-bold text-2xl text-neutral-900">Your Referral Code</h2>
+            <h2 className="font-bold text-2xl text-neutral-900 leading-none">Your Referral Code</h2>
           </div>
-          <p className="text-neutral-500 text-sm">Share with friends and you both earn rewards</p>
+          <p className="text-neutral-500 text-sm leading-none">
+            Share with friends and you both earn rewards
+          </p>
         </div>
         <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={MagicWand01Icon} />
       </div>
@@ -144,18 +146,18 @@ export function ReferralCard({
       {/* Stats */}
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg bg-neutral-50 p-4">
-          <div className="mb-1 flex items-center gap-2 text-neutral-500 text-xs">
+          <div className="flex items-center gap-2 text-neutral-500 text-xs leading-none">
             <HugeiconsIcon className="h-4 w-4" icon={UserGroupIcon} />
             People Referred
           </div>
-          <div className="font-bold text-2xl text-neutral-900">{usesCount}</div>
+          <div className="mt-1 font-bold text-2xl text-neutral-900 leading-none">{usesCount}</div>
         </div>
         <div className="rounded-lg bg-neutral-50 p-4">
-          <div className="mb-1 flex items-center gap-2 text-neutral-500 text-xs">
+          <div className="flex items-center gap-2 text-neutral-500 text-xs leading-none">
             <HugeiconsIcon className="h-4 w-4" icon={GiftIcon} />
             Credits Earned
           </div>
-          <div className="font-bold text-2xl text-neutral-900">
+          <div className="mt-1 font-bold text-2xl text-neutral-900 leading-none">
             {formatCOP(totalCreditsEarned / 100)}
           </div>
         </div>

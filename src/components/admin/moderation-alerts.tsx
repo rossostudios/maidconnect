@@ -187,7 +187,9 @@ export function ModerationBadge() {
     };
   }, []);
 
-  if (count === 0) return null;
+  if (count === 0) {
+    return null;
+  }
 
   return (
     <span className="type-body-sm ml-2 rounded-full bg-red-600 px-2 py-1 font-semibold text-white">

@@ -63,7 +63,7 @@ type InstantPayoutRequest = z.infer<typeof InstantPayoutRequestSchema>;
  * Returns current balance, fee estimate, and eligibility status
  * Useful for displaying instant payout modal with real-time calculations
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },

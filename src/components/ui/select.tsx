@@ -76,7 +76,7 @@ export const Select = ({ className, children, ref, ...props }: SelectProps<any>)
  * Uses React Aria's SelectValue for proper rendering.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export interface SelectValueProps {
+export type SelectValueProps = {
   /**
    * Placeholder text when no value is selected
    */
@@ -89,7 +89,7 @@ export interface SelectValueProps {
    * Ref to the span element
    */
   ref?: React.RefObject<HTMLSpanElement | null>;
-}
+};
 
 export const SelectValue = ({ placeholder, className, ref }: SelectValueProps) => (
   <AriaSelectValue className={cn("block truncate", className)} ref={ref}>
@@ -101,7 +101,7 @@ export const SelectValue = ({ placeholder, className, ref }: SelectValueProps) =
  * Select Trigger Props
  * React 19: ref is a regular prop.
  */
-export interface SelectTriggerProps {
+export type SelectTriggerProps = {
   /**
    * Additional CSS classes
    */
@@ -114,7 +114,7 @@ export interface SelectTriggerProps {
    * Ref to the button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 /**
  * Select Trigger Component
@@ -160,7 +160,7 @@ export const SelectTrigger = ({ className, children, ref }: SelectTriggerProps) 
  * Select Content Props
  * React 19: ref is a regular prop.
  */
-export interface SelectContentProps {
+export type SelectContentProps = {
   /**
    * Additional CSS classes
    */
@@ -173,7 +173,7 @@ export interface SelectContentProps {
    * Ref to the popover element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Select Content Component
@@ -294,7 +294,7 @@ export const SelectItem = ({ className, children, value, ref, ...props }: Select
  * Select Label Props
  * React 19: ref is a regular prop.
  */
-export interface SelectLabelProps {
+export type SelectLabelProps = {
   /**
    * Additional CSS classes
    */
@@ -307,7 +307,7 @@ export interface SelectLabelProps {
    * Ref to the label element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Select Label Component
@@ -338,7 +338,7 @@ export const SelectLabel = ({ className, children, ref }: SelectLabelProps) => {
  * Select Separator Props
  * React 19: ref is a regular prop.
  */
-export interface SelectSeparatorProps {
+export type SelectSeparatorProps = {
   /**
    * Additional CSS classes
    */
@@ -347,7 +347,7 @@ export interface SelectSeparatorProps {
    * Ref to the separator element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Select Separator Component
@@ -381,7 +381,7 @@ export const SelectSeparator = ({ className, ref }: SelectSeparatorProps) => {
  * Typically used with SelectLabel.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export interface SelectGroupProps {
+export type SelectGroupProps = {
   /**
    * Additional CSS classes
    */
@@ -394,7 +394,7 @@ export interface SelectGroupProps {
    * Ref to the group element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 export const SelectGroup = ({ className, children, ref }: SelectGroupProps) => (
   <div className={cn("py-1", className)} ref={ref}>

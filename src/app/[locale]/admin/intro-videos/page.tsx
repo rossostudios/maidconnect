@@ -10,7 +10,7 @@ import { Link } from "@/i18n/routing";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { formatDate } from "@/lib/utils/format";
 
-interface IntroVideoReviewData {
+type IntroVideoReviewData = {
   id: string;
   professional_id: string;
   full_name: string;
@@ -20,7 +20,7 @@ interface IntroVideoReviewData {
   intro_video_status: string;
   intro_video_duration_seconds: number;
   intro_video_uploaded_at: string;
-}
+};
 
 export default function AdminIntroVideosPage() {
   const [videoData, setVideoData] = useState<IntroVideoReviewData[]>([]);

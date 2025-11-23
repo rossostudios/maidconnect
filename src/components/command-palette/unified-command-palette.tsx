@@ -457,8 +457,10 @@ export function UnifiedCommandPalette({
           <div className="mb-3 rounded-lg bg-neutral-50 p-3">
             <HugeiconsIcon className="h-6 w-6 text-neutral-600" icon={Search01Icon} />
           </div>
-          <p className="mb-1 font-semibold text-neutral-900 text-sm">No results found</p>
-          <p className="text-neutral-600 text-xs">Try searching for something else</p>
+          <p className="font-semibold text-neutral-900 text-sm leading-none">No results found</p>
+          <p className="mt-0.5 text-neutral-600 text-xs leading-none">
+            Try searching for something else
+          </p>
         </Command.Empty>
 
         {/* Loading State */}
@@ -490,10 +492,10 @@ export function UnifiedCommandPalette({
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                   <HugeiconsIcon className="h-4 w-4" icon={DashboardSquare01Icon as never} />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="truncate font-semibold">{item.title}</span>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate font-semibold leading-none">{item.title}</span>
                   {item.description && (
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {item.description}
                     </span>
                   )}
@@ -532,10 +534,10 @@ export function UnifiedCommandPalette({
                         <HugeiconsIcon className="h-4 w-4" icon={cmd.icon as never} />
                       </div>
                     )}
-                    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span className="truncate font-semibold">{cmd.label}</span>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <span className="truncate font-semibold leading-none">{cmd.label}</span>
                       {cmd.description && (
-                        <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                        <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                           {cmd.description}
                         </span>
                       )}
@@ -568,9 +570,9 @@ export function UnifiedCommandPalette({
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={HelpCircleIcon as never} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate font-semibold leading-none">{result.title}</span>
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {result.description}
                     </span>
                   </div>
@@ -602,9 +604,9 @@ export function UnifiedCommandPalette({
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={UserIcon as never} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate font-semibold leading-none">{result.title}</span>
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {result.description}
                     </span>
                   </div>
@@ -636,9 +638,9 @@ export function UnifiedCommandPalette({
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={Notification03Icon as never} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate font-semibold leading-none">{result.title}</span>
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {result.description}
                     </span>
                   </div>
@@ -670,9 +672,9 @@ export function UnifiedCommandPalette({
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={TaskDaily01Icon as never} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate font-semibold leading-none">{result.title}</span>
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {result.description}
                     </span>
                   </div>
@@ -704,9 +706,9 @@ export function UnifiedCommandPalette({
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50 text-neutral-700 transition-colors group-hover:bg-white group-aria-selected:bg-white/30 group-aria-selected:text-white">
                     <HugeiconsIcon className="h-4 w-4" icon={LocationAdd01Icon as never} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-neutral-600 text-xs group-aria-selected:text-white/80">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate font-semibold leading-none">{result.title}</span>
+                    <span className="mt-0.5 truncate text-neutral-600 text-xs leading-none group-aria-selected:text-white/80">
                       {result.description}
                     </span>
                   </div>

@@ -8,7 +8,6 @@ import {
   Settings02Icon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import { Suspense } from "react";
 import { geistSans } from "@/app/fonts";
@@ -20,6 +19,7 @@ import {
   BookingCalendarSkeleton,
   PendingRatingsSkeleton,
 } from "@/components/skeletons/dashboard-skeletons";
+import { IconBox } from "@/components/ui/icon-box";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -246,15 +246,13 @@ export default async function ProfessionalDashboardPage() {
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/bookings"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-                  <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={Calendar03Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Calendar03Icon} size="lg" variant="primary" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">
                 View All Bookings
               </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">
                 Complete booking history
               </p>
             </Link>
@@ -263,49 +261,35 @@ export default async function ProfessionalDashboardPage() {
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/availability"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Clock01Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Clock01Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">
                 Manage Availability
               </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-                Update your schedule
-              </p>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">Update your schedule</p>
             </Link>
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/portfolio"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Image02Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Image02Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-                Portfolio
-              </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-                Showcase your work
-              </p>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">Portfolio</h3>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">Showcase your work</p>
             </Link>
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/finances"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={DollarCircleIcon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={DollarCircleIcon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-                Finances
-              </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">Finances</h3>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">
                 Track earnings & payouts
               </p>
             </Link>
@@ -314,32 +298,24 @@ export default async function ProfessionalDashboardPage() {
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/messages"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Message01Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Message01Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-                Messages
-              </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-                Chat with customers
-              </p>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">Messages</h3>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">Chat with customers</p>
             </Link>
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/service-addons"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Settings02Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">
                 Service Add-ons
               </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">
                 Create upsells & extras
               </p>
             </Link>
@@ -348,49 +324,35 @@ export default async function ProfessionalDashboardPage() {
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/documents"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FileAttachmentIcon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={FileAttachmentIcon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-                Documents
-              </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-                Manage verification
-              </p>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">Documents</h3>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">Manage verification</p>
             </Link>
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/onboarding"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Settings02Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">
                 Profile Settings
               </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
-                Update your profile
-              </p>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">Update your profile</p>
             </Link>
 
             <Link
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm"
               href="/dashboard/pro/settings/profile"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-                  <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Settings02Icon} />
-                </div>
+              <div className="mb-4">
+                <IconBox icon={Settings02Icon} size="lg" variant="neutral" />
               </div>
-              <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-                Settings
-              </h3>
-              <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+              <h3 className="font-semibold text-neutral-900 text-sm leading-none">Settings</h3>
+              <p className="mt-0.5 text-neutral-600 text-xs leading-none">
                 Vanity URL & visibility
               </p>
             </Link>
@@ -404,20 +366,11 @@ export default async function ProfessionalDashboardPage() {
 function LiaMetricCard({ icon, label, value }: { icon: any; label: string; value: string }) {
   return (
     <div className="rounded-lg border border-neutral-200 bg-white p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-          <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={icon} />
-        </div>
+      <div className="mb-4">
+        <IconBox icon={icon} size="lg" variant="primary" />
       </div>
-      <dt className={cn("text-neutral-600 text-sm", geistSans.className)}>{label}</dt>
-      <dd
-        className={cn(
-          "mt-3 font-semibold text-5xl text-neutral-900 tracking-tighter",
-          geistSans.className
-        )}
-      >
-        {value}
-      </dd>
+      <dt className="text-neutral-600 text-sm leading-none">{label}</dt>
+      <dd className="mt-3 font-semibold text-5xl text-neutral-900 tracking-tighter">{value}</dd>
     </div>
   );
 }

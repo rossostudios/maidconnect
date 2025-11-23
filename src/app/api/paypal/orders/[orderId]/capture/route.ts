@@ -17,7 +17,10 @@ import { paypal } from "@/lib/integrations/paypal";
 import { logger } from "@/lib/logger";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export async function POST(request: Request, { params }: { params: Promise<{ orderId: string }> }) {
+export async function POST(
+  _request: Request,
+  { params }: { params: Promise<{ orderId: string }> }
+) {
   try {
     const { orderId } = await params;
 

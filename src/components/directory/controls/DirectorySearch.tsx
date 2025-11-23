@@ -13,12 +13,12 @@ import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-interface DirectorySearchProps {
+type DirectorySearchProps = {
   value: string | null;
   onChange: (value: string | null) => void;
   placeholder?: string;
   className?: string;
-}
+};
 
 export function DirectorySearch({
   value,

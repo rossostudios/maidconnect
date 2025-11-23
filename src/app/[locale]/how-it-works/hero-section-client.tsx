@@ -19,11 +19,11 @@ const stagger: Variants = {
   },
 };
 
-interface HeroSectionClientProps {
+type HeroSectionClientProps = {
   badge: string;
   title: string;
   subtitle: string;
-}
+};
 
 export function HeroSectionClient({ badge, title, subtitle }: HeroSectionClientProps) {
   return (

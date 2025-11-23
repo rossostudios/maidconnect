@@ -506,7 +506,9 @@ describe("Messaging utils integration", () => {
 
     // Get specific conversation count
     const updatedConv = updated.find((c) => c.id === "conv-123");
-    if (!updatedConv) throw new Error("Conversation not found");
+    if (!updatedConv) {
+      throw new Error("Conversation not found");
+    }
 
     const count = getConversationUnreadCount(updatedConv, "customer");
     expect(count).toBe(10);

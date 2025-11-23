@@ -152,7 +152,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   // Get the other user's name for typing indicator display
   const getOtherUserName = useCallback(() => {
-    if (!selectedConversation) return "User";
+    if (!selectedConversation) {
+      return "User";
+    }
     if (userRole === "customer") {
       return selectedConversation.professional?.profile?.full_name || "Professional";
     }

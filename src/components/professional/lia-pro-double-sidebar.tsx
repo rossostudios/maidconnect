@@ -309,17 +309,17 @@ export function LiaProDoubleSidebar({
                   />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <h2
+                  <span
                     className={cn(
-                      "font-semibold text-neutral-900 text-sm leading-none",
+                      "font-medium text-neutral-900 text-sm leading-none",
                       geistSans.className
                     )}
                   >
                     {selectedCategoryData.label}
-                  </h2>
-                  <p className="text-neutral-500 text-xs leading-none">
+                  </span>
+                  <span className="mt-0.5 text-neutral-500 text-xs leading-none">
                     {selectedCategoryData.description}
-                  </p>
+                  </span>
                 </div>
               </>
             )}
@@ -363,9 +363,9 @@ export function LiaProDoubleSidebar({
                   href={item.href}
                   key={item.href}
                 >
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <div className="flex min-w-0 flex-1 flex-col">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="font-medium text-sm leading-none">{item.label}</span>
                       {item.badge !== undefined && item.badge > 0 && (
                         <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 font-semibold text-white text-xs">
                           {item.badge > 99 ? "99+" : item.badge}
@@ -373,7 +373,9 @@ export function LiaProDoubleSidebar({
                       )}
                     </div>
                     {item.description && (
-                      <span className="text-neutral-500 text-xs">{item.description}</span>
+                      <span className="mt-0.5 text-neutral-500 text-xs leading-none">
+                        {item.description}
+                      </span>
                     )}
                   </div>
                 </Link>
@@ -421,16 +423,18 @@ export function LiaProDoubleSidebar({
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <p
+                <span
                   className={cn(
-                    "truncate font-semibold text-neutral-900 text-sm",
+                    "block truncate font-medium text-neutral-900 text-sm leading-none",
                     geistSans.className
                   )}
                 >
                   {firstName}
-                </p>
+                </span>
                 {accountEmail && (
-                  <p className="truncate text-neutral-500 text-xs">{accountEmail}</p>
+                  <span className="mt-0.5 block truncate text-neutral-500 text-xs leading-none">
+                    {accountEmail}
+                  </span>
                 )}
               </div>
             </div>

@@ -20,7 +20,7 @@ import {
   BookingsListSkeleton,
   FavoritesListSkeleton,
 } from "@/components/skeletons/dashboard-skeletons";
-import { Link } from "@/i18n/routing";
+import { CardLink } from "@/components/ui/card-link";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
@@ -273,89 +273,47 @@ export default async function CustomerDashboardPage() {
 
       {/* Quick Actions */}
       <section className="mb-8">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Quick Actions</h2>
-          <p className="text-neutral-600 text-sm">Manage your account and services</p>
+        <div className="mb-4">
+          <h2 className="font-bold text-2xl text-neutral-900">Quick Actions</h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {/* Request Service */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <CardLink
+            description="Submit a service request and get matched"
             href="/brief"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Home09Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Request Service</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">
-              Submit a service request and get matched with vetted professionals
-            </p>
-          </Link>
-
-          {/* View All Bookings */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            icon={Home09Icon}
+            title="Request Service"
+          />
+          <CardLink
+            description="View booking history and upcoming appointments"
             href="/dashboard/customer/bookings"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Calendar03Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">View All Bookings</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">
-              See your complete booking history and upcoming appointments
-            </p>
-          </Link>
-
-          {/* Manage Addresses */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            icon={Calendar03Icon}
+            title="View All Bookings"
+          />
+          <CardLink
+            description="Add and update your saved service locations"
             href="/dashboard/customer/addresses"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Location01Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Manage Addresses</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">Add and update your saved service locations</p>
-          </Link>
-
-          {/* Manage Payments */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            icon={Location01Icon}
+            title="Manage Addresses"
+          />
+          <CardLink
+            description="Update payment methods and billing"
             href="/dashboard/customer/payments"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={CreditCardIcon} />
-              <h3 className="font-semibold text-base text-neutral-900">Manage Payments</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">
-              Update your payment methods and billing information
-            </p>
-          </Link>
-
-          {/* Favorites */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            icon={CreditCardIcon}
+            title="Manage Payments"
+          />
+          <CardLink
+            description="View your favorite professionals"
             href="/dashboard/customer/favorites"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={FavouriteIcon} />
-              <h3 className="font-semibold text-base text-neutral-900">Favorites</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">Manage your list of favorite professionals</p>
-          </Link>
-
-          {/* Settings */}
-          <Link
-            className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
+            icon={FavouriteIcon}
+            title="Favorites"
+          />
+          <CardLink
+            description="Update profile and account preferences"
             href="/dashboard/customer/settings"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Settings02Icon} />
-              <h3 className="font-semibold text-base text-neutral-900">Settings</h3>
-            </div>
-            <p className="text-neutral-600 text-sm">Update your profile and account preferences</p>
-          </Link>
+            icon={Settings02Icon}
+            title="Settings"
+          />
         </div>
       </section>
     </>

@@ -37,11 +37,11 @@ import { cn } from "@/lib/utils/core";
 /**
  * ComboBox Item Data Shape
  */
-export interface ComboBoxItemData {
+export type ComboBoxItemData = {
   id: string;
   label: string;
   description?: string;
-}
+};
 
 /**
  * ComboBox Props

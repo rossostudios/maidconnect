@@ -31,7 +31,9 @@ import { cn } from "@/lib/utils/core";
  * Format timestamp to readable string
  */
 function formatTimestamp(date: Date | null): string {
-  if (!date) return "Never";
+  if (!date) {
+    return "Never";
+  }
   return date.toLocaleString("en-US", {
     month: "short",
     day: "numeric",
@@ -45,8 +47,12 @@ function formatTimestamp(date: Date | null): string {
  * Format duration in seconds to human-readable string
  */
 function formatDuration(seconds: number): string {
-  if (seconds < 60) return `${seconds}s`;
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+  if (seconds < 60) {
+    return `${seconds}s`;
+  }
+  if (seconds < 3600) {
+    return `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+  }
   const hours = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
   return `${hours}h ${mins}m`;
@@ -59,7 +65,7 @@ function formatDuration(seconds: number): string {
  */
 export function RealtimeDebugPanel() {
   const { health } = useRealtime();
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [_currentTime, setCurrentTime] = useState(new Date());
   const [connectionUptime, setConnectionUptime] = useState(0);
 
   // Calculate health score (0-100)
@@ -78,7 +84,7 @@ export function RealtimeDebugPanel() {
       errorCount: health.errors.length,
       healthScore,
     });
-  }, []); // Only run on mount
+  }, [health.errors.length, health.state, health.subscriptionCount, healthScore]); // Only run on mount
 
   // Update current time every second for relative timestamps
   useEffect(() => {

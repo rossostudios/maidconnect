@@ -18,7 +18,7 @@ export type SubscriptionStatus =
   | "incomplete"
   | "incomplete_expired";
 
-export interface UserSubscription {
+export type UserSubscription = {
   id: string;
   userId: string;
   planId: string;
@@ -29,7 +29,7 @@ export interface UserSubscription {
   currentPeriodEnd: string | null;
   cancelAtPeriodEnd: boolean;
   plan?: SubscriptionPlan;
-}
+};
 
 /**
  * Get or create Stripe customer for a user

@@ -281,27 +281,27 @@ describe("TYPOGRAPHY_SCALE", () => {
 
   describe("baseline alignment", () => {
     it("all display sizes have baseline-aligned line heights", () => {
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.xl.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.lg.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.md.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.sm.lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.xl.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.lg.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.md.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.display.sm.lineHeight, 10) % 24).toBe(0);
     });
 
     it("all heading sizes have baseline-aligned line heights", () => {
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h1.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h2.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h3.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h4.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h5.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h6.lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h1.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h2.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h3.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h4.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h5.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.heading.h6.lineHeight, 10) % 24).toBe(0);
     });
 
     it("all body sizes have baseline-aligned line heights", () => {
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.xl.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.lg.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.base.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.sm.lineHeight) % 24).toBe(0);
-      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.xs.lineHeight) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.xl.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.lg.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.base.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.sm.lineHeight, 10) % 24).toBe(0);
+      expect(Number.parseInt(TYPOGRAPHY_SCALE.body.xs.lineHeight, 10) % 24).toBe(0);
     });
   });
 });
@@ -444,7 +444,7 @@ describe("Swiss Grid System integration", () => {
     ];
 
     for (const scale of allScales) {
-      const lineHeight = Number.parseInt(scale.lineHeight);
+      const lineHeight = Number.parseInt(scale.lineHeight, 10);
       expect(isBaselineAligned(lineHeight)).toBe(true);
     }
   });

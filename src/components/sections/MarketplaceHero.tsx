@@ -30,7 +30,7 @@ const SERVICES = [
   { value: "cooking", label: "Cooking" },
 ] as const;
 
-const COUNTRY_NAMES: Record<string, string> = {
+const _COUNTRY_NAMES: Record<string, string> = {
   CO: "Colombia",
   PY: "Paraguay",
   UY: "Uruguay",
@@ -66,7 +66,9 @@ export function MarketplaceHero() {
 
   // Filter cities based on search input
   const filteredCities = useMemo(() => {
-    if (!locationQuery) return CITIES;
+    if (!locationQuery) {
+      return CITIES;
+    }
     const query = locationQuery.toLowerCase();
     return CITIES.filter(
       (city) =>
@@ -76,9 +78,15 @@ export function MarketplaceHero() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (service) params.set("service", String(service));
-    if (selectedLocation) params.set("location", String(selectedLocation));
-    if (date) params.set("date", date.toISOString().split("T")[0]);
+    if (service) {
+      params.set("service", String(service));
+    }
+    if (selectedLocation) {
+      params.set("location", String(selectedLocation));
+    }
+    if (date) {
+      params.set("date", date.toISOString().split("T")[0]);
+    }
 
     router.push(`/professionals${params.toString() ? `?${params.toString()}` : ""}`);
   };

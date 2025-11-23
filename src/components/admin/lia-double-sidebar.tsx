@@ -185,7 +185,9 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
 
   // Filter items based on search query
   const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) return categoryItems;
+    if (!searchQuery.trim()) {
+      return categoryItems;
+    }
 
     return categoryItems.filter((item) =>
       item.label.toLowerCase().includes(searchQuery.toLowerCase())
@@ -324,9 +326,11 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                 )}
                 href="/admin/settings"
               >
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="font-medium text-sm">Admin Settings</span>
-                  <span className="text-neutral-500 text-xs">System configuration</span>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="font-medium text-sm leading-none">Admin Settings</span>
+                  <span className="mt-0.5 text-neutral-500 text-xs leading-none">
+                    System configuration
+                  </span>
                 </div>
               </Link>
             </div>
@@ -346,10 +350,12 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                     href={item.href}
                     key={item.href}
                   >
-                    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span className="font-medium text-sm">{item.label}</span>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <span className="font-medium text-sm leading-none">{item.label}</span>
                       {item.description && (
-                        <span className="text-neutral-500 text-xs">{item.description}</span>
+                        <span className="mt-0.5 text-neutral-500 text-xs leading-none">
+                          {item.description}
+                        </span>
                       )}
                     </div>
                   </Link>
@@ -361,8 +367,10 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
           {filteredItems.length === 0 && selectedCategory !== "settings" && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <HugeiconsIcon className="mb-3 h-8 w-8 text-neutral-300" icon={Search01Icon} />
-              <p className="font-medium text-neutral-500 text-sm">No results found</p>
-              <p className="mt-1 text-neutral-400 text-xs">Try a different search term</p>
+              <p className="font-medium text-neutral-500 text-sm leading-none">No results found</p>
+              <p className="mt-0.5 text-neutral-400 text-xs leading-none">
+                Try a different search term
+              </p>
             </div>
           )}
         </nav>
@@ -396,16 +404,18 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
               </div>
 
               {/* User Info */}
-              <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
-                <p
+              <div className="flex min-w-0 flex-1 flex-col justify-center">
+                <span
                   className={cn(
-                    "truncate font-semibold text-neutral-900 text-sm leading-none",
+                    "block truncate font-medium text-neutral-900 text-sm leading-none",
                     geistSans.className
                   )}
                 >
                   {firstName}
-                </p>
-                <p className="truncate text-neutral-500 text-xs leading-none">{accountEmail}</p>
+                </span>
+                <span className="mt-0.5 block truncate text-neutral-500 text-xs leading-none">
+                  {accountEmail}
+                </span>
               </div>
 
               {/* Chevron */}

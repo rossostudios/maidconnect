@@ -29,12 +29,24 @@ function formatRelativeTime(timestamp: string): string {
   const diffHours = Math.floor(diffMs / 3_600_000);
   const diffDays = Math.floor(diffMs / 86_400_000);
 
-  if (diffMins < 1) return "just now";
-  if (diffMins === 1) return "1 minute ago";
-  if (diffMins < 60) return `${diffMins} minutes ago`;
-  if (diffHours === 1) return "1 hour ago";
-  if (diffHours < 24) return `${diffHours} hours ago`;
-  if (diffDays === 1) return "1 day ago";
+  if (diffMins < 1) {
+    return "just now";
+  }
+  if (diffMins === 1) {
+    return "1 minute ago";
+  }
+  if (diffMins < 60) {
+    return `${diffMins} minutes ago`;
+  }
+  if (diffHours === 1) {
+    return "1 hour ago";
+  }
+  if (diffHours < 24) {
+    return `${diffHours} hours ago`;
+  }
+  if (diffDays === 1) {
+    return "1 day ago";
+  }
   return `${diffDays} days ago`;
 }
 

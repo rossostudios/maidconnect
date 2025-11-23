@@ -82,7 +82,6 @@ class RealtimeConnectionManager {
   private static instance: RealtimeConnectionManager | null = null;
   private readonly subscriptions: Map<string, ManagedSubscription> = new Map();
   private connectionState: ConnectionState = "disconnected";
-  private previousConnectionState: ConnectionState | undefined = undefined;
   private reconnectAttempts = 0;
   private readonly maxReconnectAttempts = 5;
   private readonly baseReconnectDelay = 1000; // 1 second

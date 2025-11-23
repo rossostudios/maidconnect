@@ -81,7 +81,9 @@ function DisputeCard({ dispute }: { dispute: CustomerDispute }) {
     });
 
   const formatCurrency = (cents: number | null, currency: string | null) => {
-    if (!cents) return "—";
+    if (!cents) {
+      return "—";
+    }
     const amount = cents / 100;
     return new Intl.NumberFormat("en-US", {
       style: "currency",

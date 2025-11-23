@@ -72,12 +72,20 @@ async function handler(_context: unknown, _req: NextRequest) {
     const getHealthStatus = (metric: string, value: number) => {
       switch (metric) {
         case "cancellationRate":
-          if (value < 10) return "healthy";
-          if (value < 20) return "warning";
+          if (value < 10) {
+            return "healthy";
+          }
+          if (value < 20) {
+            return "warning";
+          }
           return "critical";
         case "disputeRate":
-          if (value < 5) return "healthy";
-          if (value < 10) return "warning";
+          if (value < 5) {
+            return "healthy";
+          }
+          if (value < 10) {
+            return "warning";
+          }
           return "critical";
         default:
           return "healthy";

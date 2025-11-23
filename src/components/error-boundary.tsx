@@ -15,15 +15,15 @@ import type { ErrorInfo, ReactNode } from "react";
 import { Component, useEffect } from "react";
 import { trackError } from "@/lib/integrations/posthog";
 
-interface ErrorBoundaryProps {
+type ErrorBoundaryProps = {
   children: ReactNode;
   fallback?: ReactNode;
-}
+};
 
-interface ErrorBoundaryState {
+type ErrorBoundaryState = {
   hasError: boolean;
   error: Error | null;
-}
+};
 
 /**
  * Error Boundary Component

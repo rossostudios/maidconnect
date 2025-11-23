@@ -24,7 +24,7 @@ import {
 /**
  * Market context value
  */
-interface MarketContextValue {
+type MarketContextValue = {
   /**
    * Selected country code (e.g., "CO", "PY", "UY", "AR")
    */
@@ -51,7 +51,7 @@ interface MarketContextValue {
     currencySymbol: string;
     paymentProcessor: "stripe" | "paypal";
   };
-}
+};
 
 const MarketContext = createContext<MarketContextValue | undefined>(undefined);
 

@@ -54,32 +54,32 @@ export type PaymentProcessor = "stripe" | "paypal";
 /**
  * Country configuration
  */
-export interface CountryConfig {
+export type CountryConfig = {
   code: CountryCode;
   nameEn: string;
   nameEs: string;
   currencyCode: CurrencyCode;
   paymentProcessor: PaymentProcessor;
   isActive: boolean;
-}
+};
 
 /**
  * City configuration
  */
-export interface CityConfig {
+export type CityConfig = {
   value: string; // Slug for forms
   label: string; // Display name
   countryCode: CountryCode;
-}
+};
 
 /**
  * Neighborhood configuration
  */
-export interface NeighborhoodConfig {
+export type NeighborhoodConfig = {
   value: string; // Slug for forms
   label: string; // Display name
   citySlug: string;
-}
+};
 
 // ============================================================================
 // Country Configurations
@@ -280,13 +280,13 @@ export function getNeighborhoodOptions(citySlug: string) {
 /**
  * Currency metadata
  */
-export interface CurrencyConfig {
+export type CurrencyConfig = {
   code: CurrencyCode;
   symbol: string;
   decimals: number;
   thousandsSeparator: string;
   decimalSeparator: string;
-}
+};
 
 export const CURRENCIES: Record<CurrencyCode, CurrencyConfig> = {
   COP: {

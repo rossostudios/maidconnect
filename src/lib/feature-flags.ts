@@ -220,4 +220,3 @@ export function getHeroCopyVariant(sessionId: string): "expat_focused" | "generi
   }
   return isInRollout(50, sessionId) ? "expat_focused" : "generic";
 }
-

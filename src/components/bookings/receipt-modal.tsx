@@ -27,7 +27,9 @@ export function ReceiptModal({ booking, isOpen, onClose }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const fetchReceipt = useCallback(async () => {
-    if (!(isOpen && booking.id)) return;
+    if (!(isOpen && booking.id)) {
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -78,7 +80,9 @@ export function ReceiptModal({ booking, isOpen, onClose }: Props) {
   };
 
   const handleDownload = () => {
-    if (!receipt) return;
+    if (!receipt) {
+      return;
+    }
 
     // Generate a simple text receipt for download
     const receiptText = `
@@ -130,7 +134,9 @@ support@casaora.com
     URL.revokeObjectURL(url);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

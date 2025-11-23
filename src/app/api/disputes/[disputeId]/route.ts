@@ -161,7 +161,7 @@ export const PATCH = withRateLimit(
     if (status === "resolved" || status === "dismissed") {
       const booking = existingDispute.booking as { service_name: string } | null;
       const customer = existingDispute.customer as { full_name: string } | null;
-      const professional = existingDispute.professional as { full_name: string } | null;
+      const _professional = existingDispute.professional as { full_name: string } | null;
 
       // Notify customer
       await notifyCustomerDisputeResolved(existingDispute.customer_id, {

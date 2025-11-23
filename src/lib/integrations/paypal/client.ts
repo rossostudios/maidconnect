@@ -19,28 +19,28 @@ export type PayPalEnvironment = "sandbox" | "production";
 /**
  * PayPal client configuration
  */
-export interface PayPalConfig {
+export type PayPalConfig = {
   clientId: string;
   clientSecret: string;
   environment: PayPalEnvironment;
-}
+};
 
 /**
  * PayPal payout request
  */
-export interface PayPalPayoutRequest {
+export type PayPalPayoutRequest = {
   recipientEmail: string;
   amount: number;
   currency: "USD" | "ARS" | "UYU" | "PYG"; // Supported currencies
   note?: string;
   emailSubject?: string;
   recipientType?: "EMAIL" | "PHONE" | "PAYPAL_ID";
-}
+};
 
 /**
  * PayPal payout response
  */
-export interface PayPalPayoutResponse {
+export type PayPalPayoutResponse = {
   payoutBatchId: string;
   batchStatus: "PENDING" | "PROCESSING" | "SUCCESS" | "DENIED" | "CANCELED";
   items: Array<{
@@ -59,22 +59,22 @@ export interface PayPalPayoutResponse {
       | "ONHOLD"
       | "BLOCKED";
   }>;
-}
+};
 
 /**
  * PayPal access token response
  */
-interface PayPalTokenResponse {
+type PayPalTokenResponse = {
   access_token: string;
   token_type: string;
   expires_in: number;
-}
+};
 
 /**
  * PayPal client class
  */
 class PayPalClient {
-  private config: PayPalConfig;
+  private readonly config: PayPalConfig;
   private accessToken: string | null = null;
   private tokenExpiry = 0;
 

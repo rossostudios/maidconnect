@@ -1,9 +1,9 @@
 "use client";
 
 import { Mail01Icon, Notification02Icon, SmartPhone01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useState, useTransition } from "react";
 import { geistSans } from "@/app/fonts";
+import { IconBox } from "@/components/ui/icon-box";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { cn } from "@/lib/utils";
 
@@ -87,10 +87,10 @@ function PreferenceRow({
   return (
     <div className="flex items-start justify-between gap-4 py-4">
       <div className="flex-1">
-        <label className="font-medium text-neutral-900 text-sm" htmlFor={id}>
+        <label className="font-medium text-neutral-900 text-sm leading-none" htmlFor={id}>
           {label}
         </label>
-        <p className="mt-0.5 text-neutral-600 text-sm">{description}</p>
+        <p className="mt-0.5 text-neutral-600 text-sm leading-none">{description}</p>
       </div>
       <ToggleSwitch checked={checked} disabled={disabled} id={id} onChange={onChange} />
     </div>
@@ -146,14 +146,14 @@ export function NotificationPreferences({ initialPreferences, onSave }: Props) {
       {/* Email Notifications */}
       <div>
         <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-            <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Mail01Icon} />
-          </div>
+          <IconBox icon={Mail01Icon} size="lg" variant="neutral" />
           <div>
-            <h3 className={cn("font-semibold text-neutral-900", geistSans.className)}>
+            <h3 className={cn("font-semibold text-neutral-900 leading-none", geistSans.className)}>
               Email Notifications
             </h3>
-            <p className="text-neutral-600 text-sm">Manage your email preferences</p>
+            <p className="mt-0.5 text-neutral-600 text-sm leading-none">
+              Manage your email preferences
+            </p>
           </div>
         </div>
         <div className="divide-y divide-neutral-100 rounded-lg border border-neutral-200 bg-white px-4">
@@ -187,14 +187,14 @@ export function NotificationPreferences({ initialPreferences, onSave }: Props) {
       {/* Push Notifications */}
       <div>
         <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-            <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Notification02Icon} />
-          </div>
+          <IconBox icon={Notification02Icon} size="lg" variant="neutral" />
           <div>
-            <h3 className={cn("font-semibold text-neutral-900", geistSans.className)}>
+            <h3 className={cn("font-semibold text-neutral-900 leading-none", geistSans.className)}>
               Push Notifications
             </h3>
-            <p className="text-neutral-600 text-sm">Real-time alerts in your browser</p>
+            <p className="mt-0.5 text-neutral-600 text-sm leading-none">
+              Real-time alerts in your browser
+            </p>
           </div>
         </div>
 
@@ -258,14 +258,14 @@ export function NotificationPreferences({ initialPreferences, onSave }: Props) {
       {/* SMS Notifications */}
       <div>
         <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50">
-            <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={SmartPhone01Icon} />
-          </div>
+          <IconBox icon={SmartPhone01Icon} size="lg" variant="neutral" />
           <div>
-            <h3 className={cn("font-semibold text-neutral-900", geistSans.className)}>
+            <h3 className={cn("font-semibold text-neutral-900 leading-none", geistSans.className)}>
               SMS Notifications
             </h3>
-            <p className="text-neutral-600 text-sm">Text message alerts (standard rates apply)</p>
+            <p className="mt-0.5 text-neutral-600 text-sm leading-none">
+              Text message alerts (standard rates apply)
+            </p>
           </div>
         </div>
         <div className="divide-y divide-neutral-100 rounded-lg border border-neutral-200 bg-white px-4">

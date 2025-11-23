@@ -23,7 +23,7 @@ import {
   type UserSuspensionPayload,
 } from "@/lib/realtime/admin-channels";
 
-export interface UserSuspension {
+export type UserSuspension = {
   id: string;
   user_id: string;
   suspension_type: "temporary" | "permanent";
@@ -34,19 +34,19 @@ export interface UserSuspension {
   suspended_by?: {
     full_name: string | null;
   };
-}
+};
 
-interface UseRealtimeUserStatusOptions {
+type UseRealtimeUserStatusOptions = {
   userId: string;
   initialSuspension?: UserSuspension | null;
   enabled?: boolean;
-}
+};
 
-interface UseRealtimeUserStatusReturn {
+type UseRealtimeUserStatusReturn = {
   activeSuspension: UserSuspension | null;
   isConnected: boolean;
   error: Error | null;
-}
+};
 
 /**
  * Hook to subscribe to real-time user suspension status updates

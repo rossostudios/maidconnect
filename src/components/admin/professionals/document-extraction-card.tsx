@@ -58,7 +58,7 @@ type DocumentExtraction = {
   warnings?: string[];
 };
 
-interface DocumentExtractionCardProps {
+type DocumentExtractionCardProps = {
   professionalId?: string;
   onExtractionComplete?: (data: DocumentExtraction) => void;
   onAutoFill?: (
@@ -68,7 +68,7 @@ interface DocumentExtractionCardProps {
       dateOfBirth: string;
     }>
   ) => void;
-}
+};
 
 export function DocumentExtractionCard({
   professionalId,
@@ -173,7 +173,9 @@ export function DocumentExtractionCard({
   };
 
   const handleAutoFill = () => {
-    if (!(extraction?.personalInfo && onAutoFill)) return;
+    if (!(extraction?.personalInfo && onAutoFill)) {
+      return;
+    }
 
     onAutoFill({
       fullName: extraction.personalInfo.fullName,

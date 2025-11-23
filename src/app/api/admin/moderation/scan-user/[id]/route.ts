@@ -19,7 +19,7 @@ import {
   detectSuspiciousBookingPattern,
 } from "@/lib/utils/fraud-detection";
 
-async function handleScanUser(request: Request, context: { params: Promise<{ id: string }> }) {
+async function handleScanUser(_request: Request, context: { params: Promise<{ id: string }> }) {
   try {
     await requireAdmin();
     const supabase = await createSupabaseServerClient();

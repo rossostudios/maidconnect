@@ -208,7 +208,9 @@ export function useRealtimeAdminModeration(
 
   // Subscribe to multiplexed realtime updates
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     const manager = getConnectionManager();
 

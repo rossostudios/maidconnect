@@ -4,6 +4,7 @@ import { Loading03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
+import { EmptyState } from "@/components/shared/empty-state";
 import { Link } from "@/i18n/routing";
 import { sanitizeURL } from "@/lib/sanitize";
 
@@ -115,7 +116,7 @@ export function NotificationsHistory() {
 
   if (error) {
     return (
-      <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-base text-red-700">
         {error}
       </div>
     );
@@ -125,12 +126,12 @@ export function NotificationsHistory() {
     <div>
       {/* Header with filters */}
       <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-1">
           <button
-            className={`font-medium text-base transition ${
+            className={`rounded-md px-4 py-2 font-medium text-sm transition ${
               filter === "all"
-                ? "text-[neutral-900]"
-                : "text-[neutral-400] hover:text-[neutral-900]"
+                ? "bg-white text-neutral-900 shadow-sm"
+                : "text-neutral-500 hover:text-neutral-700"
             }`}
             onClick={() => setFilter("all")}
             type="button"
@@ -138,10 +139,10 @@ export function NotificationsHistory() {
             All ({totalCount})
           </button>
           <button
-            className={`font-medium text-base transition ${
+            className={`rounded-md px-4 py-2 font-medium text-sm transition ${
               filter === "unread"
-                ? "text-[neutral-900]"
-                : "text-[neutral-400] hover:text-[neutral-900]"
+                ? "bg-white text-neutral-900 shadow-sm"
+                : "text-neutral-500 hover:text-neutral-700"
             }`}
             onClick={() => setFilter("unread")}
             type="button"
@@ -151,7 +152,7 @@ export function NotificationsHistory() {
         </div>
         {unreadCount > 0 && (
           <button
-            className="font-medium text-[neutral-500] text-sm transition hover:text-[neutral-500]"
+            className="rounded-lg bg-orange-50 px-4 py-2 font-medium text-orange-600 text-sm transition hover:bg-orange-100"
             onClick={markAllAsRead}
             type="button"
           >
@@ -162,61 +163,46 @@ export function NotificationsHistory() {
 
       {/* Notifications list */}
       {notifications.length === 0 ? (
-        <div className="border border-[neutral-200] bg-[neutral-50] p-16 text-center">
-          <div className="mx-auto max-w-md">
-            <div className="mb-4 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center bg-[neutral-50]">
-                <svg
-                  aria-hidden="true"
-                  className="h-8 w-8 text-[neutral-400]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                  />
-                </svg>
-              </div>
-            </div>
-            <h3 className="font-semibold text-[neutral-900] text-xl">
-              {filter === "unread" ? "All caught up!" : "No notifications yet"}
-            </h3>
-            <p className="mt-2 text-[neutral-400] text-base">
-              {filter === "unread"
-                ? "You've read all your notifications"
-                : "You'll see notifications here when there's activity on your account"}
-            </p>
-          </div>
-        </div>
+        <EmptyState
+          description={
+            filter === "unread"
+              ? "You've read all your notifications"
+              : "You'll see notifications here when there's activity on your account"
+          }
+          title={filter === "unread" ? "All caught up!" : "No notifications yet"}
+          variant="notifications"
+        />
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {notifications.map((notification) => (
             <div
-              className={`border p-6 transition hover:border-[neutral-500]/30 ${
+              className={`rounded-lg border p-5 transition ${
                 notification.read_at
-                  ? "border-[neutral-200] bg-[neutral-50]"
-                  : "border-[neutral-500]/20 bg-[neutral-500]/5"
+                  ? "border-neutral-200 bg-white hover:border-neutral-300"
+                  : "border-orange-200 bg-orange-50/50 hover:border-orange-300"
               }`}
               key={notification.id}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
+                  {/* Unread indicator */}
+                  {!notification.read_at && (
+                    <span className="mb-2 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 font-medium text-orange-700 text-xs">
+                      New
+                    </span>
+                  )}
                   {notification.url ? (
                     <Link
-                      className="block"
+                      className="group block"
                       // snyk:ignore javascript/DOMXSS - URLs are sanitized via sanitizeURL() from @/lib/utils/sanitize
                       href={sanitizeURL(notification.url)}
                       onClick={() => markAsRead([notification.id])}
                     >
-                      <h3 className="font-semibold text-[neutral-900] text-base">
+                      <h3 className="font-semibold text-base text-neutral-900 transition group-hover:text-orange-600">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-[neutral-400] text-sm">{notification.body}</p>
-                      <p className="mt-2 text-[neutral-400] text-xs">
+                      <p className="mt-1 text-neutral-600 text-sm">{notification.body}</p>
+                      <p className="mt-2 text-neutral-400 text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
@@ -224,11 +210,11 @@ export function NotificationsHistory() {
                     </Link>
                   ) : (
                     <>
-                      <h3 className="font-semibold text-[neutral-900] text-base">
+                      <h3 className="font-semibold text-base text-neutral-900">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-[neutral-400] text-sm">{notification.body}</p>
-                      <p className="mt-2 text-[neutral-400] text-xs">
+                      <p className="mt-1 text-neutral-600 text-sm">{notification.body}</p>
+                      <p className="mt-2 text-neutral-400 text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
@@ -239,7 +225,7 @@ export function NotificationsHistory() {
 
                 {!notification.read_at && (
                   <button
-                    className="flex-shrink-0 font-medium text-[neutral-500] text-xs transition hover:text-[neutral-500]"
+                    className="flex-shrink-0 rounded-full bg-neutral-100 px-3 py-1.5 font-medium text-neutral-600 text-xs transition hover:bg-neutral-200"
                     onClick={() => markAsRead([notification.id])}
                     type="button"
                   >

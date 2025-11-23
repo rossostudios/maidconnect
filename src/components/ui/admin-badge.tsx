@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils/core";
 type AdminBadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "neutral";
 type AdminBadgeSize = "sm" | "md" | "lg";
 
-interface AdminBadgeProps {
+type AdminBadgeProps = {
   children: React.ReactNode;
   variant?: AdminBadgeVariant;
   size?: AdminBadgeSize;
   className?: string;
-}
+};
 
 /**
  * AdminBadge - Lia Design System Compliant Badge Component

@@ -21,11 +21,11 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/format";
 import type { DirectoryProfessional, VerificationLevel } from "../types";
 
-interface DirectoryListProps {
+type DirectoryListProps = {
   professionals: DirectoryProfessional[];
   isLoading?: boolean;
   className?: string;
-}
+};
 
 /**
  * Get verification badge variant based on level

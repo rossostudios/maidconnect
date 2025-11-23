@@ -38,7 +38,7 @@ import {
   getCityOptions,
 } from "@/lib/shared/config/territories";
 
-export interface CountryCitySelectorProps {
+export type CountryCitySelectorProps = {
   /**
    * Selected country code (CO, PY, UY, AR)
    */
@@ -59,7 +59,7 @@ export interface CountryCitySelectorProps {
    * Additional CSS classes
    */
   className?: string;
-}
+};
 
 export function CountryCitySelector({
   country,

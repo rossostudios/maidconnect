@@ -10,12 +10,12 @@ import { StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/lib/utils";
 
-interface RatingFilterProps {
+type RatingFilterProps = {
   value: number | null;
   onChange: (value: number | null) => void;
   className?: string;
   compact?: boolean;
-}
+};
 
 const RATING_OPTIONS = [
   { value: 4.5, label: "4.5+" },

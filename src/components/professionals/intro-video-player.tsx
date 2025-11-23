@@ -8,14 +8,14 @@ import type { RequiredEventProperties } from "@/lib/integrations/posthog";
 import { videoEvents } from "@/lib/integrations/posthog";
 import { cn } from "@/lib/utils/core";
 
-interface IntroVideoPlayerProps {
+type IntroVideoPlayerProps = {
   professionalId: string;
   professionalName: string;
   videoPath: string;
   durationSeconds: number;
   countryCode: "CO" | "PY" | "UY" | "AR";
   className?: string;
-}
+};
 
 export function IntroVideoPlayer({
   professionalId,

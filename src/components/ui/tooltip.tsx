@@ -59,7 +59,7 @@ const TooltipContext = React.createContext<TooltipContextValue>({
 /**
  * Tooltip Provider Props
  */
-export interface TooltipProviderProps {
+export type TooltipProviderProps = {
   /**
    * Children elements
    */
@@ -68,7 +68,7 @@ export interface TooltipProviderProps {
    * Delay in milliseconds before showing tooltip (default: 700ms)
    */
   delay?: number;
-}
+};
 
 /**
  * Tooltip Provider Component
@@ -121,7 +121,7 @@ export const Tooltip = ({ children, delay: delayOverride, ref, ...props }: Toolt
  * Tooltip Trigger Props
  * React 19: ref is a regular prop.
  */
-export interface TooltipTriggerProps {
+export type TooltipTriggerProps = {
   /**
    * Children elements (typically a Button or interactive element)
    */
@@ -134,7 +134,7 @@ export interface TooltipTriggerProps {
    * Ref to the trigger element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Tooltip Trigger Component
@@ -152,7 +152,7 @@ export const TooltipTrigger = ({ children, className, ref }: TooltipTriggerProps
  * Tooltip Content Props
  * React 19: ref is a regular prop.
  */
-export interface TooltipContentProps {
+export type TooltipContentProps = {
   /**
    * Tooltip content
    */
@@ -169,7 +169,7 @@ export interface TooltipContentProps {
    * Ref to the tooltip content element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Tooltip Content Component

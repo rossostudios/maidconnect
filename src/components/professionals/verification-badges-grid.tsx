@@ -4,19 +4,19 @@ import { InformationCircleIcon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils/core";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 
-export interface VerificationData {
+export type VerificationData = {
   level: VerificationLevel;
   backgroundCheckPassed?: boolean;
   documentsVerified?: boolean;
   interviewCompleted?: boolean;
   referencesVerified?: boolean;
-}
+};
 
-export interface VerificationBadgesGridProps {
+export type VerificationBadgesGridProps = {
   verification: VerificationData;
   showExplanations?: boolean;
   className?: string;
-}
+};
 
 /**
  * Verification Badges Grid Component
@@ -140,10 +140,10 @@ function getBadgeLabel(level: VerificationLevel): string {
  * Compact Verification Summary Badge
  * Shows count of passed verifications in a single badge
  */
-export interface VerificationSummaryBadgeProps {
+export type VerificationSummaryBadgeProps = {
   verification: VerificationData;
   className?: string;
-}
+};
 
 export function VerificationSummaryBadge({
   verification,
@@ -158,11 +158,21 @@ export function VerificationSummaryBadge({
   } = verification;
 
   let count = 0;
-  if (level !== "none") count++;
-  if (backgroundCheckPassed) count++;
-  if (documentsVerified) count++;
-  if (interviewCompleted) count++;
-  if (referencesVerified) count++;
+  if (level !== "none") {
+    count++;
+  }
+  if (backgroundCheckPassed) {
+    count++;
+  }
+  if (documentsVerified) {
+    count++;
+  }
+  if (interviewCompleted) {
+    count++;
+  }
+  if (referencesVerified) {
+    count++;
+  }
 
   if (count === 0) {
     return null;

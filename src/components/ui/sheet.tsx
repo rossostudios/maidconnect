@@ -93,7 +93,7 @@ const sheetVariants = cva(
 /**
  * Sheet Root Props
  */
-export interface SheetProps {
+export type SheetProps = {
   /**
    * Whether the sheet is open (controlled)
    */
@@ -110,7 +110,7 @@ export interface SheetProps {
    * Children elements (SheetTrigger and SheetContent)
    */
   children: React.ReactNode;
-}
+};
 
 /**
  * Sheet Root Component
@@ -129,7 +129,7 @@ Sheet.displayName = "Sheet";
 /**
  * Sheet Trigger Props
  */
-export interface SheetTriggerProps {
+export type SheetTriggerProps = {
   /**
    * Additional CSS classes
    */
@@ -146,7 +146,7 @@ export interface SheetTriggerProps {
    * Ref to the trigger button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 /**
  * Sheet Trigger Component
@@ -182,7 +182,7 @@ SheetPortal.displayName = "SheetPortal";
 /**
  * Sheet Overlay Props
  */
-export interface SheetOverlayProps {
+export type SheetOverlayProps = {
   /**
    * Additional CSS classes
    */
@@ -191,7 +191,7 @@ export interface SheetOverlayProps {
    * Ref to the overlay element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Sheet Overlay Component
@@ -482,7 +482,7 @@ SheetDescription.displayName = "SheetDescription";
  *
  * Button to close the sheet programmatically.
  */
-export interface SheetCloseProps {
+export type SheetCloseProps = {
   /**
    * Additional CSS classes
    */
@@ -499,7 +499,7 @@ export interface SheetCloseProps {
    * Ref to the button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 export const SheetClose = ({ className, children, asChild, ref }: SheetCloseProps) => {
   // If asChild, just render children - parent should be a Button

@@ -45,7 +45,7 @@ export type SortOption = (typeof SORT_OPTIONS)[number]["value"];
 /**
  * Complete filter state for the directory
  */
-export interface DirectoryFilters {
+export type DirectoryFilters = {
   // Location filters
   country: string | null;
   city: string | null;
@@ -72,7 +72,7 @@ export interface DirectoryFilters {
   view: ViewMode;
   sort: SortOption;
   page: number;
-}
+};
 
 /**
  * URL query parameter parsers for nuqs
@@ -346,20 +346,48 @@ export function buildApiQueryParams(
 ): URLSearchParams {
   const params = new URLSearchParams();
 
-  if (filters.country) params.set("country", filters.country);
-  if (filters.city) params.set("city", filters.city);
-  if (filters.neighborhood) params.set("neighborhood", filters.neighborhood);
-  if (filters.radius) params.set("radius", filters.radius.toString());
-  if (filters.service) params.set("service", filters.service);
-  if (filters.minRate) params.set("minRate", filters.minRate.toString());
-  if (filters.maxRate) params.set("maxRate", filters.maxRate.toString());
-  if (filters.minExperience) params.set("minExperience", filters.minExperience.toString());
-  if (filters.availableToday) params.set("availableToday", "true");
-  if (filters.date) params.set("date", filters.date);
-  if (filters.minRating) params.set("minRating", filters.minRating.toString());
-  if (filters.verifiedOnly) params.set("verifiedOnly", "true");
-  if (filters.backgroundChecked) params.set("backgroundChecked", "true");
-  if (filters.query) params.set("query", filters.query);
+  if (filters.country) {
+    params.set("country", filters.country);
+  }
+  if (filters.city) {
+    params.set("city", filters.city);
+  }
+  if (filters.neighborhood) {
+    params.set("neighborhood", filters.neighborhood);
+  }
+  if (filters.radius) {
+    params.set("radius", filters.radius.toString());
+  }
+  if (filters.service) {
+    params.set("service", filters.service);
+  }
+  if (filters.minRate) {
+    params.set("minRate", filters.minRate.toString());
+  }
+  if (filters.maxRate) {
+    params.set("maxRate", filters.maxRate.toString());
+  }
+  if (filters.minExperience) {
+    params.set("minExperience", filters.minExperience.toString());
+  }
+  if (filters.availableToday) {
+    params.set("availableToday", "true");
+  }
+  if (filters.date) {
+    params.set("date", filters.date);
+  }
+  if (filters.minRating) {
+    params.set("minRating", filters.minRating.toString());
+  }
+  if (filters.verifiedOnly) {
+    params.set("verifiedOnly", "true");
+  }
+  if (filters.backgroundChecked) {
+    params.set("backgroundChecked", "true");
+  }
+  if (filters.query) {
+    params.set("query", filters.query);
+  }
   params.set("sort", filters.sort);
   params.set("page", filters.page.toString());
 

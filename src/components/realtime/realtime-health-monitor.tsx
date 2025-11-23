@@ -25,18 +25,28 @@ import { cn } from "@/lib/utils/core";
  * Format date relative to now (e.g., "2 minutes ago")
  */
 function formatRelativeTime(date: Date | null): string {
-  if (!date) return "Never";
+  if (!date) {
+    return "Never";
+  }
 
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
 
-  if (seconds < 5) return "Just now";
-  if (seconds < 60) return `${seconds} seconds ago`;
+  if (seconds < 5) {
+    return "Just now";
+  }
+  if (seconds < 60) {
+    return `${seconds} seconds ago`;
+  }
 
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  if (minutes < 60) {
+    return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  }
 
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  if (hours < 24) {
+    return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  }
 
   const days = Math.floor(hours / 24);
   return `${days} day${days === 1 ? "" : "s"} ago`;
@@ -49,7 +59,7 @@ function formatRelativeTime(date: Date | null): string {
  */
 export function RealtimeHealthMonitor() {
   const { health } = useRealtime();
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [_currentTime, setCurrentTime] = useState(new Date());
 
   // Update current time every second for relative timestamps
   useEffect(() => {

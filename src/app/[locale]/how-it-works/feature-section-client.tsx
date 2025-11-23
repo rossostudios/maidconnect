@@ -22,14 +22,14 @@ const stagger: Variants = {
   },
 };
 
-interface FeatureSectionClientProps {
+type FeatureSectionClientProps = {
   title: string;
   description: string;
   features: string[];
   illustration: React.ReactNode;
   reversed?: boolean;
   background?: "white" | "neutral";
-}
+};
 
 export function FeatureSectionClient({
   title,
@@ -87,13 +87,13 @@ export function FeatureSectionClient({
 }
 
 // Dunas-style flow diagram component
-interface FlowDiagramProps {
+type FlowDiagramProps = {
   items: Array<{
     icon: HugeIcon;
     label: string;
     sublabel?: string;
   }>;
-}
+};
 
 export function FlowDiagram({ items }: FlowDiagramProps) {
   return (
@@ -119,12 +119,12 @@ export function FlowDiagram({ items }: FlowDiagramProps) {
 }
 
 // Dunas-style settings card component
-interface SettingsCardProps {
+type SettingsCardProps = {
   leftItems: Array<{ label: string; value: string }>;
   rightItems: Array<{ label: string; hasCheck?: boolean }>;
   leftTitle?: string;
   rightTitle?: string;
-}
+};
 
 export function SettingsCard({
   leftItems,

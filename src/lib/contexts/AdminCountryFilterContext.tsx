@@ -46,14 +46,14 @@ export type CountryFilterValue = CountryCode | typeof ALL_COUNTRIES;
 /**
  * Admin country filter context value
  */
-export interface AdminCountryFilterContextValue {
+export type AdminCountryFilterContextValue = {
   /** Currently selected country filter */
   selectedCountry: CountryFilterValue;
   /** Update the selected country filter */
   setSelectedCountry: (country: CountryFilterValue) => void;
   /** Whether "All Countries" is selected */
   isAllCountries: boolean;
-}
+};
 
 // ============================================================================
 // Context
@@ -69,9 +69,9 @@ const AdminCountryFilterContext = createContext<AdminCountryFilterContextValue |
 
 const STORAGE_KEY = "casaora_admin_country_filter";
 
-export interface AdminCountryFilterProviderProps {
+export type AdminCountryFilterProviderProps = {
   children: React.ReactNode;
-}
+};
 
 export function AdminCountryFilterProvider({ children }: AdminCountryFilterProviderProps) {
   // Initialize from localStorage, default to "ALL"

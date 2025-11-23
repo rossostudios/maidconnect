@@ -32,7 +32,7 @@ import { cn } from "@/lib/utils/core";
 /**
  * Popover Root Props
  */
-export interface PopoverProps {
+export type PopoverProps = {
   /**
    * Whether the popover is open (controlled)
    */
@@ -49,7 +49,7 @@ export interface PopoverProps {
    * Children elements (PopoverTrigger and PopoverContent)
    */
   children: React.ReactNode;
-}
+};
 
 /**
  * Popover Root Component
@@ -68,7 +68,7 @@ Popover.displayName = "Popover";
 /**
  * Popover Trigger Props
  */
-export interface PopoverTriggerProps {
+export type PopoverTriggerProps = {
   /**
    * Additional CSS classes
    */
@@ -85,7 +85,7 @@ export interface PopoverTriggerProps {
    * Ref to the trigger button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 /**
  * Popover Trigger Component
@@ -190,7 +190,7 @@ PopoverContent.displayName = "PopoverContent";
  *
  * Button to close the popover programmatically.
  */
-export interface PopoverCloseProps {
+export type PopoverCloseProps = {
   /**
    * Additional CSS classes
    */
@@ -207,7 +207,7 @@ export interface PopoverCloseProps {
    * Ref to the button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 export const PopoverClose = ({ className, children, asChild, ref }: PopoverCloseProps) => {
   // If asChild, just render children - parent should be a Button

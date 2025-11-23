@@ -108,7 +108,7 @@ export const Tabs = ({
  * Tabs List Props
  * React 19: ref is a regular prop.
  */
-export interface TabsListProps {
+export type TabsListProps = {
   /**
    * Additional CSS classes
    */
@@ -121,7 +121,7 @@ export interface TabsListProps {
    * Ref to the tab list element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Tabs List Component
@@ -156,7 +156,7 @@ export const TabsList = ({ className, children, ref }: TabsListProps) => {
  * Tabs Trigger Props
  * React 19: ref is a regular prop.
  */
-export interface TabsTriggerProps {
+export type TabsTriggerProps = {
   /**
    * Additional CSS classes
    */
@@ -173,7 +173,7 @@ export interface TabsTriggerProps {
    * Ref to the tab button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
-}
+};
 
 /**
  * Tabs Trigger Component
@@ -219,7 +219,7 @@ export const TabsTrigger = ({ className, value, children, ref }: TabsTriggerProp
  * Tabs Content Props
  * React 19: ref is a regular prop.
  */
-export interface TabsContentProps {
+export type TabsContentProps = {
   /**
    * Additional CSS classes
    */
@@ -236,7 +236,7 @@ export interface TabsContentProps {
    * Ref to the tab panel element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
-}
+};
 
 /**
  * Tabs Content Component

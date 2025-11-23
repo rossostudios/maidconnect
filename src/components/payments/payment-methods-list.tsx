@@ -63,7 +63,9 @@ export function PaymentMethodsList({ initialPaymentMethods = [], initialDefaultI
   }, [fetchPaymentMethods, initialPaymentMethods.length]);
 
   const handleDelete = async (paymentMethodId: string) => {
-    if (!confirm(t("confirmDelete"))) return;
+    if (!confirm(t("confirmDelete"))) {
+      return;
+    }
 
     setDeletingId(paymentMethodId);
 

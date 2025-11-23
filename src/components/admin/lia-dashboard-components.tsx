@@ -83,14 +83,16 @@ export function LiaStatCard({
         <div>
           <h3
             className={cn(
-              "font-medium text-neutral-900 text-sm tracking-tight",
+              "font-medium text-neutral-900 text-sm leading-none tracking-tight",
               geistSans.className
             )}
           >
             {title}
           </h3>
           {subtitle && (
-            <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>{subtitle}</p>
+            <p className={cn("mt-0.5 text-neutral-600 text-xs leading-none", geistSans.className)}>
+              {subtitle}
+            </p>
           )}
         </div>
 
@@ -165,11 +167,16 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
       {/* Header */}
       <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
         <h3
-          className={cn("font-medium text-neutral-900 text-sm tracking-tight", geistSans.className)}
+          className={cn(
+            "font-medium text-neutral-900 text-sm leading-none tracking-tight",
+            geistSans.className
+          )}
         >
           Recent Activity
         </h3>
-        <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>Last 24 hours</p>
+        <p className={cn("mt-0.5 text-neutral-600 text-xs leading-none", geistSans.className)}>
+          Last 24 hours
+        </p>
       </div>
 
       {/* Activity List */}
@@ -184,11 +191,21 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
 
               {/* Content */}
               <div className="min-w-0 flex-1">
-                <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
+                <p
+                  className={cn(
+                    "font-medium text-neutral-900 text-sm leading-none",
+                    geistSans.className
+                  )}
+                >
                   <span className="font-medium">{activity.user}</span>{" "}
                   <span className="font-normal text-neutral-600">{activity.action}</span>
                 </p>
-                <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+                <p
+                  className={cn(
+                    "mt-0.5 text-neutral-600 text-xs leading-none",
+                    geistSans.className
+                  )}
+                >
                   {activity.time}
                 </p>
               </div>
@@ -237,14 +254,14 @@ export function LiaCard({
         <div>
           <h3
             className={cn(
-              "font-medium text-neutral-900 text-sm tracking-tight",
+              "font-medium text-neutral-900 text-sm leading-none tracking-tight",
               geistSans.className
             )}
           >
             {title}
           </h3>
           {description && (
-            <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+            <p className={cn("mt-0.5 text-neutral-600 text-xs leading-none", geistSans.className)}>
               {description}
             </p>
           )}
@@ -280,12 +297,17 @@ export function LiaTable<T extends Record<string, unknown>>({
       {/* Header */}
       <div className="rounded-t-lg border-neutral-200 border-b bg-neutral-50 px-6 py-4">
         <h3
-          className={cn("font-medium text-neutral-900 text-sm tracking-tight", geistSans.className)}
+          className={cn(
+            "font-medium text-neutral-900 text-sm leading-none tracking-tight",
+            geistSans.className
+          )}
         >
           {title}
         </h3>
         {description && (
-          <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>{description}</p>
+          <p className={cn("mt-0.5 text-neutral-600 text-xs leading-none", geistSans.className)}>
+            {description}
+          </p>
         )}
       </div>
 

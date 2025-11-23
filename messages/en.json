@@ -1415,7 +1415,11 @@
       },
       "bookingsPage": {
         "title": "My Bookings",
-        "description": "View and manage your upcoming and past service appointments."
+        "description": "View and manage your upcoming and past service appointments.",
+        "viewToggle": {
+          "list": "List",
+          "calendar": "Calendar"
+        }
       },
       "favoritesPage": {
         "title": "My Favorites",
@@ -1464,7 +1468,8 @@
           "phone": "Phone",
           "city": "City",
           "note": "Note",
-          "noteDescription": "To update your profile information, please contact support at support@casaora.co"
+          "noteDescription": "Click Edit Profile to update your information. Email changes require contacting support.",
+          "edit": "Edit Profile"
         },
         "preferences": {
           "title": "Property Preferences",
@@ -1479,6 +1484,68 @@
       "disputes": {
         "title": "My Disputes",
         "description": "Track and manage disputes filed for your bookings"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "View and manage your notification history"
+      },
+      "bookingCalendar": {
+        "details": "Booking Details",
+        "noBookings": "No bookings",
+        "selectDate": "Select a date to view bookings",
+        "timeTbd": "Time TBD",
+        "status": {
+          "pendingPayment": "Pending Payment",
+          "confirmed": "Confirmed",
+          "completed": "Completed",
+          "canceled": "Canceled",
+          "inProgress": "In Progress"
+        }
+      },
+      "helpPage": {
+        "title": "Help & Support",
+        "description": "Get help with your bookings, payments, or any other questions you might have.",
+        "contact": {
+          "liveChat": {
+            "title": "Live Chat",
+            "description": "Chat with our support team in real-time. Available weekdays 8:00 AM - 8:00 PM COT.",
+            "action": "Start chat"
+          },
+          "email": {
+            "title": "Email Support",
+            "description": "Send us an email and we'll respond within 24 hours.",
+            "action": "Send email"
+          },
+          "phone": {
+            "title": "Phone Support",
+            "description": "Speak directly with a support representative during business hours.",
+            "action": "Call now"
+          }
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "booking": {
+            "question": "How do I book a service?",
+            "answer": "Browse our professional directory, select a professional, choose your preferred date and time, and complete the booking. You'll receive a confirmation email once the booking is accepted."
+          },
+          "payment": {
+            "question": "How do payments work?",
+            "answer": "Payment is authorized when you book but only captured after the service is completed. We accept all major credit cards. Your payment information is securely stored and encrypted."
+          },
+          "cancellation": {
+            "question": "What is the cancellation policy?",
+            "answer": "You can cancel your booking up to 24 hours before the scheduled start time for a full refund. Cancellations made less than 24 hours in advance may be subject to a cancellation fee."
+          },
+          "professional": {
+            "question": "How are professionals vetted?",
+            "answer": "All professionals undergo a comprehensive verification process including identity verification, background checks, and reference validation. We also monitor ratings and reviews to ensure quality."
+          }
+        },
+        "emergency": {
+          "title": "Emergency Contact",
+          "description": "For urgent matters or safety concerns during an active service, please call our emergency line immediately.",
+          "phone": "+57 123 456 7890"
+        }
       }
     }
   },

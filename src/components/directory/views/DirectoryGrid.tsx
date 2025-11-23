@@ -10,11 +10,11 @@ import { cn } from "@/lib/utils";
 import { ProfessionalCard, ProfessionalCardSkeleton } from "../cards/ProfessionalCard";
 import type { DirectoryProfessional } from "../types";
 
-interface DirectoryGridProps {
+type DirectoryGridProps = {
   professionals: DirectoryProfessional[];
   isLoading?: boolean;
   className?: string;
-}
+};
 
 export function DirectoryGrid({ professionals, isLoading = false, className }: DirectoryGridProps) {
   if (isLoading) {

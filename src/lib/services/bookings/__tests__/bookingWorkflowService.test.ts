@@ -19,7 +19,7 @@ import {
 } from "../bookingWorkflowService";
 
 // Mock dependencies
-const mockSupabase = {
+const _mockSupabase = {
   from: mock(() => ({
     update: mock(() => ({
       eq: mock(() => ({

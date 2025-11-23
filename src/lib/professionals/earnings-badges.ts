@@ -210,7 +210,6 @@ export function getBadgeColorClasses(tier: BadgeTier): {
         border: "border-orange-200",
         text: "text-orange-600",
       };
-    case "none":
     default:
       return {
         bg: "bg-neutral-50",

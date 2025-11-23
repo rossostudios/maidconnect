@@ -21,18 +21,18 @@
 import { useEffect, useRef, useState } from "react";
 import { logger } from "@/lib/logger";
 
-interface PayPalCheckoutButtonProps {
+type PayPalCheckoutButtonProps = {
   bookingId: string;
   amount: string;
   currency: "USD" | "ARS" | "UYU" | "PYG";
   onSuccess?: (data: { orderId: string; captureId?: string; bookingId: string }) => void;
   onError?: (error: Error) => void;
   onCancel?: () => void;
-}
+};
 
 // Extend Window type for PayPal SDK
 declare global {
-  interface Window {
+  type Window = {
     paypal?: {
       Buttons: (config: {
         createOrder: () => Promise<string>;
@@ -49,7 +49,7 @@ declare global {
         render: (selector: string) => Promise<void>;
       };
     };
-  }
+  };
 }
 
 export function PayPalCheckoutButton({

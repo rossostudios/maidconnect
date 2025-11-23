@@ -153,7 +153,7 @@ export function InstantPayoutModal({
   minThresholdCop,
 }: InstantPayoutModalProps) {
   const t = useTranslations("dashboard.pro.instantPayoutModal");
-  const locale = useLocale();
+  const _locale = useLocale();
 
   // Support deprecated props for backward compatibility
   const balance = availableBalance ?? availableBalanceCop ?? 0;
@@ -214,7 +214,7 @@ export function InstantPayoutModal({
     setValue("amount", calculatedAmount, { shouldValidate: true });
   };
 
-  const handleConfirm = (data: InstantPayoutFormData) => {
+  const handleConfirm = (_data: InstantPayoutFormData) => {
     setStep("confirm");
   };
 

@@ -25,7 +25,7 @@ export type SearchResult = {
 };
 
 /** Algolia hit for help articles */
-interface HelpArticleHit {
+type HelpArticleHit = {
   objectID: string;
   title: string;
   excerpt: string;
@@ -34,10 +34,10 @@ interface HelpArticleHit {
     slug: string;
     title: string;
   };
-}
+};
 
 /** Algolia hit for changelog entries */
-interface ChangelogHit {
+type ChangelogHit = {
   objectID: string;
   title: string;
   summary: string;
@@ -45,26 +45,26 @@ interface ChangelogHit {
   sprintNumber?: number;
   categories?: string[];
   publishedAt?: string;
-}
+};
 
 /** Algolia hit for roadmap items */
-interface RoadmapHit {
+type RoadmapHit = {
   objectID: string;
   title: string;
   description: string;
   slug: string;
   status?: string;
   category?: string;
-}
+};
 
 /** Algolia hit for city pages */
-interface CityPageHit {
+type CityPageHit = {
   objectID: string;
   name: string;
   heroSubtitle: string;
   slug: string;
   services?: string[];
-}
+};
 
 /**
  * Search help articles in Algolia

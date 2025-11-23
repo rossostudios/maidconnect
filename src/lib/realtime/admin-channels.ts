@@ -41,13 +41,13 @@ export type PostgresChangeEvent = "INSERT" | "UPDATE" | "DELETE" | "*";
 /**
  * Configuration for a Realtime channel subscription
  */
-export interface RealtimeChannelConfig {
+export type RealtimeChannelConfig = {
   channelName: string;
   table: string;
   schema?: string;
   event?: PostgresChangeEvent;
   filter?: string;
-}
+};
 
 /**
  * Type-safe payload handlers for different table subscriptions

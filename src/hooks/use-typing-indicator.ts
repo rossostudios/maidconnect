@@ -80,7 +80,9 @@ export function useTypingIndicator({
 
         for (const [key, presences] of Object.entries(state)) {
           // Skip self
-          if (key === userId) continue;
+          if (key === userId) {
+            continue;
+          }
 
           // Get the most recent presence for this user
           const presence = presences[0] as
@@ -104,7 +106,9 @@ export function useTypingIndicator({
         setTypingUsers(users);
       })
       .on("presence", { event: "join" }, ({ key, newPresences }) => {
-        if (key === userId) return;
+        if (key === userId) {
+          return;
+        }
 
         const presence = newPresences[0] as
           | {
@@ -130,7 +134,9 @@ export function useTypingIndicator({
         }
       })
       .on("presence", { event: "leave" }, ({ key }) => {
-        if (key === userId) return;
+        if (key === userId) {
+          return;
+        }
         setTypingUsers((prev) => prev.filter((u) => u.id !== key));
       })
       .subscribe(async (status) => {
@@ -160,7 +166,9 @@ export function useTypingIndicator({
   const setTyping = useCallback(
     (isTyping: boolean) => {
       const channel = channelRef.current;
-      if (!channel) return;
+      if (!channel) {
+        return;
+      }
 
       const now = Date.now();
 

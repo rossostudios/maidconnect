@@ -14,11 +14,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { SORT_OPTIONS, type SortOption } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
-interface SortDropdownProps {
+type SortDropdownProps = {
   value: SortOption;
   onChange: (value: SortOption) => void;
   className?: string;
-}
+};
 
 export function SortDropdown({ value, onChange, className }: SortDropdownProps) {
   const [open, setOpen] = useState(false);

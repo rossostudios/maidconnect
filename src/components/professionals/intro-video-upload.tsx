@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils/core";
 
 type VideoStatus = "none" | "pending_review" | "approved" | "rejected";
 
-interface IntroVideoUploadProps {
+type IntroVideoUploadProps = {
   userId: string;
   countryCode: "CO" | "PY" | "UY" | "AR";
   currentVideoPath?: string | null;
@@ -27,7 +27,7 @@ interface IntroVideoUploadProps {
   currentVideoThumbnailPath?: string | null;
   rejectionReason?: string | null;
   className?: string;
-}
+};
 
 const MAX_FILE_SIZE_MB = 100;
 const MAX_DURATION_SECONDS = 60;
@@ -62,7 +62,9 @@ export function IntroVideoUpload({
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     // Reset error
     setError(null);

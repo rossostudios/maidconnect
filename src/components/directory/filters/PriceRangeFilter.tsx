@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-interface PriceRangeFilterProps {
+type PriceRangeFilterProps = {
   minRate: number | null;
   maxRate: number | null;
   onMinRateChange: (value: number | null) => void;
@@ -18,7 +18,7 @@ interface PriceRangeFilterProps {
   currency?: string;
   className?: string;
   compact?: boolean;
-}
+};
 
 // Price range bounds (COP)
 const MIN_PRICE = 0;

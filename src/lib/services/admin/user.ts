@@ -13,13 +13,13 @@ type BookingStats = {
 };
 
 /** Admin profile reference for suspension records */
-interface AdminProfile {
+type AdminProfile = {
   id: string;
   full_name: string | null;
-}
+};
 
 /** Professional profile data */
-interface ProfessionalProfile {
+type ProfessionalProfile = {
   id: string;
   bio: string | null;
   hourly_rate_cents: number;
@@ -29,10 +29,10 @@ interface ProfessionalProfile {
   total_reviews: number;
   created_at: string;
   updated_at: string;
-}
+};
 
 /** Suspension history record from database */
-interface SuspensionRecord {
+type SuspensionRecord = {
   id: string;
   suspension_type: string;
   reason: string;
@@ -43,7 +43,7 @@ interface SuspensionRecord {
   lift_reason: string | null;
   suspended_by_profile: AdminProfile | null;
   lifted_by_profile: AdminProfile | null;
-}
+};
 
 type ActiveSuspension = {
   id: string;

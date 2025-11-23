@@ -16,13 +16,13 @@ import { RatingFilter } from "./RatingFilter";
 import { ServiceFilter } from "./ServiceFilter";
 import { VerificationFilter } from "./VerificationFilter";
 
-interface FilterSidebarProps {
+type FilterSidebarProps = {
   filters: ReturnType<typeof useDirectoryFilters>["filters"];
   setFilter: ReturnType<typeof useDirectoryFilters>["setFilter"];
   clearFilters: ReturnType<typeof useDirectoryFilters>["clearFilters"];
   activeFilterCount: number;
   className?: string;
-}
+};
 
 export function FilterSidebar({
   filters,

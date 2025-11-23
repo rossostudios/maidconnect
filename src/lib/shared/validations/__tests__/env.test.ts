@@ -52,7 +52,7 @@ describe("serverEnvSchema", () => {
 
     it("defaults to development when not provided", () => {
       const env = { ...validServerEnv };
-      delete env.NODE_ENV;
+      env.NODE_ENV = undefined;
       const result = serverEnvSchema.safeParse(env);
 
       expect(result.success).toBe(true);
@@ -89,14 +89,14 @@ describe("serverEnvSchema", () => {
 
     it("requires anon key", () => {
       const env = { ...validServerEnv };
-      delete env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      env.NEXT_PUBLIC_SUPABASE_ANON_KEY = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires service role key", () => {
       const env = { ...validServerEnv };
-      delete env.SUPABASE_SERVICE_ROLE_KEY;
+      env.SUPABASE_SERVICE_ROLE_KEY = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
@@ -225,14 +225,14 @@ describe("serverEnvSchema", () => {
   describe("VAPID credentials", () => {
     it("requires public key", () => {
       const env = { ...validServerEnv };
-      delete env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+      env.NEXT_PUBLIC_VAPID_PUBLIC_KEY = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires private key", () => {
       const env = { ...validServerEnv };
-      delete env.VAPID_PRIVATE_KEY;
+      env.VAPID_PRIVATE_KEY = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
@@ -266,8 +266,8 @@ describe("serverEnvSchema", () => {
 
     it("accepts missing Logtail tokens", () => {
       const env = { ...validServerEnv };
-      delete env.LOGTAIL_SOURCE_TOKEN;
-      delete env.NEXT_PUBLIC_LOGTAIL_TOKEN;
+      env.LOGTAIL_SOURCE_TOKEN = undefined;
+      env.NEXT_PUBLIC_LOGTAIL_TOKEN = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(true);
     });
@@ -283,22 +283,22 @@ describe("serverEnvSchema", () => {
 
     it("accepts missing Upstash Redis credentials", () => {
       const env = { ...validServerEnv };
-      delete env.UPSTASH_REDIS_REST_URL;
-      delete env.UPSTASH_REDIS_REST_TOKEN;
+      env.UPSTASH_REDIS_REST_URL = undefined;
+      env.UPSTASH_REDIS_REST_TOKEN = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(true);
     });
 
     it("accepts missing Google Maps API key", () => {
       const env = { ...validServerEnv };
-      delete env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+      env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(true);
     });
 
     it("accepts missing Google Analytics ID", () => {
       const env = { ...validServerEnv };
-      delete env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+      env.NEXT_PUBLIC_GA_MEASUREMENT_ID = undefined;
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(true);
     });
@@ -339,13 +339,13 @@ describe("serverEnvSchema", () => {
 
     it("accepts all feature flags as optional", () => {
       const env = { ...validServerEnv };
-      delete env.NEXT_PUBLIC_FEATURE_ENABLE_WEB_VITALS;
-      delete env.NEXT_PUBLIC_FEATURE_SHOW_MATCH_WIZARD;
-      delete env.NEXT_PUBLIC_FEATURE_ENHANCED_TRUST_BADGES;
-      delete env.NEXT_PUBLIC_FEATURE_LIVE_PRICE_BREAKDOWN;
-      delete env.NEXT_PUBLIC_FEATURE_AUTO_TRANSLATE_CHAT;
-      delete env.NEXT_PUBLIC_FEATURE_ONE_TAP_REBOOK;
-      delete env.NEXT_PUBLIC_FEATURE_RECURRING_PLANS;
+      env.NEXT_PUBLIC_FEATURE_ENABLE_WEB_VITALS = undefined;
+      env.NEXT_PUBLIC_FEATURE_SHOW_MATCH_WIZARD = undefined;
+      env.NEXT_PUBLIC_FEATURE_ENHANCED_TRUST_BADGES = undefined;
+      env.NEXT_PUBLIC_FEATURE_LIVE_PRICE_BREAKDOWN = undefined;
+      env.NEXT_PUBLIC_FEATURE_AUTO_TRANSLATE_CHAT = undefined;
+      env.NEXT_PUBLIC_FEATURE_ONE_TAP_REBOOK = undefined;
+      env.NEXT_PUBLIC_FEATURE_RECURRING_PLANS = undefined;
 
       const result = serverEnvSchema.safeParse(env);
       expect(result.success).toBe(true);
@@ -396,42 +396,42 @@ describe("clientEnvSchema", () => {
 
     it("requires Supabase URL", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_SUPABASE_URL;
+      env.NEXT_PUBLIC_SUPABASE_URL = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires Supabase anon key", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      env.NEXT_PUBLIC_SUPABASE_ANON_KEY = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires Stripe publishable key", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+      env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires base URL", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_BASE_URL;
+      env.NEXT_PUBLIC_BASE_URL = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires app URL", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_APP_URL;
+      env.NEXT_PUBLIC_APP_URL = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });
 
     it("requires VAPID public key", () => {
       const env = { ...validClientEnv };
-      delete env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+      env.NEXT_PUBLIC_VAPID_PUBLIC_KEY = undefined;
       const result = clientEnvSchema.safeParse(env);
       expect(result.success).toBe(false);
     });

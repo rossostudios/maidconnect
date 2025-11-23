@@ -130,7 +130,7 @@ export function BankAccountManager({ className }: BankAccountManagerProps) {
 
   useEffect(() => {
     fetchBankAccounts();
-  }, []);
+  }, [fetchBankAccounts]);
 
   // ========================================
   // Event Handlers

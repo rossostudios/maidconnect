@@ -141,7 +141,9 @@ export function EarningsBadge({
         <div className="space-y-1.5">
           {(() => {
             const progress = calculateTierProgress(totalBookings);
-            if (!progress.nextTier) return null;
+            if (!progress.nextTier) {
+              return null;
+            }
 
             return (
               <>

@@ -10,9 +10,9 @@ import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils/core";
 
-interface IntroVideoReviewPageProps {
+type IntroVideoReviewPageProps = {
   params: Promise<{ professionalId: string; locale: string }>;
-}
+};
 
 export default function IntroVideoReviewPage({ params }: IntroVideoReviewPageProps) {
   const router = useRouter();

@@ -46,12 +46,12 @@ type NotificationRequestInput = {
 };
 
 /** WebPush module interface for sending notifications */
-interface WebPushModule {
+type WebPushModule = {
   sendNotification: (
     subscription: { endpoint: string; keys: { p256dh: string; auth: string } },
     payload: string
   ) => Promise<void>;
-}
+};
 
 /** WebPush error with status code */
 interface WebPushError extends Error {

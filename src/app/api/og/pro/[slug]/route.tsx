@@ -55,7 +55,10 @@ async function fetchProfessionalForOG(slug: string) {
 // GET: Generate OG Image
 // ========================================
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await params;
 

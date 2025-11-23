@@ -22,14 +22,14 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/format";
 import type { CardSize, DirectoryProfessional, VerificationLevel } from "../types";
 
-interface ProfessionalCardProps {
+type ProfessionalCardProps = {
   professional: DirectoryProfessional;
   size?: CardSize;
   variant?: "default" | "compact";
   className?: string;
   onFavorite?: (id: string) => void;
   isFavorite?: boolean;
-}
+};
 
 /**
  * Get verification badge variant based on level
@@ -56,7 +56,9 @@ function getVerificationBadge(level: VerificationLevel): {
  * Format rating display
  */
 function formatRating(rating: number | null): string {
-  if (!rating) return "New";
+  if (!rating) {
+    return "New";
+  }
   return rating.toFixed(1);
 }
 

@@ -49,18 +49,26 @@ export function ModerationQueueDashboard() {
 
   useEffect(() => {
     loadFlags();
-  }, [selectedSeverity, selectedStatus, selectedFlagType]);
+  }, [loadFlags]);
 
   async function loadFlags() {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({ limit: "100" });
-      if (selectedSeverity) params.set("severity", selectedSeverity);
-      if (selectedStatus) params.set("status", selectedStatus);
-      if (selectedFlagType) params.set("flagType", selectedFlagType);
+      if (selectedSeverity) {
+        params.set("severity", selectedSeverity);
+      }
+      if (selectedStatus) {
+        params.set("status", selectedStatus);
+      }
+      if (selectedFlagType) {
+        params.set("flagType", selectedFlagType);
+      }
 
       const response = await fetch(`/api/admin/moderation/flags?${params}`);
-      if (!response.ok) throw new Error("Failed to fetch flags");
+      if (!response.ok) {
+        throw new Error("Failed to fetch flags");
+      }
 
       const data = await response.json();
       setFlags(data.flags || []);
@@ -80,7 +88,9 @@ export function ModerationQueueDashboard() {
         body: JSON.stringify({ status: "dismissed" }),
       });
 
-      if (!response.ok) throw new Error("Failed to dismiss flag");
+      if (!response.ok) {
+        throw new Error("Failed to dismiss flag");
+      }
 
       loadFlags();
     } catch (error) {
@@ -96,7 +106,9 @@ export function ModerationQueueDashboard() {
         body: JSON.stringify({ status: "reviewed" }),
       });
 
-      if (!response.ok) throw new Error("Failed to mark as reviewed");
+      if (!response.ok) {
+        throw new Error("Failed to mark as reviewed");
+      }
 
       loadFlags();
     } catch (error) {
@@ -293,9 +305,7 @@ export function ModerationQueueDashboard() {
                 </div>
 
                 <span
-                  className={
-                    "rounded-full px-3 py-1 font-medium text-xs" + severityColors[flag.severity]
-                  }
+                  className={`rounded-full px-3 py-1 font-medium text-xs${severityColors[flag.severity]}`}
                 >
                   {flag.severity.charAt(0).toUpperCase() + flag.severity.slice(1)}
                 </span>

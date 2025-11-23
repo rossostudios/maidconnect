@@ -43,9 +43,11 @@ type Props = {
 export function StatCard({ title, value, description, sparklineData }: Props) {
   // Calculate trend color
   const trendColor = (() => {
-    if (!sparklineData || sparklineData.length < 2) return "#F97316"; // Default orange
+    if (!sparklineData || sparklineData.length < 2) {
+      return "#F97316"; // Default orange
+    }
     const first = sparklineData[0]?.value ?? 0;
-    const last = sparklineData[sparklineData.length - 1]?.value ?? 0;
+    const last = sparklineData.at(-1)?.value ?? 0;
     return last >= first ? "#22C55E" : "#F97316"; // Green if up/flat, Orange if down
   })();
 

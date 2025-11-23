@@ -12,12 +12,12 @@ import { Button } from "@/components/ui/button";
 import type { DirectoryFilters, useDirectoryFilters } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
-interface ActiveFiltersProps {
+type ActiveFiltersProps = {
   chips: ReturnType<typeof useDirectoryFilters>["getActiveFilterChips"];
   onRemove: (key: keyof DirectoryFilters) => void;
   onClearAll: () => void;
   className?: string;
-}
+};
 
 export function ActiveFilters({ chips, onRemove, onClearAll, className }: ActiveFiltersProps) {
   const activeChips = typeof chips === "function" ? chips() : chips;

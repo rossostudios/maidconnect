@@ -145,7 +145,9 @@ export function DateRangePicker({
   };
 
   const isSelected = (date: Date) => {
-    if (!value.from) return false;
+    if (!value.from) {
+      return false;
+    }
     if (value.to) {
       return date >= value.from && date <= value.to;
     }

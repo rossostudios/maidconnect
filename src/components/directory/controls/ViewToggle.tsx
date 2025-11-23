@@ -11,12 +11,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { ViewMode } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
-interface ViewToggleProps {
+type ViewToggleProps = {
   value: ViewMode;
   onChange: (value: ViewMode) => void;
   showMapOption?: boolean;
   className?: string;
-}
+};
 
 const VIEW_OPTIONS: Array<{
   value: ViewMode;

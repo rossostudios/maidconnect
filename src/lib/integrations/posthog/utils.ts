@@ -9,7 +9,7 @@ import { posthog } from "./client";
  * Required properties for ALL PostHog events (multi-country support)
  * CRITICAL: These properties enable market-specific analytics and feature flags
  */
-export interface RequiredEventProperties {
+export type RequiredEventProperties = {
   /** User's country code (CO, PY, UY, AR) - REQUIRED for market analysis */
   country_code: "CO" | "PY" | "UY" | "AR";
   /** User's role (customer, professional, admin) - REQUIRED for role segmentation */
@@ -20,7 +20,7 @@ export interface RequiredEventProperties {
   currency?: "COP" | "PYG" | "UYU" | "ARS";
   /** User's locale (es, en) - Optional for language preference */
   locale?: "es" | "en";
-}
+};
 
 /**
  * Identify user with PostHog
