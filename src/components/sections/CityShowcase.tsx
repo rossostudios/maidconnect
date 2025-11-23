@@ -11,6 +11,7 @@
 
 import { ArrowLeft02Icon, ArrowRight02Icon, Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
@@ -68,6 +69,7 @@ type CityShowcaseProps = {
 };
 
 export function CityShowcase({ className }: CityShowcaseProps) {
+  const t = useTranslations("home.cityShowcase");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -109,10 +111,10 @@ export function CityShowcase({ className }: CityShowcaseProps) {
         <div className="mb-8 flex items-end justify-between sm:mb-10">
           <div>
             <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl">
-              Explore cities we serve
+              {t("title")}
             </h2>
             <p className="mt-2 text-base text-neutral-600 sm:text-lg">
-              Trusted professionals across Latin America
+              {t("subtitle")}
             </p>
           </div>
 
@@ -169,7 +171,7 @@ export function CityShowcase({ className }: CityShowcaseProps) {
                     />
                     {/* Pro Count Badge */}
                     <div className="absolute right-3 bottom-3 rounded-full bg-white/95 px-3 py-1 font-medium text-neutral-900 text-xs shadow-sm backdrop-blur-sm">
-                      {city.proCount} pros
+                      {city.proCount} {t("pros")}
                     </div>
                   </div>
 
@@ -197,9 +199,9 @@ export function CityShowcase({ className }: CityShowcaseProps) {
                   />
                 </div>
                 <span className="font-semibold text-neutral-700 group-hover:text-orange-600">
-                  View all cities
+                  {t("viewAll")}
                 </span>
-                <span className="mt-1 text-neutral-500 text-sm">17 cities, 4 countries</span>
+                <span className="mt-1 text-neutral-500 text-sm">{t("coverage")}</span>
               </div>
             </Link>
           </div>
@@ -207,7 +209,7 @@ export function CityShowcase({ className }: CityShowcaseProps) {
 
         {/* Bottom Note */}
         <p className="mt-6 text-center text-neutral-500 text-sm sm:mt-8">
-          Same quality standards everywhere. Background checks included in all locations.
+          {t("bottomNote")}
         </p>
       </Container>
     </section>

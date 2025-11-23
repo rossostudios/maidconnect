@@ -225,6 +225,14 @@
         "text": "Tú solo pagas la tarifa de plataforma por servicios de confianza y seguridad.",
         "link": "Ver precios detallados"
       }
+    },
+    "cityShowcase": {
+      "title": "Explora las ciudades donde operamos",
+      "subtitle": "Profesionales de confianza en toda América Latina",
+      "pros": "pros",
+      "viewAll": "Ver todas las ciudades",
+      "coverage": "17 ciudades, 4 países",
+      "bottomNote": "Mismos estándares de calidad en todas partes. Verificación de antecedentes incluida en todas las ubicaciones."
     }
   },
   "dashboard": {

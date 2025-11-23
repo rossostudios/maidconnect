@@ -259,6 +259,14 @@
         "link": "View detailed pricing"
       }
     },
+    "cityShowcase": {
+      "title": "Explore cities we serve",
+      "subtitle": "Trusted professionals across Latin America",
+      "pros": "pros",
+      "viewAll": "View all cities",
+      "coverage": "17 cities, 4 countries",
+      "bottomNote": "Same quality standards everywhere. Background checks included in all locations."
+    },
     "simplePricing": {
       "title": "Simple, transparent pricing",
       "subtitle": "One fee covers everything. Professionals keep 100% of their rate.",

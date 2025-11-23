@@ -170,6 +170,9 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
           </Link>
         </nav>
 
+        {/* Divider */}
+        <div className="mx-2 h-6 w-px bg-neutral-200" />
+
         {/* Right: Globe + CTA */}
         <div className="flex items-center gap-2">
           {/* Globe Button - Language/Region/Currency Preferences */}
@@ -206,7 +209,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
               </Link>
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center rounded-full px-6 py-2.5 font-semibold text-sm",
+                  "inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2.5 font-semibold text-sm",
                   // Spring transition for premium feel
                   "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
                   // Consistent solid button (glass pill always visible)
