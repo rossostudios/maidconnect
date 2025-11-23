@@ -116,7 +116,7 @@ export const FEATURE_FLAG_METADATA: Record<string, FeatureFlagMetadata> = {
   [FEATURE_FLAGS.BOOKING_INTENT_DETECTION]: {
     key: FEATURE_FLAGS.BOOKING_INTENT_DETECTION,
     name: "AI Booking Intent Detection",
-    description: "Detects booking intent in Amara chat and suggests relevant actions",
+    description: "Detects booking intent in conversations and suggests relevant actions",
     defaultValue: false,
     type: "boolean",
   },

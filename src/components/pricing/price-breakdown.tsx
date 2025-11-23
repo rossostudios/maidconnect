@@ -20,8 +20,8 @@ export function PriceBreakdown({
   showPlatformFee = true, // Changed default to true for transparency
   className = "",
 }: PriceBreakdownProps) {
-  // Concierge-only 20% fee
-  const PLATFORM_FEE_RATE = 0.2;
+  // Standard marketplace fee (15%)
+  const PLATFORM_FEE_RATE = 0.15;
   const platformFee = Math.round(baseAmount * PLATFORM_FEE_RATE);
   const subtotal = baseAmount + addonsTotal;
   const totalWithFees = showPlatformFee ? subtotal + platformFee : subtotal;
@@ -68,11 +68,11 @@ export function PriceBreakdown({
                     />
                     <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                       <p className="mb-2 font-semibold text-neutral-900 text-sm">
-                        Concierge Service Fee
+                        Platform Service Fee
                       </p>
                       <p className="mb-2 text-neutral-700 text-xs leading-relaxed">
-                        Your concierge fee includes expert matching, English-speaking coordinators,
-                        priority booking, and satisfaction guarantee.
+                        This fee covers verified professionals, secure payments, booking protection,
+                        and customer support.
                       </p>
                       <p className="font-semibold text-orange-600 text-xs">
                         ✓ Professional receives 100% of their rate
@@ -126,7 +126,7 @@ export function CompactPrice({
   showBreakdown?: boolean;
   className?: string;
 }) {
-  const PLATFORM_FEE_RATE = 0.2; // Concierge-only 20%
+  const PLATFORM_FEE_RATE = 0.15; // Standard marketplace fee (15%)
   const totalWithFee = hourlyRate * (1 + PLATFORM_FEE_RATE);
 
   if (!showBreakdown) {
@@ -154,7 +154,7 @@ export function calculateTotalWithFees(
   platformFee: number;
   total: number;
 } {
-  const PLATFORM_FEE_RATE = 0.2; // Concierge-only 20%
+  const PLATFORM_FEE_RATE = 0.15; // Standard marketplace fee (15%)
   const subtotal = baseAmount + addonsTotal;
   const platformFee = includePlatformFee ? Math.round(subtotal * PLATFORM_FEE_RATE) : 0;
   const total = subtotal + platformFee;

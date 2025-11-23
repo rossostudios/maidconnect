@@ -27,6 +27,7 @@ import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
 import { MarketProvider } from "@/lib/contexts/MarketContext";
+import { PreferencesProvider } from "@/lib/contexts/PreferencesContext";
 import { RealtimeProvider } from "@/lib/integrations/supabase/RealtimeProvider";
 import { geistSans } from "../fonts";
 
@@ -120,34 +121,36 @@ export default async function RootLayout({
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <MarketProvider>
-              <SkipLinks>
-                <SkipLink href="main-content">Skip to main content</SkipLink>
-                <SkipLink href="footer">Skip to footer</SkipLink>
-              </SkipLinks>
-              <WebVitalsReporter />
-              <PostHogProvider nonce={nonce}>
-                <FeedbackProvider>
-                  <UnifiedCommandPaletteWrapper>
-                    <ChangelogBanner />
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <SupabaseProvider>
-                        <RealtimeProvider>
-                          <QueryProvider>
-                            <KeyboardShortcutsProvider>
-                              <NuqsAdapter>{children}</NuqsAdapter>
-                            </KeyboardShortcutsProvider>
-                          </QueryProvider>
-                        </RealtimeProvider>
-                      </SupabaseProvider>
-                    </Suspense>
-                    <Suspense fallback={null}>
-                      {/* <AmaraFloatingButton locale={locale} /> */}
-                    </Suspense>
-                    <CookieConsent />
-                  </UnifiedCommandPaletteWrapper>
-                </FeedbackProvider>
-              </PostHogProvider>
-              {isDraftMode && <DraftModeIndicator />}
+              <PreferencesProvider>
+                <SkipLinks>
+                  <SkipLink href="main-content">Skip to main content</SkipLink>
+                  <SkipLink href="footer">Skip to footer</SkipLink>
+                </SkipLinks>
+                <WebVitalsReporter />
+                <PostHogProvider nonce={nonce}>
+                  <FeedbackProvider>
+                    <UnifiedCommandPaletteWrapper>
+                      <ChangelogBanner />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <SupabaseProvider>
+                          <RealtimeProvider>
+                            <QueryProvider>
+                              <KeyboardShortcutsProvider>
+                                <NuqsAdapter>{children}</NuqsAdapter>
+                              </KeyboardShortcutsProvider>
+                            </QueryProvider>
+                          </RealtimeProvider>
+                        </SupabaseProvider>
+                      </Suspense>
+                      <Suspense fallback={null}>
+                        {/* <AmaraFloatingButton locale={locale} /> */}
+                      </Suspense>
+                      <CookieConsent />
+                    </UnifiedCommandPaletteWrapper>
+                  </FeedbackProvider>
+                </PostHogProvider>
+                {isDraftMode && <DraftModeIndicator />}
+              </PreferencesProvider>
               <Toaster
                 closeButton
                 position="top-right"

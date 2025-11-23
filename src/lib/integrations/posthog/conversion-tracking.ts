@@ -21,21 +21,10 @@ export const conversionTracking = {
   },
 
   /**
-   * Concierge request events
-   */
-  conciergeRequestStarted: (props: { serviceType?: string }) => {
-    trackEvent("Concierge Request Started", props);
-  },
-
-  conciergeRequestSubmitted: (props: { briefId: string; serviceType: string }) => {
-    trackEvent("Concierge Request Submitted", props);
-  },
-
-  /**
    * Hero and landing page events
    */
   heroCTAClicked: (props: {
-    ctaType: "start_brief" | "learn_more" | "concierge";
+    ctaType: "start_brief" | "learn_more" | "browse_pros";
     location: "hero" | "banner" | "announcement_banner";
     ctaText?: string;
     variant?: "control" | "variant_a"; // Epic G-2: A/B test tracking
@@ -44,9 +33,7 @@ export const conversionTracking = {
   },
 
   /**
-   * @deprecated Concierge-only migration: Professional directory is now hidden behind 301 redirect.
-   * Directory page still exists for admin viewing but is not publicly accessible.
-   * Event kept for backward compatibility but will rarely fire.
+   * Professional directory events
    */
   professionalsListViewed: (props: {
     totalCount: number;
@@ -62,8 +49,6 @@ export const conversionTracking = {
 
   /**
    * Professional search and discovery events
-   * @deprecated Concierge-only migration: Professional search/filtering removed from public UI.
-   * Users now submit concierge requests instead of browsing/searching professionals.
    */
   professionalsSearched: (props: {
     query?: string;
@@ -78,7 +63,7 @@ export const conversionTracking = {
   },
 
   /**
-   * @deprecated Concierge-only migration: Filter functionality removed from public professional directory.
+   * Filter events for professional search
    */
   filterApplied: (props: { filterType: string; filterValue: string }) => {
     trackEvent("Filter Applied", props);

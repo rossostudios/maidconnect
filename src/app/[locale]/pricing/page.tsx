@@ -1,8 +1,8 @@
 /**
  * Pricing Page - Simple Airbnb-style Platform Fee
  *
- * Clear, transparent pricing with 15% platform fee for both
- * Instant Book and Direct Hire services.
+ * Clear, transparent pricing with 15% service fee.
+ * Professionals keep 100% of their rate.
  */
 
 import type { Metadata } from "next";

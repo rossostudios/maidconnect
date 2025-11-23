@@ -123,11 +123,6 @@
 - [ ] Referral tracking
 - [ ] Rewards balance
 
-### Direct Hire & Concierge
-- [ ] Request direct hire placement
-- [ ] Concierge support request
-- [ ] Human-assisted booking
-
 ### Help & Support
 - [ ] Help center articles
 - [ ] FAQ search

@@ -1,13 +1,12 @@
 import type { Currency, Locale } from "@/lib/utils/format";
 
-export type ServiceLevelKey = "instantBook" | "concierge";
+export type ServiceLevelKey = "instantBook";
 
 export const PRICING_MODEL: Record<
   ServiceLevelKey,
   { customerFee: number; professionalFee: number }
 > = {
   instantBook: { customerFee: 0.15, professionalFee: 0 },
-  concierge: { customerFee: 0.2, professionalFee: 0 },
 };
 
 type CurrencyMeta = { label: string; rateFromCOP: number; locale: Locale };

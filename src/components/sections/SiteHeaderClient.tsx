@@ -16,6 +16,7 @@ import {
 import { useTranslations } from "next-intl";
 import { MobileMenu } from "@/components/navigation/mobile-menu";
 import { NavDropdown, type NavDropdownItem } from "@/components/navigation/nav-dropdown";
+import { GlobeButton } from "@/components/preferences";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -169,8 +170,11 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
           </Link>
         </nav>
 
-        {/* Right: CTA */}
-        <div className="flex items-center gap-4">
+        {/* Right: Globe + CTA */}
+        <div className="flex items-center gap-2">
+          {/* Globe Button - Language/Region/Currency Preferences */}
+          <GlobeButton />
+
           {isAuthenticated ? (
             <Link
               className={cn(

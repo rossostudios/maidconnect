@@ -115,7 +115,7 @@ Rules:
 
 ## Content System
 
-- **Tone:** Professional, direct, data-backed. Prefer declarative statements (“24/7 concierge”) over fluffy copy.
+- **Tone:** Professional, direct, data-backed. Prefer declarative statements ("24/7 support") over fluffy copy.
 - **Numerals:** Always render with Geist Mono to maintain alignment in data tables.
 - **CTAs:** Primary (orange) + secondary (neutral). Ghost/text links reserved for tertiary actions.
 - **Icons:** Hugeicons/Lucide outline style only; keep stroke weight consistent at 1.5px.

@@ -12,7 +12,7 @@ Casaora tracks user behavior across a multi-country LatAm marketplace (CO, PY, U
 
 **Core Purpose:**
 - Measure conversion rates by market (CO vs PY vs UY vs AR)
-- Track professional trust features (intro videos, concierge)
+- Track professional trust features (intro videos, verified profiles)
 - Optimize booking funnel drop-off points
 - Identify which markets need product improvements
 
@@ -142,34 +142,27 @@ Breakdown: country_code, service_type
 
 ---
 
-### 4. Concierge Direct Hire Funnel (Phase 1.4)
+### 4. Support Request Funnel (Phase 1.4)
 
-**Goal:** Measure high-touch direct hire placement service (higher revenue, human-powered).
+**Goal:** Measure customer support interactions and resolution.
 
 **Steps:**
-1. **Chat Started** - Customer contacts concierge team
-2. **Direct Hire Requested** - Customer requests placement service
-3. **Placement Completed** - Concierge matches professional
+1. **Support Chat Started** - Customer contacts support team
+2. **Issue Resolved** - Support resolves customer issue
 
 **Key Metrics:**
-- Chat → Request conversion (target: 40%)
-- Request → Placement conversion (target: 70%)
-- Average time to placement (target: <7 days)
-- Concierge fee revenue per placement (CO only: $200-500 USD)
+- Chat → Resolution rate (target: 95%)
+- Average resolution time (target: <24 hours)
+- Customer satisfaction (target: 4.5+ stars)
 
 **PostHog Query:**
 ```
 Funnel:
-  Concierge Chat Started (conciergeEvents.chatStarted)
-  → Concierge Direct Hire Requested (conciergeEvents.directHireRequested)
-  → Concierge Placement Completed (conciergeEvents.placementCompleted)
+  Support Chat Started (supportEvents.chatStarted)
+  → Support Issue Resolved (supportEvents.issueResolved)
 
-Breakdown: country_code, urgency
+Breakdown: country_code, source
 ```
-
-**Market Availability:**
-- **CO (Colombia):** Full concierge service enabled (Stripe + higher fees)
-- **PY/UY/AR:** Chat only, direct hire coming Q2 2025
 
 ---
 
@@ -195,11 +188,6 @@ Breakdown: country_code, urgency
 - Definition: Total GMV / Unique paying customers
 - Breakdown: By country_code
 - Target: 2.5 bookings per customer in first 90 days
-
-**4. Concierge Fee Revenue (CO only)**
-- Definition: Sum of `conciergeFeeCents` from `Concierge Placement Completed`
-- Target: 5-10% of total GMV (high-margin service)
-- Benchmark: $200-500 USD per direct hire placement
 
 ---
 
@@ -258,7 +246,7 @@ Breakdown: country_code, urgency
 - Target: <24 hours (fast feedback loop for professionals)
 
 **3. Professional Reassignment Rate**
-- Definition: `Concierge Professional Reassigned` / `Booking Completed`
+- Definition: `Booking Rescheduled` / `Booking Completed`
 - Breakdown: By country_code
 - Target: <5% (quality matching + vetting)
 
@@ -333,25 +321,25 @@ Breakdown: country_code, urgency
 
 ---
 
-### Dashboard 4: Concierge Performance (Phase 1.4)
+### Dashboard 4: Support Performance (Phase 1.4)
 
 **Widgets:**
-1. Concierge Funnel (Funnel Chart)
-   - Chat → Request → Placement
-2. Time to Placement (Number)
-   - Median days from request to completion
-3. Concierge Fee Revenue (Trend)
-   - Total and by urgency level
-4. Professional Reassignment Rate (Number)
-   - % of bookings requiring intervention
+1. Support Funnel (Funnel Chart)
+   - Chat Started → Issue Resolved
+2. Average Resolution Time (Number)
+   - Median hours to resolution
+3. Support Volume by Source (Pie Chart)
+   - booking_flow, profile_page, help_center, direct
+4. Customer Satisfaction (Number)
+   - Post-support survey scores
 5. Chat Topics Distribution (Pie Chart)
    - Most common customer questions
 
 **Filters:**
 - Date Range: Last 30 days
-- Breakdown: country_code (CO only initially), urgency
+- Breakdown: country_code, source
 
-**Purpose:** Measure human-powered service quality, optimize concierge team size.
+**Purpose:** Measure support quality, optimize team size.
 
 ---
 
@@ -371,7 +359,7 @@ Breakdown: country_code, urgency
 - [x] Add RequiredEventProperties interface to posthog/utils.ts
 - [x] Update existing events (booking, search, professional, funnel)
 - [x] Add videoEvents category
-- [x] Add conciergeEvents category
+- [x] Add supportEvents category
 - [x] Export new event modules from posthog/index.ts
 - [x] Create analytics-metrics.md documentation
 
@@ -389,7 +377,7 @@ Breakdown: country_code, urgency
 ### Basic Event Tracking
 
 ```typescript
-import { bookingEvents, videoEvents, conciergeEvents } from '@/lib/integrations/posthog';
+import { bookingEvents, videoEvents, supportEvents } from '@/lib/integrations/posthog';
 import { useUser } from '@/hooks/useUser';
 
 // Get user context (client-side)
@@ -415,11 +403,11 @@ videoEvents.uploaded({
   fileSizeMb: 45,
 });
 
-// Track concierge chat
-conciergeEvents.chatStarted({
+// Track support chat
+supportEvents.chatStarted({
   ...eventContext,
   source: 'booking_flow',
-  topic: 'direct_hire_inquiry',
+  topic: 'booking_help',
 });
 ```
 
@@ -515,7 +503,7 @@ bookingEvents.started({
 **Phase 3 (Days 61-90):**
 - Implement revenue attribution by marketing channel
 - Create professional-side analytics (earnings, bookings)
-- Build concierge team performance dashboards
+- Build support team performance dashboards
 - Add predictive models for churn risk
 
 ---

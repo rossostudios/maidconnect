@@ -54,9 +54,8 @@ export function SiteNavigation() {
     },
   ];
 
-  // Removed "/professionals" link for direct-hire-focused migration
-  // Professional directory now redirects to /direct-hire via 301
   const links = [
+    { href: "/professionals", label: t("professionals") },
     { href: "/pricing", label: t("pricing") },
     { href: "/contact", label: "Contact" },
   ];

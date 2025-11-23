@@ -19,7 +19,7 @@ export function CapabilitiesSection() {
               </h2>
               <p className="text-base text-neutral-600">
                 These modules map directly to the PRD—and guide what our engineering, product, and
-                concierge teams prioritize across each release.
+                support teams prioritize across each release.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

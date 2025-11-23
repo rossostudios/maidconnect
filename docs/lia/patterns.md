@@ -47,7 +47,7 @@ This file consolidates every Lia surface rule that previously lived across `mini
 
 **Components**
 - `BenefitCard`, `FeatureSection`, `TwoColumnFeature`, `HeroSearchBar`, logo marquees from `/ui`.
-- CTA stack: Primary button + ghost link (“Talk to concierge”).
+- CTA stack: Primary button + ghost link ("Contact support").
 - When layering imagery, keep frames squared—use masks instead of rounded corners.
 
 **Interaction Notes**
@@ -73,7 +73,7 @@ This file consolidates every Lia surface rule that previously lived across `mini
 
 **Key Requirements**
 - Provide escape routes for every dead end (primary CTA + support link).
-- Include inline contact `mailto:support@casaora.co` or concierge CTA for critical errors.
+- Include inline contact `mailto:support@casaora.co` or support CTA for critical errors.
 - Use `sonner` toasts sparingly—prefer inline status cards for reliability messaging.
 
 ## 4. Cross-Surface Grid Recipes

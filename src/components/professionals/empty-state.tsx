@@ -42,8 +42,8 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
 
         <div className="mt-8 border border-orange-200 bg-orange-50 p-4">
           <p className="text-orange-900 text-sm">
-            <strong>Can't find what you're looking for?</strong> Our concierge team can handpick the
-            perfect match for you.
+            <strong>Can't find what you're looking for?</strong> Tell us your requirements and we'll
+            help match you with the perfect professional.
           </p>
         </div>
       </div>
@@ -65,16 +65,11 @@ export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: 
         you need, and we'll notify you when we have the perfect matches ready.
       </p>
 
-      <div className="mb-8 grid gap-4 sm:grid-cols-2">
+      <div className="mb-8">
         <Link className="w-full" href="/brief">
           <Button className="w-full" size="lg">
             <HugeiconsIcon className="mr-2 h-5 w-5" icon={MagicWand01Icon} size={20} />
             Tell Us Your Needs
-          </Button>
-        </Link>
-        <Link className="w-full" href="/direct-hire">
-          <Button className="w-full" size="lg" variant="outline">
-            Request Direct Hire
           </Button>
         </Link>
       </div>

@@ -1,17 +1,16 @@
 # Casaora Robots Configuration
-# Updated for concierge-only business model migration
+# Marketplace model - professionals directory is core feature
 
 User-agent: *
 
 # Allow all pages by default
 Allow: /
 
-# Block professional directory (migrated to concierge-only model)
-# These routes now redirect to /concierge via 301 redirects
-Disallow: /en/professionals
-Disallow: /es/professionals
-Disallow: /en/professionals/*
-Disallow: /es/professionals/*
+# Allow professional directory (core marketplace feature)
+Allow: /en/professionals
+Allow: /es/professionals
+Allow: /en/professionals/*
+Allow: /es/professionals/*
 
 # Block admin and internal routes
 Disallow: /admin/

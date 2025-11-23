@@ -118,6 +118,15 @@
         "payments": "Pagos seguros en la app",
         "pricing": "Precios justos y transparentes",
         "instant": "Reserva instantánea"
+      },
+      "searchBar": {
+        "where": "Dónde",
+        "wherePlaceholder": "Buscar destinos",
+        "when": "Cuándo",
+        "whenPlaceholder": "Agregar fechas",
+        "service": "Servicio",
+        "servicePlaceholder": "¿Qué necesitas?",
+        "search": "Buscar"
       }
     },
     "process": {
@@ -2967,15 +2976,6 @@
         "feature2": "Profesionales verificados con reseñas",
         "feature3": "Horarios flexibles"
       },
-      "concierge": {
-        "badge": "Guante Blanco",
-        "title": "Servicio Concierge",
-        "feeLabel": "tarifa de servicio",
-        "description": "Matching personalizado con coordinadores dedicados. Ideal para necesidades complejas o recurrentes.",
-        "feature1": "Coordinador de matching personal",
-        "feature2": "Soporte y programación prioritaria",
-        "feature3": "Garantía de reemplazo"
-      },
       "proNote": {
         "highlight": "Los profesionales mantienen el 100% de su tarifa.",
         "text": "La tarifa de servicio se suma al total y la pagan los clientes."
@@ -3022,10 +3022,10 @@
       }
     },
     "cta": {
-      "title": "¿Listo para encontrar ayuda confiable?",
-      "subtitle": "Únete a familias en toda Latinoamérica que confían en Casaora para profesionales del hogar verificados.",
-      "browseButton": "Ver Profesionales",
-      "signUpButton": "Ser Profesional"
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únete a miles de clientes satisfechos que usan Casaora.",
+      "primary": "Iniciar Prueba Gratis",
+      "secondary": "Contactar Ventas"
     },
     "comparison": {
       "popularBadge": "Más popular",
@@ -3064,12 +3064,6 @@
     "oldFaq": {
       "title": "Preguntas frecuentes",
       "subtitle": "¿tiene preguntas? Estamos aquí para ayudar."
-    },
-    "cta": {
-      "title": "¿Listo para comenzar?",
-      "subtitle": "Únete a miles de clientes satisfechos que usan Casaora.",
-      "primary": "Iniciar Prueba Gratis",
-      "secondary": "Contactar Ventas"
     },
     "calculator": {
       "title": "Calcula tu costo",
@@ -3942,24 +3936,24 @@
     },
     "serviceSelectionWidget": {
       "title": "¿Cómo podemos ayudarte hoy?",
-      "description": "Elige entre reserva instantánea con Amara AI o contratación permanente con nuestro programa de Contratación Directa",
+      "description": "Explora nuestros profesionales verificados o cuéntanos tus requisitos específicos",
       "quickJob": {
-        "title": "Reserva Instantánea Amara",
-        "description": "¿Necesitas ayuda para mañana? Chatea con nuestra IA para reservar profesionales verificados en menos de 2 minutos.",
-        "feature1": "Reserva en menos de 2 minutos",
+        "title": "Explorar Profesionales",
+        "description": "Explora nuestro directorio de profesionales verificados. Filtra por servicio, ubicación y disponibilidad.",
+        "feature1": "Explora perfiles verificados",
         "feature2": "Profesionales verificados con ID y antecedentes",
-        "feature3": "Tarifa de plataforma del 15% sobre la tarifa horaria",
-        "cta": "Chatea con Amara AI"
+        "feature3": "Tarifa simple del 15% por reserva",
+        "cta": "Explorar Profesionales"
       },
-      "longTermHire": {
-        "title": "Programa de Contratación Directa",
-        "description": "¿Contratas personal a tiempo completo? Obtén contratos legales, garantía de 30 días y contacto directo por una tarifa única de ",
-        "feature1": "Tarifa única de  por colocación",
-        "feature2": "Contratos legales y garantías",
-        "feature3": "Garantía de reemplazo de 30 días",
-        "cta": "Solicitar Contratación Directa"
+      "submitBrief": {
+        "title": "Cuéntanos Tus Necesidades",
+        "description": "Comparte tus requisitos y te conectaremos con el profesional perfecto.",
+        "feature1": "Coincidencia personalizada",
+        "feature2": "Lista curada en 48 horas",
+        "feature3": "Guía experta durante todo el proceso",
+        "cta": "Enviar Tus Requisitos"
       },
-      "helpText": "Cero comisión para profesionales en reservas por hora. Soporte completo para ambas opciones."
+      "helpText": "Todos los profesionales están verificados. Tarifa simple del 15% con soporte completo."
     },
     "directHireCard": {
       "title": "Programa de Contratación Directa — Tarifa Única de ",
@@ -4368,6 +4362,28 @@
         "description": "Colocación de tiempo completo con contratos legales y reemplazos. El cliente paga 20% arriba."
       },
       "ctaText": "Transparencia total: 0% para profesionales. 15%/20% lo paga el cliente."
+    }
+  },
+  "preferences": {
+    "title": "Preferencias",
+    "tabs": {
+      "languageAndRegion": "Idioma y región",
+      "currency": "Moneda"
+    },
+    "translation": {
+      "title": "Traducción",
+      "description": "Traducir automáticamente descripciones y reseñas al español."
+    },
+    "language": {
+      "title": "Elige un idioma"
+    },
+    "region": {
+      "title": "Elige una región",
+      "description": "Esto afecta los profesionales y servicios disponibles para ti."
+    },
+    "currency": {
+      "title": "Elige una moneda",
+      "description": "Los precios se mostrarán en la moneda seleccionada."
     }
   }
 }

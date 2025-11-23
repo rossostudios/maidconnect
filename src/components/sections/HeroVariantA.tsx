@@ -9,6 +9,9 @@ import { Link } from "@/i18n/routing";
 import { useMarket } from "@/lib/contexts/MarketContext";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
+// Cities served marquee
+const trustedAreas = ["Bogotá", "Medellín", "Cartagena", "Asunción", "Montevideo", "Buenos Aires"];
+
 // Swiss Design Animation - Minimal and Purposeful
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 8 },
@@ -53,7 +56,7 @@ export function HeroVariantA() {
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
-      {/* Direct Hire Banner - Above Hero */}
+      {/* Trust Banner - Above Hero */}
       <div className="flex items-center justify-center bg-white py-4">
         <div className="w-full max-w-[1320px] border-neutral-200 border-b">
           <Container className="max-w-6xl px-4 md:px-8">
@@ -99,12 +102,12 @@ export function HeroVariantA() {
           >
             {/* Text Content - 7 columns */}
             <div className="md:col-span-7">
-              {/* Overline - Emphasize Speed */}
+              {/* Overline - Emphasize Simplicity */}
               <motion.div
                 className="mb-4 font-semibold text-orange-600 text-xs uppercase tracking-wider"
                 variants={fadeIn}
               >
-                Staff Your Home in 5 Business Days
+                Book Instantly • 15% Service Fee
               </motion.div>
 
               {/* Display Heading - Variant A Messaging */}
@@ -120,9 +123,9 @@ export function HeroVariantA() {
                 className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
                 variants={fadeIn}
               >
-                Connect with {marketInfo.countryName}'s top housekeepers, nannies, and estate staff
-                through our streamlined matching process. Every professional is vetted,
-                English-supported, and ready to start—typically within 5 business days.
+                Find verified cleaners, nannies, and household staff in {marketInfo.countryName}.
+                Every professional is background-checked, English-supported, and ready to book
+                instantly. You pay 15%—professionals keep 100% of their rate.
               </motion.p>
 
               {/* CTA Buttons - Variant A Copy */}

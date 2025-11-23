@@ -33,7 +33,7 @@ export async function generateMetadata({
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50">
-      <SiteHeader />
+      <SiteHeader overlay />
 
       <main className="flex-1">
         {/* Company Story Hero */}
@@ -65,7 +65,7 @@ export default function AboutPage() {
 
 /**
  * Trust Indicators Section
- * Shows security, verification, and safety features
+ * Shows security, verification, and safety features - Airbnb-style cards
  */
 function TrustIndicators() {
   const t = useTranslations("about.trust");
@@ -90,24 +90,35 @@ function TrustIndicators() {
   ];
 
   return (
-    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
-      <Container>
-        <div className="mb-16 text-center">
-          <p className="tagline text-neutral-700">WHY CHOOSE US</p>
-          <h2 className="serif-display-lg mt-6 text-neutral-900">{t("title")}</h2>
-          <p className="lead mx-auto mt-6 max-w-2xl text-neutral-900/70">{t("subtitle")}</p>
+    <section className="bg-white py-16 sm:py-20 lg:py-24">
+      <Container className="max-w-5xl">
+        <div className="mb-10 text-center sm:mb-12">
+          <div className="mb-4 inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5">
+            <span className="font-semibold text-orange-600 text-xs uppercase tracking-wider">
+              Why Choose Us
+            </span>
+          </div>
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl">
+            {t("title")}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg">
+            {t("subtitle")}
+          </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
-            <div className="text-center" key={index}>
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center bg-orange-500/10">
-                <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CheckmarkCircle01Icon} />
+            <div
+              className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center transition-shadow hover:shadow-md"
+              key={index}
+            >
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                <HugeiconsIcon className="h-6 w-6 text-green-600" icon={CheckmarkCircle01Icon} />
               </div>
-              <h3 className="serif-headline-sm mb-4 text-neutral-900">{t(indicator.titleKey)}</h3>
-              <p className="text-base text-neutral-900/70 leading-relaxed">
-                {t(indicator.descKey)}
-              </p>
+              <h3 className="mb-2 font-semibold text-neutral-900 text-sm">
+                {t(indicator.titleKey)}
+              </h3>
+              <p className="text-neutral-600 text-sm leading-relaxed">{t(indicator.descKey)}</p>
             </div>
           ))}
         </div>
@@ -124,23 +135,27 @@ function CTASection() {
   const t = useTranslations("about.cta");
 
   return (
-    <section className="bg-neutral-900 py-20 sm:py-24 lg:py-32">
-      <Container className="max-w-4xl">
+    <section className="bg-neutral-900 py-16 sm:py-20 lg:py-24">
+      <Container className="max-w-3xl">
         <div className="text-center">
-          <h2 className="serif-display-lg text-white">{t("title")}</h2>
-          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-2xl text-white sm:text-3xl lg:text-4xl">
+            {t("title")}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base text-white/80 sm:text-lg">
+            {t("subtitle")}
+          </p>
 
-          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
-              href="/professionals"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-base text-neutral-900 transition hover:bg-neutral-100"
+              href="/pros"
             >
               {t("browseProfessionals")}
               <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
             </Link>
 
             <Link
-              className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 px-6 py-3 font-semibold text-base text-white transition hover:border-white/50 hover:bg-white/10"
               href="/auth/sign-up"
             >
               {t("signUp")}

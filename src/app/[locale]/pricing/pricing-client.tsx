@@ -90,16 +90,16 @@ function FeeCardsSection() {
 
   return (
     <section className="bg-neutral-50 py-16 md:py-24">
-      <Container className="max-w-5xl">
+      <Container className="max-w-3xl">
         <motion.div
           animate="visible"
-          className="grid gap-8 md:grid-cols-2"
+          className="flex justify-center"
           initial="hidden"
           variants={stagger}
         >
-          {/* Instant Book Card */}
+          {/* Simple, Transparent Pricing Card */}
           <motion.div
-            className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm"
+            className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm"
             variants={fadeIn}
           >
             <div className="mb-6">
@@ -125,39 +125,6 @@ function FeeCardsSection() {
                     />
                   </span>
                   <span className="text-neutral-700">{t(`instantBook.${key}`)}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Concierge Service Card */}
-          <motion.div
-            className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm"
-            variants={fadeIn}
-          >
-            <div className="mb-6">
-              <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-600 text-sm">
-                {t("concierge.badge")}
-              </span>
-            </div>
-            <h3 className="mb-2 font-medium text-2xl text-neutral-900">{t("concierge.title")}</h3>
-            <div className="mb-4 flex items-baseline gap-1">
-              <span className="font-medium text-5xl text-neutral-900">20%</span>
-              <span className="text-neutral-500">{t("concierge.feeLabel")}</span>
-            </div>
-            <p className="mb-6 text-neutral-600">{t("concierge.description")}</p>
-
-            <ul className="space-y-3">
-              {["feature1", "feature2", "feature3"].map((key) => (
-                <li className="flex items-start gap-3" key={key}>
-                  <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
-                    <HugeiconsIcon
-                      className="h-3 w-3 text-white"
-                      icon={Tick01Icon}
-                      strokeWidth={3}
-                    />
-                  </span>
-                  <span className="text-neutral-700">{t(`concierge.${key}`)}</span>
                 </li>
               ))}
             </ul>

@@ -1,6 +1,6 @@
 /**
  * PostHog PMF (Product-Market Fit) Event Tracking - Client Side Only
- * Tracks key PMF indicators: briefs, concierge requests, retention signals
+ * Tracks key PMF indicators: briefs, bookings, retention signals
  *
  * Epic D-2: PMF Core Metrics Dashboard
  * Links to dashboard: https://us.posthog.com/project/247938/dashboard/771678
@@ -32,15 +32,15 @@ export const pmfTracking = {
   },
 
   /**
-   * Track when user requests human concierge assistance
-   * Dashboard: "Concierge Requests by Type"
+   * Track when user requests support assistance
+   * Dashboard: "Support Requests by Type"
    */
-  conciergeRequest: (data: {
+  supportRequest: (data: {
     requestType: "help_with_booking" | "custom_service" | "pricing_question" | "other";
     fromPage: string;
     userMessage?: string;
   }) => {
-    trackEvent("Concierge Request", {
+    trackEvent("Support Request", {
       requestType: data.requestType,
       from_page: data.fromPage,
       has_message: !!data.userMessage,

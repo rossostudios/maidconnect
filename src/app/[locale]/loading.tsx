@@ -9,7 +9,7 @@ export default function MarketingLoading() {
         <p className="font-medium text-neutral-900">Preparing Casaora</p>
       </div>
       <p className="mt-4 max-w-md text-center text-neutral-600 text-sm">
-        Fetching the latest listings, professionals, and concierge inventory.
+        Fetching the latest listings and verified professionals.
       </p>
     </div>
   );

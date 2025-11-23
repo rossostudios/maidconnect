@@ -549,6 +549,13 @@
   }
 }
 
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .marquee-row {
   animation-timing-function: linear;
   animation-iteration-count: infinite;

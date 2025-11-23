@@ -1,11 +1,13 @@
 import { setRequestLocale } from "next-intl/server";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
+import { CityShowcase } from "@/components/sections/CityShowcase";
 import { GuaranteeSection } from "@/components/sections/GuaranteeSection";
+import { HowItWorksCards } from "@/components/sections/HowItWorksCards";
 import { MarketplaceHero } from "@/components/sections/MarketplaceHero";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { VerificationSection } from "@/components/sections/VerificationSection";
+import { TrustChecklist } from "@/components/sections/TrustChecklist";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   // Get the locale from params
@@ -19,9 +21,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <SiteHeader overlay />
       <main id="main-content" tabIndex={-1}>
         <MarketplaceHero />
+        <HowItWorksCards />
         <BenefitsSection />
+        <CityShowcase />
         <ProcessSection />
-        <VerificationSection />
+        <TrustChecklist />
         <GuaranteeSection />
       </main>
       <SiteFooter />

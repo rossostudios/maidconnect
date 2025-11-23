@@ -24,7 +24,6 @@ const BookingSheet = dynamic(
 );
 
 import { CompactPrice } from "@/components/pricing/price-breakdown";
-import { DirectHireCard } from "@/components/professionals/direct-hire-card";
 import { TrustCard } from "@/components/professionals/trust-card";
 import type {
   ProfessionalBookingSummary,
@@ -56,7 +55,6 @@ export type ProfessionalProfileDetail = {
   bookings: ProfessionalBookingSummary[];
   reviews: ProfessionalReviewSummary[];
   portfolioImages: ProfessionalPortfolioImage[];
-  directHireFeeCOP?: number | null;
   verification?: VerificationData;
 };
 
@@ -215,23 +213,6 @@ export function ProfessionalProfileView({
             verificationLevel="background-check" // TODO: Get from professional.verification_level
           />
         </div>
-
-        {/* Direct Hire Option - Show if enabled for this professional */}
-        {professional.directHireFeeCOP && professional.directHireFeeCOP > 0 && (
-          <div className="mt-8">
-            <DirectHireCard
-              currency={professionalCurrency}
-              feeCOP={professional.directHireFeeCOP}
-              feeUSD={Math.round(professional.directHireFeeCOP / 4000)}
-              onRequestContact={() => {
-                // TODO: Implement direct hire payment flow with Stripe Elements
-                alert("Direct hire payment flow coming soon!");
-              }}
-              professionalId={professional.id}
-              professionalName={professional.name}
-            />
-          </div>
-        )}
 
         {/* Main Layout: Calendar + Info Sidebar */}
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_400px)] xl:grid-cols-[minmax(0,_1fr)_minmax(0,_480px)]">

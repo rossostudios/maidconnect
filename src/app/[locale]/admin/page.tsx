@@ -37,7 +37,7 @@ export default async function AdminHomePage() {
   const userName = profileData?.full_name?.split(" ")[0] || "Admin";
 
   // Fetch critical metrics for action items
-  // TODO: Add concierge requests queue here (briefs table) once UI is built
+  // TODO: Add support requests queue here (briefs table) once UI is built
   const [
     { count: pendingBookingsCount },
     { count: pendingProfessionals },
@@ -153,7 +153,7 @@ export default async function AdminHomePage() {
                       geistSans.className
                     )}
                   >
-                    Concierge Matching
+                    Awaiting Match
                   </p>
                 </div>
               </Link>

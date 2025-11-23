@@ -107,8 +107,8 @@
   },
   "home": {
     "hero": {
-      "headline": "Find trusted home professionals in Latin America",
-      "subheadline": "Book vetted housekeepers, nannies, caregivers and more in just a few taps. Simple, safe and fair for families and professionals.",
+      "headline": "Book trusted home help across Latin America",
+      "subheadline": "Verified housekeepers, nannies, chefs, and caregivers—ready when you need them. Trusted by expats and locals in 17 cities.",
       "searchPlaceholder": "What do you need?",
       "locationPlaceholder": "Where?",
       "datePlaceholder": "When?",
@@ -118,6 +118,15 @@
         "payments": "Secure in-app payments",
         "pricing": "Fair and transparent pricing",
         "instant": "Instant booking"
+      },
+      "searchBar": {
+        "where": "Where",
+        "wherePlaceholder": "Search destinations",
+        "when": "When",
+        "whenPlaceholder": "Add dates",
+        "service": "Service",
+        "servicePlaceholder": "What do you need?",
+        "search": "Search"
       }
     },
     "process": {
@@ -142,6 +151,39 @@
         "book": "Book",
         "getStarted": "Get Started"
       }
+    },
+    "howItWorksCards": {
+      "title": "How it works",
+      "subtitle": "Book trusted home help in 3 simple steps",
+      "browse": "Browse & Choose",
+      "browseDescription": "Search verified professionals by service, location, and availability. Read reviews from other families.",
+      "book": "Book Instantly",
+      "bookDescription": "Select your preferred time and book directly. No waiting, no phone calls—just instant confirmation.",
+      "enjoy": "Enjoy Peace of Mind",
+      "enjoyDescription": "Every booking includes background checks, secure payments, and our satisfaction guarantee.",
+      "footer": "15% service fee covers background checks, insurance, and support. Professionals keep 100% of their rate."
+    },
+    "trustChecklist": {
+      "badge": "Trust & Safety",
+      "title": "Your safety is our priority",
+      "subtitle": "Every professional on Casaora is vetted, verified, and backed by our platform guarantees.",
+      "background": {
+        "title": "Background Checks",
+        "description": "Every professional passes comprehensive criminal background screening through certified agencies before joining our platform."
+      },
+      "identity": {
+        "title": "ID Verification",
+        "description": "Government-issued ID verification confirms each professional's identity with document scanning and biometric checks."
+      },
+      "payments": {
+        "title": "Secure Payments",
+        "description": "All payments are processed through PCI-compliant processors. Your payment details are encrypted and never shared."
+      },
+      "guarantee": {
+        "title": "Satisfaction Guarantee",
+        "description": "Not happy with a service? Contact us within 24 hours and we'll make it right—or refund your booking."
+      },
+      "footer": "These protections are included with every booking at no extra cost."
     },
     "verification": {
       "badge": "Trust & Safety",
@@ -213,7 +255,7 @@
     "pricing": {
       "badge": "Transparent Pricing",
       "title": "Simple, transparent pricing",
-      "subtitle": "Clear, upfront pricing. Instant Book (15%) for quick jobs or Direct Hire (20%) for full-time placements with contracts.",
+      "subtitle": "One simple fee: 15% added to your booking. Professionals keep 100% of their rate. Background checks included.",
       "platformFee": "Platform Fee",
       "addedToServiceCost": "Added to service cost",
       "popularBadge": "Most Popular",
@@ -222,6 +264,15 @@
         "text": "You only pay the platform fee for trust & safety services.",
         "link": "View detailed pricing"
       }
+    },
+    "simplePricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "One fee covers everything. Professionals keep 100% of their rate.",
+      "badge": "One Simple Fee",
+      "description": "Added to your booking total. Covers background checks, secure payments, insurance, and support.",
+      "cta": "Browse Professionals",
+      "detailsLink": "View Full Pricing",
+      "footer": "No hidden fees. No subscriptions. Just pay when you book."
     }
   },
   "dashboard": {
@@ -1583,11 +1634,11 @@
     "subtitle": "Simple, safe, and fair for families and professionals. Verified profiles, secure payments, and clear expectations.",
     "trustLines": {
       "backgroundChecks": "ID & Background Verified",
-      "englishFluent": "Instant or Permanent Hire",
-      "quickMatching": " Direct Hire Fee"
+      "englishFluent": "Book Instantly Online",
+      "quickMatching": "15% Service Fee"
     },
     "cta": {
-      "primary": "Chat with Amara AI",
+      "primary": "Find Help Now",
       "howItWorks": "How It Works",
       "bookCall": "Book a Free Call"
     },
@@ -1860,11 +1911,11 @@
       }
     }
   },
-  "directHire": {
-    "title": "Ready to Find Your Perfect Match?",
-    "subtitle": "Tell us about your household needs. We'll introduce you to vetted professionals with legal contracts and a satisfaction guarantee.",
+  "getStarted": {
+    "title": "Ready to Find Trusted Help?",
+    "subtitle": "Browse verified professionals across Latin America. Book instantly with transparent pricing and full support.",
     "browseProfessionals": "Browse Professionals",
-    "bookConsultation": "Request Direct Hire",
+    "bookConsultation": "Get Started",
     "cities": "Serving Colombia, Paraguay, Uruguay & Argentina",
     "languages": "English, Spanish & Portuguese support"
   },
@@ -3055,15 +3106,6 @@
         "feature2": "Verified professionals with reviews",
         "feature3": "Flexible scheduling"
       },
-      "concierge": {
-        "badge": "White-Glove",
-        "title": "Concierge Service",
-        "feeLabel": "service fee",
-        "description": "Human-powered matching with dedicated coordinators. Ideal for complex or recurring needs.",
-        "feature1": "Personal matching coordinator",
-        "feature2": "Priority support & scheduling",
-        "feature3": "Replacement guarantee"
-      },
       "proNote": {
         "highlight": "Professionals keep 100% of their rate.",
         "text": "The service fee is added on top and paid by customers."
@@ -3101,8 +3143,8 @@
         "answer": "No. Professionals keep 100% of their rate. The service fee is added on top and paid entirely by the customer. This allows professionals to set fair rates without losing a portion to platform fees."
       },
       "q3": {
-        "question": "What's the difference between Instant Book and Direct Hire?",
-        "answer": "Instant Book is for one-time or recurring services where you book and pay instantly. Direct Hire is for full-time placements with legal employment contracts, dedicated matching support, and a 30-day satisfaction guarantee."
+        "question": "How does booking work?",
+        "answer": "Browse verified professionals, check their availability, and book instantly. You'll see the full price upfront—professional's rate plus 15% service fee. Pay securely online and communicate directly with your pro."
       },
       "q4": {
         "question": "Are there any hidden fees?",
@@ -3134,17 +3176,17 @@
         "cta": "Browse professionals",
         "bestFor": "quick tasks, recurring cleanings, hourly help"
       },
-      "directHire": {
-        "title": "Direct Hire (20%)",
-        "subtitle": "Full-time or long-term placement with legal contracts and 30-day guarantee",
+      "recurringBookings": {
+        "title": "Recurring Bookings",
+        "subtitle": "Schedule weekly or monthly services with the same trusted professional",
         "features": [
-          "Legal contracts and compliance support",
-          "Vetting, background checks, and insurance included",
-          "30-day satisfaction guarantee with replacements",
-          "Transparent 20% service fee (customer)"
+          "Same professional every time",
+          "Flexible scheduling (weekly, bi-weekly, monthly)",
+          "Easy to pause or reschedule",
+          "Same transparent 15% service fee"
         ],
-        "cta": "Request Direct Hire",
-        "bestFor": "full-time help, long-term placements, legal employment"
+        "cta": "Browse professionals",
+        "bestFor": "regular cleaning, ongoing childcare, weekly meal prep"
       }
     },
     "calculator": {
@@ -3159,11 +3201,11 @@
         "petcare": "Pet Care"
       },
       "serviceLevel": {
-        "label": "Service level",
-        "instantBook": "Instant Book (15% service fee)",
-        "instantBookHelper": "Self-serve booking in minutes",
-        "directHire": "Direct Hire (20% service fee)",
-        "directHireHelper": "Full-time placement with legal contracts"
+        "label": "Booking type",
+        "instantBook": "One-time booking (15% service fee)",
+        "instantBookHelper": "Book instantly online",
+        "recurring": "Recurring booking (15% service fee)",
+        "recurringHelper": "Weekly, bi-weekly, or monthly"
       },
       "currency": {
         "label": "Display currency",
@@ -3174,7 +3216,7 @@
       "platformFee": "Service fee (customer pays)",
       "total": "Total cost",
       "professionalReceives": "Professional receives (100% of their rate)",
-      "professionalNote": "Professionals keep 100% of their rate. The 15%/20% service fee is added on top and paid by the customer."
+      "professionalNote": "Professionals keep 100% of their rate. The 15% service fee is added on top and paid by the customer."
     },
     "feeExplainer": {
       "title": "What's Included in the Platform Fee?",
@@ -3210,78 +3252,78 @@
         "description": "Your platform fee ensures every professional is vetted, verified, and backed by our support. We don't take shortcuts on safety."
       }
     },
-    "directHire": {
-      "title": "Why Choose Direct Hire?",
-      "subtitle": "For families who want long-term, full-time help with legal contracts and a satisfaction guarantee.",
+    "whyCasaora": {
+      "title": "Why Choose Casaora?",
+      "subtitle": "The trusted way to find home help across Latin America.",
       "benefits": {
-        "humanMatching": {
-          "title": "Expert Human Matching",
-          "description": "Our team personally matches you with professionals based on your specific needs, language preferences, and schedule."
+        "verifiedPros": {
+          "title": "Verified Professionals",
+          "description": "Every professional passes ID verification, background checks, and skills assessment before joining."
         },
-        "englishSupport": {
-          "title": "English-Speaking Coordinators",
-          "description": "Communicate easily with our bilingual team. No language barriers, no misunderstandings."
+        "instantBooking": {
+          "title": "Book Instantly",
+          "description": "Browse profiles, check availability, and book in minutes. No back-and-forth needed."
         },
-        "priorityBooking": {
-          "title": "Priority Booking",
-          "description": "Get faster response times and access to our top-rated, thoroughly vetted professionals."
+        "transparentPricing": {
+          "title": "Transparent Pricing",
+          "description": "One simple fee: 15% added to your booking. Professionals keep 100%. No hidden costs."
+        },
+        "securePayments": {
+          "title": "Secure Payments",
+          "description": "Pay safely online. Funds are held until service is complete with full dispute protection."
+        },
+        "bilingualSupport": {
+          "title": "English & Spanish Support",
+          "description": "Our bilingual team is here to help. No language barriers, no misunderstandings."
         },
         "qualityGuarantee": {
-          "title": "Satisfaction Guarantee",
-          "description": "Not happy with your match? We'll find you another professional at no extra charge."
-        },
-        "dedicatedCoordinator": {
-          "title": "Dedicated Coordinator",
-          "description": "One point of contact throughout your booking who knows your preferences and history."
-        },
-        "topProfessionals": {
-          "title": "Our Most Trusted Professionals",
-          "description": "Direct Hire clients get matched with highly-rated, carefully vetted professionals first."
+          "title": "Quality Guarantee",
+          "description": "Not satisfied? We'll help resolve it or find you another professional."
         }
       },
       "perfectFor": {
         "title": "Perfect For:",
         "audiences": [
-          "Families needing full-time help",
-          "Those looking for long-term placements",
-          "Anyone who wants legal employment contracts",
-          "Families who value a satisfaction guarantee",
-          "Anyone who wants expert guidance and support"
+          "Expats and digital nomads in Latin America",
+          "Families needing regular home help",
+          "Busy professionals with limited time",
+          "Anyone who wants vetted, trusted help",
+          "Travelers who need reliable local services"
         ]
       },
-      "cta": "Request Direct Hire",
-      "ctaSubtext": "30-day satisfaction guarantee · English & Spanish support"
+      "cta": "Find Help Now",
+      "ctaSubtext": "Verified professionals · Secure payments · English support"
     },
     "customer": {
       "howItWorks": {
         "title": "How Casaora pricing works",
-        "description": "Two clear fees: 15% for Instant Book or 20% for Direct Hire. Pros pay 0%. Vetting, background checks, and insurance are included.",
+        "description": "One simple fee: 15% added to your booking. Professionals keep 100%. Background checks and insurance included.",
         "steps": {
           "step1": {
-            "title": "Pick your level and hours",
-            "description": "Choose Instant Book (15%) or Direct Hire (20%) and how many hours you need."
+            "title": "Browse and book",
+            "description": "Find verified professionals, check their availability, and book in minutes."
           },
           "step2": {
-            "title": "We include safety and support",
-            "description": "Background checks, vetting, insurance, and support are covered by the service fee."
+            "title": "Safety included",
+            "description": "Background checks, ID verification, insurance, and support are covered by the service fee."
           },
           "step3": {
-            "title": "See the total upfront",
-            "description": "No add-ons or surprises. You see what you pay and what the pro earns."
+            "title": "Pay securely",
+            "description": "See the total upfront. No hidden fees. Funds held until service is complete."
           }
         }
       },
       "chooseService": {
-        "title": "Choose your service level"
+        "title": "Choose your booking type"
       },
       "calculator": {
         "title": "Calculate your estimated cost",
-        "description": "Select your service, hours, and view the full breakdown with the 15% or 20% fee included."
+        "description": "Select your service and hours to see the full breakdown with the 15% service fee included."
       },
       "cta": {
         "title": "Ready to get started?",
-        "subtitle": "Join customers who trust Casaora for vetted professionals.",
-        "primary": "Request Direct Hire",
+        "subtitle": "Join families across Latin America who trust Casaora for vetted professionals.",
+        "primary": "Find Help Now",
         "secondary": "Browse professionals"
       }
     },
@@ -3383,11 +3425,11 @@
       "title": "Calculate your earnings",
       "subtitle": "See exactly how much you'll earn with Casaora. Set your rate and hours to get your potential income.",
       "serviceLevel": {
-        "label": "Service level",
-        "instantBook": "Instant Book (customer pays 15%)",
-        "instantBookHelper": "Fast, self-serve bookings",
-        "directHire": "Direct Hire (customer pays 20%)",
-        "directHireHelper": "Full-time placement with legal contracts"
+        "label": "Booking type",
+        "instantBook": "One-time booking (customer pays 15%)",
+        "instantBookHelper": "Book instantly for any job",
+        "recurring": "Recurring booking (customer pays 15%)",
+        "recurringHelper": "Weekly, bi-weekly, or monthly"
       },
       "yourHourlyRate": "Your hourly rate",
       "rateRange": "Recommended rate based on your experience and local market",
@@ -3400,7 +3442,7 @@
         "customerPays": "Customer pays per hour (incl. service fee)",
         "youReceive": "You receive per hour",
         "platformFee": "Service fee (paid by customer)",
-        "note": "You keep 100% of your hourly rate. The 15% or 20% fee is added on top and paid by the customer."
+        "note": "You keep 100% of your hourly rate. The 15% fee is added on top and paid by the customer."
       },
       "feeCovers": {
         "title": "What the service fee covers",
@@ -3428,40 +3470,37 @@
       "description": "Check back soon to see what we're working on. Be the first to suggest features and vote on what matters to you."
     }
   },
-  "amara": {
-    "title": "Amara",
-    "subtitle": "AI Booking Assistant",
+  "support": {
+    "title": "Need Help?",
+    "subtitle": "We're here to assist",
     "greeting": "👋 Hi there! Welcome to Casaora.",
-    "welcomeMessage": "Hi! I'm Amara, your AI booking assistant. How can I help you find the perfect cleaning professional today?",
-    "openChat": "Chat with Amara",
-    "closeChat": "Close chat",
-    "inputPlaceholder": "Type your message...",
+    "welcomeMessage": "Looking for help? Browse our FAQs or contact our support team.",
+    "openChat": "Contact Support",
+    "closeChat": "Close",
+    "inputPlaceholder": "Describe your question...",
     "send": "Send message",
-    "errorMessage": "Sorry, I had trouble processing that. Could you try rephrasing?",
-    "typing": "Amara is working on a response...",
+    "errorMessage": "Sorry, something went wrong. Please try again or email us at support@casaora.com.",
+    "typing": "Loading...",
     "onboarding": {
-      "title": "Meet Amara, Your AI Assistant",
-      "description": "I can help you find professionals, check availability, and book services instantly. Just ask me anything!",
+      "title": "Need Assistance?",
+      "description": "Our bilingual support team is here to help with bookings, questions, and any issues.",
       "dismiss": "Got it!",
-      "hint": "New! Click to chat"
+      "hint": "Get help"
     },
     "searchingProfessionals": "Searching for professionals...",
     "checkingAvailability": "Checking availability...",
     "creatingBookingDraft": "Creating booking preview...",
-    "thumbsUp": "Helpful response",
+    "thumbsUp": "Helpful",
     "thumbsDown": "Not helpful",
-    "copyMessage": "Copy message",
+    "copyMessage": "Copy",
     "retry": "Retry",
-    "quickReply": {
-      "searchProfessionals": "Find a cleaner",
+    "quickActions": {
+      "browseProfessionals": "Browse professionals",
       "checkAvailability": "Check availability",
-      "topRated": "Top rated cleaners",
-      "nearMe": "Cleaners near me",
-      "checkTheirAvailability": "Check their availability",
-      "searchDifferent": "Search different area",
-      "seeReviews": "See their reviews",
-      "bookNow": "Book this time",
-      "checkOtherTimes": "Check other times"
+      "viewBookings": "View my bookings",
+      "contactSupport": "Contact support",
+      "faqs": "View FAQs",
+      "pricing": "See pricing"
     }
   },
   "about": {
@@ -3598,8 +3637,8 @@
   },
   "howItWorks": {
     "meta": {
-      "title": "How It Works - Instant Booking or Permanent Hire | Casaora",
-      "description": "Choose between Amara AI for instant bookings (15% fee) or our Direct Hire Program for permanent placements with legal contracts and guarantees."
+      "title": "How It Works - Book Trusted Home Help | Casaora",
+      "description": "Find verified professionals, book instantly, and pay securely. One simple 15% fee covers background checks, insurance, and support."
     },
     "hero": {
       "badge": "How It Works",
@@ -3673,31 +3712,31 @@
     },
     "customer": {
       "title": "For Customers",
-      "subtitle": "Pick Instant Book (15%) or Direct Hire (20%). Pros keep 100%. Background checks and insurance included.",
+      "subtitle": "One simple fee: 15% added to your booking. Pros keep 100%. Background checks and insurance included.",
       "steps": {
         "search": {
-          "title": "Choose your service level",
-          "description": "Instant Book for self-serve in minutes or Direct Hire for guided matching."
+          "title": "Browse and choose",
+          "description": "Find verified professionals by service, location, and availability."
         },
         "book": {
-          "title": "We vet and match",
-          "description": "Verified pros only. Background checks and insurance are covered by the service fee."
+          "title": "Book instantly",
+          "description": "See the full price upfront. Pay securely online in minutes."
         },
         "service": {
-          "title": "See the total upfront",
-          "description": "Service + 15% or 20% fee, nothing else. Pros receive 100% of their rate."
+          "title": "Safety included",
+          "description": "Background checks, insurance, and support are covered by the 15% fee."
         },
         "review": {
-          "title": "Service with support",
-          "description": "Messaging, scheduling, replacements, and support are included."
+          "title": "Ongoing support",
+          "description": "Messaging, scheduling, and customer support included with every booking."
         }
       },
-      "cta": "Request Direct Hire",
+      "cta": "Find Help Now",
       "ctaSecondary": "Browse professionals"
     },
     "professional": {
       "title": "For Professionals",
-      "subtitle": "Set your rate. Customers pay a 15% or 20% fee on top. You receive 100% of your rate.",
+      "subtitle": "Set your rate. Customers pay a 15% fee on top. You receive 100% of your rate.",
       "steps": {
         "apply": {
           "title": "Apply and share your skills",
@@ -3709,7 +3748,7 @@
         },
         "match": {
           "title": "Get matched to customers",
-          "description": "Instant Book for fast jobs; Direct Hire brings curated matches."
+          "description": "Customers find you through search and book directly."
         },
         "serve": {
           "title": "Deliver great service",
@@ -3717,7 +3756,7 @@
         },
         "earn": {
           "title": "Get paid 100% of your rate",
-          "description": "Customers pay the 15%/20% fee on top. You keep your full rate with weekly payouts."
+          "description": "Customers pay the 15% fee on top. You keep your full rate with weekly payouts."
         }
       },
       "cta": "Become a Professional"
@@ -3762,16 +3801,16 @@
     },
     "cta": {
       "title": "Ready to Get Started?",
-      "subtitle": "Join thousands of customers and professionals who trust Casaora.",
-      "browseButton": "Request Direct Hire",
+      "subtitle": "Join families across Latin America who trust Casaora for verified home help.",
+      "browseButton": "Find Help Now",
       "signUpButton": "Browse Professionals"
     },
     "serviceOptions": {
-      "title": "Choose your path",
-      "subtitle": "Instant Book with a 15% fee or Direct Hire with a 20% fee. Professionals receive 100% of their rate.",
+      "title": "Simple, transparent booking",
+      "subtitle": "One fee: 15% added to your booking. Professionals receive 100% of their rate.",
       "instantBook": {
-        "title": "Instant Book (15%)",
-        "description": "Fast self-serve for cleanings, quick tasks, and recurring help.",
+        "title": "Book Instantly",
+        "description": "Find verified professionals and book in minutes. Perfect for any job.",
         "speed": "Book in 2 minutes",
         "process": "Real-time matching",
         "cost": "Hourly rate + 15% (customer pays)",
@@ -3779,48 +3818,48 @@
           "Verified pros with background checks included",
           "Messaging, scheduling, and support included",
           "Secure payments; pro keeps 100% of rate",
-          "Ideal for quick or recurring tasks"
+          "Works for one-time or recurring bookings"
         ],
         "cta": "Browse professionals"
       },
-      "directHire": {
-        "title": "Direct Hire (20%)",
-        "description": "Guided matching with a curated shortlist, replacements, and human support.",
-        "speed": "Shortlist in 48h",
-        "process": "Human team + vetting",
-        "cost": "20% service fee (customer pays)",
+      "recurring": {
+        "title": "Recurring Bookings",
+        "description": "Schedule the same professional weekly or monthly for ongoing help.",
+        "speed": "Set your schedule",
+        "process": "Same pro every time",
+        "cost": "Hourly rate + 15% (customer pays)",
         "features": [
-          "Dedicated coordinator and human support",
-          "Vetting, background checks, and insurance included",
-          "Help with scheduling, replacements, and support",
-          "Ideal for ongoing or higher-care needs"
+          "Same trusted professional each visit",
+          "Flexible scheduling (weekly, bi-weekly, monthly)",
+          "Easy to pause or reschedule",
+          "Perfect for regular cleaning or childcare"
         ],
-        "cta": "Request Direct Hire"
+        "cta": "Browse professionals"
       }
     },
-    "directHireValue": {
-      "title": "Hiring Full-Time? Here's What the Direct Hire Fee Covers",
-      "subtitle": "Our  Direct Hire Fee isn't just a charge—it's comprehensive protection and peace of mind for permanent placements.",
+    "feeIncludes": {
+      "title": "What the 15% Fee Includes",
+      "subtitle": "Your service fee covers comprehensive safety and support—no hidden costs.",
       "benefits": [
         {
-          "icon": "legal",
-          "title": "Legal Safety",
-          "description": "Bilingual contract templates compliant with local labor laws. Protect yourself and your employee."
-        },
-        {
           "icon": "background",
-          "title": "Background Check",
-          "description": "Full judicial & disciplinary records report. Know exactly who you're hiring."
+          "title": "Background Checks",
+          "description": "ID verification and criminal background checks on every professional."
         },
         {
-          "icon": "medical",
-          "title": "Medical & Pension Setup",
-          "description": "Step-by-step setup guide for local social security and benefits compliance."
+          "icon": "insurance",
+          "title": "Insurance Coverage",
+          "description": "Liability protection for your home during service."
         },
         {
-          "icon": "guarantee",
-          "title": "30-Day Guarantee",
-          "description": "If it doesn't work out, we replace them for free. Zero risk for you."
+          "icon": "support",
+          "title": "24/7 Support",
+          "description": "Bilingual customer support whenever you need help."
+        },
+        {
+          "icon": "payments",
+          "title": "Secure Payments",
+          "description": "Protected transactions with dispute resolution included."
         }
       ]
     }
@@ -4127,35 +4166,35 @@
     },
     "serviceSelectionWidget": {
       "title": "How can we help you today?",
-      "description": "Choose between instant booking or permanent hiring with Direct Hire",
+      "description": "Browse our verified professionals or tell us your specific requirements",
       "quickJob": {
-        "title": "Amara Instant Book",
-        "description": "Need help for tomorrow? Chat with our AI to book vetted professionals in under 2 minutes.",
-        "feature1": "Book in under 2 minutes",
+        "title": "Browse Professionals",
+        "description": "Explore our directory of verified professionals. Filter by service, location, and availability.",
+        "feature1": "Browse verified profiles",
         "feature2": "ID & background verified pros",
-        "feature3": "15% platform fee on hourly rate",
-        "cta": "Chat with Amara AI"
+        "feature3": "Simple 15% booking fee",
+        "cta": "Browse Professionals"
       },
-      "longTermHire": {
-        "title": "Direct Hire Program",
-        "description": "Hiring full-time staff? Get legal contracts, a 30-day guarantee, and direct contact for a one-time  fee.",
-        "feature1": " one-time placement fee",
-        "feature2": "Legal contracts & guarantees",
-        "feature3": "30-day replacement guarantee",
-        "cta": "Request Direct Hire"
+      "submitBrief": {
+        "title": "Tell Us Your Needs",
+        "description": "Share your requirements and we'll match you with the perfect professional.",
+        "feature1": "Personalized matching",
+        "feature2": "Curated shortlist in 48 hours",
+        "feature3": "Expert guidance throughout",
+        "cta": "Submit Your Brief"
       },
-      "helpText": "Zero commission for professionals on hourly bookings. Full support for both options."
+      "helpText": "All professionals are background verified. Simple 15% booking fee with full support."
     },
-    "directHireCard": {
-      "title": "Direct Hire Program —  One-Time Fee",
-      "description": "Hire this professional permanently with a legal contract, 30-day replacement guarantee, and direct contact information.",
-      "benefit1": "Legal employment contract (EN/ES)",
-      "benefit2": "30-day replacement guarantee",
-      "benefit3": "Direct contact information",
-      "benefit4": "Zero ongoing platform fees",
-      "ctaButton": "Hire Permanently for ",
+    "recurringCard": {
+      "title": "Recurring Booking",
+      "description": "Schedule this professional on a regular basis for ongoing help.",
+      "benefit1": "Same professional every visit",
+      "benefit2": "Flexible scheduling options",
+      "benefit3": "Easy to pause or reschedule",
+      "benefit4": "Same 15% service fee",
+      "ctaButton": "Schedule Recurring",
       "trustBadge": "ID & Background Verified",
-      "detailsTitle": "What's included in the  fee:",
+      "detailsTitle": "What's included:",
       "detailsCollapse": "Show details",
       "detailsExpand": "Hide details"
     },
@@ -4472,7 +4511,7 @@
       "faqs": [
         {
           "question": "How much can I earn on Casaora?",
-          "answer": "You set your rate and hours. We don’t charge pros; customers pay 15%/20% on top."
+          "answer": "You set your rate and hours. We don't charge pros; customers pay a 15% fee on top."
         },
         {
           "question": "How do I get paid?",
@@ -4513,7 +4552,7 @@
       "items": {
         "setRates": {
           "title": "Set your own rates",
-          "description": "You set your rate. Customer pays 15%/20% on top; you receive 100%."
+          "description": "You set your rate. Customer pays 15% on top; you receive 100%."
         },
         "payment": {
           "title": "Guaranteed payment",
@@ -4538,21 +4577,39 @@
       }
     },
     "earn": {
-      "title": "Three ways to earn",
+      "title": "Two ways to earn",
       "subtitle": "Pick how you want to work. You always receive 100% of your rate.",
       "instant": {
-        "title": "Instant Book (15%)",
+        "title": "One-time bookings",
         "description": "Fast self-serve hourly work. Customer pays 15% on top."
       },
       "recurring": {
         "title": "Recurring regulars",
-        "description": "Build steady work with repeat clients."
+        "description": "Build steady income with repeat clients who book you weekly or monthly."
       },
-      "placement": {
-        "title": "Direct Hire (20%)",
-        "description": "Guided matching with shortlist and replacements. Customer pays 20% on top."
-      },
-      "ctaText": "Total transparency: 0% for pros. 15%/20% paid by customer."
+      "ctaText": "Total transparency: 0% for pros. 15% paid by customer."
+    }
+  },
+  "preferences": {
+    "title": "Preferences",
+    "tabs": {
+      "languageAndRegion": "Language and region",
+      "currency": "Currency"
+    },
+    "translation": {
+      "title": "Translation",
+      "description": "Automatically translate descriptions and reviews to English."
+    },
+    "language": {
+      "title": "Choose a language"
+    },
+    "region": {
+      "title": "Choose a region",
+      "description": "This affects the professionals and services available to you."
+    },
+    "currency": {
+      "title": "Choose a currency",
+      "description": "Prices will be shown in your selected currency for display purposes."
     }
   }
 }

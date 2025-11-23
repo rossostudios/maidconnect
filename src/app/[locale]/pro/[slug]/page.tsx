@@ -74,7 +74,6 @@ type GetProfessionalRow = {
   country: string | null;
   verification_level?: string | null;
   interview_completed?: boolean | null;
-  direct_hire_fee_cop?: number | null;
   profile_visibility?: string | null;
   share_earnings_badge?: boolean | null;
   total_earnings_cop?: number | null;
@@ -117,7 +116,6 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     bookings: [],
     reviews: [],
     portfolioImages,
-    directHireFeeCOP: row.direct_hire_fee_cop ?? null,
     // Enhanced verification data
     verification: {
       level: (row.verification_level as any) ?? "none",
@@ -158,7 +156,6 @@ async function fetchProfessionalBySlug(slug: string): Promise<ProfessionalProfil
       city,
       country,
       verification_level,
-      direct_hire_fee_cop,
       profile_visibility,
       share_earnings_badge,
       total_earnings_cop,

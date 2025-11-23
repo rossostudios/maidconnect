@@ -24,12 +24,6 @@ export type CountryPricingConfig = {
   commission: {
     /** Commission rate for marketplace bookings (decimal, e.g., 0.15 = 15%) */
     marketplaceRate: number;
-    /**
-     * Commission rate for concierge/white-glove service (decimal, e.g., 0.20 = 20%)
-     * This is a percentage of the professional's agreed rate, not a fixed fee.
-     * Higher rate covers personal matching coordinator and priority support.
-     */
-    conciergeRate: number;
   };
 
   /** Service pricing constraints */
@@ -83,8 +77,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   CO: {
     currency: "COP",
     commission: {
-      marketplaceRate: 0.15, // Customer service fee
-      conciergeRate: 0.2, // Customer service fee
+      marketplaceRate: 0.15, // Customer service fee (15%)
     },
     constraints: {
       minPrice: 2_000_000, // ~$5 USD minimum
@@ -108,8 +101,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   PY: {
     currency: "PYG",
     commission: {
-      marketplaceRate: 0.15,
-      conciergeRate: 0.2,
+      marketplaceRate: 0.15, // Customer service fee (15%)
     },
     constraints: {
       minPrice: 3_650_000, // ~$5 USD minimum
@@ -132,8 +124,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   UY: {
     currency: "UYU",
     commission: {
-      marketplaceRate: 0.15,
-      conciergeRate: 0.2,
+      marketplaceRate: 0.15, // Customer service fee (15%)
     },
     constraints: {
       minPrice: 19_750, // ~$5 USD minimum
@@ -156,8 +147,7 @@ export const COUNTRY_PRICING: Record<CountryCode, CountryPricingConfig> = {
   AR: {
     currency: "ARS",
     commission: {
-      marketplaceRate: 0.15,
-      conciergeRate: 0.2,
+      marketplaceRate: 0.15, // Customer service fee (15%)
     },
     constraints: {
       minPrice: 475_000, // ~$5 USD minimum
@@ -209,15 +199,11 @@ export function isValidPrice(price: number, countryCode: CountryCode): boolean {
 
 /**
  * Calculate platform commission for a booking
+ * Uses the standard 15% marketplace rate for all bookings
  */
-export function calculateCommission(
-  price: number,
-  countryCode: CountryCode,
-  isConcierge: boolean
-): number {
+export function calculateCommission(price: number, countryCode: CountryCode): number {
   const { commission } = getPricingConfig(countryCode);
-  const rate = isConcierge ? commission.conciergeRate : commission.marketplaceRate;
-  return Math.round(price * rate);
+  return Math.round(price * commission.marketplaceRate);
 }
 
 /**
@@ -240,13 +226,6 @@ export function isPaymentProcessorSupported(
 // ============================================================================
 // Constants for backward compatibility
 // ============================================================================
-
-/**
- * @deprecated Concierge fees are now percentage-based, not fixed amounts.
- * Use getPricingConfig(countryCode).commission.conciergeRate instead.
- * This constant should not be used in new code and will be removed.
- */
-export const CONCIERGE_FEE_COP = 0; // No longer applicable - use percentage-based rate
 
 /**
  * @deprecated Use getPricingConfig(countryCode).commission.marketplaceRate instead

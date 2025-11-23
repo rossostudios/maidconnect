@@ -74,7 +74,6 @@ type GetProfessionalRow = {
   country: string | null;
   verification_level?: string | null;
   interview_completed?: boolean | null;
-  direct_hire_fee_cents?: number | null;
   // Verification data from admin_professional_reviews (joined)
   background_check_passed?: boolean | null;
   documents_verified?: boolean | null;
@@ -121,7 +120,6 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     bookings: [],
     reviews: [],
     portfolioImages,
-    directHireFeeCOP: row.direct_hire_fee_cents ?? null,
     // Enhanced verification data
     verification: {
       level: (row.verification_level as any) ?? "none",

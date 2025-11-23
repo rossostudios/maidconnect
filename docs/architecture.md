@@ -290,35 +290,33 @@ Casaora operates as a **multi-country domestic staffing platform** across Latin 
 - Markets: [`src/lib/shared/config/territories.ts`](../src/lib/shared/config/territories.ts)
 - Pricing: [`src/lib/shared/config/pricing.ts`](../src/lib/shared/config/pricing.ts)
 
-### Concierge Model
+### Marketplace Model
 
-**Concierge** = Human-powered support and placement service
+**Marketplace** = Self-service platform connecting households with vetted professionals
 
-Casaora operates as "Airbnb with concierge" - customers can self-serve or request human assistance for direct hire placements.
+Casaora operates as a pure marketplace - customers browse, compare, and book professionals directly with automated workflows.
 
-**What the Concierge Does:**
-- **Professional Vetting** - Reviews intro videos, background checks, and qualifications
-- **Direct Hire Placements** - Handles high-value, long-term placements (higher commission)
-- **Customer Support** - Assists with booking issues, rescheduling, and disputes
-- **Quality Assurance** - Monitors service quality and handles escalations
-- **Market Operations** - On-the-ground presence in each market via remote ops team
+**Platform Features:**
+- **Professional Vetting** - Automated background checks with manual video review
+- **Instant Booking** - Real-time availability and direct booking flow
+- **Customer Support** - Bilingual support for booking issues and disputes
+- **Quality Assurance** - Automated monitoring with escalation paths
+- **Market Operations** - Remote ops team for quality control
 
 **Service Level Agreements (SLAs):**
-- Direct hire requests: 24-48 hours response time
 - Video review: 48-72 hours turnaround
 - Support tickets: 12-24 hours first response
 - Emergency escalations: Same-day handling
 
-**Handoff Points:**
-- Customers start with self-service booking flow
-- "Need help?" option triggers concierge assistance
-- Direct hire requests always go through concierge
-- Failed bookings automatically flagged for concierge review
+**User Flow:**
+- Customers browse professionals via search and filters
+- Direct booking with real-time availability
+- Secure messaging for coordination
+- Post-service ratings and reviews
 
 **Admin Tools:**
 - Today's bookings by market (dashboard view)
 - Pending video reviews queue
-- Direct hire pipeline with status tracking
 - Professional quality scores and flags
 
 ### Currency & Payment Processing

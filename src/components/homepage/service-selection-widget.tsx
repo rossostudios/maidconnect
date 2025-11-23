@@ -1,6 +1,6 @@
 "use client";
 
-import { SparklesIcon, UserMultiple02Icon } from "@hugeicons/core-free-icons";
+import { MagicWand01Icon, SparklesIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -12,8 +12,8 @@ export type ServiceSelectionWidgetProps = {
 };
 
 /**
- * Homepage decision flow widget for choosing between Amara AI (quick jobs)
- * and Human Concierge (long-term hires).
+ * Homepage decision flow widget for choosing between browsing
+ * professionals and submitting requirements via brief.
  *
  * Design: Anthropic Lia - rounded-lg cards, orange primary, blue secondary
  */
@@ -38,7 +38,7 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
 
         {/* Decision Flow Cards */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
-          {/* Quick Job Card - Orange (Amara AI) */}
+          {/* Browse Professionals Card - Orange */}
           <Link
             className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
             href="/professionals"
@@ -100,48 +100,48 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
             </div>
           </Link>
 
-          {/* Long-Term Hire Card - Blue (Direct Hire) */}
+          {/* Submit Brief Card - Blue */}
           <Link
             className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
-            href="/direct-hire"
+            href="/brief"
           >
             <div className="flex h-full flex-col rounded-lg border-2 border-blue-200 bg-blue-50 p-6 shadow-sm transition-all hover:border-blue-300 hover:shadow-md sm:p-8">
               {/* Icon */}
               <div className="mb-4 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
                 <HugeiconsIcon
                   className="h-6 w-6 text-blue-600 sm:h-8 sm:w-8"
-                  icon={UserMultiple02Icon}
+                  icon={MagicWand01Icon}
                 />
               </div>
 
               {/* Content */}
               <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl sm:mb-3 sm:text-2xl">
-                {t("longTermHire.title")}
+                {t("submitBrief.title")}
               </h3>
               <p className="mb-4 flex-1 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm leading-6 sm:mb-6 sm:text-base sm:leading-6">
-                {t("longTermHire.description")}
+                {t("submitBrief.description")}
               </p>
 
               {/* Features List */}
               <ul className="mb-6 space-y-2 sm:mb-8">
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
                   <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
-                  {t("longTermHire.feature1")}
+                  {t("submitBrief.feature1")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
                   <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
-                  {t("longTermHire.feature2")}
+                  {t("submitBrief.feature2")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
                   <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
-                  {t("longTermHire.feature3")}
+                  {t("submitBrief.feature3")}
                 </li>
               </ul>
 
               {/* CTA Button */}
               <Button asChild className="w-full justify-center gap-2" size="lg" variant="default">
                 <span className="flex items-center">
-                  {t("longTermHire.cta")}
+                  {t("submitBrief.cta")}
                   <svg
                     aria-hidden="true"
                     className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -149,7 +149,7 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <title>{t("longTermHire.cta")}</title>
+                    <title>{t("submitBrief.cta")}</title>
                     <path
                       d="M9 5l7 7-7 7"
                       strokeLinecap="round"

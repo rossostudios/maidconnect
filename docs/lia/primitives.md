@@ -20,7 +20,7 @@ Usage Example:
 import { Button, Input, Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui";
 
 <form className="space-y-6">
-  <Input name="email" type="email" placeholder="concierge@casaora.co" />
+  <Input name="email" type="email" placeholder="hello@casaora.co" />
   <Select defaultValue="standard">
     <SelectTrigger className="w-full">Plan</SelectTrigger>
     <SelectContent>
@@ -28,7 +28,7 @@ import { Button, Input, Select, SelectTrigger, SelectContent, SelectItem } from 
       <SelectItem value="premium">Premium</SelectItem>
     </SelectContent>
   </Select>
-  <Button size="lg">Book Concierge</Button>
+  <Button size="lg">Browse Professionals</Button>
 </form>
 ```
 

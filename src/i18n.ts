@@ -5,9 +5,9 @@ import { routing } from "./i18n/routing";
 export const locales = ["en", "es"] as const;
 export type Locale = (typeof locales)[number];
 
-// Spanish as global default for LATAM focus (CO, PY, UY, AR)
-// English available for expats, tourists, and international professionals
-export const defaultLocale: Locale = "es";
+// English as global default (like Airbnb)
+// Spanish available for LATAM markets (CO, PY, UY, AR)
+export const defaultLocale: Locale = "en";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // Wait for the locale from the request (comes from URL params)

@@ -1,26 +1,20 @@
 "use client";
 
 /**
- * ProfessionalCard - Lia Design System
+ * ProfessionalCard - Airbnb-Style Design
  *
- * Card component for displaying professional profiles in the directory.
- * Uses Anthropic rounded corners, orange accents, and neutral backgrounds.
+ * Image-first card with hover elevation, heart icon overlay,
+ * and clean typography. Follows Airbnb's listing card patterns.
  */
 
-import {
-  CheckmarkCircle01Icon,
-  FlashIcon,
-  Location01Icon,
-  Shield01Icon,
-  StarIcon,
-} from "@hugeicons/core-free-icons";
+import { CheckmarkCircle01Icon, FlashIcon, StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+import { FavoriteButton } from "@/components/ui/favorite-button";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/format";
-import type { CardSize, DirectoryProfessional, VerificationLevel } from "../types";
+import type { CardSize, DirectoryProfessional } from "../types";
 
 type ProfessionalCardProps = {
   professional: DirectoryProfessional;
@@ -32,34 +26,18 @@ type ProfessionalCardProps = {
 };
 
 /**
- * Get verification badge variant based on level
+ * Format rating display - Airbnb style
  */
-function getVerificationBadge(level: VerificationLevel): {
-  label: string;
-  variant: "primary" | "secondary" | "default";
-} | null {
-  switch (level) {
-    case "elite":
-      return { label: "Elite Verified", variant: "primary" };
-    case "premium":
-      return { label: "Premium", variant: "primary" };
-    case "standard":
-      return { label: "Verified", variant: "secondary" };
-    case "basic":
-      return { label: "Basic", variant: "default" };
-    default:
-      return null;
-  }
+function formatRating(rating: number | null): string {
+  if (!rating) return "New";
+  return rating.toFixed(1);
 }
 
 /**
- * Format rating display
+ * Check if professional is a "Guest Favorite" (high rating + reviews)
  */
-function formatRating(rating: number | null): string {
-  if (!rating) {
-    return "New";
-  }
-  return rating.toFixed(1);
+function isGuestFavorite(rating: number | null, reviews: number): boolean {
+  return rating !== null && rating >= 4.8 && reviews >= 10;
 }
 
 export function ProfessionalCard({
@@ -70,19 +48,7 @@ export function ProfessionalCard({
   onFavorite,
   isFavorite = false,
 }: ProfessionalCardProps) {
-  const verificationBadge = getVerificationBadge(professional.verificationLevel);
-
-  const cardSizes = {
-    sm: "max-w-[240px]",
-    md: "max-w-[300px]",
-    lg: "max-w-[360px]",
-  };
-
-  const imageSizes = {
-    sm: "h-32",
-    md: "h-40",
-    lg: "h-48",
-  };
+  const guestFavorite = isGuestFavorite(professional.averageRating, professional.totalReviews);
 
   // Compact variant for map popups
   if (variant === "compact") {
@@ -90,7 +56,7 @@ export function ProfessionalCard({
       <article className={cn("flex gap-3 p-3", className)}>
         {/* Avatar */}
         <Link className="shrink-0" href={`/professionals/${professional.id}`}>
-          <div className="relative h-14 w-14 overflow-hidden rounded-lg bg-neutral-100">
+          <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-neutral-100">
             {professional.avatarUrl ? (
               <Image
                 alt={professional.name}
@@ -117,112 +83,12 @@ export function ProfessionalCard({
             </h3>
           </Link>
 
-          {/* Rating + Reviews */}
-          <div className="mt-0.5 flex items-center gap-1.5">
+          {/* Rating + Reviews - Airbnb inline style */}
+          <div className="mt-0.5 flex items-center gap-1">
             <HugeiconsIcon
               className={cn(
                 "h-3.5 w-3.5",
-                professional.averageRating ? "text-orange-500" : "text-neutral-300"
-              )}
-              icon={StarIcon}
-            />
-            <span className="font-medium text-neutral-900 text-sm">
-              {formatRating(professional.averageRating)}
-            </span>
-            {professional.totalReviews > 0 && (
-              <span className="text-neutral-500 text-xs">({professional.totalReviews})</span>
-            )}
-          </div>
-
-          {/* Service + Location */}
-          <div className="mt-1 flex items-center gap-2 text-neutral-600 text-xs">
-            {professional.primaryService && (
-              <span className="truncate">{professional.primaryService}</span>
-            )}
-            {professional.primaryService && professional.locationLabel && <span>•</span>}
-            {professional.locationLabel && (
-              <span className="truncate">{professional.locationLabel}</span>
-            )}
-          </div>
-
-          {/* Price */}
-          {professional.hourlyRateCents && (
-            <p className="mt-1 font-semibold text-neutral-900 text-sm">
-              {formatCurrency(professional.hourlyRateCents / 100, {
-                currency: professional.currency,
-                locale: "es-CO",
-              })}
-              <span className="font-normal text-neutral-500">/hr</span>
-            </p>
-          )}
-        </div>
-      </article>
-    );
-  }
-
-  return (
-    <article
-      className={cn(
-        "group relative flex w-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white transition-all hover:border-orange-200 hover:shadow-md",
-        cardSizes[size],
-        className
-      )}
-    >
-      {/* Image section */}
-      <Link className="relative block overflow-hidden" href={`/professionals/${professional.id}`}>
-        <div className={cn("relative w-full bg-neutral-100", imageSizes[size])}>
-          {professional.avatarUrl ? (
-            <Image
-              alt={professional.name}
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-              src={professional.avatarUrl}
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-neutral-100">
-              <span className="font-semibold text-4xl text-neutral-400">
-                {professional.name.charAt(0).toUpperCase()}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Availability badge */}
-        {professional.isAvailableToday && (
-          <div className="absolute top-2 left-2">
-            <Badge icon={FlashIcon} size="sm" variant="primary">
-              Available Today
-            </Badge>
-          </div>
-        )}
-
-        {/* Video intro indicator */}
-        {professional.introVideoStatus === "approved" && (
-          <div className="absolute bottom-2 left-2">
-            <Badge size="sm" variant="secondary">
-              Video Intro
-            </Badge>
-          </div>
-        )}
-      </Link>
-
-      {/* Content section */}
-      <div className="flex flex-1 flex-col p-4">
-        {/* Header row: Name + Rating */}
-        <div className="mb-2 flex items-start justify-between gap-2">
-          <Link className="group/name flex-1" href={`/professionals/${professional.id}`}>
-            <h3 className="line-clamp-1 font-semibold text-neutral-900 transition-colors group-hover/name:text-orange-600">
-              {professional.name}
-            </h3>
-          </Link>
-
-          {/* Rating */}
-          <div className="flex shrink-0 items-center gap-1">
-            <HugeiconsIcon
-              className={cn(
-                "h-4 w-4",
-                professional.averageRating ? "text-orange-500" : "text-neutral-300"
+                professional.averageRating ? "text-neutral-900" : "text-neutral-300"
               )}
               icon={StarIcon}
             />
@@ -233,74 +99,150 @@ export function ProfessionalCard({
               <span className="text-neutral-500 text-sm">({professional.totalReviews})</span>
             )}
           </div>
-        </div>
 
-        {/* Service & verification badges */}
-        <div className="mb-3 flex flex-wrap gap-1.5">
-          {professional.primaryService && (
-            <Badge size="sm" variant="default">
-              {professional.primaryService}
-            </Badge>
-          )}
-          {verificationBadge && (
-            <Badge icon={Shield01Icon} size="sm" variant={verificationBadge.variant}>
-              {verificationBadge.label}
-            </Badge>
-          )}
-          {professional.isBackgroundChecked && (
-            <Badge icon={CheckmarkCircle01Icon} size="sm" variant="secondary">
-              Background Checked
-            </Badge>
-          )}
-        </div>
+          {/* Service + Location */}
+          <div className="mt-1 text-neutral-500 text-xs">
+            {professional.primaryService}
+            {professional.locationLabel && ` · ${professional.locationLabel}`}
+          </div>
 
-        {/* Location */}
-        <div className="mb-3 flex items-center gap-1.5 text-neutral-600 text-sm">
-          <HugeiconsIcon className="h-4 w-4 shrink-0" icon={Location01Icon} />
-          <span className="line-clamp-1">{professional.locationLabel}</span>
-        </div>
-
-        {/* Bio preview */}
-        {professional.bio && (
-          <p className="mb-3 line-clamp-2 text-neutral-600 text-sm">{professional.bio}</p>
-        )}
-
-        {/* Footer: Price + Experience */}
-        <div className="mt-auto flex items-center justify-between border-neutral-100 border-t pt-3">
-          <div>
-            {professional.hourlyRateCents && (
-              <p className="font-semibold text-neutral-900">
+          {/* Price */}
+          {professional.hourlyRateCents && (
+            <p className="mt-1.5 text-neutral-900 text-sm">
+              <span className="font-semibold">
                 {formatCurrency(professional.hourlyRateCents / 100, {
                   currency: professional.currency,
                   locale: "es-CO",
                 })}
-                <span className="font-normal text-neutral-500 text-sm">/hr</span>
-              </p>
-            )}
-          </div>
+              </span>
+              <span className="text-neutral-500"> /hr</span>
+            </p>
+          )}
+        </div>
+      </article>
+    );
+  }
 
-          {professional.experienceYears && professional.experienceYears > 0 && (
-            <p className="text-neutral-600 text-sm">{professional.experienceYears}+ years exp.</p>
+  // Default Airbnb-style card
+  return (
+    <article className={cn("group relative w-full", className)}>
+      {/* Image container with aspect ratio */}
+      <Link
+        className="relative block overflow-hidden rounded-xl"
+        href={`/professionals/${professional.id}`}
+      >
+        <div className="relative aspect-[4/3] w-full bg-neutral-100">
+          {professional.avatarUrl ? (
+            <Image
+              alt={professional.name}
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              src={professional.avatarUrl}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200">
+              <span className="font-semibold text-5xl text-neutral-400">
+                {professional.name.charAt(0).toUpperCase()}
+              </span>
+            </div>
           )}
         </div>
 
-        {/* Languages */}
-        {professional.languages.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {professional.languages.slice(0, 3).map((lang) => (
-              <span
-                className="rounded bg-neutral-100 px-1.5 py-0.5 text-neutral-600 text-xs"
-                key={lang}
-              >
-                {lang}
-              </span>
-            ))}
-            {professional.languages.length > 3 && (
-              <span className="rounded bg-neutral-100 px-1.5 py-0.5 text-neutral-600 text-xs">
-                +{professional.languages.length - 3}
-              </span>
+        {/* Guest Favorite badge - Airbnb style ribbon */}
+        {guestFavorite && (
+          <div className="absolute top-3 left-3">
+            <div className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs shadow-md">
+              <span>Guest favorite</span>
+            </div>
+          </div>
+        )}
+
+        {/* Available Today badge */}
+        {professional.isAvailableToday && !guestFavorite && (
+          <div className="absolute top-3 left-3">
+            <div className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs shadow-md">
+              <HugeiconsIcon className="h-3.5 w-3.5 text-orange-500" icon={FlashIcon} />
+              <span className="font-medium text-neutral-900">Available today</span>
+            </div>
+          </div>
+        )}
+      </Link>
+
+      {/* Favorite button - top right over image */}
+      {onFavorite && (
+        <div className="absolute top-3 right-3 z-10">
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onClick={() => onFavorite(professional.id)}
+            size="md"
+          />
+        </div>
+      )}
+
+      {/* Content below image */}
+      <div className="mt-3">
+        {/* Row 1: Location + Rating */}
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="truncate font-medium text-neutral-900">
+            <Link className="hover:underline" href={`/professionals/${professional.id}`}>
+              {professional.name}
+            </Link>
+          </h3>
+
+          {/* Rating - Airbnb inline style */}
+          <div className="flex shrink-0 items-center gap-1">
+            <HugeiconsIcon
+              className={cn(
+                "h-3.5 w-3.5",
+                professional.averageRating ? "text-neutral-900" : "text-neutral-400"
+              )}
+              icon={StarIcon}
+            />
+            <span className="text-neutral-900 text-sm">
+              {formatRating(professional.averageRating)}
+            </span>
+            {professional.totalReviews > 0 && (
+              <span className="text-neutral-500 text-sm">({professional.totalReviews})</span>
             )}
           </div>
+        </div>
+
+        {/* Row 2: Service type */}
+        <p className="mt-0.5 text-neutral-500 text-sm">{professional.primaryService}</p>
+
+        {/* Row 3: Location */}
+        {professional.locationLabel && (
+          <p className="text-neutral-500 text-sm">{professional.locationLabel}</p>
+        )}
+
+        {/* Row 4: Verification badges - minimal */}
+        {(professional.verificationLevel === "elite" ||
+          professional.verificationLevel === "premium" ||
+          professional.isBackgroundChecked) && (
+          <div className="mt-1 flex items-center gap-1.5 text-neutral-500 text-xs">
+            <HugeiconsIcon className="h-3.5 w-3.5" icon={CheckmarkCircle01Icon} />
+            <span>
+              {professional.verificationLevel === "elite"
+                ? "Elite verified"
+                : professional.verificationLevel === "premium"
+                  ? "Premium verified"
+                  : "Background checked"}
+            </span>
+          </div>
+        )}
+
+        {/* Row 5: Price - prominent */}
+        {professional.hourlyRateCents && (
+          <p className="mt-2 text-neutral-900">
+            <span className="font-semibold">
+              {formatCurrency(professional.hourlyRateCents / 100, {
+                currency: professional.currency,
+                locale: "es-CO",
+              })}
+            </span>
+            <span className="text-neutral-500"> /hr</span>
+          </p>
         )}
       </div>
     </article>
@@ -308,54 +250,25 @@ export function ProfessionalCard({
 }
 
 /**
- * Skeleton loader for ProfessionalCard
+ * Skeleton loader for ProfessionalCard - Airbnb style with shimmer
  */
-export function ProfessionalCardSkeleton({
-  size = "md",
-  className,
-}: {
-  size?: CardSize;
-  className?: string;
-}) {
-  const cardSizes = {
-    sm: "max-w-[240px]",
-    md: "max-w-[300px]",
-    lg: "max-w-[360px]",
-  };
-
-  const imageSizes = {
-    sm: "h-32",
-    md: "h-40",
-    lg: "h-48",
-  };
-
+export function ProfessionalCardSkeleton({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        "flex w-full flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white",
-        cardSizes[size],
-        className
-      )}
-    >
-      <div className={cn("w-full animate-pulse bg-neutral-200", imageSizes[size])} />
-      <div className="p-4">
-        <div className="mb-2 flex items-center justify-between">
-          <div className="h-5 w-32 animate-pulse rounded bg-neutral-200" />
-          <div className="h-4 w-12 animate-pulse rounded bg-neutral-200" />
+    <div className={cn("w-full", className)}>
+      {/* Image skeleton */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-200">
+        <div className="-translate-x-full absolute inset-0 animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      </div>
+
+      {/* Content skeleton */}
+      <div className="mt-3 space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="h-4 w-32 rounded bg-neutral-200" />
+          <div className="h-4 w-12 rounded bg-neutral-200" />
         </div>
-        <div className="mb-3 flex gap-1.5">
-          <div className="h-5 w-20 animate-pulse rounded-full bg-neutral-200" />
-          <div className="h-5 w-16 animate-pulse rounded-full bg-neutral-200" />
-        </div>
-        <div className="mb-3 h-4 w-24 animate-pulse rounded bg-neutral-200" />
-        <div className="mb-3 space-y-2">
-          <div className="h-4 w-full animate-pulse rounded bg-neutral-200" />
-          <div className="h-4 w-2/3 animate-pulse rounded bg-neutral-200" />
-        </div>
-        <div className="flex items-center justify-between border-neutral-100 border-t pt-3">
-          <div className="h-5 w-20 animate-pulse rounded bg-neutral-200" />
-          <div className="h-4 w-16 animate-pulse rounded bg-neutral-200" />
-        </div>
+        <div className="h-3.5 w-24 rounded bg-neutral-200" />
+        <div className="h-3.5 w-20 rounded bg-neutral-200" />
+        <div className="h-5 w-16 rounded bg-neutral-200" />
       </div>
     </div>
   );

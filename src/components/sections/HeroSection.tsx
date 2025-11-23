@@ -77,11 +77,11 @@ export function HeroSection() {
   const imageY = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
-  const heroTitle = "Trusted Household Staff for Expats in Latin America.";
+  const heroTitle = "Trusted Home Help for Expats in Latin America.";
   const heroSubtitle =
-    "From on-demand cleaning to full-time nannies. We handle the vetting, contracts, and payments so you can settle in with confidence.";
-  const primaryCta = "Book Instantly with Amara";
-  const secondaryCta = "Find Permanent Staff";
+    "Book verified cleaners, nannies, and household staff instantly. Background checks included. 15% service fee—professionals keep 100%.";
+  const primaryCta = "Find Help Now";
+  const secondaryCta = "How It Works";
 
   // Split title into words for staggered animation
   const titleWords = heroTitle.split(" ");
@@ -234,9 +234,9 @@ export function HeroSection() {
               >
                 <div>
                   <div className="font-semibold text-[13px] text-neutral-900">
-                    On-demand & permanent staffing
+                    Book instantly online
                   </div>
-                  <div className="text-neutral-500 text-xs">Vetted, insured, contract-ready</div>
+                  <div className="text-neutral-500 text-xs">Background checked & insured</div>
                 </div>
                 <motion.span
                   animate={{
@@ -250,7 +250,7 @@ export function HeroSection() {
                     ease: "easeInOut",
                   }}
                 >
-                  5-Day Matches
+                  15% Fee Only
                 </motion.span>
               </motion.div>
             </motion.div>

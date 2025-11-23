@@ -61,7 +61,6 @@ export {
 export {
   bookingEvents,
   clearMultiCountryContext,
-  conciergeEvents,
   funnelEvents,
   identifyUser,
   type MultiCountryContext,
@@ -71,6 +70,7 @@ export {
   resetUser,
   searchEvents,
   setUserProperties,
+  supportEvents,
   trackError,
   trackEvent,
   videoEvents,

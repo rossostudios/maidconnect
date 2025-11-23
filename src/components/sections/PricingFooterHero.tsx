@@ -32,8 +32,8 @@ export function PricingFooterHero() {
             keeps 100% of their hourly rate.
           </p>
           <p className="-mt-1 text-base text-white/85 sm:text-lg">
-            Whether it&apos;s a one-time booking via Amara or a permanent placement with a legal
-            contract, you&apos;ll always know exactly what you&apos;re paying for.
+            One simple 15% service fee. Book instantly, pay securely, and know exactly what
+            you&apos;re paying for.
           </p>
         </div>
 

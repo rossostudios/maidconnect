@@ -8,9 +8,8 @@ test.describe("Pricing and How It Works", () => {
     await expect(page.getByText("Service fee (customer pays)")).toBeVisible();
     await expect(page.getByText("Pros keep 100%", { exact: false })).toBeVisible();
 
-    // Comparison cards show 15% and 20% customer fees
+    // Single tier shows 15% customer fee
     await expect(page.getByText("15%", { exact: false })).toBeVisible();
-    await expect(page.getByText("20%", { exact: false })).toBeVisible();
 
     // No calculators should be present
     await expect(page.getByText(/calculator/i))
@@ -18,16 +17,15 @@ test.describe("Pricing and How It Works", () => {
       .catch(() => {});
   });
 
-  test("how-it-works CTA prioritizes concierge", async ({ page }) => {
+  test("how-it-works CTA leads to browse professionals", async ({ page }) => {
     await page.goto("/en/how-it-works");
 
-    // Main CTA buttons (Book Concierge first)
+    // Main CTA buttons - Browse Professionals is the primary action
     const ctaButtons = page
       .locator("section", { hasText: "Ready to Get Started" })
       .getByRole("link");
-    await expect(ctaButtons.nth(0)).toHaveText(/Book Concierge/i);
-    await expect(ctaButtons.nth(0)).toHaveAttribute("href", "/concierge");
-    await expect(ctaButtons.nth(1)).toHaveText(/Browse Professionals/i);
+    await expect(ctaButtons.nth(0)).toHaveText(/Browse Professionals/i);
+    await expect(ctaButtons.nth(0)).toHaveAttribute("href", "/professionals");
   });
 });
 

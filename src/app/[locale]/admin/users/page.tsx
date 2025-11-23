@@ -79,7 +79,7 @@ export default async function AdminUsersPage() {
     {
       label: "Customers",
       value: customerCount,
-      description: "Concierge clients",
+      description: "Active customers",
     },
     {
       label: "Admins",

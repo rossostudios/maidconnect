@@ -8,24 +8,23 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
 /**
- * PricingSection - simplified concierge pricing with Lia tokens
+ * PricingSection - simplified marketplace pricing with Lia tokens
  * Removes map animation, emphasizes guarantees, and locks copy to the 24px baseline.
  */
 export function PricingSection() {
   const t = useTranslations("home.pricing");
 
   const plan = {
-    name: "Concierge Service",
-    description: "Expert matching with white-glove service for foreigners in Colombia",
-    commission: 20,
+    name: "Marketplace",
+    description: "Find vetted professionals for your home with transparent pricing",
+    commission: 15,
     features: [
-      "Expert human matching based on your needs",
-      "English-speaking coordinators",
+      "Browse and book verified professionals instantly",
       "Thoroughly vetted, background-checked professionals",
-      "Priority booking and faster response",
       "Secure payment via Stripe with insurance",
+      "Real-time availability and instant booking",
+      "Customer support when you need it",
       "Satisfaction guarantee",
-      "24/7 dedicated support",
     ],
     ctaText: "Get Started",
     ctaHref: "/professionals",
@@ -41,12 +40,12 @@ export function PricingSection() {
       description: "Protected payments through Stripe with coverage for verified bookings.",
     },
     {
-      title: "5-day matching",
-      description: "Curated shortlists in under a week for most requests.",
+      title: "Instant booking",
+      description: "Book professionals directly with real-time availability.",
     },
     {
-      title: "Concierge support",
-      description: "Coordinators handle scheduling, replacements, and ongoing issues 24/7.",
+      title: "Customer support",
+      description: "Our team is here to help with scheduling, issues, and questions.",
     },
   ];
 
@@ -121,8 +120,8 @@ export function PricingSection() {
               What you get, every time
             </h3>
             <p className="mt-3 text-base text-neutral-600 leading-6">
-              We remove risk with hands-on vetting, insurance, and concierge support that stays with
-              you after the hire.
+              We remove risk with hands-on vetting, insurance, and customer support that stays with
+              you after the booking.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">

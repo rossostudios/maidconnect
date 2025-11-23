@@ -60,7 +60,6 @@ export type ProfessionalProfileDetail = {
   bookings: ProfessionalBookingSummary[];
   reviews: ProfessionalReviewSummary[];
   portfolioImages: ProfessionalPortfolioImage[];
-  directHireFeeCOP?: number | null;
   verification?: VerificationData;
   // Earnings badge
   shareEarningsBadge?: boolean;
@@ -179,12 +178,12 @@ export function ProfessionalProfileView({
           {t("backToDirectory")}
         </Link>
 
-        {/* Professional Hero Card */}
-        <div className="mt-8 overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
+        {/* Professional Hero Card - Airbnb-inspired design */}
+        <div className="mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm sm:p-10 md:p-12">
           <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
             <div
-              className="relative h-80 w-full overflow-hidden shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full"
+              className="relative h-80 w-full overflow-hidden rounded-xl shadow-sm md:h-full"
               data-testid="professional-avatar"
             >
               <Image
@@ -198,22 +197,22 @@ export function ProfessionalProfileView({
             {/* Info */}
             <div className="flex flex-col justify-center space-y-8">
               <div>
-                <h1 className="type-serif-lg text-[neutral-900] tracking-wide">
+                <h1 className="font-bold text-3xl text-neutral-900 tracking-tight">
                   {professional.name}
                 </h1>
-                <p className="mt-2 text-[neutral-400] text-xl">
+                <p className="mt-2 text-neutral-600 text-xl">
                   {professional.service ?? t("availableForBookings")}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 text-[neutral-400] text-base">
+              <div className="flex flex-wrap gap-6 text-base text-neutral-600">
                 <div className="flex items-center gap-2">
-                  <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={Location01Icon} />
+                  <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Location01Icon} />
                   <span>{locationLabel}</span>
                 </div>
                 {formattedRate && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={Clock01Icon} />
+                    <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Clock01Icon} />
                     <span>
                       {formattedRate} {t("perHour")}
                     </span>
@@ -221,27 +220,24 @@ export function ProfessionalProfileView({
                 )}
                 {professional.languages.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={Globe02Icon} />
+                    <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Globe02Icon} />
                     <span>{professional.languages.join(" / ")}</span>
                   </div>
                 )}
                 {professional.experienceYears !== null && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      className="h-5 w-5 text-[neutral-500]"
-                      icon={SecurityCheckIcon}
-                    />
+                    <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={SecurityCheckIcon} />
                     <span>{t("yearsExperience", { years: professional.experienceYears })}</span>
                   </div>
                 )}
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
                     <HugeiconsIcon
-                      className="h-5 w-5 fill-[neutral-500] text-[neutral-500]"
+                      className="h-5 w-5 fill-orange-500 text-orange-500"
                       icon={StarIcon}
                     />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
-                    <span className="text-[neutral-400]">
+                    <span className="text-neutral-500">
                       ({t("reviewsCount", { count: professional.reviews.length })})
                     </span>
                   </div>
@@ -264,7 +260,7 @@ export function ProfessionalProfileView({
                 )}
 
               {professional.availableToday && (
-                <div className="inline-flex w-fit items-center gap-2 bg-[neutral-500]/10 px-5 py-2.5 font-semibold text-[neutral-500] text-base">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-green-50 px-5 py-2.5 font-semibold text-base text-green-600">
                   <HugeiconsIcon className="h-5 w-5" icon={CalendarSetting01Icon} />
                   {t("availableToday")}
                 </div>
@@ -330,17 +326,17 @@ export function ProfessionalProfileView({
             />
           </div>
 
-          {/* Right: Info Tabs */}
+          {/* Right: Info Tabs - Airbnb-inspired design */}
           <aside className="space-y-8">
             {/* Tab Navigation - Horizontally scrollable on mobile */}
-            <div className="border border-[neutral-200] bg-[neutral-50] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="rounded-xl border border-neutral-200 bg-white shadow-sm">
               <div className="overflow-x-auto">
-                <div className="flex w-max border-[neutral-200] border-b md:w-full">
+                <div className="flex w-max border-neutral-200 border-b md:w-full">
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "about"
-                        ? "border-[neutral-500] border-b-2 text-[neutral-500]"
-                        : "text-[neutral-400] hover:text-[neutral-500]"
+                        ? "border-neutral-900 border-b-2 text-neutral-900"
+                        : "text-neutral-500 hover:text-neutral-700"
                     }`}
                     onClick={() => setActiveTab("about")}
                     type="button"
@@ -350,8 +346,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "services"
-                        ? "border-[neutral-500] border-b-2 text-[neutral-500]"
-                        : "text-[neutral-400] hover:text-[neutral-500]"
+                        ? "border-neutral-900 border-b-2 text-neutral-900"
+                        : "text-neutral-500 hover:text-neutral-700"
                     }`}
                     onClick={() => setActiveTab("services")}
                     type="button"
@@ -361,8 +357,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "portfolio"
-                        ? "border-[neutral-500] border-b-2 text-[neutral-500]"
-                        : "text-[neutral-400] hover:text-[neutral-500]"
+                        ? "border-neutral-900 border-b-2 text-neutral-900"
+                        : "text-neutral-500 hover:text-neutral-700"
                     }`}
                     onClick={() => setActiveTab("portfolio")}
                     type="button"
@@ -372,8 +368,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "reviews"
-                        ? "border-[neutral-500] border-b-2 text-[neutral-500]"
-                        : "text-[neutral-400] hover:text-[neutral-500]"
+                        ? "border-neutral-900 border-b-2 text-neutral-900"
+                        : "text-neutral-500 hover:text-neutral-700"
                     }`}
                     onClick={() => setActiveTab("reviews")}
                     type="button"
@@ -387,9 +383,9 @@ export function ProfessionalProfileView({
               <div className="p-8">
                 {activeTab === "about" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[neutral-900]">{t("tabs.about")}</h3>
+                    <h3 className="font-semibold text-2xl text-neutral-900">{t("tabs.about")}</h3>
                     <p
-                      className="text-[neutral-400] text-base leading-relaxed"
+                      className="text-base text-neutral-600 leading-relaxed"
                       data-testid="professional-bio"
                     >
                       {professional.bio ?? t("aboutSection.noBio")}
@@ -399,18 +395,18 @@ export function ProfessionalProfileView({
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[neutral-900]">
+                    <h3 className="font-semibold text-2xl text-neutral-900">
                       {t("servicesSection.title")}
                     </h3>
                     <div className="space-y-4">
                       {hasServices ? (
                         professional.services.map((service) => (
                           <div
-                            className="border border-[neutral-50] bg-[neutral-50] p-5"
+                            className="rounded-lg border border-neutral-200 bg-neutral-50 p-5"
                             key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                           >
                             <div className="flex flex-col gap-2">
-                              <div className="font-semibold text-[neutral-900] text-base">
+                              <div className="font-semibold text-base text-neutral-900">
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
                               {service.hourlyRateCop ? (
@@ -421,25 +417,25 @@ export function ProfessionalProfileView({
                                     showBreakdown={true}
                                   />
                                 ) : (
-                                  <div className="font-semibold text-[neutral-500] text-lg">
+                                  <div className="font-semibold text-lg text-orange-600">
                                     {formatCOPWithFallback(service.hourlyRateCop)}
                                   </div>
                                 )
                               ) : (
-                                <div className="font-semibold text-[neutral-500] text-lg">
+                                <div className="font-semibold text-lg text-neutral-500">
                                   {t("servicesSection.rateOnRequest")}
                                 </div>
                               )}
                             </div>
                             {service.description && (
-                              <p className="mt-2 text-[neutral-400] text-base">
+                              <p className="mt-2 text-base text-neutral-600">
                                 {service.description}
                               </p>
                             )}
                           </div>
                         ))
                       ) : (
-                        <p className="text-[neutral-400] text-base">
+                        <p className="text-base text-neutral-500">
                           {t("servicesSection.noServices")}
                         </p>
                       )}
@@ -449,13 +445,16 @@ export function ProfessionalProfileView({
 
                 {activeTab === "portfolio" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[neutral-900]">
+                    <h3 className="font-semibold text-2xl text-neutral-900">
                       {t("tabs.portfolio")}
                     </h3>
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
-                          <div className="relative aspect-square overflow-hidden" key={index}>
+                          <div
+                            className="relative aspect-square overflow-hidden rounded-lg"
+                            key={index}
+                          >
                             <Image
                               alt={image.caption || t("portfolioSection.imageAlt")}
                               className="object-cover"
@@ -466,23 +465,19 @@ export function ProfessionalProfileView({
                         ))}
                       </div>
                     ) : (
-                      <p className="text-[neutral-400] text-base">
-                        {t("portfolioSection.noImages")}
-                      </p>
+                      <p className="text-base text-neutral-500">{t("portfolioSection.noImages")}</p>
                     )}
                   </div>
                 )}
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[neutral-900]">
-                      {t("tabs.reviews")}
-                    </h3>
+                    <h3 className="font-semibold text-2xl text-neutral-900">{t("tabs.reviews")}</h3>
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
                           <div
-                            className="space-y-3 border-[neutral-200] border-b pb-6 last:border-b-0 last:pb-0"
+                            className="space-y-3 border-neutral-200 border-b pb-6 last:border-b-0 last:pb-0"
                             key={review.id}
                           >
                             <div className="flex items-center gap-2">
@@ -490,16 +485,16 @@ export function ProfessionalProfileView({
                                 <HugeiconsIcon
                                   className={`h-4 w-4 ${
                                     i < review.rating
-                                      ? "fill-[neutral-500] text-[neutral-500]"
-                                      : "text-[neutral-200]"
+                                      ? "fill-orange-500 text-orange-500"
+                                      : "text-neutral-200"
                                   }`}
                                   icon={StarIcon}
                                   key={i}
                                 />
                               ))}
                             </div>
-                            <p className="text-[neutral-400] text-base">{review.comment}</p>
-                            <p className="text-[neutral-400] text-sm">
+                            <p className="text-base text-neutral-700">{review.comment}</p>
+                            <p className="text-neutral-500 text-sm">
                               {review.reviewerName} ·{" "}
                               {new Date(review.createdAt).toLocaleDateString(
                                 locale === "es" ? "es-ES" : "en-US",
@@ -509,7 +504,7 @@ export function ProfessionalProfileView({
                           </div>
                         ))}
                         {professional.reviews.length > 3 && (
-                          <p className="text-[neutral-400] text-sm">
+                          <p className="text-neutral-500 text-sm">
                             {t("reviewsSection.moreReviews", {
                               count: professional.reviews.length - 3,
                             })}
@@ -517,9 +512,7 @@ export function ProfessionalProfileView({
                         )}
                       </div>
                     ) : (
-                      <p className="text-[neutral-400] text-base">
-                        {t("reviewsSection.noReviews")}
-                      </p>
+                      <p className="text-base text-neutral-500">{t("reviewsSection.noReviews")}</p>
                     )}
                   </div>
                 )}

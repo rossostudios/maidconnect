@@ -31,7 +31,7 @@ export function AnnouncementBanner() {
 
   useEffect(() => {
     // Check localStorage for dismissal
-    const dismissed = localStorage.getItem("concierge-banner-dismissed");
+    const dismissed = localStorage.getItem("announcement-banner-dismissed");
     if (dismissed) {
       setIsDismissed(true);
       return;
@@ -44,7 +44,7 @@ export function AnnouncementBanner() {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("concierge-banner-dismissed", "true");
+    localStorage.setItem("announcement-banner-dismissed", "true");
 
     // Set dismissed state after animation completes
     setTimeout(() => setIsDismissed(true), 400);

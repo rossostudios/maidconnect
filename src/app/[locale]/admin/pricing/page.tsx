@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Pricing Controls | Admin",
-  description: "Manage commission rates and concierge service pricing rules",
+  description: "Manage commission rates and marketplace pricing rules",
 };
 
 export default async function AdminPricingPage() {
@@ -25,7 +25,7 @@ export default async function AdminPricingPage() {
   const supabase = await createSupabaseServerClient();
 
   // Fetch all pricing controls
-  // Note: Commission structure applies to concierge-matched bookings
+  // Note: Commission structure applies to marketplace bookings
   const { data: pricingRules } = await supabase
     .from("pricing_controls")
     .select("*")
@@ -126,8 +126,8 @@ export default async function AdminPricingPage() {
               Pricing Controls
             </h1>
             <p className={cn("mt-1.5 text-neutral-700 text-sm tracking-wide", geistSans.className)}>
-              Set commission rates, deposits, and cancellation policies for concierge-matched
-              bookings. Changes apply immediately to all new bookings.
+              Set commission rates, deposits, and cancellation policies for marketplace bookings.
+              Changes apply immediately to all new bookings.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">

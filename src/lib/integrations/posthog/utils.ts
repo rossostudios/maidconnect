@@ -145,45 +145,25 @@ export const videoEvents = {
 };
 
 /**
- * Track concierge interaction events (Phase 1.4 - Human-Powered Support)
+ * Track customer support interaction events
  */
-export const conciergeEvents = {
-  /** Customer initiates chat with concierge team */
+export const supportEvents = {
+  /** Customer initiates chat with support team */
   chatStarted: (
     data: RequiredEventProperties & {
       source: "booking_flow" | "profile_page" | "help_center" | "direct";
       topic?: string;
     }
-  ) => trackEvent("Concierge Chat Started", data),
+  ) => trackEvent("Support Chat Started", data),
 
-  /** Customer requests white-glove concierge matching service (20% fee) */
-  serviceRequested: (
-    data: RequiredEventProperties & {
-      serviceType: string;
-      estimatedBudget?: string;
-      urgency: "immediate" | "within_week" | "within_month" | "flexible";
-    }
-  ) => trackEvent("Concierge Service Requested", data),
-
-  /** Concierge team completes a professional placement */
-  placementCompleted: (
-    data: RequiredEventProperties & {
-      placementId: string;
-      serviceType: string;
-      timeToPlacementDays: number;
-      conciergeFeeCents: number;
-    }
-  ) => trackEvent("Concierge Placement Completed", data),
-
-  /** Concierge reassigns a professional to resolve booking issues */
-  professionalReassigned: (
+  /** Customer support helps resolve booking issues */
+  issueResolved: (
     data: RequiredEventProperties & {
       bookingId: string;
-      originalProfessionalId: string;
-      newProfessionalId: string;
-      reason: string;
+      issueType: string;
+      resolution: string;
     }
-  ) => trackEvent("Concierge Professional Reassigned", data),
+  ) => trackEvent("Support Issue Resolved", data),
 };
 
 /**

@@ -34,9 +34,9 @@ export const featureHighlights = [
     tone: "bg-silver",
   },
   {
-    title: "Concierge-style matching",
+    title: "Smart professional matching",
     description:
-      "Share your preferences and routines. Our bilingual concierges shortlist the right fit and manage introductions.",
+      "Share your preferences and routines. Browse vetted professionals and book directly with real-time availability.",
     icon: MagicWand01Icon,
     tone: "bg-grey",
   },
@@ -194,7 +194,7 @@ export const productPillars = [
   {
     title: "Responsive booking workspace",
     description:
-      "Smart filters, real-time availability, and concierge coordination streamline scheduling across cities, property types, and service needs.",
+      "Smart filters, real-time availability, and instant booking streamline scheduling across cities, property types, and service needs.",
     icon: ClipboardIcon,
   },
   {
@@ -228,7 +228,7 @@ export const operationsHighlights = [
       "Time-boxed investigations, insurance coverage, and escalation paths safeguard both properties and professionals.",
   },
   {
-    title: "Bilingual concierge support",
+    title: "Bilingual customer support",
     description:
       "WhatsApp, in-app chat, and emergency lines offer 24/7 coverage with cultural sensitivity training baked into every interaction.",
   },
@@ -239,7 +239,7 @@ export const useCaseFlows = [
     name: "Customer · Search & book",
     persona: "Relocating households and expats",
     summary:
-      "Discover bilingual professionals, compare transparent profiles, and confirm visits with concierge oversight.",
+      "Discover bilingual professionals, compare transparent profiles, and confirm visits instantly.",
     steps: [
       "Search by service, city, and schedule preferences.",
       "Review vetted profiles with ratings, rates, and availability.",
@@ -264,7 +264,7 @@ export const useCaseFlows = [
       "Submit documents, schedule interviews, capture photography, and launch a conversion-ready profile.",
     steps: [
       "Complete bilingual application with references and documents.",
-      "Pass background checks and attend concierge interview.",
+      "Pass background checks and attend verification interview.",
       "Collaborate on profile content and go live within 24 hours of shoot.",
     ],
   },
