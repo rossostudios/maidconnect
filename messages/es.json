@@ -47,7 +47,23 @@
         "blogDesc": "Noticias, consejos e información del sector",
         "careers": "Carreras",
         "careersDesc": "Únete a nuestro equipo en crecimiento"
+      },
+      "join": {
+        "title": "Únete",
+        "featuredDesc": "Construye tu carrera o amplía tu red con Casaora.",
+        "becomePro": "Ser Profesional",
+        "becomeProDesc": "Únete a nuestra red de profesionales verificados",
+        "ambassador": "Programa de Embajadores",
+        "ambassadorDesc": "Gana recompensas refiriendo profesionales"
       }
+    },
+    "desktopMenu": {
+      "helpCenter": "Centro de Ayuda",
+      "becomePro": "Ser Profesional",
+      "becomeProDesc": "Únete a nuestra red de profesionales verificados",
+      "ambassador": "Programa de Embajadores",
+      "ambassadorDesc": "Gana recompensas refiriendo profesionales",
+      "loginSignup": "Iniciar sesión o registrarse"
     }
   },
   "professionals": {
@@ -624,6 +640,7 @@
         },
         "details": "Detalles",
         "noBookings": "No hay reservas programadas para este día.",
+        "selectDate": "Selecciona una fecha para ver las reservas",
         "booking": "reserva",
         "bookings": "reservas",
         "timeTbd": "Hora por definir",
@@ -1872,6 +1889,10 @@
     "loginSignup": "Iniciar sesión / Registrarse",
     "applyProfessional": "Aplicar como Profesional",
     "careers": "Carreras",
+    "joinUs": "Únete",
+    "becomePro": "Ser Profesional",
+    "ambassador": "Programa de Embajadores",
+    "browsePros": "Ver Profesionales",
     "support": "Soporte",
     "iosApp": "App iOS",
     "androidApp": "App Android",
@@ -2658,15 +2679,11 @@
       },
       "hero": {
         "title": "Crea tu cuenta de Casaora",
-        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
+        "description": "Regístrate para reservar profesionales del hogar verificados. Encuentra ayuda de confianza para tu hogar en minutos."
       },
       "form": {
-        "accountTypeLabel": "Tipo de cuenta",
-        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar Casaora.",
-        "customerLabel": "Cliente",
-        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
-        "professionalLabel": "Profesional",
-        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
+        "professionalCallout": "¿Eres un profesional del hogar que busca unirse a nuestra red?",
+        "professionalCalloutLink": "Aplica como Profesional",
         "fullNameLabel": "Nombre completo",
         "fullNamePlaceholder": "Andrea Martínez",
         "phoneLabel": "Teléfono",
@@ -4386,6 +4403,330 @@
     "currency": {
       "title": "Elige una moneda",
       "description": "Los precios se mostrarán en la moneda seleccionada."
+    }
+  },
+  "becomeAPro": {
+    "title": "Conviértete en un Profesional Casaora",
+    "subtitle": "Únete a la plataforma líder para profesionales del hogar en América Latina",
+    "hero": {
+      "title": "Convierte tus habilidades en ingresos",
+      "subtitle": "Únete a miles de profesionales verificados que ganan en sus propios términos",
+      "primaryCTA": "Aplicar Ahora",
+      "secondaryCTA": "Saber Más"
+    },
+    "benefits": {
+      "title": "¿Por qué unirte a Casaora?",
+      "subtitle": "Todo lo que necesitas para construir un negocio exitoso de servicios del hogar",
+      "flexibleSchedule": {
+        "title": "Horario Flexible",
+        "description": "Trabaja cuando quieras. Establece tu propia disponibilidad y acepta trabajos que se ajusten a tu vida."
+      },
+      "competitivePay": {
+        "title": "Pago Competitivo",
+        "description": "Quédate con el 100% de tu tarifa. Solo cobramos a los clientes una comisión del 15%."
+      },
+      "safePayments": {
+        "title": "Pagos Seguros",
+        "description": "Recibe pagos de forma segura a través de la app. Sin manejo de efectivo, sin perseguir pagos."
+      },
+      "growYourBusiness": {
+        "title": "Haz Crecer tu Negocio",
+        "description": "Construye tu reputación con reseñas y sé descubierto por más clientes."
+      },
+      "professionalSupport": {
+        "title": "Soporte Profesional",
+        "description": "Acceso a capacitación, recursos y un equipo de soporte dedicado."
+      },
+      "insurance": {
+        "title": "Cobertura de Seguro",
+        "description": "Trabaja con tranquilidad. Cobertura de responsabilidad incluida en cada trabajo."
+      }
+    },
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "subtitle": "Comienza en 3 simples pasos",
+      "step1": {
+        "title": "Aplica en Línea",
+        "description": "Completa tu aplicación en minutos. Cuéntanos sobre tu experiencia y servicios."
+      },
+      "step2": {
+        "title": "Verifícate",
+        "description": "Completa nuestro proceso de verificación de antecedentes e identidad."
+      },
+      "step3": {
+        "title": "Comienza a Ganar",
+        "description": "Establece tus tarifas, disponibilidad y comienza a aceptar reservas."
+      }
+    },
+    "earnings": {
+      "title": "Gana en tus términos",
+      "subtitle": "Los profesionales de Casaora ganan tarifas competitivas en toda América Latina",
+      "hourlyRate": "Tarifa promedio por hora",
+      "weeklyEarnings": "Potencial semanal",
+      "disclaimer": "Las ganancias varían según ubicación, experiencia y horas trabajadas"
+    },
+    "testimonials": {
+      "title": "Escucha a nuestros profesionales",
+      "subtitle": "Únete a miles de profesionales felices en Casaora"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre convertirte en un Profesional Casaora",
+      "q1": {
+        "question": "¿Cuánto cuesta unirse?",
+        "answer": "Unirte a Casaora es completamente gratis. No hay cuotas de inscripción ni cargos mensuales. Solo tomamos una comisión del 15% de los clientes, no de tus ganancias."
+      },
+      "q2": {
+        "question": "¿Qué servicios puedo ofrecer?",
+        "answer": "Puedes ofrecer limpieza, cuidado de niños, cocina, cuidado de adultos mayores, cuidado de mascotas, jardinería, mantenimiento del hogar y más. Elige los servicios que coincidan con tus habilidades."
+      },
+      "q3": {
+        "question": "¿Cómo funciona la verificación?",
+        "answer": "Nuestro proceso de verificación incluye verificación de identidad, antecedentes y validación de referencias. Esto ayuda a generar confianza con los clientes y mantener a todos seguros."
+      },
+      "q4": {
+        "question": "¿Cómo me pagan?",
+        "answer": "Los pagos se procesan de forma segura a través de la app. Puedes retirar tus ganancias a tu cuenta bancaria, con pagos procesados cada martes y viernes."
+      },
+      "q5": {
+        "question": "¿Puedo establecer mis propias tarifas?",
+        "answer": "¡Sí! Tienes control total sobre tus tarifas por hora. Proporcionamos información del mercado para ayudarte a establecer precios competitivos."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únete a miles de profesionales que ya están ganando en Casaora",
+      "button": "Aplicar Ahora"
+    },
+    "signup": {
+      "title": "Crea tu cuenta profesional",
+      "subtitle": "Comienza tu camino como Profesional Casaora",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión",
+      "hero": {
+        "title": "Únete a miles de profesionales verificados",
+        "subtitle": "Construye tu negocio en la plataforma de servicios del hogar más confiable de América Latina",
+        "benefit1": "Quédate con el 100% de tu tarifa",
+        "benefit2": "Horario flexible, tú tienes el control",
+        "benefit3": "Pagos seguros, sin perseguir clientes"
+      },
+      "terms": {
+        "prefix": "Al registrarte, aceptas nuestros",
+        "termsLink": "Términos de Servicio",
+        "and": "y",
+        "privacyLink": "Política de Privacidad"
+      },
+      "form": {
+        "sections": {
+          "basicInfo": "Información Básica",
+          "professionalInfo": "Detalles Profesionales",
+          "security": "Seguridad"
+        },
+        "fullNameLabel": "Nombre completo",
+        "fullNamePlaceholder": "Ingresa tu nombre completo",
+        "phoneLabel": "Número de teléfono",
+        "phonePlaceholder": "+57 300 123 4567",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "countryLabel": "País",
+        "countryPlaceholder": "Selecciona tu país",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Ingresa tu ciudad",
+        "primaryServiceLabel": "Servicio principal",
+        "primaryServicePlaceholder": "Selecciona tu servicio principal",
+        "experienceLabel": "Años de experiencia",
+        "experiencePlaceholder": "Selecciona nivel de experiencia",
+        "availabilityLabel": "Disponibilidad",
+        "availabilityPlaceholder": "Selecciona tu disponibilidad",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Crea una contraseña (mín. 8 caracteres)",
+        "confirmPasswordLabel": "Confirmar contraseña",
+        "confirmPasswordPlaceholder": "Confirma tu contraseña",
+        "preferredLanguageLabel": "Idioma preferido",
+        "preferredLanguagePlaceholder": "Selecciona idioma",
+        "createAccountButton": "Crear Cuenta Profesional",
+        "creatingAccountButton": "Creando cuenta...",
+        "successMessage": "¡Cuenta creada! Por favor revisa tu correo para verificar tu cuenta.",
+        "referralApplied": "Código de referido aplicado:",
+        "services": {
+          "housekeeping": "Limpieza del hogar",
+          "childcare": "Cuidado de niños",
+          "cooking": "Cocina / Chef privado",
+          "eldercare": "Cuidado de adultos mayores",
+          "petcare": "Cuidado de mascotas",
+          "gardening": "Jardinería",
+          "maintenance": "Mantenimiento del hogar",
+          "other": "Otro"
+        },
+        "experienceLevels": {
+          "0-1": "Menos de 1 año",
+          "1-3": "1-3 años",
+          "3-5": "3-5 años",
+          "5-10": "5-10 años",
+          "10+": "10+ años"
+        },
+        "availabilityOptions": {
+          "full-time": "Tiempo completo",
+          "part-time": "Medio tiempo",
+          "weekends": "Solo fines de semana",
+          "flexible": "Flexible"
+        }
+      }
+    }
+  },
+  "ambassadors": {
+    "hero": {
+      "badge": "Programa de Embajadores",
+      "title": "Gana $15 por Cada Profesional que Refieras",
+      "subtitle": "Únete al Programa de Embajadores de Casaora y gana recompensas por conectar profesionales de servicios del hogar talentosos con nuestra plataforma.",
+      "cta": "Aplica Ahora",
+      "learnMore": "Cómo Funciona"
+    },
+    "howItWorks": {
+      "title": "Cómo Funciona",
+      "subtitle": "Empieza a ganar en tres simples pasos",
+      "step1": {
+        "title": "Aplica para Convertirte en Embajador",
+        "description": "Llena nuestra aplicación simple. Dinos sobre ti y cómo puedes ayudar a conectar profesionales."
+      },
+      "step2": {
+        "title": "Comparte Tu Enlace Único",
+        "description": "Una vez aprobado, recibe tu código de referido personalizado para compartir con profesionales de servicios del hogar."
+      },
+      "step3": {
+        "title": "Gana Recompensas",
+        "description": "Cuando un profesional referido complete su primer trabajo en Casaora, ganarás $15. Sin límites de ganancias."
+      }
+    },
+    "rewards": {
+      "title": "Tus Recompensas",
+      "subtitle": "Gana por cada referido exitoso",
+      "perReferral": "Por referido exitoso",
+      "paidWhen": "Pagado cuando tu referido completa su primer trabajo",
+      "noLimit": "Sin límite de cuánto puedes ganar",
+      "fastPayout": "Pagos rápidos directamente a tu cuenta"
+    },
+    "whoCanJoin": {
+      "title": "¿Quién Puede Unirse?",
+      "subtitle": "Buscamos socios que puedan conectarnos con profesionales de servicios del hogar de calidad",
+      "profiles": {
+        "realtor": {
+          "title": "Agentes de Bienes Raíces",
+          "description": "Ayuda a tus clientes a encontrar servicios de hogar confiables mientras ganas recompensas."
+        },
+        "lawyer": {
+          "title": "Abogados y Contadores",
+          "description": "Recomienda servicios de hogar profesionales a clientes que están estableciendo nuevos hogares."
+        },
+        "propertyManager": {
+          "title": "Administradores de Propiedades",
+          "description": "Conecta a los inquilinos con proveedores de servicios confiables para sus necesidades del hogar."
+        },
+        "communityLeader": {
+          "title": "Líderes Comunitarios",
+          "description": "Ayuda a las personas en tu comunidad a encontrar oportunidades de trabajo significativas."
+        }
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": {
+        "whoCanApply": {
+          "question": "¿Quién puede convertirse en embajador?",
+          "answer": "Cualquier profesional que se conecte regularmente con trabajadores de servicios del hogar puede aplicar. Esto incluye agentes de bienes raíces, abogados, contadores, administradores de propiedades, líderes comunitarios, bloggers e influencers."
+        },
+        "howMuchEarn": {
+          "question": "¿Cuánto puedo ganar?",
+          "answer": "Ganas $15 por cada profesional de servicios del hogar que refieras cuando complete su primer trabajo en Casaora. No hay límite de cuántas personas puedes referir."
+        },
+        "whenPaid": {
+          "question": "¿Cuándo me pagan?",
+          "answer": "Los pagos se procesan después de que tu profesional referido completa exitosamente su primer trabajo en Casaora. Los pagos típicamente se procesan dentro de 7-10 días hábiles."
+        },
+        "howTrack": {
+          "question": "¿Cómo rastrea mis referidos?",
+          "answer": "Una vez aprobado, tendrás acceso a un panel de embajador donde puedes ver todos tus referidos, su estado y tus ganancias."
+        },
+        "countriesAvailable": {
+          "question": "¿En qué países está disponible el programa?",
+          "answer": "El Programa de Embajadores está actualmente disponible en Colombia, Paraguay, Uruguay y Argentina."
+        }
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Empezar a Ganar?",
+      "subtitle": "Únete a nuestra comunidad de embajadores y comienza a ganar recompensas por conectar profesionales talentosos con Casaora.",
+      "button": "Aplica para Convertirte en Embajador"
+    },
+    "apply": {
+      "hero": {
+        "badge": "Solicitud de Embajador",
+        "title": "Únete a Nuestra Red de Embajadores",
+        "subtitle": "Gana $15 por cada profesional que refieras cuando completen su primer trabajo.",
+        "benefit1": "Sin cuota de membresía",
+        "benefit2": "Potencial de ganancias ilimitadas",
+        "benefit3": "Acceso al panel de seguimiento",
+        "rewardLabel": "Gana por referido",
+        "rewardSubtext": "por cada referido exitoso"
+      },
+      "title": "Aplicación de Embajador",
+      "subtitle": "Completa el formulario a continuación para aplicar al programa de embajadores.",
+      "learnMore": "Más información",
+      "terms": {
+        "prefix": "Al enviar, aceptas nuestros",
+        "termsLink": "Términos de Servicio",
+        "and": "y",
+        "privacyLink": "Política de Privacidad"
+      },
+      "form": {
+        "sections": {
+          "contact": "Información de Contacto",
+          "professional": "Información Profesional",
+          "motivation": "Tu Motivación"
+        },
+        "fullNameLabel": "Nombre completo",
+        "fullNamePlaceholder": "Ingresa tu nombre completo",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "phoneLabel": "Número de teléfono",
+        "phonePlaceholder": "+57 300 123 4567",
+        "countryLabel": "País",
+        "countryPlaceholder": "Selecciona tu país",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Ingresa tu ciudad",
+        "professionLabel": "Tu Profesión",
+        "professionPlaceholder": "Selecciona tu profesión",
+        "professions": {
+          "realtor": "Agente de Bienes Raíces",
+          "lawyer": "Abogado",
+          "accountant": "Contador",
+          "interior_designer": "Diseñador de Interiores",
+          "property_manager": "Administrador de Propiedades",
+          "blogger": "Blogger / Influencer",
+          "community_leader": "Líder Comunitario",
+          "other": "Otro"
+        },
+        "companyNameLabel": "Nombre de la Empresa (Opcional)",
+        "companyNamePlaceholder": "El nombre de tu empresa",
+        "referralReachLabel": "¿Cuántos profesionales podrías referir por mes?",
+        "referralReachPlaceholder": "Selecciona alcance estimado",
+        "referralReachOptions": {
+          "1-5": "1-5 profesionales",
+          "6-15": "6-15 profesionales",
+          "16-30": "16-30 profesionales",
+          "31+": "31+ profesionales"
+        },
+        "socialMediaLabel": "Enlace de Redes Sociales (Opcional)",
+        "socialMediaPlaceholder": "https://linkedin.com/in/tu-perfil",
+        "motivationLabel": "¿Por qué quieres convertirte en embajador?",
+        "motivationPlaceholder": "Cuéntanos sobre tu conexión con profesionales de servicios del hogar y por qué serías un gran embajador...",
+        "termsLabel": "Acepto los",
+        "termsLink": "Términos del Programa de Embajadores",
+        "submitButton": "Enviar Solicitud",
+        "submittingButton": "Enviando...",
+        "successTitle": "¡Solicitud Enviada!",
+        "successMessage": "Gracias por aplicar para convertirte en Embajador de Casaora. Revisaremos tu solicitud y nos comunicaremos contigo pronto."
+      }
     }
   }
 }

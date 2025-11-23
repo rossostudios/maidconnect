@@ -26,10 +26,10 @@ export const GET = withAuth(async ({ user, supabase }) => {
       *,
       booking:bookings!conversations_booking_id_fkey(
         id,
-        scheduled_date,
-        scheduled_start_time,
-        scheduled_end_time,
-        status
+        scheduled_start,
+        scheduled_end,
+        status,
+        service_name
       ),
       customer:profiles!conversations_customer_id_fkey(
         id,
@@ -102,7 +102,7 @@ export const POST = withAuth(async ({ user, supabase }, request: Request) => {
     throw forbidden("Not authorized for this booking");
   }
 
-  // Create conversation
+  // Create conversation (participant_ids is auto-generated from customer_id + professional_id)
   const { data: conversation, error: createError } = await supabase
     .from("conversations")
     .insert({

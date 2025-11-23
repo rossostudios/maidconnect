@@ -13,6 +13,7 @@ import { Suspense } from "react";
 import { geistSans } from "@/app/fonts";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
+import { TodayOverview } from "@/components/professional/today-tab";
 import { WalletEarningsSummary } from "@/components/professionals/wallet-earnings-summary";
 import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
 import {
@@ -44,7 +45,7 @@ type ProfessionalBookingRow = {
   checked_out_at: string | null;
   time_extension_minutes: number | null;
   address: Record<string, any> | null;
-  customer: { id: string } | null;
+  customer: { id: string; full_name?: string } | null;
 };
 
 type CompletedBooking = {
@@ -128,12 +129,19 @@ export default async function ProfessionalDashboardPage() {
     .from("bookings")
     .select(
       `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name, service_hourly_rate, checked_in_at, checked_out_at, time_extension_minutes, address,
-      customer:profiles!customer_id(id)`
+      customer:profiles!customer_id(id, full_name)`
     )
     .eq("professional_id", user.id)
     .order("created_at", { ascending: false });
 
   const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
+
+  // Get unread message count for Today tab
+  const { count: unreadMessagesCount } = await supabase
+    .from("messages")
+    .select("*", { count: "exact", head: true })
+    .eq("receiver_id", user.id)
+    .eq("is_read", false);
 
   const { data: customerReviewsData } = await supabase
     .from("customer_reviews")
@@ -147,56 +155,29 @@ export default async function ProfessionalDashboardPage() {
   const metrics = calculateMetrics(bookings);
   const { activeBookings, pendingBookings, completedThisWeek, weeklyEarnings } = metrics;
 
+  // Calculate pending reviews count
+  const pendingReviewsCount = completedBookings.filter((b) => !b.hasReview).length;
+
   return (
     <>
       <NotificationPermissionPrompt variant="banner" />
 
       <div className="space-y-8">
-        {/* Page Header */}
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className={cn("font-bold text-3xl text-neutral-900", geistSans.className)}>
-              Good morning, {userName}
-            </h1>
-            <p
-              className={cn(
-                "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
-                geistSans.className
-              )}
-            >
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-          </div>
-        </div>
-
-        {/* Metrics Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <LiaMetricCard
-            icon={UserMultiple02Icon}
-            label="Pending Assignments"
-            value={pendingBookings.toString()}
-          />
-          <LiaMetricCard
-            icon={Calendar03Icon}
-            label="Active Bookings"
-            value={activeBookings.toString()}
-          />
-          <LiaMetricCard
-            icon={Clock01Icon}
-            label="Completed This Week"
-            value={completedThisWeek.toString()}
-          />
-          <LiaMetricCard
-            icon={DollarCircleIcon}
-            label="Weekly Earnings"
-            value={formatCOPWithFallback(weeklyEarnings)}
-          />
-        </div>
+        {/* Airbnb-Inspired Today Tab */}
+        <TodayOverview
+          bookings={bookings.map((b) => ({
+            id: b.id,
+            status: b.status,
+            scheduled_start: b.scheduled_start,
+            scheduled_end: b.scheduled_end,
+            duration_minutes: b.duration_minutes,
+            service_name: b.service_name,
+            customer: b.customer,
+          }))}
+          pendingMessages={unreadMessagesCount ?? 0}
+          pendingReviews={pendingReviewsCount}
+          userName={userName}
+        />
 
         {/* Career Earnings & Achievement Badge */}
         <WalletEarningsSummary />

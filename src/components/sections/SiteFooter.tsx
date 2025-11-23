@@ -31,8 +31,16 @@ export function SiteFooter() {
       links: [
         { href: "/about", label: t("about") },
         { href: "/blog", label: "Blog" },
-        { href: "/pros", label: "For Professionals" },
+        { href: "/careers", label: t("careers") },
         { href: "/changelog", label: "What's New" },
+      ],
+    },
+    {
+      title: t("joinUs"),
+      links: [
+        { href: "/become-a-pro", label: t("becomePro") },
+        { href: "/ambassadors", label: t("ambassador") },
+        { href: "/pros", label: t("browsePros") },
       ],
     },
     {

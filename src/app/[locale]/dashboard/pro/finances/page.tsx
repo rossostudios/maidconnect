@@ -1,6 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
+import { EarningsComparison } from "@/components/finances/earnings-comparison";
 import { FinancesOverview } from "@/components/finances/finances-overview";
 import { FinancesPageClient } from "@/components/finances/finances-page-client";
 import { requireUser } from "@/lib/auth";
@@ -46,17 +47,21 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
             ? "ARS"
             : "COP"; // Default to COP for backward compatibility
 
-  // Fetch bookings data for charts
+  // Fetch all bookings data for charts and YoY comparison
+  // Need all statuses for gross vs net breakdown (pending/confirmed) and YoY comparison (completed)
   const { data: bookingsData } = await supabase
     .from("bookings")
     .select(
       "id, status, scheduled_start, amount_captured, amount_authorized, currency, service_name, created_at"
     )
     .eq("professional_id", user.id)
-    .eq("status", "completed")
+    .in("status", ["completed", "confirmed", "pending"])
     .order("scheduled_start", { ascending: true });
 
   const bookings = (bookingsData as BookingRow[] | null) ?? [];
+
+  // Filter completed bookings for the overview charts
+  const completedBookings = bookings.filter((b) => b.status === "completed");
 
   // Fetch payouts data for charts
   const { data: payoutsData } = await supabase
@@ -91,8 +96,11 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
       {/* Client-side instant payout UI (balance card, modal, payout history) */}
       <FinancesPageClient currencyCode={currencyCode} />
 
+      {/* Airbnb-inspired YoY comparison and gross vs net breakdown */}
+      <EarningsComparison bookings={bookings} currencyCode={currencyCode} />
+
       {/* Server-side overview charts */}
-      <FinancesOverview bookings={bookings} currencyCode={currencyCode} payouts={payouts} />
+      <FinancesOverview bookings={completedBookings} currencyCode={currencyCode} payouts={payouts} />
     </div>
   );
 }

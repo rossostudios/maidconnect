@@ -47,7 +47,23 @@
         "blogDesc": "News, tips, and industry insights",
         "careers": "Careers",
         "careersDesc": "Join our growing team"
+      },
+      "join": {
+        "title": "Join",
+        "featuredDesc": "Build your career or grow your network with Casaora.",
+        "becomePro": "Become a Pro",
+        "becomeProDesc": "Join our network of vetted professionals",
+        "ambassador": "Ambassador Program",
+        "ambassadorDesc": "Earn rewards by referring professionals"
       }
+    },
+    "desktopMenu": {
+      "helpCenter": "Help Center",
+      "becomePro": "Become a Pro",
+      "becomeProDesc": "Join our network of verified professionals",
+      "ambassador": "Ambassador Program",
+      "ambassadorDesc": "Earn rewards by referring professionals",
+      "loginSignup": "Log in or sign up"
     }
   },
   "professionals": {
@@ -393,6 +409,7 @@
         },
         "details": "Details",
         "noBookings": "No bookings scheduled for this day.",
+        "selectDate": "Select a date to view bookings",
         "booking": "booking",
         "bookings": "bookings",
         "timeTbd": "Time TBD",
@@ -2002,6 +2019,10 @@
     "loginSignup": "Login / Signup",
     "applyProfessional": "Join Our Network",
     "careers": "Careers",
+    "joinUs": "Join Us",
+    "becomePro": "Become a Pro",
+    "ambassador": "Ambassador Program",
+    "browsePros": "Browse Professionals",
     "support": "Support",
     "iosApp": "iOS App",
     "androidApp": "Android App",
@@ -2751,15 +2772,11 @@
       },
       "hero": {
         "title": "Create your Casaora account",
-        "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
+        "description": "Sign up to book pre-vetted home service professionals. Find trusted help for your household in minutes."
       },
       "form": {
-        "accountTypeLabel": "Account type",
-        "accountTypeHelper": "Choose the experience that best matches how you plan to use Casaora.",
-        "customerLabel": "Customer",
-        "customerDescription": "Book pre-vetted professionals for your home.",
-        "professionalLabel": "Professional",
-        "professionalDescription": "Manage your profile, bookings, and payouts.",
+        "professionalCallout": "Are you a home service professional looking to join our network?",
+        "professionalCalloutLink": "Apply as a Professional",
         "fullNameLabel": "Full name",
         "fullNamePlaceholder": "Andrea Martínez",
         "phoneLabel": "Phone",
@@ -4612,6 +4629,365 @@
     "currency": {
       "title": "Choose a currency",
       "description": "Prices will be shown in your selected currency for display purposes."
+    }
+  },
+  "becomeAPro": {
+    "title": "Become a Casaora Pro",
+    "subtitle": "Join the leading platform for home service professionals in Latin America",
+    "hero": {
+      "title": "Turn your skills into income",
+      "subtitle": "Join thousands of verified professionals earning on their terms",
+      "primaryCTA": "Apply Now",
+      "secondaryCTA": "Learn More"
+    },
+    "benefits": {
+      "title": "Why join Casaora?",
+      "subtitle": "Everything you need to build a successful home service business",
+      "flexibleSchedule": {
+        "title": "Flexible Schedule",
+        "description": "Work when you want. Set your own availability and accept jobs that fit your life."
+      },
+      "competitivePay": {
+        "title": "Competitive Pay",
+        "description": "Keep 100% of your rate. We only charge clients a 15% service fee."
+      },
+      "safePayments": {
+        "title": "Safe Payments",
+        "description": "Get paid securely through the app. No cash handling, no chasing payments."
+      },
+      "growYourBusiness": {
+        "title": "Grow Your Business",
+        "description": "Build your reputation with reviews and get discovered by more clients."
+      },
+      "professionalSupport": {
+        "title": "Professional Support",
+        "description": "Access to training, resources, and a dedicated support team."
+      },
+      "insurance": {
+        "title": "Insurance Coverage",
+        "description": "Work with peace of mind. Liability coverage included on every job."
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "Get started in 3 simple steps",
+      "step1": {
+        "title": "Apply Online",
+        "description": "Fill out your application in minutes. Tell us about your experience and services."
+      },
+      "step2": {
+        "title": "Get Verified",
+        "description": "Complete our background check and ID verification process."
+      },
+      "step3": {
+        "title": "Start Earning",
+        "description": "Set your rates, availability, and start accepting bookings."
+      }
+    },
+    "earnings": {
+      "title": "Earn on your terms",
+      "subtitle": "Casaora professionals earn competitive rates across Latin America",
+      "hourlyRate": "Average hourly rate",
+      "weeklyEarnings": "Weekly potential",
+      "disclaimer": "Earnings vary based on location, experience, and hours worked"
+    },
+    "testimonials": {
+      "title": "Hear from our professionals",
+      "subtitle": "Join thousands of happy professionals on Casaora"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about becoming a Casaora Pro",
+      "q1": {
+        "question": "How much does it cost to join?",
+        "answer": "Joining Casaora is completely free. There are no signup fees or monthly charges. We only take a 15% service fee from clients, not from your earnings."
+      },
+      "q2": {
+        "question": "What services can I offer?",
+        "answer": "You can offer housekeeping, childcare, cooking, eldercare, pet care, gardening, home maintenance, and more. Choose the services that match your skills."
+      },
+      "q3": {
+        "question": "How does verification work?",
+        "answer": "Our verification process includes ID verification, background checks, and reference validation. This helps build trust with clients and keeps everyone safe."
+      },
+      "q4": {
+        "question": "How do I get paid?",
+        "answer": "Payments are processed securely through the app. You can withdraw your earnings to your bank account, with payouts processed every Tuesday and Friday."
+      },
+      "q5": {
+        "question": "Can I set my own rates?",
+        "answer": "Yes! You have full control over your hourly rates. We provide market insights to help you price competitively."
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join thousands of professionals already earning on Casaora",
+      "button": "Apply Now"
+    },
+    "signup": {
+      "title": "Create your professional account",
+      "subtitle": "Start your journey as a Casaora Pro",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "hero": {
+        "title": "Join thousands of verified professionals",
+        "subtitle": "Build your business on Latin America's trusted home services platform",
+        "benefit1": "Keep 100% of your rate",
+        "benefit2": "Flexible schedule, you're in control",
+        "benefit3": "Secure payments, no chasing clients"
+      },
+      "terms": {
+        "prefix": "By signing up, you agree to our",
+        "termsLink": "Terms of Service",
+        "and": "and",
+        "privacyLink": "Privacy Policy"
+      },
+      "form": {
+        "sections": {
+          "basicInfo": "Basic Information",
+          "professionalInfo": "Professional Details",
+          "security": "Security"
+        },
+        "fullNameLabel": "Full name",
+        "fullNamePlaceholder": "Enter your full name",
+        "phoneLabel": "Phone number",
+        "phonePlaceholder": "+57 300 123 4567",
+        "emailLabel": "Email address",
+        "emailPlaceholder": "you@example.com",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Select your country",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter your city",
+        "primaryServiceLabel": "Primary service",
+        "primaryServicePlaceholder": "Select your main service",
+        "experienceLabel": "Years of experience",
+        "experiencePlaceholder": "Select experience level",
+        "availabilityLabel": "Availability",
+        "availabilityPlaceholder": "Select your availability",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Create a password (min. 8 characters)",
+        "confirmPasswordLabel": "Confirm password",
+        "confirmPasswordPlaceholder": "Confirm your password",
+        "preferredLanguageLabel": "Preferred language",
+        "preferredLanguagePlaceholder": "Select language",
+        "createAccountButton": "Create Professional Account",
+        "creatingAccountButton": "Creating account...",
+        "successMessage": "Account created! Please check your email to verify your account.",
+        "referralApplied": "Referral code applied:",
+        "services": {
+          "housekeeping": "Housekeeping",
+          "childcare": "Childcare",
+          "cooking": "Cooking / Private Chef",
+          "eldercare": "Elder Care",
+          "petcare": "Pet Care",
+          "gardening": "Gardening",
+          "maintenance": "Home Maintenance",
+          "other": "Other"
+        },
+        "experienceLevels": {
+          "0-1": "Less than 1 year",
+          "1-3": "1-3 years",
+          "3-5": "3-5 years",
+          "5-10": "5-10 years",
+          "10+": "10+ years"
+        },
+        "availabilityOptions": {
+          "full-time": "Full-time",
+          "part-time": "Part-time",
+          "weekends": "Weekends only",
+          "flexible": "Flexible"
+        }
+      }
+    }
+  },
+  "ambassadors": {
+    "hero": {
+      "badge": "Ambassador Program",
+      "title": "Refer Professionals, Earn Rewards",
+      "subtitle": "Help grow the Casaora community by referring talented home service professionals. Earn $15 for every successful referral.",
+      "primaryCta": "Apply Now",
+      "secondaryCta": "Learn How It Works",
+      "rewardAmount": "$15",
+      "rewardDescription": "per successful referral"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Join our ambassador program in four simple steps",
+      "steps": {
+        "apply": {
+          "title": "Apply to Join",
+          "description": "Fill out our quick application form. We'll review and approve your application within 48 hours."
+        },
+        "share": {
+          "title": "Share Your Link",
+          "description": "Get your unique referral link and share it with professionals you know who might be a great fit."
+        },
+        "signUp": {
+          "title": "They Sign Up",
+          "description": "When someone uses your link to sign up and becomes a verified Casaora professional."
+        },
+        "earn": {
+          "title": "Earn Rewards",
+          "description": "Get $15 credited to your account after your referral completes their first job."
+        }
+      }
+    },
+    "rewards": {
+      "title": "Earn While You Help Others Succeed",
+      "description": "Our ambassador program rewards you for connecting quality professionals with opportunities. There's no limit to how much you can earn.",
+      "points": {
+        "reward": {
+          "title": "$15 Per Referral",
+          "description": "Earn $15 for each professional who completes their first job after signing up with your link."
+        },
+        "noLimit": {
+          "title": "No Earning Limit",
+          "description": "Refer as many professionals as you want. The more you refer, the more you earn."
+        },
+        "tracking": {
+          "title": "Easy Tracking",
+          "description": "Monitor all your referrals and earnings from your ambassador dashboard."
+        }
+      },
+      "card": {
+        "label": "Earn per referral",
+        "perReferral": "per successful referral",
+        "example5": "5 referrals",
+        "example10": "10 referrals",
+        "example20": "20 referrals"
+      }
+    },
+    "whoCanJoin": {
+      "title": "Who Can Become an Ambassador?",
+      "subtitle": "Our program is perfect for professionals who regularly interact with people looking for home service work.",
+      "personas": {
+        "realtor": {
+          "title": "Real Estate Agents",
+          "description": "Help your clients find trusted home service professionals for their new homes."
+        },
+        "lawyer": {
+          "title": "Lawyers & Notaries",
+          "description": "Refer professionals from your network who need flexible income opportunities."
+        },
+        "accountant": {
+          "title": "Accountants & Advisors",
+          "description": "Connect your self-employed clients with a platform to grow their business."
+        },
+        "designer": {
+          "title": "Interior Designers",
+          "description": "Recommend skilled professionals you've worked with to join our platform."
+        },
+        "blogger": {
+          "title": "Bloggers & Influencers",
+          "description": "Share opportunities with your audience and help them find meaningful work."
+        },
+        "community": {
+          "title": "Community Leaders",
+          "description": "Support your community by connecting people with income opportunities."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about the ambassador program",
+      "items": {
+        "howToEarn": {
+          "question": "How do I earn money as an ambassador?",
+          "answer": "You earn $15 for each professional who signs up using your unique referral link and completes their first job on Casaora. The reward is credited to your account automatically."
+        },
+        "whenPaid": {
+          "question": "When do I get paid?",
+          "answer": "Rewards are credited to your ambassador account after your referred professional completes their first job. You can request a payout once you have $50 or more in your account."
+        },
+        "referralLimit": {
+          "question": "Is there a limit to how many people I can refer?",
+          "answer": "No! There's no limit to how many professionals you can refer. The more successful referrals you make, the more you earn."
+        },
+        "tracking": {
+          "question": "How can I track my referrals?",
+          "answer": "Once approved, you'll have access to your ambassador dashboard where you can see all your referrals, their status, and your earnings."
+        },
+        "requirements": {
+          "question": "What are the requirements to become an ambassador?",
+          "answer": "We look for ambassadors who have professional networks and genuine interest in helping people find work. You'll need to complete a brief application form and be approved by our team."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Earning?",
+      "subtitle": "Join our ambassador program today and start earning rewards for every professional you refer.",
+      "button": "Apply to Become an Ambassador",
+      "note": "Applications are typically reviewed within 48 hours"
+    },
+    "apply": {
+      "title": "Apply to Become an Ambassador",
+      "subtitle": "Fill out the form below to apply for our ambassador program.",
+      "learnMore": "Learn more",
+      "hero": {
+        "badge": "Ambassador Application",
+        "title": "Join Our Ambassador Community",
+        "subtitle": "Help professionals find opportunities while earning rewards for your referrals.",
+        "benefit1": "Earn $15 for each successful referral",
+        "benefit2": "No limit on referrals or earnings",
+        "benefit3": "Track everything in your dashboard",
+        "rewardLabel": "Earn per referral",
+        "rewardSubtext": "per successful referral"
+      },
+      "terms": {
+        "prefix": "By applying, you agree to our",
+        "termsLink": "Terms of Service",
+        "and": "and",
+        "privacyLink": "Privacy Policy"
+      },
+      "form": {
+        "sections": {
+          "contact": "Contact Information",
+          "professional": "Professional Information",
+          "motivation": "About You"
+        },
+        "fullNameLabel": "Full name",
+        "fullNamePlaceholder": "Enter your full name",
+        "emailLabel": "Email address",
+        "emailPlaceholder": "you@example.com",
+        "phoneLabel": "Phone number",
+        "phonePlaceholder": "+57 300 123 4567",
+        "countryLabel": "Country",
+        "countryPlaceholder": "Select your country",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter your city",
+        "professionLabel": "Profession",
+        "professionPlaceholder": "Select your profession",
+        "professions": {
+          "realtor": "Real Estate Agent",
+          "lawyer": "Lawyer / Notary",
+          "accountant": "Accountant / Financial Advisor",
+          "interior_designer": "Interior Designer",
+          "property_manager": "Property Manager",
+          "blogger": "Blogger / Influencer",
+          "community_leader": "Community Leader",
+          "other": "Other"
+        },
+        "companyNameLabel": "Company name (optional)",
+        "companyNamePlaceholder": "Your company or business name",
+        "referralReachLabel": "How many professionals could you refer monthly?",
+        "referralReachPlaceholder": "Select your estimated reach",
+        "referralReachOptions": {
+          "1-5": "1-5 professionals",
+          "6-15": "6-15 professionals",
+          "16-30": "16-30 professionals",
+          "31+": "More than 30 professionals"
+        },
+        "socialMediaLabel": "Social media or website (optional)",
+        "socialMediaPlaceholder": "https://linkedin.com/in/yourprofile",
+        "motivationLabel": "Why do you want to become a Casaora Ambassador?",
+        "motivationPlaceholder": "Tell us why you'd be a great ambassador and how you plan to refer professionals...",
+        "termsLabel": "I agree to the Ambassador Program Terms and Conditions",
+        "termsLink": "View Terms",
+        "submitButton": "Submit Application",
+        "submittingButton": "Submitting...",
+        "successTitle": "Application Submitted!",
+        "successMessage": "Thank you for applying! We'll review your application and get back to you within 48 hours."
+      }
     }
   }
 }

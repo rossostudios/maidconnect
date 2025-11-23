@@ -64,6 +64,11 @@ const categories: CategorySection[] = [
         description: "Professional verification requests",
       },
       {
+        href: "/admin/ambassadors",
+        label: "Ambassadors",
+        description: "Ambassador program applications",
+      },
+      {
         href: "/admin/moderation",
         label: "Safety & Moderation",
         description: "Content review & safety tools",

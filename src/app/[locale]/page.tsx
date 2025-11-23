@@ -11,6 +11,13 @@ const BenefitsSection = dynamic(
   () => import("@/components/sections/BenefitsSection").then((mod) => mod.BenefitsSection),
   { ssr: true }
 );
+const FeaturedProfessionalsSection = dynamic(
+  () =>
+    import("@/components/sections/FeaturedProfessionalsSection").then(
+      (mod) => mod.FeaturedProfessionalsSection
+    ),
+  { ssr: true }
+);
 const CityShowcase = dynamic(
   () => import("@/components/sections/CityShowcase").then((mod) => mod.CityShowcase),
   { ssr: true }
@@ -37,6 +44,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <main id="main-content" tabIndex={-1}>
         <MarketplaceHero />
         <BenefitsSection />
+        <FeaturedProfessionalsSection />
         <CityShowcase />
         <ProcessSection />
         <GuaranteeSection />

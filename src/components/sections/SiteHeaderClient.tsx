@@ -6,18 +6,16 @@ import {
   Calendar03Icon,
   CheckmarkBadge01Icon,
   HeadphonesIcon,
-  HelpCircleIcon,
   Home09Icon,
   News01Icon,
   StarIcon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { useTranslations } from "next-intl";
+import { DesktopMenu } from "@/components/navigation/desktop-menu";
 import { MobileMenu } from "@/components/navigation/mobile-menu";
 import { NavDropdown, type NavDropdownItem } from "@/components/navigation/nav-dropdown";
 import { GlobeButton } from "@/components/preferences";
-import { Link } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
 
 type Props = {
   isAuthenticated: boolean;
@@ -60,12 +58,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       icon: StarIcon,
     },
     {
-      name: t("dropdown.customers.helpCenter"),
-      href: "/help",
-      description: t("dropdown.customers.helpCenterDesc"),
-      icon: HelpCircleIcon,
-    },
-    {
       name: t("dropdown.customers.support"),
       href: "/contact",
       description: t("dropdown.customers.supportDesc"),
@@ -99,9 +91,10 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
   const mobileLinks = [
     { href: "/how-it-works", label: t("dropdown.professionals.howItWorks") },
     { href: "/pros", label: t("dropdown.customers.reviews") },
+    { href: "/become-a-pro", label: t("dropdown.join.becomePro") },
+    { href: "/ambassadors", label: t("dropdown.join.ambassador") },
     { href: "/help", label: t("dropdown.customers.helpCenter") },
     { href: "/about", label: t("dropdown.company.about") },
-    { href: "/blog", label: t("dropdown.company.blog") },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -146,75 +139,22 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
             label={t("dropdown.company.title")}
             overlay={overlay}
           />
-
-          {/* Resources - Simple Link */}
-          <Link
-            className={cn(
-              "flex items-center gap-1 rounded-full px-4 py-2 font-medium text-sm",
-              // Spring-like transition
-              "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-              // Consistent dark text (glass pill always visible)
-              "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
-            )}
-            href="/help"
-          >
-            {t("resources")}
-          </Link>
         </nav>
 
         {/* Divider */}
         <div className="mx-2 h-6 w-px bg-neutral-200" />
 
-        {/* Right: Globe + CTA */}
-        <div className="flex items-center gap-2">
+        {/* Right: Globe + Hamburger Menu (Airbnb-style) */}
+        <div className="flex items-center gap-3">
           {/* Globe Button - Language/Region/Currency Preferences */}
           <GlobeButton />
 
-          {isAuthenticated ? (
-            <Link
-              className={cn(
-                "inline-flex items-center justify-center rounded-full px-6 py-2.5 font-semibold text-sm",
-                // Spring transition for premium feel
-                "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                // Consistent solid button (glass pill always visible)
-                "bg-orange-500 text-white shadow-lg shadow-orange-500/20",
-                "hover:bg-orange-600 hover:shadow-orange-600/25 hover:shadow-xl",
-                "active:scale-[0.97]"
-              )}
-              href={dashboardHref || "/dashboard"}
-            >
-              {t("dashboard")}
-            </Link>
-          ) : (
-            <div className="flex items-center gap-3">
-              <Link
-                className={cn(
-                  "rounded-full px-4 py-2 font-medium text-sm",
-                  // Spring transition
-                  "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                  // Consistent dark text (glass pill always visible)
-                  "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
-                )}
-                href="/auth/sign-in"
-              >
-                {t("login")}
-              </Link>
-              <Link
-                className={cn(
-                  "inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2.5 font-semibold text-sm",
-                  // Spring transition for premium feel
-                  "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                  // Consistent solid button (glass pill always visible)
-                  "bg-orange-500 text-white shadow-lg shadow-orange-500/20",
-                  "hover:bg-orange-600 hover:shadow-orange-600/25 hover:shadow-xl",
-                  "active:scale-[0.97]"
-                )}
-                href="/auth/sign-up"
-              >
-                {t("signUp")}
-              </Link>
-            </div>
-          )}
+          {/* Desktop Hamburger Menu - Contains auth, Become Pro, Ambassador, Help */}
+          <DesktopMenu
+            dashboardHref={dashboardHref}
+            isAuthenticated={isAuthenticated}
+            onSignOut={onSignOut}
+          />
         </div>
       </div>
 

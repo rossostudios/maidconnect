@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowRight02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { ConsentCheckboxes } from "@/components/auth/consent-checkboxes";
@@ -13,55 +15,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/routing";
 import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
 
-function getRoleOptionClassName(error: string | undefined): string {
-  return cn(
-    "flex cursor-pointer flex-col gap-3 border border-neutral-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-neutral-900 hover:border-neutral-400",
-    error && "border-red-300 focus-within:border-red-500 hover:border-red-400"
-  );
-}
-
-function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
+function ProfessionalCallout({ t }: { t: (key: string) => string }) {
   return (
-    <section className="space-y-5">
-      <div className="block font-semibold text-neutral-900 text-sm">{t("accountTypeLabel")}</div>
-      <p className="text-neutral-600 text-xs">{t("accountTypeHelper")}</p>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-neutral-900">
-            <input
-              className="h-4 w-4 accent-neutral-900"
-              defaultChecked
-              name="role"
-              type="radio"
-              value="customer"
-            />{" "}
-            {t("customerLabel")}
-          </span>
-          <span className="text-neutral-600 text-sm">{t("customerDescription")}</span>
-        </label>
-        <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-neutral-900">
-            <input
-              className="h-4 w-4 accent-neutral-900"
-              name="role"
-              type="radio"
-              value="professional"
-            />{" "}
-            {t("professionalLabel")}
-          </span>
-          <span className="text-neutral-600 text-sm">{t("professionalDescription")}</span>
-        </label>
-      </div>
-      {error ? (
-        <p className="text-red-700 text-xs" role="alert">
-          {error}
-        </p>
-      ) : null}
-    </section>
+    <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+      <p className="mb-2 font-medium text-neutral-900 text-sm">{t("professionalCallout")}</p>
+      <Link
+        className="inline-flex items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700"
+        href="/become-a-pro"
+      >
+        {t("professionalCalloutLink")}
+        <HugeiconsIcon className="h-4 w-4" icon={ArrowRight02Icon} />
+      </Link>
+    </div>
   );
 }
 
@@ -113,7 +82,10 @@ export function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-10" noValidate>
-      <RoleSelection error={fieldError("role")} t={t} />
+      {/* Hidden role input - customers only, professionals use /become-a-pro */}
+      <input name="role" type="hidden" value="customer" />
+
+      <ProfessionalCallout t={t} />
 
       <section className="grid gap-6 sm:grid-cols-2">
         <InputField

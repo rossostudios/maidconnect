@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar03Icon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { Calendar03Icon, Menu01Icon, Rocket01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import {
   type CustomerCalendarBooking,
 } from "@/components/bookings/customer-booking-calendar";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
+import { TripsItinerary, type Trip } from "@/components/trips";
 import { cn } from "@/lib/utils";
 
 type Booking = {
@@ -37,7 +38,7 @@ type Props = {
  */
 export function CustomerBookingsView({ bookings }: Props) {
   const t = useTranslations("dashboard.customer.bookingsPage");
-  const [view, setView] = useState<"list" | "calendar">("list");
+  const [view, setView] = useState<"trips" | "list" | "calendar">("trips");
 
   // Transform bookings for calendar component
   const calendarBookings: CustomerCalendarBooking[] = bookings.map((booking) => ({
@@ -52,11 +53,39 @@ export function CustomerBookingsView({ bookings }: Props) {
     service_type: booking.service_name ?? undefined,
   }));
 
+  // Transform bookings for trips itinerary
+  const trips: Trip[] = bookings.map((booking) => ({
+    id: booking.id,
+    status: booking.status,
+    scheduled_start: booking.scheduled_start,
+    duration_minutes: booking.duration_minutes,
+    service_name: booking.service_name,
+    amount_authorized: booking.amount_authorized,
+    amount_captured: booking.amount_captured,
+    currency: booking.currency,
+    created_at: booking.created_at,
+    professional: booking.professional,
+  }));
+
   return (
     <div className="space-y-4">
       {/* View Toggle */}
       <div className="flex items-center justify-end">
         <div className="flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-1">
+          <button
+            className={cn(
+              "flex items-center gap-2 rounded-md px-4 py-2 font-medium text-sm transition",
+              view === "trips"
+                ? "bg-white text-neutral-900 shadow-sm"
+                : "text-neutral-500 hover:text-neutral-700",
+              geistSans.className
+            )}
+            onClick={() => setView("trips")}
+            type="button"
+          >
+            <HugeiconsIcon className="h-4 w-4" icon={Rocket01Icon} />
+            Trips
+          </button>
           <button
             className={cn(
               "flex items-center gap-2 rounded-md px-4 py-2 font-medium text-sm transition",
@@ -89,15 +118,19 @@ export function CustomerBookingsView({ bookings }: Props) {
       </div>
 
       {/* Content based on view */}
-      <div className="rounded-lg border border-neutral-200 bg-white shadow-sm">
-        {view === "list" ? (
-          <div className="p-8">
-            <CustomerBookingList bookings={bookings} />
-          </div>
-        ) : (
-          <CustomerBookingCalendar bookings={calendarBookings} />
-        )}
-      </div>
+      {view === "trips" ? (
+        <TripsItinerary trips={trips} />
+      ) : (
+        <div className="rounded-lg border border-neutral-200 bg-white shadow-sm">
+          {view === "list" ? (
+            <div className="p-8">
+              <CustomerBookingList bookings={bookings} />
+            </div>
+          ) : (
+            <CustomerBookingCalendar bookings={calendarBookings} />
+          )}
+        </div>
+      )}
     </div>
   );
 }
