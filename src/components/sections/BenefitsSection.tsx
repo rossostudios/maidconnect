@@ -2,19 +2,12 @@
 
 import {
   Add01Icon,
-  BabyBed01Icon,
   Calendar03Icon,
   Cancel01Icon,
   CheckmarkCircle02Icon,
-  ChefHatIcon,
   CreditCardIcon,
-  FavouriteIcon,
-  Home01Icon,
-  Message01Icon,
-  PackageIcon,
   Shield01Icon,
   StarIcon,
-  UserLove01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -45,25 +38,30 @@ function VerifiedProfileVisual({
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-[280px] pr-6 pb-6">
+        <div className="relative w-full max-w-[260px] pr-5 pb-5">
           {/* Background Card (offset) */}
           <motion.div
             animate={{ y: [0, -2, 0] }}
-            className="absolute top-4 right-0 bottom-0 left-4 z-0 overflow-hidden rounded-2xl border border-neutral-200/60 bg-neutral-50 shadow-lg"
+            className="absolute top-3 right-0 bottom-0 left-3 z-0 overflow-hidden rounded-2xl border border-neutral-200/60 bg-neutral-50 shadow-lg"
             transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             {/* Cover image */}
-            <div className="relative h-14 overflow-hidden">
-              <Image alt="Background" className="object-cover opacity-60" fill src="/pricing.png" />
+            <div className="relative h-20 overflow-hidden">
+              <Image alt="Background" className="object-cover opacity-50" fill src="/guatape.png" />
             </div>
-            <div className="px-4 pt-10 pb-4">
-              <div className="flex items-center gap-2 opacity-50">
-                <span className="font-semibold text-neutral-700">Laura Sofia</span>
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-700 text-xs">
-                  Pro
-                </span>
+            <div className="flex items-center gap-3 px-3 py-3">
+              <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-neutral-200">
+                <div className="h-full w-full bg-gradient-to-br from-neutral-300 to-neutral-400" />
               </div>
-              <p className="mt-0.5 text-neutral-400 text-sm">Childcare • Medellín</p>
+              <div className="opacity-60">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-medium text-neutral-600 text-sm">Laura Sofia</span>
+                  <span className="rounded-full bg-amber-100 px-1.5 py-0.5 font-medium text-[10px] text-amber-700">
+                    Pro
+                  </span>
+                </div>
+                <p className="text-neutral-400 text-xs">Childcare • Medellín</p>
+              </div>
             </div>
           </motion.div>
 
@@ -74,64 +72,71 @@ function VerifiedProfileVisual({
             transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             {/* Cover image */}
-            <div className="relative h-16 overflow-hidden">
-              <Image alt="Profile cover" className="object-cover" fill src="/pricing.png" />
+            <div className="relative h-24 overflow-hidden">
+              <Image alt="Profile cover" className="object-cover" fill src="/guatape.png" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
 
-            {/* Avatar section */}
-            <div className="relative px-4 pb-4">
-              <div className="-top-8 absolute left-4">
+            {/* Profile content */}
+            <div className="relative px-4 pt-3 pb-4">
+              {/* Avatar - positioned to overlap cover */}
+              <div className="-top-10 absolute left-4">
                 <div className="relative">
-                  <div className="h-16 w-16 overflow-hidden rounded-full border-4 border-white shadow-lg">
-                    <Image alt="María Camila" className="object-cover" fill src="/Brooke.png" />
+                  <div className="aspect-square h-16 w-16 overflow-hidden rounded-full border-[3px] border-white bg-neutral-100 shadow-lg">
+                    <Image
+                      alt="María Camila"
+                      className="h-full w-full object-cover"
+                      fill
+                      src="/mariacamila.png"
+                    />
                   </div>
                   {/* Verification badge */}
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    className="-right-1 -bottom-1 absolute flex h-6 w-6 items-center justify-center rounded-full bg-green-500 shadow-md"
+                    className="-right-0.5 -bottom-0.5 absolute flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                   >
-                    <HugeiconsIcon
-                      className="h-3.5 w-3.5 text-white"
-                      icon={CheckmarkCircle02Icon}
-                    />
+                    <HugeiconsIcon className="h-3 w-3 text-white" icon={CheckmarkCircle02Icon} />
                   </motion.div>
                 </div>
               </div>
 
-              <div className="mt-12 pl-[72px]">
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-neutral-900">María Camila</span>
-                  <span className="rounded-full bg-orange-100 px-2 py-0.5 font-medium text-orange-700 text-xs">
+              {/* Name and details - positioned next to avatar */}
+              <div className="ml-[76px] min-h-[40px]">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold text-neutral-900 text-sm">María Camila</span>
+                  <span className="rounded-full bg-orange-100 px-1.5 py-0.5 font-medium text-[10px] text-orange-700">
                     Pro
                   </span>
                 </div>
-                <p className="mt-0.5 text-neutral-500 text-sm">Cleaning Specialist • Bogotá</p>
+                <p className="text-neutral-500 text-xs">Cleaning Specialist • Bogotá</p>
+              </div>
 
-                {/* Rating */}
-                <div className="mt-3 flex items-center gap-1">
+              {/* Rating row - clean single line */}
+              <div className="mt-3 flex items-center gap-1.5">
+                <div className="flex items-center">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <HugeiconsIcon
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                      className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
                       icon={StarIcon}
                       key={star}
                     />
                   ))}
-                  <span className="ml-1 font-medium text-neutral-700 text-sm">4.9</span>
-                  <span className="text-neutral-400 text-sm">(127 reviews)</span>
                 </div>
+                <span className="font-semibold text-neutral-900 text-sm">4.9</span>
+                <span className="text-neutral-400 text-xs">(127 reviews)</span>
+              </div>
 
-                {/* Verification badges */}
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-green-700 text-xs">
-                    <HugeiconsIcon className="h-3 w-3" icon={Shield01Icon} />
-                    ID Verified
-                  </span>
-                  <span className="flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-blue-700 text-xs">
-                    <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle02Icon} />
-                    Background Check
-                  </span>
-                </div>
+              {/* Verification badges - horizontal pills */}
+              <div className="mt-3 flex gap-2">
+                <span className="flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-1 text-[10px] text-green-700">
+                  <HugeiconsIcon className="h-3 w-3" icon={Shield01Icon} />
+                  ID Verified
+                </span>
+                <span className="flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-1 text-[10px] text-blue-700">
+                  <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle02Icon} />
+                  Background Check
+                </span>
               </div>
             </div>
           </motion.div>
@@ -170,7 +175,7 @@ function VerifiedProfileVisual({
                   alt="Professional profile"
                   className="object-cover"
                   fill
-                  src="/pricing.png"
+                  src="/guatape.png"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
@@ -180,10 +185,15 @@ function VerifiedProfileVisual({
                 {/* Avatar */}
                 <div className="-top-12 absolute left-6">
                   <div className="relative">
-                    <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white shadow-xl">
-                      <Image alt="María Camila" className="object-cover" fill src="/Brooke.png" />
+                    <div className="aspect-square h-24 w-24 overflow-hidden rounded-full border-4 border-white bg-neutral-100 shadow-xl">
+                      <Image
+                        alt="María Camila"
+                        className="h-full w-full object-cover"
+                        fill
+                        src="/mariacamila.png"
+                      />
                     </div>
-                    <div className="-right-1 -bottom-1 absolute flex h-8 w-8 items-center justify-center rounded-full bg-green-500 shadow-md">
+                    <div className="-right-1 -bottom-1 absolute flex h-8 w-8 items-center justify-center rounded-full bg-green-500 ring-2 ring-white">
                       <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                     </div>
                   </div>
@@ -386,7 +396,7 @@ function ReviewsVisual({
             {/* Author */}
             <div className="flex items-center gap-3 border-neutral-100 border-t bg-neutral-50/50 px-4 py-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                <Image alt="Brooke" className="object-cover" fill src="/Brooke.png" />
+                <Image alt="Brooke" className="object-cover" fill src="/review-brooke.png" />
               </div>
               <div>
                 <p className="font-semibold text-neutral-900 text-sm">Brooke</p>
@@ -401,19 +411,6 @@ function ReviewsVisual({
               </motion.div>
             </div>
           </motion.div>
-        </div>
-
-        {/* Review stats - centered */}
-        <div className="mx-auto flex w-fit items-center gap-6 rounded-xl border border-neutral-200 bg-white px-6 py-3 shadow-sm">
-          <div className="text-center">
-            <p className="font-bold text-2xl text-neutral-900">4.9</p>
-            <p className="text-neutral-500 text-xs">Avg rating</p>
-          </div>
-          <div className="h-10 w-px bg-neutral-200" />
-          <div className="text-center">
-            <p className="font-bold text-2xl text-neutral-900">2.4k</p>
-            <p className="text-neutral-500 text-xs">Reviews</p>
-          </div>
         </div>
       </div>
 
@@ -447,7 +444,7 @@ function ReviewsVisual({
               <div className="flex gap-6 p-6">
                 {/* Avatar */}
                 <div className="relative h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl">
-                  <Image alt="Brooke" className="object-cover" fill src="/Brooke.png" />
+                  <Image alt="Brooke" className="object-cover" fill src="/review-brooke.png" />
                 </div>
 
                 <div className="flex-1">
@@ -496,52 +493,6 @@ function ReviewsVisual({
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-function BackgroundCheckVisual() {
-  const checks = [
-    { label: "Identity", done: true },
-    { label: "Criminal", done: true },
-    { label: "References", done: true },
-  ];
-
-  return (
-    <div className="flex flex-col items-center gap-4 py-4">
-      {/* Shield animation */}
-      <motion.div
-        animate={{ scale: [1, 1.05, 1] }}
-        className="relative"
-        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-      >
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 shadow-green-200 shadow-lg">
-          <HugeiconsIcon className="h-10 w-10 text-white" icon={Shield01Icon} />
-        </div>
-        <motion.div
-          animate={{ scale: [0, 1.5, 0], opacity: [0.5, 0, 0.5] }}
-          className="absolute inset-0 rounded-2xl border-2 border-green-400"
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-        />
-      </motion.div>
-
-      {/* Checklist */}
-      <div className="flex flex-col gap-2">
-        {checks.map((check, i) => (
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
-            initial={{ opacity: 0, x: -10 }}
-            key={check.label}
-            transition={{ delay: 0.3 + i * 0.15 }}
-          >
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-100">
-              <HugeiconsIcon className="h-3 w-3 text-green-600" icon={CheckmarkCircle02Icon} />
-            </div>
-            <span className="text-neutral-700 text-sm">{check.label} verified</span>
-          </motion.div>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -609,103 +560,6 @@ function InstantBookingVisual() {
   );
 }
 
-function SupportChatVisual() {
-  return (
-    <div className="flex flex-col gap-2 py-2">
-      {/* Chat messages */}
-      <div className="flex flex-col gap-2">
-        {/* User message */}
-        <div className="flex justify-end">
-          <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-orange-500 px-3 py-2 text-sm text-white">
-            I need help with my booking
-          </div>
-        </div>
-
-        {/* Support response */}
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.5 }}
-        >
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100">
-            <HugeiconsIcon className="h-4 w-4 text-orange-600" icon={Message01Icon} />
-          </div>
-          <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-neutral-100 px-3 py-2 text-neutral-800 text-sm">
-            Hi! I'd be happy to help. What seems to be the issue?
-          </div>
-        </motion.div>
-
-        {/* Typing indicator */}
-        <motion.div
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          className="flex gap-2"
-          transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-        >
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100">
-            <HugeiconsIcon className="h-4 w-4 text-orange-600" icon={Message01Icon} />
-          </div>
-          <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-neutral-100 px-4 py-2">
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                animate={{ y: [0, -3, 0] }}
-                className="h-1.5 w-1.5 rounded-full bg-neutral-400"
-                key={i}
-                transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: i * 0.15 }}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Response time badge */}
-      <div className="mt-1 flex items-center justify-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-green-500" />
-        <span className="text-neutral-500 text-xs">Avg response: 2 min</span>
-      </div>
-    </div>
-  );
-}
-
-function ServicesVisual() {
-  const services = [
-    { icon: Home01Icon, label: "Cleaning", color: "bg-blue-50 text-blue-600" },
-    { icon: BabyBed01Icon, label: "Childcare", color: "bg-pink-50 text-pink-600" },
-    { icon: ChefHatIcon, label: "Cooking", color: "bg-amber-50 text-amber-600" },
-    { icon: UserLove01Icon, label: "Elder Care", color: "bg-rose-50 text-rose-600" },
-    { icon: FavouriteIcon, label: "Pet Care", color: "bg-teal-50 text-teal-600" },
-    { icon: PackageIcon, label: "Laundry", color: "bg-violet-50 text-violet-600" },
-  ];
-
-  return (
-    <div className="grid grid-cols-3 gap-2 py-2">
-      {services.map((service, i) => (
-        <motion.div
-          animate={{ y: [0, -3, 0] }}
-          className={cn(
-            "flex flex-col items-center gap-1.5 rounded-xl p-2.5",
-            service.color.split(" ")[0]
-          )}
-          key={service.label}
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: i * 0.15 }}
-        >
-          <div
-            className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm",
-              service.color.split(" ")[1]
-            )}
-          >
-            <HugeiconsIcon className="h-5 w-5" icon={service.icon} />
-          </div>
-          <span className={cn("font-medium text-[10px]", service.color.split(" ")[1])}>
-            {service.label}
-          </span>
-        </motion.div>
-      ))}
-    </div>
-  );
-}
-
 // ============================================================================
 // BENTO CARD DATA
 // ============================================================================
@@ -755,7 +609,7 @@ export function BenefitsSection() {
       visual: ({ isExpanded, setIsExpanded }) => (
         <VerifiedProfileVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       ),
-      span: "md:col-span-2 md:row-span-2",
+      span: "md:col-span-2 md:row-span-2 lg:col-span-3",
       gradient: "from-orange-50/80 via-white to-amber-50/40",
       expandable: true,
     },
@@ -764,8 +618,8 @@ export function BenefitsSection() {
       title: t("securePayments.title"),
       description: t("securePayments.description"),
       visual: <SecurePaymentVisual />,
-      span: "md:col-span-2",
-      gradient: "from-sky-50/60 via-white to-slate-50/40",
+      span: "md:col-span-2 lg:col-span-3",
+      gradient: "from-orange-50/60 via-white to-amber-50/40",
     },
     {
       id: "reviews",
@@ -774,39 +628,17 @@ export function BenefitsSection() {
       visual: ({ isExpanded, setIsExpanded }) => (
         <ReviewsVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       ),
-      span: "md:col-span-2 md:row-span-2",
+      span: "md:col-span-2 md:row-span-2 lg:col-span-3",
       gradient: "from-amber-50/60 via-white to-orange-50/40",
       expandable: true,
-    },
-    {
-      id: "background",
-      title: t("backgroundChecks.title"),
-      description: t("backgroundChecks.description"),
-      visual: <BackgroundCheckVisual />,
-      span: "md:col-span-2",
-      gradient: "from-emerald-50/60 via-white to-green-50/40",
     },
     {
       id: "booking",
       title: t("realTimeBooking.title"),
       description: t("realTimeBooking.description"),
       visual: <InstantBookingVisual />,
-      span: "md:col-span-2",
-    },
-    {
-      id: "support",
-      title: t("dedicatedSupport.title"),
-      description: t("dedicatedSupport.description"),
-      visual: <SupportChatVisual />,
-      span: "md:col-span-2",
-    },
-    {
-      id: "services",
-      title: t("allServices.title"),
-      description: t("allServices.description"),
-      visual: <ServicesVisual />,
-      span: "md:col-span-2",
-      gradient: "from-violet-50/40 via-white to-pink-50/40",
+      span: "md:col-span-2 lg:col-span-3",
+      gradient: "from-amber-50/60 via-white to-orange-50/40",
     },
   ];
 

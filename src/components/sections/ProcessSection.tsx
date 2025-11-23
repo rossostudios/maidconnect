@@ -1,117 +1,121 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { Calendar03Icon, Search01Icon, SecurityCheckIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { motion, type Variants } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
+import type { HugeIcon } from "@/types/icons";
 
 /**
- * ProcessSection - Hub-and-Spoke Design
+ * ProcessSection - 3-Step Linear Flow
  *
- * Inspired by Duna.com's visual architecture:
- * - Central hub with image background and pill shape
- * - Surrounding pill-shaped nodes for each process step
- * - Animated connection lines with moving segments
- * - Framer Motion reveal animations
+ * Clear, linear design that tells Casaora's story:
+ * 1. Tell Us What You Need - Describe service, schedule, location
+ * 2. Meet Verified Pros - Browse background-checked professionals
+ * 3. Book & Relax - Pay securely, peace of mind
+ *
+ * Design: Clean cards with icons, step numbers, connecting line, and CTA
  */
 
-// Central Hub Visual - Pill shape with image background
-function CentralHubVisual() {
-  return (
-    <div className="relative flex items-center justify-center">
-      {/* Outer rings - nested rounded rectangles with softer opacity */}
-      <div className="absolute h-[160px] w-[280px] rounded-[80px] border border-neutral-200/40 sm:h-[200px] sm:w-[360px] sm:rounded-[100px] md:h-[240px] md:w-[440px]" />
-      <div className="absolute h-[148px] w-[268px] rounded-[74px] border border-neutral-200/50 sm:h-[185px] sm:w-[345px] sm:rounded-[100px] md:h-[225px] md:w-[425px]" />
+const fadeIn: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
-      {/* Soft glow behind the pill for blending */}
-      <div className="absolute h-[144px] w-[264px] rounded-[72px] bg-neutral-100/80 blur-xl sm:h-[180px] sm:w-[350px] sm:rounded-[90px] md:h-[220px] md:w-[430px]" />
+const stagger: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
 
-      {/* Main pill container with image */}
-      <div className="relative h-[136px] w-[256px] overflow-hidden rounded-[68px] shadow-[0_0_40px_rgba(0,0,0,0.08)] sm:h-[170px] sm:w-[330px] sm:rounded-[85px] md:h-[210px] md:w-[410px] md:rounded-[105px]">
-        {/* Background image */}
-        <Image
-          alt="Casaora Platform"
-          className="object-cover"
-          fill
-          priority
-          src="/casaora-platform.png"
-        />
+type ProcessStep = {
+  number: number;
+  icon: HugeIcon;
+  titleKey: string;
+  descriptionKey: string;
+};
 
-        {/* Soft edge vignette - blends image edges into container */}
-        <div className="pointer-events-none absolute inset-0 rounded-[68px] shadow-[inset_0_0_30px_15px_rgba(250,249,245,0.4)] sm:rounded-[85px] md:rounded-[105px]" />
+const processSteps: ProcessStep[] = [
+  {
+    number: 1,
+    icon: Search01Icon,
+    titleKey: "step1.title",
+    descriptionKey: "step1.description",
+  },
+  {
+    number: 2,
+    icon: SecurityCheckIcon,
+    titleKey: "step2.title",
+    descriptionKey: "step2.description",
+  },
+  {
+    number: 3,
+    icon: Calendar03Icon,
+    titleKey: "step3.title",
+    descriptionKey: "step3.description",
+  },
+];
 
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/40 via-transparent to-transparent" />
-
-        {/* Text overlay */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-serif text-white text-xl italic tracking-wide drop-shadow-md sm:text-2xl md:text-4xl">
-            Casaora Platform
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Process Step Node - Large pill shaped (like Duna)
-function StepNode({
-  label,
-  delay,
-  className = "",
+// Step Card Component
+function StepCard({
+  step,
+  isLast,
+  t,
 }: {
-  label: string;
-  delay: number;
-  className?: string;
+  step: ProcessStep;
+  isLast: boolean;
+  t: ReturnType<typeof useTranslations>;
 }) {
   return (
-    <motion.div
-      className={`flex items-center justify-center rounded-full border border-neutral-200 bg-neutral-100 px-8 py-3 shadow-sm sm:px-12 sm:py-4 md:px-16 md:py-5 ${className}`}
-      initial={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.02, backgroundColor: "#FAF9F5" }}
-      whileInView={{ opacity: 1, scale: 1 }}
-    >
-      <span className="font-medium text-neutral-800 text-sm sm:text-base md:text-lg">{label}</span>
-    </motion.div>
-  );
-}
-
-// Animated Connection Line Component
-function AnimatedLine({
-  direction,
-  delay,
-}: {
-  direction: "vertical" | "horizontal-left" | "horizontal-right";
-  delay: number;
-}) {
-  const isVertical = direction === "vertical";
-  const isLeft = direction === "horizontal-left";
-
-  return (
-    <div
-      className={`relative overflow-hidden ${
-        isVertical ? "h-12 w-[2px] md:h-16" : "h-[2px] w-12 md:w-20"
-      }`}
-    >
-      {/* Base line - light gray */}
-      <div
-        className={`absolute bg-neutral-300 ${isVertical ? "h-full w-full" : "h-full w-full"}`}
-      />
-
-      {/* Animated dark segment moving toward center */}
+    <div className="relative flex flex-col items-center">
+      {/* Step Number Badge */}
       <motion.div
-        animate={isVertical ? { y: "400%" } : isLeft ? { x: "400%" } : { x: "-400%" }}
-        className={`absolute bg-neutral-800 ${isVertical ? "h-4 w-full" : "h-full w-8"}`}
-        initial={isVertical ? { y: "-100%" } : isLeft ? { x: "-100%" } : { x: "100%" }}
-        transition={{
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "linear",
-          delay,
-        }}
-      />
+        className="-top-4 absolute z-10 flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 font-semibold text-sm text-white shadow-md"
+        variants={fadeIn}
+      >
+        {step.number}
+      </motion.div>
+
+      {/* Card */}
+      <motion.div
+        className="flex h-full w-full flex-col items-center rounded-xl border border-neutral-200 bg-white px-6 pt-10 pb-6 text-center shadow-sm transition-all hover:border-orange-200 hover:shadow-md sm:px-8 sm:pt-12 sm:pb-8"
+        variants={fadeIn}
+      >
+        {/* Icon */}
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 sm:h-16 sm:w-16">
+          <HugeiconsIcon
+            className="h-7 w-7 text-orange-600 sm:h-8 sm:w-8"
+            icon={step.icon}
+            strokeWidth={1.5}
+          />
+        </div>
+
+        {/* Title */}
+        <h3 className="mb-2 font-semibold text-lg text-neutral-900 sm:text-xl">
+          {t(step.titleKey)}
+        </h3>
+
+        {/* Description */}
+        <p className="text-neutral-600 text-sm leading-relaxed sm:text-base">
+          {t(step.descriptionKey)}
+        </p>
+      </motion.div>
+
+      {/* Connector Arrow (hidden on last step and mobile) */}
+      {!isLast && (
+        <div className="-right-3 -translate-y-1/2 lg:-right-5 absolute top-1/2 hidden text-orange-300 md:block">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }
@@ -120,99 +124,79 @@ export function ProcessSection() {
   const t = useTranslations("home.process");
 
   return (
-    <section className="bg-neutral-50 py-24 md:py-32" id="how-it-works">
-      <Container className="mx-auto max-w-5xl">
+    <section className="bg-neutral-50 py-16 sm:py-20 lg:py-24" id="how-it-works">
+      <Container className="max-w-6xl">
         {/* Section Header */}
         <motion.div
-          className="mb-16 text-center md:mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate="visible"
+          className="mb-10 text-center sm:mb-12 lg:mb-14"
+          initial="hidden"
+          variants={stagger}
         >
-          <span className="mb-4 inline-block font-mono text-neutral-500 text-xs uppercase tracking-wider">
+          <motion.span
+            className="mb-3 inline-block rounded-full bg-orange-100 px-4 py-1.5 font-medium text-orange-700 text-xs uppercase tracking-wider"
+            variants={fadeIn}
+          >
+            How It Works
+          </motion.span>
+          <motion.h2
+            className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl"
+            variants={fadeIn}
+          >
             {t("title")}
-          </span>
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-3xl text-neutral-900 tracking-tight md:text-4xl lg:text-5xl">
-            {t("title")}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-neutral-600">{t("description")}</p>
+          </motion.h2>
+          <motion.p
+            className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg"
+            variants={fadeIn}
+          >
+            {t("description")}
+          </motion.p>
         </motion.div>
 
-        {/* Hub and Spoke Layout */}
-        <div className="flex flex-col items-center">
-          {/* Top Node - Search */}
-          <StepNode delay={0.1} label={t("steps.search")} />
+        {/* Steps Grid */}
+        <motion.div
+          animate="visible"
+          className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6 lg:gap-10"
+          initial="hidden"
+          variants={stagger}
+        >
+          {processSteps.map((step, index) => (
+            <StepCard
+              isLast={index === processSteps.length - 1}
+              key={step.number}
+              step={step}
+              t={t}
+            />
+          ))}
+        </motion.div>
 
-          {/* Top Connection Line */}
-          <AnimatedLine delay={0} direction="vertical" />
-
-          {/* Mobile: Simple vertical layout with Match node */}
-          <div className="flex flex-col items-center sm:hidden">
-            <StepNode delay={0.2} label={t("steps.match")} />
-            <AnimatedLine delay={0.2} direction="vertical" />
-          </div>
-
-          {/* Center Hub (always visible) */}
-          <motion.div
-            className="sm:hidden"
-            initial={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <CentralHubVisual />
-          </motion.div>
-
-          {/* Mobile: Book node below hub */}
-          <div className="flex flex-col items-center sm:hidden">
-            <AnimatedLine delay={0.4} direction="vertical" />
-            <StepNode delay={0.4} label={t("steps.book")} />
-          </div>
-
-          {/* Desktop: Middle Row - Match + Hub + Book (hidden on mobile) */}
-          <div className="hidden w-full items-center justify-center gap-0 sm:flex">
-            {/* Left Node - Match */}
-            <StepNode delay={0.2} label={t("steps.match")} />
-
-            {/* Left Connection Line */}
-            <AnimatedLine delay={0.3} direction="horizontal-left" />
-
-            {/* Center Hub */}
-            <motion.div
-              className="mx-2 md:mx-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, scale: 1 }}
+        {/* Bottom CTA */}
+        <motion.div
+          animate="visible"
+          className="mt-10 text-center sm:mt-12"
+          initial="hidden"
+          variants={stagger}
+        >
+          <motion.div className="mb-4" variants={fadeIn}>
+            <Link
+              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-orange-600 hover:shadow-xl"
+              href="/brief"
             >
-              <CentralHubVisual />
-            </motion.div>
-
-            {/* Right Connection Line */}
-            <AnimatedLine delay={0.5} direction="horizontal-right" />
-
-            {/* Right Node - Book */}
-            <StepNode delay={0.4} label={t("steps.book")} />
-          </div>
-
-          {/* Bottom Connection Line */}
-          <AnimatedLine delay={0.6} direction="vertical" />
-
-          {/* Bottom Node - Get Started */}
-          <motion.div
-            className="flex items-center justify-center rounded-full border border-neutral-200 bg-neutral-100 px-8 py-3 shadow-sm sm:px-10 sm:py-4 md:px-14"
-            initial={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.02, backgroundColor: "#FAF9F5" }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <span className="font-medium text-neutral-800 text-sm sm:text-base md:text-lg">
-              {t("steps.getStarted")}
-            </span>
+              {t("cta")}
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            </Link>
           </motion.div>
-        </div>
+          <motion.p className="text-neutral-500 text-sm" variants={fadeIn}>
+            15% service fee covers background checks, insurance & support. Professionals keep 100%.
+          </motion.p>
+        </motion.div>
       </Container>
     </section>
   );

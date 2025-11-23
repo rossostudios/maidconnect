@@ -30,7 +30,7 @@ const testimonials: Testimonial[] = [
     id: "1",
     name: "Brooke S.",
     location: "Medellín, Colombia",
-    avatar: "/avatars/brooke.jpg",
+    avatar: "/review-brooke.png",
     quote:
       "Finding reliable help at home used to be so stressful. Casaora verified everything—background checks, interviews, reviews—so I could focus on my family.",
     rating: 5,

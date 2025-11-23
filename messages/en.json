@@ -131,26 +131,20 @@
     },
     "process": {
       "title": "How Casaora works for your home",
-      "description": "Three simple steps connect you with trusted household professionals",
+      "description": "Three simple steps connect you with trusted, background-checked professionals",
       "step1": {
         "title": "Tell us what you need",
-        "description": "Choose the type of help: cleaning, childcare, elderly care, cooking and more. Add your schedule, location and preferences."
+        "description": "Select your service—cleaning, childcare, cooking, or eldercare. Choose your schedule, location, and any special requirements."
       },
       "step2": {
-        "title": "Match with professionals",
-        "description": "We show you vetted professionals who fit your needs, with profiles, experience, and reviews from other families."
+        "title": "Meet verified professionals",
+        "description": "Browse professionals who've passed background checks and ID verification. See their experience, reviews, and availability."
       },
       "step3": {
-        "title": "Book & pay securely",
-        "description": "Confirm the booking, chat through the app, and pay safely online. No cash, no stress, full transparency."
+        "title": "Book instantly & relax",
+        "description": "Confirm your booking with secure payment. Chat through the app, and enjoy peace of mind with our satisfaction guarantee."
       },
-      "cta": "Find help now",
-      "steps": {
-        "search": "Search",
-        "match": "Match",
-        "book": "Book",
-        "getStarted": "Get Started"
-      }
+      "cta": "Find Help Now"
     },
     "howItWorksCards": {
       "title": "How it works",

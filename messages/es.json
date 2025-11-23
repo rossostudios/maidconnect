@@ -131,26 +131,20 @@
     },
     "process": {
       "title": "Cómo funciona Casaora para tu hogar",
-      "description": "Tres simples pasos te conectan con profesionales del hogar de confianza",
+      "description": "Tres simples pasos te conectan con profesionales verificados",
       "step1": {
         "title": "Cuéntanos qué necesitas",
-        "description": "Elige el tipo de ayuda: limpieza, cuidado de niños, personas mayores, cocina y más. Indica horario, ubicación y preferencias."
+        "description": "Selecciona el servicio—limpieza, niñera, cocina o cuidado de adultos mayores. Elige tu horario, ubicación y requisitos especiales."
       },
       "step2": {
-        "title": "Te conectamos con profesionales",
-        "description": "Te mostramos perfiles verificados que encajan contigo, con experiencia y reseñas de otras familias."
+        "title": "Conoce profesionales verificados",
+        "description": "Explora profesionales que han pasado verificación de antecedentes e identidad. Ve su experiencia, reseñas y disponibilidad."
       },
       "step3": {
-        "title": "Reserva y paga de forma segura",
-        "description": "Confirma el servicio, conversa por la app y paga en línea. Sin efectivo, sin sorpresas, todo transparente."
+        "title": "Reserva al instante y relájate",
+        "description": "Confirma tu reserva con pago seguro. Chatea por la app y disfruta de la tranquilidad de nuestra garantía de satisfacción."
       },
-      "cta": "Encontrar ayuda ahora",
-      "steps": {
-        "search": "Buscar",
-        "match": "Conectar",
-        "book": "Reservar",
-        "getStarted": "Empezar"
-      }
+      "cta": "Encontrar Ayuda Ahora"
     },
     "verification": {
       "badge": "Confianza y Seguridad",
