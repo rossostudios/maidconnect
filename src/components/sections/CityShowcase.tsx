@@ -158,7 +158,7 @@ export function CityShowcase({ className }: CityShowcaseProps) {
             ref={scrollContainerRef}
           >
             {featuredCities.map((city) => (
-              <Link className="group flex-shrink-0" href={`/${city.slug}`} key={city.slug}>
+              <Link className="group flex-shrink-0" href={`/professionals?city=${city.slug}`} key={city.slug}>
                 <div className="w-[260px] overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-lg sm:w-[280px]">
                   {/* City Image */}
                   <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
@@ -190,7 +190,7 @@ export function CityShowcase({ className }: CityShowcaseProps) {
             ))}
 
             {/* View All Card */}
-            <Link className="group flex-shrink-0" href="/cities">
+            <Link className="group flex-shrink-0" href="/professionals">
               <div className="flex h-full w-[260px] flex-col items-center justify-center rounded-xl border border-neutral-300 border-dashed bg-neutral-50 p-8 transition-all hover:border-orange-400 hover:bg-orange-50 sm:w-[280px]">
                 <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200 transition-colors group-hover:bg-orange-100">
                   <HugeiconsIcon
