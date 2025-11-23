@@ -5,6 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "@/i18n/routing";
 
 type NavLink = {
@@ -22,10 +23,16 @@ type Props = {
 
 export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const t = useTranslations("navigation");
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
+
+  // Track mounting for Portal (avoid SSR hydration issues)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle Escape key to close menu
   useEffect(() => {
@@ -105,43 +112,9 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
     },
   };
 
-  return (
+  // Overlay content that needs to render outside the transformed header
+  const overlayContent = (
     <>
-      {/* Hamburger Button */}
-      <motion.button
-        aria-controls="mobile-menu"
-        aria-expanded={isOpen}
-        aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center text-neutral-900 transition-colors hover:bg-neutral-100"
-        onClick={toggleMenu}
-        type="button"
-        whileTap={{ scale: 0.95 }}
-      >
-        <AnimatePresence initial={false} mode="wait">
-          {isOpen ? (
-            <motion.div
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              initial={{ rotate: 90, opacity: 0 }}
-              key="close"
-              transition={{ duration: 0.2 }}
-            >
-              <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
-            </motion.div>
-          ) : (
-            <motion.div
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              initial={{ rotate: -90, opacity: 0 }}
-              key="menu"
-              transition={{ duration: 0.2 }}
-            >
-              <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.button>
-
       {/* Backdrop */}
       <AnimatePresence>
         {isOpen && (
@@ -170,7 +143,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             animate="visible"
             aria-label="Mobile navigation menu"
             aria-modal="true"
-            className="fixed top-0 right-0 z-[210] h-full w-full max-w-[340px] border-neutral-200 border-l bg-white shadow-2xl"
+            className="fixed top-0 right-0 z-[210] flex h-full w-full max-w-[340px] flex-col border-neutral-200 border-l bg-white shadow-2xl"
             exit="hidden"
             id="mobile-menu"
             initial="hidden"
@@ -178,13 +151,13 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             variants={menuVariants}
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-neutral-200 border-b bg-neutral-50/50 px-6 py-5">
+            <div className="flex shrink-0 items-center justify-between border-neutral-200 border-b bg-neutral-50 px-6 py-5">
               <span className="font-[family-name:var(--font-satoshi)] font-semibold text-neutral-900 text-xl tracking-tight">
                 Menu
               </span>
               <motion.button
                 aria-label="Close menu"
-                className="flex h-10 w-10 items-center justify-center text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900"
                 onClick={closeMenu}
                 type="button"
                 whileTap={{ scale: 0.95 }}
@@ -194,7 +167,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex h-[calc(100%-73px)] flex-col justify-between overflow-y-auto p-6">
+            <nav className="flex min-h-0 flex-1 flex-col justify-between overflow-y-auto p-6">
               <motion.div
                 animate="visible"
                 className="space-y-1"
@@ -283,6 +256,48 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           </motion.div>
         )}
       </AnimatePresence>
+    </>
+  );
+
+  return (
+    <>
+      {/* Hamburger Button - stays in the header */}
+      <motion.button
+        aria-controls="mobile-menu"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-900 transition-colors hover:bg-neutral-100"
+        onClick={toggleMenu}
+        type="button"
+        whileTap={{ scale: 0.95 }}
+      >
+        <AnimatePresence initial={false} mode="wait">
+          {isOpen ? (
+            <motion.div
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              initial={{ rotate: 90, opacity: 0 }}
+              key="close"
+              transition={{ duration: 0.2 }}
+            >
+              <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
+            </motion.div>
+          ) : (
+            <motion.div
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              initial={{ rotate: -90, opacity: 0 }}
+              key="menu"
+              transition={{ duration: 0.2 }}
+            >
+              <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.button>
+
+      {/* Portal overlay to body - escapes transformed parent */}
+      {mounted && createPortal(overlayContent, document.body)}
     </>
   );
 }
