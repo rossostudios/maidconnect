@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@/i18n/routing";
+import { GlobeButton } from "@/components/preferences";
 
 type NavLink = {
   href: string;
@@ -155,15 +156,18 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
               <span className="font-[family-name:var(--font-satoshi)] font-semibold text-neutral-900 text-xl tracking-tight">
                 Menu
               </span>
-              <motion.button
-                aria-label="Close menu"
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900"
-                onClick={closeMenu}
-                type="button"
-                whileTap={{ scale: 0.95 }}
-              >
-                <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
-              </motion.button>
+              <div className="flex items-center gap-2">
+                <GlobeButton />
+                <motion.button
+                  aria-label="Close menu"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900"
+                  onClick={closeMenu}
+                  type="button"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
+                </motion.button>
+              </div>
             </div>
 
             {/* Navigation Links */}

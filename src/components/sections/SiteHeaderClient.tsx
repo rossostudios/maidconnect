@@ -9,7 +9,6 @@ import {
   HelpCircleIcon,
   Home09Icon,
   News01Icon,
-  PresentationBarChart01Icon,
   StarIcon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
@@ -43,12 +42,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       href: "/how-it-works#vetting",
       description: t("dropdown.professionals.vettingProcessDesc"),
       icon: CheckmarkBadge01Icon,
-    },
-    {
-      name: t("dropdown.professionals.pricing"),
-      href: "/pricing",
-      description: t("dropdown.professionals.pricingDesc"),
-      icon: PresentationBarChart01Icon,
     },
   ];
 
@@ -105,7 +98,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
   // Navigation links for mobile menu (flattened)
   const mobileLinks = [
     { href: "/how-it-works", label: t("dropdown.professionals.howItWorks") },
-    { href: "/pricing", label: t("pricing") },
     { href: "/pros", label: t("dropdown.customers.reviews") },
     { href: "/help", label: t("dropdown.customers.helpCenter") },
     { href: "/about", label: t("dropdown.company.about") },
