@@ -4,7 +4,6 @@ import { Facebook02Icon, InstagramIcon, NewTwitterIcon } from "@hugeicons/core-f
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -55,41 +54,32 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="relative flex min-h-[480px] flex-col overflow-hidden" id="footer">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          alt="Casaora - Home in Latin America"
-          className="object-cover object-center"
-          fill
-          priority
-          sizes="100vw"
-          src="/casaorafooter.png"
-        />
+    <footer className="flex flex-col" id="footer">
+      {/* Image Section - Hero-style container */}
+      <div className="bg-white px-4 pt-12 pb-8 md:px-8 lg:px-12">
+        <div className="mx-auto max-w-screen-2xl">
+          <div className="relative overflow-hidden rounded-[28px] shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+            <div className="relative aspect-[21/9] md:aspect-[3/1]">
+              <Image
+                alt="Casaora - Home in Latin America"
+                className="object-cover object-center"
+                fill
+                priority
+                sizes="100vw"
+                src="/footer.png"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Top gradient - blends page into sky */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24"
-        style={{
-          background: `linear-gradient(
-            to bottom,
-            white 0%,
-            rgba(255, 255, 255, 0.9) 30%,
-            rgba(255, 255, 255, 0.5) 60%,
-            transparent 100%
-          )`,
-        }}
-      />
-
-      {/* Floating Card Container */}
-      <div className="relative z-30 mx-auto w-full max-w-screen-xl px-4 pt-12 md:px-6 lg:px-8">
-        {/* Floating Card */}
-        <div className="rounded-2xl bg-white/95 px-6 py-6 shadow-xl md:px-8 md:py-8">
+      {/* Navigation Section - Full width white background */}
+      <div className="w-full bg-white">
+        <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-12 lg:px-12">
           {/* Main Footer Content */}
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Footer Links - left side */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4 md:gap-x-10">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4 md:gap-x-12">
               {footerColumns.map((column) => (
                 <div className="flex flex-col gap-3" key={column.title}>
                   <h3
@@ -137,7 +127,7 @@ export function SiteFooter() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-6 flex flex-col gap-4 border-neutral-200 border-t pt-5 md:flex-row md:items-center md:justify-between">
+          <div className="mt-8 flex flex-col gap-4 border-neutral-200 border-t pt-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 {socialLinks.map(({ label, href, icon }) => (
@@ -157,10 +147,6 @@ export function SiteFooter() {
                   </a>
                 ))}
               </div>
-              {/* Language Toggle */}
-              <div className="border-neutral-200 border-l pl-4">
-                <LanguageSwitcher />
-              </div>
             </div>
             <p className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
               © {year} Casaora. All rights reserved.
@@ -168,9 +154,6 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-
-      {/* Spacer to show landscape below card */}
-      <div className="flex-1" />
     </footer>
   );
 }
