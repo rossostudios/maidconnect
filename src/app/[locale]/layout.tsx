@@ -114,6 +114,16 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        {/* LCP Preload: Hero image is the largest contentful paint element */}
+        <link
+          as="image"
+          fetchPriority="high"
+          href="/hero.png"
+          rel="preload"
+          type="image/png"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistSans.variable} antialiased`}
         data-nonce={nonce}

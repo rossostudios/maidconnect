@@ -16,8 +16,12 @@ export function MarketplaceHero() {
         <div className="absolute inset-0">
           <Image
             alt="Professional household services"
+            // Low-res base64 blur placeholder - prevents layout shift and improves perceived performance
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIDBAARBRIhMQYTQf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC3xnKT8ZLYkrQwyCaMS9ZgSAQDodT6yLz/ADc1u/IIwqRop6KFOz2+/mMYD//Z"
             className="rounded-3xl object-cover object-center"
+            fetchPriority="high"
             fill
+            placeholder="blur"
             priority
             sizes="100vw"
             src="/hero.png"

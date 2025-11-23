@@ -1,11 +1,28 @@
+import dynamic from "next/dynamic";
 import { setRequestLocale } from "next-intl/server";
-import { BenefitsSection } from "@/components/sections/BenefitsSection";
-import { CityShowcase } from "@/components/sections/CityShowcase";
-import { GuaranteeSection } from "@/components/sections/GuaranteeSection";
+// Above-fold components - static imports for LCP
 import { MarketplaceHero } from "@/components/sections/MarketplaceHero";
-import { ProcessSection } from "@/components/sections/ProcessSection";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
+
+// Below-fold components - dynamic imports for code splitting
+// These load after initial paint, reducing main bundle size
+const BenefitsSection = dynamic(
+  () => import("@/components/sections/BenefitsSection").then((mod) => mod.BenefitsSection),
+  { ssr: true }
+);
+const CityShowcase = dynamic(
+  () => import("@/components/sections/CityShowcase").then((mod) => mod.CityShowcase),
+  { ssr: true }
+);
+const ProcessSection = dynamic(
+  () => import("@/components/sections/ProcessSection").then((mod) => mod.ProcessSection),
+  { ssr: true }
+);
+const GuaranteeSection = dynamic(
+  () => import("@/components/sections/GuaranteeSection").then((mod) => mod.GuaranteeSection),
+  { ssr: true }
+);
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   // Get the locale from params

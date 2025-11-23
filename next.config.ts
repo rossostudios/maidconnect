@@ -61,14 +61,29 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "6mb",
     },
     // Optimize package imports to reduce bundle size
+    // This enables tree-shaking for barrel exports (index.ts re-exports)
     optimizePackageImports: [
+      // Icon libraries (biggest wins)
       "@hugeicons/react",
+      "@hugeicons/core-free-icons",
+      // React Aria (unstyled components)
+      "react-aria-components",
+      "react-aria",
+      "@react-aria/utils",
+      // Legacy Radix (migration in progress)
       "@radix-ui/react-dialog",
       "@radix-ui/react-select",
+      // Data/state management
       "@tanstack/react-query",
+      "zod",
+      // Animation
       "motion",
+      // Utilities
       "date-fns",
       "recharts",
+      // UI feedback
+      "sonner",
+      "posthog-js",
     ],
     // Memory optimizations to prevent SIGABRT errors during build
     webpackMemoryOptimizations: true,
