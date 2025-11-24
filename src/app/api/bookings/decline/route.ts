@@ -9,6 +9,7 @@
 
 import { z } from "zod";
 import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
+import { invalidateBookings } from "@/lib/cache";
 import type { BookingWorkflowData } from "@/lib/bookings/booking-workflow-service";
 import {
   cancelPaymentIntent,
@@ -73,6 +74,9 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   if (customerEmail) {
     await sendDeclineNotifications(booking, professionalName, customerName, customerEmail, reason);
   }
+
+  // Invalidate booking-related caches (availability, stats)
+  invalidateBookings();
 
   return ok({
     booking: { id: booking.id, status: "declined" },

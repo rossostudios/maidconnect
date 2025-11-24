@@ -9,6 +9,7 @@
 
 import { z } from "zod";
 import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
+import { invalidateBookings } from "@/lib/cache";
 import type { CancellationBookingData } from "@/lib/bookings/cancellation-service";
 import {
   cancelBookingInDatabase,
@@ -96,6 +97,9 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     reason,
     refundAmount,
   });
+
+  // Invalidate booking-related caches (availability, stats)
+  invalidateBookings();
 
   return ok(
     {

@@ -1,33 +1,37 @@
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import type { DirectoryProfessional, DirectoryResponse } from "@/components/directory/types";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import {
+  CACHE_DURATIONS,
+  CACHE_HEADERS,
+  CACHE_TAGS,
+  type DirectoryParams,
+  directoryKey,
+} from "@/lib/cache";
+
+type DirectoryQueryParams = DirectoryParams & {
+  minRating?: number;
+};
 
 /**
- * GET /api/directory/professionals
- *
- * Fetches professionals for the directory with filtering, sorting, and pagination.
+ * Cached function to fetch professionals directory data
+ * Revalidates every 10 minutes (STANDARD duration)
  */
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-
-    // Parse query parameters
-    const country = searchParams.get("country");
-    const city = searchParams.get("city");
-    const _neighborhood = searchParams.get("neighborhood");
-    const service = searchParams.get("service");
-    const _minRate = searchParams.get("minRate");
-    const _maxRate = searchParams.get("maxRate");
-    const minExperience = searchParams.get("minExperience");
-    const _availableToday = searchParams.get("availableToday") === "true";
-    const _date = searchParams.get("date");
-    const minRating = searchParams.get("minRating");
-    const verifiedOnly = searchParams.get("verifiedOnly") === "true";
-    const _backgroundChecked = searchParams.get("backgroundChecked") === "true";
-    const query = searchParams.get("query");
-    const sort = searchParams.get("sort") || "rating";
-    const page = Number.parseInt(searchParams.get("page") || "1", 10);
-    const limit = Math.min(Number.parseInt(searchParams.get("limit") || "20", 10), 50);
+const getCachedDirectory = unstable_cache(
+  async (params: DirectoryQueryParams): Promise<DirectoryResponse> => {
+    const {
+      country,
+      city,
+      service,
+      minExperience,
+      minRating,
+      verifiedOnly,
+      query,
+      sort = "rating",
+      page = 1,
+      limit = 20,
+    } = params;
 
     const supabase = createSupabaseAnonClient();
 
@@ -77,7 +81,6 @@ export async function GET(request: NextRequest) {
     }
 
     // Note: neighborhood filter skipped - column doesn't exist in DB
-    // if (neighborhood) { ... }
 
     if (service) {
       // Filter by primary service (contains)
@@ -88,7 +91,7 @@ export async function GET(request: NextRequest) {
     // Skipping direct DB filtering for now - can filter post-query if needed
 
     if (minExperience) {
-      dbQuery = dbQuery.gte("experience_years", Number.parseInt(minExperience, 10));
+      dbQuery = dbQuery.gte("experience_years", minExperience);
     }
 
     if (verifiedOnly) {
@@ -135,7 +138,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("Error fetching professionals:", error);
-      return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
+      throw new Error("Failed to fetch professionals");
     }
 
     // Fetch metrics separately using profile_ids
@@ -222,9 +225,8 @@ export async function GET(request: NextRequest) {
     // Apply rating filter (post-query since it requires joined data)
     let filteredProfessionals = professionals;
     if (minRating) {
-      const minRatingNum = Number.parseFloat(minRating);
       filteredProfessionals = professionals.filter(
-        (p) => p.averageRating !== null && p.averageRating >= minRatingNum
+        (p) => p.averageRating !== null && p.averageRating >= minRating
       );
     }
 
@@ -239,15 +241,63 @@ export async function GET(request: NextRequest) {
       filteredProfessionals.sort((a, b) => b.totalReviews - a.totalReviews);
     }
 
-    const response: DirectoryResponse = {
+    return {
       professionals: filteredProfessionals,
       total: count || 0,
       page,
       totalPages: Math.ceil((count || 0) / limit),
       limit,
     };
+  },
+  ["directory-professionals"],
+  {
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.PROFESSIONALS, CACHE_TAGS.PROFESSIONALS_DIRECTORY],
+  }
+);
 
-    return NextResponse.json(response);
+/**
+ * GET /api/directory/professionals
+ *
+ * Fetches professionals for the directory with filtering, sorting, and pagination.
+ * Cached for 10 minutes with CDN support.
+ */
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+
+    // Parse query parameters
+    const country = searchParams.get("country") || undefined;
+    const city = searchParams.get("city") || undefined;
+    const service = searchParams.get("service") || undefined;
+    const minExperienceStr = searchParams.get("minExperience");
+    const minRatingStr = searchParams.get("minRating");
+    const verifiedOnly = searchParams.get("verifiedOnly") === "true";
+    const backgroundCheck = searchParams.get("backgroundChecked") === "true";
+    const query = searchParams.get("query") || undefined;
+    const sort = searchParams.get("sort") || "rating";
+    const page = Number.parseInt(searchParams.get("page") || "1", 10);
+    const limit = Math.min(Number.parseInt(searchParams.get("limit") || "20", 10), 50);
+
+    const params: DirectoryQueryParams = {
+      country,
+      city,
+      service,
+      minExperience: minExperienceStr ? Number.parseInt(minExperienceStr, 10) : undefined,
+      minRating: minRatingStr ? Number.parseFloat(minRatingStr) : undefined,
+      verifiedOnly,
+      backgroundCheck,
+      query,
+      sort,
+      page,
+      limit,
+    };
+
+    // Use cached function for data fetching
+    const response = await getCachedDirectory(params);
+
+    // Return with CDN cache headers
+    return NextResponse.json(response, { headers: CACHE_HEADERS.STANDARD });
   } catch (error) {
     console.error("Unexpected error in directory API:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

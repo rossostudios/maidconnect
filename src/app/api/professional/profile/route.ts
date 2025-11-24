@@ -8,6 +8,7 @@
 
 import { z } from "zod";
 import { notFound, ok, requireProfessionalProfile, withProfessional } from "@/lib/api";
+import { invalidateProfessionals } from "@/lib/cache";
 import { ValidationError } from "@/lib/errors";
 
 const updateProfileSchema = z.object({
@@ -62,6 +63,9 @@ export const PUT = withProfessional(async ({ user, supabase }, request: Request)
   if (updateError) {
     throw new ValidationError("Failed to update profile");
   }
+
+  // Invalidate professional-related caches (directory, search)
+  invalidateProfessionals();
 
   return ok(null, "Profile updated successfully");
 });

@@ -8,6 +8,7 @@
 
 import { z } from "zod";
 import { noContent, ok, requireResourceOwnership, withProfessional } from "@/lib/api";
+import { invalidateProfessionalAddons } from "@/lib/cache";
 import { ValidationError } from "@/lib/errors";
 
 type RouteContext = {
@@ -50,6 +51,9 @@ export const PATCH = withProfessional(
       throw new ValidationError("Failed to update add-on");
     }
 
+    // Invalidate add-ons cache
+    invalidateProfessionalAddons();
+
     return ok({ addon });
   }
 );
@@ -69,6 +73,9 @@ export const DELETE = withProfessional(
     if (error) {
       throw new ValidationError("Failed to delete add-on");
     }
+
+    // Invalidate add-ons cache
+    invalidateProfessionalAddons();
 
     return noContent();
   }

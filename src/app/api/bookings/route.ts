@@ -9,6 +9,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { ok, requireCountryProfile, withAuth, withRateLimit } from "@/lib/api";
+import { invalidateBookings } from "@/lib/cache";
 import type { BookingInsertInput } from "@/lib/bookings/booking-creation-service";
 import {
   calculateBookingAmount,
@@ -94,6 +95,9 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     country_code: countryContext.country,
     payment_processor: countryContext.paymentProcessor,
   });
+
+  // Invalidate booking-related caches (availability, stats)
+  invalidateBookings();
 
   return ok({
     bookingId: booking.id,

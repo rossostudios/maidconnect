@@ -9,6 +9,7 @@
 
 import { z } from "zod";
 import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
+import { invalidateBookings } from "@/lib/cache";
 import type { BookingWorkflowData } from "@/lib/bookings/booking-workflow-service";
 import {
   fetchNotificationDetails,
@@ -66,6 +67,9 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     totalAmount: booking.amount_authorized ?? 0,
     currency: booking.currency ?? "COP",
   });
+
+  // Invalidate booking-related caches (availability, stats)
+  invalidateBookings();
 
   return ok(
     {

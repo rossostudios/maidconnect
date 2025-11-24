@@ -1,8 +1,10 @@
 /**
- * Sanity Webhook Handler - Algolia Sync
+ * Sanity Webhook Handler - Algolia Sync & Cache Invalidation
  *
  * This webhook receives events from Sanity CMS when documents are
- * created, updated, or deleted, and syncs them to Algolia for search.
+ * created, updated, or deleted. It:
+ * 1. Syncs documents to Algolia for search
+ * 2. Invalidates Next.js cache tags for affected content types
  *
  * Webhook Setup in Sanity:
  * 1. Go to https://www.sanity.io/manage
@@ -26,6 +28,7 @@
 
 import crypto from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
+import { invalidateSanityContent } from "@/lib/cache";
 import { syncDocument } from "@/lib/integrations/algolia";
 import { client } from "@/lib/integrations/sanity/client";
 import { logger } from "@/lib/logger";
@@ -141,6 +144,14 @@ export async function POST(request: NextRequest) {
 
     // Sync to Algolia
     const result = await syncDocument(document, action);
+
+    // Invalidate Next.js cache for this content type
+    invalidateSanityContent(_type);
+
+    logger.info("[Sanity Webhook] Cache invalidated", {
+      documentType: _type,
+      documentId: _id,
+    });
 
     // Epic H-2.3: Store event in database to prevent replay
     const { error: insertError } = await supabaseAdmin.from("sanity_webhook_events").insert({

@@ -1,4 +1,9 @@
 import { unstable_cache } from "next/cache";
+import {
+  CACHE_DURATIONS,
+  CACHE_TAGS,
+  latestProfessionalsKey,
+} from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 
 export type NewProfessional = {
@@ -13,7 +18,7 @@ export type NewProfessional = {
 
 /**
  * Fetches the latest professionals who have joined the platform
- * Cached for 1 hour to improve performance and enable static generation
+ * Uses centralized cache infrastructure for consistent caching behavior
  * @param limit - Number of professionals to fetch (default: 7)
  * @returns Array of professional objects
  */
@@ -72,9 +77,9 @@ export const getLatestProfessionals = unstable_cache(
       return [];
     }
   },
-  ["latest-professionals"], // Cache key
+  latestProfessionalsKey(),
   {
-    revalidate: 3600, // Revalidate every hour (1 hour = 3600 seconds)
-    tags: ["professionals"], // Tags for on-demand revalidation
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.PROFESSIONALS, CACHE_TAGS.PROFESSIONALS_DIRECTORY],
   }
 );

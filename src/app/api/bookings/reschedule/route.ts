@@ -9,6 +9,7 @@
 import { format } from "date-fns";
 import { z } from "zod";
 import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
+import { invalidateBookings } from "@/lib/cache";
 import { sendBookingRescheduleEmail } from "@/lib/email/send";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { notifyProfessionalBookingRescheduled } from "@/lib/notifications";
@@ -148,6 +149,9 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     customerName,
     newScheduledStart: newStartTime.toISOString(),
   });
+
+  // Invalidate booking-related caches (availability, stats)
+  invalidateBookings();
 
   return ok(
     {

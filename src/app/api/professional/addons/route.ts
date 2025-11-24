@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { created, ok, withProfessional } from "@/lib/api";
+import { invalidateProfessionalAddons } from "@/lib/cache";
 
 const addonSchema = z.object({
   name: z.string().min(2),
@@ -45,6 +46,9 @@ export const POST = withProfessional(async ({ supabase, user }, request: Request
   if (error) {
     throw error;
   }
+
+  // Invalidate add-ons cache
+  invalidateProfessionalAddons();
 
   return created({ addon: data });
 });

@@ -1,47 +1,41 @@
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
 import {
   type AvailabilitySettings,
   type DayAvailability,
   getAvailabilityForRange,
 } from "@/lib/availability";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS, availabilityKey } from "@/lib/cache";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
 
+type AvailabilityResponse = {
+  professionalId: string;
+  startDate: string;
+  endDate: string;
+  availability: DayAvailability[];
+  instantBooking: {
+    enabled: boolean;
+    settings: Record<string, unknown>;
+  };
+};
+
 /**
- * Get professional availability for a date range
- * GET /api/professionals/[id]/availability?startDate=2025-01-01&endDate=2025-01-31
- *
- * Returns availability status for each day in the range:
- * - available: Many slots available
- * - limited: Few slots remaining
- * - booked: No slots available
- * - blocked: Professional not working (vacation, etc.)
+ * Cached function to fetch professional availability
+ * Revalidates every 60 seconds (SHORT duration) since bookings change frequently
  */
-export async function GET(request: Request, context: RouteContext) {
-  try {
-    const { id: professionalId } = await context.params;
-    const { searchParams } = new URL(request.url);
-    const startDateParam = searchParams.get("startDate");
-    const endDateParam = searchParams.get("endDate");
-
-    if (!(startDateParam && endDateParam)) {
-      return NextResponse.json(
-        { error: "startDate and endDate query parameters are required" },
-        { status: 400 }
-      );
-    }
-
-    const startDate = new Date(startDateParam);
-    const endDate = new Date(endDateParam);
-
-    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
-      return NextResponse.json({ error: "Invalid date format. Use YYYY-MM-DD" }, { status: 400 });
-    }
-
-    const supabase = await createSupabaseServerClient();
+const getCachedAvailability = unstable_cache(
+  async (
+    professionalId: string,
+    startDateStr: string,
+    endDateStr: string
+  ): Promise<AvailabilityResponse> => {
+    const supabase = createSupabaseAnonClient();
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
 
     // Fetch professional availability settings
     const { data: professional, error: profError } = await supabase
@@ -53,7 +47,7 @@ export async function GET(request: Request, context: RouteContext) {
       .single();
 
     if (profError || !professional) {
-      return NextResponse.json({ error: "Professional not found" }, { status: 404 });
+      throw new Error("Professional not found");
     }
 
     // Parse availability settings with defaults
@@ -91,7 +85,8 @@ export async function GET(request: Request, context: RouteContext) {
       .lte("scheduled_start", endDate.toISOString());
 
     if (bookingsError) {
-      return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
+      console.error("Error fetching bookings:", bookingsError);
+      throw new Error("Failed to fetch availability");
     }
 
     // Calculate availability for date range
@@ -103,17 +98,66 @@ export async function GET(request: Request, context: RouteContext) {
       blockedDates
     );
 
-    return NextResponse.json({
+    return {
       professionalId,
-      startDate: startDateParam,
-      endDate: endDateParam,
+      startDate: startDateStr,
+      endDate: endDateStr,
       availability,
       instantBooking: {
-        enabled: professional.instant_booking_enabled,
-        settings: professional.instant_booking_settings || {},
+        enabled: professional.instant_booking_enabled ?? false,
+        settings: (professional.instant_booking_settings as Record<string, unknown>) || {},
       },
-    });
-  } catch (_error) {
+    };
+  },
+  ["professional-availability"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.PROFESSIONALS_AVAILABILITY],
+  }
+);
+
+/**
+ * Get professional availability for a date range
+ * GET /api/professionals/[id]/availability?startDate=2025-01-01&endDate=2025-01-31
+ *
+ * Returns availability status for each day in the range:
+ * - available: Many slots available
+ * - limited: Few slots remaining
+ * - booked: No slots available
+ * - blocked: Professional not working (vacation, etc.)
+ *
+ * Cached for 60 seconds with CDN support (invalidated on booking changes).
+ */
+export async function GET(request: Request, context: RouteContext) {
+  try {
+    const { id: professionalId } = await context.params;
+    const { searchParams } = new URL(request.url);
+    const startDateParam = searchParams.get("startDate");
+    const endDateParam = searchParams.get("endDate");
+
+    if (!(startDateParam && endDateParam)) {
+      return NextResponse.json(
+        { error: "startDate and endDate query parameters are required" },
+        { status: 400 }
+      );
+    }
+
+    const startDate = new Date(startDateParam);
+    const endDate = new Date(endDateParam);
+
+    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+      return NextResponse.json({ error: "Invalid date format. Use YYYY-MM-DD" }, { status: 400 });
+    }
+
+    // Use cached function for data fetching
+    const response = await getCachedAvailability(professionalId, startDateParam, endDateParam);
+
+    // Return with CDN cache headers (shorter duration for volatile data)
+    return NextResponse.json(response, { headers: CACHE_HEADERS.SHORT });
+  } catch (error) {
+    if (error instanceof Error && error.message === "Professional not found") {
+      return NextResponse.json({ error: "Professional not found" }, { status: 404 });
+    }
     return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
   }
 }
