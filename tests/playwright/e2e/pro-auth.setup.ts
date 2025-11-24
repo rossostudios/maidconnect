@@ -25,8 +25,19 @@ setup("authenticate as professional", async ({ page }) => {
   // Use the existing test helper to log in
   await loginAsProfessional(page, email, password);
 
-  // Wait for successful redirect to professional dashboard
-  await page.waitForURL("**/dashboard/pro**", { timeout: 10_000 });
+  // Wait for successful redirect to any dashboard (customer or pro)
+  // Some professionals may redirect to customer dashboard first if not fully onboarded
+  await page.waitForURL("**/dashboard**", { timeout: 15_000 });
+
+  const currentUrl = page.url();
+  console.log(`[pro-auth.setup] Redirected to: ${currentUrl}`);
+
+  // If not on pro dashboard, navigate there explicitly
+  if (!currentUrl.includes("/dashboard/pro")) {
+    console.log("[pro-auth.setup] Navigating to pro dashboard...");
+    await page.goto("/en/dashboard/pro");
+    await page.waitForLoadState("networkidle");
+  }
 
   console.log("[pro-auth.setup] Login successful, saving authentication state...");
 

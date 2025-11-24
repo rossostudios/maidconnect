@@ -1,4 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "node:path";
+
+// Load test environment variables
+dotenv.config({ path: path.resolve(__dirname, ".env.test.local") });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -40,6 +45,14 @@ export default defineConfig({
     {
       name: "setup",
       testMatch: /.*\.setup\.ts/,
+    },
+
+    // Non-authenticated project for public pages (homepage, etc.)
+    {
+      name: "chromium-public",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: "**/homepage.spec.ts",
+      // No dependencies, no storageState - runs without auth
     },
 
     // Customer-authenticated projects
@@ -110,7 +123,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: "npm run dev",
-    url: "http://localhost:3000",
+    url: "http://localhost:3000/en",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

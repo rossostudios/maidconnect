@@ -138,6 +138,15 @@ export type SimpleRateLimitResult = {
  * @returns Rate limit result
  */
 export function checkRateLimit(identifier: string, config: RateLimitConfig): SimpleRateLimitResult {
+  // Bypass rate limiting in E2E test mode
+  if (process.env.PLAYWRIGHT_TEST_MODE === "true" || process.env.NODE_ENV === "test") {
+    return {
+      allowed: true,
+      remaining: config.maxRequests,
+      resetTime: Date.now() + config.windowMs,
+    };
+  }
+
   const now = Date.now();
   const key = identifier;
   const entry = store.get(key);

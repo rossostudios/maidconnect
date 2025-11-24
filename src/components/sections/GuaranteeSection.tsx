@@ -257,7 +257,7 @@ function FeatureList({
 
 export function GuaranteeSection() {
   const t = useTranslations("home.guarantee");
-  const [activeFeature, setActiveFeature] = useState<string>("reservice");
+  const [activeFeature, setActiveFeature] = useState<string>("quality");
 
   const features = [
     {

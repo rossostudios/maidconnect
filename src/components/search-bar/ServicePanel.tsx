@@ -61,7 +61,7 @@ export function ServicePanel({
     >
       {/* Header */}
       <div className="mb-4 px-2">
-        <h3 className="font-semibold text-neutral-900">What do you need help with?</h3>
+        <h3 className="font-semibold text-base text-neutral-900">What do you need help with?</h3>
         <p className="mt-1 text-neutral-500 text-sm">Select a service type</p>
       </div>
 

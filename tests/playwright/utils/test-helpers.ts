@@ -21,7 +21,7 @@ export async function loginAsCustomer(
   email = "customer@test.com",
   password = "password123"
 ) {
-  await page.goto("/login");
+  await page.goto("/en/auth/sign-in");
   await page.fill('input[type="email"]', email);
   await page.fill('input[type="password"]', password);
   await page.click('button[type="submit"]');
@@ -36,7 +36,7 @@ export async function loginAsProfessional(
   email = "pro@test.com",
   password = "password123"
 ) {
-  await page.goto("/login");
+  await page.goto("/en/auth/sign-in");
   await page.fill('input[type="email"]', email);
   await page.fill('input[type="password"]', password);
   await page.click('button[type="submit"]');
@@ -55,10 +55,21 @@ export async function logout(page: Page) {
 
 /**
  * Navigate to a route and wait for it to load
+ * Automatically adds /en/ locale prefix if not present
  */
 export async function navigateTo(page: Page, path: string) {
-  await page.goto(path);
-  await waitForPageLoad(page);
+  // Add locale prefix if not present and not an absolute URL
+  let fullPath = path;
+  // Check for /en or /es at start (with or without trailing content)
+  const hasLocalePrefix = /^\/(en|es)(\/|$)/.test(path);
+  if (!path.startsWith("http") && !hasLocalePrefix) {
+    fullPath = `/en${path.startsWith("/") ? "" : "/"}${path}`;
+  }
+  await page.goto(fullPath);
+  // Wait for DOM content loaded first
+  await page.waitForLoadState("domcontentloaded");
+  // Then wait for network to settle
+  await page.waitForLoadState("networkidle");
 }
 
 /**
