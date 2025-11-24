@@ -1,19 +1,47 @@
 <div align="center">
-  <img src="public/casaora-platform.png" alt="Casaora Platform" width="600" />
+  <img src="public/hero.png" alt="Casaora - Premium Home Services for Latin America" width="800" />
 
   # Casaora
 
   **Premium Home Services Marketplace for Latin America**
 
-  [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
-  [![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
-  [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4.1-38bdf8)](https://tailwindcss.com/)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+  [![Next.js 16](https://img.shields.io/badge/Next.js-16-black?style=flat-square)](https://nextjs.org/)
+  [![React 19](https://img.shields.io/badge/React-19-61dafb?style=flat-square)](https://react.dev/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square)](https://www.typescriptlang.org/)
+  [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4.1-38bdf8?style=flat-square)](https://tailwindcss.com/)
+  [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3fcf8e?style=flat-square)](https://supabase.com/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-  [Live Demo](https://casaora.com) · [Report Bug](https://github.com/casaora/casaora/issues) · [Request Feature](https://github.com/casaora/casaora/issues)
+  [**Live Demo**](https://casaora.vercel.app) · [**Documentation**](docs/) · [**Report Bug**](https://github.com/rossostudios/casaora/issues)
 
 </div>
+
+---
+
+## Highlights
+
+<table>
+<tr>
+<td width="50%">
+
+### For Families
+- **Verified Professionals** — Background-checked and skill-assessed
+- **Instant Booking** — Book one-time or recurring services
+- **Secure Payments** — Multi-currency Stripe & PayPal
+- **Real-time Chat** — Message your professional directly
+
+</td>
+<td width="50%">
+
+### For Professionals
+- **Fair Earnings** — 85% commission to professionals
+- **Flexible Schedule** — Set your own availability
+- **Build Reputation** — Verified reviews and ratings
+- **Multi-City** — Work across 17 cities in 4 countries
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -25,17 +53,12 @@ Casaora is a **boutique marketplace** connecting families with verified, backgro
 
 To dignify domestic work and make it simple, safe, and fair for families in Latin America to work with professional home helpers.
 
-### Our Vision
-
-A Latin America where every home professional has access to decent work, and every household can rely on trusted support at home.
-
 ### Core Values
 
-- **Dignidad primero (Dignity First):** We treat every professional with the respect they deserve
-- **Transparencia total (Total Transparency):** No hidden fees, clear pricing
-- **Seguridad y confianza (Safety & Trust):** Rigorous vetting for peace of mind
-- **Simplicidad radical (Radical Simplicity):** Booking help should be as easy as ordering a ride
-- **Latam en el corazón (Latam at Heart):** Built for the unique needs of our region
+- **Dignidad primero** — We treat every professional with the respect they deserve
+- **Transparencia total** — No hidden fees, clear pricing
+- **Seguridad y confianza** — Rigorous vetting for peace of mind
+- **Simplicidad radical** — Booking help should be as easy as ordering a ride
 
 ---
 
@@ -43,7 +66,7 @@ A Latin America where every home professional has access to decent work, and eve
 
 | Feature | Description |
 |---------|-------------|
-| **Verified Professionals** | Background checks, document verification, and skills assessment for every professional |
+| **Verified Professionals** | Background checks, document verification, and skills assessment |
 | **Professional Directory** | Browse by city, service type, rating, and availability |
 | **Smart Booking** | One-time bookings or recurring weekly/biweekly plans |
 | **Secure Payments** | Multi-currency support with Stripe and PayPal |
@@ -57,12 +80,14 @@ A Latin America where every home professional has access to decent work, and eve
 
 ## Service Categories
 
-- **Housekeeping & Cleaning** — Regular cleaning, deep cleaning, move-in/move-out
-- **Childcare & Nanny** — Babysitting, full-time nanny, tutoring
-- **Elder Care** — Companion care, medical assistance, mobility support
-- **Pet Care** — Dog walking, pet sitting, grooming coordination
-- **Relocation & Move-in** — Packing, unpacking, organization
-- **Lifestyle & Personal** — Personal assistants, errand running
+| Category | Services |
+|----------|----------|
+| 🏠 **Housekeeping** | Regular cleaning, deep cleaning, move-in/move-out |
+| 👶 **Childcare** | Babysitting, full-time nanny, tutoring |
+| 👴 **Elder Care** | Companion care, medical assistance, mobility support |
+| 🐕 **Pet Care** | Dog walking, pet sitting, grooming coordination |
+| 📦 **Relocation** | Packing, unpacking, organization |
+| ✨ **Lifestyle** | Personal assistants, errand running |
 
 ---
 
@@ -70,14 +95,14 @@ A Latin America where every home professional has access to decent work, and eve
 
 | Country | Cities | Currency | Payment |
 |---------|--------|----------|---------|
-| Colombia | Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Santa Marta | COP | Stripe |
-| Paraguay | Asunción, Ciudad del Este, Encarnación | PYG | PayPal |
-| Uruguay | Montevideo, Punta del Este, Maldonado | UYU | PayPal |
-| Argentina | Buenos Aires, Mendoza, Córdoba, Rosario | ARS | PayPal |
+| 🇨🇴 Colombia | Bogotá, Medellín, Cali, Barranquilla, Cartagena, Bucaramanga, Santa Marta | COP | Stripe |
+| 🇵🇾 Paraguay | Asunción, Ciudad del Este, Encarnación | PYG | PayPal |
+| 🇺🇾 Uruguay | Montevideo, Punta del Este, Maldonado | UYU | PayPal |
+| 🇦🇷 Argentina | Buenos Aires, Mendoza, Córdoba, Rosario | ARS | PayPal |
 
 ---
 
-## Built With
+## Tech Stack
 
 ### Frontend
 - **[Next.js 16](https://nextjs.org/)** — React framework with App Router & Turbopack
@@ -87,22 +112,14 @@ A Latin America where every home professional has access to decent work, and eve
 - **[React Aria](https://react-spectrum.adobe.com/react-aria/)** — Accessible UI primitives
 
 ### Backend & Database
-- **[Supabase](https://supabase.com/)** — PostgreSQL, Auth, Storage, Realtime
+- **[Supabase](https://supabase.com/)** — PostgreSQL 17, Auth, Storage, Realtime
 - **[Bun](https://bun.sh/)** — JavaScript runtime & package manager
 
-### Caching & Performance
-- **Next.js `unstable_cache`** — Server-side data caching with tag-based invalidation
-- **CDN Headers** — Vercel Edge caching with `stale-while-revalidate`
-- **Upstash Redis** — Rate limiting
-
-### Payments
-- **[Stripe](https://stripe.com/)** — Primary processor (Colombia)
-- **[PayPal](https://www.paypal.com/)** — Secondary processor (PY, UY, AR)
-
 ### Integrations
+- **[Stripe](https://stripe.com/)** — Payments (Colombia)
+- **[PayPal](https://www.paypal.com/)** — Payments (PY, UY, AR)
 - **[PostHog](https://posthog.com/)** — Product analytics & feature flags
-- **[Sanity CMS](https://sanity.io/)** — Blog, help center, roadmap content
-- **[Resend](https://resend.com/)** — Transactional email
+- **[Sanity CMS](https://sanity.io/)** — Blog, help center, roadmap
 - **[Checkr](https://checkr.com/)** + **[Truora](https://truora.com/)** — Background checks
 - **[Vercel](https://vercel.com/)** — Deployment & hosting
 
@@ -119,7 +136,7 @@ A Latin America where every home professional has access to decent work, and eve
 
 ```bash
 # Clone the repository
-git clone https://github.com/casaora/casaora.git
+git clone https://github.com/rossostudios/casaora.git
 cd casaora
 
 # Install dependencies
@@ -136,17 +153,6 @@ bun dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see the application.
-
-### Environment Variables
-
-Copy `.env.example` to `.env.local` and configure:
-
-- `NEXT_PUBLIC_SUPABASE_URL` — Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase anonymous key
-- `STRIPE_SECRET_KEY` — Stripe API key
-- `POSTHOG_KEY` — PostHog project key
-
-See `.env.example` for the complete list.
 
 ---
 
@@ -169,7 +175,7 @@ casaora/
 │   │   └── integrations/       # External service clients
 │   └── hooks/                  # Custom React hooks
 ├── supabase/
-│   └── migrations/             # Database migrations
+│   └── migrations/             # Database migrations (50+)
 ├── public/                     # Static assets
 └── docs/                       # Documentation
 ```
@@ -195,7 +201,8 @@ supabase db push       # Push migrations
 supabase db reset      # Reset database
 
 # Testing
-bun test               # Run Playwright E2E tests
+bun test               # Run Vitest unit tests
+bun test:e2e           # Run Playwright E2E tests
 ```
 
 ---
@@ -207,13 +214,12 @@ bun test               # Run Playwright E2E tests
 - [x] Background check integration
 - [x] Dispute resolution system
 - [x] Referral program
-- [x] Service add-ons & pricing
 - [x] Product analytics (PostHog)
 - [ ] Mobile app (iOS & Android)
 - [ ] Additional Latin American markets
 - [ ] Professional certification badges
 
-See the [open issues](https://github.com/casaora/casaora/issues) for proposed features.
+See the [open issues](https://github.com/rossostudios/casaora/issues) for proposed features.
 
 ---
 
@@ -226,12 +232,6 @@ Contributions are welcome!
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-### Code Style
-
-- **Linting:** Biome (`bun run check:fix`)
-- **TypeScript:** Strict mode enabled
-- **Components:** Tailwind CSS only (no CSS-in-JS)
 
 ---
 
@@ -264,15 +264,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Casaora Team** — [hello@casaora.com](mailto:hello@casaora.com)
 
-- **Website:** [casaora.com](https://casaora.com)
+- **Website:** [casaora.vercel.app](https://casaora.vercel.app)
 - **Documentation:** [docs/](docs/)
-- **Issues:** [GitHub Issues](https://github.com/casaora/casaora/issues)
+- **Issues:** [GitHub Issues](https://github.com/rossostudios/casaora/issues)
 
 ---
 
 <div align="center">
 
-**Built with love for Latin American families**
+**Built with ❤️ for Latin American families**
 
 [Back to Top](#casaora)
 
