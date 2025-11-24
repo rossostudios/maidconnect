@@ -90,6 +90,11 @@ A Latin America where every home professional has access to decent work, and eve
 - **[Supabase](https://supabase.com/)** — PostgreSQL, Auth, Storage, Realtime
 - **[Bun](https://bun.sh/)** — JavaScript runtime & package manager
 
+### Caching & Performance
+- **Next.js `unstable_cache`** — Server-side data caching with tag-based invalidation
+- **CDN Headers** — Vercel Edge caching with `stale-while-revalidate`
+- **Upstash Redis** — Rate limiting
+
 ### Payments
 - **[Stripe](https://stripe.com/)** — Primary processor (Colombia)
 - **[PayPal](https://www.paypal.com/)** — Secondary processor (PY, UY, AR)

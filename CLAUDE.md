@@ -388,9 +388,178 @@ supabase/migrations/applied_on_remote/
 
 **Performance Optimizations in Place:**
 - Upstash Redis for rate limiting (tier-based: booking 20/min, payment 15/min)
-- Next.js `unstable_cache()` for public data (1 hour TTL)
+- Next.js `unstable_cache()` for public data (centralized in `src/lib/cache/`)
 - Database indexes on high-traffic queries
 - Connection pooling via Supabase Pooler
+
+### Cache Infrastructure (CRITICAL)
+
+**Location:** `src/lib/cache/` - Centralized caching utilities
+
+**Architecture:**
+```
+src/lib/cache/
+├── config.ts       # Cache durations & CDN headers
+├── tags.ts         # Type-safe cache tag registry
+├── keys.ts         # Key generators for parameterized routes
+├── invalidate.ts   # Domain-specific invalidation helpers
+└── index.ts        # Barrel exports
+```
+
+**Cache Durations:**
+```typescript
+import { CACHE_DURATIONS, CACHE_HEADERS } from "@/lib/cache";
+
+// CACHE_DURATIONS
+SHORT: 60,      // 1 min - volatile data (availability, real-time stats)
+STANDARD: 600,  // 10 min - stable public data (directory, profiles)
+
+// CACHE_HEADERS (for CDN)
+STANDARD: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=60' }
+SHORT: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30' }
+```
+
+**When to Cache:**
+- ✅ **Public GET routes** - Directory listings, profiles, availability
+- ✅ **Unauthenticated data** - No user-specific content
+- ✅ **Stable data** - Content that changes infrequently (use STANDARD)
+- ✅ **Volatile but high-traffic** - Availability windows (use SHORT)
+
+**When NOT to Cache:**
+- ❌ **Authenticated routes** - User dashboards, personal data
+- ❌ **Mutations** - POST, PATCH, DELETE handlers
+- ❌ **Real-time data** - Live booking status, unread counts
+
+**Supabase Client Selection (CRITICAL):**
+```typescript
+// ✅ For cacheable routes - uses anon key, no cookies
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+
+// ❌ For authenticated routes - includes user session
+import { createSupabaseServerClient } from "@/lib/integrations/supabase/serverClient";
+```
+
+**Why:** `unstable_cache` shares cached data across all users. Using `createSupabaseServerClient` in cached routes would leak auth cookies between users.
+
+**Adding Cache to a Public Route:**
+```typescript
+import { unstable_cache } from "next/cache";
+import {
+  CACHE_DURATIONS,
+  CACHE_HEADERS,
+  CACHE_TAGS,
+  directoryKey,
+} from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+
+export async function GET(request: Request) {
+  const params = extractParams(request);
+
+  const getData = unstable_cache(
+    async () => {
+      const supabase = createSupabaseAnonClient();
+      // ... fetch data
+      return data;
+    },
+    directoryKey(params),
+    {
+      revalidate: CACHE_DURATIONS.STANDARD,
+      tags: [CACHE_TAGS.PROFESSIONALS_DIRECTORY],
+    }
+  );
+
+  const data = await getData();
+  return NextResponse.json(data, { headers: CACHE_HEADERS.STANDARD });
+}
+```
+
+**Cache Tags (Type-Safe):**
+```typescript
+import { CACHE_TAGS } from "@/lib/cache";
+
+// Available tags (from tags.ts):
+CACHE_TAGS.PROFESSIONALS           // All professional data
+CACHE_TAGS.PROFESSIONALS_DIRECTORY // Directory listings
+CACHE_TAGS.PROFESSIONALS_SEARCH    // Search results
+CACHE_TAGS.PROFESSIONALS_AVAILABILITY // Availability windows
+CACHE_TAGS.PROFESSIONALS_ADDONS    // Service add-ons
+CACHE_TAGS.BOOKINGS                // Booking data
+CACHE_TAGS.BOOKINGS_STATS          // Booking statistics
+CACHE_TAGS.CHANGELOGS              // Changelog entries
+CACHE_TAGS.ROADMAP                 // Roadmap items
+CACHE_TAGS.HELP                    // Help articles
+CACHE_TAGS.CITIES                  // City pages
+CACHE_TAGS.PLATFORM_STATS          // Platform-wide stats
+```
+
+**Invalidating Cache on Mutations:**
+```typescript
+import {
+  invalidateProfessionals,
+  invalidateBookings,
+  invalidateProfessionalAddons,
+  invalidateProfessionalAvailability,
+} from "@/lib/cache";
+
+// In mutation handlers (POST, PATCH, DELETE):
+export const POST = withAuth(async ({ supabase }) => {
+  // ... create booking
+
+  // Invalidate related caches
+  invalidateBookings();                    // Clears bookings + stats + availability + platform stats
+  invalidateProfessionalAvailability();    // Clears availability specifically
+
+  return ok({ booking });
+});
+```
+
+**Domain-Specific Invalidation Helpers:**
+| Helper | Tags Invalidated | When to Call |
+|--------|------------------|--------------|
+| `invalidateProfessionals()` | PROFESSIONALS, DIRECTORY, SEARCH, PLATFORM_STATS | Profile update, new pro verified |
+| `invalidateProfessionalAvailability()` | PROFESSIONALS_AVAILABILITY | Booking created/cancelled |
+| `invalidateProfessionalAddons()` | PROFESSIONALS_ADDONS | Add-on created/updated/deleted |
+| `invalidateBookings()` | BOOKINGS, STATS, AVAILABILITY, PLATFORM_STATS | Any booking state change |
+| `invalidateChangelogs()` | CHANGELOGS | Changelog published/updated |
+| `invalidateRoadmap()` | ROADMAP | Roadmap item updated |
+| `invalidateHelp()` | HELP | Help article published/updated |
+| `invalidateCities()` | CITIES | City page published/updated |
+| `invalidateSanityContent(type)` | Auto-mapped | Called by Sanity webhook |
+
+**Sanity Webhook Cache Integration:**
+The Sanity webhook (`/api/webhooks/sanity`) automatically invalidates cache when CMS content changes:
+```typescript
+// Document type → Cache tag mapping (automatic)
+helpArticle  → invalidateHelp()
+changelog    → invalidateChangelogs()
+roadmapItem  → invalidateRoadmap()
+cityPage     → invalidateCities()
+```
+
+**Key Generator Patterns:**
+```typescript
+import { directoryKey, availabilityKey, addonsKey } from "@/lib/cache";
+
+// For parameterized routes, use key generators:
+directoryKey({ city: "bogota", specialty: "cleaning" })
+// → ["professionals", "directory", "bogota", "cleaning"]
+
+availabilityKey("pro-123", "2024-11-01", "2024-11-30")
+// → ["professionals", "availability", "pro-123", "2024-11-01", "2024-11-30"]
+
+addonsKey("pro-123")
+// → ["professionals", "addons", "pro-123"]
+```
+
+**Checklist for Adding Caching:**
+- [ ] Route is public (no auth required)
+- [ ] Data is not user-specific
+- [ ] Using `createSupabaseAnonClient()` not `createSupabaseServerClient()`
+- [ ] Key generator created if route has parameters
+- [ ] Appropriate cache duration selected (SHORT vs STANDARD)
+- [ ] Tags assigned for invalidation
+- [ ] Mutation handlers call appropriate `invalidate*()` helpers
+- [ ] CDN headers added to response (`CACHE_HEADERS.*`)
 
 ---
 
@@ -408,6 +577,15 @@ src/lib/shared/config/design-system.ts        # Lia constants (LIA_GRID, TYPOGRA
 src/lib/utils/core.ts                         # cn() utility for className merging
 src/lib/utils/format.ts                       # formatCurrency(), formatDate()
 src/lib/utils/sanitize.ts                     # sanitizeHTML(), sanitizeURL() - XSS prevention!
+```
+
+### Cache Infrastructure (NEW)
+```
+src/lib/cache/index.ts                        # Barrel exports for all cache utilities
+src/lib/cache/config.ts                       # CACHE_DURATIONS, CACHE_HEADERS constants
+src/lib/cache/tags.ts                         # CACHE_TAGS registry (type-safe)
+src/lib/cache/keys.ts                         # Key generators (directoryKey, availabilityKey, etc.)
+src/lib/cache/invalidate.ts                   # Domain-specific invalidation helpers
 ```
 
 ### Key Components (Lia-Compliant)
@@ -851,5 +1029,5 @@ bun run build              # Test build
 
 ---
 
-**Last Updated:** 2025-11-22
-**Version:** 1.7.0 - Removed Concierge/Direct Hire references, simplified business model
+**Last Updated:** 2025-11-24
+**Version:** 1.8.0 - Added centralized cache infrastructure documentation (`src/lib/cache/`)
