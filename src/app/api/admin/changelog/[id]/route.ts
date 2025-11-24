@@ -24,12 +24,10 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
     }
 
     return NextResponse.json({ changelog });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching changelog:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -61,7 +59,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
     const filteredUpdates = Object.keys(updates)
       .filter((key) => allowedFields.includes(key))
-      .reduce((obj: any, key) => {
+      .reduce<Record<string, unknown>>((obj, key) => {
         obj[key] = updates[key];
         return obj;
       }, {});
@@ -94,12 +92,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     });
 
     return NextResponse.json({ success: true, changelog });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating changelog:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -141,11 +137,9 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting changelog:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

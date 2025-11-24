@@ -73,11 +73,10 @@ async function handleGetFlags(request: Request) {
         totalPages: Math.ceil((count || 0) / limit),
       },
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch flags" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch flags";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -139,11 +138,10 @@ async function handleCreateFlag(request: Request) {
     });
 
     return NextResponse.json({ flag });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to create flag" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to create flag";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

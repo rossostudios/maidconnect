@@ -8,7 +8,7 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Container } from "@/components/ui/container";
-import { serverClient } from "@/lib/sanity/client";
+import { serverClient } from "@/lib/integrations/sanity/client";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type Article = {

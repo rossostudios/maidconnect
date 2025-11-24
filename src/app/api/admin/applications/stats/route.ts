@@ -3,6 +3,26 @@ import { requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { withRateLimit } from "@/lib/utils/rate-limit";
 
+type RawProfessionalData = {
+  profile_id: string;
+  status: string | null;
+  created_at: string;
+  profile:
+    | { onboarding_status: string | null }
+    | { onboarding_status: string | null }[]
+    | null;
+};
+
+type TransformedProfessional = Omit<RawProfessionalData, "profile"> & {
+  profile: { onboarding_status: string | null } | null;
+};
+
+type ReviewData = {
+  created_at: string;
+  reviewed_at: string | null;
+  professional_id: string;
+};
+
 /**
  * Get application statistics and funnel data
  * GET /api/admin/applications/stats
@@ -46,7 +66,7 @@ async function handler(): Promise<NextResponse> {
     }
 
     // Transform profile from array to object
-    const transformedProfessionals = (professionals || []).map((prof: any) => ({
+    const transformedProfessionals = ((professionals || []) as RawProfessionalData[]).map((prof): TransformedProfessional => ({
       ...prof,
       profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
     }));
@@ -54,12 +74,12 @@ async function handler(): Promise<NextResponse> {
     // Count applications by status
     const totalApplications = transformedProfessionals.length;
     const pendingReview = transformedProfessionals.filter(
-      (p: any) => p.profile?.onboarding_status === "application_in_review"
+      (p) => p.profile?.onboarding_status === "application_in_review"
     ).length;
     const approved = transformedProfessionals.filter(
-      (p: any) => p.profile?.onboarding_status === "approved" || p.status === "approved"
+      (p) => p.profile?.onboarding_status === "approved" || p.status === "approved"
     ).length;
-    const rejected = transformedProfessionals.filter((p: any) => p.status === "rejected").length;
+    const rejected = transformedProfessionals.filter((p) => p.status === "rejected").length;
 
     // Calculate approval rate
     const approvalRate =
@@ -75,9 +95,9 @@ async function handler(): Promise<NextResponse> {
     // Calculate average review time in days
     let averageReviewTime = 0;
     if (reviews && reviews.length > 0) {
-      const reviewTimes = reviews.map((review: any) => {
+      const reviewTimes = (reviews as ReviewData[]).map((review) => {
         const created = new Date(review.created_at);
-        const reviewed = new Date(review.reviewed_at);
+        const reviewed = new Date(review.reviewed_at!);
         return Math.ceil((reviewed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24));
       });
       averageReviewTime = Math.round(
@@ -88,12 +108,12 @@ async function handler(): Promise<NextResponse> {
     // Build funnel data
     const applied = totalApplications;
     const reviewed = transformedProfessionals.filter(
-      (p: any) =>
+      (p) =>
         p.profile?.onboarding_status !== "application_pending" &&
         p.profile?.onboarding_status !== "created"
     ).length;
     const interviewed = transformedProfessionals.filter(
-      (p: any) =>
+      (p) =>
         p.profile?.onboarding_status === "interview_scheduled" ||
         p.profile?.onboarding_status === "approved" ||
         p.status === "approved"

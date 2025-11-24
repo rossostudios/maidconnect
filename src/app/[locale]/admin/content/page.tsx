@@ -20,7 +20,7 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { geistSans } from "@/app/fonts";
 import { requireUser } from "@/lib/auth";
-import { sanityFetch } from "@/lib/sanity/live";
+import { sanityFetch } from "@/lib/integrations/sanity/live";
 import { cn } from "@/lib/utils";
 
 export const metadata = {

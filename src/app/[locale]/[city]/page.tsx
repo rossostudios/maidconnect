@@ -7,8 +7,8 @@ import { notFound } from "next/navigation";
 import { CityHeroSection } from "@/components/city/hero-section";
 import { LocalProfessionals } from "@/components/city/local-professionals";
 import { isFeatureEnabled } from "@/lib/feature-flags";
-import { serverClient } from "@/lib/sanity/client";
-import { portableTextComponents } from "@/lib/sanity/portable-text";
+import { serverClient } from "@/lib/integrations/sanity/client";
+import { portableTextComponents } from "@/lib/integrations/sanity/PortableText";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 /**

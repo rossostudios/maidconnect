@@ -157,12 +157,11 @@ async function handleSendMessage(
         scheduled_at: adminMessage.scheduled_at,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin] Send message error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to send message" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to send message";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

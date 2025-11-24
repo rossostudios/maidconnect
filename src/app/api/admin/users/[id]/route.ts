@@ -9,14 +9,32 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import type { Json } from "@/types/database.types";
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
+
+// Profile type for foreign key joins (may be array or single object)
+type ProfileJoin = { id: string; full_name: string } | { id: string; full_name: string }[] | null;
+
+// Raw suspension data from Supabase query (before transformation)
+type RawSuspensionData = {
+  id: string;
+  suspension_type: string;
+  reason: string | null;
+  details: Json;
+  suspended_at: string;
+  expires_at: string | null;
+  lifted_at: string | null;
+  lift_reason: string | null;
+  suspended_by_profile: ProfileJoin;
+  lifted_by_profile: ProfileJoin;
+};
 
 type SuspensionHistoryItem = {
   id: string;
   suspension_type: string;
   reason: string | null;
-  details: any;
+  details: Json;
   suspended_at: string;
   expires_at: string | null;
   lifted_at: string | null;
@@ -76,11 +94,10 @@ async function handleGetUser(_request: Request, { params }: { params: Promise<{ 
         disputes: disputeCount || 0,
       },
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch user details" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch user details";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -139,7 +156,7 @@ async function fetchSuspensionHistory(
   }
 
   // Transform the data to extract single objects from foreign key arrays
-  return data.map((item: any) => ({
+  return (data as RawSuspensionData[]).map((item) => ({
     id: item.id,
     suspension_type: item.suspension_type,
     reason: item.reason,

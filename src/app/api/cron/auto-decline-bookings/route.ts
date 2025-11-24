@@ -7,7 +7,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // Better Stack structured logging
 const logger = {
-  info: (message: string, metadata?: Record<string, any>) => {
+  info: (message: string, metadata?: Record<string, unknown>) => {
     console.log(
       JSON.stringify({
         level: "info",
@@ -19,7 +19,7 @@ const logger = {
       })
     );
   },
-  error: (message: string, metadata?: Record<string, any>) => {
+  error: (message: string, metadata?: Record<string, unknown>) => {
     console.error(
       JSON.stringify({
         level: "error",
@@ -31,7 +31,7 @@ const logger = {
       })
     );
   },
-  warn: (message: string, metadata?: Record<string, any>) => {
+  warn: (message: string, metadata?: Record<string, unknown>) => {
     console.warn(
       JSON.stringify({
         level: "warn",
@@ -48,6 +48,23 @@ const logger = {
 // Batch size for processing (prevent timeouts)
 const BATCH_SIZE = 100;
 
+// Type for Supabase client
+type SupabaseClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
+
+// Type for booking data from the query
+type BookingData = {
+  id: string;
+  professional_id: string;
+  customer_id: string;
+  status: string;
+  stripe_payment_intent_id: string | null;
+  service_name: string | null;
+  scheduled_start: string | null;
+  duration_minutes: number | null;
+  address: Record<string, unknown> | null;
+  updated_at: string;
+};
+
 // Helper: Verify cron authorization
 function verifyCronAuth(request: Request): boolean {
   const authHeader = request.headers.get("authorization");
@@ -55,7 +72,7 @@ function verifyCronAuth(request: Request): boolean {
 }
 
 // Helper: Get formatted address from booking
-function getFormattedAddress(address: Record<string, any> | null): string {
+function getFormattedAddress(address: Record<string, unknown> | null): string {
   if (!address) {
     return "Not specified";
   }
@@ -75,7 +92,7 @@ async function cancelStripePayment(paymentIntentId: string): Promise<void> {
 }
 
 // Helper: Update booking to declined status with idempotency tracking
-async function declineBooking(supabase: any, bookingId: string): Promise<boolean> {
+async function declineBooking(supabase: SupabaseClient, bookingId: string): Promise<boolean> {
   const now = new Date().toISOString();
   const { error: updateError } = await supabase
     .from("bookings")
@@ -100,7 +117,7 @@ async function declineBooking(supabase: any, bookingId: string): Promise<boolean
 }
 
 // Helper: Send decline notification email
-async function sendDeclineNotification(supabase: any, booking: any): Promise<void> {
+async function sendDeclineNotification(supabase: SupabaseClient, booking: BookingData): Promise<void> {
   try {
     const { data: professionalProfile } = await supabase
       .from("professional_profiles")
@@ -144,8 +161,8 @@ async function sendDeclineNotification(supabase: any, booking: any): Promise<voi
 
 // Helper: Process a single expired booking
 async function processExpiredBooking(
-  supabase: any,
-  booking: any
+  supabase: SupabaseClient,
+  booking: BookingData
 ): Promise<{ success: boolean; error?: string }> {
   try {
     // Cancel the payment intent if it exists

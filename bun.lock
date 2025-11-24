@@ -54,7 +54,6 @@
         "leaflet": "1.9.4",
         "mapbox-gl": "3.16.0",
         "marked": "17.0.0",
-        "motion": "12.23.24",
         "next": "16.0.2",
         "next-intl": "4.5.2",
         "next-sanity": "11.6.5",

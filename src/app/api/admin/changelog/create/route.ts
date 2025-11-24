@@ -102,11 +102,9 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, changelog });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error in changelog create:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

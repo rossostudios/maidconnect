@@ -15,8 +15,8 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Container } from "@/components/ui/container";
-import { serverClient } from "@/lib/sanity/client";
-import { HELP_ARTICLES_BY_CATEGORY_QUERY, HELP_CATEGORIES_QUERY } from "@/lib/sanity/queries";
+import { serverClient } from "@/lib/integrations/sanity/client";
+import { HELP_ARTICLES_BY_CATEGORY_QUERY, HELP_CATEGORIES_QUERY } from "@/lib/integrations/sanity/queries";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type Category = {

@@ -6,6 +6,7 @@
  * AFTER: Reduced complexity through helper extraction
  */
 
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
@@ -14,6 +15,39 @@ import { BusinessRuleError } from "@/lib/errors";
 import { notifyCustomerBookingConfirmed, notifyProfessionalNewBooking } from "@/lib/notifications";
 import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
+import type { Database } from "@/types/supabase";
+
+// Type-safe Supabase client alias
+type TypedSupabaseClient = SupabaseClient<Database>;
+
+// Booking data used for notifications (matches the select query)
+type NotificationBookingData = {
+  id: string;
+  professional_id: string;
+  customer_id: string | null;
+  service_name: string | null;
+  scheduled_start: string | null;
+  duration_minutes: number | null;
+  amount_authorized: number | null;
+  currency: string | null;
+  address: string | null;
+};
+
+// Address structure that may contain a formatted field
+type BookingAddress = {
+  formatted?: string;
+  [key: string]: unknown;
+} | string | null;
+
+// Professional profile data from the select query
+type ProfessionalProfile = {
+  full_name: string | null;
+};
+
+// User data returned from Supabase Auth admin API
+type AuthUserData = {
+  user: User | null;
+};
 
 const authorizeSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -36,18 +70,21 @@ async function validatePaymentIntent(paymentIntentId: string, bookingId: string)
 }
 
 // Helper: Format booking address
-function formatBookingAddress(address: any): string {
+function formatBookingAddress(address: BookingAddress): string {
   if (!address) {
     return "Not specified";
   }
-  if (typeof address === "object" && "formatted" in address) {
+  if (typeof address === "object" && "formatted" in address && address.formatted) {
     return String(address.formatted);
+  }
+  if (typeof address === "string") {
+    return address;
   }
   return JSON.stringify(address);
 }
 
 // Helper: Format booking details for notifications
-function formatBookingDetails(fullBooking: any) {
+function formatBookingDetails(fullBooking: NotificationBookingData) {
   const scheduledDate = fullBooking.scheduled_start
     ? new Date(fullBooking.scheduled_start).toLocaleDateString()
     : "TBD";
@@ -58,7 +95,7 @@ function formatBookingDetails(fullBooking: any) {
       })
     : "TBD";
   const duration = fullBooking.duration_minutes ? `${fullBooking.duration_minutes} minutes` : "TBD";
-  const address = formatBookingAddress(fullBooking.address);
+  const address = formatBookingAddress(fullBooking.address as BookingAddress);
   const amount = fullBooking.amount_authorized
     ? `${new Intl.NumberFormat("es-CO", {
         style: "currency",
@@ -71,21 +108,21 @@ function formatBookingDetails(fullBooking: any) {
 
 // Helper: Send notifications to professional
 async function notifyProfessional(options: {
-  supabase: any;
-  fullBooking: any;
-  professionalUser: any;
-  professionalProfile: any;
-  customerUser: any;
+  fullBooking: NotificationBookingData;
+  professionalUser: AuthUserData | null;
+  professionalProfile: ProfessionalProfile | null;
+  customerUser: AuthUserData | null;
 }) {
   if (!options.professionalUser?.user?.email) {
     return;
   }
 
   const details = formatBookingDetails(options.fullBooking);
+  const customerName = (options.customerUser?.user?.user_metadata?.full_name as string | undefined) || "A customer";
 
   await sendNewBookingRequestEmail(options.professionalUser.user.email, {
     professionalName: options.professionalProfile?.full_name || "there",
-    customerName: options.customerUser?.user?.user_metadata?.full_name || "A customer",
+    customerName,
     serviceName: options.fullBooking.service_name || "Service",
     ...details,
     bookingId: options.fullBooking.id,
@@ -94,14 +131,18 @@ async function notifyProfessional(options: {
   await notifyProfessionalNewBooking(options.fullBooking.professional_id, {
     id: options.fullBooking.id,
     serviceName: options.fullBooking.service_name || "Service",
-    customerName: options.customerUser?.user?.user_metadata?.full_name || "A customer",
+    customerName,
     scheduledStart: options.fullBooking.scheduled_start || new Date().toISOString(),
   });
 }
 
 // Helper: Send notifications to customer
-async function notifyCustomer(fullBooking: any, customerUser: any, professionalProfile: any) {
-  if (!customerUser?.user) {
+async function notifyCustomer(
+  fullBooking: NotificationBookingData,
+  customerUser: AuthUserData | null,
+  professionalProfile: ProfessionalProfile | null
+) {
+  if (!customerUser?.user || !fullBooking.customer_id) {
     return;
   }
 
@@ -115,10 +156,14 @@ async function notifyCustomer(fullBooking: any, customerUser: any, professionalP
 
 // Helper: Fetch users for notifications
 async function fetchUsersForNotifications(
-  supabase: any,
+  supabase: TypedSupabaseClient,
   professionalId: string,
   customerId: string
-) {
+): Promise<{
+  professionalUser: AuthUserData | null;
+  professionalProfile: ProfessionalProfile | null;
+  customerUser: AuthUserData | null;
+}> {
   const [professionalUserResult, professionalProfileResult, customerUserResult] = await Promise.all(
     [
       supabase.auth.admin.getUserById(professionalId),
@@ -132,14 +177,14 @@ async function fetchUsersForNotifications(
   );
 
   return {
-    professionalUser: professionalUserResult.data,
-    professionalProfile: professionalProfileResult.data,
-    customerUser: customerUserResult.data,
+    professionalUser: professionalUserResult.data as AuthUserData | null,
+    professionalProfile: professionalProfileResult.data as ProfessionalProfile | null,
+    customerUser: customerUserResult.data as AuthUserData | null,
   };
 }
 
 // Helper: Send all booking authorization notifications
-async function sendAuthorizationNotifications(supabase: any, bookingId: string) {
+async function sendAuthorizationNotifications(supabase: TypedSupabaseClient, bookingId: string) {
   try {
     const { data: fullBooking } = await supabase
       .from("bookings")
@@ -153,22 +198,29 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
       return;
     }
 
+    // Type assertion: we know the shape from the select query
+    const typedBooking = fullBooking as NotificationBookingData;
+
+    // Guard against missing customer_id (shouldn't happen but type safety)
+    if (!typedBooking.customer_id) {
+      return;
+    }
+
     const { professionalUser, professionalProfile, customerUser } =
       await fetchUsersForNotifications(
         supabase,
-        fullBooking.professional_id,
-        fullBooking.customer_id
+        typedBooking.professional_id,
+        typedBooking.customer_id
       );
 
     await Promise.all([
       notifyProfessional({
-        supabase,
-        fullBooking,
+        fullBooking: typedBooking,
         professionalUser,
         professionalProfile,
         customerUser,
       }),
-      notifyCustomer(fullBooking, customerUser, professionalProfile),
+      notifyCustomer(typedBooking, customerUser, professionalProfile),
     ]);
   } catch (_emailError) {
     // Don't fail request if notifications fail

@@ -5,7 +5,7 @@ import { TableOfContents } from "@/components/help/table-of-contents";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Container } from "@/components/ui/container";
-import { serverClient } from "@/lib/sanity/client";
+import { serverClient } from "@/lib/integrations/sanity/client";
 import { createSupabaseAnonClient, createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ArticleTag = {

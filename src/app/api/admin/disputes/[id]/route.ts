@@ -37,11 +37,10 @@ async function handleGetDispute(
     }
 
     return NextResponse.json({ dispute });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch dispute" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch dispute";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -55,7 +54,7 @@ async function handlePatchDispute(
     const supabase = await createSupabaseServerClient();
     const body = await request.json();
 
-    const updates: any = {};
+    const updates: Record<string, unknown> = {};
     if (body.status) {
       updates.status = body.status;
     }
@@ -92,11 +91,10 @@ async function handlePatchDispute(
     });
 
     return NextResponse.json({ success: true, dispute: data });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to update dispute" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update dispute";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

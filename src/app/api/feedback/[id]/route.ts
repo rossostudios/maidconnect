@@ -43,12 +43,10 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
     }
 
     return NextResponse.json({ feedback });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching feedback:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -73,10 +71,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
     const filteredUpdates = Object.keys(updates)
       .filter((key) => allowedFields.includes(key))
-      .reduce((obj: any, key) => {
+      .reduce((obj: Record<string, unknown>, key) => {
         obj[key] = updates[key];
         return obj;
-      }, {});
+      }, {} as Record<string, unknown>);
 
     // If status is being changed to 'resolved', set resolved_at and resolved_by
     if (updates.status === "resolved") {
@@ -107,12 +105,11 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     });
 
     return NextResponse.json({ success: true, feedback });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating feedback:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -147,11 +144,10 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting feedback:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }

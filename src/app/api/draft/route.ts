@@ -9,7 +9,7 @@ import { validatePreviewUrl } from "@sanity/preview-url-secret";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-import { serverClient } from "@/lib/sanity/client";
+import { serverClient } from "@/lib/integrations/sanity/client";
 
 const clientWithToken = serverClient.withConfig({
   token: process.env.SANITY_API_READ_TOKEN,

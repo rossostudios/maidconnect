@@ -12,6 +12,36 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
+// Raw booking data from Supabase query with foreign key joins
+type RawProfessionalBooking = {
+  id: string;
+  service_type: string | null;
+  status: string;
+  scheduled_date: string | null;
+  scheduled_time: string | null;
+  final_price: number;
+  customer: { id: string; full_name: string | null } | null;
+  address: { street_address: string; city: string } | null;
+};
+
+type RawCustomerBooking = {
+  id: string;
+  service_type: string | null;
+  status: string;
+  scheduled_date: string | null;
+  scheduled_time: string | null;
+  final_price: number;
+  professional: { id: string; full_name: string | null } | null;
+  address: { street_address: string; city: string } | null;
+};
+
+type RawFavorite = {
+  id: string;
+  professional: { id: string; full_name: string | null; avatar_url: string | null } | null;
+  professional_profile: { specialties: string[] | null } | null;
+  created_at: string;
+};
+
 async function handleGetActivity(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -57,11 +87,10 @@ async function handleGetActivity(
       professional: professionalActivity,
       customer: customerActivity,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch activity data" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch activity data";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -92,7 +121,7 @@ async function fetchProfessionalActivity(
     .range(offset, offset + limit - 1);
 
   // Transform bookings data
-  const transformedBookings = bookings?.map((booking: any) => ({
+  const transformedBookings = (bookings as RawProfessionalBooking[] | null)?.map((booking) => ({
     id: booking.id,
     customer_name: booking.customer?.full_name || "Unknown",
     service: booking.service_type,
@@ -148,7 +177,7 @@ async function fetchCustomerActivity(
     .range(offset, offset + limit - 1);
 
   // Transform bookings data
-  const transformedBookings = bookings?.map((booking: any) => ({
+  const transformedBookings = (bookings as RawCustomerBooking[] | null)?.map((booking) => ({
     id: booking.id,
     professional_name: booking.professional?.full_name || "Unknown",
     service: booking.service_type,
@@ -192,7 +221,7 @@ async function fetchCustomerActivity(
     .limit(10);
 
   // Transform favorites data
-  const transformedFavorites = favorites?.map((fav: any) => ({
+  const transformedFavorites = (favorites as RawFavorite[] | null)?.map((fav) => ({
     id: fav.id,
     professional_id: fav.professional?.id,
     name: fav.professional?.full_name || "Unknown",

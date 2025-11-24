@@ -72,11 +72,10 @@ async function handleGetUsers(request: Request) {
       users,
       pagination: buildPaginationMetadata(params.page, params.limit, count || 0),
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch users" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch users";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

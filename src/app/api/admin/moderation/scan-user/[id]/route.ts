@@ -90,12 +90,11 @@ async function handleScanUser(_request: Request, context: { params: Promise<{ id
       },
       existingFlags: existingFlags || [],
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Scan user error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to scan user" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to scan user";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

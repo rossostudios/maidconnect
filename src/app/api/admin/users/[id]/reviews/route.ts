@@ -12,6 +12,27 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
+// Raw review data from Supabase query with foreign key joins
+type RawProfessionalReview = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+  professional_response: string | null;
+  customer: { id: string; full_name: string | null } | null;
+  booking: { service_type: string | null } | null;
+};
+
+type RawCustomerReview = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+  professional_response: string | null;
+  professional: { id: string; full_name: string | null } | null;
+  booking: { service_type: string | null } | null;
+};
+
 async function handleGetReviews(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
@@ -54,11 +75,10 @@ async function handleGetReviews(request: Request, { params }: { params: Promise<
       professional: professionalReviews,
       customer: customerReviews,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch reviews data" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch reviews data";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 
@@ -107,7 +127,7 @@ async function fetchProfessionalReviews(
     .range(offset, offset + limit - 1);
 
   // Transform reviews data
-  const transformedReviews = reviews?.map((review: any) => ({
+  const transformedReviews = (reviews as RawProfessionalReview[] | null)?.map((review) => ({
     id: review.id,
     customer_name: review.customer?.full_name || "Anonymous",
     rating: review.rating,
@@ -163,7 +183,7 @@ async function fetchCustomerReviews(
     .range(offset, offset + limit - 1);
 
   // Transform reviews data
-  const transformedReviews = reviews?.map((review: any) => ({
+  const transformedReviews = (reviews as RawCustomerReview[] | null)?.map((review) => ({
     id: review.id,
     professional_name: review.professional?.full_name || "Unknown",
     rating: review.rating,

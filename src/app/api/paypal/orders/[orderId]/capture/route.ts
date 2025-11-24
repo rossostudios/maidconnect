@@ -17,6 +17,15 @@ import { paypal } from "@/lib/integrations/paypal";
 import { logger } from "@/lib/logger";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
+// Type for PayPal order response with purchase units
+type PayPalOrderWithUnits = {
+  purchase_units?: Array<{
+    custom_id?: string;
+    [key: string]: unknown;
+  }>;
+  [key: string]: unknown;
+};
+
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ orderId: string }> }
@@ -40,8 +49,8 @@ export async function POST(
     // Parse metadata from custom_id
     let bookingId: string | undefined;
     try {
-      const purchaseUnit = orderDetails as any;
-      const customId = purchaseUnit.purchase_units?.[0]?.custom_id;
+      const orderWithUnits = orderDetails as PayPalOrderWithUnits;
+      const customId = orderWithUnits.purchase_units?.[0]?.custom_id;
       if (customId) {
         const metadata = JSON.parse(customId);
         bookingId = metadata.bookingId;

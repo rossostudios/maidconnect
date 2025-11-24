@@ -5,13 +5,31 @@ import { sendAccountRestorationEmail, sendAccountSuspensionEmail } from "@/lib/e
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
+// JSON-compatible details object for moderation context
+type ModerationDetails = Record<string, unknown>;
+
+// Suspension record returned from Supabase
+type SuspensionRecord = {
+  id: string;
+  user_id: string;
+  suspended_by: string;
+  suspension_type: string;
+  reason: string | null;
+  expires_at: string | null;
+  lifted_at: string | null;
+  lifted_by: string | null;
+  lift_reason: string | null;
+  details: ModerationDetails | null;
+  created_at: string;
+};
+
 type ModerationBody = {
   userId: string;
   action: "suspend" | "unsuspend" | "ban";
   reason?: string;
   liftReason?: string;
   durationDays?: number;
-  details?: Record<string, any>;
+  details?: ModerationDetails;
 };
 
 type UserInfo = {
@@ -96,7 +114,7 @@ async function handleSuspend(options: {
   adminId: string;
   reason: string;
   durationDays: number | undefined;
-  details: Record<string, any> | undefined;
+  details: ModerationDetails | undefined;
 }) {
   // Check if already suspended
   const { data: existing } = await options.supabase
@@ -155,7 +173,7 @@ async function handleBan(options: {
   userId: string;
   adminId: string;
   reason: string;
-  details: Record<string, any> | undefined;
+  details: ModerationDetails | undefined;
 }) {
   // Check if already banned
   const { data: existing } = await options.supabase
@@ -210,7 +228,7 @@ type UnsuspendOptions = {
   userId: string;
   adminId: string;
   liftReason?: string;
-  details?: Record<string, any>;
+  details?: ModerationDetails;
 };
 
 async function handleUnsuspend({
@@ -286,8 +304,13 @@ type ModerationActionOptions = {
   reason?: string;
   liftReason?: string;
   durationDays?: number;
-  details?: Record<string, any>;
+  details?: ModerationDetails;
 };
+
+// Result from moderation action
+type ModerationActionResult =
+  | { result: SuspensionRecord; durationDays?: number }
+  | { error: NextResponse };
 
 async function executeModerationAction({
   supabase,
@@ -298,9 +321,7 @@ async function executeModerationAction({
   liftReason,
   durationDays,
   details,
-}: ModerationActionOptions): Promise<
-  { result: any; durationDays?: number } | { error: NextResponse }
-> {
+}: ModerationActionOptions): Promise<ModerationActionResult> {
   switch (action) {
     case "suspend": {
       const result = await handleSuspend({
@@ -359,7 +380,7 @@ type NotificationOptions = {
   userName: string;
   reason?: string;
   liftReason?: string;
-  result: any;
+  result: SuspensionRecord;
   durationDays?: number;
 };
 
@@ -475,11 +496,10 @@ async function handleModeration(request: Request) {
       result: actionResult.result,
       message: getSuccessMessage(action, actionResult.durationDays),
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to moderate user" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to moderate user";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

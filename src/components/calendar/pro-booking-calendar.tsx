@@ -52,7 +52,7 @@ type WorkingHours = {
   end: string;
 };
 
-type ProBookingCalendarProps = {
+export type ProBookingCalendarProps = {
   initialBookings?: BookingEvent[];
   workingHours?: WorkingHours[];
   blockedDates?: string[];

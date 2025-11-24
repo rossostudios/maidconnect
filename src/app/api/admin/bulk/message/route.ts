@@ -188,12 +188,11 @@ async function handleBulkMessage(request: Request) {
       results,
       errors: results.filter((r) => !r.success).map((r) => ({ userId: r.userId, error: r.error })),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin] Bulk message error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to process bulk message" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to process bulk message";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

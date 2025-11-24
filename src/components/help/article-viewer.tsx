@@ -21,7 +21,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ArticleTags } from "@/components/help/article-tags";
-import { portableTextComponents } from "@/lib/sanity/portable-text";
+import { portableTextComponents } from "@/lib/integrations/sanity/PortableText";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { cn } from "@/lib/utils";
 

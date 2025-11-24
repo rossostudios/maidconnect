@@ -1,22 +1,20 @@
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
+type PlatformStats = {
+  totalBookings: number;
+  totalProfessionals: number;
+  averageRating: number;
+  lastUpdated: string;
+};
+
 /**
- * GET /api/stats/platform
- *
- * Returns real-time platform statistics:
- * - Total successful bookings (completed status)
- * - Total verified professionals (active with verified status)
- * - Average rating across all professionals
- *
- * Note: Using no-store cache directive for real-time data
+ * Cached function to fetch platform statistics
+ * Revalidates every 5 minutes to reduce DB load while keeping data fresh
  */
-export async function GET() {
-  // Force no caching for real-time stats
-  const headers = {
-    "Cache-Control": "no-store, max-age=0",
-  };
-  try {
+const getPlatformStats = unstable_cache(
+  async (): Promise<PlatformStats> => {
     const supabase = createSupabaseAnonClient();
 
     // Fetch total successful bookings (completed bookings)
@@ -59,15 +57,38 @@ export async function GET() {
       averageRating = Math.round(averageRating * 10) / 10;
     }
 
-    return NextResponse.json(
-      {
-        totalBookings: totalBookings || 0,
-        totalProfessionals: totalProfessionals || 0,
-        averageRating,
-        lastUpdated: new Date().toISOString(),
-      },
-      { headers }
-    );
+    return {
+      totalBookings: totalBookings || 0,
+      totalProfessionals: totalProfessionals || 0,
+      averageRating,
+      lastUpdated: new Date().toISOString(),
+    };
+  },
+  ["platform-stats"], // Cache key
+  {
+    revalidate: 300, // Revalidate every 5 minutes
+    tags: ["platform-stats", "bookings", "professionals"],
+  }
+);
+
+// Cache headers for CDN and browser caching
+const cacheHeaders = {
+  "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+};
+
+/**
+ * GET /api/stats/platform
+ *
+ * Returns platform statistics (cached for 5 minutes):
+ * - Total successful bookings (completed status)
+ * - Total verified professionals (active with verified status)
+ * - Average rating across all professionals
+ */
+export async function GET() {
+  try {
+    const stats = await getPlatformStats();
+
+    return NextResponse.json(stats, { headers: cacheHeaders });
   } catch (error) {
     console.error("Error fetching platform stats:", error);
 
@@ -80,7 +101,7 @@ export async function GET() {
         lastUpdated: new Date().toISOString(),
         error: "Failed to fetch live stats",
       },
-      { headers }
+      { headers: cacheHeaders }
     );
   }
 }

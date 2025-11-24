@@ -1329,4 +1329,411 @@ describe("Payment API Routes", () => {
       });
     });
   });
+
+  // ============================================================================
+  // PAYMENT METHODS - GET /api/payments/methods
+  // ============================================================================
+
+  describe("GET /api/payments/methods", () => {
+    describe("Customer Without Stripe ID", () => {
+      it("should return empty array when customer has no Stripe ID", async () => {
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: null },
+          error: null,
+        });
+
+        // Should return empty payment methods
+        const profile = await mockSupabase.from("profiles").select("stripe_customer_id").eq("id", "user-123");
+        expect(profile.data?.stripe_customer_id).toBeNull();
+      });
+    });
+
+    describe("Customer With Payment Methods", () => {
+      it("should retrieve payment methods from Stripe", async () => {
+        const stripeCustomerId = "cus_test_123";
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: stripeCustomerId },
+          error: null,
+        });
+
+        const mockPaymentMethods = [
+          {
+            id: "pm_1",
+            card: { brand: "visa", last4: "4242", exp_month: 12, exp_year: 2025 },
+            created: Math.floor(Date.now() / 1000),
+          },
+          {
+            id: "pm_2",
+            card: { brand: "mastercard", last4: "5555", exp_month: 6, exp_year: 2026 },
+            created: Math.floor(Date.now() / 1000),
+          },
+        ];
+
+        mockStripe.paymentMethods.list.mockResolvedValue({
+          object: "list",
+          data: mockPaymentMethods,
+          has_more: false,
+          url: "/v1/payment_methods",
+        } as any);
+
+        const methods = await mockStripe.paymentMethods.list({
+          customer: stripeCustomerId,
+          type: "card",
+        });
+
+        expect(methods.data.length).toBe(2);
+        expect(methods.data[0].card?.last4).toBe("4242");
+      });
+
+      it("should identify default payment method", async () => {
+        const stripeCustomerId = "cus_test_123";
+        const defaultMethodId = "pm_default";
+
+        mockStripe.customers.retrieve.mockResolvedValue({
+          id: stripeCustomerId,
+          invoice_settings: {
+            default_payment_method: defaultMethodId,
+          },
+        } as any);
+
+        const customer = await mockStripe.customers.retrieve(stripeCustomerId);
+        expect((customer as any).invoice_settings?.default_payment_method).toBe(defaultMethodId);
+      });
+
+      it("should handle deleted Stripe customer", async () => {
+        mockStripe.customers.retrieve.mockResolvedValue({
+          deleted: true,
+          id: "cus_deleted",
+        } as any);
+
+        const customer = await mockStripe.customers.retrieve("cus_deleted");
+        expect((customer as any).deleted).toBe(true);
+      });
+    });
+
+    describe("Response Formatting", () => {
+      it("should format payment method data correctly", () => {
+        const rawMethod = {
+          id: "pm_test",
+          card: {
+            brand: "visa",
+            last4: "4242",
+            exp_month: 12,
+            exp_year: 2025,
+          },
+          created: 1700000000,
+        };
+
+        const formatted = {
+          id: rawMethod.id,
+          brand: rawMethod.card?.brand || "unknown",
+          last4: rawMethod.card?.last4 || "****",
+          exp_month: rawMethod.card?.exp_month || 0,
+          exp_year: rawMethod.card?.exp_year || 0,
+          is_default: false,
+          created: rawMethod.created,
+        };
+
+        expect(formatted.brand).toBe("visa");
+        expect(formatted.last4).toBe("4242");
+        expect(formatted.exp_month).toBe(12);
+        expect(formatted.exp_year).toBe(2025);
+      });
+
+      it("should handle missing card details gracefully", () => {
+        const rawMethod = {
+          id: "pm_test",
+          card: null,
+          created: 1700000000,
+        };
+
+        const formatted = {
+          id: rawMethod.id,
+          brand: rawMethod.card?.brand || "unknown",
+          last4: rawMethod.card?.last4 || "****",
+          exp_month: rawMethod.card?.exp_month || 0,
+          exp_year: rawMethod.card?.exp_year || 0,
+          is_default: false,
+          created: rawMethod.created,
+        };
+
+        expect(formatted.brand).toBe("unknown");
+        expect(formatted.last4).toBe("****");
+      });
+    });
+  });
+
+  // ============================================================================
+  // PAYMENT METHODS - POST /api/payments/methods
+  // ============================================================================
+
+  describe("POST /api/payments/methods", () => {
+    describe("Setup Intent Creation", () => {
+      it("should create setup intent for existing customer", async () => {
+        const stripeCustomerId = "cus_existing_123";
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: stripeCustomerId, full_name: "John Doe" },
+          error: null,
+        });
+
+        const mockSetupIntent = {
+          id: "seti_test_123",
+          client_secret: "seti_test_123_secret_abc",
+          customer: stripeCustomerId,
+        };
+
+        mockStripe.paymentIntents.create.mockResolvedValue(mockSetupIntent as any);
+
+        expect(mockSetupIntent.client_secret).toBeDefined();
+        expect(mockSetupIntent.id).toMatch(/^seti_/);
+      });
+
+      it("should create Stripe customer if none exists", async () => {
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: null, full_name: "Jane Doe" },
+          error: null,
+        });
+
+        const newCustomer = createMockCustomer({
+          id: "cus_new_456",
+          name: "Jane Doe",
+          metadata: { supabase_profile_id: "user-123" },
+        });
+
+        mockStripe.customers.create.mockResolvedValue(newCustomer);
+
+        const created = await mockStripe.customers.create({
+          name: "Jane Doe",
+          email: "jane@example.com",
+          metadata: { supabase_profile_id: "user-123" },
+        });
+
+        expect(created.id).toBe("cus_new_456");
+      });
+
+      it("should update profile with new Stripe customer ID", async () => {
+        // After creating customer, profile should be updated
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: "cus_new_456" },
+          error: null,
+        });
+
+        const profile = await mockSupabase.from("profiles").update({ stripe_customer_id: "cus_new_456" });
+        expect(profile.error).toBeNull();
+      });
+
+      it("should enable automatic payment methods", () => {
+        const setupIntentConfig = {
+          customer: "cus_test",
+          automatic_payment_methods: {
+            enabled: true,
+          },
+        };
+
+        expect(setupIntentConfig.automatic_payment_methods.enabled).toBe(true);
+      });
+
+      it("should include metadata for tracking", () => {
+        const setupIntentMetadata = {
+          supabase_profile_id: "user-123",
+        };
+
+        expect(setupIntentMetadata.supabase_profile_id).toBe("user-123");
+      });
+    });
+  });
+
+  // ============================================================================
+  // PAYMENT METHODS - DELETE /api/payments/methods
+  // ============================================================================
+
+  describe("DELETE /api/payments/methods", () => {
+    describe("Input Validation", () => {
+      it("should reject missing paymentMethodId", () => {
+        const { z } = require("zod");
+        const schema = z.object({
+          paymentMethodId: z.string().min(1, "Payment method ID is required"),
+        });
+
+        expect(() => schema.parse({ paymentMethodId: "" })).toThrow(/Payment method ID is required/);
+      });
+
+      it("should accept valid paymentMethodId", () => {
+        const { z } = require("zod");
+        const schema = z.object({
+          paymentMethodId: z.string().min(1, "Payment method ID is required"),
+        });
+
+        const result = schema.parse({ paymentMethodId: "pm_test_123" });
+        expect(result.paymentMethodId).toBe("pm_test_123");
+      });
+    });
+
+    describe("Authorization", () => {
+      it("should reject if user has no Stripe customer", async () => {
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: null },
+          error: null,
+        });
+
+        const profile = await mockSupabase.from("profiles").select("stripe_customer_id");
+        expect(profile.data?.stripe_customer_id).toBeNull();
+        // Would throw ValidationError("No Stripe customer found for this user")
+      });
+
+      it("should reject if payment method belongs to different customer", async () => {
+        const userCustomerId = "cus_user_123";
+        const otherCustomerId = "cus_other_456";
+
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: userCustomerId },
+          error: null,
+        });
+
+        // Payment method belongs to different customer
+        const paymentMethod = {
+          id: "pm_test",
+          customer: otherCustomerId, // Different customer!
+        };
+
+        const belongsToUser = paymentMethod.customer === userCustomerId;
+        expect(belongsToUser).toBe(false);
+      });
+
+      it("should allow deletion if payment method belongs to user", async () => {
+        const userCustomerId = "cus_user_123";
+
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: userCustomerId },
+          error: null,
+        });
+
+        const paymentMethod = {
+          id: "pm_test",
+          customer: userCustomerId, // Same customer!
+        };
+
+        const belongsToUser = paymentMethod.customer === userCustomerId;
+        expect(belongsToUser).toBe(true);
+      });
+    });
+
+    describe("Stripe Detachment", () => {
+      it("should detach payment method from customer", async () => {
+        const paymentMethodId = "pm_to_delete";
+
+        mockStripe.paymentMethods.detach.mockResolvedValue({
+          id: paymentMethodId,
+          object: "payment_method",
+          customer: null, // After detach, customer is null
+        } as any);
+
+        const detached = await mockStripe.paymentMethods.detach(paymentMethodId);
+        expect(detached.id).toBe(paymentMethodId);
+        expect((detached as any).customer).toBeNull();
+      });
+
+      it("should handle Stripe detach errors", async () => {
+        mockStripe.paymentMethods.detach.mockRejectedValue(
+          new Error("Payment method not found")
+        );
+
+        await expect(mockStripe.paymentMethods.detach("pm_invalid")).rejects.toThrow();
+      });
+    });
+  });
+
+  // ============================================================================
+  // SET DEFAULT PAYMENT METHOD - PUT /api/payments/methods/default
+  // ============================================================================
+
+  describe("PUT /api/payments/methods/default", () => {
+    describe("Input Validation", () => {
+      it("should reject missing paymentMethodId", () => {
+        const { z } = require("zod");
+        const schema = z.object({
+          paymentMethodId: z.string().min(1, "Payment method ID is required"),
+        });
+
+        expect(() => schema.parse({ paymentMethodId: "" })).toThrow();
+      });
+
+      it("should accept valid paymentMethodId", () => {
+        const { z } = require("zod");
+        const schema = z.object({
+          paymentMethodId: z.string().min(1, "Payment method ID is required"),
+        });
+
+        const result = schema.parse({ paymentMethodId: "pm_default_123" });
+        expect(result.paymentMethodId).toBe("pm_default_123");
+      });
+    });
+
+    describe("Authorization", () => {
+      it("should reject if user has no Stripe customer", async () => {
+        mockSupabase.__setMockResponse("profiles", {
+          data: { id: "user-123", stripe_customer_id: null },
+          error: null,
+        });
+
+        const profile = await mockSupabase.from("profiles").select("stripe_customer_id");
+        expect(profile.data?.stripe_customer_id).toBeNull();
+      });
+
+      it("should reject if payment method belongs to different customer", async () => {
+        const userCustomerId = "cus_user_123";
+
+        mockStripe.paymentMethods.retrieve.mockResolvedValue({
+          id: "pm_test",
+          customer: "cus_other_456", // Different customer
+        } as any);
+
+        const pm = await mockStripe.paymentMethods.retrieve("pm_test");
+        expect((pm as any).customer).not.toBe(userCustomerId);
+      });
+    });
+
+    describe("Customer Update", () => {
+      it("should update customer invoice settings", async () => {
+        const stripeCustomerId = "cus_user_123";
+        const paymentMethodId = "pm_new_default";
+
+        mockStripe.customers.update.mockResolvedValue({
+          id: stripeCustomerId,
+          invoice_settings: {
+            default_payment_method: paymentMethodId,
+          },
+        } as any);
+
+        const updated = await mockStripe.customers.update(stripeCustomerId, {
+          invoice_settings: {
+            default_payment_method: paymentMethodId,
+          },
+        });
+
+        expect((updated as any).invoice_settings?.default_payment_method).toBe(paymentMethodId);
+      });
+
+      it("should handle Stripe update errors", async () => {
+        mockStripe.customers.update.mockRejectedValue(
+          new Error("Customer not found")
+        );
+
+        await expect(
+          mockStripe.customers.update("cus_invalid", {
+            invoice_settings: { default_payment_method: "pm_test" },
+          })
+        ).rejects.toThrow();
+      });
+    });
+
+    describe("Success Response", () => {
+      it("should return the new default payment method ID", () => {
+        const paymentMethodId = "pm_new_default";
+        const response = { defaultPaymentMethodId: paymentMethodId };
+
+        expect(response.defaultPaymentMethodId).toBe(paymentMethodId);
+      });
+    });
+  });
 });

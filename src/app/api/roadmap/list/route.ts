@@ -8,9 +8,23 @@
 
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
-import { serverClient } from "@/lib/sanity/client";
+import { serverClient } from "@/lib/integrations/sanity/client";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 import type { RoadmapListParams } from "@/types/roadmap";
+
+// Type for Sanity roadmap item
+type SanityRoadmapItem = {
+  _id: string;
+  title: string;
+  description: string;
+  category: string;
+  status: string;
+  targetAudience?: string[];
+  estimatedQuarter?: string;
+  estimatedYear?: number;
+  slug?: { current?: string };
+  publishedAt: string;
+};
 
 type ParsedRoadmapParams = {
   page: number;
@@ -113,7 +127,7 @@ async function fetchRoadmapItems(params: ParsedRoadmapParams) {
       language: params.locale,
     })) ?? [];
 
-  return items as Record<string, any>[];
+  return items as SanityRoadmapItem[];
 }
 
 function buildGroqFilters(params: ParsedRoadmapParams) {
@@ -163,7 +177,7 @@ async function fetchUserVotes(
 }
 
 function mergeRoadmapData(
-  sanityItems: Record<string, any>[],
+  sanityItems: SanityRoadmapItem[],
   voteCountMap: Map<string, number>,
   userVotes: Set<string>,
   hasUser: boolean

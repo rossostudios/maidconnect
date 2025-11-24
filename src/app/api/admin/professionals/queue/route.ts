@@ -8,6 +8,57 @@ import {
 import { requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
+// Raw professional profile with joined profile data from Supabase
+type RawProfessionalProfile = {
+  profile_id: string;
+  full_name: string | null;
+  status: string | null;
+  bio: string | null;
+  primary_services: string[] | null;
+  experience_years: number | null;
+  rate_expectations: string | null;
+  languages: string[] | null;
+  references_data: Record<string, unknown> | null;
+  consent_background_check: boolean | null;
+  stripe_connect_account_id: string | null;
+  stripe_connect_onboarding_status: string | null;
+  created_at: string;
+  updated_at: string | null;
+  profile:
+    | {
+        id: string;
+        role: string;
+        onboarding_status: string | null;
+        phone: string | null;
+        country: string | null;
+        city: string | null;
+        created_at: string;
+      }
+    | {
+        id: string;
+        role: string;
+        onboarding_status: string | null;
+        phone: string | null;
+        country: string | null;
+        city: string | null;
+        created_at: string;
+      }[]
+    | null;
+};
+
+// Transformed professional with profile as object (not array)
+type TransformedProfessional = Omit<RawProfessionalProfile, "profile"> & {
+  profile: {
+    id: string;
+    role: string;
+    onboarding_status: string | null;
+    phone: string | null;
+    country: string | null;
+    city: string | null;
+    created_at: string;
+  } | null;
+};
+
 /**
  * Get professional vetting queue
  * GET /api/admin/professionals/queue
@@ -74,7 +125,9 @@ export async function GET(request: Request) {
     }
 
     // Transform profile from array to object (Supabase joins return arrays)
-    const transformedProfessionals = (professionals || []).map((prof: any) => ({
+    const transformedProfessionals = (
+      (professionals || []) as RawProfessionalProfile[]
+    ).map((prof): TransformedProfessional => ({
       ...prof,
       profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
     }));
@@ -83,17 +136,17 @@ export async function GET(request: Request) {
     let filteredProfessionals = transformedProfessionals;
     if (status) {
       filteredProfessionals = filteredProfessionals.filter(
-        (p: any) => p.profile?.onboarding_status === status
+        (p) => p.profile?.onboarding_status === status
       );
     } else {
       // Only show professionals not yet active
       filteredProfessionals = filteredProfessionals.filter(
-        (p: any) => p.profile?.onboarding_status !== "active"
+        (p) => p.profile?.onboarding_status !== "active"
       );
     }
 
     // Fetch documents for all professionals
-    const professionalIds = filteredProfessionals.map((p: any) => p.profile_id);
+    const professionalIds = filteredProfessionals.map((p) => p.profile_id);
 
     const { data: allDocuments } = await supabase
       .from("professional_documents")
@@ -145,10 +198,9 @@ export async function GET(request: Request) {
         total: enrichedProfessionals.length,
       },
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to fetch vetting queue" },
-      { status: error.message === "Not authenticated" ? 401 : 403 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to fetch vetting queue";
+    const status = message === "Not authenticated" ? 401 : 403;
+    return NextResponse.json({ error: message }, { status });
   }
 }

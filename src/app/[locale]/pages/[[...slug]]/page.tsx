@@ -12,8 +12,8 @@ import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { SectionRenderer } from "@/components/sanity/section-renderer";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { sanityFetch } from "@/lib/sanity/live";
-import { pageBySlugQuery } from "@/lib/sanity/queries/pages";
+import { sanityFetch } from "@/lib/integrations/sanity/live";
+import { pageBySlugQuery } from "@/lib/integrations/sanity/queries/pages";
 
 type PageProps = {
   params: Promise<{

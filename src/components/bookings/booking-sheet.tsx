@@ -15,8 +15,18 @@ import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-cli
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 import { type Currency, formatCurrency } from "@/lib/utils/format";
 
-const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
+// Lazy load Stripe - only initializes when getStripePromise() is first called
+let stripePromiseCache: ReturnType<typeof loadStripe> | null = null;
+function getStripePromise() {
+  if (stripePromiseCache) {
+    return stripePromiseCache;
+  }
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (publishableKey) {
+    stripePromiseCache = loadStripe(publishableKey);
+  }
+  return stripePromiseCache;
+}
 
 type BookingSheetProps = {
   isOpen: boolean;
@@ -527,8 +537,8 @@ export function BookingSheet({
             </div>
           )}
 
-          {/* Step 3: Payment */}
-          {currentStep === "payment" && bookingResult && stripePromise && (
+          {/* Step 3: Payment - Stripe lazy loaded only when reaching payment step */}
+          {currentStep === "payment" && bookingResult && (
             <Elements
               options={{
                 clientSecret: bookingResult.clientSecret,
@@ -541,7 +551,7 @@ export function BookingSheet({
                   },
                 },
               }}
-              stripe={stripePromise}
+              stripe={getStripePromise()}
             >
               <PaymentStep
                 bookingId={bookingResult.bookingId}

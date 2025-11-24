@@ -15,8 +15,8 @@ import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { serverClient } from "@/lib/sanity/client";
-import { getOptimizedImageUrl } from "@/lib/sanity/image";
+import { serverClient } from "@/lib/integrations/sanity/client";
+import { getOptimizedImageUrl } from "@/lib/integrations/sanity/image";
 
 type Changelog = {
   _id: string;

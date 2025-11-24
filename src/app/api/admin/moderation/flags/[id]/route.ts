@@ -66,11 +66,10 @@ async function handleUpdateFlag(request: Request, context: { params: Promise<{ i
     });
 
     return NextResponse.json({ flag });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to update flag" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update flag";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

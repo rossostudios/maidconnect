@@ -7,7 +7,7 @@
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Link } from "@/i18n/routing";
-import { imageUrl } from "@/lib/sanity/image-url";
+import { imageUrl } from "@/lib/integrations/sanity/imageUrl";
 
 type HeroSectionProps = {
   data: {

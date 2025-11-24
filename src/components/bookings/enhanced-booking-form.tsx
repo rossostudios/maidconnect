@@ -19,8 +19,18 @@ import { normalizeServiceName } from "@/lib/booking-utils";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 import { type Currency, formatCurrency } from "@/lib/utils/format";
 
-const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
+// Lazy load Stripe - only initializes when getStripePromise() is first called
+let stripePromiseCache: ReturnType<typeof loadStripe> | null = null;
+function getStripePromise() {
+  if (stripePromiseCache) {
+    return stripePromiseCache;
+  }
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (publishableKey) {
+    stripePromiseCache = loadStripe(publishableKey);
+  }
+  return stripePromiseCache;
+}
 
 type BookingFormProps = {
   professionalId: string;
@@ -97,7 +107,8 @@ export function EnhancedBookingForm({
     );
   }
 
-  if (!stripePromise) {
+  // Stripe lazy-loaded - check only when component renders
+  if (!getStripePromise()) {
     return (
       <div className="border border-[neutral-500]/30 bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
         Payment system not configured.
@@ -219,14 +230,14 @@ export function EnhancedBookingForm({
         />
       )}
 
-      {/* Step 4: Payment */}
+      {/* Step 4: Payment - Stripe lazy loaded only when reaching payment step */}
       {currentStep === "payment" && submissionState.result && (
         <Elements
           options={{
             clientSecret: submissionState.result.clientSecret,
             appearance: stripeAppearance,
           }}
-          stripe={stripePromise}
+          stripe={getStripePromise()}
         >
           <PaymentConfirmation
             bookingId={submissionState.result.bookingId}

@@ -112,11 +112,10 @@ async function handleReviewProfessional(request: Request) {
       newStatus: newStatus || profile!.onboarding_status,
       message: getReviewSuccessMessage(body.action),
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to review professional" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to review professional";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

@@ -195,12 +195,11 @@ async function handleBulkSuspend(request: Request) {
       results,
       errors: results.filter((r) => !r.success).map((r) => ({ userId: r.userId, error: r.error })),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin] Bulk suspend error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to process bulk suspension" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to process bulk suspension";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

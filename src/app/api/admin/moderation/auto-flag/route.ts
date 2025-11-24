@@ -102,7 +102,7 @@ async function handleAutoFlag(request: Request) {
         severity: string;
         reason: string;
         auto_detected: boolean;
-        metadata: any;
+        metadata: Record<string, unknown>;
       }> = [];
 
       if (bookingPattern.detected) {
@@ -173,12 +173,11 @@ async function handleAutoFlag(request: Request) {
       flagsCreated: flagsCreated.length,
       flags: flagsCreated,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Auto-flag error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to auto-flag users" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to auto-flag users";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

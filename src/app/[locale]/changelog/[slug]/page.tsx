@@ -17,9 +17,9 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
-import { serverClient } from "@/lib/sanity/client";
-import { getOptimizedImageUrl } from "@/lib/sanity/image";
-import { portableTextComponents } from "@/lib/sanity/portable-text";
+import { serverClient } from "@/lib/integrations/sanity/client";
+import { getOptimizedImageUrl } from "@/lib/integrations/sanity/image";
+import { portableTextComponents } from "@/lib/integrations/sanity/PortableText";
 
 type ChangelogData = {
   _id: string;

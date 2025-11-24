@@ -50,11 +50,10 @@ export async function GET(request: NextRequest) {
       pagination: buildFeedbackPagination(params.page, params.limit, count || 0),
       stats,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error in admin feedback list:", error);
-    return NextResponse.json(
-      { error: error.message || "Internal server error" },
-      { status: error.status || 500 }
-    );
+    const message = error instanceof Error ? error.message : "Internal server error";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }

@@ -294,7 +294,7 @@ async function autoApproveOnboarding(
  */
 async function flagForManualReview(
   professionalId: string,
-  _check: any,
+  _check: { status: string; recommendation?: string; rawData?: unknown },
   supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>
 ): Promise<void> {
   await supabase
@@ -315,7 +315,7 @@ async function flagForManualReview(
  */
 async function rejectOnboarding(
   professionalId: string,
-  _check: any,
+  _check: { status: string; recommendation?: string; rawData?: unknown },
   supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>
 ): Promise<void> {
   await supabase

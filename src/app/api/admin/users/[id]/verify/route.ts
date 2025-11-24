@@ -151,12 +151,11 @@ async function handleVerification(
         : "Professional verification rejected",
       verified: body.approved,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Admin] Professional verification error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to process verification" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to process verification";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

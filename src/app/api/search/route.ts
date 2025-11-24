@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
-import { serverClient } from "@/lib/sanity/client";
+import { serverClient } from "@/lib/integrations/sanity/client";
 
 type SearchResultType = "help_article" | "changelog" | "roadmap" | "city_page";
 

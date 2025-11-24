@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { geistSans } from "@/app/fonts";
 import { ProBookingCalendar as SimpleCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
-import { ProBookingCalendar as AdvancedCalendar } from "@/components/calendar/pro-booking-calendar";
+import { LazyProBookingCalendar as AdvancedCalendar } from "@/components/calendar/lazy-pro-booking-calendar";
 import type { Currency } from "@/lib/format";
 import { cn } from "@/lib/utils";
 

@@ -140,12 +140,11 @@ async function handleResolveDispute(
     });
 
     return NextResponse.json({ success: true, dispute: updatedDispute });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Resolve dispute error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to resolve dispute" },
-      { status: error.message === "Not authenticated" ? 401 : 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to resolve dispute";
+    const status = message === "Not authenticated" ? 401 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }
 

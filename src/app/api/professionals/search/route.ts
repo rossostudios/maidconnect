@@ -36,6 +36,27 @@ type SearchResult = {
   rank?: number; // Relevance score
 };
 
+type FallbackProfessionalResult = {
+  profile_id: string;
+  full_name: string | null;
+  primary_services: string[] | null;
+  bio: string | null;
+  avatar_url: string | null;
+  profiles: { city: string | null; country: string | null } | { city: string | null; country: string | null }[] | null;
+};
+
+type FullTextSearchResult = {
+  id: string;
+  full_name: string | null;
+  service_types: string[] | null;
+  city: string | null;
+  country: string | null;
+  profile_photo_url: string | null;
+  avg_rating: number | null;
+  review_count: number | null;
+  rank: number;
+};
+
 async function handleGET(request: Request) {
   const supabase = await createSupabaseServerClient();
   const { searchParams } = new URL(request.url);
@@ -122,15 +143,18 @@ async function handleGET(request: Request) {
       }
 
       // Format fallback results
-      const formattedResults: SearchResult[] = (fallbackResults || []).map((prof: any) => ({
-        id: prof.profile_id,
-        name: prof.full_name || "Professional",
-        service: Array.isArray(prof.primary_services) ? prof.primary_services[0] : null,
-        location:
-          [prof.profiles?.city, prof.profiles?.country].filter(Boolean).join(", ") ||
-          "Location TBD",
-        photoUrl: prof.avatar_url || "/images/placeholder-avatar.png",
-      }));
+      const formattedResults: SearchResult[] = ((fallbackResults || []) as FallbackProfessionalResult[]).map((prof) => {
+        const profiles = Array.isArray(prof.profiles) ? prof.profiles[0] : prof.profiles;
+        return {
+          id: prof.profile_id,
+          name: prof.full_name || "Professional",
+          service: Array.isArray(prof.primary_services) ? prof.primary_services[0] : null,
+          location:
+            [profiles?.city, profiles?.country].filter(Boolean).join(", ") ||
+            "Location TBD",
+          photoUrl: prof.avatar_url || "/images/placeholder-avatar.png",
+        };
+      });
 
       return NextResponse.json({
         results: formattedResults,
@@ -141,14 +165,14 @@ async function handleGET(request: Request) {
     }
 
     // Format full-text search results
-    const formattedResults: SearchResult[] = (ftsResults || []).map((prof: any) => ({
+    const formattedResults: SearchResult[] = ((ftsResults || []) as FullTextSearchResult[]).map((prof) => ({
       id: prof.id,
       name: prof.full_name || "Professional",
       service: Array.isArray(prof.service_types) ? prof.service_types[0] : null,
       location: [prof.city, prof.country].filter(Boolean).join(", ") || "Location TBD",
       photoUrl: prof.profile_photo_url || "/images/placeholder-avatar.png",
-      rating: prof.avg_rating,
-      reviewCount: prof.review_count,
+      rating: prof.avg_rating ?? undefined,
+      reviewCount: prof.review_count ?? undefined,
       rank: prof.rank, // Relevance score from ts_rank
     }));
 
