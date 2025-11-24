@@ -85,6 +85,11 @@ docker compose -f docker-compose.db.yml up -d  # Start pgAdmin + PgHero
 bun test                  # Run Vitest unit tests
 bun test:e2e              # Run Playwright E2E tests
 
+# Bundle Analysis
+bun run bundle:check      # Local bundle size validation
+bun run bundle:stats      # Generate JSON bundle statistics
+bun run bundle:compare    # Compare baseline vs current bundle
+
 # Git
 git checkout develop      # Switch to develop branch
 git pull origin develop   # Pull latest changes
@@ -999,6 +1004,78 @@ bun run build              # Test build
 
 ---
 
+## Bundle Analysis & Performance Monitoring
+
+### Overview
+
+Casaora includes a comprehensive bundle analysis system that tracks bundle size, enforces budgets, and monitors Core Web Vitals via Lighthouse CI.
+
+### Local Development
+
+```bash
+# Run before pushing to catch issues early
+bun run bundle:check      # Validates bundle against size budgets
+
+# After running `bun run build`
+bun run bundle:stats      # Generates bundle-stats.json
+bun run bundle:compare baseline.json current.json  # Compare two snapshots
+```
+
+### Budget Limits
+
+| Limit Type | Threshold | Consequence |
+|------------|-----------|-------------|
+| Hard Chunk Limit | 300KB per chunk | PR blocked (exit code 1) |
+| Soft Chunk Limit | 250KB per chunk | Warning only (exit code 2) |
+| Hard Total Increase | 10% | PR blocked |
+| Soft Total Increase | 5% | Warning only |
+
+### Lighthouse CI Thresholds
+
+| Metric | Threshold | Description |
+|--------|-----------|-------------|
+| LCP | < 2500ms | Largest Contentful Paint |
+| FCP | < 1800ms | First Contentful Paint |
+| CLS | < 0.1 | Cumulative Layout Shift |
+| TBT | < 200ms | Total Blocking Time |
+| Performance Score | ≥ 90 | Overall performance |
+| Accessibility Score | ≥ 90 | Accessibility compliance |
+
+### CI/CD Pipeline
+
+The `.github/workflows/bundle-analysis.yml` workflow:
+
+1. **Build Baseline** - Builds main branch for comparison (PRs only)
+2. **Analyze Bundle** - Builds PR, generates stats, compares against baseline
+3. **Lighthouse CI** - Runs Core Web Vitals tests against production build
+4. **Comment PR** - Posts comparison report to PR
+5. **Store Metrics** - Saves metrics to `bundle_metrics` table (main branch only)
+
+### Historical Trending
+
+Bundle metrics are stored in Supabase (`bundle_metrics` table) for trending analysis:
+
+```sql
+-- Query recent bundle sizes
+SELECT created_at, total_js_bytes / 1024 as total_js_kb, chunks_over_250kb
+FROM bundle_metrics
+WHERE branch = 'main'
+ORDER BY created_at DESC
+LIMIT 30;
+```
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `bundle.config.json` | Central configuration for limits and thresholds |
+| `lighthouserc.js` | Lighthouse CI configuration |
+| `scripts/bundle-stats.sh` | Generates JSON bundle statistics |
+| `scripts/compare-bundles.sh` | Compares baseline vs current bundle |
+| `scripts/bundle-check.ts` | Local validation script |
+
+---
+
 ## Key Features
 
 - **Authentication Flow** - Supabase Auth with email/password + OAuth
@@ -1030,4 +1107,4 @@ bun run build              # Test build
 ---
 
 **Last Updated:** 2025-11-24
-**Version:** 1.8.0 - Added centralized cache infrastructure documentation (`src/lib/cache/`)
+**Version:** 1.9.0 - Added comprehensive bundle analysis & Lighthouse CI documentation

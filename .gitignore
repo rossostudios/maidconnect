@@ -68,3 +68,6 @@ next-env.d.ts
 
 # Sanity Studio build output
 sanity/dist/
+
+# Bundle analysis output
+bundle-stats.json

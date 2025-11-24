@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Bundle analysis configuration for Casaora",
+  "version": "1.0.0",
+
+  "limits": {
+    "hardChunkLimit": 307200,
+    "hardChunkLimitDescription": "300KB per chunk - PR will be blocked",
+    "softChunkLimit": 256000,
+    "softChunkLimitDescription": "250KB per chunk - Warning only",
+    "hardTotalIncrease": 10,
+    "hardTotalIncreaseDescription": "10% total JS increase - PR will be blocked",
+    "softTotalIncrease": 5,
+    "softTotalIncreaseDescription": "5% total JS increase - Warning only"
+  },
+
+  "lighthouse": {
+    "urls": [
+      "http://localhost:3000/",
+      "http://localhost:3000/en/professionals",
+      "http://localhost:3000/en/about"
+    ],
+    "thresholds": {
+      "performance": 90,
+      "accessibility": 90,
+      "bestPractices": 90,
+      "seo": 90
+    },
+    "coreWebVitals": {
+      "lcp": {
+        "value": 2500,
+        "unit": "ms",
+        "description": "Largest Contentful Paint - Good: <2.5s, Needs Improvement: <4s"
+      },
+      "fcp": {
+        "value": 1800,
+        "unit": "ms",
+        "description": "First Contentful Paint - Good: <1.8s, Needs Improvement: <3s"
+      },
+      "cls": {
+        "value": 0.1,
+        "unit": "score",
+        "description": "Cumulative Layout Shift - Good: <0.1, Needs Improvement: <0.25"
+      },
+      "tbt": {
+        "value": 200,
+        "unit": "ms",
+        "description": "Total Blocking Time - Good: <200ms, Needs Improvement: <600ms"
+      }
+    }
+  },
+
+  "ci": {
+    "baselineBranch": "main",
+    "artifactRetentionDays": 30,
+    "enableLighthouse": true,
+    "enableHistoricalTracking": true
+  },
+
+  "ignore": {
+    "chunks": [],
+    "patterns": []
+  }
+}
