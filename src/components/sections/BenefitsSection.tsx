@@ -162,7 +162,7 @@ function VerifiedProfileVisual({
             >
               {/* Close button */}
               <button
-                className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100/80 backdrop-blur-sm transition-all hover:bg-neutral-200"
+                className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 transition-all hover:bg-neutral-200"
                 onClick={() => setIsExpanded(false)}
                 type="button"
               >
@@ -718,7 +718,7 @@ export function BenefitsSection() {
                 {/* Plus button - positioned at right side of container */}
                 {card.expandable && (
                   <button
-                    className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
+                    className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md transition-all hover:scale-110 hover:bg-neutral-50"
                     onClick={() => setIsExpanded(true)}
                     type="button"
                   >

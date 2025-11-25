@@ -1,49 +1,45 @@
 /**
  * Admin Background Checks API
- * GET /api/admin/background-checks - Get all background checks with transformations
+ *
+ * GET /api/admin/background-checks
+ *
+ * Returns all background checks with transformations.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
  *
  * REFACTORED: Complexity 21 → <15
  * - Extracted transformation logic to background-checks-service.ts
  * - Route now focuses on orchestration
- *
- * Rate Limit: 10 requests per minute (admin tier)
  */
 
-import { NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 import type { RawBackgroundCheck } from "@/lib/admin/background-checks-service";
 import {
   countChecksByStatus,
   groupChecksByStatus,
   transformBackgroundCheck,
 } from "@/lib/admin/background-checks-service";
-import { withRateLimit } from "@/lib/rate-limit";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import { withAuth } from "@/lib/shared/api/middleware";
 
-async function handleGetBackgroundChecks(_request: Request) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type TransformedCheck = ReturnType<typeof transformBackgroundCheck>;
 
-    // 1. Verify authentication
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+type BackgroundChecksData = {
+  checks: TransformedCheck[];
+  grouped: ReturnType<typeof groupChecksByStatus>;
+  counts: ReturnType<typeof countChecksByStatus>;
+};
 
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+/**
+ * Cached background checks data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedBackgroundChecks = unstable_cache(
+  async (): Promise<BackgroundChecksData> => {
+    const supabase = createSupabaseAnonClient();
 
-    // 2. Verify admin role
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    if (profileError || profile?.role !== "admin") {
-      return NextResponse.json({ error: "Forbidden: Admin access required" }, { status: 403 });
-    }
-
-    // 3. Fetch all background checks with professional information
+    // Fetch all background checks with professional information
     const { data: checks, error: checksError } = await supabase
       .from("background_checks")
       .select(
@@ -71,11 +67,11 @@ async function handleGetBackgroundChecks(_request: Request) {
 
     if (checksError) {
       console.error("[Admin] Failed to fetch background checks:", checksError);
-      return NextResponse.json({ error: "Failed to fetch background checks" }, { status: 500 });
+      throw new Error("Failed to fetch background checks");
     }
 
-    // 4. Transform data using service
-    const transformedChecks = checks.map((check) => {
+    // Transform data using service
+    const transformedChecks = (checks ?? []).map((check) => {
       // Extract profile from array (Supabase joins return arrays)
       const checkProfile = Array.isArray(check.profiles) ? check.profiles[0] : check.profiles;
 
@@ -85,20 +81,29 @@ async function handleGetBackgroundChecks(_request: Request) {
       } as RawBackgroundCheck);
     });
 
-    // 5. Group and count checks using service
+    // Group and count checks using service
     const grouped = groupChecksByStatus(transformedChecks);
     const counts = countChecksByStatus(grouped);
 
-    return NextResponse.json({
-      checks: transformedChecks,
-      grouped,
-      counts,
-    });
+    return { checks: transformedChecks, grouped, counts };
+  },
+  ["admin-background-checks"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_BACKGROUND_CHECKS],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedBackgroundChecks();
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("[Admin] Background checks API error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-// Apply rate limiting: 10 requests per minute (admin tier)
-export const GET = withRateLimit(handleGetBackgroundChecks, "admin");
+// Wrap with auth middleware (admin only)
+export const GET = withAuth(handler, { requiredRole: "admin" });

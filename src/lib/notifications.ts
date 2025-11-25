@@ -387,6 +387,36 @@ export async function notifyProfessionalBookingRescheduled(
   });
 }
 
+/**
+ * Notify customer when a professional reschedules their booking
+ */
+export async function notifyCustomerBookingRescheduled(
+  customerId: string,
+  booking: {
+    id: string;
+    serviceName: string;
+    professionalName: string;
+    newScheduledStart: string;
+  }
+) {
+  const date = new Date(booking.newScheduledStart).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+  return sendPushNotification({
+    userId: customerId,
+    title: "Booking Rescheduled 📅",
+    body: `${booking.professionalName} rescheduled your ${booking.serviceName} to ${date}.`,
+    url: `/dashboard/customer/bookings/${booking.id}`,
+    tag: `booking-rescheduled-${booking.id}`,
+    requireInteraction: true,
+  });
+}
+
 export async function notifyProfessionalDisputeFiled(
   professionalId: string,
   dispute: {

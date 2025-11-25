@@ -22,6 +22,7 @@ type FilterStatus = "all" | BookingStatus;
  * Booking List Component
  *
  * Displays list of bookings with filtering
+ * Lia Design: rounded-lg cards, rounded-full filter pills (Airbnb-style)
  */
 export function BookingList({
   userId,
@@ -90,11 +91,11 @@ export function BookingList({
 
   if (error) {
     return (
-      <div className="border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
-        <p className="font-semibold text-[neutral-500]">{t("error")}</p>
-        <p className="mt-2 text-[neutral-500] text-sm">{error}</p>
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+        <p className="font-semibold text-red-700">{t("error")}</p>
+        <p className="mt-2 text-red-600 text-sm">{error}</p>
         <button
-          className="mt-4 bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
+          className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           onClick={() => loadBookings()}
           type="button"
         >
@@ -108,19 +109,19 @@ export function BookingList({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="font-bold text-2xl text-[neutral-900]">{t("title")}</h2>
-        <p className="text-[neutral-400] text-sm">{t("description")}</p>
+        <h2 className="font-bold text-2xl text-neutral-900">{t("title")}</h2>
+        <p className="text-neutral-500 text-sm">{t("description")}</p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto">
-        <HugeiconsIcon className="h-5 w-5 flex-shrink-0 text-[neutral-400]" icon={FilterIcon} />
+      {/* Filter Pills - Airbnb-style horizontal scroll */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        <HugeiconsIcon className="h-5 w-5 flex-shrink-0 text-neutral-500" icon={FilterIcon} />
         {filterButtons.map(({ key, label }) => (
           <button
-            className={`flex-shrink-0 px-4 py-2 font-medium text-sm transition ${
+            className={`flex-shrink-0 rounded-full px-4 py-2 font-medium text-sm transition-colors ${
               filter === key
-                ? "bg-[neutral-500] text-[neutral-50]"
-                : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-200]"
+                ? "bg-neutral-900 text-white"
+                : "border border-neutral-200 bg-white text-neutral-700 hover:border-neutral-900 hover:bg-neutral-50"
             }`}
             key={key}
             onClick={() => setFilter(key)}
@@ -146,9 +147,9 @@ export function BookingList({
           ))}
         </div>
       ) : (
-        <div className="border-2 border-[neutral-200] bg-[neutral-50] p-12 text-center">
-          <p className="font-semibold text-[neutral-900]">{t("noBookings")}</p>
-          <p className="mt-2 text-[neutral-400] text-sm">{t("noBookingsDescription")}</p>
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-12 text-center">
+          <p className="font-semibold text-neutral-900">{t("noBookings")}</p>
+          <p className="mt-2 text-neutral-500 text-sm">{t("noBookingsDescription")}</p>
         </div>
       )}
     </div>

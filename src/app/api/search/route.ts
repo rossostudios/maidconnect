@@ -3,9 +3,12 @@
  *
  * GET /api/search?q=query&locale=en&type=all
  * Searches across all Sanity content types
+ * Cached for 10 minutes (STANDARD duration) to reduce Sanity API load
  */
 
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { handleApiError } from "@/lib/error-handler";
 import { serverClient } from "@/lib/integrations/sanity/client";
 
@@ -36,6 +39,44 @@ const SEARCH_HANDLERS: Record<Exclude<SearchFilter, "all">, SearchHandler> = {
   city: searchCityPages,
 };
 
+type CachedSearchResult = {
+  data: SearchResult[];
+  total: number;
+};
+
+/**
+ * Cached search function to reduce Sanity API load
+ * Revalidates every 10 minutes (STANDARD duration)
+ */
+const getCachedSearchResults = unstable_cache(
+  async (
+    query: string,
+    locale: string,
+    typeFilter: SearchFilter,
+    limit: number
+  ): Promise<CachedSearchResult> => {
+    const searchContext = {
+      locale,
+      searchPattern: `*${query}*`,
+    };
+
+    const handlers = selectHandlers(typeFilter);
+    const results = (await Promise.all(handlers.map((handler) => handler(searchContext)))).flat();
+
+    const limitedResults = results.slice(0, limit);
+
+    return {
+      data: limitedResults,
+      total: results.length,
+    };
+  },
+  ["unified-search"],
+  {
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.HELP, CACHE_TAGS.CHANGELOGS, CACHE_TAGS.ROADMAP, CACHE_TAGS.CITIES],
+  }
+);
+
 export async function GET(request: NextRequest) {
   try {
     const params = parseSearchParams(request);
@@ -48,22 +89,22 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    const searchContext = {
-      locale: params.locale,
-      searchPattern: `*${params.query}*`,
-    };
+    const { data, total } = await getCachedSearchResults(
+      params.query,
+      params.locale,
+      params.typeFilter,
+      params.limit
+    );
 
-    const handlers = selectHandlers(params.typeFilter);
-    const results = (await Promise.all(handlers.map((handler) => handler(searchContext)))).flat();
-
-    const limitedResults = results.slice(0, params.limit);
-
-    return NextResponse.json({
-      success: true,
-      data: limitedResults,
-      total: results.length,
-      query: params.query,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data,
+        total,
+        query: params.query,
+      },
+      { headers: CACHE_HEADERS.STANDARD }
+    );
   } catch (error) {
     return handleApiError(error, request);
   }

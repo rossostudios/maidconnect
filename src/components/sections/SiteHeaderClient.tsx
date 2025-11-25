@@ -8,7 +8,6 @@ import {
   HeadphonesIcon,
   Home09Icon,
   News01Icon,
-  StarIcon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { useTranslations } from "next-intl";
@@ -52,12 +51,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       icon: Calendar03Icon,
     },
     {
-      name: t("dropdown.customers.reviews"),
-      href: "/pros#reviews",
-      description: t("dropdown.customers.reviewsDesc"),
-      icon: StarIcon,
-    },
-    {
       name: t("dropdown.customers.support"),
       href: "/contact",
       description: t("dropdown.customers.supportDesc"),
@@ -90,7 +83,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
   // Navigation links for mobile menu (flattened)
   const mobileLinks = [
     { href: "/how-it-works", label: t("dropdown.professionals.howItWorks") },
-    { href: "/pros", label: t("dropdown.customers.reviews") },
+    { href: "/pros", label: t("dropdown.customers.bookNow") },
     { href: "/become-a-pro", label: t("dropdown.join.becomePro") },
     { href: "/ambassadors", label: t("dropdown.join.ambassador") },
     { href: "/help", label: t("dropdown.customers.helpCenter") },

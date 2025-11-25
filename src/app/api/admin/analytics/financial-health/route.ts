@@ -5,15 +5,32 @@
  *
  * Returns financial health indicators including platform revenue,
  * pending payouts, average booking value, cancellation rate, and dispute rate.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
  */
 
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withAuth } from "@/lib/shared/api/middleware";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-async function handler(_context: unknown, _req: NextRequest) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type FinancialHealthData = {
+  platformFeeRevenue: number;
+  professionalPayoutsPending: number;
+  avgBookingValue: number;
+  cancellationRate: number;
+  cancellationRateStatus: string;
+  disputeRate: number;
+  disputeRateStatus: string;
+};
+
+/**
+ * Cached financial health data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedFinancialHealth = unstable_cache(
+  async (): Promise<FinancialHealthData> => {
+    const supabase = createSupabaseAnonClient();
 
     // Platform fee is 15% of completed bookings
     const PLATFORM_FEE_PERCENTAGE = 0.15;
@@ -92,17 +109,30 @@ async function handler(_context: unknown, _req: NextRequest) {
       }
     };
 
+    return {
+      platformFeeRevenue,
+      professionalPayoutsPending,
+      avgBookingValue,
+      cancellationRate: Math.round(cancellationRate * 10) / 10,
+      cancellationRateStatus: getHealthStatus("cancellationRate", cancellationRate),
+      disputeRate: Math.round(disputeRate * 10) / 10,
+      disputeRateStatus: getHealthStatus("disputeRate", disputeRate),
+    };
+  },
+  ["admin-analytics-financial-health"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_ANALYTICS, CACHE_TAGS.ADMIN_ANALYTICS_FINANCIAL],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedFinancialHealth();
+
     return NextResponse.json({
       success: true,
-      data: {
-        platformFeeRevenue,
-        professionalPayoutsPending,
-        avgBookingValue,
-        cancellationRate: Math.round(cancellationRate * 10) / 10,
-        cancellationRateStatus: getHealthStatus("cancellationRate", cancellationRate),
-        disputeRate: Math.round(disputeRate * 10) / 10,
-        disputeRateStatus: getHealthStatus("disputeRate", disputeRate),
-      },
+      data,
     });
   } catch (error) {
     console.error("Analytics financial health error:", error);

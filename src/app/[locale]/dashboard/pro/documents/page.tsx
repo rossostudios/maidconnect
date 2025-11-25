@@ -19,7 +19,7 @@ const DocumentsTable = dynamic(
     })),
   {
     loading: () => (
-      <div className="h-[400px] w-full animate-pulse border border-neutral-200 bg-neutral-50" />
+      <div className="h-[400px] w-full animate-pulse rounded-lg border border-neutral-200 bg-neutral-50" />
     ),
   }
 );
@@ -109,7 +109,7 @@ export default async function ProDocumentsPage({
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
             Upload documents
           </h2>
@@ -133,7 +133,7 @@ export default async function ProDocumentsPage({
           </Link>
         </div>
 
-        <div className="border border-neutral-200 bg-white p-6">
+        <div className="rounded-lg border border-neutral-200 bg-white p-6">
           <h2 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
             Submitted documents
           </h2>

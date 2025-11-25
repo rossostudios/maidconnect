@@ -1,14 +1,28 @@
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-/**
- * Get latest published changelog entry
- * GET /api/changelog/latest
- */
-export async function GET() {
-  const supabase = await createSupabaseServerClient();
+type Changelog = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  visibility: string;
+  published_at: string;
+  created_at: string;
+  updated_at: string;
+};
 
-  try {
+/**
+ * Cached changelog fetch
+ * Revalidates every 10 minutes (STANDARD duration)
+ */
+const getCachedLatestChangelog = unstable_cache(
+  async (): Promise<Changelog | null> => {
+    const supabase = createSupabaseAnonClient();
+
     const { data: changelog, error } = await supabase
       .from("changelogs")
       .select("*")
@@ -19,16 +33,36 @@ export async function GET() {
       .single();
 
     if (error && error.code !== "PGRST116") {
-      // PGRST116 = no rows returned
       console.error("Error fetching latest changelog:", error);
-      return NextResponse.json({ error: "Failed to fetch changelog" }, { status: 500 });
+      throw new Error("Failed to fetch changelog");
     }
+
+    return changelog as Changelog | null;
+  },
+  ["changelog-latest"],
+  {
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.CHANGELOGS],
+  }
+);
+
+/**
+ * Get latest published changelog entry
+ * GET /api/changelog/latest
+ *
+ * Changelog data is cached; user view status is fetched separately
+ */
+export async function GET() {
+  try {
+    // Fetch cached changelog (public data)
+    const changelog = await getCachedLatestChangelog();
 
     if (!changelog) {
-      return NextResponse.json({ changelog: null });
+      return NextResponse.json({ changelog: null }, { headers: CACHE_HEADERS.STANDARD });
     }
 
-    // Check if current user has viewed this changelog
+    // User-specific view status (not cached)
+    const supabase = await createSupabaseServerClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();

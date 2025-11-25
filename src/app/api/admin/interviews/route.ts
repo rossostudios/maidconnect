@@ -1,31 +1,67 @@
+/**
+ * Admin Interviews API
+ *
+ * GET /api/admin/interviews
+ *
+ * Returns all interview slots with professional information.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
+ */
+
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import { withAuth } from "@/lib/shared/api/middleware";
 
-export async function GET(_request: NextRequest) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type InterviewProfile = {
+  id: string;
+  full_name: string | null;
+  email: string | null;
+  phone: string | null;
+  city: string | null;
+  country: string | null;
+};
 
-    // 1. Verify authentication
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+type TransformedInterview = {
+  id: string;
+  professional_id: string;
+  scheduled_at: string | null;
+  location: string | null;
+  location_address: Record<string, unknown>;
+  status: string | null;
+  interview_notes: string | null;
+  completed_by: string | null;
+  completed_at: string | null;
+  created_at: string;
+  professional: InterviewProfile | null;
+};
 
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+type InterviewsData = {
+  interviews: TransformedInterview[];
+  grouped: {
+    scheduled: TransformedInterview[];
+    completed: TransformedInterview[];
+    no_show: TransformedInterview[];
+    cancelled: TransformedInterview[];
+  };
+  counts: {
+    scheduled: number;
+    completed: number;
+    no_show: number;
+    cancelled: number;
+    total: number;
+  };
+};
 
-    // 2. Verify admin role
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .maybeSingle();
+/**
+ * Cached interviews data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedInterviews = unstable_cache(
+  async (): Promise<InterviewsData> => {
+    const supabase = createSupabaseAnonClient();
 
-    if (profileError || profile?.role !== "admin") {
-      return NextResponse.json({ error: "Forbidden: Admin access required" }, { status: 403 });
-    }
-
-    // 3. Fetch all interview slots with professional information
+    // Fetch all interview slots with professional information
     const { data: interviews, error: interviewsError } = await supabase
       .from("interview_slots")
       .select(
@@ -54,11 +90,11 @@ export async function GET(_request: NextRequest) {
 
     if (interviewsError) {
       console.error("[Admin] Failed to fetch interviews:", interviewsError);
-      return NextResponse.json({ error: "Failed to fetch interviews" }, { status: 500 });
+      throw new Error("Failed to fetch interviews");
     }
 
-    // 4. Transform data to match component expectations
-    const transformedInterviews = interviews.map((interview) => {
+    // Transform data to match component expectations
+    const transformedInterviews: TransformedInterview[] = (interviews ?? []).map((interview) => {
       // Extract profile from array (Supabase joins return arrays)
       const interviewProfile = Array.isArray(interview.profiles)
         ? interview.profiles[0]
@@ -69,7 +105,7 @@ export async function GET(_request: NextRequest) {
         professional_id: interview.professional_id,
         scheduled_at: interview.scheduled_at,
         location: interview.location,
-        location_address: interview.location_address || {},
+        location_address: (interview.location_address as Record<string, unknown>) || {},
         status: interview.status,
         interview_notes: interview.interview_notes,
         completed_by: interview.completed_by,
@@ -88,7 +124,7 @@ export async function GET(_request: NextRequest) {
       };
     });
 
-    // 5. Group interviews by status
+    // Group interviews by status
     const grouped = {
       scheduled: transformedInterviews.filter((interview) => interview.status === "scheduled"),
       completed: transformedInterviews.filter((interview) => interview.status === "completed"),
@@ -96,7 +132,7 @@ export async function GET(_request: NextRequest) {
       cancelled: transformedInterviews.filter((interview) => interview.status === "cancelled"),
     };
 
-    // 6. Count interviews by status
+    // Count interviews by status
     const counts = {
       scheduled: grouped.scheduled.length,
       completed: grouped.completed.length,
@@ -105,13 +141,25 @@ export async function GET(_request: NextRequest) {
       total: transformedInterviews.length,
     };
 
-    return NextResponse.json({
-      interviews: transformedInterviews,
-      grouped,
-      counts,
-    });
+    return { interviews: transformedInterviews, grouped, counts };
+  },
+  ["admin-interviews"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_INTERVIEWS],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedInterviews();
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("[Admin] Interviews API error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Wrap with auth middleware (admin only)
+export const GET = withAuth(handler, { requiredRole: "admin" });

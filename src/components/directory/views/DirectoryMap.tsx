@@ -234,7 +234,7 @@ export function DirectoryMap({
 
       {/* Loading overlay */}
       {isLoading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-sm">
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/90">
           <div className="flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow-lg">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
             <span className="font-medium text-neutral-700 text-sm">Loading professionals...</span>

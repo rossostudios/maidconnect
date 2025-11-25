@@ -7,7 +7,6 @@ import {
   CACHE_HEADERS,
   CACHE_TAGS,
   type DirectoryParams,
-  directoryKey,
 } from "@/lib/cache";
 
 type DirectoryQueryParams = DirectoryParams & {
@@ -15,7 +14,8 @@ type DirectoryQueryParams = DirectoryParams & {
 };
 
 /**
- * Cached function to fetch professionals directory data
+ * Cached function to fetch professionals directory data using optimized RPC
+ * Joins metrics at database level for proper sorting and pagination
  * Revalidates every 10 minutes (STANDARD duration)
  */
 const getCachedDirectory = unstable_cache(
@@ -35,154 +35,33 @@ const getCachedDirectory = unstable_cache(
 
     const supabase = createSupabaseAnonClient();
 
-    // Build the query - Note: metrics are fetched separately since FK is on profiles, not professional_profiles
-    let dbQuery = supabase
-      .from("professional_profiles")
-      .select(
-        `
-        profile_id,
-        full_name,
-        avatar_url,
-        bio,
-        country,
-        city,
-        country_code,
-        city_id,
-        primary_services,
-        rate_expectations,
-        experience_years,
-        languages,
-        verification_level,
-        background_check_status,
-        interview_completed,
-        location_latitude,
-        location_longitude,
-        status,
-        cities!city_id (
-          name
-        ),
-        countries!country_code (
-          name_en,
-          name_es,
-          currency_code
-        )
-      `,
-        { count: "exact" }
-      )
-      .eq("status", "active");
-
-    // Apply filters
-    if (country) {
-      dbQuery = dbQuery.eq("country_code", country.toUpperCase());
-    }
-
-    if (city) {
-      dbQuery = dbQuery.eq("city_id", city);
-    }
-
-    // Note: neighborhood filter skipped - column doesn't exist in DB
-
-    if (service) {
-      // Filter by primary service (contains)
-      dbQuery = dbQuery.contains("primary_services", [service]);
-    }
-
-    // Note: rate filtering requires parsing rate_expectations JSON
-    // Skipping direct DB filtering for now - can filter post-query if needed
-
-    if (minExperience) {
-      dbQuery = dbQuery.gte("experience_years", minExperience);
-    }
-
-    if (verifiedOnly) {
-      dbQuery = dbQuery.in("verification_level", ["standard", "premium", "elite"]);
-    }
-
-    // Background checks are MANDATORY for our boutique marketplace
-    // All professionals must be background checked to appear in directory
-    dbQuery = dbQuery.eq("background_check_status", "approved");
-
-    if (query) {
-      // Search by name or bio
-      dbQuery = dbQuery.or(`full_name.ilike.%${query}%,bio.ilike.%${query}%`);
-    }
-
-    // Apply sorting
-    switch (sort) {
-      case "rating":
-        // Sort by rating requires joining with metrics
-        dbQuery = dbQuery.order("created_at", { ascending: false });
-        break;
-      case "reviews":
-        dbQuery = dbQuery.order("created_at", { ascending: false });
-        break;
-      case "price-asc":
-        dbQuery = dbQuery.order("hourly_rate", { ascending: true, nullsFirst: false });
-        break;
-      case "price-desc":
-        dbQuery = dbQuery.order("hourly_rate", { ascending: false, nullsFirst: false });
-        break;
-      case "experience":
-        dbQuery = dbQuery.order("experience_years", { ascending: false, nullsFirst: false });
-        break;
-      default:
-        dbQuery = dbQuery.order("created_at", { ascending: false });
-    }
-
-    // Apply pagination
-    const offset = (page - 1) * limit;
-    dbQuery = dbQuery.range(offset, offset + limit - 1);
-
-    // Execute query
-    const { data, error, count } = await dbQuery;
+    // Use optimized RPC function that joins metrics at database level
+    const { data, error } = await supabase.rpc("get_directory_professionals", {
+      p_country_code: country || null,
+      p_city_id: city || null,
+      p_service: service || null,
+      p_min_experience: minExperience || null,
+      p_min_rating: minRating || null,
+      p_verified_only: verifiedOnly || false,
+      p_search_query: query || null,
+      p_sort_by: sort,
+      p_page: page,
+      p_limit: limit,
+    });
 
     if (error) {
       console.error("Error fetching professionals:", error);
       throw new Error("Failed to fetch professionals");
     }
 
-    // Fetch metrics separately using profile_ids
-    const profileIds = (data || []).map((p) => p.profile_id).filter(Boolean);
-    let metricsMap: Record<
-      string,
-      { average_rating: number | null; total_reviews: number; total_bookings: number }
-    > = {};
-
-    if (profileIds.length > 0) {
-      const { data: metricsData } = await supabase
-        .from("professional_performance_metrics")
-        .select("profile_id, average_rating, total_reviews, total_bookings")
-        .in("profile_id", profileIds);
-
-      if (metricsData) {
-        metricsMap = metricsData.reduce(
-          (acc, m) => {
-            acc[m.profile_id] = {
-              average_rating: m.average_rating,
-              total_reviews: m.total_reviews || 0,
-              total_bookings: m.total_bookings || 0,
-            };
-            return acc;
-          },
-          {} as typeof metricsMap
-        );
-      }
-    }
+    // Get total count from first row (all rows have same total_count)
+    const totalCount = data?.[0]?.total_count || 0;
 
     // Transform data to match DirectoryProfessional interface
-    const professionals: DirectoryProfessional[] = (data || []).map((pro) => {
-      const metrics = metricsMap[pro.profile_id] || {
-        average_rating: null,
-        total_reviews: 0,
-        total_bookings: 0,
-      };
-
-      const cityData = Array.isArray(pro.cities) ? pro.cities[0] : pro.cities;
-      const countryData = Array.isArray(pro.countries) ? pro.countries[0] : pro.countries;
-
+    const professionals: DirectoryProfessional[] = (data || []).map((pro: any) => {
       // Build location label
-      const cityName = cityData?.name || pro.city || "";
-      const countryName = countryData?.name_en || pro.country || "";
+      const cityName = pro.city_name || pro.city || "";
+      const countryName = pro.country_name_en || pro.country || "";
       const locationLabel = [cityName, countryName].filter(Boolean).join(", ");
 
       // Parse rate_expectations if available (JSON with min/max hourly rate)
@@ -203,13 +82,13 @@ const getCachedDirectory = unstable_cache(
           : pro.primary_services,
         services: Array.isArray(pro.primary_services) ? pro.primary_services : [],
         hourlyRateCents,
-        currency: countryData?.currency_code || "COP",
+        currency: pro.currency_code || "COP",
         experienceYears: pro.experience_years,
         languages: pro.languages || [],
         isAvailableToday: false, // TODO: Calculate from availability
-        averageRating: metrics?.average_rating || null,
-        totalReviews: metrics?.total_reviews || 0,
-        totalBookings: metrics?.total_bookings || 0,
+        averageRating: pro.average_rating || null,
+        totalReviews: pro.total_reviews || 0,
+        totalBookings: pro.total_bookings || 0,
         verificationLevel: pro.verification_level || "unverified",
         isBackgroundChecked: pro.background_check_status === "approved",
         isDocumentsVerified: pro.verification_level !== "unverified",
@@ -222,30 +101,11 @@ const getCachedDirectory = unstable_cache(
       };
     });
 
-    // Apply rating filter (post-query since it requires joined data)
-    let filteredProfessionals = professionals;
-    if (minRating) {
-      filteredProfessionals = professionals.filter(
-        (p) => p.averageRating !== null && p.averageRating >= minRating
-      );
-    }
-
-    // Sort by rating/reviews if needed (post-query sorting for joined data)
-    if (sort === "rating") {
-      filteredProfessionals.sort((a, b) => {
-        const ratingA = a.averageRating || 0;
-        const ratingB = b.averageRating || 0;
-        return ratingB - ratingA;
-      });
-    } else if (sort === "reviews") {
-      filteredProfessionals.sort((a, b) => b.totalReviews - a.totalReviews);
-    }
-
     return {
-      professionals: filteredProfessionals,
-      total: count || 0,
+      professionals,
+      total: Number(totalCount),
       page,
-      totalPages: Math.ceil((count || 0) / limit),
+      totalPages: Math.ceil(Number(totalCount) / limit),
       limit,
     };
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { TranslateIcon } from "@hugeicons/core-free-icons";
+import { Cancel01Icon, Search01Icon, TranslateIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
@@ -8,14 +8,17 @@ import {
   useActionState,
   useCallback,
   useEffect,
+  useMemo,
   useOptimistic,
   useRef,
   useState,
   useTransition,
 } from "react";
 import { toast } from "sonner";
+import { geistSans } from "@/app/fonts";
 import { QuickReplies } from "@/components/messaging/quick-replies";
 import { TypingIndicator } from "@/components/messaging/typing-indicator";
+import { Badge } from "@/components/ui/badge";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useConversations } from "@/hooks/use-conversations";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
@@ -30,6 +33,13 @@ import {
   normalizeUser,
 } from "@/lib/messaging-utils";
 import type { SupportedLanguage } from "@/lib/translation";
+import { cn } from "@/lib/utils";
+
+// ============================================================================
+// Filter Types
+// ============================================================================
+
+type ConversationFilter = "all" | "unread" | "active" | "completed";
 
 export type Conversation = {
   id: string;
@@ -87,10 +97,22 @@ type Props = {
   userRole: "customer" | "professional";
 };
 
+// Filter option definitions
+const CONVERSATION_FILTERS: Array<{ value: ConversationFilter; label: string }> = [
+  { value: "all", label: "All" },
+  { value: "unread", label: "Unread" },
+  { value: "active", label: "Active" },
+  { value: "completed", label: "Completed" },
+];
+
 export function MessagingInterface({ userId, userRole }: Props) {
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [previousUnreadCount, setPreviousUnreadCount] = useState(0);
   const [isPending, startTransition] = useTransition();
+
+  // Search and filter state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [conversationFilter, setConversationFilter] = useState<ConversationFilter>("all");
 
   // Custom hooks for cleaner state management
   const {
@@ -161,8 +183,59 @@ export function MessagingInterface({ userId, userRole }: Props) {
     return selectedConversation.customer?.full_name || "Customer";
   }, [selectedConversation, userRole]);
 
+  // Memoize the other user for selected conversation to avoid recalculation in render
+  const selectedOtherUser = useMemo(() => {
+    if (!selectedConversation) return null;
+    return normalizeUser(selectedConversation, userRole);
+  }, [selectedConversation, userRole]);
+
+  // Memoize processed conversations with pre-computed user info and unread counts
+  const processedConversations = useMemo(
+    () =>
+      conversations.map((conv) => ({
+        ...conv,
+        otherUser: normalizeUser(conv, userRole),
+        unreadCount: getConversationUnreadCount(conv, userRole),
+      })),
+    [conversations, userRole]
+  );
+
+  // Filter conversations based on search query and filter selection
+  const filteredConversations = useMemo(() => {
+    return processedConversations.filter((conv) => {
+      // Search filter - match user name, booking ID, or service name
+      const searchLower = searchQuery.toLowerCase().trim();
+      if (searchLower) {
+        const matchesName = conv.otherUser.full_name.toLowerCase().includes(searchLower);
+        const matchesBookingId = conv.booking.id.toLowerCase().includes(searchLower);
+        const matchesService = conv.booking.service_name.toLowerCase().includes(searchLower);
+        if (!(matchesName || matchesBookingId || matchesService)) {
+          return false;
+        }
+      }
+
+      // Status filter
+      switch (conversationFilter) {
+        case "unread":
+          return conv.unreadCount > 0;
+        case "active":
+          return ["pending", "confirmed", "in_progress"].includes(conv.booking.status);
+        case "completed":
+          return ["completed", "cancelled"].includes(conv.booking.status);
+        default:
+          return true;
+      }
+    });
+  }, [processedConversations, searchQuery, conversationFilter]);
+
+  // Count unread for badge
+  const unreadCount = useMemo(
+    () => processedConversations.filter((c) => c.unreadCount > 0).length,
+    [processedConversations]
+  );
+
   // Typing indicator for real-time typing status
-  const { typingUsers, setTyping, isOtherUserTyping } = useTypingIndicator({
+  const { typingUsers, setTyping, isOtherUserTyping: _isOtherUserTyping } = useTypingIndicator({
     conversationId: selectedConversation?.id || null,
     userId,
     userName: getOtherUserName(), // This will be current user's name shown to others
@@ -252,34 +325,84 @@ export function MessagingInterface({ userId, userRole }: Props) {
       {/* Conversations List */}
       <div className="w-96 flex-shrink-0 overflow-y-auto border-neutral-200 border-r">
         <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-5">
-          <h2 className="font-semibold text-neutral-900 text-xl">Conversations</h2>
+          <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
+            Conversations
+          </h2>
           <p className="mt-1 text-neutral-400 text-sm">
-            {conversations.length} {conversations.length === 1 ? "conversation" : "conversations"}
+            {filteredConversations.length === conversations.length
+              ? `${conversations.length} ${conversations.length === 1 ? "conversation" : "conversations"}`
+              : `${filteredConversations.length} of ${conversations.length} conversations`}
           </p>
         </div>
 
         {/* Search and filter */}
-        <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+        <div className="space-y-3 border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+          {/* Search Input */}
           <div className="relative">
-            <input
-              className="w-full rounded-lg border border-neutral-200 px-4 py-2 pl-10 text-neutral-900 text-sm placeholder-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-              placeholder="Search conversations..."
-              type="text"
+            <HugeiconsIcon
+              className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-neutral-400"
+              icon={Search01Icon}
             />
-            <svg
-              aria-hidden="true"
-              className="absolute top-2.5 left-3 h-5 w-5 text-neutral-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-              />
-            </svg>
+            <input
+              className={cn(
+                "h-10 w-full rounded-lg border border-neutral-200 bg-white py-2 pr-10 pl-10 text-sm",
+                "placeholder:text-neutral-400",
+                "focus:border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+                "transition-all",
+                geistSans.className
+              )}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by name, service, or booking ID..."
+              type="text"
+              value={searchQuery}
+            />
+            {searchQuery && (
+              <button
+                className="-translate-y-1/2 absolute top-1/2 right-3 rounded-full p-0.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
+                onClick={() => setSearchQuery("")}
+                type="button"
+              >
+                <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
+              </button>
+            )}
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-1.5">
+            {CONVERSATION_FILTERS.map((filter) => {
+              const isActive = conversationFilter === filter.value;
+              const showBadge = filter.value === "unread" && unreadCount > 0;
+              return (
+                <button
+                  className={cn(
+                    "relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-xs transition-all",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                    isActive
+                      ? "border-orange-200 bg-orange-50 text-orange-700"
+                      : "border-neutral-200 bg-white text-neutral-600 hover:border-orange-200 hover:bg-orange-50/50"
+                  )}
+                  key={filter.value}
+                  onClick={() => setConversationFilter(filter.value)}
+                  type="button"
+                >
+                  {filter.label}
+                  {showBadge && (
+                    <Badge
+                      className={cn(
+                        "ml-0.5",
+                        isActive
+                          ? "border-orange-300 bg-orange-100 text-orange-800"
+                          : "border-neutral-200 bg-neutral-100 text-neutral-600"
+                      )}
+                      size="sm"
+                      variant="outline"
+                    >
+                      {unreadCount}
+                    </Badge>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -310,71 +433,94 @@ export function MessagingInterface({ userId, userRole }: Props) {
               </p>
             </div>
           </div>
+        ) : filteredConversations.length === 0 ? (
+          <div className="p-12 text-center">
+            <div className="mx-auto max-w-xs">
+              <div className="mb-4 flex justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-100">
+                  <HugeiconsIcon className="h-6 w-6 text-neutral-400" icon={Search01Icon} />
+                </div>
+              </div>
+              <h3 className={cn("font-semibold text-base text-neutral-900", geistSans.className)}>
+                No matches found
+              </h3>
+              <p className="mt-1 text-neutral-400 text-sm">
+                {searchQuery
+                  ? `No conversations matching "${searchQuery}"`
+                  : `No ${conversationFilter} conversations`}
+              </p>
+              <button
+                className="mt-4 font-medium text-orange-600 text-sm hover:text-orange-700"
+                onClick={() => {
+                  setSearchQuery("");
+                  setConversationFilter("all");
+                }}
+                type="button"
+              >
+                Clear filters
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="divide-y divide-neutral-200">
-            {conversations.map((conv) => {
-              const otherUser = normalizeUser(conv, userRole);
-              const unreadCount = getConversationUnreadCount(conv, userRole);
-
-              return (
-                <button
-                  className={`w-full p-6 text-left transition hover:bg-neutral-500/5 ${
-                    selectedConversation?.id === conv.id ? "bg-neutral-500/5" : ""
-                  }`}
-                  key={conv.id}
-                  onClick={() => {
-                    // React 19: Use useTransition for smooth UI updates
-                    startTransition(() => {
-                      setSelectedConversation(conv);
-                    });
-                  }}
-                  type="button"
-                >
-                  <div className="flex items-start gap-4">
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      {otherUser.avatar_url ? (
-                        <Image
-                          alt={otherUser.full_name}
-                          className="h-12 w-12 rounded-full object-cover"
-                          height={48}
-                          loading="lazy"
-                          src={otherUser.avatar_url}
-                          width={48}
-                        />
-                      ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-500 font-semibold text-base text-neutral-50">
-                          {otherUser.full_name.charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate font-semibold text-base text-neutral-900">
-                          {otherUser.full_name}
-                        </h3>
-                        {unreadCount > 0 && (
-                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-orange-500 px-2 font-semibold text-white text-xs">
-                            {unreadCount}
-                          </span>
-                        )}
+            {filteredConversations.map((conv) => (
+              <button
+                className={`w-full p-6 text-left transition hover:bg-neutral-500/5 ${
+                  selectedConversation?.id === conv.id ? "bg-neutral-500/5" : ""
+                }`}
+                key={conv.id}
+                onClick={() => {
+                  // React 19: Use useTransition for smooth UI updates
+                  startTransition(() => {
+                    setSelectedConversation(conv);
+                  });
+                }}
+                type="button"
+              >
+                <div className="flex items-start gap-4">
+                  {/* Avatar */}
+                  <div className="flex-shrink-0">
+                    {conv.otherUser.avatar_url ? (
+                      <Image
+                        alt={conv.otherUser.full_name}
+                        className="h-12 w-12 rounded-full object-cover"
+                        height={48}
+                        loading="lazy"
+                        src={conv.otherUser.avatar_url}
+                        width={48}
+                      />
+                    ) : (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-500 font-semibold text-base text-neutral-50">
+                        {conv.otherUser.full_name.charAt(0).toUpperCase()}
                       </div>
-                      <p className="truncate text-neutral-400 text-sm">
-                        Booking #{conv.booking.id.slice(0, 8)}
-                      </p>
-                      {conv.last_message_at && (
-                        <p className="mt-2 text-neutral-400 text-sm">
-                          {formatDistanceToNow(new Date(conv.last_message_at), {
-                            addSuffix: true,
-                          })}
-                        </p>
+                    )}
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="truncate font-semibold text-base text-neutral-900">
+                        {conv.otherUser.full_name}
+                      </h3>
+                      {conv.unreadCount > 0 && (
+                        <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-orange-500 px-2 font-semibold text-white text-xs">
+                          {conv.unreadCount}
+                        </span>
                       )}
                     </div>
+                    <p className="truncate text-neutral-400 text-sm">
+                      Booking #{conv.booking.id.slice(0, 8)}
+                    </p>
+                    {conv.last_message_at && (
+                      <p className="mt-2 text-neutral-400 text-sm">
+                        {formatDistanceToNow(new Date(conv.last_message_at), {
+                          addSuffix: true,
+                        })}
+                      </p>
+                    )}
                   </div>
-                </button>
-              );
-            })}
+                </div>
+              </button>
+            ))}
           </div>
         )}
       </div>
@@ -385,38 +531,33 @@ export function MessagingInterface({ userId, userRole }: Props) {
           <>
             {/* Thread Header */}
             <div className="flex items-center justify-between border-neutral-200 border-b bg-neutral-50 px-8 py-5">
-              {(() => {
-                const otherUser = normalizeUser(selectedConversation, userRole);
-                return (
-                  <div className="flex items-center gap-4">
-                    {otherUser.avatar_url ? (
-                      <Image
-                        alt={otherUser.full_name}
-                        className="h-12 w-12 rounded-full object-cover"
-                        height={48}
-                        loading="lazy"
-                        src={otherUser.avatar_url}
-                        width={48}
-                      />
-                    ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-500 font-semibold text-base text-neutral-50">
-                        {otherUser.full_name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="font-semibold text-lg text-neutral-900">
-                        {otherUser.full_name}
-                      </h3>
-                      <p className="text-neutral-400 text-sm">
-                        Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
-                        {new Date(
-                          selectedConversation.booking.scheduled_start
-                        ).toLocaleDateString()}
-                      </p>
+              {selectedOtherUser && (
+                <div className="flex items-center gap-4">
+                  {selectedOtherUser.avatar_url ? (
+                    <Image
+                      alt={selectedOtherUser.full_name}
+                      className="h-12 w-12 rounded-full object-cover"
+                      height={48}
+                      loading="lazy"
+                      src={selectedOtherUser.avatar_url}
+                      width={48}
+                    />
+                  ) : (
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-500 font-semibold text-base text-neutral-50">
+                      {selectedOtherUser.full_name.charAt(0).toUpperCase()}
                     </div>
+                  )}
+                  <div>
+                    <h3 className="font-semibold text-lg text-neutral-900">
+                      {selectedOtherUser.full_name}
+                    </h3>
+                    <p className="text-neutral-400 text-sm">
+                      Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
+                      {new Date(selectedConversation.booking.scheduled_start).toLocaleDateString()}
+                    </p>
                   </div>
-                );
-              })()}
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 {autoTranslateEnabled && (
                   <div className="flex items-center gap-2">

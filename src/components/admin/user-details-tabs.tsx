@@ -13,7 +13,7 @@
 
 import { Calendar03Icon, CreditCardIcon, Home09Icon, StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Type definitions
@@ -107,7 +107,8 @@ function ReviewsSkeleton() {
 
 // Overview Tab - Lia Design System
 // Professional, data-focused layout with sharp edges and clear hierarchy
-function OverviewTab({ user, data }: { user: BaseUser; data?: unknown }) {
+// Memoized to prevent re-renders when other tabs change
+const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; data?: unknown }) {
   if (!data) {
     return <OverviewSkeleton />;
   }
@@ -338,7 +339,7 @@ function OverviewTab({ user, data }: { user: BaseUser; data?: unknown }) {
       )}
     </div>
   );
-}
+});
 
 // Utility Components - Lia Design System
 
@@ -408,7 +409,8 @@ function _OnboardingStep({ label, complete }: { label: string; complete: boolean
 
 // Activity Tab - Lia Design System
 // Professional-focused booking lists, portfolio, and customer addresses
-function ActivityTab({ user, data }: { user: BaseUser; data?: unknown }) {
+// Memoized to prevent re-renders when other tabs change
+const ActivityTab = memo(function ActivityTab({ user, data }: { user: BaseUser; data?: unknown }) {
   if (!data) {
     return <ActivitySkeleton />;
   }
@@ -566,11 +568,12 @@ function ActivityTab({ user, data }: { user: BaseUser; data?: unknown }) {
       )}
     </div>
   );
-}
+});
 
 // Activity Tab Utility Components - Lia Design System
 
-function BookingCard({
+// Memoized to prevent re-renders in booking lists
+const BookingCard = memo(function BookingCard({
   name,
   service,
   status,
@@ -632,7 +635,7 @@ function BookingCard({
       </div>
     </div>
   );
-}
+});
 
 function PortfolioCard({ image_url, title }: { image_url: string; title: string }) {
   return (
@@ -703,7 +706,8 @@ function FavoriteCard({ name, services }: { name: string; services: string[] }) 
 
 // Finances Tab - Lia Design System
 // Professional earnings/payouts and customer spending/payment methods
-function FinancesTab({ user, data }: { user: BaseUser; data?: unknown }) {
+// Memoized to prevent re-renders when other tabs change
+const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; data?: unknown }) {
   if (!data) {
     return <FinancesSkeleton />;
   }
@@ -997,7 +1001,7 @@ function FinancesTab({ user, data }: { user: BaseUser; data?: unknown }) {
       )}
     </div>
   );
-}
+});
 
 // Finances Tab Utility Components - Lia Design System
 
@@ -1075,7 +1079,8 @@ function PaymentMethodCard({
   );
 }
 
-function TransactionCard({
+// Memoized to prevent re-renders in transaction lists
+const TransactionCard = memo(function TransactionCard({
   type,
   description,
   amount,
@@ -1126,11 +1131,12 @@ function TransactionCard({
       </span>
     </div>
   );
-}
+});
 
 // Reviews Tab - Lia Design System
 // Professional reviews received and customer reviews given
-function ReviewsTab({ user, data }: { user: BaseUser; data?: unknown }) {
+// Memoized to prevent re-renders when other tabs change
+const ReviewsTab = memo(function ReviewsTab({ user, data }: { user: BaseUser; data?: unknown }) {
   if (!data) {
     return <ReviewsSkeleton />;
   }
@@ -1293,7 +1299,7 @@ function ReviewsTab({ user, data }: { user: BaseUser; data?: unknown }) {
       )}
     </div>
   );
-}
+});
 
 // Reviews Tab Utility Components - Lia Design System
 
@@ -1323,7 +1329,8 @@ function RatingBreakdownBar({
   );
 }
 
-function ReviewCard({
+// Memoized to prevent re-renders in review lists
+const ReviewCard = memo(function ReviewCard({
   name,
   rating,
   comment,
@@ -1371,7 +1378,7 @@ function ReviewCard({
       )}
     </div>
   );
-}
+});
 
 /**
  * Main Tabs Component

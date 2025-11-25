@@ -1,6 +1,12 @@
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import {
+  CACHE_DURATIONS,
+  CACHE_HEADERS,
+  CACHE_TAGS,
+} from "@/lib/cache";
 import { withRateLimit } from "@/lib/rate-limit";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 
 /**
  * Professional Search API Route
@@ -57,8 +63,94 @@ type FullTextSearchResult = {
   rank: number;
 };
 
+/**
+ * Cached search function using anon client for public data
+ * Revalidates every 1 minute (SHORT duration)
+ */
+const getCachedSearchResults = unstable_cache(
+  async (tsquery: string, limit: number, originalQuery: string) => {
+    const supabase = createSupabaseAnonClient();
+
+    // Build the full-text search query with RPC function (defined in migration)
+    const { data: ftsResults, error: ftsError } = await supabase.rpc("search_professionals", {
+      search_query: tsquery,
+      result_limit: limit,
+    });
+
+    if (ftsError) {
+      console.error("[Search API] Full-text search error:", ftsError);
+
+      // Fallback to ILIKE search if FTS fails
+      const { data: fallbackResults, error: fallbackError } = await supabase
+        .from("professional_profiles")
+        .select(
+          `
+          profile_id,
+          full_name,
+          primary_services,
+          bio,
+          avatar_url,
+          profiles!inner (
+            city,
+            country
+          )
+        `
+        )
+        .or(`full_name.ilike.%${originalQuery}%,primary_services.cs.{${originalQuery}},bio.ilike.%${originalQuery}%`)
+        .eq("status", "active")
+        .limit(limit);
+
+      if (fallbackError) {
+        throw new Error(`Search failed: ${fallbackError.message}`);
+      }
+
+      // Format fallback results
+      const formattedResults: SearchResult[] = ((fallbackResults || []) as FallbackProfessionalResult[]).map((prof) => {
+        const profiles = Array.isArray(prof.profiles) ? prof.profiles[0] : prof.profiles;
+        return {
+          id: prof.profile_id,
+          name: prof.full_name || "Professional",
+          service: Array.isArray(prof.primary_services) ? prof.primary_services[0] : null,
+          location:
+            [profiles?.city, profiles?.country].filter(Boolean).join(", ") ||
+            "Location TBD",
+          photoUrl: prof.avatar_url || "/images/placeholder-avatar.png",
+        };
+      });
+
+      return {
+        results: formattedResults,
+        count: formattedResults.length,
+        searchType: "fallback" as const,
+      };
+    }
+
+    // Format full-text search results
+    const formattedResults: SearchResult[] = ((ftsResults || []) as FullTextSearchResult[]).map((prof) => ({
+      id: prof.id,
+      name: prof.full_name || "Professional",
+      service: Array.isArray(prof.service_types) ? prof.service_types[0] : null,
+      location: [prof.city, prof.country].filter(Boolean).join(", ") || "Location TBD",
+      photoUrl: prof.profile_photo_url || "/images/placeholder-avatar.png",
+      rating: prof.avg_rating ?? undefined,
+      reviewCount: prof.review_count ?? undefined,
+      rank: prof.rank,
+    }));
+
+    return {
+      results: formattedResults,
+      count: formattedResults.length,
+      searchType: "fulltext" as const,
+    };
+  },
+  ["professionals-search"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.PROFESSIONALS_SEARCH],
+  }
+);
+
 async function handleGET(request: Request) {
-  const supabase = await createSupabaseServerClient();
   const { searchParams } = new URL(request.url);
 
   const query = searchParams.get("q")?.trim() || "";
@@ -104,84 +196,13 @@ async function handleGET(request: Request) {
       });
     }
 
-    // Build the full-text search query with RPC function (defined in migration)
-    const { data: ftsResults, error: ftsError } = await supabase.rpc("search_professionals", {
-      search_query: tsquery,
-      result_limit: limit,
-    });
+    // Use cached search function
+    const searchResults = await getCachedSearchResults(tsquery, limit, query);
 
-    if (ftsError) {
-      console.error("[Search API] Full-text search error:", ftsError);
-
-      // Fallback to ILIKE search if FTS fails
-      // Query professional_profiles joined with profiles for location
-      const { data: fallbackResults, error: fallbackError } = await supabase
-        .from("professional_profiles")
-        .select(
-          `
-          profile_id,
-          full_name,
-          primary_services,
-          bio,
-          avatar_url,
-          profiles!inner (
-            city,
-            country
-          )
-        `
-        )
-        .or(`full_name.ilike.%${query}%,primary_services.cs.{${query}},bio.ilike.%${query}%`)
-        .eq("status", "active")
-        .limit(limit);
-
-      if (fallbackError) {
-        console.error("[Search API] Fallback search error:", fallbackError);
-        return NextResponse.json(
-          { error: "Search failed", details: fallbackError.message },
-          { status: 500 }
-        );
-      }
-
-      // Format fallback results
-      const formattedResults: SearchResult[] = ((fallbackResults || []) as FallbackProfessionalResult[]).map((prof) => {
-        const profiles = Array.isArray(prof.profiles) ? prof.profiles[0] : prof.profiles;
-        return {
-          id: prof.profile_id,
-          name: prof.full_name || "Professional",
-          service: Array.isArray(prof.primary_services) ? prof.primary_services[0] : null,
-          location:
-            [profiles?.city, profiles?.country].filter(Boolean).join(", ") ||
-            "Location TBD",
-          photoUrl: prof.avatar_url || "/images/placeholder-avatar.png",
-        };
-      });
-
-      return NextResponse.json({
-        results: formattedResults,
-        count: formattedResults.length,
-        searchType: "fallback",
-        query,
-      });
-    }
-
-    // Format full-text search results
-    const formattedResults: SearchResult[] = ((ftsResults || []) as FullTextSearchResult[]).map((prof) => ({
-      id: prof.id,
-      name: prof.full_name || "Professional",
-      service: Array.isArray(prof.service_types) ? prof.service_types[0] : null,
-      location: [prof.city, prof.country].filter(Boolean).join(", ") || "Location TBD",
-      photoUrl: prof.profile_photo_url || "/images/placeholder-avatar.png",
-      rating: prof.avg_rating ?? undefined,
-      reviewCount: prof.review_count ?? undefined,
-      rank: prof.rank, // Relevance score from ts_rank
-    }));
-
-    return NextResponse.json({
-      results: formattedResults,
-      count: formattedResults.length,
-      searchType: "fulltext",
-      query,
-    });
+    return NextResponse.json(
+      { ...searchResults, query },
+      { headers: CACHE_HEADERS.SHORT }
+    );
   } catch (error) {
     console.error("[Search API] Unexpected error:", error);
     return NextResponse.json(

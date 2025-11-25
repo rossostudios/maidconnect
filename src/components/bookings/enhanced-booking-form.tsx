@@ -3,12 +3,12 @@
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   type SavedAddress,
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
-// import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
+import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import { PriceBreakdown } from "@/components/pricing/price-breakdown";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import { useAddressesAndAddons } from "@/hooks/use-addresses-and-addons";
@@ -97,7 +97,11 @@ export function EnhancedBookingForm({
     onSuccess: () => setCurrentStep("payment"),
   });
 
-  const serviceWithName = services.filter((service) => Boolean(service.name));
+  // Memoize filtered services to prevent recalculation on every render
+  const serviceWithName = useMemo(
+    () => services.filter((service) => Boolean(service.name)),
+    [services]
+  );
 
   if (serviceWithName.length === 0) {
     return (
@@ -116,17 +120,30 @@ export function EnhancedBookingForm({
     );
   }
 
-  const selectedService = serviceWithName.find(
-    (service) => normalizeServiceName(service.name) === bookingData.serviceName
+  // Memoize selected service lookup
+  const selectedService = useMemo(
+    () => serviceWithName.find((service) => normalizeServiceName(service.name) === bookingData.serviceName),
+    [serviceWithName, bookingData.serviceName]
   );
-  const selectedRate =
-    bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
-  const baseAmount =
-    selectedRate && bookingData.durationHours > 0
-      ? Math.round(selectedRate * bookingData.durationHours)
-      : 0;
-  const addonsTotal = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
-  const totalAmount = baseAmount + addonsTotal;
+
+  // Memoize pricing calculations
+  const { selectedRate, baseAmount, addonsTotal, totalAmount } = useMemo(() => {
+    const rate = bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
+    const base = rate && bookingData.durationHours > 0 ? Math.round(rate * bookingData.durationHours) : 0;
+    const addons = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
+    return {
+      selectedRate: rate,
+      baseAmount: base,
+      addonsTotal: addons,
+      totalAmount: base + addons,
+    };
+  }, [
+    bookingData.serviceHourlyRate,
+    bookingData.durationHours,
+    bookingData.selectedAddons,
+    selectedService?.hourlyRateCop,
+    defaultHourlyRate,
+  ]);
 
   // Track checkout started event when reaching confirmation step
   useEffect(() => {
@@ -333,20 +350,24 @@ function ServiceDetailsStep({
         />
       </div>
 
-      {/* Availability Calendar - TODO: Fix calendar API integration */}
+      {/* Availability Calendar */}
       <div>
         <div className="mb-2 block font-medium text-neutral-900 text-sm">Select Date & Time *</div>
-        <div className="border-2 border-neutral-200 bg-white p-4">
-          <p className="text-neutral-700 text-sm">Calendar integration coming soon</p>
-        </div>
-        {/* <AvailabilityCalendar
-          durationHours={bookingData.durationHours}
+        <AvailabilityCalendar
+          dataSource={{
+            type: "api",
+            professionalId,
+          }}
           onDateSelect={(date) => setBookingData({ ...bookingData, selectedDate: date })}
           onTimeSelect={(time) => setBookingData({ ...bookingData, selectedTime: time })}
-          professionalId={professionalId}
           selectedDate={bookingData.selectedDate}
           selectedTime={bookingData.selectedTime}
-        /> */}
+          showLegend
+          showTimeSlots
+          showTodayButton
+          size="medium"
+          theme="customer"
+        />
       </div>
 
       {/* Recurring Booking Option */}

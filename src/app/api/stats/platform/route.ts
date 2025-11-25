@@ -38,23 +38,17 @@ const getPlatformStats = unstable_cache(
       console.error("Error fetching professionals count:", professionalsError);
     }
 
-    // Fetch average rating across all professionals
-    const { data: ratingsData, error: ratingsError } = await supabase
-      .from("professional_profiles")
-      .select("rating")
-      .eq("status", "verified")
-      .eq("is_active", true)
-      .not("rating", "is", null);
+    // Fetch average rating using efficient SQL AVG() via RPC
+    const { data: avgRatingData, error: ratingsError } = await supabase.rpc(
+      "get_average_professional_rating"
+    );
 
     let averageRating = 4.9; // Default fallback
 
     if (ratingsError) {
-      console.error("Error fetching ratings:", ratingsError);
-    } else if (ratingsData && ratingsData.length > 0) {
-      const sum = ratingsData.reduce((acc, prof) => acc + (prof.rating || 0), 0);
-      averageRating = sum / ratingsData.length;
-      // Round to 1 decimal place
-      averageRating = Math.round(averageRating * 10) / 10;
+      console.error("Error fetching average rating:", ratingsError);
+    } else if (avgRatingData !== null) {
+      averageRating = Number(avgRatingData);
     }
 
     return {

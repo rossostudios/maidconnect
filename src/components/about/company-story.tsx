@@ -36,7 +36,7 @@ export function CompanyStory() {
       <Container className="relative z-10 flex min-h-[70vh] items-center justify-center sm:min-h-[80vh]">
         <div className="max-w-4xl py-32 text-center sm:py-40">
           {/* Badge */}
-          <div className="mb-6 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
+          <div className="mb-6 inline-flex items-center rounded-full border border-white/30 bg-white/20 px-4 py-1.5">
             <span className="font-semibold text-white text-xs uppercase tracking-wider">
               Our Story
             </span>

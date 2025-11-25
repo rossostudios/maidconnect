@@ -60,6 +60,49 @@ export const CACHE_TAGS = {
 
   /** Reference data (services, categories) */
   REFERENCE_DATA: "reference-data",
+
+  // ============================================
+  // ADMIN DOMAIN
+  // ============================================
+
+  /** Admin analytics data */
+  ADMIN_ANALYTICS: "admin:analytics",
+
+  /** Admin analytics overview dashboard */
+  ADMIN_ANALYTICS_OVERVIEW: "admin:analytics:overview",
+
+  /** Admin analytics growth metrics */
+  ADMIN_ANALYTICS_GROWTH: "admin:analytics:growth",
+
+  /** Admin analytics top performers */
+  ADMIN_ANALYTICS_TOP_PERFORMERS: "admin:analytics:top-performers",
+
+  /** Admin analytics financial health */
+  ADMIN_ANALYTICS_FINANCIAL: "admin:analytics:financial",
+
+  /** Admin analytics disputes */
+  ADMIN_ANALYTICS_DISPUTES: "admin:analytics:disputes",
+
+  /** Admin applications statistics */
+  ADMIN_APPLICATIONS: "admin:applications",
+
+  /** Admin professionals queue */
+  ADMIN_PROFESSIONALS_QUEUE: "admin:professionals:queue",
+
+  /** Admin bookings list */
+  ADMIN_BOOKINGS: "admin:bookings",
+
+  /** Admin background checks */
+  ADMIN_BACKGROUND_CHECKS: "admin:background-checks",
+
+  /** Admin interviews */
+  ADMIN_INTERVIEWS: "admin:interviews",
+
+  /** Admin ambassadors */
+  ADMIN_AMBASSADORS: "admin:ambassadors",
+
+  /** Admin roadmap list */
+  ADMIN_ROADMAP: "admin:roadmap",
 } as const;
 
 export type CacheTag = (typeof CACHE_TAGS)[keyof typeof CACHE_TAGS];

@@ -1,6 +1,8 @@
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
 import { requireAdmin } from "@/lib/admin-helpers";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withRateLimit } from "@/lib/utils/rate-limit";
 
 type RawProfessionalData = {
@@ -23,23 +25,29 @@ type ReviewData = {
   professional_id: string;
 };
 
-/**
- * Get application statistics and funnel data
- * GET /api/admin/applications/stats
- *
- * Returns metrics for the current month including:
- * - Total applications
- * - Pending review count
- * - Approval rate
- * - Average review time
- * - Funnel visualization data
- */
-async function handler(): Promise<NextResponse> {
-  try {
-    // Verify admin access
-    await requireAdmin();
+type ApplicationStatsData = {
+  metrics: {
+    totalApplications: number;
+    pendingReview: number;
+    approvalRate: number;
+    averageReviewTime: number;
+  };
+  funnel: { stage: string; count: number; percentage: number }[];
+  breakdown: {
+    pending: number;
+    approved: number;
+    rejected: number;
+    total: number;
+  };
+};
 
-    const supabase = await createSupabaseServerClient();
+/**
+ * Cached application statistics fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedApplicationStats = unstable_cache(
+  async (): Promise<ApplicationStatsData> => {
+    const supabase = createSupabaseAnonClient();
 
     // Get start of current month
     const now = new Date();
@@ -142,7 +150,7 @@ async function handler(): Promise<NextResponse> {
       },
     ];
 
-    return NextResponse.json({
+    return {
       metrics: {
         totalApplications,
         pendingReview,
@@ -156,7 +164,34 @@ async function handler(): Promise<NextResponse> {
         rejected,
         total: totalApplications,
       },
-    });
+    };
+  },
+  ["admin-applications-stats"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_APPLICATIONS],
+  }
+);
+
+/**
+ * Get application statistics and funnel data
+ * GET /api/admin/applications/stats
+ *
+ * Returns metrics for the current month including:
+ * - Total applications
+ * - Pending review count
+ * - Approval rate
+ * - Average review time
+ * - Funnel visualization data
+ */
+async function handler(): Promise<NextResponse> {
+  try {
+    // Verify admin access
+    await requireAdmin();
+
+    const data = await getCachedApplicationStats();
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("[Admin] Application stats error:", error);
 

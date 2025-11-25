@@ -4,15 +4,31 @@
  * GET /api/admin/analytics/overview
  *
  * Returns key metrics with comparison to previous period.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
  */
 
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withAuth } from "@/lib/shared/api/middleware";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-async function handler(_context: unknown, _req: NextRequest) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type AnalyticsOverview = {
+  totalUsers: number;
+  activeProfessionals: number;
+  currentBookings: number;
+  currentRevenue: number;
+  bookingsChange: number;
+  revenueChange: number;
+};
+
+/**
+ * Cached analytics data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedAnalyticsOverview = unstable_cache(
+  async (): Promise<AnalyticsOverview> => {
+    const supabase = createSupabaseAnonClient();
     const now = new Date();
     const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
     const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
@@ -88,16 +104,29 @@ async function handler(_context: unknown, _req: NextRequest) {
     const revenueChange =
       lastMonthRevenue > 0 ? ((currentRevenue - lastMonthRevenue) / lastMonthRevenue) * 100 : 0;
 
+    return {
+      totalUsers,
+      activeProfessionals,
+      currentBookings,
+      currentRevenue,
+      bookingsChange: Math.round(bookingsChange * 10) / 10,
+      revenueChange: Math.round(revenueChange * 10) / 10,
+    };
+  },
+  ["admin-analytics-overview"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_ANALYTICS, CACHE_TAGS.ADMIN_ANALYTICS_OVERVIEW],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedAnalyticsOverview();
+
     return NextResponse.json({
       success: true,
-      data: {
-        totalUsers,
-        activeProfessionals,
-        currentBookings,
-        currentRevenue,
-        bookingsChange: Math.round(bookingsChange * 10) / 10,
-        revenueChange: Math.round(revenueChange * 10) / 10,
-      },
+      data,
     });
   } catch (error) {
     console.error("Analytics overview error:", error);

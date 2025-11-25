@@ -369,7 +369,7 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
         {/* Mobile Panels (modal-style) */}
         {activePanel && (
-          <div className="fixed inset-0 z-50 flex items-end bg-black/50 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-end bg-neutral-900/80">
             <div className="slide-in-from-bottom w-full animate-in duration-300">
               <div className="rounded-t-3xl bg-white p-4 pb-8">
                 {/* Close button */}

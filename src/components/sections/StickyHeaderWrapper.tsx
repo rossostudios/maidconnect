@@ -9,16 +9,15 @@ type Props = {
 };
 
 /**
- * StickyHeaderWrapper - Floating Glass Pill Header
+ * StickyHeaderWrapper - Floating Pill Header
  *
- * Design: Modern Floating Glass Pill
- * - Always-visible glass morphism effect for readability
+ * Design: Lia Design System Compliant
+ * - Solid white background (no glass morphism per Lia guidelines)
  * - Smooth spring-like transitions (custom cubic-bezier)
  * - Progressive shadow that intensifies on scroll
- * - Warm-tinted backdrop blur for premium feel
  * - Page load animation for polished entrance
  *
- * The glass pill is always visible in overlay mode, ensuring
+ * The floating pill is always visible in overlay mode, ensuring
  * text is readable regardless of background content.
  */
 export function StickyHeaderWrapper({ children, overlay }: Props) {
@@ -67,11 +66,10 @@ export function StickyHeaderWrapper({ children, overlay }: Props) {
           "mx-auto max-w-5xl",
           // Refined rounded corners (Lia Design System)
           "rounded-[20px]",
-          // Warm-tinted glass morphism - always visible
-          "bg-white/[0.92] backdrop-blur-2xl backdrop-saturate-[1.8]",
-          // Subtle warm border with glow effect
-          "border border-neutral-200/40",
-          "ring-1 ring-white/50 ring-inset",
+          // Solid white background (Lia Design System - no glass morphism)
+          "bg-white",
+          // Subtle border
+          "border border-neutral-200",
           // Vertical padding
           "py-3",
           // Shadow system - intensifies on scroll for depth feedback
@@ -81,16 +79,8 @@ export function StickyHeaderWrapper({ children, overlay }: Props) {
             : "shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05),0_8px_24px_-4px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.1)_inset]"
         )}
       >
-        {/* Subtle gradient overlay for depth */}
-        <div
-          className="pointer-events-none absolute inset-0 rounded-[20px] opacity-40"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)",
-          }}
-        />
         {/* Content */}
-        <div className="relative">{children}</div>
+        <div>{children}</div>
       </div>
     </header>
   );

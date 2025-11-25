@@ -4,15 +4,29 @@
  * GET /api/admin/analytics/growth
  *
  * Returns time-series data for users, bookings, and revenue.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
  */
 
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withAuth } from "@/lib/shared/api/middleware";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-async function handler(_context: unknown, _req: NextRequest) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type GrowthDataPoint = {
+  date: string;
+  users: number;
+  bookings: number;
+  revenue: number;
+};
+
+/**
+ * Cached growth analytics data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedGrowthAnalytics = unstable_cache(
+  async (): Promise<GrowthDataPoint[]> => {
+    const supabase = createSupabaseAnonClient();
     const now = new Date();
     const thirtyDaysAgo = new Date(now);
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -32,10 +46,7 @@ async function handler(_context: unknown, _req: NextRequest) {
       .order("created_at", { ascending: true });
 
     // Group by date
-    const dateMap: Record<
-      string,
-      { date: string; users: number; bookings: number; revenue: number }
-    > = {};
+    const dateMap: Record<string, GrowthDataPoint> = {};
 
     // Initialize last 30 days with zeros
     for (let i = 0; i < 30; i++) {
@@ -67,9 +78,20 @@ async function handler(_context: unknown, _req: NextRequest) {
     });
 
     // Convert to array and sort
-    const growthData = Object.values(dateMap).sort(
+    return Object.values(dateMap).sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
+  },
+  ["admin-analytics-growth"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_ANALYTICS, CACHE_TAGS.ADMIN_ANALYTICS_GROWTH],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const growthData = await getCachedGrowthAnalytics();
 
     return NextResponse.json({
       success: true,

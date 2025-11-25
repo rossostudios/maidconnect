@@ -142,7 +142,7 @@ export function ImageGalleryModal({
             className={cn(
               "absolute top-4 right-4 z-50",
               "flex h-10 w-10 items-center justify-center rounded-full",
-              "bg-white/10 text-white backdrop-blur-sm",
+              "bg-white/20 text-white",
               "transition-colors hover:bg-white/20",
               "focus:outline-none focus:ring-2 focus:ring-white/50"
             )}
@@ -153,7 +153,7 @@ export function ImageGalleryModal({
 
           {/* Counter - top center */}
           <div className="-translate-x-1/2 absolute top-4 left-1/2 z-50">
-            <span className="rounded-full bg-black/50 px-4 py-2 font-medium text-sm text-white backdrop-blur-sm">
+            <span className="rounded-full bg-black/70 px-4 py-2 font-medium text-sm text-white">
               {currentIndex + 1} / {images.length}
             </span>
           </div>

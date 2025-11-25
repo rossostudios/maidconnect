@@ -4,12 +4,15 @@
  * GET /api/roadmap/list
  * Returns published roadmap items with optional filtering
  * Hybrid architecture: Content from Sanity, votes from Supabase
+ * Cached for 10 minutes (STANDARD duration)
  */
 
+import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { handleApiError } from "@/lib/error-handler";
 import { serverClient } from "@/lib/integrations/sanity/client";
-import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import type { RoadmapListParams } from "@/types/roadmap";
 
 // Type for Sanity roadmap item
@@ -56,7 +59,10 @@ export async function GET(request: Request) {
     const sortedItems = sortRoadmapItems(itemsWithVotes, params.sortBy, params.sortOrder);
     const { data, total } = paginateRoadmapItems(sortedItems, params.page, params.limit);
 
-    return NextResponse.json(buildRoadmapResponse(data, params.page, params.limit, total));
+    return NextResponse.json(
+      buildRoadmapResponse(data, params.page, params.limit, total),
+      { headers: CACHE_HEADERS.STANDARD }
+    );
   } catch (error) {
     return handleApiError(error, request);
   }
@@ -107,27 +113,42 @@ async function getUserId(supabase: ReturnType<typeof createSupabaseAnonClient>) 
   return user?.id ?? null;
 }
 
+/**
+ * Cached Sanity roadmap items fetch
+ * Revalidates every 10 minutes (STANDARD duration)
+ */
+const getCachedRoadmapItems = unstable_cache(
+  async (params: ParsedRoadmapParams): Promise<SanityRoadmapItem[]> => {
+    const filters = buildGroqFilters(params);
+    const groqQuery = `*[${filters.join(" && ")}] | order(publishedAt desc) {
+      _id,
+      title,
+      description,
+      category,
+      status,
+      targetAudience,
+      estimatedQuarter,
+      estimatedYear,
+      slug,
+      publishedAt
+    }`;
+
+    const items =
+      (await serverClient.fetch(groqQuery, {
+        language: params.locale,
+      })) ?? [];
+
+    return items as SanityRoadmapItem[];
+  },
+  ["roadmap-items"],
+  {
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.ROADMAP],
+  }
+);
+
 async function fetchRoadmapItems(params: ParsedRoadmapParams) {
-  const filters = buildGroqFilters(params);
-  const groqQuery = `*[${filters.join(" && ")}] | order(publishedAt desc) {
-    _id,
-    title,
-    description,
-    category,
-    status,
-    targetAudience,
-    estimatedQuarter,
-    estimatedYear,
-    slug,
-    publishedAt
-  }`;
-
-  const items =
-    (await serverClient.fetch(groqQuery, {
-      language: params.locale,
-    })) ?? [];
-
-  return items as SanityRoadmapItem[];
+  return getCachedRoadmapItems(params);
 }
 
 function buildGroqFilters(params: ParsedRoadmapParams) {
@@ -156,12 +177,28 @@ function toGroqList(values: string[]) {
   return values.map((value) => `"${value}"`).join(",");
 }
 
-async function fetchVoteCounts(supabase: ReturnType<typeof createSupabaseAnonClient>) {
-  const { data: voteCounts } = await supabase
-    .from("roadmap_votes_summary")
-    .select("roadmap_item_id, vote_count");
+/**
+ * Cached vote counts fetch
+ * Revalidates every 10 minutes (STANDARD duration)
+ */
+const getCachedVoteCounts = unstable_cache(
+  async (): Promise<Map<string, number>> => {
+    const supabase = createSupabaseAnonClient();
+    const { data: voteCounts } = await supabase
+      .from("roadmap_votes_summary")
+      .select("roadmap_item_id, vote_count");
 
-  return new Map(voteCounts?.map((vc) => [vc.roadmap_item_id, vc.vote_count]) || []);
+    return new Map(voteCounts?.map((vc) => [vc.roadmap_item_id, vc.vote_count]) || []);
+  },
+  ["roadmap-vote-counts"],
+  {
+    revalidate: CACHE_DURATIONS.STANDARD,
+    tags: [CACHE_TAGS.ROADMAP],
+  }
+);
+
+async function fetchVoteCounts(_supabase: ReturnType<typeof createSupabaseAnonClient>) {
+  return getCachedVoteCounts();
 }
 
 async function fetchUserVotes(

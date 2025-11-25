@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useOptimistic, useState } from "react";
+import { memo, useCallback, useMemo, useOptimistic, useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { type BookingForExecution, ServiceExecutionCard } from "./service-execution-card";
@@ -262,8 +262,8 @@ async function handleCaptureVoid(
   }
 }
 
-// Component: Desktop table row for a booking
-function BookingTableRow({
+// Component: Desktop table row for a booking (memoized to prevent re-renders)
+const BookingTableRow = memo(function BookingTableRow({
   booking,
   loadingId,
   onAction,
@@ -334,10 +334,10 @@ function BookingTableRow({
       </td>
     </tr>
   );
-}
+});
 
-// Component: Mobile card for a booking
-function BookingMobileCard({
+// Component: Mobile card for a booking (memoized to prevent re-renders)
+const BookingMobileCard = memo(function BookingMobileCard({
   booking,
   loadingId,
   onAction,
@@ -444,7 +444,7 @@ function BookingMobileCard({
       )}
     </div>
   );
-}
+});
 
 export function ProBookingList({ bookings }: Props) {
   const router = useRouter();
@@ -458,35 +458,39 @@ export function ProBookingList({ bookings }: Props) {
       state.map((booking) => (booking.id === id ? { ...booking, status } : booking))
   );
 
-  const handleAction = async (
-    booking: ProfessionalBooking,
-    action: "capture" | "void" | "accept" | "decline"
-  ) => {
-    if (action === "accept" || action === "decline") {
-      return handleAcceptDecline(
-        booking,
-        action,
-        setLoadingId,
-        setMessage,
-        updateOptimisticBooking,
-        router,
-        t
-      );
-    }
-    return handleCaptureVoid(booking, action, setLoadingId, setMessage, router);
-  };
+  // Memoized callback to prevent re-renders of child components
+  const handleAction = useCallback(
+    async (booking: ProfessionalBooking, action: "capture" | "void" | "accept" | "decline") => {
+      if (action === "accept" || action === "decline") {
+        return handleAcceptDecline(
+          booking,
+          action,
+          setLoadingId,
+          setMessage,
+          updateOptimisticBooking,
+          router,
+          t
+        );
+      }
+      return handleCaptureVoid(booking, action, setLoadingId, setMessage, router);
+    },
+    [router, t, updateOptimisticBooking]
+  );
+
+  // Memoized filtered bookings to prevent recalculation on every render
+  const activeServiceBookings = useMemo(
+    () => optimisticBookings.filter((b) => b.status === "confirmed" || b.status === "in_progress"),
+    [optimisticBookings]
+  );
+
+  const otherBookings = useMemo(
+    () => optimisticBookings.filter((b) => b.status !== "confirmed" && b.status !== "in_progress"),
+    [optimisticBookings]
+  );
 
   if (optimisticBookings.length === 0) {
     return <p className={cn("text-neutral-700 text-sm", geistSans.className)}>{t("emptyState")}</p>;
   }
-
-  // Separate active service bookings from others (using optimistic state)
-  const activeServiceBookings = optimisticBookings.filter(
-    (b) => b.status === "confirmed" || b.status === "in_progress"
-  );
-  const otherBookings = optimisticBookings.filter(
-    (b) => b.status !== "confirmed" && b.status !== "in_progress"
-  );
 
   return (
     <div className="space-y-6">

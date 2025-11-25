@@ -105,24 +105,22 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
   }
 
   // ========================================
-  // Error State
+  // Empty State (No Data or Error)
   // ========================================
 
   if (error || !data) {
     return (
-      <Card className={cn("border-red-200 bg-red-50", className)}>
-        <CardContent className="flex items-center gap-4 p-6">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-red-100">
-            <TrendingUp className="size-5 text-red-600" />
+      <Card className={cn("border-neutral-200 bg-white", className)}>
+        <CardContent className="flex flex-col items-center justify-center p-12">
+          <div className="mb-4 flex size-16 items-center justify-center rounded-lg bg-neutral-100">
+            <Wallet className="size-8 text-neutral-400" />
           </div>
-          <div>
-            <p className={cn("font-semibold text-red-900 text-sm", geistSans.className)}>
-              Unable to load wallet summary
-            </p>
-            <p className={cn("text-red-700 text-sm", geistSans.className)}>
-              {error || "Please try again later"}
-            </p>
-          </div>
+          <h3 className={cn("font-semibold text-base text-neutral-900", geistSans.className)}>
+            No earnings yet
+          </h3>
+          <p className={cn("mt-1 text-center text-neutral-500 text-sm", geistSans.className)}>
+            Complete bookings to see your earnings here
+          </p>
         </CardContent>
       </Card>
     );

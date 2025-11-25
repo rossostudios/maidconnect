@@ -170,7 +170,7 @@ export function CityShowcase({ className }: CityShowcaseProps) {
                       src={city.image}
                     />
                     {/* Pro Count Badge */}
-                    <div className="absolute right-3 bottom-3 rounded-full bg-white/95 px-3 py-1 font-medium text-neutral-900 text-xs shadow-sm backdrop-blur-sm">
+                    <div className="absolute right-3 bottom-3 rounded-full bg-white px-3 py-1 font-medium text-neutral-900 text-xs shadow-sm">
                       {city.proCount} {t("pros")}
                     </div>
                   </div>

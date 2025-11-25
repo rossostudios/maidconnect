@@ -1,29 +1,59 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+/**
+ * Admin Ambassadors Queue API
+ *
+ * GET /api/admin/ambassadors/queue
+ *
+ * Returns all ambassador applications with grouping by status.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
+ */
 
-export async function GET() {
-  try {
-    const supabase = await createSupabaseServerClient();
+import { unstable_cache } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import { withAuth } from "@/lib/shared/api/middleware";
 
-    // Check if user is admin
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+type Ambassador = {
+  id: string;
+  user_id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  city: string | null;
+  country: string | null;
+  status: "pending" | "approved" | "rejected";
+  applied_at: string;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+  notes: string | null;
+};
 
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+type ProcessedAmbassador = Ambassador & {
+  waitingDays: number;
+};
 
-    // Verify admin role
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
+type AmbassadorsData = {
+  ambassadors: ProcessedAmbassador[];
+  grouped: {
+    pending: ProcessedAmbassador[];
+    approved: ProcessedAmbassador[];
+    rejected: ProcessedAmbassador[];
+  };
+  counts: {
+    pending: number;
+    approved: number;
+    rejected: number;
+    total: number;
+  };
+};
 
-    if (!profile || profile.role !== "admin") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+/**
+ * Cached ambassadors data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedAmbassadors = unstable_cache(
+  async (): Promise<AmbassadorsData> => {
+    const supabase = createSupabaseAnonClient();
 
     // Fetch all ambassadors
     const { data: ambassadors, error } = await supabase
@@ -33,12 +63,12 @@ export async function GET() {
 
     if (error) {
       console.error("Error fetching ambassadors:", error);
-      return NextResponse.json({ error: "Failed to fetch ambassadors" }, { status: 500 });
+      throw new Error("Failed to fetch ambassadors");
     }
 
     // Calculate waiting days and group by status
     const now = new Date();
-    const processedAmbassadors = (ambassadors || []).map((ambassador) => {
+    const processedAmbassadors: ProcessedAmbassador[] = ((ambassadors ?? []) as Ambassador[]).map((ambassador) => {
       const appliedAt = new Date(ambassador.applied_at);
       const waitingDays = Math.floor((now.getTime() - appliedAt.getTime()) / (1000 * 60 * 60 * 24));
       return {
@@ -61,13 +91,25 @@ export async function GET() {
       total: processedAmbassadors.length,
     };
 
-    return NextResponse.json({
-      ambassadors: processedAmbassadors,
-      grouped,
-      counts,
-    });
+    return { ambassadors: processedAmbassadors, grouped, counts };
+  },
+  ["admin-ambassadors-queue"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_AMBASSADORS],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedAmbassadors();
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Ambassador queue error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Wrap with auth middleware (admin only)
+export const GET = withAuth(handler, { requiredRole: "admin" });

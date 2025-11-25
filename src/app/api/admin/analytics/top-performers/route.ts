@@ -4,15 +4,27 @@
  * GET /api/admin/analytics/top-performers
  *
  * Returns top professionals by revenue and top services by booking count.
+ * Cached for 1 minute (SHORT duration) to reduce database load.
  */
 
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
+import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withAuth } from "@/lib/shared/api/middleware";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-async function handler(_context: unknown, _req: NextRequest) {
-  try {
-    const supabase = await createSupabaseServerClient();
+type TopPerformersData = {
+  topProfessionals: { id: string; name: string; revenue: number; count: number }[];
+  topServices: { service: string; count: number }[];
+};
+
+/**
+ * Cached top performers data fetch
+ * Uses anon client since this is aggregate data, not user-specific
+ */
+const getCachedTopPerformers = unstable_cache(
+  async (): Promise<TopPerformersData> => {
+    const supabase = createSupabaseAnonClient();
 
     // Top 10 professionals by revenue (completed bookings only)
     const { data: professionalRevenue } = await supabase
@@ -76,12 +88,22 @@ async function handler(_context: unknown, _req: NextRequest) {
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
 
+    return { topProfessionals, topServices };
+  },
+  ["admin-analytics-top-performers"],
+  {
+    revalidate: CACHE_DURATIONS.SHORT,
+    tags: [CACHE_TAGS.ADMIN_ANALYTICS, CACHE_TAGS.ADMIN_ANALYTICS_TOP_PERFORMERS],
+  }
+);
+
+async function handler(_context: unknown, _req: NextRequest) {
+  try {
+    const data = await getCachedTopPerformers();
+
     return NextResponse.json({
       success: true,
-      data: {
-        topProfessionals,
-        topServices,
-      },
+      data,
     });
   } catch (error) {
     console.error("Analytics top performers error:", error);
