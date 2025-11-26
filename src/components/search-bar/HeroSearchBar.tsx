@@ -101,14 +101,18 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  // Close panel on scroll (prevents sticky dropdown issue)
+  // Close panel on scroll (prevents sticky dropdown issue) - desktop only
   useEffect(() => {
     if (!activePanel) {
       return;
     }
 
     const handleScroll = () => {
-      setActivePanel(null);
+      // Only close on scroll for desktop (lg breakpoint is 1024px)
+      // Mobile uses fixed modal overlay, so scroll shouldn't close it
+      if (window.innerWidth >= 1024) {
+        setActivePanel(null);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

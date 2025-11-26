@@ -1991,14 +1991,6 @@
       }
     }
   },
-  "directHire": {
-    "title": "¿Listo para encontrar tu pareja perfecta?",
-    "subtitle": "Cuéntanos sobre las necesidades de tu hogar. Te presentaremos profesionales verificados con contratos legales y garantía de satisfacción.",
-    "browseProfessionals": "Explorar profesionales",
-    "bookConsultation": "Solicitar Contratación Directa",
-    "cities": "Operando en Colombia, Paraguay, Uruguay y Argentina",
-    "languages": "Soporte en inglés y español"
-  },
   "auth": {
     "email": "Correo electrónico",
     "password": "Contraseña",
@@ -2081,7 +2073,7 @@
     "applyProfessional": "Aplicar como Profesional",
     "careers": "Carreras",
     "joinUs": "Únete",
-    "becomePro": "Ser Profesional",
+    "becomePro": "Ser Profesional de Casaora",
     "ambassador": "Programa de Embajadores",
     "browsePros": "Ver Profesionales",
     "support": "Soporte",
@@ -3255,18 +3247,6 @@
         ],
         "cta": "Ver profesionales",
         "bestFor": "tareas rápidas, limpiezas recurrentes, ayuda por horas"
-      },
-      "directHire": {
-        "title": "Contratación Directa",
-        "subtitle": "Colocación de tiempo completo con contratos legales y garantía de 30 días",
-        "features": [
-          "Contratos legales y soporte de cumplimiento",
-          "Vetting, antecedentes y seguros incluidos",
-          "Garantía de satisfacción de 30 días con reemplazos",
-          "Tarifa de servicio transparente del 15% (cliente)"
-        ],
-        "cta": "Solicitar Contratación Directa",
-        "bestFor": "ayuda de tiempo completo, colocaciones a largo plazo, empleo legal"
       }
     },
     "title": "Precios simples y transparentes",
@@ -3287,11 +3267,11 @@
         "petcare": "Cuidado de mascotas"
       },
       "serviceLevel": {
-        "label": "Nivel de servicio",
-        "instantBook": "Reserva Instantánea (15%)",
-        "instantBookHelper": "Auto-servicio en minutos",
-        "directHire": "Contratación Directa",
-        "directHireHelper": "Colocación de tiempo completo con contratos legales"
+        "label": "Tipo de reserva",
+        "instantBook": "Reserva única (15% tarifa de servicio)",
+        "instantBookHelper": "Reserva instantánea en línea",
+        "recurring": "Reserva recurrente (15% tarifa de servicio)",
+        "recurringHelper": "Semanal, quincenal o mensual"
       },
       "currency": {
         "label": "Moneda de visualización",
@@ -3341,11 +3321,11 @@
       "title": "Calcula tus ganancias",
       "subtitle": "Define tu tarifa y horas para ver cuánto podrías ganar con Casaora.",
       "serviceLevel": {
-        "label": "Nivel de servicio",
-        "instantBook": "Reserva Instantánea (cliente paga 15%)",
-        "instantBookHelper": "Reservas rápidas y auto-servicio",
-        "directHire": "Contratación Directa (cliente paga 15%)",
-        "directHireHelper": "Colocación de tiempo completo con contratos legales"
+        "label": "Tipo de reserva",
+        "instantBook": "Reserva única (cliente paga 15%)",
+        "instantBookHelper": "Reserva instantánea para cualquier trabajo",
+        "recurring": "Reserva recurrente (cliente paga 15%)",
+        "recurringHelper": "Semanal, quincenal o mensual"
       },
       "yourHourlyRate": "Tu tarifa por hora",
       "rateRange": "Tarifa recomendada según tu mercado y experiencia",
@@ -3424,134 +3404,35 @@
   },
   "about": {
     "meta": {
-      "title": "Sobre Nosotros - Nuestra Historia | Casaora",
-      "description": "Conoce la misión de Casaora de conectar familias en América Latina con profesionales del hogar verificados a través de nuestro marketplace construido para la confianza y seguridad."
+      "title": "Nuestra Historia | Casaora",
+      "description": "Creamos Casaora porque vivimos la lucha de encontrar ayuda doméstica confiable en América Latina. Demasiadas estafas, poca confianza. Estamos cambiando eso."
+    },
+    "hero": {
+      "badge": "Nuestra Historia",
+      "title": "Ayuda para el hogar en la que puedes confiar",
+      "subtitle": "Creamos Casaora porque encontrar ayuda confiable no debería sentirse como una apuesta."
     },
     "story": {
-      "title": "Confianza y Seguridad, Simplificados",
-      "subtitle": "Estamos construyendo el marketplace de confianza que conecta familias con profesionales del hogar verificados en América Latina.",
       "problem": {
-        "title": "El Desafío que Estamos Resolviendo",
-        "paragraph1": "Encontrar ayuda doméstica confiable no debería ser estresante. Las familias en América Latina enfrentan incertidumbre sobre confianza y seguridad, y falta de profesionales verificados con expectativas claras.",
-        "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen la verificación, pagos seguros o soporte continuo que las familias realmente necesitan."
+        "title": "Lo hemos vivido",
+        "paragraph1": "Mudarse a un nuevo país es difícil. Encontrar ayuda confiable para tu hogar no debería serlo. Pero lo es. Lo sabemos porque lo vivimos—buscando en grupos de Facebook, esperando que la persona que llegue sea realmente confiable.",
+        "paragraph2": "Demasiadas estafas. Poca responsabilidad. Sin forma de verificar a quién dejas entrar a tu hogar. Nos cansamos de adivinar."
       },
       "solution": {
-        "title": "Nuestra Solución",
-        "paragraph1": "Casaora es el marketplace de confianza para profesionales del hogar en América Latina. Combinamos tecnología con toque humano para crear una experiencia simple, segura y justa:",
-        "feature1": {
-          "title": "Profesionales Verificados",
-          "description": "Cada profesional pasa por verificaciones de antecedentes, verificación de identidad y evaluación de habilidades antes de unirse a nuestra plataforma."
-        },
-        "feature2": {
-          "title": "Soporte Bilingüe",
-          "description": "Toda nuestra plataforma y equipo de asistencia opera en inglés y español, eliminando barreras de comunicación."
-        },
-        "feature3": {
-          "title": "Asistencia Continua",
-          "description": "Desde la reserva hasta la finalización, nuestro equipo está disponible para ayudar a resolver cualquier problema y asegurar un servicio de calidad."
-        }
-      },
-      "journey": {
-        "title": "Nuestro Camino",
-        "paragraph1": "Casaora nació de una idea simple: encontrar ayuda doméstica confiable debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a familias y empoderar a profesionales en toda América Latina."
+        "title": "Así que construimos algo mejor",
+        "paragraph1": "Casaora te conecta con profesionales del hogar verificados en toda América Latina. Cada profesional pasa verificaciones de antecedentes e identidad. Ves reseñas reales de familias reales. Reservas simples, pagos seguros y soporte cuando lo necesitas. Sin más esperar lo mejor."
       }
     },
-    "missionVision": {
-      "sectionTitle": "Nuestra Misión y Visión",
-      "sectionSubtitle": "Estamos en una misión de hacer los servicios domésticos accesibles, transparentes y confiables para todos.",
-      "mission": {
-        "title": "Nuestra Misión",
-        "description": "Conectar familias con profesionales del hogar verificados a través de un marketplace seguro y transparente impulsado por soporte dedicado y tecnología moderna."
-      },
-      "vision": {
-        "title": "Nuestra Visión",
-        "description": "Convertirnos en la plataforma más confiable para profesionales del hogar en América Latina, empoderando tanto a familias como a profesionales con seguridad, transparencia y oportunidad."
-      },
-      "values": {
-        "title": "Nuestros Valores Fundamentales",
-        "subtitle": "Estos principios guían todo lo que hacemos",
-        "trust": {
-          "title": "Confianza Primero",
-          "description": "Verificamos a cada profesional y mantenemos comunicación transparente para ganar y mantener su confianza."
-        },
-        "quality": {
-          "title": "Servicio de Calidad",
-          "description": "Establecemos altos estándares para profesionales y monitoreamos continuamente la calidad del servicio a través de reseñas y comentarios."
-        },
-        "bilingual": {
-          "title": "Excelencia Bilingüe",
-          "description": "Eliminamos barreras idiomáticas al soportar tanto inglés como español en toda nuestra plataforma."
-        },
-        "empowerment": {
-          "title": "Empoderamiento",
-          "description": "Empoderamos tanto a familias para encontrar ayuda confiable como a profesionales para desarrollar carreras sostenibles."
-        }
-      }
-    },
-    "team": {
-      "title": "Nuestro Equipo Remoto",
-      "subtitle": "Somos un equipo distribuido que abarca América Latina y Estados Unidos, unidos por nuestra misión de servir a familias y profesionales.",
-      "remoteFirst": {
-        "title": "Construido para Impacto Regional",
-        "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y comprensión genuina de las necesidades de familias y profesionales. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte continuo a nuestra comunidad."
-      },
-      "stats": {
-        "locations": "2+",
-        "locationsLabel": "Países",
-        "timezones": "3",
-        "timezonesLabel": "Zonas Horarias",
-        "languages": "2",
-        "languagesLabel": "Idiomas"
-      },
-      "benefits": {
-        "distributed": {
-          "title": "Globalmente Distribuido",
-          "description": "Nuestro equipo abarca América Latina y EE.UU., dándonos una visión profunda de las necesidades tanto de familias como profesionales del hogar."
-        },
-        "bilingual": {
-          "title": "Completamente Bilingüe",
-          "description": "Cada miembro del equipo habla inglés y español con fluidez, asegurando comunicación perfecta."
-        },
-        "available": {
-          "title": "Siempre Disponible",
-          "description": "Con miembros del equipo en diferentes zonas horarias, brindamos soporte receptivo cuando lo necesita."
-        },
-        "expertise": {
-          "title": "Experiencia Diversa",
-          "description": "Nuestros antecedentes en hospitalidad, tecnología y operaciones aportan soluciones integrales a desafíos complejos."
-        }
-      },
-      "joinTeam": {
-        "title": "¿quiere Unirte a Nuestra Misión?",
-        "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de familias y profesionales del hogar.",
-        "cta": "Contáctanos"
-      }
-    },
-    "trust": {
-      "title": "¿Por Qué Confiar en Casaora?",
-      "subtitle": "Seguridad, protección y transparencia están en el corazón de todo lo que hacemos.",
-      "verification": {
-        "title": "Profesionales Verificados",
-        "description": "Verificaciones de antecedentes, verificación de identidad y evaluación de habilidades para cada profesional en nuestra plataforma."
-      },
-      "secure": {
-        "title": "Pagos Seguros",
-        "description": "Todas las transacciones se procesan a través de procesadores certificados PCI DSS Nivel 1 con encriptación de nivel bancario y protección al comprador."
-      },
-      "support": {
-        "title": "Soporte Personalizado",
-        "description": "Nuestro equipo bilingüe está disponible para ayudar a resolver cualquier problema antes, durante y después de su servicio."
-      },
-      "transparency": {
-        "title": "Transparencia Total",
-        "description": "Reseñas verificadas, precios claros y perfiles detallados de profesionales para que pueda reservar con confianza."
-      }
+    "mission": {
+      "title": "Nuestra misión",
+      "statement": "Hacer que encontrar ayuda doméstica confiable sea tan simple y seguro como debería ser. Justo para las familias. Justo para los profesionales. Construido sobre confianza, no suerte."
     },
     "cta": {
-      "title": "¿Listo para Experimentar la Diferencia?",
-      "subtitle": "Únete a miles de familias que confían en Casaora para encontrar profesionales del hogar verificados.",
+      "title": "¿Listo para encontrar ayuda en la que puedes confiar?",
+      "subtitle": "Únete a familias en toda América Latina que reservan con confianza.",
       "browseProfessionals": "Explorar Profesionales",
-      "signUp": "Regístrate Gratis"
+      "becomePro": "Conviértete en Pro",
+      "trustIndicator": "Confianza de familias en toda América Latina"
     }
   },
   "howItWorks": {
@@ -3740,20 +3621,6 @@
           "Ideal para tareas rápidas o recurrentes"
         ],
         "cta": "Ver profesionales"
-      },
-      "directHire": {
-        "title": "Contratación Directa (15%)",
-        "description": "Colocación de tiempo completo con contratos legales, vetting y garantía de 30 días.",
-        "speed": "Shortlist en 48h",
-        "process": "Equipo humano + verificación",
-        "cost": "Tarifa de servicio del 15% (cliente)",
-        "features": [
-          "Contratos legales y soporte de cumplimiento",
-          "Vetting, antecedentes y seguros incluidos",
-          "Garantía de satisfacción de 30 días con reemplazos",
-          "Ideal para ayuda de tiempo completo y colocaciones a largo plazo"
-        ],
-        "cta": "Solicitar Contratación Directa"
       }
     }
   },
@@ -4164,19 +4031,6 @@
         "cta": "Enviar Tus Requisitos"
       },
       "helpText": "Todos los profesionales están verificados. Tarifa simple del 15% con soporte completo."
-    },
-    "directHireCard": {
-      "title": "Programa de Contratación Directa — Tarifa Única de ",
-      "description": "Contrata a este profesional permanentemente con contrato legal, garantía de reemplazo de 30 días e información de contacto directo.",
-      "benefit1": "Contrato de empleo legal (EN/ES)",
-      "benefit2": "Garantía de reemplazo de 30 días",
-      "benefit3": "Información de contacto directo",
-      "benefit4": "Cero tarifas continuas de plataforma",
-      "ctaButton": "Contratar Permanentemente por ",
-      "trustBadge": "ID y Antecedentes Verificados",
-      "detailsTitle": "Qué está incluido en la tarifa de ",
-      "detailsCollapse": "Mostrar detalles",
-      "detailsExpand": "Ocultar detalles"
     },
     "socialShare": {
       "share": "Compartir",
@@ -4621,54 +4475,67 @@
     "title": "Conviértete en un Profesional Casaora",
     "subtitle": "Únete a la plataforma líder para profesionales del hogar en América Latina",
     "hero": {
+      "badge": "Aceptando Solicitudes",
       "title": "Convierte tus habilidades en ingresos",
       "subtitle": "Únete a miles de profesionales verificados que ganan en sus propios términos",
-      "primaryCTA": "Aplicar Ahora",
-      "secondaryCTA": "Saber Más"
+      "primaryCta": "Aplicar Ahora",
+      "secondaryCta": "Saber Más",
+      "trustBadge1": "Antecedentes Verificados",
+      "trustBadge2": "Quédate con el 100% de tu Tarifa",
+      "trustBadge3": "Horario Flexible"
     },
     "benefits": {
       "title": "¿Por qué unirte a Casaora?",
       "subtitle": "Todo lo que necesitas para construir un negocio exitoso de servicios del hogar",
-      "flexibleSchedule": {
-        "title": "Horario Flexible",
-        "description": "Trabaja cuando quieras. Establece tu propia disponibilidad y acepta trabajos que se ajusten a tu vida."
-      },
-      "competitivePay": {
-        "title": "Pago Competitivo",
-        "description": "Quédate con el 100% de tu tarifa. Solo cobramos a los clientes una comisión del 15%."
-      },
-      "safePayments": {
-        "title": "Pagos Seguros",
-        "description": "Recibe pagos de forma segura a través de la app. Sin manejo de efectivo, sin perseguir pagos."
-      },
-      "growYourBusiness": {
-        "title": "Haz Crecer tu Negocio",
-        "description": "Construye tu reputación con reseñas y sé descubierto por más clientes."
-      },
-      "professionalSupport": {
-        "title": "Soporte Profesional",
-        "description": "Acceso a capacitación, recursos y un equipo de soporte dedicado."
-      },
-      "insurance": {
-        "title": "Cobertura de Seguro",
-        "description": "Trabaja con tranquilidad. Cobertura de responsabilidad incluida en cada trabajo."
+      "items": {
+        "earnings": {
+          "title": "Pago Competitivo",
+          "description": "Quédate con el 100% de tu tarifa. Solo cobramos a los clientes una comisión del 15%."
+        },
+        "flexibility": {
+          "title": "Horario Flexible",
+          "description": "Trabaja cuando quieras. Establece tu propia disponibilidad y acepta trabajos que se ajusten a tu vida."
+        },
+        "protection": {
+          "title": "Pagos Seguros",
+          "description": "Recibe pagos de forma segura a través de la app. Sin manejo de efectivo, sin perseguir pagos."
+        },
+        "growth": {
+          "title": "Haz Crecer tu Negocio",
+          "description": "Construye tu reputación con reseñas y sé descubierto por más clientes."
+        },
+        "clients": {
+          "title": "Clientes de Calidad",
+          "description": "Conecta con familias verificadas que valoran los servicios profesionales del hogar."
+        },
+        "support": {
+          "title": "Soporte Profesional",
+          "description": "Acceso a capacitación, recursos y un equipo de soporte dedicado."
+        }
       }
     },
     "howItWorks": {
       "title": "Cómo funciona",
-      "subtitle": "Comienza en 3 simples pasos",
-      "step1": {
-        "title": "Aplica en Línea",
-        "description": "Completa tu aplicación en minutos. Cuéntanos sobre tu experiencia y servicios."
+      "subtitle": "Comienza en 4 simples pasos",
+      "steps": {
+        "apply": {
+          "title": "Aplica en Línea",
+          "description": "Completa tu aplicación en minutos. Cuéntanos sobre tu experiencia y servicios."
+        },
+        "verify": {
+          "title": "Verifícate",
+          "description": "Completa nuestro proceso de verificación de antecedentes e identidad."
+        },
+        "profile": {
+          "title": "Crea tu Perfil",
+          "description": "Establece tus tarifas, agrega tus servicios y muestra tu experiencia."
+        },
+        "earn": {
+          "title": "Comienza a Ganar",
+          "description": "Acepta reservas y comienza a ganar en tus propios términos."
+        }
       },
-      "step2": {
-        "title": "Verifícate",
-        "description": "Completa nuestro proceso de verificación de antecedentes e identidad."
-      },
-      "step3": {
-        "title": "Comienza a Ganar",
-        "description": "Establece tus tarifas, disponibilidad y comienza a aceptar reservas."
-      }
+      "cta": "Inicia tu Solicitud"
     },
     "earnings": {
       "title": "Gana en tus términos",
@@ -4684,31 +4551,34 @@
     "faq": {
       "title": "Preguntas frecuentes",
       "subtitle": "Todo lo que necesitas saber sobre convertirte en un Profesional Casaora",
-      "q1": {
-        "question": "¿Cuánto cuesta unirse?",
-        "answer": "Unirte a Casaora es completamente gratis. No hay cuotas de inscripción ni cargos mensuales. Solo tomamos una comisión del 15% de los clientes, no de tus ganancias."
-      },
-      "q2": {
-        "question": "¿Qué servicios puedo ofrecer?",
-        "answer": "Puedes ofrecer limpieza, cuidado de niños, cocina, cuidado de adultos mayores, cuidado de mascotas, jardinería, mantenimiento del hogar y más. Elige los servicios que coincidan con tus habilidades."
-      },
-      "q3": {
-        "question": "¿Cómo funciona la verificación?",
-        "answer": "Nuestro proceso de verificación incluye verificación de identidad, antecedentes y validación de referencias. Esto ayuda a generar confianza con los clientes y mantener a todos seguros."
-      },
-      "q4": {
-        "question": "¿Cómo me pagan?",
-        "answer": "Los pagos se procesan de forma segura a través de la app. Puedes retirar tus ganancias a tu cuenta bancaria, con pagos procesados cada martes y viernes."
-      },
-      "q5": {
-        "question": "¿Puedo establecer mis propias tarifas?",
-        "answer": "¡Sí! Tienes control total sobre tus tarifas por hora. Proporcionamos información del mercado para ayudarte a establecer precios competitivos."
+      "items": {
+        "requirements": {
+          "question": "¿Cuáles son los requisitos para unirse?",
+          "answer": "Debes ser mayor de 18 años, tener identificación válida, pasar una verificación de antecedentes y tener experiencia relevante en tu área de servicio. Aceptamos profesionales con varios niveles de experiencia."
+        },
+        "earnings": {
+          "question": "¿Cuánto puedo ganar?",
+          "answer": "Tú estableces tus propias tarifas y te quedas con el 100% de lo que cobras. Los mejores profesionales ganan salarios competitivos basados en su experiencia y servicios ofrecidos."
+        },
+        "schedule": {
+          "question": "¿Puedo establecer mi propio horario?",
+          "answer": "¡Sí! Tienes control completo sobre tu disponibilidad. Trabaja tiempo completo, medio tiempo o solo fines de semana—lo que se ajuste a tu vida."
+        },
+        "verification": {
+          "question": "¿Cómo funciona la verificación?",
+          "answer": "Nuestro proceso de verificación incluye verificación de identidad, antecedentes y validación de referencias. Esto ayuda a generar confianza con los clientes y mantener a todos seguros."
+        },
+        "support": {
+          "question": "¿Qué soporte ofrecen?",
+          "answer": "Proporcionamos soporte 24/7, recursos de capacitación, cobertura de responsabilidad y un equipo dedicado para ayudarte a tener éxito en la plataforma."
+        }
       }
     },
     "cta": {
       "title": "¿Listo para comenzar?",
       "subtitle": "Únete a miles de profesionales que ya están ganando en Casaora",
-      "button": "Aplicar Ahora"
+      "button": "Aplicar Ahora",
+      "note": "Gratis para unirse • Sin cuotas mensuales • Comienza a ganar esta semana"
     },
     "signup": {
       "title": "Crea tu cuenta profesional",

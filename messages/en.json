@@ -2211,7 +2211,7 @@
     "applyProfessional": "Join Our Network",
     "careers": "Careers",
     "joinUs": "Join Us",
-    "becomePro": "Become a Pro",
+    "becomePro": "Become a Casaora Pro",
     "ambassador": "Ambassador Program",
     "browsePros": "Browse Professionals",
     "support": "Support",
@@ -3715,134 +3715,35 @@
   },
   "about": {
     "meta": {
-      "title": "About Us - Our Story | Casaora",
-      "description": "Learn about Casaora's mission to connect families in Latin America with trusted, verified home professionals through our marketplace built for trust and safety."
+      "title": "Our Story | Casaora",
+      "description": "We built Casaora because we lived the struggle of finding trustworthy home help in Latin America. Too many scams, too little trust. We're changing that."
+    },
+    "hero": {
+      "badge": "Our Story",
+      "title": "Home help you can actually trust",
+      "subtitle": "We built Casaora because finding reliable help shouldn't feel like a gamble."
     },
     "story": {
-      "title": "Trust and Safety, Simplified",
-      "subtitle": "We're building the trusted marketplace that connects families with verified home professionals across Latin America.",
       "problem": {
-        "title": "The Challenge We're Solving",
-        "paragraph1": "Finding reliable domestic help shouldn't be stressful. Families in Latin America face uncertainty about trust and safety, informal arrangements without clear expectations, and a lack of verified professionals.",
-        "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the verification, transparency, or ongoing support that families and professionals truly need."
+        "title": "We've been there",
+        "paragraph1": "Moving to a new country is hard. Finding trustworthy help for your home shouldn't be. But it is. We know because we lived it—scrolling through Facebook groups, hoping the person who shows up is actually reliable.",
+        "paragraph2": "Too many scams. Too little accountability. No way to verify who you're letting into your home. We got tired of the guesswork."
       },
       "solution": {
-        "title": "Our Solution",
-        "paragraph1": "Casaora is a marketplace built for trust and safety. We combine technology with human support to create a seamless, trustworthy experience:",
-        "feature1": {
-          "title": "Verified Professionals",
-          "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
-        },
-        "feature2": {
-          "title": "Bilingual Support",
-          "description": "Our entire platform and support team operates in both English and Spanish, eliminating communication barriers."
-        },
-        "feature3": {
-          "title": "Ongoing Assistance",
-          "description": "From booking to completion, our team is available to help resolve any issues and ensure quality service."
-        }
-      },
-      "journey": {
-        "title": "Our Journey",
-        "paragraph1": "Founded by people who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help should be easy, safe, and stress-free. Today, we're proud to serve families and empower home professionals across Latin America."
+        "title": "So we built something better",
+        "paragraph1": "Casaora connects you with verified home professionals across Latin America. Every professional passes background checks and ID verification. You see real reviews from real families. Simple booking, secure payments, and support when you need it. No more hoping for the best."
       }
     },
-    "missionVision": {
-      "sectionTitle": "Our Mission & Vision",
-      "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
-      "mission": {
-        "title": "Our Mission",
-        "description": "To dignify domestic work and make it simple, safe, and fair for families in Latin America to work with verified home professionals."
-      },
-      "vision": {
-        "title": "Our Vision",
-        "description": "A Latin America where every home professional has access to decent work, and every household can rely on trusted support at home."
-      },
-      "values": {
-        "title": "Our Core Values",
-        "subtitle": "These principles guide everything we do",
-        "trust": {
-          "title": "Trust First",
-          "description": "We verify every professional and maintain transparent communication to earn and keep your trust."
-        },
-        "quality": {
-          "title": "Quality Service",
-          "description": "We set high standards for professionals and continuously monitor service quality through reviews and feedback."
-        },
-        "bilingual": {
-          "title": "Bilingual Excellence",
-          "description": "We eliminate language barriers by supporting both English and Spanish across our entire platform."
-        },
-        "empowerment": {
-          "title": "Empowerment",
-          "description": "We empower families to find reliable help and professionals to build sustainable careers."
-        }
-      }
-    },
-    "team": {
-      "title": "Our Remote-First Team",
-      "subtitle": "We're a distributed team spanning Latin America and the United States, united by our mission to serve families and professionals.",
-      "remoteFirst": {
-        "title": "Built for Global Impact",
-        "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives and deep local knowledge. We work asynchronously across time zones to provide responsive support for our community."
-      },
-      "stats": {
-        "locations": "2+",
-        "locationsLabel": "Countries",
-        "timezones": "3",
-        "timezonesLabel": "Time Zones",
-        "languages": "2",
-        "languagesLabel": "Languages"
-      },
-      "benefits": {
-        "distributed": {
-          "title": "Globally Distributed",
-          "description": "Our team spans Latin America and the US, giving us deep insight into both family and professional needs."
-        },
-        "bilingual": {
-          "title": "Fully Bilingual",
-          "description": "Every team member speaks both English and Spanish fluently, ensuring seamless communication."
-        },
-        "available": {
-          "title": "Always Available",
-          "description": "With team members across time zones, we provide responsive support when you need it."
-        },
-        "expertise": {
-          "title": "Diverse Expertise",
-          "description": "Our backgrounds in hospitality, tech, and operations bring well-rounded solutions to complex challenges."
-        }
-      },
-      "joinTeam": {
-        "title": "Want to Join Our Mission?",
-        "description": "We're always looking for passionate people who want to make a difference in the lives of families and professionals.",
-        "cta": "Get in Touch"
-      }
-    },
-    "trust": {
-      "title": "Why Trust Casaora?",
-      "subtitle": "Safety, security, and transparency are at the core of everything we do.",
-      "verification": {
-        "title": "Verified Professionals",
-        "description": "Background checks, ID verification, and skills assessment for every professional on our platform."
-      },
-      "secure": {
-        "title": "Secure Payments",
-        "description": "All transactions are processed through PCI DSS Level 1 certified processors with bank-level encryption and buyer protection."
-      },
-      "support": {
-        "title": "Dedicated Support",
-        "description": "Our bilingual team is available to help resolve any issues before, during, and after your service."
-      },
-      "transparency": {
-        "title": "Full Transparency",
-        "description": "Verified reviews, clear pricing, and detailed professional profiles so you can book with confidence."
-      }
+    "mission": {
+      "title": "Our mission",
+      "statement": "To make finding trustworthy home help as simple and safe as it should be. Fair for families. Fair for professionals. Built on trust, not luck."
     },
     "cta": {
-      "title": "Ready to Experience the Difference?",
-      "subtitle": "Join thousands of families who trust Casaora for their home service needs.",
+      "title": "Ready to find help you can trust?",
+      "subtitle": "Join families across Latin America who book with confidence.",
       "browseProfessionals": "Browse Professionals",
-      "signUp": "Sign Up Free"
+      "becomePro": "Become a Pro",
+      "trustIndicator": "Trusted by families across Latin America"
     }
   },
   "howItWorks": {
@@ -4847,54 +4748,67 @@
     "title": "Become a Casaora Pro",
     "subtitle": "Join the leading platform for home service professionals in Latin America",
     "hero": {
+      "badge": "Now Accepting Applications",
       "title": "Turn your skills into income",
       "subtitle": "Join thousands of verified professionals earning on their terms",
-      "primaryCTA": "Apply Now",
-      "secondaryCTA": "Learn More"
+      "primaryCta": "Apply Now",
+      "secondaryCta": "Learn More",
+      "trustBadge1": "Background Verified",
+      "trustBadge2": "Keep 100% of Your Rate",
+      "trustBadge3": "Flexible Schedule"
     },
     "benefits": {
       "title": "Why join Casaora?",
       "subtitle": "Everything you need to build a successful home service business",
-      "flexibleSchedule": {
-        "title": "Flexible Schedule",
-        "description": "Work when you want. Set your own availability and accept jobs that fit your life."
-      },
-      "competitivePay": {
-        "title": "Competitive Pay",
-        "description": "Keep 100% of your rate. We only charge clients a 15% service fee."
-      },
-      "safePayments": {
-        "title": "Safe Payments",
-        "description": "Get paid securely through the app. No cash handling, no chasing payments."
-      },
-      "growYourBusiness": {
-        "title": "Grow Your Business",
-        "description": "Build your reputation with reviews and get discovered by more clients."
-      },
-      "professionalSupport": {
-        "title": "Professional Support",
-        "description": "Access to training, resources, and a dedicated support team."
-      },
-      "insurance": {
-        "title": "Insurance Coverage",
-        "description": "Work with peace of mind. Liability coverage included on every job."
+      "items": {
+        "earnings": {
+          "title": "Competitive Pay",
+          "description": "Keep 100% of your rate. We only charge clients a 15% service fee."
+        },
+        "flexibility": {
+          "title": "Flexible Schedule",
+          "description": "Work when you want. Set your own availability and accept jobs that fit your life."
+        },
+        "protection": {
+          "title": "Safe Payments",
+          "description": "Get paid securely through the app. No cash handling, no chasing payments."
+        },
+        "growth": {
+          "title": "Grow Your Business",
+          "description": "Build your reputation with reviews and get discovered by more clients."
+        },
+        "clients": {
+          "title": "Quality Clients",
+          "description": "Connect with verified families who value professional home services."
+        },
+        "support": {
+          "title": "Professional Support",
+          "description": "Access to training, resources, and a dedicated support team."
+        }
       }
     },
     "howItWorks": {
       "title": "How it works",
-      "subtitle": "Get started in 3 simple steps",
-      "step1": {
-        "title": "Apply Online",
-        "description": "Fill out your application in minutes. Tell us about your experience and services."
+      "subtitle": "Get started in 4 simple steps",
+      "steps": {
+        "apply": {
+          "title": "Apply Online",
+          "description": "Fill out your application in minutes. Tell us about your experience and services."
+        },
+        "verify": {
+          "title": "Get Verified",
+          "description": "Complete our background check and ID verification process."
+        },
+        "profile": {
+          "title": "Build Your Profile",
+          "description": "Set your rates, add your services, and showcase your experience."
+        },
+        "earn": {
+          "title": "Start Earning",
+          "description": "Accept bookings and start earning on your own terms."
+        }
       },
-      "step2": {
-        "title": "Get Verified",
-        "description": "Complete our background check and ID verification process."
-      },
-      "step3": {
-        "title": "Start Earning",
-        "description": "Set your rates, availability, and start accepting bookings."
-      }
+      "cta": "Start Your Application"
     },
     "earnings": {
       "title": "Earn on your terms",
@@ -4910,31 +4824,34 @@
     "faq": {
       "title": "Frequently asked questions",
       "subtitle": "Everything you need to know about becoming a Casaora Pro",
-      "q1": {
-        "question": "How much does it cost to join?",
-        "answer": "Joining Casaora is completely free. There are no signup fees or monthly charges. We only take a 15% service fee from clients, not from your earnings."
-      },
-      "q2": {
-        "question": "What services can I offer?",
-        "answer": "You can offer housekeeping, childcare, cooking, eldercare, pet care, gardening, home maintenance, and more. Choose the services that match your skills."
-      },
-      "q3": {
-        "question": "How does verification work?",
-        "answer": "Our verification process includes ID verification, background checks, and reference validation. This helps build trust with clients and keeps everyone safe."
-      },
-      "q4": {
-        "question": "How do I get paid?",
-        "answer": "Payments are processed securely through the app. You can withdraw your earnings to your bank account, with payouts processed every Tuesday and Friday."
-      },
-      "q5": {
-        "question": "Can I set my own rates?",
-        "answer": "Yes! You have full control over your hourly rates. We provide market insights to help you price competitively."
+      "items": {
+        "requirements": {
+          "question": "What are the requirements to join?",
+          "answer": "You must be 18+, have valid ID, pass a background check, and have relevant experience in your service area. We accept professionals with various skill levels."
+        },
+        "earnings": {
+          "question": "How much can I earn?",
+          "answer": "You set your own rates and keep 100% of what you charge. Top professionals earn competitive wages based on their experience and services offered."
+        },
+        "schedule": {
+          "question": "Can I set my own schedule?",
+          "answer": "Yes! You have complete control over your availability. Work full-time, part-time, or just weekends—whatever fits your life."
+        },
+        "verification": {
+          "question": "How does verification work?",
+          "answer": "Our verification process includes ID verification, background checks, and reference validation. This helps build trust with clients and keeps everyone safe."
+        },
+        "support": {
+          "question": "What support do you offer?",
+          "answer": "We provide 24/7 support, training resources, liability coverage, and a dedicated team to help you succeed on the platform."
+        }
       }
     },
     "cta": {
       "title": "Ready to get started?",
       "subtitle": "Join thousands of professionals already earning on Casaora",
-      "button": "Apply Now"
+      "button": "Apply Now",
+      "note": "Free to join • No monthly fees • Start earning this week"
     },
     "signup": {
       "title": "Create your professional account",

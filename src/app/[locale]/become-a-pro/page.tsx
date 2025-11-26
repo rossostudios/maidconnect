@@ -30,14 +30,12 @@ export const metadata: Metadata = {
 
 export default async function BecomeAProPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-rausch-950">
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
         <BenefitsSection />
         <HowItWorksSection />
-        <EarningsSection />
-        <TestimonialsSection />
         <FAQSection />
         <CTASection />
       </main>
@@ -50,46 +48,45 @@ async function HeroSection() {
   const t = await getTranslations("becomeAPro.hero");
 
   return (
-    <section className="relative overflow-hidden bg-neutral-900 py-20 md:py-28 lg:py-36">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900" />
+    <section className="relative overflow-hidden bg-rausch-950 py-24 md:py-32 lg:py-40">
+      {/* Background - clean solid with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-rausch-950 to-rausch-900" />
 
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
+      {/* Subtle dot pattern overlay - refined minimal */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
-          {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-rausch-500/30 bg-rausch-500/10 px-4 py-1.5">
-            <span className="font-medium text-rausch-400 text-sm">{t("badge")}</span>
+          {/* Badge - refined styling */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-rausch-400/20 bg-rausch-400/10 px-5 py-2">
+            <span className="font-medium text-rausch-200 text-sm">{t("badge")}</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="mb-6 font-bold text-4xl text-white tracking-tight sm:text-5xl lg:text-6xl">
+          {/* Headline - larger with better spacing */}
+          <h1 className="mb-8 font-bold text-4xl text-white tracking-tight leading-tight sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
 
-          {/* Subheadline */}
-          <p className="mb-10 text-lg text-white/80 sm:text-xl">{t("subtitle")}</p>
+          {/* Subheadline - better readability */}
+          <p className="mb-12 text-lg text-rausch-100/90 leading-relaxed sm:text-xl">
+            {t("subtitle")}
+          </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          {/* CTAs - refined button hierarchy */}
+          <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-6">
             <Link
               className={cn(
-                "inline-flex items-center justify-center gap-2 rounded-full px-8 py-4",
-                "bg-rausch-500 font-semibold text-white",
-                "shadow-lg shadow-rausch-500/20",
-                "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                "hover:bg-rausch-600 hover:shadow-rausch-600/25 hover:shadow-xl",
-                "active:scale-[0.98]"
+                "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
+                "bg-white font-semibold text-rausch-700 text-lg",
+                "shadow-lg shadow-rausch-950/20",
+                "transition-all duration-200",
+                "hover:bg-rausch-50 hover:shadow-xl hover:scale-[1.02]"
               )}
               href="/become-a-pro/signup"
             >
@@ -98,10 +95,10 @@ async function HeroSection() {
             </Link>
             <Link
               className={cn(
-                "inline-flex items-center justify-center gap-2 rounded-full px-8 py-4",
-                "border border-white/20 font-semibold text-white",
-                "transition-all duration-300",
-                "hover:bg-white/10"
+                "inline-flex items-center justify-center gap-2 rounded-full px-10 py-4",
+                "border border-white/30 font-medium text-white",
+                "transition-all duration-200",
+                "hover:border-white/50 hover:bg-white/10"
               )}
               href="#how-it-works"
             >
@@ -109,8 +106,8 @@ async function HeroSection() {
             </Link>
           </div>
 
-          {/* Trust indicators */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-white/60">
+          {/* Trust indicators - cleaner styling */}
+          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-rausch-200/80">
             <div className="flex items-center gap-2">
               <HugeiconsIcon className="h-5 w-5 text-green-400" icon={SecurityCheckIcon} />
               <span>{t("trustBadge1")}</span>
@@ -167,26 +164,41 @@ async function BenefitsSection() {
   ];
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-24 md:py-32 dark:bg-rausch-950">
       <Container>
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+        {/* Section header - refined typography */}
+        <div className="mx-auto mb-20 max-w-2xl text-center">
+          <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl lg:text-5xl dark:text-white">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 leading-relaxed sm:text-xl dark:text-rausch-100/80">
+            {t("subtitle")}
+          </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Benefits grid - cleaner cards with more whitespace */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {benefits.map((benefit, index) => (
             <div
-              className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-8 transition-all hover:border-rausch-200 hover:bg-rausch-50/50"
+              className={cn(
+                "group rounded-2xl border border-neutral-200 bg-white p-10",
+                "transition-all duration-200",
+                "hover:border-rausch-200 hover:shadow-lg hover:shadow-rausch-500/5",
+                "dark:border-rausch-800 dark:bg-rausch-900/50",
+                "dark:hover:border-rausch-700 dark:hover:shadow-rausch-950/20"
+              )}
               key={index}
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rausch-100 transition-colors group-hover:bg-rausch-200">
-                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={benefit.icon} />
+              {/* Larger icon container */}
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-rausch-50 transition-colors group-hover:bg-rausch-100 dark:bg-rausch-800 dark:group-hover:bg-rausch-700">
+                <HugeiconsIcon className="h-7 w-7 text-rausch-600 dark:text-rausch-300" icon={benefit.icon} />
               </div>
-              <h3 className="mb-2 font-semibold text-lg text-neutral-900">{benefit.title}</h3>
-              <p className="text-neutral-600">{benefit.description}</p>
+              <h3 className="mb-3 font-semibold text-lg text-neutral-900 dark:text-white">
+                {benefit.title}
+              </h3>
+              <p className="text-neutral-600 leading-relaxed dark:text-rausch-100/70">
+                {benefit.description}
+              </p>
             </div>
           ))}
         </div>
@@ -222,216 +234,67 @@ async function HowItWorksSection() {
   ];
 
   return (
-    <section className="bg-neutral-50 py-20 md:py-28" id="how-it-works">
-      <Container>
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+    <section className="relative bg-neutral-50 py-24 md:py-32 dark:bg-rausch-900" id="how-it-works">
+      {/* Subtle dot pattern - consistent with other sections */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <Container className="relative z-10">
+        {/* Section header - larger typography */}
+        <div className="mx-auto mb-20 max-w-2xl text-center">
+          <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl lg:text-5xl dark:text-white">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 leading-relaxed sm:text-xl dark:text-rausch-100/80">
+            {t("subtitle")}
+          </p>
         </div>
 
         <div className="relative">
-          {/* Connection line - hidden on mobile */}
-          <div className="absolute top-12 right-0 left-0 hidden h-0.5 bg-gradient-to-r from-rausch-100 via-rausch-300 to-rausch-100 lg:block" />
+          {/* Clean connection line - hidden on mobile */}
+          <div className="absolute top-10 right-0 left-0 hidden h-px bg-neutral-200 lg:block dark:bg-rausch-700" />
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {steps.map((step, index) => (
               <div className="relative text-center" key={index}>
-                {/* Step number */}
-                <div className="relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg">
-                  <span className="font-bold text-2xl text-rausch-500">{step.number}</span>
+                {/* Cleaner step number - minimal circle */}
+                <div className="relative z-10 mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full border-2 border-neutral-200 bg-white dark:border-rausch-700 dark:bg-rausch-800">
+                  <span className="font-bold text-2xl text-rausch-500 dark:text-rausch-300">
+                    {step.number}
+                  </span>
                 </div>
-                <h3 className="mb-2 font-semibold text-lg text-neutral-900">{step.title}</h3>
-                <p className="text-neutral-600 text-sm">{step.description}</p>
+                <h3 className="mb-3 font-semibold text-lg text-neutral-900 dark:text-white">
+                  {step.title}
+                </h3>
+                <p className="text-neutral-600 leading-relaxed dark:text-rausch-100/70">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-16 text-center">
+        {/* CTA - refined styling */}
+        <div className="mt-20 text-center">
           <Link
             className={cn(
-              "inline-flex items-center justify-center gap-2 rounded-full px-8 py-4",
-              "bg-rausch-500 font-semibold text-white",
+              "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
+              "bg-rausch-500 font-semibold text-white text-lg",
               "shadow-lg shadow-rausch-500/20",
-              "transition-all duration-300",
-              "hover:bg-rausch-600 hover:shadow-xl"
+              "transition-all duration-200",
+              "hover:bg-rausch-600 hover:shadow-xl hover:scale-[1.02]",
+              "dark:bg-white dark:text-rausch-700 dark:shadow-white/10 dark:hover:bg-rausch-50"
             )}
             href="/become-a-pro/signup"
           >
             {t("cta")}
             <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-async function EarningsSection() {
-  const t = await getTranslations("becomeAPro.earnings");
-
-  return (
-    <section className="bg-white py-20 md:py-28">
-      <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          {/* Left: Content */}
-          <div>
-            <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
-              {t("title")}
-            </h2>
-            <p className="mb-8 text-lg text-neutral-600">{t("description")}</p>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
-                  <svg
-                    aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.rates.title")}</h4>
-                  <p className="text-neutral-600">{t("points.rates.description")}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
-                  <svg
-                    aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.payouts.title")}</h4>
-                  <p className="text-neutral-600">{t("points.payouts.description")}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
-                  <svg
-                    aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.tips.title")}</h4>
-                  <p className="text-neutral-600">{t("points.tips.description")}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Earnings card visual */}
-          <div className="relative">
-            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-xl">
-              <div className="mb-6 text-center">
-                <p className="mb-2 text-neutral-600 text-sm">{t("card.label")}</p>
-                <p className="font-bold text-5xl text-neutral-900">$2,500+</p>
-                <p className="text-neutral-500 text-sm">{t("card.period")}</p>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between rounded-lg bg-white p-3">
-                  <span className="text-neutral-600 text-sm">{t("card.bookings")}</span>
-                  <span className="font-semibold text-neutral-900">20-30</span>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-white p-3">
-                  <span className="text-neutral-600 text-sm">{t("card.hourlyRate")}</span>
-                  <span className="font-semibold text-neutral-900">$25-50</span>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-white p-3">
-                  <span className="text-neutral-600 text-sm">{t("card.tips")}</span>
-                  <span className="font-semibold text-green-600">+15%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-async function TestimonialsSection() {
-  const t = await getTranslations("becomeAPro.testimonials");
-
-  const testimonials = [
-    {
-      quote: t("items.0.quote"),
-      name: t("items.0.name"),
-      role: t("items.0.role"),
-      location: t("items.0.location"),
-    },
-    {
-      quote: t("items.1.quote"),
-      name: t("items.1.name"),
-      role: t("items.1.role"),
-      location: t("items.1.location"),
-    },
-    {
-      quote: t("items.2.quote"),
-      name: t("items.2.name"),
-      role: t("items.2.role"),
-      location: t("items.2.location"),
-    },
-  ];
-
-  return (
-    <section className="bg-neutral-900 py-20 md:py-28">
-      <Container>
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-white tracking-tight sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="text-lg text-white/70">{t("subtitle")}</p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
-            <div className="rounded-2xl bg-neutral-800 p-8" key={index}>
-              {/* Stars */}
-              <div className="mb-4 flex gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <HugeiconsIcon className="h-5 w-5 text-rausch-400" icon={StarIcon} key={i} />
-                ))}
-              </div>
-              {/* Quote */}
-              <p className="mb-6 text-white/90">"{testimonial.quote}"</p>
-              {/* Author */}
-              <div>
-                <p className="font-semibold text-white">{testimonial.name}</p>
-                <p className="text-sm text-white/60">
-                  {testimonial.role} • {testimonial.location}
-                </p>
-              </div>
-            </div>
-          ))}
         </div>
       </Container>
     </section>
@@ -450,13 +313,16 @@ async function FAQSection() {
   ];
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-24 md:py-32 dark:bg-rausch-950">
       <Container className="max-w-3xl">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+        {/* Section header - refined typography */}
+        <div className="mb-16 text-center">
+          <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl lg:text-5xl dark:text-white">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 leading-relaxed sm:text-xl dark:text-rausch-100/80">
+            {t("subtitle")}
+          </p>
         </div>
 
         <Accordion allowMultiple={false} variant="default">
@@ -476,27 +342,39 @@ async function CTASection() {
   const t = await getTranslations("becomeAPro.cta");
 
   return (
-    <section className="bg-gradient-to-br from-rausch-500 to-rausch-600 py-20 md:py-28">
+    <section className="bg-rausch-500 py-24 md:py-32 dark:bg-rausch-700">
       <Container className="max-w-3xl">
-        <div className="text-center">
-          <h2 className="mb-4 font-bold text-3xl text-white tracking-tight sm:text-4xl">
+        <div className="space-y-8 text-center">
+          {/* Headline - larger for impact */}
+          <h2 className="font-bold text-3xl text-white tracking-tight sm:text-4xl lg:text-5xl">
             {t("title")}
           </h2>
-          <p className="mb-10 text-lg text-white/90">{t("subtitle")}</p>
-          <Link
-            className={cn(
-              "inline-flex items-center justify-center gap-2 rounded-full px-10 py-4",
-              "bg-white font-semibold text-rausch-600",
-              "shadow-lg",
-              "transition-all duration-300",
-              "hover:bg-neutral-50 hover:shadow-xl"
-            )}
-            href="/become-a-pro/signup"
-          >
-            {t("button")}
-            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-          </Link>
-          <p className="mt-6 text-sm text-white/70">{t("note")}</p>
+
+          {/* Subtitle with more breathing room */}
+          <p className="mx-auto max-w-xl text-lg text-white/90 leading-relaxed sm:text-xl">
+            {t("subtitle")}
+          </p>
+
+          {/* CTA button - refined styling */}
+          <div className="pt-4">
+            <Link
+              className={cn(
+                "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
+                "bg-white font-semibold text-rausch-600 text-lg",
+                "shadow-lg shadow-rausch-600/20",
+                "transition-all duration-200",
+                "hover:bg-neutral-50 hover:shadow-xl hover:scale-[1.02]",
+                "dark:text-rausch-700"
+              )}
+              href="/become-a-pro/signup"
+            >
+              {t("button")}
+              <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
+            </Link>
+          </div>
+
+          {/* Note - subtle trust indicator */}
+          <p className="pt-4 text-sm text-white/70">{t("note")}</p>
         </div>
       </Container>
     </section>
