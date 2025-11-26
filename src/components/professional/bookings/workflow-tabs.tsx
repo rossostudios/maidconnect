@@ -15,15 +15,11 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 active states
+ * - rausch-500 active states
  * - neutral color palette
  */
 
-import {
-  Calendar03Icon,
-  CheckmarkCircle02Icon,
-  Clock01Icon,
-} from "@hugeicons/core-free-icons";
+import { Calendar03Icon, CheckmarkCircle02Icon, Clock01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { geistSans } from "@/app/fonts";
@@ -113,20 +109,20 @@ type WorkflowTabsProps = {
 export function WorkflowTabs({ value, onChange, counts, className }: WorkflowTabsProps) {
   return (
     <div
+      aria-label="Booking workflow tabs"
       className={cn(
         "flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-1.5",
         className
       )}
       role="tablist"
-      aria-label="Booking workflow tabs"
     >
       {WORKFLOW_TABS.map((tab) => (
         <WorkflowTabButton
-          key={tab.id}
-          tab={tab}
           count={counts[tab.id]}
           isActive={value === tab.id}
+          key={tab.id}
           onClick={() => onChange(tab.id)}
+          tab={tab}
         />
       ))}
     </div>
@@ -143,42 +139,42 @@ type WorkflowTabButtonProps = {
 function WorkflowTabButton({ tab, count, isActive, onClick }: WorkflowTabButtonProps) {
   return (
     <button
-      type="button"
-      role="tab"
-      aria-selected={isActive}
       aria-controls={`panel-${tab.id}`}
-      id={`tab-${tab.id}`}
-      onClick={onClick}
+      aria-selected={isActive}
       className={cn(
         "relative flex items-center gap-2 rounded-lg px-4 py-2.5 font-medium text-sm transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         isActive
           ? "bg-white text-neutral-900 shadow-sm"
           : "text-neutral-600 hover:bg-white/50 hover:text-neutral-900"
       )}
+      id={`tab-${tab.id}`}
+      onClick={onClick}
+      role="tab"
+      type="button"
     >
       <HugeiconsIcon
+        className={cn("h-4 w-4", isActive ? "text-rausch-500" : "text-neutral-400")}
         icon={tab.icon}
-        className={cn("h-4 w-4", isActive ? "text-orange-500" : "text-neutral-400")}
       />
       <span className={geistSans.className}>{tab.label}</span>
       {count > 0 && (
         <Badge
-          variant="outline"
-          size="sm"
           className={cn(
             "ml-0.5",
             isActive
-              ? "border-orange-200 bg-orange-50 text-orange-700"
+              ? "border-rausch-200 bg-rausch-50 text-rausch-700"
               : "border-neutral-200 bg-white text-neutral-500"
           )}
+          size="sm"
+          variant="outline"
         >
           {count > 99 ? "99+" : count}
         </Badge>
       )}
       {isActive && (
         <motion.div
-          className="absolute inset-x-0 -bottom-1.5 mx-auto h-0.5 w-8 rounded-full bg-orange-500"
+          className="-bottom-1.5 absolute inset-x-0 mx-auto h-0.5 w-8 rounded-full bg-rausch-500"
           layoutId="workflow-tab-indicator"
           transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
         />
@@ -213,7 +209,7 @@ export function WorkflowTabsMobile({
           <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
             {totalActive} active {totalActive === 1 ? "booking" : "bookings"}
           </span>
-          <Badge variant="outline" className="border-orange-200 bg-orange-50 text-orange-700">
+          <Badge className="border-rausch-200 bg-rausch-50 text-rausch-700" variant="outline">
             Needs attention
           </Badge>
         </div>
@@ -221,17 +217,17 @@ export function WorkflowTabsMobile({
 
       {/* Scrollable Tabs */}
       <div
-        className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide"
-        role="tablist"
         aria-label="Booking workflow tabs"
+        className="scrollbar-hide flex gap-2 overflow-x-auto pb-1"
+        role="tablist"
       >
         {WORKFLOW_TABS.map((tab) => (
           <WorkflowTabPill
-            key={tab.id}
-            tab={tab}
             count={counts[tab.id]}
             isActive={value === tab.id}
+            key={tab.id}
             onClick={() => onChange(tab.id)}
+            tab={tab}
           />
         ))}
       </div>
@@ -249,28 +245,28 @@ type WorkflowTabPillProps = {
 function WorkflowTabPill({ tab, count, isActive, onClick }: WorkflowTabPillProps) {
   return (
     <button
-      type="button"
-      role="tab"
       aria-selected={isActive}
-      onClick={onClick}
       className={cn(
         "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 font-medium text-sm transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         isActive
-          ? "border-orange-200 bg-orange-50 text-orange-700"
-          : "border-neutral-200 bg-white text-neutral-600 hover:border-orange-200 hover:bg-orange-50/50"
+          ? "border-rausch-200 bg-rausch-50 text-rausch-700"
+          : "border-neutral-200 bg-white text-neutral-600 hover:border-rausch-200 hover:bg-rausch-50/50"
       )}
+      onClick={onClick}
+      role="tab"
+      type="button"
     >
       <HugeiconsIcon
+        className={cn("h-4 w-4", isActive ? "text-rausch-600" : "text-neutral-400")}
         icon={tab.icon}
-        className={cn("h-4 w-4", isActive ? "text-orange-600" : "text-neutral-400")}
       />
       <span className={geistSans.className}>{tab.label}</span>
       {count > 0 && (
         <span
           className={cn(
             "ml-0.5 min-w-[1.25rem] rounded-full px-1.5 py-0.5 text-center font-semibold text-xs",
-            isActive ? "bg-orange-200 text-orange-800" : "bg-neutral-100 text-neutral-600"
+            isActive ? "bg-rausch-200 text-rausch-800" : "bg-neutral-100 text-neutral-600"
           )}
         >
           {count > 99 ? "99+" : count}
@@ -294,21 +290,21 @@ export function WorkflowTabsVertical({
 }: WorkflowTabsVerticalProps) {
   return (
     <div
+      aria-label="Booking workflow tabs"
+      aria-orientation="vertical"
       className={cn(
         "flex flex-col gap-1 rounded-lg border border-neutral-200 bg-white p-2",
         className
       )}
       role="tablist"
-      aria-label="Booking workflow tabs"
-      aria-orientation="vertical"
     >
       {WORKFLOW_TABS.map((tab) => (
         <WorkflowTabVerticalItem
-          key={tab.id}
-          tab={tab}
           count={counts[tab.id]}
           isActive={value === tab.id}
+          key={tab.id}
           onClick={() => onChange(tab.id)}
+          tab={tab}
         />
       ))}
     </div>
@@ -318,22 +314,22 @@ export function WorkflowTabsVertical({
 function WorkflowTabVerticalItem({ tab, count, isActive, onClick }: WorkflowTabPillProps) {
   return (
     <button
-      type="button"
-      role="tab"
       aria-selected={isActive}
-      onClick={onClick}
       className={cn(
         "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         isActive
-          ? "bg-orange-50 text-neutral-900"
+          ? "bg-rausch-50 text-neutral-900"
           : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
       )}
+      onClick={onClick}
+      role="tab"
+      type="button"
     >
       <div className="flex items-center gap-3">
         <HugeiconsIcon
+          className={cn("h-5 w-5", isActive ? "text-rausch-500" : "text-neutral-400")}
           icon={tab.icon}
-          className={cn("h-5 w-5", isActive ? "text-orange-500" : "text-neutral-400")}
         />
         <div>
           <p className={cn("font-medium text-sm", geistSans.className)}>{tab.label}</p>
@@ -342,13 +338,13 @@ function WorkflowTabVerticalItem({ tab, count, isActive, onClick }: WorkflowTabP
       </div>
       {count > 0 && (
         <Badge
-          variant="outline"
-          size="sm"
           className={cn(
             isActive
-              ? "border-orange-200 bg-orange-100 text-orange-700"
+              ? "border-rausch-200 bg-rausch-100 text-rausch-700"
               : "border-neutral-200 bg-neutral-100 text-neutral-600"
           )}
+          size="sm"
+          variant="outline"
         >
           {count > 99 ? "99+" : count}
         </Badge>

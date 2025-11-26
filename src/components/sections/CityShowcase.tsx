@@ -11,8 +11,8 @@
 
 import { ArrowLeft02Icon, ArrowRight02Icon, Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
@@ -75,7 +75,9 @@ export function CityShowcase({ className }: CityShowcaseProps) {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const updateScrollButtons = () => {
-    if (!scrollContainerRef.current) return;
+    if (!scrollContainerRef.current) {
+      return;
+    }
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
@@ -83,7 +85,9 @@ export function CityShowcase({ className }: CityShowcaseProps) {
 
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     updateScrollButtons();
     container.addEventListener("scroll", updateScrollButtons);
@@ -93,10 +97,12 @@ export function CityShowcase({ className }: CityShowcaseProps) {
       container.removeEventListener("scroll", updateScrollButtons);
       window.removeEventListener("resize", updateScrollButtons);
     };
-  }, []);
+  }, [updateScrollButtons]);
 
   const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
+    if (!scrollContainerRef.current) {
+      return;
+    }
     const scrollAmount = 320;
     scrollContainerRef.current.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -105,17 +111,15 @@ export function CityShowcase({ className }: CityShowcaseProps) {
   };
 
   return (
-    <section className={cn("bg-white py-16 sm:py-20 lg:py-24", className)}>
+    <section className={cn("bg-background py-16 sm:py-20 lg:py-24", className)}>
       <Container className="max-w-6xl">
         {/* Section Header */}
         <div className="mb-8 flex items-end justify-between sm:mb-10">
           <div>
-            <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl">
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-foreground sm:text-3xl lg:text-4xl">
               {t("title")}
             </h2>
-            <p className="mt-2 text-base text-neutral-600 sm:text-lg">
-              {t("subtitle")}
-            </p>
+            <p className="mt-2 text-base text-muted-foreground sm:text-lg">{t("subtitle")}</p>
           </div>
 
           {/* Desktop Scroll Buttons */}
@@ -123,30 +127,30 @@ export function CityShowcase({ className }: CityShowcaseProps) {
             <button
               aria-label="Scroll left"
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white transition-all",
+                "flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card transition-all",
                 canScrollLeft
-                  ? "cursor-pointer hover:border-neutral-300 hover:shadow-sm"
+                  ? "cursor-pointer hover:border-rausch-500/50 hover:shadow-sm"
                   : "cursor-not-allowed opacity-40"
               )}
               disabled={!canScrollLeft}
               onClick={() => scroll("left")}
               type="button"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={ArrowLeft02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-muted-foreground" icon={ArrowLeft02Icon} />
             </button>
             <button
               aria-label="Scroll right"
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white transition-all",
+                "flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card transition-all",
                 canScrollRight
-                  ? "cursor-pointer hover:border-neutral-300 hover:shadow-sm"
+                  ? "cursor-pointer hover:border-rausch-500/50 hover:shadow-sm"
                   : "cursor-not-allowed opacity-40"
               )}
               disabled={!canScrollRight}
               onClick={() => scroll("right")}
               type="button"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={ArrowRight02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-muted-foreground" icon={ArrowRight02Icon} />
             </button>
           </div>
         </div>
@@ -158,10 +162,14 @@ export function CityShowcase({ className }: CityShowcaseProps) {
             ref={scrollContainerRef}
           >
             {featuredCities.map((city) => (
-              <Link className="group flex-shrink-0" href={`/professionals?city=${city.slug}`} key={city.slug}>
-                <div className="w-[260px] overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-lg sm:w-[280px]">
+              <Link
+                className="group flex-shrink-0"
+                href={`/professionals?city=${city.slug}`}
+                key={city.slug}
+              >
+                <div className="w-[260px] overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-rausch-500/50 hover:shadow-lg sm:w-[280px]">
                   {/* City Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                     <Image
                       alt={`${city.name}, ${city.country}`}
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -170,17 +178,17 @@ export function CityShowcase({ className }: CityShowcaseProps) {
                       src={city.image}
                     />
                     {/* Pro Count Badge */}
-                    <div className="absolute right-3 bottom-3 rounded-full bg-white px-3 py-1 font-medium text-neutral-900 text-xs shadow-sm">
+                    <div className="absolute right-3 bottom-3 rounded-full bg-card px-3 py-1 font-medium text-foreground text-xs shadow-sm">
                       {city.proCount} {t("pros")}
                     </div>
                   </div>
 
                   {/* City Info */}
                   <div className="p-4">
-                    <h3 className="font-semibold text-lg text-neutral-900 group-hover:text-orange-600">
+                    <h3 className="font-semibold text-foreground text-lg group-hover:text-rausch-500">
                       {city.name}
                     </h3>
-                    <div className="mt-1 flex items-center gap-1 text-neutral-500 text-sm">
+                    <div className="mt-1 flex items-center gap-1 text-muted-foreground text-sm">
                       <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
                       <span>{city.country}</span>
                     </div>
@@ -191,26 +199,24 @@ export function CityShowcase({ className }: CityShowcaseProps) {
 
             {/* View All Card */}
             <Link className="group flex-shrink-0" href="/professionals">
-              <div className="flex h-full w-[260px] flex-col items-center justify-center rounded-xl border border-neutral-300 border-dashed bg-neutral-50 p-8 transition-all hover:border-orange-400 hover:bg-orange-50 sm:w-[280px]">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200 transition-colors group-hover:bg-orange-100">
+              <div className="flex h-full w-[260px] flex-col items-center justify-center rounded-xl border border-border border-dashed bg-muted p-8 transition-all hover:border-rausch-500 hover:bg-rausch-500/10 sm:w-[280px]">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-card transition-colors group-hover:bg-rausch-500/20">
                   <HugeiconsIcon
-                    className="h-6 w-6 text-neutral-600 group-hover:text-orange-600"
+                    className="h-6 w-6 text-muted-foreground group-hover:text-rausch-500"
                     icon={ArrowRight02Icon}
                   />
                 </div>
-                <span className="font-semibold text-neutral-700 group-hover:text-orange-600">
+                <span className="font-semibold text-foreground group-hover:text-rausch-500">
                   {t("viewAll")}
                 </span>
-                <span className="mt-1 text-neutral-500 text-sm">{t("coverage")}</span>
+                <span className="mt-1 text-muted-foreground text-sm">{t("coverage")}</span>
               </div>
             </Link>
           </div>
         </div>
 
         {/* Bottom Note */}
-        <p className="mt-6 text-center text-neutral-500 text-sm sm:mt-8">
-          {t("bottomNote")}
-        </p>
+        <p className="mt-6 text-center text-muted-foreground text-sm sm:mt-8">{t("bottomNote")}</p>
       </Container>
     </section>
   );

@@ -26,20 +26,20 @@ mock.module("../client", () => ({
 
 // Import after mocking
 import {
-  sendNewBookingRequestEmail,
+  sendAccountRestorationEmail,
+  sendAccountSuspensionEmail,
+  sendBackgroundCheckCompletedEmail,
   sendBookingConfirmedEmail,
   sendBookingDeclinedEmail,
   sendBookingReminderEmail,
-  sendMessageNotificationEmail,
-  sendServiceCompletedEmail,
-  sendAccountSuspensionEmail,
-  sendAccountRestorationEmail,
   sendBookingRescheduleEmail,
-  sendProfessionalApprovedEmail,
-  sendProfessionalRejectedEmail,
-  sendProfessionalInfoRequestedEmail,
-  sendBackgroundCheckCompletedEmail,
   sendEmail,
+  sendMessageNotificationEmail,
+  sendNewBookingRequestEmail,
+  sendProfessionalApprovedEmail,
+  sendProfessionalInfoRequestedEmail,
+  sendProfessionalRejectedEmail,
+  sendServiceCompletedEmail,
 } from "../send";
 
 // ========================================
@@ -75,10 +75,7 @@ describe("Email Send Module", () => {
 
   describe("sendNewBookingRequestEmail", () => {
     it("should send booking request email to professional", async () => {
-      const result = await sendNewBookingRequestEmail(
-        "professional@example.com",
-        mockBookingData
-      );
+      const result = await sendNewBookingRequestEmail("professional@example.com", mockBookingData);
 
       expect(result.success).toBe(true);
       expect(result.error).toBeUndefined();
@@ -95,10 +92,7 @@ describe("Email Send Module", () => {
     it("should handle send errors gracefully", async () => {
       mockSend.mockImplementation(() => Promise.reject(new Error("Network error")));
 
-      const result = await sendNewBookingRequestEmail(
-        "professional@example.com",
-        mockBookingData
-      );
+      const result = await sendNewBookingRequestEmail("professional@example.com", mockBookingData);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe("Network error");
@@ -107,10 +101,7 @@ describe("Email Send Module", () => {
     it("should handle non-Error exceptions", async () => {
       mockSend.mockImplementation(() => Promise.reject("String error"));
 
-      const result = await sendNewBookingRequestEmail(
-        "professional@example.com",
-        mockBookingData
-      );
+      const result = await sendNewBookingRequestEmail("professional@example.com", mockBookingData);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe("Unknown error");
@@ -123,10 +114,7 @@ describe("Email Send Module", () => {
 
   describe("sendBookingConfirmedEmail", () => {
     it("should send confirmation email to customer", async () => {
-      const result = await sendBookingConfirmedEmail(
-        "customer@example.com",
-        mockBookingData
-      );
+      const result = await sendBookingConfirmedEmail("customer@example.com", mockBookingData);
 
       expect(result.success).toBe(true);
       expect(mockSend).toHaveBeenCalledTimes(1);
@@ -142,10 +130,7 @@ describe("Email Send Module", () => {
     it("should handle send errors", async () => {
       mockSend.mockImplementation(() => Promise.reject(new Error("SMTP error")));
 
-      const result = await sendBookingConfirmedEmail(
-        "customer@example.com",
-        mockBookingData
-      );
+      const result = await sendBookingConfirmedEmail("customer@example.com", mockBookingData);
 
       expect(result.success).toBe(false);
       expect(result.error).toBe("SMTP error");
@@ -158,10 +143,7 @@ describe("Email Send Module", () => {
 
   describe("sendBookingDeclinedEmail", () => {
     it("should send declined email without reason", async () => {
-      const result = await sendBookingDeclinedEmail(
-        "customer@example.com",
-        mockBookingData
-      );
+      const result = await sendBookingDeclinedEmail("customer@example.com", mockBookingData);
 
       expect(result.success).toBe(true);
       expect(mockSend).toHaveBeenCalledTimes(1);
@@ -191,11 +173,7 @@ describe("Email Send Module", () => {
 
   describe("sendBookingReminderEmail", () => {
     it("should send reminder to customer", async () => {
-      const result = await sendBookingReminderEmail(
-        "customer@example.com",
-        mockBookingData,
-        false
-      );
+      const result = await sendBookingReminderEmail("customer@example.com", mockBookingData, false);
 
       expect(result.success).toBe(true);
     });
@@ -211,11 +189,7 @@ describe("Email Send Module", () => {
     });
 
     it("should include service name in subject", async () => {
-      await sendBookingReminderEmail(
-        "customer@example.com",
-        mockBookingData,
-        false
-      );
+      await sendBookingReminderEmail("customer@example.com", mockBookingData, false);
 
       const callArgs = mockSend.mock.calls[0][0];
       expect(callArgs.subject).toContain(mockBookingData.serviceName);
@@ -294,11 +268,7 @@ describe("Email Send Module", () => {
     });
 
     it("should include service name in subject", async () => {
-      await sendServiceCompletedEmail(
-        "customer@example.com",
-        mockBookingData,
-        false
-      );
+      await sendServiceCompletedEmail("customer@example.com", mockBookingData, false);
 
       const callArgs = mockSend.mock.calls[0][0];
       expect(callArgs.subject).toContain(mockBookingData.serviceName);
@@ -334,13 +304,7 @@ describe("Email Send Module", () => {
     });
 
     it("should use suspension subject for temporary suspension", async () => {
-      await sendAccountSuspensionEmail(
-        "user@example.com",
-        "John",
-        "Reason",
-        "2025-02-01",
-        7
-      );
+      await sendAccountSuspensionEmail("user@example.com", "John", "Reason", "2025-02-01", 7);
 
       const callArgs = mockSend.mock.calls[0][0];
       expect(callArgs.subject).toContain("Suspended");
@@ -426,10 +390,7 @@ describe("Email Send Module", () => {
 
   describe("sendProfessionalApprovedEmail", () => {
     it("should send approval email without notes", async () => {
-      const result = await sendProfessionalApprovedEmail(
-        "pro@example.com",
-        "Carlos López"
-      );
+      const result = await sendProfessionalApprovedEmail("pro@example.com", "Carlos López");
 
       expect(result.success).toBe(true);
     });
@@ -477,10 +438,7 @@ describe("Email Send Module", () => {
 
   describe("sendProfessionalInfoRequestedEmail", () => {
     it("should send info request email without notes", async () => {
-      const result = await sendProfessionalInfoRequestedEmail(
-        "pro@example.com",
-        "Carlos López"
-      );
+      const result = await sendProfessionalInfoRequestedEmail("pro@example.com", "Carlos López");
 
       expect(result.success).toBe(true);
     });
@@ -542,12 +500,7 @@ describe("Email Send Module", () => {
     });
 
     it("should use success checkmark for clear/approved", async () => {
-      await sendBackgroundCheckCompletedEmail(
-        "pro@example.com",
-        "Carlos",
-        "clear",
-        "approved"
-      );
+      await sendBackgroundCheckCompletedEmail("pro@example.com", "Carlos", "clear", "approved");
 
       const callArgs = mockSend.mock.calls[0][0];
       expect(callArgs.subject).toContain("✓");

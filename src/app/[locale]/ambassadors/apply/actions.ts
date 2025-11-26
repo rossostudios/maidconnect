@@ -178,11 +178,11 @@ export async function submitAmbassadorApplication(
       .eq("referral_code", referralCode)
       .single();
 
-    if (!existing) {
-      codeExists = false;
-    } else {
+    if (existing) {
       referralCode = generateReferralCode();
       attempts++;
+    } else {
+      codeExists = false;
     }
   }
 

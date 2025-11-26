@@ -56,6 +56,290 @@ const LANGUAGES = [
   { value: "both", label: "Bilingual (English & Spanish)" },
 ];
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+function getStepIndicatorClass(stepId: number, currentStep: number): string {
+  if (stepId === currentStep) {
+    return "border-rausch-500 bg-rausch-500 text-white";
+  }
+  if (stepId < currentStep) {
+    return "border-rausch-500 bg-rausch-50 text-rausch-600";
+  }
+  return "border-neutral-300 bg-white text-neutral-600";
+}
+
+function getSelectionCardClass(isSelected: boolean): string {
+  if (isSelected) {
+    return "border-rausch-500 bg-rausch-50";
+  }
+  return "border-neutral-200 hover:border-neutral-300";
+}
+
+function getFieldsForStep(step: number): (keyof BriefFormData)[] {
+  switch (step) {
+    case 1:
+      return ["serviceType"];
+    case 2:
+      return ["country", "city", "language"];
+    case 3:
+      return ["startDate", "hoursPerWeek"];
+    case 4:
+      return ["name", "email", "phone"];
+    case 5:
+      return ["requirements"];
+    default:
+      return [];
+  }
+}
+
+async function submitBriefData(data: BriefFormData): Promise<string> {
+  const response = await fetch("/api/briefs", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to submit brief");
+  }
+
+  const { briefId } = await response.json();
+  return briefId;
+}
+
+function handleSubmitError(error: unknown): void {
+  console.error("Error submitting brief:", error);
+  alert("There was an error submitting your request. Please try again.");
+}
+
+// --- Step Sub-Components (extracted for complexity reduction) ---
+
+type StepProps = {
+  formData: BriefFormData;
+  register: ReturnType<typeof useForm<BriefFormData>>["register"];
+  errors: ReturnType<typeof useForm<BriefFormData>>["formState"]["errors"];
+};
+
+type LocationStepProps = StepProps & {
+  selectedCountry: string | undefined;
+  cityOptions: { value: string; label: string }[];
+};
+
+function ServiceTypeStep({ formData, register, errors }: StepProps) {
+  return (
+    <div className="space-y-4">
+      <span
+        aria-label="Service Type"
+        className="block font-medium text-neutral-700 text-sm"
+        role="group"
+      >
+        Service Type <span className="text-rausch-500">*</span>
+      </span>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {SERVICE_TYPES.map((service) => (
+          <label
+            className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${getSelectionCardClass(formData.serviceType === service.value)}`}
+            key={service.value}
+          >
+            <input
+              type="radio"
+              value={service.value}
+              {...register("serviceType")}
+              className="h-4 w-4 text-rausch-500"
+            />
+            <span className="font-medium text-neutral-900">{service.label}</span>
+          </label>
+        ))}
+      </div>
+      {errors.serviceType && <p className="text-red-600 text-sm">{errors.serviceType.message}</p>}
+    </div>
+  );
+}
+
+function LocationLanguageStep({
+  formData,
+  register,
+  errors,
+  selectedCountry,
+  cityOptions,
+}: LocationStepProps) {
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="country">
+          Country <span className="text-rausch-500">*</span>
+        </label>
+        <select
+          id="country"
+          {...register("country")}
+          className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/25"
+        >
+          <option value="">Select a country</option>
+          {COUNTRY_OPTIONS.map((country) => (
+            <option key={country.value} value={country.value}>
+              {country.label}
+            </option>
+          ))}
+        </select>
+        {errors.country && <p className="mt-1 text-red-600 text-sm">{errors.country.message}</p>}
+      </div>
+
+      {selectedCountry && (
+        <div>
+          <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="city">
+            City <span className="text-rausch-500">*</span>
+          </label>
+          <select
+            id="city"
+            {...register("city")}
+            className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/25"
+          >
+            <option value="">Select a city</option>
+            {cityOptions.map((city) => (
+              <option key={city.value} value={city.value}>
+                {city.label}
+              </option>
+            ))}
+          </select>
+          {errors.city && <p className="mt-1 text-red-600 text-sm">{errors.city.message}</p>}
+        </div>
+      )}
+
+      <div>
+        <span
+          aria-label="Language Preference"
+          className="mb-3 block font-medium text-neutral-700 text-sm"
+          role="group"
+        >
+          Language Preference <span className="text-rausch-500">*</span>
+        </span>
+        <div className="space-y-2">
+          {LANGUAGES.map((lang) => (
+            <label
+              className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${getSelectionCardClass(formData.language === lang.value)}`}
+              key={lang.value}
+            >
+              <input
+                type="radio"
+                value={lang.value}
+                {...register("language")}
+                className="h-4 w-4 text-rausch-500"
+              />
+              <span className="font-medium text-neutral-900">{lang.label}</span>
+            </label>
+          ))}
+        </div>
+        {errors.language && <p className="mt-1 text-red-600 text-sm">{errors.language.message}</p>}
+      </div>
+    </div>
+  );
+}
+
+function ScheduleStep({ register, errors }: StepProps) {
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="startDate">
+          When do you need help to start? <span className="text-rausch-500">*</span>
+        </label>
+        <Input
+          id="startDate"
+          type="date"
+          {...register("startDate")}
+          className="w-full"
+          min={new Date().toISOString().split("T")[0]}
+        />
+        {errors.startDate && (
+          <p className="mt-1 text-red-600 text-sm">{errors.startDate.message}</p>
+        )}
+      </div>
+
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="hoursPerWeek">
+          Hours per week <span className="text-rausch-500">*</span>
+        </label>
+        <select
+          id="hoursPerWeek"
+          {...register("hoursPerWeek")}
+          className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/25"
+        >
+          <option value="">Select hours</option>
+          <option value="1-10">1-10 hours/week</option>
+          <option value="11-20">11-20 hours/week</option>
+          <option value="21-30">21-30 hours/week</option>
+          <option value="31-40">31-40 hours/week</option>
+          <option value="40+">40+ hours/week (Full-time)</option>
+        </select>
+        {errors.hoursPerWeek && (
+          <p className="mt-1 text-red-600 text-sm">{errors.hoursPerWeek.message}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ContactInfoStep({ register, errors }: StepProps) {
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="name">
+          Your Name <span className="text-rausch-500">*</span>
+        </label>
+        <Input id="name" {...register("name")} className="w-full" placeholder="John Doe" />
+        {errors.name && <p className="mt-1 text-red-600 text-sm">{errors.name.message}</p>}
+      </div>
+
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="email">
+          Email Address <span className="text-rausch-500">*</span>
+        </label>
+        <Input
+          id="email"
+          type="email"
+          {...register("email")}
+          className="w-full"
+          placeholder="john@example.com"
+        />
+        {errors.email && <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="phone">
+          Phone Number (Optional)
+        </label>
+        <Input
+          id="phone"
+          type="tel"
+          {...register("phone")}
+          className="w-full"
+          placeholder="+57 300 123 4567"
+        />
+      </div>
+    </div>
+  );
+}
+
+function RequirementsStep({ register }: StepProps) {
+  return (
+    <div className="space-y-4">
+      <label className="block font-medium text-neutral-700 text-sm" htmlFor="requirements">
+        Any special requirements or preferences? (Optional)
+      </label>
+      <Textarea
+        id="requirements"
+        {...register("requirements")}
+        className="w-full"
+        placeholder="E.g., must speak English fluently, experience with infants, cooking skills, pet-friendly..."
+        rows={6}
+      />
+      <p className="text-neutral-700 text-sm">
+        Tell us about any specific needs, scheduling preferences, or qualifications you&apos;re
+        looking for.
+      </p>
+    </div>
+  );
+}
+
 type BriefFormProps = {
   onSuccess: (briefId: string) => void;
 };
@@ -103,45 +387,13 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
   const onSubmit = async (data: BriefFormData) => {
     setIsSubmitting(true);
     try {
-      // TODO: Submit to Supabase
-      const response = await fetch("/api/briefs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit brief");
-      }
-
-      const { briefId } = await response.json();
-
-      // Track conversion
+      const briefId = await submitBriefData(data);
       conversionTracking.briefCompleted({ briefId });
-
       onSuccess(briefId);
     } catch (error) {
-      console.error("Error submitting brief:", error);
-      alert("There was an error submitting your request. Please try again.");
+      handleSubmitError(error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const getFieldsForStep = (step: number): (keyof BriefFormData)[] => {
-    switch (step) {
-      case 1:
-        return ["serviceType"];
-      case 2:
-        return ["country", "city", "language"];
-      case 3:
-        return ["startDate", "hoursPerWeek"];
-      case 4:
-        return ["name", "email", "phone"];
-      case 5:
-        return ["requirements"];
-      default:
-        return [];
     }
   };
 
@@ -156,13 +408,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         <div className="mb-4 flex items-center justify-between">
           {STEPS.map((step) => (
             <div
-              className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
-                step.id === currentStep
-                  ? "border-orange-500 bg-orange-500 text-white"
-                  : step.id < currentStep
-                    ? "border-orange-500 bg-orange-50 text-orange-600"
-                    : "border-neutral-300 bg-white text-neutral-600"
-              }`}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${getStepIndicatorClass(step.id, currentStep)}`}
               key={step.id}
             >
               {step.id}
@@ -171,7 +417,7 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
           <div
-            className="h-full rounded-full bg-orange-500 transition-all duration-300"
+            className="h-full rounded-full bg-rausch-500 transition-all duration-300"
             style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
           />
         </div>
@@ -187,220 +433,26 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
 
       {/* Form */}
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        {/* Step 1: Service Type */}
         {currentStep === 1 && (
-          <div className="space-y-4">
-            <label className="block font-medium text-neutral-700 text-sm">
-              Service Type <span className="text-orange-500">*</span>
-            </label>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {SERVICE_TYPES.map((service) => (
-                <label
-                  className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
-                    formData.serviceType === service.value
-                      ? "border-orange-500 bg-orange-50"
-                      : "border-neutral-200 hover:border-neutral-300"
-                  }`}
-                  key={service.value}
-                >
-                  <input
-                    type="radio"
-                    value={service.value}
-                    {...register("serviceType")}
-                    className="h-4 w-4 text-orange-500"
-                  />
-                  <span className="font-medium text-neutral-900">{service.label}</span>
-                </label>
-              ))}
-            </div>
-            {errors.serviceType && (
-              <p className="text-red-600 text-sm">{errors.serviceType.message}</p>
-            )}
-          </div>
+          <ServiceTypeStep errors={errors} formData={formData} register={register} />
         )}
-
-        {/* Step 2: Location & Language */}
         {currentStep === 2 && (
-          <div className="space-y-6">
-            <div>
-              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="country">
-                Country <span className="text-orange-500">*</span>
-              </label>
-              <select
-                id="country"
-                {...register("country")}
-                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
-              >
-                <option value="">Select a country</option>
-                {COUNTRY_OPTIONS.map((country) => (
-                  <option key={country.value} value={country.value}>
-                    {country.label}
-                  </option>
-                ))}
-              </select>
-              {errors.country && (
-                <p className="mt-1 text-red-600 text-sm">{errors.country.message}</p>
-              )}
-            </div>
-
-            {selectedCountry && (
-              <div>
-                <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="city">
-                  City <span className="text-orange-500">*</span>
-                </label>
-                <select
-                  id="city"
-                  {...register("city")}
-                  className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
-                >
-                  <option value="">Select a city</option>
-                  {cityOptions.map((city) => (
-                    <option key={city.value} value={city.value}>
-                      {city.label}
-                    </option>
-                  ))}
-                </select>
-                {errors.city && <p className="mt-1 text-red-600 text-sm">{errors.city.message}</p>}
-              </div>
-            )}
-
-            <div>
-              <label className="mb-3 block font-medium text-neutral-700 text-sm">
-                Language Preference <span className="text-orange-500">*</span>
-              </label>
-              <div className="space-y-2">
-                {LANGUAGES.map((lang) => (
-                  <label
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-all ${
-                      formData.language === lang.value
-                        ? "border-orange-500 bg-orange-50"
-                        : "border-neutral-200 hover:border-neutral-300"
-                    }`}
-                    key={lang.value}
-                  >
-                    <input
-                      type="radio"
-                      value={lang.value}
-                      {...register("language")}
-                      className="h-4 w-4 text-orange-500"
-                    />
-                    <span className="font-medium text-neutral-900">{lang.label}</span>
-                  </label>
-                ))}
-              </div>
-              {errors.language && (
-                <p className="mt-1 text-red-600 text-sm">{errors.language.message}</p>
-              )}
-            </div>
-          </div>
+          <LocationLanguageStep
+            cityOptions={cityOptions}
+            errors={errors}
+            formData={formData}
+            register={register}
+            selectedCountry={selectedCountry}
+          />
         )}
-
-        {/* Step 3: Schedule */}
         {currentStep === 3 && (
-          <div className="space-y-6">
-            <div>
-              <label
-                className="mb-2 block font-medium text-neutral-700 text-sm"
-                htmlFor="startDate"
-              >
-                When do you need help to start? <span className="text-orange-500">*</span>
-              </label>
-              <Input
-                id="startDate"
-                type="date"
-                {...register("startDate")}
-                className="w-full"
-                min={new Date().toISOString().split("T")[0]}
-              />
-              {errors.startDate && (
-                <p className="mt-1 text-red-600 text-sm">{errors.startDate.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                className="mb-2 block font-medium text-neutral-700 text-sm"
-                htmlFor="hoursPerWeek"
-              >
-                Hours per week <span className="text-orange-500">*</span>
-              </label>
-              <select
-                id="hoursPerWeek"
-                {...register("hoursPerWeek")}
-                className="w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
-              >
-                <option value="">Select hours</option>
-                <option value="1-10">1-10 hours/week</option>
-                <option value="11-20">11-20 hours/week</option>
-                <option value="21-30">21-30 hours/week</option>
-                <option value="31-40">31-40 hours/week</option>
-                <option value="40+">40+ hours/week (Full-time)</option>
-              </select>
-              {errors.hoursPerWeek && (
-                <p className="mt-1 text-red-600 text-sm">{errors.hoursPerWeek.message}</p>
-              )}
-            </div>
-          </div>
+          <ScheduleStep errors={errors} formData={formData} register={register} />
         )}
-
-        {/* Step 4: Contact Info */}
         {currentStep === 4 && (
-          <div className="space-y-6">
-            <div>
-              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="name">
-                Your Name <span className="text-orange-500">*</span>
-              </label>
-              <Input id="name" {...register("name")} className="w-full" placeholder="John Doe" />
-              {errors.name && <p className="mt-1 text-red-600 text-sm">{errors.name.message}</p>}
-            </div>
-
-            <div>
-              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="email">
-                Email Address <span className="text-orange-500">*</span>
-              </label>
-              <Input
-                id="email"
-                type="email"
-                {...register("email")}
-                className="w-full"
-                placeholder="john@example.com"
-              />
-              {errors.email && <p className="mt-1 text-red-600 text-sm">{errors.email.message}</p>}
-            </div>
-
-            <div>
-              <label className="mb-2 block font-medium text-neutral-700 text-sm" htmlFor="phone">
-                Phone Number (Optional)
-              </label>
-              <Input
-                id="phone"
-                type="tel"
-                {...register("phone")}
-                className="w-full"
-                placeholder="+57 300 123 4567"
-              />
-            </div>
-          </div>
+          <ContactInfoStep errors={errors} formData={formData} register={register} />
         )}
-
-        {/* Step 5: Special Requirements */}
         {currentStep === 5 && (
-          <div className="space-y-4">
-            <label className="block font-medium text-neutral-700 text-sm" htmlFor="requirements">
-              Any special requirements or preferences? (Optional)
-            </label>
-            <Textarea
-              id="requirements"
-              {...register("requirements")}
-              className="w-full"
-              placeholder="E.g., must speak English fluently, experience with infants, cooking skills, pet-friendly..."
-              rows={6}
-            />
-            <p className="text-neutral-700 text-sm">
-              Tell us about any specific needs, scheduling preferences, or qualifications you're
-              looking for.
-            </p>
-          </div>
+          <RequirementsStep errors={errors} formData={formData} register={register} />
         )}
 
         {/* Navigation Buttons */}

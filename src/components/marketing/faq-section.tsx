@@ -73,7 +73,7 @@ export function FaqSection() {
           {/* Left Column */}
           <div className="flex flex-col gap-6 p-8 md:p-10 lg:p-12">
             <div className="inline-flex">
-              <span className="font-semibold text-orange-500 text-sm uppercase tracking-wider">
+              <span className="font-semibold text-rausch-500 text-sm uppercase tracking-wider">
                 FAQ
               </span>
             </div>
@@ -94,7 +94,7 @@ export function FaqSection() {
                 <div className={"border-neutral-200 border-b last:border-b-0"} key={index}>
                   <button
                     aria-expanded={isOpen}
-                    className="flex w-full items-start justify-between gap-4 p-6 text-left transition-colors hover:text-orange-600 md:p-8"
+                    className="flex w-full items-start justify-between gap-4 p-6 text-left transition-colors hover:text-rausch-600 md:p-8"
                     onClick={() => toggleItem(index)}
                     type="button"
                   >

@@ -1,6 +1,6 @@
 # Lia Design System Handbook
 
-Lia is Casaora's Anthropic-inspired design language. This directory is now the **only canonical reference** for tokens, primitives, and implementation guardrails. All other design notes are managed directly in code or Linear issues so this folder stays lean.
+Lia is Casaora's Airbnb-inspired design language. This directory is now the **only canonical reference** for tokens, primitives, and implementation guardrails. All other design notes are managed directly in code or Linear issues so this folder stays lean.
 
 ## How to Use This Handbook
 
@@ -21,9 +21,9 @@ Lia is Casaora's Anthropic-inspired design language. This directory is now the *
 ## Canonical Guardrails
 
 - **Typeface:** Geist Sans for all text, Geist Mono for data (`src/app/fonts.ts`).
-- **Palette:** Anthropic warm neutrals + three-accent system (orange, blue, green) defined in `src/app/globals.css`.
-- **Geometry:** Anthropic rounded corners (`rounded-lg` for buttons/cards/inputs, `rounded-full` for badges/pills).
+- **Palette:** Airbnb cool neutrals + three-accent system (rausch coral, babu teal, green) defined in `src/app/globals.css`.
+- **Geometry:** Airbnb-inspired rounded corners (`rounded-lg` for buttons/cards/inputs, `rounded-full` for badges/pills).
 - **Spacing:** 4px base grid, 24px baseline, 64px module for vertical rhythm.
-- **Interactions:** Orange focus ring (`ring-orange-500`), `hover:bg-neutral-50` for data tables, active scale `0.98` for click feedback.
+- **Interactions:** Rausch focus ring (`ring-rausch-500`), `hover:bg-neutral-50` for data tables, active scale `0.98` for click feedback.
 
 Questions or proposed changes? Open a short RFC in `docs/lia/` first so we maintain a single source of truth.

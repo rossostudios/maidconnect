@@ -47,32 +47,32 @@ const categoryConfig = {
   features: {
     icon: MagicWand01Icon,
     label: { en: "Features", es: "Características" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
   improvements: {
     icon: FlashIcon,
     label: { en: "Improvements", es: "Mejoras" },
-    color: "text-orange-500 bg-neutral-50 border-neutral-200",
+    color: "text-rausch-500 bg-neutral-50 border-neutral-200",
   },
   bug_fixes: {
     icon: Bug01Icon,
     label: { en: "Bug Fixes", es: "Correcciones" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/40",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/40",
   },
   performance: {
     icon: FlashIcon,
     label: { en: "Performance", es: "Rendimiento" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
   security: {
     icon: Shield01Icon,
     label: { en: "Security", es: "Seguridad" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/30",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/30",
   },
   design: {
     icon: PaintBoardIcon,
     label: { en: "Design", es: "Diseño" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
 };
 
@@ -165,7 +165,7 @@ export default async function ChangelogDetailPage({
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             {/* Back Link */}
             <Link
-              className="mb-6 inline-flex items-center gap-2 text-orange-500 text-sm transition hover:gap-3"
+              className="mb-6 inline-flex items-center gap-2 text-rausch-500 text-sm transition hover:gap-3"
               href={`/${locale}/changelog`}
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
@@ -174,7 +174,7 @@ export default async function ChangelogDetailPage({
 
             {/* Sprint Badge and Date */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
+              <span className="bg-rausch-500/20 px-3 py-1 font-semibold text-rausch-500 text-sm">
                 Sprint {changelog.sprintNumber}
               </span>
               <span className="flex items-center gap-1.5 text-neutral-500 text-sm">
@@ -244,7 +244,7 @@ export default async function ChangelogDetailPage({
                       className="border border-neutral-200 bg-gradient-to-br from-white to-white p-4 text-center"
                       key={index}
                     >
-                      <div className="mb-1 font-bold text-2xl text-orange-500">{metric.value}</div>
+                      <div className="mb-1 font-bold text-2xl text-rausch-500">{metric.value}</div>
                       <div className="font-medium text-neutral-900 text-sm">{metric.metric}</div>
                       {metric.description && (
                         <div className="mt-1 text-neutral-500 text-xs">{metric.description}</div>
@@ -279,7 +279,7 @@ export default async function ChangelogDetailPage({
             {/* Back to Changelog */}
             <div className="mt-8 text-center">
               <Link
-                className="inline-flex items-center gap-2 text-orange-500"
+                className="inline-flex items-center gap-2 text-rausch-500"
                 href={`/${locale}/changelog`}
               >
                 <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />

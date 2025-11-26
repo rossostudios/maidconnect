@@ -61,21 +61,21 @@ export function CookieConsent() {
           )}
         >
           {/* Warm gradient accent bar at top */}
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400" />
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rausch-400 via-rausch-500 to-rausch-400" />
 
           <div className="p-5 sm:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
               {/* Icon */}
               <div className="hidden flex-shrink-0 sm:block">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50">
-                  <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={CookieIcon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-50">
+                  <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={CookieIcon} />
                 </div>
               </div>
 
               {/* Content */}
               <div className="min-w-0 flex-1">
                 <div className="mb-2 flex items-center gap-2 sm:hidden">
-                  <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={CookieIcon} />
+                  <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={CookieIcon} />
                   <h3 className="font-semibold text-neutral-900">{t("title")}</h3>
                 </div>
                 <h3 className="mb-1 hidden font-semibold text-neutral-900 sm:block">
@@ -84,7 +84,7 @@ export function CookieConsent() {
                 <p className="text-neutral-600 text-sm leading-relaxed">
                   {t("message")}{" "}
                   <Link
-                    className="font-medium text-orange-600 underline decoration-orange-200 underline-offset-2 transition-colors hover:text-orange-700 hover:decoration-orange-400"
+                    className="font-medium text-rausch-600 underline decoration-rausch-200 underline-offset-2 transition-colors hover:text-rausch-700 hover:decoration-rausch-400"
                     href="/privacy"
                   >
                     {t("learnMore")}
@@ -111,7 +111,7 @@ export function CookieConsent() {
                   "text-neutral-600 hover:text-neutral-900",
                   "border border-neutral-200 hover:border-neutral-300",
                   "bg-white hover:bg-neutral-50",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
                 )}
                 onClick={() => handleClose(false)}
                 type="button"
@@ -122,9 +122,9 @@ export function CookieConsent() {
                 className={cn(
                   "rounded-lg px-4 py-2 font-medium text-sm transition-all",
                   "text-white",
-                  "bg-orange-500 hover:bg-orange-600",
+                  "bg-rausch-500 hover:bg-rausch-600",
                   "shadow-sm hover:shadow",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
                 )}
                 onClick={() => handleClose(true)}
                 type="button"

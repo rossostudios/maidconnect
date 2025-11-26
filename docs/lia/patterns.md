@@ -15,8 +15,8 @@ This file consolidates every Lia surface rule that previously lived across `mini
 - Numbers/IDs always `geistMono`.
 
 **Color**
-- Orange is only used for primary CTAs, active table headers, and progress chips.
-- Semantic states: success `bg-green-600`, warning `bg-yellow-600`, error `bg-red-600`, info `bg-blue-600`—text always white uppercase `text-xs`.
+- Rausch is only used for primary CTAs, active table headers, and progress chips.
+- Semantic states: success `bg-green-600`, warning `bg-yellow-600`, error `bg-red-600`, info `bg-babu-600`—text always white uppercase `text-xs`.
 
 **Components**
 - Data grids -> `DataTableEnhanced` (sortable headers, hover row states).
@@ -26,12 +26,12 @@ This file consolidates every Lia surface rule that previously lived across `mini
 **Interaction Notes**
 - Hover rows use `hover:bg-neutral-50`.
 - Buttons use `active:scale-[0.98]` so they feel tactile.
-- Focus rings must be visible even inside dense tables (`focus-visible:ring-2 ring-orange-500`).
+- Focus rings must be visible even inside dense tables (`focus-visible:ring-2 ring-rausch-500`).
 
 ## 2. Marketing & Landing Surfaces
 
 **Layout**
-- Hero blocks use the gradient token `linear-gradient(180deg,#FFF8F2,#FFF1E6)` plus `py-32` or `py-40`.
+- Hero blocks use the gradient token `linear-gradient(180deg,#F7F7F7,#EBEBEB)` plus `py-32` or `py-40`.
 - Cards can adopt a **premium** hierarchy: `rounded-[32px] border border-neutral-200 shadow-[0_24px_80px_rgba(15,23,42,0.08)]`.
 - Use `gap-16` for large sections and `Container` to keep 24px gutters.
 
@@ -41,7 +41,7 @@ This file consolidates every Lia surface rule that previously lived across `mini
 - Support copy stays under 80 characters per line (set `max-w-3xl`).
 
 **Color**
-- Primary CTA remains `orange-500`.
+- Primary CTA remains `rausch-500`.
 - Secondary actions = ghost text links or `bg-neutral-100`.
 - Iconography sticks to neutral outlines; avoid colorful glyphs.
 
@@ -64,7 +64,7 @@ This file consolidates every Lia surface rule that previously lived across `mini
 **Typography**
 - Headline = uppercase H2 (36/48).
 - Description = `text-neutral-700`.
-- Action links = `text-orange-600` with icon leaning right.
+- Action links = `text-rausch-600` with icon leaning right.
 
 **Patterns**
 - Help center modules: `Accordion` or `Tabs` with descriptive titles.

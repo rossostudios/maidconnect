@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { sanitizeHTML } from "@/lib/utils/sanitize";
@@ -23,6 +24,281 @@ type BulkOperationProgress = {
   failed: number;
   errors: Array<{ userId: string; error: string }>;
 };
+
+type BulkOperationRequest = {
+  endpoint: string;
+  body: Record<string, unknown>;
+};
+
+/**
+ * Create initial progress state
+ */
+function createInitialProgress(totalUsers: number): BulkOperationProgress {
+  return {
+    total: totalUsers,
+    processed: 0,
+    successful: 0,
+    failed: 0,
+    errors: [],
+  };
+}
+
+/**
+ * Create progress state from API result
+ */
+function createResultProgress(
+  total: number,
+  result: {
+    successful?: number;
+    failed?: number;
+    errors?: Array<{ userId: string; error: string }>;
+  }
+): BulkOperationProgress {
+  return {
+    total,
+    processed: total,
+    successful: result.successful ?? 0,
+    failed: result.failed ?? 0,
+    errors: result.errors ?? [],
+  };
+}
+
+/**
+ * Build the API request for a bulk operation
+ * Extracted to reduce cognitive complexity of executeBulkOperation
+ */
+function buildBulkOperationRequest(
+  action: BulkAction,
+  userIds: string[],
+  options: {
+    suspensionReason: string;
+    suspensionType: "temporary" | "permanent";
+    suspensionDays: number;
+    messageSubject: string;
+    messageContent: string;
+  }
+): BulkOperationRequest | null {
+  const baseBody = { user_ids: userIds };
+
+  switch (action) {
+    case "suspend":
+      return {
+        endpoint: "/api/admin/bulk/suspend",
+        body: {
+          ...baseBody,
+          reason: options.suspensionReason,
+          type: options.suspensionType,
+          expires_at:
+            options.suspensionType === "temporary"
+              ? new Date(Date.now() + options.suspensionDays * 24 * 60 * 60 * 1000).toISOString()
+              : null,
+        },
+      };
+    case "verify":
+      return {
+        endpoint: "/api/admin/bulk/verify",
+        body: { ...baseBody, approved: true },
+      };
+    case "message":
+      return {
+        endpoint: "/api/admin/bulk/message",
+        body: {
+          ...baseBody,
+          subject: options.messageSubject,
+          message: sanitizeHTML(options.messageContent),
+        },
+      };
+    case "export":
+      return null; // Export handled separately
+    default:
+      return null;
+  }
+}
+
+/**
+ * Get error message from unknown error
+ */
+function getErrorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : "Bulk operation failed";
+}
+
+/**
+ * Execute API request and return result
+ */
+async function executeApiRequest(request: BulkOperationRequest): Promise<{
+  ok: boolean;
+  result: {
+    successful?: number;
+    failed?: number;
+    errors?: Array<{ userId: string; error: string }>;
+    error?: string;
+  };
+}> {
+  const response = await fetch(request.endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(request.body),
+  });
+  const result = await response.json();
+  return { ok: response.ok, result };
+}
+
+/**
+ * Progress Display Component - extracted to reduce cognitive complexity
+ */
+function ProgressDisplay({
+  progress,
+  onClose,
+}: {
+  progress: BulkOperationProgress;
+  onClose: () => void;
+}) {
+  return (
+    <div className="space-y-4">
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+        <div className="mb-2 flex justify-between">
+          <span className="font-medium text-neutral-900 text-sm">Progress:</span>
+          <span className="font-medium text-neutral-900 text-sm">
+            {progress.processed} / {progress.total}
+          </span>
+        </div>
+        <div className="h-2 w-full rounded-full bg-neutral-200">
+          <div
+            className="h-2 rounded-full bg-rausch-500 transition-all"
+            style={{ width: `${(progress.processed / progress.total) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4">
+        <div className="rounded-lg border border-neutral-200 p-4">
+          <p className="mb-1 font-medium text-neutral-900 text-sm">Successful</p>
+          <p className="font-bold text-green-600 text-lg">{progress.successful}</p>
+        </div>
+        <div className="rounded-lg border border-neutral-200 p-4">
+          <p className="mb-1 font-medium text-neutral-900 text-sm">Failed</p>
+          <p className="font-bold text-lg text-red-600">{progress.failed}</p>
+        </div>
+        <div className="rounded-lg border border-neutral-200 p-4">
+          <p className="mb-1 font-medium text-neutral-900 text-sm">Total</p>
+          <p className="font-bold text-lg text-neutral-900">{progress.total}</p>
+        </div>
+      </div>
+
+      {progress.errors.length > 0 && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+          <p className="mb-2 font-medium text-red-900 text-sm">Errors:</p>
+          <div className="max-h-48 space-y-2 overflow-y-auto">
+            {progress.errors.map((error, idx) => (
+              <p className="type-body-sm text-red-700" key={idx}>
+                User {error.userId}: {error.error}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {progress.processed === progress.total && (
+        <button
+          className="w-full rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-rausch-600"
+          onClick={onClose}
+          type="button"
+        >
+          Close
+        </button>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Users Table Component - extracted to reduce cognitive complexity
+ */
+function UsersTable({
+  users,
+  selectedUserIds,
+  onToggleUser,
+  onSelectAll,
+  isLoading,
+}: {
+  users: User[];
+  selectedUserIds: Set<string>;
+  onToggleUser: (userId: string) => void;
+  onSelectAll: () => void;
+  isLoading: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-neutral-200 bg-white">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-neutral-200 border-b bg-neutral-50">
+              <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
+                <input
+                  checked={selectedUserIds.size === users.length && users.length > 0}
+                  className="h-5 w-5 border-neutral-200"
+                  onChange={onSelectAll}
+                  type="checkbox"
+                />
+              </th>
+              <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
+                Name
+              </th>
+              <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
+                Email
+              </th>
+              <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
+                Role
+              </th>
+              <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
+                Joined
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading && (
+              <tr>
+                <td className="type-body-sm px-4 py-8 text-center text-neutral-700" colSpan={5}>
+                  Loading users...
+                </td>
+              </tr>
+            )}
+            {!isLoading && users.length === 0 && (
+              <tr>
+                <td className="type-body-sm px-4 py-8 text-center text-neutral-700" colSpan={5}>
+                  No users found
+                </td>
+              </tr>
+            )}
+            {!isLoading &&
+              users.map((user) => (
+                <tr className="border-neutral-200 border-b hover:bg-neutral-50" key={user.id}>
+                  <td className="px-4 py-3">
+                    <input
+                      checked={selectedUserIds.has(user.id)}
+                      className="h-5 w-5 border-neutral-200"
+                      onChange={() => onToggleUser(user.id)}
+                      type="checkbox"
+                    />
+                  </td>
+                  <td className="type-ui-sm px-4 py-3 text-neutral-900">{user.full_name || "—"}</td>
+                  <td className="type-body-sm px-4 py-3 text-neutral-700">{user.email}</td>
+                  <td className="px-4 py-3">
+                    <span className="rounded-full bg-rausch-500 px-3 py-1 font-medium text-white text-xs capitalize">
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="type-body-sm px-4 py-3 text-neutral-700">
+                    {new Date(user.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
 export default function BulkOperationsPage() {
   const router = useRouter();
@@ -99,7 +375,7 @@ export default function BulkOperationsPage() {
   // Handle bulk action initiation
   const handleBulkAction = (action: BulkAction) => {
     if (selectedUserIds.size === 0) {
-      alert("Please select at least one user");
+      toast.error("Please select at least one user");
       return;
     }
 
@@ -113,74 +389,39 @@ export default function BulkOperationsPage() {
       return;
     }
 
+    // Handle export separately
+    if (bulkAction === "export") {
+      toast.info("Export functionality coming soon!");
+      setShowConfirmModal(false);
+      return;
+    }
+
     setIsProcessing(true);
-    setProgress({
-      total: selectedUserIds.size,
-      processed: 0,
-      successful: 0,
-      failed: 0,
-      errors: [],
-    });
+    setProgress(createInitialProgress(selectedUserIds.size));
 
     const userIdArray = Array.from(selectedUserIds);
+    const request = buildBulkOperationRequest(bulkAction, userIdArray, {
+      suspensionReason,
+      suspensionType,
+      suspensionDays,
+      messageSubject,
+      messageContent,
+    });
+
+    if (!request) {
+      setIsProcessing(false);
+      return;
+    }
 
     try {
-      let endpoint = "";
-      let body: any = { user_ids: userIdArray };
+      const { ok, result } = await executeApiRequest(request);
 
-      switch (bulkAction) {
-        case "suspend":
-          endpoint = "/api/admin/bulk/suspend";
-          body = {
-            ...body,
-            reason: suspensionReason,
-            type: suspensionType,
-            expires_at:
-              suspensionType === "temporary"
-                ? new Date(Date.now() + suspensionDays * 24 * 60 * 60 * 1000).toISOString()
-                : null,
-          };
-          break;
-        case "verify":
-          endpoint = "/api/admin/bulk/verify";
-          body = { ...body, approved: true };
-          break;
-        case "message":
-          endpoint = "/api/admin/bulk/message";
-          body = {
-            ...body,
-            subject: messageSubject,
-            message: sanitizeHTML(messageContent),
-          };
-          break;
-        case "export":
-          // Handle export differently
-          alert("Export functionality coming soon!");
-          setShowConfirmModal(false);
-          setIsProcessing(false);
-          return;
-      }
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
+      if (!ok) {
         throw new Error(result.error || "Bulk operation failed");
       }
 
       // Update progress with results
-      setProgress({
-        total: selectedUserIds.size,
-        processed: selectedUserIds.size,
-        successful: result.successful || 0,
-        failed: result.failed || 0,
-        errors: result.errors || [],
-      });
+      setProgress(createResultProgress(selectedUserIds.size, result));
 
       // Clear selection after successful operation
       setSelectedUserIds(new Set());
@@ -189,7 +430,7 @@ export default function BulkOperationsPage() {
       await loadUsers();
     } catch (error) {
       console.error("Bulk operation error:", error);
-      alert(error instanceof Error ? error.message : "Bulk operation failed");
+      toast.error(getErrorMessage(error));
     } finally {
       setIsProcessing(false);
     }
@@ -209,7 +450,7 @@ export default function BulkOperationsPage() {
       {/* Header */}
       <div className="mb-6">
         <button
-          className="type-ui-sm mb-4 text-orange-600 transition hover:text-orange-700"
+          className="type-ui-sm mb-4 text-rausch-600 transition hover:text-rausch-700"
           onClick={() => router.back()}
           type="button"
         >
@@ -232,9 +473,15 @@ export default function BulkOperationsPage() {
       <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900">Search</label>
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900"
+              htmlFor="search-users"
+            >
+              Search
+            </label>
             <input
-              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+              id="search-users"
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email..."
               type="text"
@@ -242,9 +489,15 @@ export default function BulkOperationsPage() {
             />
           </div>
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900">Role</label>
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900"
+              htmlFor="role-filter"
+            >
+              Role
+            </label>
             <select
-              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+              id="role-filter"
               onChange={(e) => setRoleFilter(e.target.value)}
               value={roleFilter}
             >
@@ -267,8 +520,8 @@ export default function BulkOperationsPage() {
 
         {/* Selection Count */}
         {selectedUserIds.size > 0 && (
-          <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-3">
-            <p className="font-medium text-orange-900 text-sm">
+          <div className="mt-4 rounded-lg border border-rausch-200 bg-rausch-50 p-3">
+            <p className="font-medium text-rausch-900 text-sm">
               {selectedUserIds.size} user(s) selected
             </p>
           </div>
@@ -317,78 +570,13 @@ export default function BulkOperationsPage() {
       </div>
 
       {/* Users Table */}
-      <div className="rounded-lg border border-neutral-200 bg-white">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-neutral-200 border-b bg-neutral-50">
-                <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
-                  <input
-                    checked={
-                      selectedUserIds.size === filteredUsers.length && filteredUsers.length > 0
-                    }
-                    className="h-5 w-5 border-neutral-200"
-                    onChange={selectAll}
-                    type="checkbox"
-                  />
-                </th>
-                <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
-                  Name
-                </th>
-                <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
-                  Email
-                </th>
-                <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
-                  Role
-                </th>
-                <th className="type-ui-sm px-4 py-3 text-left font-semibold text-neutral-900">
-                  Joined
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td className="type-body-sm px-4 py-8 text-center text-neutral-700" colSpan={5}>
-                    Loading users...
-                  </td>
-                </tr>
-              ) : filteredUsers.length === 0 ? (
-                <tr>
-                  <td className="type-body-sm px-4 py-8 text-center text-neutral-700" colSpan={5}>
-                    No users found
-                  </td>
-                </tr>
-              ) : (
-                filteredUsers.map((user) => (
-                  <tr className="border-neutral-200 border-b hover:bg-neutral-50" key={user.id}>
-                    <td className="px-4 py-3">
-                      <input
-                        checked={selectedUserIds.has(user.id)}
-                        className="h-5 w-5 border-neutral-200"
-                        onChange={() => toggleUser(user.id)}
-                        type="checkbox"
-                      />
-                    </td>
-                    <td className="type-ui-sm px-4 py-3 text-neutral-900">
-                      {user.full_name || "—"}
-                    </td>
-                    <td className="type-body-sm px-4 py-3 text-neutral-700">{user.email}</td>
-                    <td className="px-4 py-3">
-                      <span className="rounded-full bg-orange-500 px-3 py-1 font-medium text-white text-xs capitalize">
-                        {user.role}
-                      </span>
-                    </td>
-                    <td className="type-body-sm px-4 py-3 text-neutral-700">
-                      {new Date(user.created_at).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <UsersTable
+        isLoading={isLoading}
+        onSelectAll={selectAll}
+        onToggleUser={toggleUser}
+        selectedUserIds={selectedUserIds}
+        users={filteredUsers}
+      />
 
       {/* Confirmation Modal */}
       {showConfirmModal && (
@@ -408,45 +596,49 @@ export default function BulkOperationsPage() {
                 {/* Action-specific forms */}
                 {bulkAction === "suspend" && (
                   <div className="mb-6 space-y-4">
-                    <div>
-                      <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                    <fieldset>
+                      <legend className="type-ui-sm mb-2 block font-medium text-neutral-900">
                         Suspension Type
-                      </label>
-                      <div className="flex gap-3">
+                      </legend>
+                      <div className="flex gap-3" role="group">
                         <button
-                          className={
-                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition" +
-                            (suspensionType === "temporary"
-                              ? "border-orange-500 bg-orange-500 text-white"
-                              : "border-neutral-200 bg-white text-neutral-900")
-                          }
+                          className={cn(
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition",
+                            suspensionType === "temporary"
+                              ? "border-rausch-500 bg-rausch-500 text-white"
+                              : "border-neutral-200 bg-white text-neutral-900"
+                          )}
                           onClick={() => setSuspensionType("temporary")}
                           type="button"
                         >
                           Temporary
                         </button>
                         <button
-                          className={
-                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition" +
-                            (suspensionType === "permanent"
-                              ? "border-orange-500 bg-orange-500 text-white"
-                              : "border-neutral-200 bg-white text-neutral-900")
-                          }
+                          className={cn(
+                            "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition",
+                            suspensionType === "permanent"
+                              ? "border-rausch-500 bg-rausch-500 text-white"
+                              : "border-neutral-200 bg-white text-neutral-900"
+                          )}
                           onClick={() => setSuspensionType("permanent")}
                           type="button"
                         >
                           Permanent
                         </button>
                       </div>
-                    </div>
+                    </fieldset>
 
                     {suspensionType === "temporary" && (
                       <div>
-                        <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                        <label
+                          className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                          htmlFor="suspension-duration"
+                        >
                           Duration (days)
                         </label>
                         <select
                           className="w-full rounded-lg border border-neutral-200 px-4 py-2"
+                          id="suspension-duration"
                           onChange={(e) => setSuspensionDays(Number.parseInt(e.target.value, 10))}
                           value={suspensionDays}
                         >
@@ -461,11 +653,15 @@ export default function BulkOperationsPage() {
                     )}
 
                     <div>
-                      <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                      <label
+                        className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                        htmlFor="suspension-reason"
+                      >
                         Reason <span className="text-red-600">*</span>
                       </label>
                       <textarea
                         className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3"
+                        id="suspension-reason"
                         onChange={(e) => setSuspensionReason(e.target.value)}
                         placeholder="Provide a reason for suspension..."
                         rows={4}
@@ -478,11 +674,15 @@ export default function BulkOperationsPage() {
                 {bulkAction === "message" && (
                   <div className="mb-6 space-y-4">
                     <div>
-                      <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                      <label
+                        className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                        htmlFor="message-subject"
+                      >
                         Subject <span className="text-red-600">*</span>
                       </label>
                       <input
                         className="w-full rounded-lg border border-neutral-200 px-4 py-2"
+                        id="message-subject"
                         onChange={(e) => setMessageSubject(e.target.value)}
                         placeholder="Message subject..."
                         type="text"
@@ -491,11 +691,15 @@ export default function BulkOperationsPage() {
                     </div>
 
                     <div>
-                      <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                      <label
+                        className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                        htmlFor="message-content"
+                      >
                         Message <span className="text-red-600">*</span>
                       </label>
                       <textarea
                         className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3"
+                        id="message-content"
                         onChange={(e) => setMessageContent(e.target.value)}
                         placeholder="Message content..."
                         rows={6}
@@ -515,7 +719,7 @@ export default function BulkOperationsPage() {
                     Cancel
                   </button>
                   <button
-                    className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex-1 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={isProcessing}
                     onClick={executeBulkOperation}
                     type="button"
@@ -527,62 +731,7 @@ export default function BulkOperationsPage() {
             )}
 
             {/* Progress Display */}
-            {progress && (
-              <div className="space-y-4">
-                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                  <div className="mb-2 flex justify-between">
-                    <span className="font-medium text-neutral-900 text-sm">Progress:</span>
-                    <span className="font-medium text-neutral-900 text-sm">
-                      {progress.processed} / {progress.total}
-                    </span>
-                  </div>
-                  <div className="h-2 w-full rounded-full bg-neutral-200">
-                    <div
-                      className="h-2 rounded-full bg-orange-500 transition-all"
-                      style={{ width: `${(progress.processed / progress.total) * 100}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="rounded-lg border border-neutral-200 p-4">
-                    <p className="mb-1 font-medium text-neutral-900 text-sm">Successful</p>
-                    <p className="font-bold text-green-600 text-lg">{progress.successful}</p>
-                  </div>
-                  <div className="rounded-lg border border-neutral-200 p-4">
-                    <p className="mb-1 font-medium text-neutral-900 text-sm">Failed</p>
-                    <p className="font-bold text-lg text-red-600">{progress.failed}</p>
-                  </div>
-                  <div className="rounded-lg border border-neutral-200 p-4">
-                    <p className="mb-1 font-medium text-neutral-900 text-sm">Total</p>
-                    <p className="font-bold text-lg text-neutral-900">{progress.total}</p>
-                  </div>
-                </div>
-
-                {progress.errors.length > 0 && (
-                  <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-                    <p className="mb-2 font-medium text-red-900 text-sm">Errors:</p>
-                    <div className="max-h-48 space-y-2 overflow-y-auto">
-                      {progress.errors.map((error, idx) => (
-                        <p className="type-body-sm text-red-700" key={idx}>
-                          User {error.userId}: {error.error}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {progress.processed === progress.total && (
-                  <button
-                    className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition hover:bg-orange-600"
-                    onClick={closeConfirmModal}
-                    type="button"
-                  >
-                    Close
-                  </button>
-                )}
-              </div>
-            )}
+            {progress && <ProgressDisplay onClose={closeConfirmModal} progress={progress} />}
           </div>
         </div>
       )}

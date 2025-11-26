@@ -15,6 +15,18 @@
  * - Manual override for corrections
  */
 
+function getBackgroundCheckStatusClasses(
+  status: "clear" | "conditional" | "flagged" | "pending"
+): string {
+  if (status === "clear") {
+    return "border border-green-200 bg-green-50 text-green-700";
+  }
+  if (status === "flagged") {
+    return "border border-red-200 bg-red-50 text-red-700";
+  }
+  return "border border-yellow-200 bg-yellow-50 text-yellow-700";
+}
+
 import {
   AlertCircleIcon,
   Cancel01Icon,
@@ -250,7 +262,7 @@ export function DocumentExtractionCard({
 
           {/* Extraction Progress */}
           {extracting && (
-            <div className="flex items-center gap-3 border border-orange-200 bg-orange-50 px-4 py-3">
+            <div className="flex items-center gap-3 border border-rausch-200 bg-rausch-50 px-4 py-3">
               <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
               <span className="text-neutral-700 text-sm">Extracting document data...</span>
             </div>
@@ -276,7 +288,7 @@ export function DocumentExtractionCard({
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-24 overflow-hidden bg-neutral-200">
                     <div
-                      className="h-full bg-orange-500 transition-all"
+                      className="h-full bg-rausch-500 transition-all"
                       style={{ width: `${extraction.confidence}%` }}
                     />
                   </div>
@@ -357,13 +369,7 @@ export function DocumentExtractionCard({
                   <span className="font-medium text-neutral-700 text-sm">Background Check</span>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`inline-flex px-3 py-1 font-medium text-xs ${
-                        extraction.backgroundCheckResults.status === "clear"
-                          ? "border border-green-200 bg-green-50 text-green-700"
-                          : extraction.backgroundCheckResults.status === "flagged"
-                            ? "border border-red-200 bg-red-50 text-red-700"
-                            : "border border-yellow-200 bg-yellow-50 text-yellow-700"
-                      }`}
+                      className={`inline-flex px-3 py-1 font-medium text-xs ${getBackgroundCheckStatusClasses(extraction.backgroundCheckResults.status)}`}
                     >
                       {extraction.backgroundCheckResults.status.toUpperCase()}
                     </span>
@@ -430,7 +436,7 @@ export function DocumentExtractionCard({
         </div>
       ) : (
         <div
-          className="flex min-h-[200px] cursor-pointer flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 px-6 py-8 transition-colors hover:border-orange-500 hover:bg-orange-50"
+          className="flex min-h-[200px] cursor-pointer flex-col items-center justify-center border-2 border-neutral-300 border-dashed bg-neutral-50 px-6 py-8 transition-colors hover:border-rausch-500 hover:bg-rausch-50"
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >

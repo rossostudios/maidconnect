@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
 
 /**
  * LiaTabs - Anthropic-Inspired Tab Navigation
@@ -25,7 +26,7 @@ import { cn } from "@/lib/utils";
 export type Tab = {
   id: string;
   label: string;
-  icon: React.ComponentType;
+  icon: HugeIcon;
 };
 
 type LiaTabsProps = {
@@ -83,7 +84,7 @@ export function LiaTabs({
             x: `calc(${activeIndex} * (100% / ${tabs.length}) + ${activeIndex * 4}px)`,
             width: `calc(100% / ${tabs.length} - 4px)`,
           }}
-          className="absolute inset-y-1 rounded-lg border border-orange-200/50 bg-orange-50"
+          className="absolute inset-y-1 rounded-lg border border-rausch-200/50 bg-rausch-50"
           initial={false}
           layoutId="activeTabIndicator"
           style={{
@@ -113,10 +114,10 @@ export function LiaTabs({
               geistSans.className,
               // States
               isActive
-                ? "text-orange-600"
+                ? "text-rausch-600"
                 : "text-neutral-500 hover:scale-[1.02] hover:text-neutral-700",
               // Focus
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/20 focus-visible:ring-offset-2"
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500/20 focus-visible:ring-offset-2"
             )}
             key={tab.id}
             onClick={() => handleTabClick(tab.id)}
@@ -173,9 +174,9 @@ export function LiaTabsUnderline({
                 "font-medium text-sm tracking-tight",
                 geistSans.className,
                 // States
-                isActive ? "text-orange-600" : "text-neutral-500 hover:text-neutral-700",
+                isActive ? "text-rausch-600" : "text-neutral-500 hover:text-neutral-700",
                 // Focus
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/20 focus-visible:ring-offset-2"
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500/20 focus-visible:ring-offset-2"
               )}
               key={tab.id}
               onClick={() => handleTabClick(tab.id)}
@@ -198,7 +199,7 @@ export function LiaTabsUnderline({
             x: `calc(${activeIndex} * (100% / ${tabs.length}) + ${activeIndex * 32}px)`,
             width: tabs[activeIndex] ? "auto" : 0,
           }}
-          className="absolute bottom-0 h-0.5 rounded-full bg-orange-500"
+          className="absolute bottom-0 h-0.5 rounded-full bg-rausch-500"
           initial={false}
           layoutId="activeTabUnderline"
           style={{

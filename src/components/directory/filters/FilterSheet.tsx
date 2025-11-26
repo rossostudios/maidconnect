@@ -17,7 +17,6 @@ import { AvailabilityFilter } from "./AvailabilityFilter";
 import { LocationFilter } from "./LocationFilter";
 import { PriceRangeFilter } from "./PriceRangeFilter";
 import { RatingFilter } from "./RatingFilter";
-import { ServiceFilter } from "./ServiceFilter";
 import { VerificationFilter } from "./VerificationFilter";
 
 type FilterSheetProps = {
@@ -44,19 +43,19 @@ export function FilterSheet({
           <HugeiconsIcon className="h-4 w-4" icon={FilterIcon} />
           Filters
           {activeFilterCount > 0 && (
-            <span className="-right-1 -top-1 absolute flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1 font-medium text-white text-xs">
+            <span className="-right-1 -top-1 absolute flex h-5 min-w-5 items-center justify-center rounded-full bg-rausch-500 px-1 font-medium text-white text-xs">
               {activeFilterCount}
             </span>
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent className="h-[85vh] overflow-y-auto" side="bottom">
-        <SheetHeader className="sticky top-0 z-10 border-neutral-100 border-b bg-white pb-4">
+      <SheetContent className="h-[85vh] overflow-y-auto dark:bg-rausch-950" side="bottom">
+        <SheetHeader className="sticky top-0 z-10 border-neutral-100 border-b bg-white pb-4 dark:border-rausch-800 dark:bg-rausch-950">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-2 text-sm">
               Filters
               {activeFilterCount > 0 && (
-                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 font-medium text-white text-xs">
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-rausch-500 px-1.5 font-medium text-white text-xs">
                   {activeFilterCount}
                 </span>
               )}
@@ -64,7 +63,7 @@ export function FilterSheet({
             <div className="flex items-center gap-2">
               {activeFilterCount > 0 && (
                 <Button
-                  className="h-7 px-2 text-neutral-500 text-xs"
+                  className="h-7 px-2 text-neutral-500 text-xs dark:text-rausch-200"
                   onClick={clearFilters}
                   size="sm"
                   variant="ghost"
@@ -87,12 +86,7 @@ export function FilterSheet({
             onNeighborhoodChange={(v) => setFilter("neighborhood", v)}
           />
 
-          <div className="border-neutral-100 border-t" />
-
-          {/* Service Filter */}
-          <ServiceFilter onChange={(v) => setFilter("service", v)} value={filters.service} />
-
-          <div className="border-neutral-100 border-t" />
+          <div className="border-neutral-100 border-t dark:border-rausch-800" />
 
           {/* Price Range Filter */}
           <PriceRangeFilter
@@ -102,12 +96,12 @@ export function FilterSheet({
             onMinRateChange={(v) => setFilter("minRate", v)}
           />
 
-          <div className="border-neutral-100 border-t" />
+          <div className="border-neutral-100 border-t dark:border-rausch-800" />
 
           {/* Rating Filter */}
           <RatingFilter onChange={(v) => setFilter("minRating", v)} value={filters.minRating} />
 
-          <div className="border-neutral-100 border-t" />
+          <div className="border-neutral-100 border-t dark:border-rausch-800" />
 
           {/* Availability Filter */}
           <AvailabilityFilter
@@ -117,7 +111,7 @@ export function FilterSheet({
             onDateChange={(v) => setFilter("date", v)}
           />
 
-          <div className="border-neutral-100 border-t" />
+          <div className="border-neutral-100 border-t dark:border-rausch-800" />
 
           {/* Verification Filter */}
           <VerificationFilter
@@ -127,7 +121,7 @@ export function FilterSheet({
         </div>
 
         {/* Apply button */}
-        <div className="sticky bottom-0 border-neutral-100 border-t bg-white p-4">
+        <div className="sticky bottom-0 border-neutral-100 border-t bg-white p-4 dark:border-rausch-800 dark:bg-rausch-950">
           <Button className="w-full" onClick={() => setOpen(false)}>
             Show Results
           </Button>

@@ -48,6 +48,65 @@ function formatTime(time: string): string {
   return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
 }
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+type BookingStep = "time" | "details" | "payment";
+
+function getStepTitle(step: BookingStep): string {
+  if (step === "time") {
+    return "Choose time";
+  }
+  if (step === "details") {
+    return "Booking details";
+  }
+  return "Payment";
+}
+
+function buildAddressPayload(
+  address: SavedAddress | null,
+  customAddress: string
+): Record<string, unknown> | undefined {
+  if (address) {
+    return {
+      street: address.street,
+      city: address.city,
+      neighborhood: address.neighborhood,
+      postal_code: address.postal_code,
+      building_access: address.building_access,
+      parking_info: address.parking_info,
+      special_notes: address.special_notes,
+    };
+  }
+  if (customAddress) {
+    return { raw: customAddress };
+  }
+  return;
+}
+
+function getAddonButtonClass(isSelected: boolean): string {
+  const baseClass = "w-full border-2 p-5 text-left transition";
+  if (isSelected) {
+    return `${baseClass} border-[neutral-500] bg-[neutral-500]/5`;
+  }
+  return `${baseClass} border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50`;
+}
+
+function extractBookingError(error: unknown, fallback: string): string {
+  return error instanceof Error ? error.message : fallback;
+}
+
+function getDurationText(hours: number): string {
+  return hours === 1 ? "hour" : "hours";
+}
+
+function isFormValid(
+  serviceName: string,
+  address: SavedAddress | null,
+  customAddress: string
+): boolean {
+  return Boolean(serviceName && (address || customAddress));
+}
+
 export function BookingSheet({
   isOpen,
   onClose,
@@ -163,23 +222,7 @@ export function BookingSheet({
           durationMinutes: bookingData.durationHours * 60,
           amount: totalAmount,
           specialInstructions: bookingData.specialInstructions || undefined,
-          address: (() => {
-            if (bookingData.address) {
-              return {
-                street: bookingData.address.street,
-                city: bookingData.address.city,
-                neighborhood: bookingData.address.neighborhood,
-                postal_code: bookingData.address.postal_code,
-                building_access: bookingData.address.building_access,
-                parking_info: bookingData.address.parking_info,
-                special_notes: bookingData.address.special_notes,
-              };
-            }
-            if (bookingData.customAddress) {
-              return { raw: bookingData.customAddress };
-            }
-            return;
-          })(),
+          address: buildAddressPayload(bookingData.address, bookingData.customAddress),
           selectedAddons:
             bookingData.selectedAddons.length > 0
               ? bookingData.selectedAddons.map((addon) => ({
@@ -208,7 +251,7 @@ export function BookingSheet({
       setBookingResult(result);
       setCurrentStep("payment");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unexpected error");
+      setError(extractBookingError(err, "Unexpected error"));
     } finally {
       setLoading(false);
     }
@@ -238,9 +281,7 @@ export function BookingSheet({
         <div className="sticky top-0 z-10 flex items-center justify-between border-[neutral-200] border-b bg-[neutral-50] px-6 py-5 md:px-8 md:py-6">
           <div>
             <h2 className="font-semibold text-[neutral-900] text-xl md:text-2xl">
-              {currentStep === "time" && "Choose time"}
-              {currentStep === "details" && "Booking details"}
-              {currentStep === "payment" && "Payment"}
+              {getStepTitle(currentStep)}
             </h2>
             {selectedDate && (
               <p className="mt-1 text-[neutral-400] text-sm md:text-base">
@@ -367,7 +408,7 @@ export function BookingSheet({
                     <HugeiconsIcon className="h-5 w-5" icon={MinusSignIcon} />
                   </button>
                   <div className="flex-1 border-2 border-[neutral-200] bg-[neutral-50] px-4 py-4 text-center font-semibold text-[neutral-900] text-lg md:px-5 md:text-xl">
-                    {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
+                    {bookingData.durationHours} {getDurationText(bookingData.durationHours)}
                   </div>
                   <button
                     aria-label="Increase duration"
@@ -429,11 +470,7 @@ export function BookingSheet({
                       const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
                       return (
                         <button
-                          className={`w-full border-2 p-5 text-left transition ${
-                            isSelected
-                              ? "border-[neutral-500] bg-[neutral-500]/5"
-                              : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50"
-                          }`}
+                          className={getAddonButtonClass(isSelected)}
                           key={addon.id}
                           onClick={() => toggleAddon(addon)}
                           type="button"
@@ -525,8 +562,11 @@ export function BookingSheet({
                   className="order-1 flex-1 bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
-                    !bookingData.serviceName ||
-                    !(bookingData.address || bookingData.customAddress)
+                    !isFormValid(
+                      bookingData.serviceName,
+                      bookingData.address,
+                      bookingData.customAddress
+                    )
                   }
                   onClick={handleSubmit}
                   type="button"
@@ -611,7 +651,7 @@ function PaymentStep({
 
       router.push("/dashboard/customer");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unexpected payment error");
+      setError(extractBookingError(err, "Unexpected payment error"));
     } finally {
       setSubmitting(false);
     }

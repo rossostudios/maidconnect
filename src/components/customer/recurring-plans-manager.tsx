@@ -60,6 +60,28 @@ const FREQUENCY_LABELS: Record<string, string> = {
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+// Lookup objects to replace nested ternaries (Biome noNestedTernary fix)
+type PlanStatus = "active" | "paused" | "cancelled";
+type FilterType = "all" | "active" | "paused";
+
+const STATUS_LABELS: Record<PlanStatus, string> = {
+  active: "Active",
+  paused: "Paused",
+  cancelled: "Cancelled",
+};
+
+const STATUS_BADGE_CLASSES: Record<PlanStatus, string> = {
+  active: "border border-green-200 bg-green-50 text-green-600",
+  paused: "border border-rausch-200 bg-rausch-50 text-rausch-600",
+  cancelled: "border border-neutral-200 bg-neutral-100 text-neutral-500",
+};
+
+const EMPTY_STATE_TITLES: Record<FilterType, string> = {
+  all: "No recurring plans yet",
+  active: "No active recurring plans",
+  paused: "No paused plans",
+};
+
 export function RecurringPlansManager({
   initialPlans,
   userId: _userId,
@@ -90,7 +112,7 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "all"
-              ? "border-orange-500 text-neutral-900"
+              ? "border-rausch-500 text-neutral-900"
               : "border-transparent text-neutral-500 hover:text-neutral-900"
           }`}
           onClick={() => setFilter("all")}
@@ -101,7 +123,7 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "active"
-              ? "border-orange-500 text-neutral-900"
+              ? "border-rausch-500 text-neutral-900"
               : "border-transparent text-neutral-500 hover:text-neutral-900"
           }`}
           onClick={() => setFilter("active")}
@@ -112,7 +134,7 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "paused"
-              ? "border-orange-500 text-neutral-900"
+              ? "border-rausch-500 text-neutral-900"
               : "border-transparent text-neutral-500 hover:text-neutral-900"
           }`}
           onClick={() => setFilter("paused")}
@@ -129,11 +151,7 @@ export function RecurringPlansManager({
             <HugeiconsIcon className="h-8 w-8 text-neutral-500" icon={Calendar03Icon} />
           </div>
           <h3 className="font-semibold text-neutral-900 text-xl">
-            {filter === "active"
-              ? "No active recurring plans"
-              : filter === "paused"
-                ? "No paused plans"
-                : "No recurring plans yet"}
+            {EMPTY_STATE_TITLES[filter]}
           </h3>
           <p className="mt-2 text-neutral-500">
             {filter === "all"
@@ -258,7 +276,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               src={plan.professional.avatar_url}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-orange-500 font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-rausch-500 font-bold text-white text-xl">
               {plan.professional?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -276,26 +294,16 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
 
             {/* Status Badge */}
             <span
-              className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
-                plan.status === "active"
-                  ? "border border-green-200 bg-green-50 text-green-600"
-                  : plan.status === "paused"
-                    ? "border border-orange-200 bg-orange-50 text-orange-600"
-                    : "border border-neutral-200 bg-neutral-100 text-neutral-500"
-              }`}
+              className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${STATUS_BADGE_CLASSES[plan.status]}`}
             >
-              {plan.status === "active"
-                ? "Active"
-                : plan.status === "paused"
-                  ? "Paused"
-                  : "Cancelled"}
+              {STATUS_LABELS[plan.status]}
             </span>
           </div>
 
           {/* Plan Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={Calendar02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={Calendar02Icon} />
               <div>
                 <p className="font-medium text-neutral-900">{FREQUENCY_LABELS[plan.frequency]}</p>
                 {plan.day_of_week !== null && (
@@ -307,7 +315,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={Clock01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={Clock01Icon} />
               <div>
                 <p className="font-medium text-neutral-900">{plan.duration_minutes} minutes</p>
                 <p className="text-neutral-500 text-xs">Duration</p>
@@ -383,7 +391,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "active" && (
           <>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 bg-neutral-50 px-6 py-3 font-semibold text-neutral-900 transition hover:border-orange-500 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 bg-neutral-50 px-6 py-3 font-semibold text-neutral-900 transition hover:border-rausch-500 hover:bg-rausch-50 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={() => setShowPauseModal(true)}
               type="button"
@@ -406,7 +414,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "paused" && (
           <>
             <button
-              className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleResume}
               type="button"
@@ -442,7 +450,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
                 Cancel
               </button>
               <button
-                className="flex-1 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50"
+                className="flex-1 rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-white transition hover:bg-rausch-600 disabled:opacity-50"
                 disabled={isProcessing}
                 onClick={handlePause}
                 type="button"

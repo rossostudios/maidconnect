@@ -4,6 +4,7 @@ import { ArrowLeft01Icon, Cancel01Icon, Tick02Icon, Video01Icon } from "@hugeico
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -38,7 +39,7 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       router.refresh();
     } catch (error) {
       console.error("Error approving video:", error);
-      alert("Failed to approve video. Please try again.");
+      toast.error("Failed to approve video. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -46,7 +47,7 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
 
   const handleReject = async () => {
     if (!rejectionReason.trim()) {
-      alert("Please provide a rejection reason");
+      toast.error("Please provide a rejection reason");
       return;
     }
 
@@ -67,7 +68,7 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
       router.refresh();
     } catch (error) {
       console.error("Error rejecting video:", error);
-      alert("Failed to reject video. Please try again.");
+      toast.error("Failed to reject video. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -144,19 +145,19 @@ export default function IntroVideoReviewPage({ params }: IntroVideoReviewPagePro
         <h3 className="font-semibold text-base text-neutral-900">Quality Guidelines</h3>
         <ul className="mt-4 space-y-2 text-neutral-700 text-sm">
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>Clear audio and lighting (professional quality)</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>Professional introduces themselves and services clearly</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>No inappropriate content or background noise</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>Duration under 60 seconds</span>
           </li>
         </ul>

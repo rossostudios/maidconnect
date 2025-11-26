@@ -1,3 +1,4 @@
+import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { getDashboardRouteForRole, getSession } from "@/lib/auth";
@@ -34,7 +35,7 @@ export async function SiteHeader({ overlay }: SiteHeaderProps) {
         {/* Left: Logo */}
         <Link
           className={cn(
-            "flex items-center gap-3 no-underline",
+            "flex items-center no-underline",
             // Refined spring transition
             "transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
             // Subtle hover lift effect
@@ -42,15 +43,7 @@ export async function SiteHeader({ overlay }: SiteHeaderProps) {
           )}
           href="/"
         >
-          <span
-            className={cn(
-              "font-[family-name:var(--font-geist-sans)] font-semibold uppercase tracking-tight lg:text-2xl",
-              // Consistent dark text (glass pill is always visible)
-              "text-neutral-900"
-            )}
-          >
-            CASAORA®
-          </span>
+          <Logo responsive size="md" />
         </Link>
 
         {/* Center & Right: Navigation */}

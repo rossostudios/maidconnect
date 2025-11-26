@@ -230,7 +230,7 @@
     "pricing": {
       "badge": "Precios Transparentes",
       "title": "Precios simples y transparentes",
-      "subtitle": "Los clientes pagan 15% en Reserva Instantánea o 20% en Contratación Directa. Los profesionales mantienen el 100%.",
+      "subtitle": "Los clientes pagan una tarifa de servicio del 15%. Los profesionales mantienen el 100%.",
       "platformFee": "Tarifa de Plataforma",
       "addedToServiceCost": "Agregado al costo del servicio",
       "popularBadge": "Más Popular",
@@ -351,7 +351,15 @@
         "title": "Calendario de reservas",
         "description": "Ve tus próximas reservas, gestiona solicitudes y haz seguimiento de visitas completadas.",
         "updateAvailability": "Actualizar disponibilidad",
-        "allBookings": "Todas las reservas"
+        "allBookings": "Todas las reservas",
+        "calendarTip": "Selecciona fechas para bloquear tiempo libre, ajustar tu tarifa por hora o ver detalles de reservas. Haz clic en fechas reservadas para ver información de la cita."
+      },
+      "availabilitySheet": {
+        "title": "Actualizar Disponibilidad",
+        "description": "Configura tus horarios de trabajo y bloquea fechas cuando no estés disponible.",
+        "loading": "Cargando disponibilidad...",
+        "errorTitle": "Error al cargar disponibilidad",
+        "retry": "Intentar de nuevo"
       },
       "documents": {
         "title": "Centro de Documentos",
@@ -361,6 +369,27 @@
       "finances": {
         "title": "Finanzas y Analíticas",
         "description": "Haz seguimiento de tus ganancias, consulta analíticas y gestiona pagos.",
+        "tabs": {
+          "overview": "Resumen",
+          "transactions": "Transacciones",
+          "settings": "Configuración"
+        },
+        "summary": {
+          "thisMonth": "Este Mes",
+          "vsLastMonth": "vs. mes anterior",
+          "nextPayout": "Próximo Pago",
+          "scheduledPayouts": "Pagos mar. y vie."
+        },
+        "transactions": {
+          "title": "Historial de Transacciones",
+          "description": "Consulta todos tus pagos, tarifas y ganancias en un solo lugar.",
+          "viewHistory": "Ver Todas las Transacciones"
+        },
+        "payout": {
+          "success": "Pago solicitado exitosamente",
+          "successDescription": "Los fondos llegarán a tu cuenta bancaria en breve.",
+          "failed": "Solicitud de pago fallida"
+        },
         "paymentProcessor": {
           "title": "Procesador de Pagos: {processor}",
           "description": "Las ganancias en {country} se procesan a través de {processor}",
@@ -404,7 +433,160 @@
       },
       "portfolio": {
         "title": "Portafolio",
-        "description": "Muestra tu mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes te elijan con confianza."
+        "description": "Muestra tu mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes te elijan con confianza.",
+        "sections": {
+          "featured": {
+            "title": "Trabajo Destacado",
+            "description": "Destaca tu trabajo principal con una imagen hero y descripción."
+          },
+          "beforeAfter": {
+            "title": "Transformaciones Antes y Después",
+            "description": "Muestra el impacto de tu trabajo con comparaciones antes y después."
+          },
+          "gallery": {
+            "title": "Galería de Trabajos",
+            "description": "Sube fotos de tus proyectos completados para mostrar tus habilidades."
+          },
+          "credentials": {
+            "title": "Credenciales y Certificaciones",
+            "description": "Agrega certificaciones profesionales, licencias y capacitación para generar confianza."
+          },
+          "trustProfile": {
+            "title": "Confianza y Verificación",
+            "description": "Completa los pasos de verificación para obtener insignias de confianza y destacar."
+          }
+        },
+        "fields": {
+          "featuredImage": {
+            "label": "Imagen Destacada",
+            "hint": "Selecciona una imagen de tu galería para destacar.",
+            "empty": "No hay imagen destacada seleccionada",
+            "helper": "Haz clic en una imagen abajo para establecerla como destacada"
+          },
+          "description": {
+            "label": "Descripción Destacada",
+            "placeholder": "Describe tu trabajo principal, tu enfoque y lo que te hace diferente...",
+            "helper": "Una descripción convincente ayuda a los clientes a entender tu valor único"
+          }
+        },
+        "upload": {
+          "title": "Subir Imágenes",
+          "dropzone": "Arrastra y suelta imágenes aquí, o haz clic para explorar",
+          "formats": "PNG, JPG, WebP hasta 10MB cada uno",
+          "uploading": "Subiendo...",
+          "processing": "Procesando..."
+        },
+        "actions": {
+          "setFeatured": "Establecer como Destacado",
+          "removeFeatured": "Quitar Destacado",
+          "editCaption": "Editar Descripción",
+          "deleteImage": "Eliminar Imagen",
+          "reorder": "Arrastra para Reordenar",
+          "moveUp": "Mover arriba",
+          "moveDown": "Mover abajo",
+          "delete": "Eliminar"
+        },
+        "emptyState": {
+          "title": "Sin imágenes aún",
+          "description": "Sube fotos de tu trabajo para construir tu portafolio."
+        },
+        "tips": {
+          "title": "Consejos de Portafolio",
+          "tip1": "Usa fotos de alta calidad y bien iluminadas",
+          "tip2": "Muestra variedad en tu trabajo",
+          "tip3": "Incluye contexto (tamaño del espacio, desafíos superados)",
+          "tip4": "Presenta trabajos recientes para mantenerte actualizado"
+        },
+        "unsavedChanges": "Tienes cambios sin guardar",
+        "saving": "Guardando...",
+        "saveChanges": "Guardar Cambios",
+        "saveSuccess": "Portafolio guardado exitosamente",
+        "saveError": "Error al guardar el portafolio. Por favor intenta de nuevo.",
+        "previewProfile": "Vista Previa del Cliente",
+        "completeness": {
+          "title": "Fortaleza del Portafolio",
+          "complete": "completo",
+          "nextStep": "Siguiente Paso",
+          "points": "puntos",
+          "viewChecklist": "Ver lista completa",
+          "message": {
+            "complete": "¡Tu portafolio está completo! Mantenlo actualizado para atraer más clientes.",
+            "almostThere": "¡Casi listo! Completa algunos elementos más para maximizar tu visibilidad.",
+            "gettingThere": "Estás progresando muy bien. Sigue construyendo tu portafolio.",
+            "goodStart": "¡Buen comienzo! Agrega más contenido para ayudar a los clientes a elegirte.",
+            "justStarted": "¡Comencemos! Completa estos elementos para generar confianza."
+          },
+          "completion": {
+            "featuredImage": "Imagen destacada establecida",
+            "featuredImageAction": "Selecciona una imagen destacada para tu perfil",
+            "featuredDescription": "Descripción destacada agregada",
+            "featuredDescriptionAction": "Escribe una descripción convincente (20+ caracteres)",
+            "portfolioImages": "3+ imágenes de portafolio",
+            "portfolioImagesAction": "Sube al menos 3 muestras de trabajo",
+            "beforeAfterPairs": "Transformación antes/después",
+            "beforeAfterPairsAction": "Agrega una comparación antes/después"
+          }
+        },
+        "preview": {
+          "title": "Vista Previa del Portafolio",
+          "subtitle": "Ve cómo los clientes verán tu portafolio",
+          "portfolioLabel": "Portafolio",
+          "sections": {
+            "featured": "Trabajo Destacado",
+            "transformations": "Transformaciones",
+            "gallery": "Galería de Trabajos"
+          },
+          "moreImages": "imágenes más",
+          "emptyState": {
+            "title": "Portafolio vacío",
+            "description": "Agrega imágenes y contenido para ver cómo aparecerá a los clientes."
+          },
+          "footer": {
+            "hint": "Esta es una vista previa. Haz cambios en el editor arriba.",
+            "close": "Cerrar Vista Previa"
+          }
+        },
+        "beforeAfter": {
+          "sectionTitle": "Antes y Después",
+          "sectionDescription": "Muestra el impacto de tu trabajo con comparaciones convincentes de antes y después.",
+          "description": "Muestra transformaciones con comparaciones lado a lado.",
+          "addNew": "Agregar",
+          "addFirst": "Agrega Tu Primera Transformación",
+          "addFirstPair": "Agrega Tu Primera Transformación",
+          "deleteConfirm": "¿Estás seguro de que quieres eliminar esta transformación?",
+          "deleteTitle": "Eliminar Transformación",
+          "deleteConfirmDescription": "Esta acción no se puede deshacer.",
+          "caption": {
+            "label": "Descripción",
+            "placeholder": "Describe esta transformación..."
+          },
+          "captionPlaceholder": "Agregar una descripción...",
+          "noCaption": "Sin descripción",
+          "editCaption": "Editar",
+          "moveUp": "Mover arriba",
+          "moveDown": "Mover abajo",
+          "projectType": {
+            "label": "Tipo de Proyecto",
+            "placeholder": "ej., Limpieza Profunda, Organización"
+          },
+          "before": "Antes",
+          "after": "Después",
+          "reorder": "Arrastra para reordenar",
+          "delete": "Eliminar",
+          "uploadBefore": "Subir Antes",
+          "uploadAfter": "Subir Después",
+          "emptyTitle": "Sin transformaciones aún",
+          "emptyDescription": "Muestra el impacto de tu trabajo con fotos de antes y después.",
+          "emptyState": {
+            "title": "Sin transformaciones aún",
+            "description": "Muestra el impacto de tu trabajo con fotos de antes y después."
+          },
+          "pairCount": "{count} de {max} transformaciones",
+          "limit": "Máximo {max} transformaciones",
+          "slider": {
+            "dragHint": "Arrastra para comparar"
+          }
+        }
       },
       "profile": {
         "title": "Configuración de Perfil",
@@ -1082,6 +1264,17 @@
         "noPlan": {
           "title": "Sin Suscripción Activa",
           "description": "Actualmente estás en el plan gratuito. Mejora para desbloquear funciones premium."
+        }
+      },
+      "settings": {
+        "verification": {
+          "breadcrumb": "CONFIGURACIÓN / VERIFICACIÓN",
+          "title": "Confianza y Verificación",
+          "description": "Genera confianza con los clientes verificando tu identidad, completando verificaciones de antecedentes y agregando credenciales profesionales.",
+          "credentials": {
+            "title": "Credenciales y Certificaciones",
+            "description": "Agrega certificaciones profesionales, licencias y capacitaciones para generar confianza con los clientes."
+          }
         }
       }
     },
@@ -3064,13 +3257,13 @@
         "bestFor": "tareas rápidas, limpiezas recurrentes, ayuda por horas"
       },
       "directHire": {
-        "title": "Contratación Directa (20%)",
+        "title": "Contratación Directa",
         "subtitle": "Colocación de tiempo completo con contratos legales y garantía de 30 días",
         "features": [
           "Contratos legales y soporte de cumplimiento",
           "Vetting, antecedentes y seguros incluidos",
           "Garantía de satisfacción de 30 días con reemplazos",
-          "Tarifa de servicio transparente del 20% (cliente)"
+          "Tarifa de servicio transparente del 15% (cliente)"
         ],
         "cta": "Solicitar Contratación Directa",
         "bestFor": "ayuda de tiempo completo, colocaciones a largo plazo, empleo legal"
@@ -3097,7 +3290,7 @@
         "label": "Nivel de servicio",
         "instantBook": "Reserva Instantánea (15%)",
         "instantBookHelper": "Auto-servicio en minutos",
-        "directHire": "Contratación Directa (20%)",
+        "directHire": "Contratación Directa",
         "directHireHelper": "Colocación de tiempo completo con contratos legales"
       },
       "currency": {
@@ -3109,16 +3302,16 @@
       "platformFee": "Tarifa de servicio (cliente)",
       "total": "Costo total",
       "professionalReceives": "Profesional recibe (100% de su tarifa)",
-      "professionalNote": "Los profesionales se quedan con el 100% de su tarifa. El 15%/20% se agrega encima y lo paga el cliente."
+      "professionalNote": "Los profesionales se quedan con el 100% de su tarifa. El 15% se agrega encima y lo paga el cliente."
     },
     "customer": {
       "howItWorks": {
         "title": "Cómo funciona el precio en Casaora",
-        "description": "Dos tarifas claras: 15% en Reserva Instantánea o 20% en Contratación Directa. Profesionales pagan 0%. Vetting y seguros incluidos.",
+        "description": "Una tarifa clara del 15%. Los profesionales reciben el 100%. Vetting y seguros incluidos.",
         "steps": {
           "step1": {
             "title": "Elige nivel y horas",
-            "description": "Selecciona Reserva Instantánea (15%) o Contratación Directa (20%) y cuántas horas necesitas."
+            "description": "Selecciona tu nivel de servicio y cuántas horas necesitas. Tarifa de servicio del 15%."
           },
           "step2": {
             "title": "Incluimos seguridad y soporte",
@@ -3135,7 +3328,7 @@
       },
       "calculator": {
         "title": "Calcula tu costo estimado",
-        "description": "Selecciona servicio y horas y ve el desglose con la tarifa del 15% o 20% incluida."
+        "description": "Selecciona servicio y horas y ve el desglose con la tarifa del 15% incluida."
       },
       "cta": {
         "title": "¿Listo para empezar?",
@@ -3151,7 +3344,7 @@
         "label": "Nivel de servicio",
         "instantBook": "Reserva Instantánea (cliente paga 15%)",
         "instantBookHelper": "Reservas rápidas y auto-servicio",
-        "directHire": "Contratación Directa (cliente paga 20%)",
+        "directHire": "Contratación Directa (cliente paga 15%)",
         "directHireHelper": "Colocación de tiempo completo con contratos legales"
       },
       "yourHourlyRate": "Tu tarifa por hora",
@@ -3165,7 +3358,7 @@
         "customerPays": "El cliente paga por hora (incluye tarifa)",
         "youReceive": "Tú recibes por hora",
         "platformFee": "Tarifa de servicio (la paga el cliente)",
-        "note": "Te quedas con el 100% de tu tarifa. El 15% o 20% se agrega encima y lo paga el cliente."
+        "note": "Te quedas con el 100% de tu tarifa. El 15% se agrega encima y lo paga el cliente."
       },
       "feeCovers": {
         "title": "Qué cubre la tarifa de servicio",
@@ -3438,7 +3631,7 @@
     },
     "customer": {
       "title": "Para clientes",
-      "subtitle": "Elige Reserva Instantánea (15%) o Contratación Directa (20%). Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
+      "subtitle": "Tarifa de servicio del 15%. Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
       "steps": {
         "search": {
           "title": "Elige tu nivel de servicio",
@@ -3450,7 +3643,7 @@
         },
         "service": {
           "title": "Ves el total por adelantado",
-          "description": "Servicio + tarifa del 15% o 20%, nada más. Los profesionales reciben el 100%."
+          "description": "Servicio + tarifa del 15%, nada más. Los profesionales reciben el 100%."
         },
         "review": {
           "title": "Servicio con soporte",
@@ -3462,7 +3655,7 @@
     },
     "professional": {
       "title": "Para profesionales",
-      "subtitle": "Define tu tarifa. El cliente paga un 15% o 20% encima. Tú recibes el 100% y pagos semanales.",
+      "subtitle": "Define tu tarifa. El cliente paga un 15% encima. Tú recibes el 100% y pagos semanales.",
       "steps": {
         "apply": {
           "title": "Aplica y cuéntanos tus servicios",
@@ -3482,7 +3675,7 @@
         },
         "earn": {
           "title": "Recibe el 100% de tu tarifa",
-          "description": "El cliente paga el 15%/20% encima. Tú recibes tu tarifa completa con pagos semanales."
+          "description": "El cliente paga el 15% encima. Tú recibes tu tarifa completa con pagos semanales."
         }
       },
       "cta": "Sé profesional en Casaora"
@@ -3533,7 +3726,7 @@
     },
     "serviceOptions": {
       "title": "Elige tu camino",
-      "subtitle": "Reserva Instantánea con tarifa del 15% o Contratación Directa con tarifa del 20%. Los profesionales reciben el 100%.",
+      "subtitle": "Tarifa de servicio del 15%. Los profesionales reciben el 100%.",
       "instantBook": {
         "title": "Reserva Instantánea (15%)",
         "description": "Auto-servicio rápido para limpiezas, tareas puntuales y ayuda recurrente.",
@@ -3549,11 +3742,11 @@
         "cta": "Ver profesionales"
       },
       "directHire": {
-        "title": "Contratación Directa (20%)",
+        "title": "Contratación Directa (15%)",
         "description": "Colocación de tiempo completo con contratos legales, vetting y garantía de 30 días.",
         "speed": "Shortlist en 48h",
         "process": "Equipo humano + verificación",
-        "cost": "Tarifa de servicio del 20% (cliente)",
+        "cost": "Tarifa de servicio del 15% (cliente)",
         "features": [
           "Contratos legales y soporte de cumplimiento",
           "Vetting, antecedentes y seguros incluidos",
@@ -4017,6 +4210,27 @@
       "saturday": "S"
     }
   },
+  "proCalendar": {
+    "actionPanel": {
+      "oneDay": "1 día seleccionado",
+      "multipleDays": "{count} días seleccionados",
+      "blockNights": "Bloquear",
+      "open": "Abrir",
+      "clearSelection": "Limpiar selección"
+    },
+    "priceEditor": {
+      "title": "Establecer Tarifa por Hora",
+      "days": "días",
+      "hourlyRate": "Tarifa por Hora",
+      "hour": "hora",
+      "preview": "Vista previa",
+      "perHour": "por hora",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "close": "Cerrar"
+    }
+  },
   "cookieConsent": {
     "title": "Usamos cookies",
     "message": "Utilizamos cookies para mejorar tu experiencia, analizar el tráfico del sitio y proporcionar contenido personalizado. Al hacer clic en \"Aceptar\", aceptas el uso de cookies.",
@@ -4298,7 +4512,7 @@
       "faqs": [
         {
           "question": "¿Cuánto puedo ganar en Casaora?",
-          "answer": "Defines tu tarifa y tus horas. No cobramos a profesionales; el cliente paga 15%/20% encima."
+          "answer": "Defines tu tarifa y tus horas. No cobramos a profesionales; el cliente paga 15% encima."
         },
         {
           "question": "¿Cómo me pagan?",
@@ -4339,7 +4553,7 @@
       "items": {
         "setRates": {
           "title": "Define tus tarifas",
-          "description": "Tú defines tu tarifa. El cliente paga 15%/20% encima; tú recibes el 100%."
+          "description": "Tú defines tu tarifa. El cliente paga 15% encima; tú recibes el 100%."
         },
         "payment": {
           "title": "Pago garantizado",
@@ -4375,10 +4589,10 @@
         "description": "Construye relaciones estables con clientes repetitivos."
       },
       "placement": {
-        "title": "Contratación Directa (20%)",
-        "description": "Colocación de tiempo completo con contratos legales y reemplazos. El cliente paga 20% arriba."
+        "title": "Contratación Directa (15%)",
+        "description": "Colocación de tiempo completo con contratos legales y reemplazos. El cliente paga 15% arriba."
       },
-      "ctaText": "Transparencia total: 0% para profesionales. 15%/20% lo paga el cliente."
+      "ctaText": "Transparencia total: 0% para profesionales. El 15% lo paga el cliente."
     }
   },
   "preferences": {
@@ -4726,5 +4940,19 @@
         "successMessage": "Gracias por aplicar para convertirte en Embajador de Casaora. Revisaremos tu solicitud y nos comunicaremos contigo pronto."
       }
     }
+  },
+  "share": {
+    "shareProfile": "Compartir Perfil",
+    "copyLink": "Copiar Enlace",
+    "copied": "¡Copiado!",
+    "copy": "Copiar",
+    "shareVia": "Compartir vía",
+    "shareThisProfile": "Comparte este perfil",
+    "vanityUrl": "Tu enlace para compartir",
+    "shareWithFriends": "Comparte con amigos y familia",
+    "socialProof": "{count} personas han compartido este perfil",
+    "copySuccess": "¡Enlace copiado al portapapeles!",
+    "copyError": "Error al copiar el enlace",
+    "nativeShareFallback": "Enlace copiado - puedes pegarlo donde quieras"
   }
 }

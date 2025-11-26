@@ -1,9 +1,18 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, ArrowRight, Check, DollarSign, Info, Loader2, Zap } from "lucide-react";
+import {
+  AlertCircleIcon,
+  ArrowRight01Icon,
+  CheckmarkCircle02Icon,
+  DollarCircleIcon,
+  FlashIcon,
+  InformationCircleIcon,
+  Loading03Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
   trackInstantPayoutCompleted,
   trackInstantPayoutFailed,
@@ -20,6 +30,24 @@ import {
 } from "@/lib/analytics/professional-events";
 import { cn } from "@/lib/utils/core";
 import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
+
+// ========================================
+// Mobile Detection Hook
+// ========================================
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
 
 // ========================================
 // Types
@@ -321,271 +349,326 @@ export function InstantPayoutModal({
   }
 
   // ========================================
-  // Render
+  // Mobile Detection
   // ========================================
 
+  const isMobile = useIsMobile();
+
+  // ========================================
+  // Render Content (Shared between Dialog and Sheet)
+  // ========================================
+
+  const renderHeader = () => (
+    <div className="flex items-center gap-3">
+      <div className="flex size-10 items-center justify-center rounded-lg bg-rausch-100 dark:bg-rausch-900/20">
+        <HugeiconsIcon className="size-5 text-rausch-600 dark:text-rausch-400" icon={FlashIcon} />
+      </div>
+      <span className={cn("text-foreground text-xl", geistSans.className)}>{t("title")}</span>
+    </div>
+  );
+
+  const renderContent = () => (
+    <>
+      {/* Input Step */}
+      {step === "input" && (
+        <form className="space-y-6" onSubmit={handleSubmit(handleConfirm)}>
+          {/* Amount Input */}
+          <div className="space-y-2">
+            <Label className={cn("text-foreground text-sm", geistSans.className)} htmlFor="amount">
+              {t("fields.amount.label")}
+            </Label>
+            <Input
+              id="amount"
+              placeholder="0"
+              type="number"
+              {...register("amount", { valueAsNumber: true })}
+              className={cn(
+                "font-mono text-lg",
+                errors.amount && "border-red-300 focus-visible:ring-red-500"
+              )}
+            />
+            {errors.amount && (
+              <p
+                className={cn("flex items-center gap-1 text-red-600 text-sm", geistSans.className)}
+              >
+                <HugeiconsIcon className="size-4" icon={AlertCircleIcon} />
+                {errors.amount.message}
+              </p>
+            )}
+
+            {/* Quick Amount Buttons */}
+            <div className="grid grid-cols-4 gap-2 pt-2">
+              {[25, 50, 75, 100].map((percentage) => (
+                <Button
+                  className={cn("text-xs", geistSans.className)}
+                  key={percentage}
+                  onClick={() => handleSetPercentage(percentage)}
+                  size="sm"
+                  type="button"
+                  variant="outline"
+                >
+                  {percentage}%
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Available Balance */}
+          <div className="rounded-lg border border-border bg-muted/30 p-4">
+            <div className="flex items-center justify-between text-sm">
+              <span className={cn("text-muted-foreground", geistSans.className)}>
+                {t("info.availableBalance")}
+              </span>
+              <span className={cn("font-medium text-foreground", geistSans.className)}>
+                {formatFromMinorUnits(balance, currencyCode)}
+              </span>
+            </div>
+          </div>
+
+          {/* Fee Breakdown */}
+          {amount >= minAmount && (
+            <div className="space-y-3 rounded-lg border border-border bg-babu-50 p-4 dark:bg-babu-900/20">
+              <div className="flex items-start gap-2">
+                <HugeiconsIcon
+                  className="mt-0.5 size-4 text-babu-600 dark:text-babu-400"
+                  icon={InformationCircleIcon}
+                />
+                <p className={cn("text-babu-900 text-sm dark:text-babu-200", geistSans.className)}>
+                  {t("info.feeExplanation", { percentage: feePercentage })}
+                </p>
+              </div>
+              <div className="space-y-2 border-babu-200 border-t pt-3 dark:border-babu-900/50">
+                <div className="flex items-center justify-between text-sm">
+                  <span className={cn("text-babu-800 dark:text-babu-300", geistSans.className)}>
+                    {t("breakdown.requested")}
+                  </span>
+                  <span
+                    className={cn(
+                      "font-medium text-babu-900 dark:text-babu-200",
+                      geistSans.className
+                    )}
+                  >
+                    {formatFromMinorUnits(amount, currencyCode)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className={cn("text-babu-800 dark:text-babu-300", geistSans.className)}>
+                    {t("breakdown.fee")}
+                  </span>
+                  <span
+                    className={cn(
+                      "font-medium text-babu-900 dark:text-babu-200",
+                      geistSans.className
+                    )}
+                    data-testid="fee-amount"
+                  >
+                    -{formatFromMinorUnits(feeAmount, currencyCode)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between border-babu-200 border-t pt-2 font-semibold text-sm dark:border-babu-900/50">
+                  <span className={cn("text-babu-900 dark:text-babu-200", geistSans.className)}>
+                    {t("breakdown.youReceive")}
+                  </span>
+                  <span
+                    className={cn(
+                      "text-base text-green-700 dark:text-green-400",
+                      geistSans.className
+                    )}
+                    data-testid="net-amount"
+                  >
+                    {formatFromMinorUnits(netAmount, currencyCode)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="flex gap-3">
+            <Button className="flex-1" onClick={handleClose} type="button" variant="outline">
+              {t("actions.cancel")}
+            </Button>
+            <Button className="flex-1 gap-2" type="submit">
+              {t("actions.continue")}
+              <HugeiconsIcon className="size-4" icon={ArrowRight01Icon} />
+            </Button>
+          </div>
+        </form>
+      )}
+
+      {/* Confirmation Step */}
+      {step === "confirm" && (
+        <div className="space-y-6">
+          <div className="space-y-4 rounded-lg border border-border bg-muted/30 p-6">
+            <div className="flex items-center justify-between">
+              <span
+                className={cn(
+                  "font-semibold text-muted-foreground text-sm uppercase tracking-wider",
+                  geistSans.className
+                )}
+              >
+                {t("confirm.youReceive")}
+              </span>
+              <HugeiconsIcon className="size-5 text-muted-foreground" icon={DollarCircleIcon} />
+            </div>
+            <p
+              className={cn(
+                "font-bold text-4xl text-green-700 tracking-tighter dark:text-green-400",
+                geistSans.className
+              )}
+            >
+              {formatFromMinorUnits(netAmount, currencyCode)}
+            </p>
+            <div className="space-y-1 border-border border-t pt-3 text-sm">
+              <div className="flex justify-between">
+                <span className={cn("text-muted-foreground", geistSans.className)}>
+                  {t("confirm.requested")}
+                </span>
+                <span className={cn("text-foreground", geistSans.className)}>
+                  {formatFromMinorUnits(amount, currencyCode)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className={cn("text-muted-foreground", geistSans.className)}>
+                  {t("confirm.fee")} ({feePercentage}%)
+                </span>
+                <span className={cn("text-foreground", geistSans.className)}>
+                  -{formatFromMinorUnits(feeAmount, currencyCode)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-900/20">
+            <p className={cn("text-amber-900 text-sm dark:text-amber-200", geistSans.className)}>
+              {t("confirm.warning")}
+            </p>
+          </div>
+
+          <div className="flex gap-3">
+            <Button
+              className="flex-1"
+              onClick={() => setStep("input")}
+              type="button"
+              variant="outline"
+            >
+              {t("actions.back")}
+            </Button>
+            <Button className="flex-1 gap-2" onClick={handleSubmitPayout}>
+              <HugeiconsIcon className="size-4" icon={FlashIcon} />
+              {t("actions.confirmPayout")}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Processing Step */}
+      {step === "processing" && (
+        <div className="flex flex-col items-center justify-center gap-4 py-8">
+          <HugeiconsIcon className="size-12 animate-spin text-rausch-600" icon={Loading03Icon} />
+          <p className={cn("font-medium text-foreground", geistSans.className)}>
+            {t("processing.title")}
+          </p>
+          <p className={cn("text-center text-muted-foreground text-sm", geistSans.className)}>
+            {t("processing.description")}
+          </p>
+        </div>
+      )}
+
+      {/* Success Step */}
+      {step === "success" && successResult && (
+        <div className="flex flex-col items-center justify-center gap-4 py-8">
+          <div className="flex size-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
+            <HugeiconsIcon
+              className="size-8 text-green-700 dark:text-green-400"
+              icon={CheckmarkCircle02Icon}
+            />
+          </div>
+          <p className={cn("font-semibold text-foreground text-xl", geistSans.className)}>
+            {t("success.title")}
+          </p>
+          <div className="w-full space-y-2 rounded-lg border border-border bg-muted/30 p-4 text-sm">
+            <div className="flex justify-between">
+              <span className={cn("text-muted-foreground", geistSans.className)}>
+                {t("success.amount")}
+              </span>
+              <span
+                className={cn(
+                  "font-medium text-green-700 dark:text-green-400",
+                  geistSans.className
+                )}
+              >
+                {formatFromMinorUnits(successResult.netAmount, currencyCode)}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className={cn("text-muted-foreground", geistSans.className)}>
+                {t("success.newBalance")}
+              </span>
+              <span className={cn("font-medium text-foreground", geistSans.className)}>
+                {formatFromMinorUnits(successResult.newBalance, currencyCode)}
+              </span>
+            </div>
+          </div>
+          <p className={cn("text-center text-muted-foreground text-sm", geistSans.className)}>
+            {t("success.description")}
+          </p>
+        </div>
+      )}
+
+      {/* Error Step */}
+      {step === "error" && (
+        <div className="flex flex-col items-center justify-center gap-4 py-8">
+          <div className="flex size-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/20">
+            <HugeiconsIcon
+              className="size-8 text-red-700 dark:text-red-400"
+              icon={AlertCircleIcon}
+            />
+          </div>
+          <p className={cn("font-semibold text-foreground text-xl", geistSans.className)}>
+            {t("error.title")}
+          </p>
+          <p className={cn("text-center text-muted-foreground text-sm", geistSans.className)}>
+            {errorMessage}
+          </p>
+          <Button className="mt-4" onClick={() => setStep("input")}>
+            {t("actions.tryAgain")}
+          </Button>
+        </div>
+      )}
+    </>
+  );
+
+  // ========================================
+  // Render: Mobile Sheet or Desktop Dialog
+  // ========================================
+
+  // Mobile: Bottom Sheet (85vh max height)
+  if (isMobile) {
+    return (
+      <Sheet onOpenChange={handleClose} open={open}>
+        <SheetContent
+          className="max-h-[85vh] overflow-y-auto"
+          data-testid="instant-payout-modal"
+          side="bottom"
+        >
+          <SheetHeader className="mb-6">
+            <SheetTitle>{renderHeader()}</SheetTitle>
+          </SheetHeader>
+          {renderContent()}
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  // Desktop: Centered Dialog
   return (
     <Dialog onOpenChange={handleClose} open={open}>
       <DialogContent className="max-w-lg" data-testid="instant-payout-modal">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-orange-100">
-              <Zap className="size-5 text-orange-600" />
-            </div>
-            <span className={cn("text-neutral-900 text-xl", geistSans.className)}>
-              {t("title")}
-            </span>
-          </DialogTitle>
+          <DialogTitle>{renderHeader()}</DialogTitle>
         </DialogHeader>
-
-        {/* Input Step */}
-        {step === "input" && (
-          <form className="space-y-6" onSubmit={handleSubmit(handleConfirm)}>
-            {/* Amount Input */}
-            <div className="space-y-2">
-              <Label
-                className={cn("text-neutral-900 text-sm", geistSans.className)}
-                htmlFor="amount"
-              >
-                {t("fields.amount.label")}
-              </Label>
-              <Input
-                id="amount"
-                placeholder="0"
-                type="number"
-                {...register("amount", { valueAsNumber: true })}
-                className={cn(
-                  "font-mono text-lg",
-                  errors.amount && "border-red-300 focus-visible:ring-red-500"
-                )}
-              />
-              {errors.amount && (
-                <p
-                  className={cn(
-                    "flex items-center gap-1 text-red-600 text-sm",
-                    geistSans.className
-                  )}
-                >
-                  <AlertCircle className="size-4" />
-                  {errors.amount.message}
-                </p>
-              )}
-
-              {/* Quick Amount Buttons */}
-              <div className="grid grid-cols-4 gap-2 pt-2">
-                {[25, 50, 75, 100].map((percentage) => (
-                  <Button
-                    className={cn("text-xs", geistSans.className)}
-                    key={percentage}
-                    onClick={() => handleSetPercentage(percentage)}
-                    size="sm"
-                    type="button"
-                    variant="outline"
-                  >
-                    {percentage}%
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Available Balance */}
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-              <div className="flex items-center justify-between text-sm">
-                <span className={cn("text-neutral-600", geistSans.className)}>
-                  {t("info.availableBalance")}
-                </span>
-                <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatFromMinorUnits(balance, currencyCode)}
-                </span>
-              </div>
-            </div>
-
-            {/* Fee Breakdown */}
-            {amount >= minAmount && (
-              <div className="space-y-3 rounded-lg border border-neutral-200 bg-blue-50 p-4">
-                <div className="flex items-start gap-2">
-                  <Info className="mt-0.5 size-4 text-blue-600" />
-                  <p className={cn("text-blue-900 text-sm", geistSans.className)}>
-                    {t("info.feeExplanation", { percentage: feePercentage })}
-                  </p>
-                </div>
-                <div className="space-y-2 border-blue-200 border-t pt-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className={cn("text-blue-800", geistSans.className)}>
-                      {t("breakdown.requested")}
-                    </span>
-                    <span className={cn("font-medium text-blue-900", geistSans.className)}>
-                      {formatFromMinorUnits(amount, currencyCode)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className={cn("text-blue-800", geistSans.className)}>
-                      {t("breakdown.fee")}
-                    </span>
-                    <span
-                      className={cn("font-medium text-blue-900", geistSans.className)}
-                      data-testid="fee-amount"
-                    >
-                      -{formatFromMinorUnits(feeAmount, currencyCode)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between border-blue-200 border-t pt-2 font-semibold text-sm">
-                    <span className={cn("text-blue-900", geistSans.className)}>
-                      {t("breakdown.youReceive")}
-                    </span>
-                    <span
-                      className={cn("text-base text-green-700", geistSans.className)}
-                      data-testid="net-amount"
-                    >
-                      {formatFromMinorUnits(netAmount, currencyCode)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Actions */}
-            <div className="flex gap-3">
-              <Button className="flex-1" onClick={handleClose} type="button" variant="outline">
-                {t("actions.cancel")}
-              </Button>
-              <Button className="flex-1 gap-2" type="submit">
-                {t("actions.continue")}
-                <ArrowRight className="size-4" />
-              </Button>
-            </div>
-          </form>
-        )}
-
-        {/* Confirmation Step */}
-        {step === "confirm" && (
-          <div className="space-y-6">
-            <div className="space-y-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
-              <div className="flex items-center justify-between">
-                <span
-                  className={cn(
-                    "font-semibold text-neutral-700 text-sm uppercase tracking-wider",
-                    geistSans.className
-                  )}
-                >
-                  {t("confirm.youReceive")}
-                </span>
-                <DollarSign className="size-5 text-neutral-400" />
-              </div>
-              <p
-                className={cn(
-                  "font-bold text-4xl text-green-700 tracking-tighter",
-                  geistSans.className
-                )}
-              >
-                {formatFromMinorUnits(netAmount, currencyCode)}
-              </p>
-              <div className="space-y-1 border-neutral-200 border-t pt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className={cn("text-neutral-600", geistSans.className)}>
-                    {t("confirm.requested")}
-                  </span>
-                  <span className={cn("text-neutral-900", geistSans.className)}>
-                    {formatFromMinorUnits(amount, currencyCode)}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className={cn("text-neutral-600", geistSans.className)}>
-                    {t("confirm.fee")} ({feePercentage}%)
-                  </span>
-                  <span className={cn("text-neutral-900", geistSans.className)}>
-                    -{formatFromMinorUnits(feeAmount, currencyCode)}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
-              <p className={cn("text-amber-900 text-sm", geistSans.className)}>
-                {t("confirm.warning")}
-              </p>
-            </div>
-
-            <div className="flex gap-3">
-              <Button
-                className="flex-1"
-                onClick={() => setStep("input")}
-                type="button"
-                variant="outline"
-              >
-                {t("actions.back")}
-              </Button>
-              <Button className="flex-1 gap-2" onClick={handleSubmitPayout}>
-                <Zap className="size-4" />
-                {t("actions.confirmPayout")}
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Processing Step */}
-        {step === "processing" && (
-          <div className="flex flex-col items-center justify-center gap-4 py-8">
-            <Loader2 className="size-12 animate-spin text-orange-600" />
-            <p className={cn("font-medium text-neutral-900", geistSans.className)}>
-              {t("processing.title")}
-            </p>
-            <p className={cn("text-center text-neutral-600 text-sm", geistSans.className)}>
-              {t("processing.description")}
-            </p>
-          </div>
-        )}
-
-        {/* Success Step */}
-        {step === "success" && successResult && (
-          <div className="flex flex-col items-center justify-center gap-4 py-8">
-            <div className="flex size-16 items-center justify-center rounded-full bg-green-100">
-              <Check className="size-8 text-green-700" />
-            </div>
-            <p className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
-              {t("success.title")}
-            </p>
-            <div className="w-full space-y-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm">
-              <div className="flex justify-between">
-                <span className={cn("text-neutral-600", geistSans.className)}>
-                  {t("success.amount")}
-                </span>
-                <span className={cn("font-medium text-green-700", geistSans.className)}>
-                  {formatFromMinorUnits(successResult.netAmount, currencyCode)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className={cn("text-neutral-600", geistSans.className)}>
-                  {t("success.newBalance")}
-                </span>
-                <span className={cn("font-medium text-neutral-900", geistSans.className)}>
-                  {formatFromMinorUnits(successResult.newBalance, currencyCode)}
-                </span>
-              </div>
-            </div>
-            <p className={cn("text-center text-neutral-600 text-sm", geistSans.className)}>
-              {t("success.description")}
-            </p>
-          </div>
-        )}
-
-        {/* Error Step */}
-        {step === "error" && (
-          <div className="flex flex-col items-center justify-center gap-4 py-8">
-            <div className="flex size-16 items-center justify-center rounded-full bg-red-100">
-              <AlertCircle className="size-8 text-red-700" />
-            </div>
-            <p className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
-              {t("error.title")}
-            </p>
-            <p className={cn("text-center text-neutral-700 text-sm", geistSans.className)}>
-              {errorMessage}
-            </p>
-            <Button className="mt-4" onClick={() => setStep("input")}>
-              {t("actions.tryAgain")}
-            </Button>
-          </div>
-        )}
+        {renderContent()}
       </DialogContent>
     </Dialog>
   );

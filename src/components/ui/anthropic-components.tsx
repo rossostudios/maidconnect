@@ -1,6 +1,6 @@
-// Lia Design System - Anthropic-Inspired UI Components
-// Color System: Dark #141413, Light #faf9f5, Mid Gray #b0aea5, Light Gray #e8e6dc
-// Accents: Orange #d97757, Blue #6a9bcc, Green #788c5d
+// Lia Design System - Airbnb-Inspired UI Components
+// Color System: Dark #222222, Light #F7F7F7, Mid Gray #767676, Light Gray #DDDDDD
+// Accents: Rausch #7A3B4A (burgundy), Babu #00A699 (teal), Green #788c5d
 // Typography: Geist Sans (all text), Geist Mono (data/code)
 
 import React from "react";
@@ -26,11 +26,11 @@ export const Button: React.FC<ButtonProps> = ({
     "font-sans font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
-    primary: "bg-[#d97757] text-[#faf9f5] hover:bg-[#c56847] focus:ring-[#d97757]",
-    secondary: "bg-[#6a9bcc] text-[#faf9f5] hover:bg-[#5a8bbc] focus:ring-[#6a9bcc]",
+    primary: "bg-[#7A3B4A] text-white hover:bg-[#6B3340] focus:ring-[#7A3B4A]",
+    secondary: "bg-[#00A699] text-white hover:bg-[#008F84] focus:ring-[#00A699]",
     outline:
-      "border-2 border-[#d97757] text-[#d97757] hover:bg-[#d97757] hover:text-[#faf9f5] focus:ring-[#d97757]",
-    ghost: "text-[#141413] hover:bg-[#e8e6dc] focus:ring-[#b0aea5]",
+      "border-2 border-[#7A3B4A] text-[#7A3B4A] hover:bg-[#7A3B4A] hover:text-white focus:ring-[#7A3B4A]",
+    ghost: "text-[#222222] hover:bg-[#DDDDDD] focus:ring-[#767676]",
   };
 
   const sizes = {
@@ -65,17 +65,17 @@ export const Input: React.FC<InputProps> = ({
 }) => (
   <div className="w-full">
     {label && (
-      <label className="mb-1.5 block font-medium font-sans text-[#141413] text-sm">{label}</label>
+      <label className="mb-1.5 block font-medium font-sans text-[#222222] text-sm">{label}</label>
     )}
     <input
-      className={`w-full rounded-lg border-2 border-[#e8e6dc] bg-[#faf9f5] px-4 py-2 font-sans text-[#141413] transition-colors duration-200 placeholder:text-[#b0aea5] focus:border-[#d97757] focus:outline-none focus:ring-2 focus:ring-[#d97757] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#e8e6dc] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+      className={`w-full rounded-lg border-2 border-[#DDDDDD] bg-[#F7F7F7] px-4 py-2 font-sans text-[#222222] transition-colors duration-200 placeholder:text-[#767676] focus:border-[#7A3B4A] focus:outline-none focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#DDDDDD] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
           ${className}
         `}
       {...props}
     />
     {error && <p className="mt-1.5 font-sans text-red-600 text-sm">{error}</p>}
     {helperText && !error && (
-      <p className="mt-1.5 font-sans text-[#b0aea5] text-sm">{helperText}</p>
+      <p className="mt-1.5 font-sans text-[#767676] text-sm">{helperText}</p>
     )}
   </div>
 );
@@ -99,17 +99,17 @@ export const Textarea: React.FC<TextareaProps> = ({
 }) => (
   <div className="w-full">
     {label && (
-      <label className="mb-1.5 block font-medium font-sans text-[#141413] text-sm">{label}</label>
+      <label className="mb-1.5 block font-medium font-sans text-[#222222] text-sm">{label}</label>
     )}
     <textarea
-      className={`resize-vertical w-full rounded-lg border-2 border-[#e8e6dc] bg-[#faf9f5] px-4 py-2 font-sans text-[#141413] transition-colors duration-200 placeholder:text-[#b0aea5] focus:border-[#d97757] focus:outline-none focus:ring-2 focus:ring-[#d97757] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#e8e6dc] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+      className={`resize-vertical w-full rounded-lg border-2 border-[#DDDDDD] bg-[#F7F7F7] px-4 py-2 font-sans text-[#222222] transition-colors duration-200 placeholder:text-[#767676] focus:border-[#7A3B4A] focus:outline-none focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#DDDDDD] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
           ${className}
         `}
       {...props}
     />
     {error && <p className="mt-1.5 font-sans text-red-600 text-sm">{error}</p>}
     {helperText && !error && (
-      <p className="mt-1.5 font-sans text-[#b0aea5] text-sm">{helperText}</p>
+      <p className="mt-1.5 font-sans text-[#767676] text-sm">{helperText}</p>
     )}
   </div>
 );
@@ -126,9 +126,9 @@ type CardProps = {
 
 export const Card: React.FC<CardProps> = ({ children, variant = "default", className = "" }) => {
   const variants = {
-    default: "bg-[#faf9f5] border border-[#e8e6dc]",
-    elevated: "bg-[#faf9f5] shadow-lg",
-    bordered: "bg-[#faf9f5] border-2 border-[#d97757]",
+    default: "bg-[#F7F7F7] border border-[#DDDDDD]",
+    elevated: "bg-[#F7F7F7] shadow-lg",
+    bordered: "bg-[#F7F7F7] border-2 border-[#7A3B4A]",
   };
 
   return <div className={`rounded-lg p-6 ${variants[variant]} ${className}`}>{children}</div>;
@@ -140,16 +140,16 @@ export const Card: React.FC<CardProps> = ({ children, variant = "default", class
 
 type BadgeProps = {
   children: React.ReactNode;
-  variant?: "orange" | "blue" | "green" | "gray";
+  variant?: "rausch" | "babu" | "green" | "gray";
   className?: string;
 };
 
-export const Badge: React.FC<BadgeProps> = ({ children, variant = "orange", className = "" }) => {
+export const Badge: React.FC<BadgeProps> = ({ children, variant = "rausch", className = "" }) => {
   const variants = {
-    orange: "bg-[#d97757] text-[#faf9f5]",
-    blue: "bg-[#6a9bcc] text-[#faf9f5]",
-    green: "bg-[#788c5d] text-[#faf9f5]",
-    gray: "bg-[#b0aea5] text-[#faf9f5]",
+    rausch: "bg-[#7A3B4A] text-white",
+    babu: "bg-[#00A699] text-white",
+    green: "bg-[#788c5d] text-white",
+    gray: "bg-[#767676] text-white",
   };
 
   return (
@@ -173,9 +173,9 @@ type AlertProps = {
 
 export const Alert: React.FC<AlertProps> = ({ children, variant = "info", className = "" }) => {
   const variants = {
-    info: "bg-[#6a9bcc] bg-opacity-10 border-[#6a9bcc] text-[#141413]",
-    success: "bg-[#788c5d] bg-opacity-10 border-[#788c5d] text-[#141413]",
-    warning: "bg-[#d97757] bg-opacity-10 border-[#d97757] text-[#141413]",
+    info: "bg-[#00A699] bg-opacity-10 border-[#00A699] text-[#222222]",
+    success: "bg-[#788c5d] bg-opacity-10 border-[#788c5d] text-[#222222]",
+    warning: "bg-[#7A3B4A] bg-opacity-10 border-[#7A3B4A] text-[#222222]",
     error: "bg-red-50 border-red-500 text-red-900",
   };
 
@@ -208,7 +208,7 @@ export const Toggle: React.FC<ToggleProps> = ({ checked, onChange, label, disabl
         type="checkbox"
       />
       <div
-        className={`block h-8 w-14 rounded-full transition-colors duration-200 ${checked ? "bg-[#d97757]" : "bg-[#e8e6dc]"}
+        className={`block h-8 w-14 rounded-full transition-colors duration-200 ${checked ? "bg-[#7A3B4A]" : "bg-[#DDDDDD]"}
           ${disabled ? "cursor-not-allowed opacity-50" : ""}
         `}
       />
@@ -217,7 +217,7 @@ export const Toggle: React.FC<ToggleProps> = ({ checked, onChange, label, disabl
         `}
       />
     </div>
-    {label && <span className="ml-3 font-sans text-[#141413]">{label}</span>}
+    {label && <span className="ml-3 font-sans text-[#222222]">{label}</span>}
   </label>
 );
 
@@ -240,10 +240,10 @@ export const Select: React.FC<SelectProps> = ({
 }) => (
   <div className="w-full">
     {label && (
-      <label className="mb-1.5 block font-medium font-sans text-[#141413] text-sm">{label}</label>
+      <label className="mb-1.5 block font-medium font-sans text-[#222222] text-sm">{label}</label>
     )}
     <select
-      className={`w-full rounded-lg border-2 border-[#e8e6dc] bg-[#faf9f5] px-4 py-2 font-sans text-[#141413] transition-colors duration-200 focus:border-[#d97757] focus:outline-none focus:ring-2 focus:ring-[#d97757] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#e8e6dc] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
+      className={`w-full rounded-lg border-2 border-[#DDDDDD] bg-[#F7F7F7] px-4 py-2 font-sans text-[#222222] transition-colors duration-200 focus:border-[#7A3B4A] focus:outline-none focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-[#DDDDDD] ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}
           ${className}
         `}
       {...props}
@@ -269,12 +269,12 @@ interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
 export const Checkbox: React.FC<CheckboxProps> = ({ label, className = "", ...props }) => (
   <label className="flex cursor-pointer items-center">
     <input
-      className={`h-5 w-5 rounded border-2 border-[#e8e6dc] text-[#d97757] transition-colors duration-200 focus:ring-2 focus:ring-[#d97757] focus:ring-opacity-20 ${className}
+      className={`h-5 w-5 rounded border-2 border-[#DDDDDD] text-[#7A3B4A] transition-colors duration-200 focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 ${className}
         `}
       type="checkbox"
       {...props}
     />
-    {label && <span className="ml-2 font-sans text-[#141413]">{label}</span>}
+    {label && <span className="ml-2 font-sans text-[#222222]">{label}</span>}
   </label>
 );
 
@@ -289,12 +289,12 @@ interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "
 export const Radio: React.FC<RadioProps> = ({ label, className = "", ...props }) => (
   <label className="flex cursor-pointer items-center">
     <input
-      className={`h-5 w-5 border-2 border-[#e8e6dc] text-[#d97757] transition-colors duration-200 focus:ring-2 focus:ring-[#d97757] focus:ring-opacity-20 ${className}
+      className={`h-5 w-5 border-2 border-[#DDDDDD] text-[#7A3B4A] transition-colors duration-200 focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 ${className}
         `}
       type="radio"
       {...props}
     />
-    {label && <span className="ml-2 font-sans text-[#141413]">{label}</span>}
+    {label && <span className="ml-2 font-sans text-[#222222]">{label}</span>}
   </label>
 );
 
@@ -309,7 +309,7 @@ type DividerProps = {
 
 export const Divider: React.FC<DividerProps> = ({ className = "", orientation = "horizontal" }) => (
   <div
-    className={`bg-[#e8e6dc] ${orientation === "horizontal" ? "h-px w-full" : "h-full w-px"}
+    className={`bg-[#DDDDDD] ${orientation === "horizontal" ? "h-px w-full" : "h-full w-px"}
         ${className}
       `}
   />
@@ -331,9 +331,9 @@ export const Link: React.FC<LinkProps> = ({
   ...props
 }) => {
   const variants = {
-    primary: "text-[#d97757] hover:text-[#c56847] underline",
-    secondary: "text-[#6a9bcc] hover:text-[#5a8bbc] underline",
-    subtle: "text-[#141413] hover:text-[#b0aea5] no-underline hover:underline",
+    primary: "text-[#6B3340] hover:text-[#5D2B35] underline",
+    secondary: "text-[#00A699] hover:text-[#008F84] underline",
+    subtle: "text-[#222222] hover:text-[#767676] no-underline hover:underline",
   };
 
   return (
@@ -354,10 +354,10 @@ export const ComponentShowcase = () => {
   const [toggleState, setToggleState] = React.useState(false);
 
   return (
-    <div className="space-y-8 bg-[#faf9f5] p-8 font-sans">
+    <div className="space-y-8 bg-[#F7F7F7] p-8 font-sans">
       {/* Buttons */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Buttons</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Buttons</h2>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -370,7 +370,7 @@ export const ComponentShowcase = () => {
 
       {/* Inputs */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Form Inputs</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Form Inputs</h2>
         <div className="max-w-md space-y-4">
           <Input
             helperText="We'll never share your email"
@@ -384,29 +384,29 @@ export const ComponentShowcase = () => {
 
       {/* Cards */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Cards</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Cards</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <Card variant="default">
             <h3 className="mb-2 font-sans text-lg">Default Card</h3>
-            <p className="font-sans text-[#b0aea5]">With subtle border</p>
+            <p className="font-sans text-[#767676]">With subtle border</p>
           </Card>
           <Card variant="elevated">
             <h3 className="mb-2 font-sans text-lg">Elevated Card</h3>
-            <p className="font-sans text-[#b0aea5]">With shadow</p>
+            <p className="font-sans text-[#767676]">With shadow</p>
           </Card>
           <Card variant="bordered">
             <h3 className="mb-2 font-sans text-lg">Bordered Card</h3>
-            <p className="font-sans text-[#b0aea5]">With accent border</p>
+            <p className="font-sans text-[#767676]">With accent border</p>
           </Card>
         </div>
       </section>
 
       {/* Badges */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Badges</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Badges</h2>
         <div className="flex flex-wrap gap-2">
-          <Badge variant="orange">Orange</Badge>
-          <Badge variant="blue">Blue</Badge>
+          <Badge variant="rausch">Rausch</Badge>
+          <Badge variant="babu">Babu</Badge>
           <Badge variant="green">Green</Badge>
           <Badge variant="gray">Gray</Badge>
         </div>
@@ -414,7 +414,7 @@ export const ComponentShowcase = () => {
 
       {/* Alerts */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Alerts</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Alerts</h2>
         <div className="space-y-3">
           <Alert variant="info">This is an informational message</Alert>
           <Alert variant="success">Operation completed successfully</Alert>
@@ -425,7 +425,7 @@ export const ComponentShowcase = () => {
 
       {/* Toggle */}
       <section>
-        <h2 className="mb-4 font-sans text-2xl text-[#141413]">Toggle</h2>
+        <h2 className="mb-4 font-sans text-2xl text-[#222222]">Toggle</h2>
         <Toggle checked={toggleState} label="Enable notifications" onChange={setToggleState} />
       </section>
     </div>

@@ -37,46 +37,49 @@ export function SimplePricing({ className }: SimplePricingProps) {
   const t = useTranslations("home.simplePricing");
 
   return (
-    <section className={cn("bg-white py-16 sm:py-20 lg:py-24", className)}>
+    <section className={cn("bg-background py-16 sm:py-20 lg:py-24", className)}>
       <Container className="max-w-4xl">
         {/* Section Header */}
         <div className="mb-10 text-center sm:mb-12">
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl">
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-foreground sm:text-3xl lg:text-4xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground sm:text-lg">
             {t("subtitle")}
           </p>
         </div>
 
         {/* Pricing Card */}
-        <div className="mx-auto max-w-2xl rounded-2xl border border-neutral-200 bg-neutral-50 p-8 text-center shadow-lg sm:p-12">
+        <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-muted p-8 text-center shadow-lg sm:p-12">
           {/* Badge */}
-          <div className="mb-6 inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5">
-            <span className="font-semibold text-orange-600 text-xs uppercase tracking-wider">
+          <div className="mb-6 inline-flex items-center rounded-full border border-rausch-200 bg-rausch-50 px-4 py-1.5 dark:border-rausch-500/50 dark:bg-rausch-500/20">
+            <span className="font-semibold text-rausch-600 text-xs uppercase tracking-wider dark:text-rausch-400">
               {t("badge")}
             </span>
           </div>
 
           {/* Big Number */}
           <div className="mb-4">
-            <span className="font-[family-name:var(--font-geist-mono)] font-bold text-6xl text-neutral-900 sm:text-7xl">
+            <span className="font-[family-name:var(--font-geist-mono)] font-bold text-6xl text-foreground sm:text-7xl">
               15%
             </span>
-            <span className="ml-2 text-lg text-neutral-600 sm:text-xl">service fee</span>
+            <span className="ml-2 text-lg text-muted-foreground sm:text-xl">service fee</span>
           </div>
 
           {/* Value Prop */}
-          <p className="mb-8 text-base text-neutral-600 sm:text-lg">{t("description")}</p>
+          <p className="mb-8 text-base text-muted-foreground sm:text-lg">{t("description")}</p>
 
           {/* Features List */}
           <ul className="mb-8 space-y-3 text-left sm:mb-10">
             {includedFeatures.map((feature) => (
               <li className="flex items-center gap-3" key={feature}>
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100">
-                  <HugeiconsIcon className="h-4 w-4 text-green-600" icon={CheckmarkCircle01Icon} />
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20">
+                  <HugeiconsIcon
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
+                    icon={CheckmarkCircle01Icon}
+                  />
                 </span>
-                <span className="text-neutral-700 text-sm sm:text-base">{feature}</span>
+                <span className="text-muted-foreground text-sm sm:text-base">{feature}</span>
               </li>
             ))}
           </ul>
@@ -92,7 +95,7 @@ export function SimplePricing({ className }: SimplePricingProps) {
           </div>
 
           {/* Footer Note */}
-          <p className="mt-6 text-neutral-500 text-sm">{t("footer")}</p>
+          <p className="mt-6 text-muted-foreground text-sm">{t("footer")}</p>
         </div>
       </Container>
     </section>

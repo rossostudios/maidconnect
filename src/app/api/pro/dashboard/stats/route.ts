@@ -49,7 +49,9 @@ function getPeriodDates(period: Period): { start: Date; end: Date; previousStart
 }
 
 function calculateTrend(current: number, previous: number): number {
-  if (previous === 0) return current > 0 ? 100 : 0;
+  if (previous === 0) {
+    return current > 0 ? 100 : 0;
+  }
   return Math.round(((current - previous) / previous) * 100);
 }
 
@@ -100,7 +102,9 @@ export async function GET(request: NextRequest) {
     // Calculate earnings breakdown
     // PAID: Completed bookings with captured amounts in the period
     const paidBookings = bookings.filter((b) => {
-      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) return false;
+      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= start && bookingDate <= end;
     });
@@ -109,7 +113,9 @@ export async function GET(request: NextRequest) {
     // UPCOMING: Confirmed future bookings
     const now = new Date();
     const upcomingBookings = bookings.filter((b) => {
-      if (b.status !== "confirmed" || !b.scheduled_start) return false;
+      if (b.status !== "confirmed" || !b.scheduled_start) {
+        return false;
+      }
       return new Date(b.scheduled_start) > now;
     });
     const upcomingEarnings = upcomingBookings.reduce(
@@ -122,7 +128,9 @@ export async function GET(request: NextRequest) {
 
     // Calculate previous period for trend
     const previousPaidBookings = bookings.filter((b) => {
-      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) return false;
+      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= previousStart && bookingDate < start;
     });
@@ -134,7 +142,9 @@ export async function GET(request: NextRequest) {
 
     // Booking counts
     const periodBookings = bookings.filter((b) => {
-      if (!b.scheduled_start) return false;
+      if (!b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= start && bookingDate <= end;
     });
@@ -146,7 +156,9 @@ export async function GET(request: NextRequest) {
 
     // Previous period booking count for trend
     const previousPeriodBookings = bookings.filter((b) => {
-      if (!b.scheduled_start) return false;
+      if (!b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= previousStart && bookingDate < start;
     });
@@ -241,11 +253,15 @@ function buildEarningsTrendData(
       intervalEnd = new Date(current);
       intervalEnd.setDate(intervalEnd.getDate() + 6);
       intervalEnd.setHours(23, 59, 59, 999);
-      if (intervalEnd > end) intervalEnd = end;
+      if (intervalEnd > end) {
+        intervalEnd = end;
+      }
     }
 
     const intervalBookings = bookings.filter((b) => {
-      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) return false;
+      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= current && bookingDate <= intervalEnd;
     });
@@ -291,11 +307,15 @@ function buildBookingActivityData(
       intervalEnd = new Date(current);
       intervalEnd.setDate(intervalEnd.getDate() + 6);
       intervalEnd.setHours(23, 59, 59, 999);
-      if (intervalEnd > end) intervalEnd = end;
+      if (intervalEnd > end) {
+        intervalEnd = end;
+      }
     }
 
     const intervalBookings = bookings.filter((b) => {
-      if (!b.scheduled_start) return false;
+      if (!b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate >= current && bookingDate <= intervalEnd;
     });

@@ -34,12 +34,15 @@ export function SortDropdown({ value, onChange, className }: SortDropdownProps) 
           role="combobox"
           variant="outline"
         >
-          <span className="text-sm">
+          <span className="text-sm dark:text-white">
             <span className="hidden sm:inline">Sort: </span>
             {selectedOption?.label || "Sort"}
           </span>
           <HugeiconsIcon
-            className={cn("h-4 w-4 shrink-0 transition-transform", open && "rotate-180")}
+            className={cn(
+              "h-4 w-4 shrink-0 transition-transform dark:text-white",
+              open && "rotate-180"
+            )}
             icon={ArrowDown01Icon}
           />
         </Button>
@@ -51,8 +54,8 @@ export function SortDropdown({ value, onChange, className }: SortDropdownProps) 
               className={cn(
                 "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
                 value === option.value
-                  ? "bg-orange-50 text-orange-600"
-                  : "text-neutral-700 hover:bg-neutral-100"
+                  ? "bg-rausch-50 text-rausch-600 dark:bg-rausch-900/30 dark:text-rausch-300"
+                  : "text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-muted"
               )}
               key={option.value}
               onClick={() => {

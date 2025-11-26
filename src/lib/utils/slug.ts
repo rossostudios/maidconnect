@@ -7,6 +7,10 @@
  * @module slug
  */
 
+// Module-scope regex patterns for performance (Biome useTopLevelRegex fix)
+const VALID_SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const PRO_URL_PATTERN = /\/pro\/([a-z0-9-]+)/;
+
 /**
  * Generates a URL-safe slug from a given string
  *
@@ -117,8 +121,7 @@ export function isValidSlug(slug: string): boolean {
   }
 
   // Check format: only lowercase letters, numbers, and single hyphens
-  const slugRegex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-  return slugRegex.test(slug);
+  return VALID_SLUG_PATTERN.test(slug);
 }
 
 /**
@@ -174,7 +177,7 @@ export function extractSlugFromUrl(url: string): string | null {
   }
 
   // Match /pro/{slug} pattern
-  const match = url.match(/\/pro\/([a-z0-9-]+)/);
+  const match = url.match(PRO_URL_PATTERN);
   return match ? match[1] : null;
 }
 

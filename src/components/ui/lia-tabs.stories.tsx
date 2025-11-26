@@ -68,7 +68,7 @@ export const Underline: Story = {
 
         <div className="mt-8 rounded-lg border border-neutral-200 bg-white p-6">
           <p className="text-neutral-700 text-sm">
-            Active tab: <span className="font-semibold text-orange-600">{activeTab}</span>
+            Active tab: <span className="font-semibold text-rausch-600">{activeTab}</span>
           </p>
         </div>
       </div>

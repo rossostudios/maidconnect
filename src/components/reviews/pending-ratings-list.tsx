@@ -82,7 +82,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
                 </div>
                 <button
                   className={cn(
-                    "border border-neutral-200 bg-[#FF5200] px-4 py-2 font-semibold text-white text-xs uppercase tracking-wider transition-all hover:bg-orange-600",
+                    "border border-neutral-200 bg-[#FF5200] px-4 py-2 font-semibold text-white text-xs uppercase tracking-wider transition-all hover:bg-rausch-600",
                     geistSans.className
                   )}
                   onClick={() => setSelectedBooking(booking)}

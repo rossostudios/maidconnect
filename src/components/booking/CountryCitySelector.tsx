@@ -117,8 +117,8 @@ export function CountryCitySelector({
                     <Badge
                       className={`text-xs ${
                         isStripe
-                          ? "border-blue-200 bg-blue-50 text-blue-700"
-                          : "border-orange-200 bg-orange-50 text-orange-700"
+                          ? "border-babu-200 bg-babu-50 text-babu-700"
+                          : "border-rausch-200 bg-rausch-50 text-rausch-700"
                       }`}
                       variant="outline"
                     >

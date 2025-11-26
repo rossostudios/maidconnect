@@ -77,7 +77,7 @@ export function AnnouncementBanner() {
       {isVisible && (
         <motion.div
           animate={{ y: 0, opacity: 1 }}
-          className="relative overflow-hidden border-neutral-200 border-b bg-gradient-to-b from-orange-50/40 via-neutral-50/60 to-white/80"
+          className="relative overflow-hidden border-neutral-200 border-b bg-gradient-to-b from-rausch-50/40 via-neutral-50/60 to-white/80 dark:border-neutral-700 dark:from-rausch-500/10 dark:via-neutral-800/60 dark:to-neutral-900/80"
           exit={{ y: -100, opacity: 0 }}
           initial={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -103,7 +103,7 @@ export function AnnouncementBanner() {
                 {/* Badge - Prominent pill on mobile, inline on tablet+ */}
                 <motion.span
                   animate={{ opacity: 1, y: 0 }}
-                  className="inline-flex flex-shrink-0 items-center rounded-full border border-orange-200 bg-orange-500/10 px-3 py-1 font-medium text-orange-600 text-xs uppercase tracking-wider sm:rounded-lg sm:border-0 sm:px-2.5 sm:py-0.5 md:text-[0.6875rem]"
+                  className="inline-flex flex-shrink-0 items-center rounded-full border border-rausch-200 bg-rausch-500/10 px-3 py-1 font-medium text-rausch-600 text-xs uppercase tracking-wider sm:rounded-lg sm:border-0 sm:px-2.5 sm:py-0.5 md:text-[0.6875rem] dark:border-rausch-500/50 dark:bg-rausch-500/20 dark:text-rausch-400"
                   initial={{ opacity: 0, y: -10 }}
                   transition={{ delay: 0.4, duration: 0.4 }}
                 >
@@ -113,11 +113,11 @@ export function AnnouncementBanner() {
                 {/* Message - Responsive typography with optimized line breaks */}
                 <motion.p
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-0 max-w-md font-[family-name:var(--font-family-manrope)] text-[0.8125rem] text-neutral-700 leading-relaxed sm:max-w-none sm:flex-shrink sm:text-sm md:text-base md:leading-normal"
+                  className="mb-0 max-w-md font-[family-name:var(--font-family-manrope)] text-[0.8125rem] text-neutral-700 leading-relaxed sm:max-w-none sm:flex-shrink sm:text-sm md:text-base md:leading-normal dark:text-neutral-300"
                   initial={{ opacity: 0, y: -10 }}
                   transition={{ delay: 0.45, duration: 0.4 }}
                 >
-                  <span className="text-neutral-900">{message.title}</span>{" "}
+                  <span className="text-neutral-900 dark:text-white">{message.title}</span>{" "}
                   <span className="hidden whitespace-nowrap md:inline">
                     Top pay, vetted clients, 100% of your rates.
                   </span>
@@ -131,7 +131,7 @@ export function AnnouncementBanner() {
                   transition={{ delay: 0.5, duration: 0.4 }}
                 >
                   <Link
-                    className="group relative inline-flex flex-shrink-0 items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700 sm:text-sm md:text-base"
+                    className="group relative inline-flex flex-shrink-0 items-center gap-1.5 font-semibold text-rausch-600 text-sm transition-colors hover:text-rausch-700 sm:text-sm md:text-base dark:text-rausch-400 dark:hover:text-rausch-300"
                     href="/pros"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
@@ -160,7 +160,7 @@ export function AnnouncementBanner() {
                     </svg>
 
                     {/* Hover underline */}
-                    <span className="-bottom-0.5 absolute left-0 h-px w-0 bg-orange-600 transition-all duration-300 group-hover:w-[calc(100%-1.25rem)]" />
+                    <span className="-bottom-0.5 absolute left-0 h-px w-0 bg-rausch-600 transition-all duration-300 group-hover:w-[calc(100%-1.25rem)] dark:bg-rausch-400" />
                   </Link>
                 </motion.div>
               </motion.div>
@@ -169,7 +169,7 @@ export function AnnouncementBanner() {
               <motion.button
                 animate={{ opacity: 1, scale: 1 }}
                 aria-label="Dismiss announcement"
-                className="group absolute top-2 right-2 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-all hover:bg-neutral-100 hover:text-neutral-900 sm:static sm:h-8 sm:w-8 sm:rounded-lg"
+                className="group absolute top-2 right-2 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-all hover:bg-neutral-100 hover:text-neutral-900 sm:static sm:h-8 sm:w-8 sm:rounded-lg dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white"
                 initial={{ opacity: 0, scale: 0.8 }}
                 onClick={handleDismiss}
                 transition={{ delay: 0.55, duration: 0.3 }}
@@ -189,7 +189,7 @@ export function AnnouncementBanner() {
           {/* Bottom accent line */}
           <motion.div
             animate={{ scaleX: 1 }}
-            className="absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
+            className="absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-transparent via-rausch-500/20 to-transparent"
             initial={{ scaleX: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
           />

@@ -1,11 +1,11 @@
 # Foundations
 
-Version: **2025.03**
+Version: **2025.03** (Airbnb-Inspired Refresh)
 Source of truth: `src/app/globals.css`, `src/app/fonts.ts`
 
 ## Design Goals
 
-1. **Anthropic-inspired clarity** – Clean, modern aesthetic with warm neutrals and thoughtful rounded corners.
+1. **Airbnb-inspired clarity** – Clean, modern aesthetic with cool neutrals and signature coral-pink accents.
 2. **Trust through precision** – Tight typography, consistent geometry, and strict 4px spacing grid.
 3. **Accessibility by default** – WCAG AA contrast targets with predictable focus states.
 4. **One system across all surfaces** – Admin, dashboard, marketing, and support use the same tokens.
@@ -38,59 +38,67 @@ Rules:
 
 ## Color System
 
-### Neutral Ramp (Anthropic Warm Grays)
+### Neutral Ramp (Airbnb Cool Grays)
 
 | Token | Hex | Notes |
 | --- | --- | --- |
-| `neutral-50` | `#FAF9F5` | Page background (Anthropic light) |
-| `neutral-100` | `#F5F3EE` | Muted surfaces, disabled |
-| `neutral-200` | `#E8E6DC` | Borders, table dividers (Anthropic light-gray) |
-| `neutral-300` | `#D4D1C7` | Hover borders |
-| `neutral-400` | `#C0BDB3` | Icons, muted lines |
-| `neutral-500` | `#B0AEA5` | Mid-gray (Anthropic) |
-| `neutral-600` | `#8C8A82` | Secondary text |
-| `neutral-700` | `#68665F` | Body text |
-| `neutral-900` | `#141413` | Headings (Anthropic dark) |
+| `neutral-50` | `#F7F7F7` | Page background (Airbnb light) |
+| `neutral-100` | `#EBEBEB` | Muted surfaces, disabled |
+| `neutral-200` | `#DDDDDD` | Borders, table dividers (Airbnb dividers) |
+| `neutral-300` | `#C2C2C2` | Hover borders |
+| `neutral-400` | `#A8A8A8` | Icons, muted lines |
+| `neutral-500` | `#767676` | Mid-gray (Airbnb Foggy) |
+| `neutral-600` | `#5E5E5E` | Secondary text |
+| `neutral-700` | `#484848` | Body text (Airbnb Hof) |
+| `neutral-900` | `#222222` | Headings (Airbnb dark) |
 
-### Orange Ramp (Anthropic Primary Accent)
-
-| Token | Hex | Usage |
-| --- | --- | --- |
-| `orange-50` | `#FAF0ED` | Hover background |
-| `orange-100` | `#F5E1DB` | Light highlights |
-| `orange-400` | `#E88668` | Highlights, progress |
-| `orange-500` | `#D97757` | Primary CTA (Anthropic orange) |
-| `orange-600` | `#C56847` | Links, hover (Anthropic hover) |
-| `orange-700` | `#B15937` | Active/destructive |
-
-### Blue Ramp (Anthropic Secondary Accent)
+### Rausch Ramp (Primary Accent - Deep Burgundy Wine)
 
 | Token | Hex | Usage |
 | --- | --- | --- |
-| `blue-50` | `#EDF4FA` | Info background |
-| `blue-400` | `#7FAAD9` | Info highlights |
-| `blue-500` | `#6A9BCC` | Info states (Anthropic blue) |
-| `blue-600` | `#5A8BBC` | Info hover (Anthropic blue hover) |
+| `rausch-50` | `#F6EDEE` | Hover background, highlights |
+| `rausch-100` | `#E4CAD0` | Light highlights |
+| `rausch-200` | `#C79BA6` | Soft accents |
+| `rausch-300` | `#A87383` | Progress indicators |
+| `rausch-400` | `#8F5261` | Highlights |
+| `rausch-500` | `#7A3B4A` | Primary CTA (Deep burgundy) |
+| `rausch-600` | `#6B3340` | Links, hover state |
+| `rausch-700` | `#5D2B35` | Active/destructive |
+| `rausch-800` | `#4F242C` | Deep accent |
+| `rausch-900` | `#421D24` | Darkest accent |
 
-### Green Ramp (Anthropic Success Accent)
+### Babu Ramp (Airbnb Secondary Accent - Teal)
 
 | Token | Hex | Usage |
 | --- | --- | --- |
-| `green-50` | `#F0F2ED` | Success background |
-| `green-400` | `#8C9F6E` | Success highlights |
-| `green-500` | `#788C5D` | Success states (Anthropic green) |
-| `green-600` | `#687C4D` | Success hover (Anthropic green hover) |
+| `babu-50` | `#E6F7F6` | Info background |
+| `babu-100` | `#CCF0EE` | Light info highlights |
+| `babu-200` | `#99E1DD` | Soft info accents |
+| `babu-300` | `#66D2CC` | Info progress |
+| `babu-400` | `#33C3BB` | Info highlights |
+| `babu-500` | `#00A699` | Info states (Airbnb teal) |
+| `babu-600` | `#008F84` | Info hover |
+| `babu-700` | `#007870` | Active info state |
+
+### Green Ramp (Success Accent)
+
+| Token | Hex | Usage |
+| --- | --- | --- |
+| `green-50` | `#F3F5F0` | Success background |
+| `green-400` | `#9CA782` | Success highlights |
+| `green-500` | `#788C5D` | Success states |
+| `green-600` | `#687C4D` | Success hover |
 
 Rules:
-- `orange-600` for inline links (WCAG AA compliant).
-- Use blue for informational accents, green for success states, orange for primary actions.
+- `rausch-600` for inline links (WCAG AA compliant).
+- Use babu for informational accents, green for success states, rausch for primary actions.
 - All borders/dividers default to `neutral-200`.
 
 ---
 
 ## Geometry & Spacing
 
-- **Border radius (Anthropic):**
+- **Border radius (Airbnb-inspired):**
   - `rounded-sm` = 4px (small elements, inline badges)
   - `rounded-md` = 8px (standard inputs, small cards)
   - `rounded-lg` = 12px (default for buttons, cards, inputs)
@@ -105,9 +113,9 @@ Rules:
 
 ## Interaction Model
 
-- **Hover:** `hover:bg-neutral-50` for data rows, `hover:bg-orange-50` for CTAs.
-- **Active:** `active:scale-[0.98]` for buttons, with darker orange states.
-- **Focus:** `ring-2 ring-orange-500 ring-offset-2`.
+- **Hover:** `hover:bg-neutral-50` for data rows, `hover:bg-rausch-50` for CTAs.
+- **Active:** `active:scale-[0.98]` for buttons, with darker rausch states.
+- **Focus:** `ring-2 ring-rausch-500 ring-offset-2`.
 - **Shadows:** `shadow-sm` for data, `shadow-lg` reserved for marketing hero cards.
 - **Loading:** Use skeleton components defined in `src/components/ui/skeleton.tsx`.
 
@@ -117,7 +125,7 @@ Rules:
 
 - **Tone:** Professional, direct, data-backed. Prefer declarative statements ("24/7 support") over fluffy copy.
 - **Numerals:** Always render with Geist Mono to maintain alignment in data tables.
-- **CTAs:** Primary (orange) + secondary (neutral). Ghost/text links reserved for tertiary actions.
+- **CTAs:** Primary (rausch) + secondary (neutral). Ghost/text links reserved for tertiary actions.
 - **Icons:** Hugeicons/Lucide outline style only; keep stroke weight consistent at 1.5px.
 
 ---

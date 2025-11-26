@@ -79,8 +79,8 @@ function getStatusConfig(status: string) {
     case "in_progress":
       return {
         label: "In Progress",
-        color: "bg-blue-50 text-blue-700 border-blue-200",
-        dotColor: "bg-blue-500 animate-pulse",
+        color: "bg-babu-50 text-babu-700 border-babu-200",
+        dotColor: "bg-babu-500 animate-pulse",
       };
     case "completed":
       return {
@@ -104,7 +104,9 @@ function getStatusConfig(status: string) {
 }
 
 function getTimeLabel(dateString: string | null): string {
-  if (!dateString) return "";
+  if (!dateString) {
+    return "";
+  }
 
   const date = new Date(dateString);
 
@@ -128,10 +130,14 @@ function getTimeLabel(dateString: string | null): string {
 }
 
 function getCountdown(dateString: string | null): { label: string; urgent: boolean } | null {
-  if (!dateString) return null;
+  if (!dateString) {
+    return null;
+  }
 
   const date = new Date(dateString);
-  if (isPast(date)) return null;
+  if (isPast(date)) {
+    return null;
+  }
 
   const diffMs = date.getTime() - Date.now();
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
@@ -167,13 +173,13 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
       <div
         className={cn(
           "group relative rounded-lg border bg-white transition-all hover:shadow-md",
-          isActive ? "border-blue-300 ring-2 ring-blue-100" : "border-neutral-200",
+          isActive ? "border-babu-300 ring-2 ring-babu-100" : "border-neutral-200",
           className
         )}
       >
         {/* Active Indicator */}
         {isActive && (
-          <div className="absolute -top-px left-1/2 h-1 w-16 -translate-x-1/2 rounded-b-full bg-blue-500" />
+          <div className="-top-px -translate-x-1/2 absolute left-1/2 h-1 w-16 rounded-b-full bg-babu-500" />
         )}
 
         <div className="p-5">
@@ -188,9 +194,7 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
               <span
                 className={cn(
                   "flex items-center gap-1 rounded-full px-2.5 py-1 font-medium text-xs",
-                  countdown.urgent
-                    ? "bg-red-100 text-red-700"
-                    : "bg-neutral-100 text-neutral-600"
+                  countdown.urgent ? "bg-red-100 text-red-700" : "bg-neutral-100 text-neutral-600"
                 )}
               >
                 <HugeiconsIcon className="h-3 w-3" icon={Clock01Icon} />
@@ -201,17 +205,29 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
 
           {/* Service Info */}
           <div className="mb-4">
-            <h3 className={cn("font-semibold text-neutral-900 text-lg", geistSans.className)}>
+            <h3 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
               {trip.service_name || "Service"}
             </h3>
-            <p className={cn("mt-1 flex items-center gap-1.5 text-neutral-600 text-sm", geistSans.className)}>
+            <p
+              className={cn(
+                "mt-1 flex items-center gap-1.5 text-neutral-600 text-sm",
+                geistSans.className
+              )}
+            >
               <HugeiconsIcon className="h-4 w-4" icon={Calendar03Icon} />
               {timeLabel}
             </p>
             {trip.address?.city && (
-              <p className={cn("mt-1 flex items-center gap-1.5 text-neutral-500 text-sm", geistSans.className)}>
+              <p
+                className={cn(
+                  "mt-1 flex items-center gap-1.5 text-neutral-500 text-sm",
+                  geistSans.className
+                )}
+              >
                 <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
-                {trip.address.street ? `${trip.address.street}, ${trip.address.city}` : trip.address.city}
+                {trip.address.street
+                  ? `${trip.address.street}, ${trip.address.city}`
+                  : trip.address.city}
               </p>
             )}
           </div>
@@ -239,12 +255,7 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
                 </p>
               </div>
               {variant === "upcoming" && (
-                <Button
-                  asChild
-                  className="h-8 w-8 rounded-full p-0"
-                  size="sm"
-                  variant="ghost"
-                >
+                <Button asChild className="h-8 w-8 rounded-full p-0" size="sm" variant="ghost">
                   <Link href="/dashboard/customer/messages">
                     <HugeiconsIcon className="h-4 w-4" icon={Message01Icon} />
                     <span className="sr-only">Message</span>
@@ -255,7 +266,7 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
+          <div className="flex items-center justify-between border-neutral-100 border-t pt-4">
             {variant === "upcoming" ? (
               <>
                 <div className="flex gap-2">
@@ -270,7 +281,7 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
                     </Button>
                   )}
                   <Button asChild className="h-8 text-xs" size="sm" variant="outline">
-                    <Link href={`/dashboard/customer/bookings`}>
+                    <Link href={"/dashboard/customer/bookings"}>
                       View Details
                       <HugeiconsIcon className="ml-1 h-3.5 w-3.5" icon={ArrowRight01Icon} />
                     </Link>
@@ -282,20 +293,15 @@ export function TripCard({ trip, variant = "upcoming", index = 0, className }: T
               </>
             ) : (
               <>
-                <Button
-                  asChild
-                  className="h-8 gap-1.5 text-xs"
-                  size="sm"
-                  variant="outline"
-                >
-                  <Link href={`/dashboard/customer/bookings`}>
+                <Button asChild className="h-8 gap-1.5 text-xs" size="sm" variant="outline">
+                  <Link href={"/dashboard/customer/bookings"}>
                     <HugeiconsIcon className="h-3.5 w-3.5" icon={StarIcon} />
                     Leave Review
                   </Link>
                 </Button>
                 <Button
                   asChild
-                  className="h-8 gap-1.5 border-orange-200 bg-orange-50 text-orange-600 text-xs hover:bg-orange-100"
+                  className="h-8 gap-1.5 border-rausch-200 bg-rausch-50 text-rausch-600 text-xs hover:bg-rausch-100"
                   size="sm"
                   variant="outline"
                 >

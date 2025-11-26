@@ -40,14 +40,14 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
           {/* Browse Professionals Card - Orange */}
           <Link
-            className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+            className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
             href="/professionals"
           >
-            <div className="flex h-full flex-col rounded-lg border-2 border-orange-200 bg-orange-50 p-6 shadow-sm transition-all hover:border-orange-300 hover:shadow-md sm:p-8">
+            <div className="flex h-full flex-col rounded-lg border-2 border-rausch-200 bg-rausch-50 p-6 shadow-sm transition-all hover:border-rausch-300 hover:shadow-md sm:p-8">
               {/* Icon */}
-              <div className="mb-4 inline-flex items-center justify-center rounded-full bg-orange-100 p-3">
+              <div className="mb-4 inline-flex items-center justify-center rounded-full bg-rausch-100 p-3">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-orange-600 sm:h-8 sm:w-8"
+                  className="h-6 w-6 text-rausch-600 sm:h-8 sm:w-8"
                   icon={SparklesIcon}
                 />
               </div>
@@ -63,15 +63,15 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
               {/* Features List */}
               <ul className="mb-6 space-y-2 sm:mb-8">
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rausch-500" />
                   {t("quickJob.feature1")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rausch-500" />
                   {t("quickJob.feature2")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rausch-500" />
                   {t("quickJob.feature3")}
                 </li>
               </ul>
@@ -102,14 +102,14 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
 
           {/* Submit Brief Card - Blue */}
           <Link
-            className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+            className="group hover:-translate-y-1 block transform transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
             href="/brief"
           >
-            <div className="flex h-full flex-col rounded-lg border-2 border-blue-200 bg-blue-50 p-6 shadow-sm transition-all hover:border-blue-300 hover:shadow-md sm:p-8">
+            <div className="flex h-full flex-col rounded-lg border-2 border-babu-200 bg-babu-50 p-6 shadow-sm transition-all hover:border-babu-300 hover:shadow-md sm:p-8">
               {/* Icon */}
-              <div className="mb-4 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
+              <div className="mb-4 inline-flex items-center justify-center rounded-full bg-babu-100 p-3">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-blue-600 sm:h-8 sm:w-8"
+                  className="h-6 w-6 text-babu-600 sm:h-8 sm:w-8"
                   icon={MagicWand01Icon}
                 />
               </div>
@@ -125,15 +125,15 @@ export function ServiceSelectionWidget({ className }: ServiceSelectionWidgetProp
               {/* Features List */}
               <ul className="mb-6 space-y-2 sm:mb-8">
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-babu-500" />
                   {t("submitBrief.feature1")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-babu-500" />
                   {t("submitBrief.feature2")}
                 </li>
                 <li className="flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
-                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
+                  <span className="inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-babu-500" />
                   {t("submitBrief.feature3")}
                 </li>
               </ul>

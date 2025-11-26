@@ -1,7 +1,16 @@
 "use client";
 
+import {
+  ArrowUpRight01Icon,
+  Calendar02Icon,
+  CancelCircleIcon,
+  CheckmarkCircle02Icon,
+  Clock01Icon,
+  FilterIcon,
+  FlashIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { format, parseISO } from "date-fns";
-import { ArrowUpRight, Calendar, CheckCircle2, Clock, Filter, XCircle, Zap } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
@@ -60,6 +69,12 @@ type PayoutHistoryProps = {
    * Currency code for formatting (COP, PYG, UYU, ARS)
    */
   currencyCode: Currency;
+  /**
+   * Variant for different contexts:
+   * - "default": Card wrapper with border (standalone on page)
+   * - "sheet": No card wrapper (used inside Sheet component)
+   */
+  variant?: "default" | "sheet";
 };
 
 type PayoutFilter = "all" | "instant" | "batch";
@@ -94,7 +109,9 @@ export function PayoutHistory({
   className,
   professionalId,
   currencyCode,
+  variant = "default",
 }: PayoutHistoryProps) {
+  const isSheet = variant === "sheet";
   const t = useTranslations("dashboard.pro.payoutHistory");
   const locale = useLocale();
 
@@ -152,6 +169,25 @@ export function PayoutHistory({
   // ========================================
 
   if (isLoading) {
+    const loadingContent = (
+      <>
+        <div className={isSheet ? "pb-4" : "p-6 pb-4"}>
+          <div className="h-7 w-48 animate-pulse rounded bg-neutral-200" />
+        </div>
+        <div className={isSheet ? "pt-0" : "p-6 pt-0"}>
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div className="h-16 animate-pulse rounded bg-neutral-100" key={i} />
+            ))}
+          </div>
+        </div>
+      </>
+    );
+
+    if (isSheet) {
+      return <div className={className}>{loadingContent}</div>;
+    }
+
     return (
       <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
         <CardHeader className="p-6 pb-4">
@@ -168,10 +204,15 @@ export function PayoutHistory({
     );
   }
 
-  return (
-    <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
-      <CardHeader className="p-6 pb-4">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  // ========================================
+  // Shared Content Components
+  // ========================================
+
+  const headerContent = (
+    <>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        {/* Only show title in default variant (sheet has its own SheetTitle) */}
+        {!isSheet && (
           <div>
             <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
               {t("title")}
@@ -180,130 +221,154 @@ export function PayoutHistory({
               {t("description")}
             </p>
           </div>
+        )}
 
-          {/* Filters */}
-          <div className="flex gap-2">
-            <Select onValueChange={(v) => setPayoutFilter(v as PayoutFilter)} value={payoutFilter}>
-              <SelectTrigger className="w-36">
-                <SelectValue placeholder={t("filters.type.placeholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("filters.type.all")}</SelectItem>
-                <SelectItem value="instant">
-                  <span className="flex items-center gap-2">
-                    <Zap className="size-4" />
-                    {t("filters.type.instant")}
-                  </span>
-                </SelectItem>
-                <SelectItem value="batch">
-                  <span className="flex items-center gap-2">
-                    <Calendar className="size-4" />
-                    {t("filters.type.batch")}
-                  </span>
-                </SelectItem>
-              </SelectContent>
-            </Select>
+        {/* Filters */}
+        <div className={cn("flex gap-2", isSheet && "w-full")}>
+          <Select onValueChange={(v) => setPayoutFilter(v as PayoutFilter)} value={payoutFilter}>
+            <SelectTrigger className={cn(isSheet ? "flex-1" : "w-36")}>
+              <SelectValue placeholder={t("filters.type.placeholder")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("filters.type.all")}</SelectItem>
+              <SelectItem value="instant">
+                <span className="flex items-center gap-2">
+                  <HugeiconsIcon className="size-4" icon={FlashIcon} />
+                  {t("filters.type.instant")}
+                </span>
+              </SelectItem>
+              <SelectItem value="batch">
+                <span className="flex items-center gap-2">
+                  <HugeiconsIcon className="size-4" icon={Calendar02Icon} />
+                  {t("filters.type.batch")}
+                </span>
+              </SelectItem>
+            </SelectContent>
+          </Select>
 
-            <Select onValueChange={(v) => setStatusFilter(v as StatusFilter)} value={statusFilter}>
-              <SelectTrigger className="w-36">
-                <SelectValue placeholder={t("filters.status.placeholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("filters.status.all")}</SelectItem>
-                <SelectItem value="completed">{t("filters.status.completed")}</SelectItem>
-                <SelectItem value="pending">{t("filters.status.pending")}</SelectItem>
-                <SelectItem value="processing">{t("filters.status.processing")}</SelectItem>
-                <SelectItem value="failed">{t("filters.status.failed")}</SelectItem>
-              </SelectContent>
-            </Select>
+          <Select onValueChange={(v) => setStatusFilter(v as StatusFilter)} value={statusFilter}>
+            <SelectTrigger className={cn(isSheet ? "flex-1" : "w-36")}>
+              <SelectValue placeholder={t("filters.status.placeholder")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("filters.status.all")}</SelectItem>
+              <SelectItem value="completed">{t("filters.status.completed")}</SelectItem>
+              <SelectItem value="pending">{t("filters.status.pending")}</SelectItem>
+              <SelectItem value="processing">{t("filters.status.processing")}</SelectItem>
+              <SelectItem value="failed">{t("filters.status.failed")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Stats Summary - 2 cols on mobile, 4 cols on desktop */}
+      {transfers.length > 0 && (
+        <div className={cn("mt-4 grid gap-4", isSheet ? "grid-cols-2" : "sm:grid-cols-4")}>
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
+              {t("stats.totalPayouts")}
+            </div>
+            <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
+              {formatFromMinorUnits(stats.totalPayouts, currencyCode)}
+            </div>
+          </div>
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
+              {t("stats.instantPayouts")}
+            </div>
+            <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
+              {stats.instantCount}
+            </div>
+          </div>
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
+              {t("stats.batchPayouts")}
+            </div>
+            <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
+              {stats.batchCount}
+            </div>
+          </div>
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+            <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
+              {t("stats.totalFees")}
+            </div>
+            <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
+              {formatFromMinorUnits(stats.totalFees, currencyCode)}
+            </div>
           </div>
         </div>
+      )}
+    </>
+  );
 
-        {/* Stats Summary */}
-        {transfers.length > 0 && (
-          <div className="mt-4 grid gap-4 sm:grid-cols-4">
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-              <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                {t("stats.totalPayouts")}
-              </div>
-              <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {formatFromMinorUnits(stats.totalPayouts, currencyCode)}
-              </div>
-            </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-              <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                {t("stats.instantPayouts")}
-              </div>
-              <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {stats.instantCount}
-              </div>
-            </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-              <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                {t("stats.batchPayouts")}
-              </div>
-              <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {stats.batchCount}
-              </div>
-            </div>
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-              <div className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                {t("stats.totalFees")}
-              </div>
-              <div className={cn("mt-1 font-semibold text-neutral-900", geistSans.className)}>
-                {formatFromMinorUnits(stats.totalFees, currencyCode)}
-              </div>
-            </div>
+  const bodyContent = (
+    <>
+      {/* Empty State */}
+      {filteredTransfers.length === 0 && (
+        <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-neutral-100">
+            <HugeiconsIcon className="size-6 text-neutral-400" icon={FilterIcon} />
           </div>
-        )}
-      </CardHeader>
+          <div>
+            <p className={cn("font-medium text-neutral-900", geistSans.className)}>
+              {t("empty.title")}
+            </p>
+            <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
+              {t("empty.description")}
+            </p>
+          </div>
+          {(payoutFilter !== "all" || statusFilter !== "all") && (
+            <Button
+              className="mt-2"
+              onClick={() => {
+                setPayoutFilter("all");
+                setStatusFilter("all");
+              }}
+              size="sm"
+              variant="outline"
+            >
+              {t("empty.clearFilters")}
+            </Button>
+          )}
+        </div>
+      )}
 
-      <CardContent className="p-6 pt-0">
-        {/* Empty State */}
-        {filteredTransfers.length === 0 && (
-          <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-            <div className="flex size-12 items-center justify-center rounded-full bg-neutral-100">
-              <Filter className="size-6 text-neutral-400" />
-            </div>
-            <div>
-              <p className={cn("font-medium text-neutral-900", geistSans.className)}>
-                {t("empty.title")}
-              </p>
-              <p className={cn("mt-1 text-neutral-600 text-sm", geistSans.className)}>
-                {t("empty.description")}
-              </p>
-            </div>
-            {(payoutFilter !== "all" || statusFilter !== "all") && (
-              <Button
-                className="mt-2"
-                onClick={() => {
-                  setPayoutFilter("all");
-                  setStatusFilter("all");
-                }}
-                size="sm"
-                variant="outline"
-              >
-                {t("empty.clearFilters")}
-              </Button>
-            )}
-          </div>
-        )}
+      {/* Transactions List */}
+      {filteredTransfers.length > 0 && (
+        <div className="space-y-3">
+          {filteredTransfers.map((transfer) => (
+            <TransferRow
+              currencyCode={currencyCode}
+              key={transfer.id}
+              locale={locale}
+              t={t}
+              transfer={transfer}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
 
-        {/* Transactions List */}
-        {filteredTransfers.length > 0 && (
-          <div className="space-y-3">
-            {filteredTransfers.map((transfer) => (
-              <TransferRow
-                currencyCode={currencyCode}
-                key={transfer.id}
-                locale={locale}
-                t={t}
-                transfer={transfer}
-              />
-            ))}
-          </div>
-        )}
-      </CardContent>
+  // ========================================
+  // Render based on variant
+  // ========================================
+
+  // Sheet variant: no card wrapper, sheet provides container
+  if (isSheet) {
+    return (
+      <div className={className}>
+        <div className="pb-4">{headerContent}</div>
+        <div className="pt-2">{bodyContent}</div>
+      </div>
+    );
+  }
+
+  // Default variant: with Card wrapper
+  return (
+    <Card className={cn("border-neutral-200 bg-white shadow-sm", className)}>
+      <CardHeader className="p-6 pb-4">{headerContent}</CardHeader>
+      <CardContent className="p-6 pt-0">{bodyContent}</CardContent>
     </Card>
   );
 }
@@ -325,28 +390,28 @@ function TransferRow({
 }) {
   const statusConfig = {
     completed: {
-      icon: CheckCircle2,
+      icon: CheckmarkCircle02Icon,
       color: "text-green-700",
       bg: "bg-green-50",
       border: "border-green-200",
       label: t("status.completed"),
     },
     pending: {
-      icon: Clock,
-      color: "text-blue-700",
-      bg: "bg-blue-50",
-      border: "border-blue-200",
+      icon: Clock01Icon,
+      color: "text-babu-700",
+      bg: "bg-babu-50",
+      border: "border-babu-200",
       label: t("status.pending"),
     },
     processing: {
-      icon: Clock,
-      color: "text-orange-700",
-      bg: "bg-orange-50",
-      border: "border-orange-200",
+      icon: Clock01Icon,
+      color: "text-rausch-700",
+      bg: "bg-rausch-50",
+      border: "border-rausch-200",
       label: t("status.processing"),
     },
     failed: {
-      icon: XCircle,
+      icon: CancelCircleIcon,
       color: "text-red-700",
       bg: "bg-red-50",
       border: "border-red-200",
@@ -355,7 +420,6 @@ function TransferRow({
   };
 
   const config = statusConfig[transfer.status];
-  const StatusIcon = config.icon;
   const isInstant = transfer.payout_type === "instant";
 
   return (
@@ -369,12 +433,12 @@ function TransferRow({
             {/* Payout Type Badge */}
             {isInstant ? (
               <Badge className="gap-1" variant="default">
-                <Zap className="size-3" />
+                <HugeiconsIcon className="size-3" icon={FlashIcon} />
                 {t("type.instant")}
               </Badge>
             ) : (
               <Badge className="gap-1" variant="secondary">
-                <Calendar className="size-3" />
+                <HugeiconsIcon className="size-3" icon={Calendar02Icon} />
                 {t("type.batch")}
               </Badge>
             )}
@@ -384,7 +448,7 @@ function TransferRow({
               className={cn("gap-1", config.bg, config.border, config.color)}
               variant="outline"
             >
-              <StatusIcon className="size-3" />
+              <HugeiconsIcon className="size-3" icon={config.icon} />
               {config.label}
             </Badge>
           </div>
@@ -426,7 +490,7 @@ function TransferRow({
         {/* External Link Icon */}
         {transfer.stripe_payout_id && (
           <div className="flex-shrink-0">
-            <ArrowUpRight className="size-5 text-neutral-400" />
+            <HugeiconsIcon className="size-5 text-neutral-400" icon={ArrowUpRight01Icon} />
           </div>
         )}
       </div>

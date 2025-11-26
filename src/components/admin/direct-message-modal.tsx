@@ -143,11 +143,15 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
 
         {/* Template Selector */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="dm-template"
+          >
             Message Template (optional)
           </label>
           <select
-            className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+            id="dm-template"
             onChange={(e) => handleTemplateChange(e.target.value)}
             value={form.formData.template}
           >
@@ -161,10 +165,10 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
         </div>
 
         {/* Priority Level */}
-        <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+        <fieldset>
+          <legend className="type-ui-sm mb-2 block font-medium text-neutral-900">
             Priority Level
-          </label>
+          </legend>
           <div className="flex gap-3">
             <button
               className={
@@ -182,8 +186,8 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
               className={
                 "type-ui-sm flex-1 rounded-lg border-2 px-4 py-2 font-medium transition" +
                 (form.formData.priority === "urgent"
-                  ? "border-orange-500 bg-orange-500 text-white"
-                  : "border-neutral-200 bg-white text-neutral-900 hover:border-orange-500")
+                  ? "border-rausch-500 bg-rausch-500 text-white"
+                  : "border-neutral-200 bg-white text-neutral-900 hover:border-rausch-500")
               }
               onClick={() => form.updateField("priority", "urgent")}
               type="button"
@@ -191,15 +195,19 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
               Urgent
             </button>
           </div>
-        </div>
+        </fieldset>
 
         {/* Subject */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="dm-subject"
+          >
             Subject <span className="text-red-600">*</span>
           </label>
           <input
-            className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+            id="dm-subject"
             onChange={(e) => form.updateField("subject", e.target.value)}
             placeholder="Enter message subject..."
             type="text"
@@ -210,11 +218,11 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
         {/* Message Content */}
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <label className="type-ui-sm font-medium text-neutral-900">
+            <label className="type-ui-sm font-medium text-neutral-900" htmlFor="dm-message">
               Message <span className="text-red-600">*</span>
             </label>
             <button
-              className="type-ui-sm text-orange-600 transition hover:text-orange-700"
+              className="type-ui-sm text-rausch-600 transition hover:text-rausch-700"
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
@@ -225,12 +233,12 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
           {showPreview ? (
             <div
               className="min-h-[240px] rounded-lg border border-neutral-200 bg-neutral-50 p-4"
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: Message is sanitized before display
               dangerouslySetInnerHTML={previewContent()}
             />
           ) : (
             <textarea
-              className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+              id="dm-message"
               onChange={(e) => form.updateField("message", e.target.value)}
               placeholder="Enter your message here... You can use basic HTML formatting."
               rows={10}
@@ -243,15 +251,15 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
         </div>
 
         {/* Scheduling */}
-        <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+        <fieldset>
+          <legend className="type-ui-sm mb-2 block font-medium text-neutral-900">
             Delivery Timing
-          </label>
+          </legend>
           <div className="space-y-3">
             <label className="flex items-center gap-3">
               <input
                 checked={form.formData.sendImmediately}
-                className="h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-orange-500"
+                className="h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-rausch-500"
                 onChange={(e) => form.updateField("sendImmediately", e.target.checked)}
                 type="checkbox"
               />
@@ -260,11 +268,15 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
 
             {!form.formData.sendImmediately && (
               <div>
-                <label className="type-body-sm mb-1 block text-neutral-700">
+                <label
+                  className="type-body-sm mb-1 block text-neutral-700"
+                  htmlFor="dm-scheduled-at"
+                >
                   Schedule for later:
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+                  id="dm-scheduled-at"
                   min={new Date().toISOString().slice(0, 16)}
                   onChange={(e) => form.updateField("scheduledAt", e.target.value)}
                   type="datetime-local"
@@ -273,7 +285,7 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
               </div>
             )}
           </div>
-        </div>
+        </fieldset>
 
         {/* Error Display */}
         {form.error && (
@@ -284,9 +296,9 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
 
         {/* Warning for Urgent Messages */}
         {form.formData.priority === "urgent" && (
-          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-            <p className="type-ui-sm mb-1 font-medium text-orange-900">Urgent Priority Notice</p>
-            <p className="type-body-sm text-orange-700">
+          <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4">
+            <p className="type-ui-sm mb-1 font-medium text-rausch-900">Urgent Priority Notice</p>
+            <p className="type-body-sm text-rausch-700">
               This message will be flagged as urgent and may trigger push notifications to the user.
             </p>
           </div>
@@ -306,18 +318,16 @@ export function DirectMessageModal({ userId, userName, userEmail, onClose, onCom
             className={
               "type-ui-sm flex-1 rounded-lg px-6 py-3 font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-50" +
               (form.formData.priority === "urgent"
-                ? "bg-orange-500 hover:bg-orange-600"
+                ? "bg-rausch-500 hover:bg-rausch-600"
                 : "bg-neutral-900 hover:bg-neutral-800")
             }
             disabled={messageMutation.isLoading}
             onClick={handleSubmit}
             type="button"
           >
-            {messageMutation.isLoading
-              ? "Sending..."
-              : form.formData.sendImmediately
-                ? "Send Message"
-                : "Schedule Message"}
+            {messageMutation.isLoading && "Sending..."}
+            {!messageMutation.isLoading && form.formData.sendImmediately && "Send Message"}
+            {!(messageMutation.isLoading || form.formData.sendImmediately) && "Schedule Message"}
           </button>
         </div>
       </div>

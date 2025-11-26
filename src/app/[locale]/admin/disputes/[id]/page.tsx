@@ -53,7 +53,7 @@ export default function DisputeDetailPage({ params }: { params: Promise<{ id: st
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <button
-        className="type-ui-sm mb-4 text-orange-500"
+        className="type-ui-sm mb-4 text-rausch-500"
         onClick={() => router.back()}
         type="button"
       >
@@ -143,7 +143,7 @@ export default function DisputeDetailPage({ params }: { params: Promise<{ id: st
                 />
               </div>
               <button
-                className="type-ui-sm bg-orange-500 px-6 py-3 font-medium text-white hover:bg-orange-500 disabled:opacity-50"
+                className="type-ui-sm bg-rausch-500 px-6 py-3 font-medium text-white hover:bg-rausch-500 disabled:opacity-50"
                 disabled={!(resolutionAction && resolutionNotes)}
                 onClick={handleResolve}
                 type="button"

@@ -118,7 +118,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">{t("loading")}</p>
         </div>
       </div>

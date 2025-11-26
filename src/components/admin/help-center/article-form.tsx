@@ -194,14 +194,14 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
         <div className="flex gap-3">
           <button
-            className="border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 transition hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:hover:border-orange-400 dark:hover:text-orange-400"
+            className="border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 transition hover:border-rausch-500 hover:text-rausch-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:hover:border-rausch-400 dark:hover:text-rausch-400"
             onClick={() => router.back()}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50 dark:bg-orange-600 dark:hover:bg-orange-700"
+            className="inline-flex items-center gap-2 bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600 disabled:opacity-50 dark:bg-rausch-600 dark:hover:bg-rausch-700"
             disabled={submitting}
             type="submit"
           >
@@ -218,7 +218,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           {/* Category */}
           <div>
             <label
-              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+              className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
               htmlFor="category"
             >
               Category
@@ -242,13 +242,13 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           {/* Slug */}
           <div>
             <label
-              className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+              className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
               htmlFor="slug"
             >
               Slug (URL)
             </label>
             <input
-              className="w-full border border-neutral-200 bg-white px-4 py-3 font-mono text-orange-600 text-sm transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-orange-500 dark:focus:ring-neutral-400/20"
+              className="w-full border border-neutral-200 bg-white px-4 py-3 font-mono text-rausch-600 text-sm transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-rausch-500 dark:focus:ring-neutral-400/20"
               id="slug"
               onChange={(e) => setSlug(e.target.value)}
               placeholder="your-article-slug"
@@ -265,7 +265,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
             <label className="flex items-center justify-between">
               <div>
-                <div className="font-semibold text-orange-600 text-sm dark:text-orange-500">
+                <div className="font-semibold text-rausch-600 text-sm dark:text-rausch-500">
                   Published
                 </div>
                 <div className="text-neutral-600 text-xs dark:text-neutral-300">
@@ -274,7 +274,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               </div>
               <input
                 checked={isPublished}
-                className="h-5 w-5 border-neutral-200 text-orange-600 focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:text-orange-500 dark:focus:ring-orange-400/20"
+                className="h-5 w-5 border-neutral-200 text-rausch-600 focus:ring-2 focus:ring-rausch-500/20 dark:border-neutral-800 dark:text-rausch-500 dark:focus:ring-rausch-400/20"
                 onChange={(e) => setIsPublished(e.target.checked)}
                 type="checkbox"
               />
@@ -283,7 +283,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
           {/* Editor Shortcuts Guide */}
           <div className="border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h3 className="mb-3 font-semibold text-orange-600 text-sm dark:text-orange-500">
+            <h3 className="mb-3 font-semibold text-rausch-600 text-sm dark:text-rausch-500">
               Editor Shortcuts
             </h3>
             <div className="space-y-2 text-neutral-600 text-xs dark:text-neutral-300">
@@ -310,8 +310,8 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             <button
               className={`px-4 py-2 font-semibold text-sm transition ${
                 activeTab === "en"
-                  ? "bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
-                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
+                  ? "bg-rausch-500 text-white hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-700"
+                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-rausch-500 hover:text-rausch-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
               }`}
               onClick={() => setActiveTab("en")}
               type="button"
@@ -321,8 +321,8 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             <button
               className={`px-4 py-2 font-semibold text-sm transition ${
                 activeTab === "es"
-                  ? "bg-orange-500 text-white hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700"
-                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:text-orange-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
+                  ? "bg-rausch-500 text-white hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-700"
+                  : "border border-neutral-200 bg-white text-neutral-600 hover:border-rausch-500 hover:text-rausch-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
               }`}
               onClick={() => setActiveTab("es")}
               type="button"
@@ -337,13 +337,13 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Title EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="title_en"
                 >
                   Title (English)
                 </label>
                 <input
-                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-orange-400 dark:focus:ring-orange-400/20"
+                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-rausch-400 dark:focus:ring-rausch-400/20"
                   id="title_en"
                   onChange={(e) => handleTitleEnChange(e.target.value)}
                   placeholder="How to create your first booking"
@@ -356,7 +356,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Excerpt EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="excerpt_en"
                 >
                   Excerpt (English)
@@ -365,7 +365,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                   </span>
                 </label>
                 <input
-                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-orange-400 dark:focus:ring-orange-400/20"
+                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-rausch-400 dark:focus:ring-rausch-400/20"
                   id="excerpt_en"
                   onChange={(e) => setExcerptEn(e.target.value)}
                   placeholder="A brief summary of the article..."
@@ -377,7 +377,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Content EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="content_en"
                 >
                   Content (English)
@@ -398,13 +398,13 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Title ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="title_es"
                 >
                   Título (Español)
                 </label>
                 <input
-                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-orange-400 dark:focus:ring-orange-400/20"
+                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-rausch-400 dark:focus:ring-rausch-400/20"
                   id="title_es"
                   onChange={(e) => setTitleEs(e.target.value)}
                   placeholder="Cómo crear tu primera reserva"
@@ -417,7 +417,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Excerpt ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="excerpt_es"
                 >
                   Extracto (Español)
@@ -426,7 +426,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                   </span>
                 </label>
                 <input
-                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-orange-400 dark:focus:ring-orange-400/20"
+                  className="w-full border border-neutral-200 bg-white px-4 py-3 text-neutral-900 transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 dark:focus:border-rausch-400 dark:focus:ring-rausch-400/20"
                   id="excerpt_es"
                   onChange={(e) => setExcerptEs(e.target.value)}
                   placeholder="Un breve resumen del artículo..."
@@ -438,7 +438,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Content ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-orange-600 text-sm dark:text-orange-500"
+                  className="mb-2 block font-semibold text-rausch-600 text-sm dark:text-rausch-500"
                   htmlFor="content_es"
                 >
                   Contenido (Español)

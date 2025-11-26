@@ -106,7 +106,7 @@ export const DASHBOARD = {
     success: "text-green-600",
     warning: "text-amber-600",
     error: "text-red-600",
-    info: "text-blue-600",
+    info: "text-babu-600",
   },
 
   // ============================================

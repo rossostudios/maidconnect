@@ -15,43 +15,71 @@ type BookingCardProps = {
   onRate?: (bookingId: string) => void;
 };
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+function formatBookingDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat("es-CO", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
+function formatBookingTime(timeStr: string): string {
+  const [hours = "0", minutes = "00"] = timeStr.split(":");
+  const hour = Number.parseInt(hours, 10);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+  return `${displayHour}:${minutes} ${ampm}`;
+}
+
+function getCurrencyCode(booking: BookingWithDetails): Currency {
+  return ((booking as any).currency?.toUpperCase() || "COP") as Currency;
+}
+
+function getOtherParty(
+  booking: BookingWithDetails,
+  role: "customer" | "professional"
+): BookingWithDetails["professional"] | BookingWithDetails["customer"] {
+  return role === "customer" ? booking.professional : booking.customer;
+}
+
+function canCancelBooking(status: string, onCancel?: (bookingId: string) => void): boolean {
+  return (status === "pending" || status === "confirmed") && !!onCancel;
+}
+
+function canRateBooking(
+  booking: BookingWithDetails,
+  role: "customer" | "professional",
+  onRate?: (bookingId: string) => void
+): boolean {
+  if (booking.status !== "completed" || !onRate) {
+    return false;
+  }
+  if (role === "customer" && !booking.customerRating) {
+    return true;
+  }
+  if (role === "professional" && !booking.professionalRating) {
+    return true;
+  }
+  return false;
+}
+
 /**
  * Booking Card Component
  *
  * Displays a single booking with actions
- * Lia Design: rounded-lg, neutral palette, orange-500 primary
+ * Lia Design: rounded-lg, neutral palette, rausch-500 primary
  */
 export function BookingCard({ booking, role, onView, onCancel, onRate }: BookingCardProps) {
   const t = useTranslations("components.bookingCard");
 
-  // Get currency from booking (default to COP for backward compatibility)
-  const currencyCode = ((booking as any).currency?.toUpperCase() || "COP") as Currency;
+  const currencyCode = getCurrencyCode(booking);
   const formatPrice = (price: number) => formatFromMinorUnits(price, currencyCode);
-
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return new Intl.DateTimeFormat("es-CO", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    }).format(date);
-  };
-
-  const formatTime = (timeStr: string) => {
-    const [hours = "0", minutes = "00"] = timeStr.split(":");
-    const hour = Number.parseInt(hours, 10);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${minutes} ${ampm}`;
-  };
-
-  const otherParty = role === "customer" ? booking.professional : booking.customer;
-  const canCancel = (booking.status === "pending" || booking.status === "confirmed") && onCancel;
-  const canRate =
-    booking.status === "completed" &&
-    ((role === "customer" && !booking.customerRating) ||
-      (role === "professional" && !booking.professionalRating)) &&
-    onRate;
+  const otherParty = getOtherParty(booking, role);
+  const canCancel = canCancelBooking(booking.status, onCancel);
+  const canRate = canRateBooking(booking, role, onRate);
 
   return (
     <div className="group rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
@@ -82,8 +110,9 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
         <div className="flex items-center gap-2 text-neutral-700 text-sm">
           <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Clock01Icon} />
           <span>
-            {formatDate(booking.scheduledDate)} • {formatTime(booking.scheduledStartTime)} -{" "}
-            {formatTime(booking.scheduledEndTime)}
+            {formatBookingDate(booking.scheduledDate)} •{" "}
+            {formatBookingTime(booking.scheduledStartTime)} -{" "}
+            {formatBookingTime(booking.scheduledEndTime)}
           </span>
         </div>
 
@@ -134,7 +163,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
       <div className="flex gap-2 border-neutral-200 border-t pt-4">
         {onView && (
           <button
-            className="flex-1 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition-colors hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="flex-1 rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition-colors hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
             onClick={() => onView(booking)}
             type="button"
           >
@@ -144,7 +173,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
         {canRate && (
           <button
-            className="flex-1 rounded-lg bg-orange-500 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="flex-1 rounded-lg bg-rausch-500 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-rausch-600 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
             onClick={() => onRate(booking.id)}
             type="button"
           >

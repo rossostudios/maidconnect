@@ -91,8 +91,8 @@ export function ProSignUpForm() {
 
       {/* Referral code indicator */}
       {referralCode && (
-        <div className="rounded-lg border border-orange-200 bg-orange-50 px-4 py-3">
-          <p className="text-orange-700 text-sm">
+        <div className="rounded-lg border border-rausch-200 bg-rausch-50 px-4 py-3">
+          <p className="text-rausch-700 text-sm">
             <span className="font-semibold">{t("referralApplied")}</span> {referralCode}
           </p>
         </div>

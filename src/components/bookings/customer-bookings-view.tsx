@@ -10,7 +10,7 @@ import {
   type CustomerCalendarBooking,
 } from "@/components/bookings/customer-booking-calendar";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
-import { TripsItinerary, type Trip } from "@/components/trips";
+import { type Trip, TripsItinerary } from "@/components/trips";
 import { cn } from "@/lib/utils";
 
 type Booking = {

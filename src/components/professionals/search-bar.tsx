@@ -184,7 +184,7 @@ export function SearchBar({
           aria-controls="search-suggestions"
           aria-expanded={isOpen}
           autoComplete="off"
-          className="w-full border border-neutral-200 bg-neutral-50 py-4 pr-14 pl-14 text-base text-neutral-900 shadow-inner shadow-neutral-900/5 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-500/25"
+          className="w-full border border-neutral-200 bg-neutral-50 py-4 pr-14 pl-14 text-base text-neutral-900 shadow-inner shadow-neutral-900/5 outline-none transition focus:border-rausch-500 focus:ring-2 focus:ring-rausch-500/25"
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={() => {
             if (suggestions.length > 0) {
@@ -319,7 +319,7 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   return parts.map((part, index) => {
     if (regex.test(part)) {
       return (
-        <mark className="bg-orange-500/10 font-semibold text-neutral-900" key={index}>
+        <mark className="bg-rausch-500/10 font-semibold text-neutral-900" key={index}>
           {part}
         </mark>
       );

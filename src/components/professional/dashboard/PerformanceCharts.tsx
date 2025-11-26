@@ -28,9 +28,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { geistSans } from "@/app/fonts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import { cn } from "@/lib/utils";
-import { DateRangeFilter, type DatePeriod } from "./DateRangeFilter";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
+import type { HugeIcon } from "@/types/icons";
+import { type DatePeriod, DateRangeFilter } from "./DateRangeFilter";
 
 type EarningsTrendPoint = {
   date: string;
@@ -114,13 +115,13 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
   }, [fetchData]);
 
   return (
-    <div className={cn("rounded-lg border border-neutral-200 bg-white", className)}>
+    <div className={cn("rounded-lg border border-border bg-card", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between border-neutral-200 border-b px-6 py-4">
-        <h2 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+      <div className="flex items-center justify-between border-border border-b px-6 py-4">
+        <h2 className={cn("font-semibold text-foreground text-lg", geistSans.className)}>
           Performance
         </h2>
-        <DateRangeFilter value={period} onChange={setPeriod} size="sm" />
+        <DateRangeFilter onChange={setPeriod} size="sm" value={period} />
       </div>
 
       {/* Content */}
@@ -129,11 +130,11 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
           <PerformanceChartsSkeleton />
         ) : error ? (
           <div className="py-8 text-center">
-            <p className="text-neutral-500 text-sm">{error}</p>
+            <p className="text-muted-foreground text-sm">{error}</p>
             <button
-              type="button"
+              className="mt-2 text-rausch-600 text-sm hover:text-rausch-700"
               onClick={fetchData}
-              className="mt-2 text-orange-600 text-sm hover:text-orange-700"
+              type="button"
             >
               Try again
             </button>
@@ -143,33 +144,33 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
             {/* KPI Cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <KPICard
-                label="Bookings"
-                value={data.bookings.total}
-                trend={data.bookings.trend}
                 icon={Calendar03Icon}
                 index={0}
+                label="Bookings"
+                trend={data.bookings.trend}
+                value={data.bookings.total}
               />
               <KPICard
-                label="Rating"
-                value={data.performance.rating}
-                suffix="★"
-                subtext={`${data.performance.totalReviews} reviews`}
                 icon={StarIcon}
                 index={1}
+                label="Rating"
+                subtext={`${data.performance.totalReviews} reviews`}
+                suffix="★"
+                value={data.performance.rating}
               />
               <KPICard
-                label="Response Rate"
-                value={data.performance.responseRate}
-                suffix="%"
                 icon={Clock01Icon}
                 index={2}
+                label="Response Rate"
+                suffix="%"
+                value={data.performance.responseRate}
               />
               <KPICard
-                label="Completion Rate"
-                value={data.performance.completionRate}
-                suffix="%"
                 icon={CheckmarkCircle02Icon}
                 index={3}
+                label="Completion Rate"
+                suffix="%"
+                value={data.performance.completionRate}
               />
             </div>
 
@@ -177,8 +178,8 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
             <div className="grid gap-6 lg:grid-cols-2">
               {/* Earnings Trend Chart */}
               <EarningsTrendChart
-                data={data.charts.earningsTrend}
                 currency={data.currencyCode}
+                data={data.charts.earningsTrend}
                 period={period}
               />
 
@@ -198,7 +199,7 @@ type KPICardProps = {
   suffix?: string;
   trend?: number;
   subtext?: string;
-  icon: React.ComponentType;
+  icon: HugeIcon;
   index: number;
 };
 
@@ -207,23 +208,23 @@ function KPICard({ label, value, suffix = "", trend, subtext, icon: Icon, index 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      className="rounded-lg border border-border bg-muted/30 p-4"
+      initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="rounded-lg border border-neutral-200 bg-neutral-50/50 p-4"
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="font-medium text-neutral-600 text-xs uppercase tracking-wide">
+        <span className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
           {label}
         </span>
-        <HugeiconsIcon icon={Icon} className="h-4 w-4 text-neutral-400" />
+        <HugeiconsIcon className="h-4 w-4 text-muted-foreground/70" icon={Icon} />
       </div>
 
       <div className="flex items-baseline gap-1">
-        <span className={cn("font-bold text-2xl text-neutral-900", geistSans.className)}>
+        <span className={cn("font-bold text-2xl text-foreground", geistSans.className)}>
           {typeof value === "number" && value % 1 !== 0 ? value.toFixed(1) : value}
         </span>
-        {suffix && <span className="font-medium text-neutral-600 text-sm">{suffix}</span>}
+        {suffix && <span className="font-medium text-muted-foreground text-sm">{suffix}</span>}
       </div>
 
       {(trend !== undefined || subtext) && (
@@ -236,13 +237,13 @@ function KPICard({ label, value, suffix = "", trend, subtext, icon: Icon, index 
               )}
             >
               <HugeiconsIcon
-                icon={isPositiveTrend ? ArrowUp01Icon : ArrowDown01Icon}
                 className="h-3 w-3"
+                icon={isPositiveTrend ? ArrowUp01Icon : ArrowDown01Icon}
               />
               {Math.abs(trend)}%
             </span>
           ) : subtext ? (
-            <span className="text-neutral-500 text-xs">{subtext}</span>
+            <span className="text-muted-foreground text-xs">{subtext}</span>
           ) : null}
         </div>
       )}
@@ -260,7 +261,7 @@ function EarningsTrendChart({ data, currency, period }: EarningsTrendChartProps)
   const chartConfig = {
     amount: {
       label: "Earnings",
-      color: "#D97757", // orange-500
+      color: "#7A3B4A", // rausch-500 (Burgundy)
     },
   };
 
@@ -268,66 +269,61 @@ function EarningsTrendChart({ data, currency, period }: EarningsTrendChartProps)
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      className="rounded-lg border border-border bg-muted/20 p-4"
+      initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.3, delay: 0.2 }}
-      className="rounded-lg border border-neutral-200 bg-neutral-50/30 p-4"
     >
-      <h3 className={cn("mb-4 font-medium text-neutral-700 text-sm", geistSans.className)}>
+      <h3 className={cn("mb-4 font-medium text-muted-foreground text-sm", geistSans.className)}>
         Earnings Trend
       </h3>
 
       {data.length > 0 ? (
-        <ChartContainer config={chartConfig} className="h-48">
+        <ChartContainer className="h-48" config={chartConfig}>
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
-              <linearGradient id="earningsGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#D97757" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#D97757" stopOpacity={0} />
+              <linearGradient id="earningsGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="5%" stopColor="#7A3B4A" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#7A3B4A" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-neutral-200" />
+            <CartesianGrid className="stroke-neutral-200" strokeDasharray="3 3" />
             <XAxis
+              axisLine={false}
+              className="text-neutral-500"
               dataKey="date"
               tick={{ fontSize: 11 }}
               tickLine={false}
-              axisLine={false}
-              className="text-neutral-500"
             />
             <YAxis
-              tick={{ fontSize: 11 }}
-              tickLine={false}
               axisLine={false}
+              className="text-muted-foreground"
+              tick={{ fontSize: 11 }}
               tickFormatter={(v) => {
                 // Compact format for Y axis
                 const formatted = formatFromMinorUnits(v, currency);
                 // Extract just the number part for cleaner display
-                return formatted.replace(/[^0-9.,K-]+/g, '').slice(0, 6);
+                return formatted.replace(/[^0-9.,K-]+/g, "").slice(0, 6);
               }}
-              className="text-neutral-500"
+              tickLine={false}
               width={50}
             />
             <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  valueFormatter={formatValue}
-                  indicator="line"
-                />
-              }
+              content={<ChartTooltipContent indicator="line" valueFormatter={formatValue} />}
             />
             <Area
-              type="monotone"
               dataKey="amount"
-              stroke="#D97757"
-              strokeWidth={2}
               fill="url(#earningsGradient)"
               name="Earnings"
+              stroke="#7A3B4A"
+              strokeWidth={2}
+              type="monotone"
             />
           </AreaChart>
         </ChartContainer>
       ) : (
         <div className="flex h-48 items-center justify-center">
-          <p className="text-neutral-500 text-sm">No earnings data for this period</p>
+          <p className="text-muted-foreground text-sm">No earnings data for this period</p>
         </div>
       )}
     </motion.div>
@@ -347,7 +343,7 @@ function BookingActivityChart({ data, period }: BookingActivityChartProps) {
     },
     upcoming: {
       label: "Upcoming",
-      color: "#6A9BCC", // blue-500
+      color: "#00A699", // babu-500 (Airbnb teal)
     },
     cancelled: {
       label: "Cancelled",
@@ -357,42 +353,42 @@ function BookingActivityChart({ data, period }: BookingActivityChartProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      className="rounded-lg border border-border bg-muted/20 p-4"
+      initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.3, delay: 0.3 }}
-      className="rounded-lg border border-neutral-200 bg-neutral-50/30 p-4"
     >
-      <h3 className={cn("mb-4 font-medium text-neutral-700 text-sm", geistSans.className)}>
+      <h3 className={cn("mb-4 font-medium text-muted-foreground text-sm", geistSans.className)}>
         Booking Activity
       </h3>
 
       {data.length > 0 ? (
-        <ChartContainer config={chartConfig} className="h-48">
+        <ChartContainer className="h-48" config={chartConfig}>
           <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-neutral-200" />
+            <CartesianGrid className="stroke-border" strokeDasharray="3 3" />
             <XAxis
+              axisLine={false}
+              className="text-muted-foreground"
               dataKey="date"
               tick={{ fontSize: 11 }}
               tickLine={false}
-              axisLine={false}
-              className="text-neutral-500"
             />
             <YAxis
+              axisLine={false}
+              className="text-muted-foreground"
               tick={{ fontSize: 11 }}
               tickLine={false}
-              axisLine={false}
-              className="text-neutral-500"
               width={30}
             />
             <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
-            <Bar dataKey="completed" fill="#788C5D" radius={[4, 4, 0, 0]} name="Completed" />
-            <Bar dataKey="upcoming" fill="#6A9BCC" radius={[4, 4, 0, 0]} name="Upcoming" />
-            <Bar dataKey="cancelled" fill="#B0AEA5" radius={[4, 4, 0, 0]} name="Cancelled" />
+            <Bar dataKey="completed" fill="#788C5D" name="Completed" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="upcoming" fill="#00A699" name="Upcoming" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="cancelled" fill="#B0AEA5" name="Cancelled" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ChartContainer>
       ) : (
         <div className="flex h-48 items-center justify-center">
-          <p className="text-neutral-500 text-sm">No booking activity for this period</p>
+          <p className="text-muted-foreground text-sm">No booking activity for this period</p>
         </div>
       )}
 
@@ -400,15 +396,15 @@ function BookingActivityChart({ data, period }: BookingActivityChartProps) {
       <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
         <div className="flex items-center gap-1.5">
           <div className="h-2.5 w-2.5 rounded-sm bg-[#788C5D]" />
-          <span className="text-neutral-600 text-xs">Completed</span>
+          <span className="text-muted-foreground text-xs">Completed</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="h-2.5 w-2.5 rounded-sm bg-[#6A9BCC]" />
-          <span className="text-neutral-600 text-xs">Upcoming</span>
+          <div className="h-2.5 w-2.5 rounded-sm bg-[#00A699]" />
+          <span className="text-muted-foreground text-xs">Upcoming</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="h-2.5 w-2.5 rounded-sm bg-[#B0AEA5]" />
-          <span className="text-neutral-600 text-xs">Cancelled</span>
+          <span className="text-muted-foreground text-xs">Cancelled</span>
         </div>
       </div>
     </motion.div>
@@ -421,13 +417,13 @@ function PerformanceChartsSkeleton() {
       {/* KPI Cards Skeleton */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="animate-pulse rounded-lg border border-neutral-200 bg-neutral-50/50 p-4">
+          <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
             <div className="mb-2 flex items-center justify-between">
-              <div className="h-3 w-16 rounded bg-neutral-200" />
-              <div className="h-4 w-4 rounded bg-neutral-200" />
+              <div className="h-3 w-16 rounded bg-muted" />
+              <div className="h-4 w-4 rounded bg-muted" />
             </div>
-            <div className="h-8 w-16 rounded bg-neutral-200" />
-            <div className="mt-2 h-3 w-12 rounded bg-neutral-200" />
+            <div className="h-8 w-16 rounded bg-muted" />
+            <div className="mt-2 h-3 w-12 rounded bg-muted" />
           </div>
         ))}
       </div>
@@ -435,9 +431,9 @@ function PerformanceChartsSkeleton() {
       {/* Charts Skeleton */}
       <div className="grid gap-6 lg:grid-cols-2">
         {[0, 1].map((i) => (
-          <div key={i} className="animate-pulse rounded-lg border border-neutral-200 bg-neutral-50/30 p-4">
-            <div className="mb-4 h-4 w-24 rounded bg-neutral-200" />
-            <div className="h-48 rounded bg-neutral-200" />
+          <div className="animate-pulse rounded-lg border border-border bg-muted/20 p-4" key={i}>
+            <div className="mb-4 h-4 w-24 rounded bg-muted" />
+            <div className="h-48 rounded bg-muted" />
           </div>
         ))}
       </div>

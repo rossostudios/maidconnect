@@ -121,7 +121,7 @@ export function ProfessionalVettingDashboard() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">Loading vetting queue...</p>
         </div>
       </div>
@@ -173,7 +173,7 @@ export function ProfessionalVettingDashboard() {
     {
       name: "Needs Review",
       count: data.counts.application_in_review,
-      color: "#3b82f6", // blue-500 - action needed
+      color: "#3b82f6", // babu-500 - action needed
     },
     {
       name: "Approved",
@@ -481,7 +481,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-orange-600"
+                        className="ml-6 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-rausch-600"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -607,7 +607,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-orange-600 sm:ml-6"
+                        className="rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-rausch-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -733,7 +733,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* View Details Button */}
                       <button
-                        className="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-orange-600 sm:ml-6"
+                        className="rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-rausch-600 sm:ml-6"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

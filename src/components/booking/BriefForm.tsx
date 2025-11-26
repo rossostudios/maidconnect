@@ -87,9 +87,9 @@ export function BriefForm() {
   return (
     <form onSubmit={handleSubmit}>
       {/* Market Summary */}
-      <Card className="mb-6 border-orange-200 bg-orange-50 p-4">
+      <Card className="mb-6 border-rausch-200 bg-rausch-50 p-4">
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 rounded-full bg-orange-500 p-1">
+          <div className="mt-0.5 rounded-full bg-rausch-500 p-1">
             <svg
               aria-label="Location icon"
               className="h-4 w-4 text-white"
@@ -203,7 +203,7 @@ export function BriefForm() {
           <div>
             <Label htmlFor="frequency">Frequency *</Label>
             <select
-              className="mt-1 flex h-10 w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+              className="mt-1 flex h-10 w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
               id="frequency"
               name="frequency"
               onChange={handleChange}

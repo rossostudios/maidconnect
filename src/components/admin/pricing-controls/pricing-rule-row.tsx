@@ -34,7 +34,7 @@ export function PricingRuleRow({ rule, onEdit, onToggleActive }: PricingRuleRowP
       {/* Commission Rate + BG Check Fee */}
       <td className="px-6 py-4">
         <div className="text-sm">
-          <div className="font-semibold text-orange-600">
+          <div className="font-semibold text-rausch-600">
             {(rule.commission_rate * 100).toFixed(1)}%
           </div>
           {rule.background_check_fee_cop > 0 && (
@@ -82,7 +82,7 @@ export function PricingRuleRow({ rule, onEdit, onToggleActive }: PricingRuleRowP
       <td className="px-6 py-4">
         <div className="flex gap-2">
           <button
-            className="font-medium text-orange-600 text-sm"
+            className="font-medium text-rausch-600 text-sm"
             onClick={() => onEdit(rule)}
             type="button"
           >

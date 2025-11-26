@@ -61,6 +61,11 @@ export type BookingUpdateResult = {
   error?: string;
 };
 
+export type EarningsUpdateResult = {
+  success: boolean;
+  error?: string;
+};
+
 /**
  * Validate booking can be checked out
  */
@@ -287,6 +292,62 @@ export async function completeBookingCheckOut(
   }
 
   return { success: true, booking: updatedBooking };
+}
+
+/**
+ * Update professional's career earnings stats after booking completion
+ *
+ * Increments:
+ * - total_bookings_completed by 1
+ * - total_earnings_cents by captured amount
+ * - earnings_last_updated_at to current timestamp
+ *
+ * These stats power the Digital CV / Earnings Badge feature
+ */
+export async function updateProfessionalEarningsStats(
+  supabase: SupabaseClient,
+  professionalId: string,
+  capturedAmountCents: number,
+  bookingId: string
+): Promise<EarningsUpdateResult> {
+  try {
+    // Use RPC to atomically increment stats
+    const { error: updateError } = await supabase.rpc("increment_professional_earnings_stats", {
+      p_professional_id: professionalId,
+      p_amount_cents: capturedAmountCents,
+    });
+
+    if (updateError) {
+      // Log error but don't fail the check-out
+      await logger.error("Failed to update professional earnings stats", updateError, {
+        bookingId,
+        professionalId,
+        capturedAmountCents,
+        severity: "MEDIUM",
+        actionRecommended: "Manually update professional stats if needed",
+      });
+
+      return { success: false, error: updateError.message };
+    }
+
+    await logger.info("Professional earnings stats updated", {
+      bookingId,
+      professionalId,
+      capturedAmountCents,
+    });
+
+    return { success: true };
+  } catch (error) {
+    // Log error but don't fail the check-out - earnings stats are non-blocking
+    await logger.error("Exception updating professional earnings stats", error as Error, {
+      bookingId,
+      professionalId,
+      capturedAmountCents,
+      severity: "MEDIUM",
+    });
+
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
 }
 
 /**

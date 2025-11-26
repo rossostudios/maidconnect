@@ -29,12 +29,12 @@ const typeConfig = {
   improvement: {
     icon: AnalyticsUpIcon,
     label: "Improvement",
-    color: "text-blue-700 bg-blue-100 border-blue-200",
+    color: "text-babu-700 bg-babu-100 border-babu-200",
   },
   complaint: {
     icon: Sad01Icon,
     label: "Complaint",
-    color: "text-orange-700 bg-orange-100 border-orange-200",
+    color: "text-rausch-700 bg-rausch-100 border-rausch-200",
   },
   praise: {
     icon: ThumbsUpIcon,
@@ -49,7 +49,7 @@ const typeConfig = {
 };
 
 const statusBadge = {
-  new: "bg-blue-100 text-blue-700 border-blue-200",
+  new: "bg-babu-100 text-babu-700 border-babu-200",
   in_review: "bg-amber-100 text-amber-700 border-amber-200",
   resolved: "bg-green-100 text-green-700 border-green-200",
   closed: "bg-neutral-100 text-neutral-700 border-neutral-200",
@@ -58,8 +58,8 @@ const statusBadge = {
 
 const priorityBadge = {
   low: "bg-neutral-100 text-neutral-700 border-neutral-200",
-  medium: "bg-blue-100 text-blue-700 border-blue-200",
-  high: "bg-orange-100 text-orange-700 border-orange-200",
+  medium: "bg-babu-100 text-babu-700 border-babu-200",
+  high: "bg-rausch-100 text-rausch-700 border-rausch-200",
   critical: "bg-red-100 text-red-700 border-red-200",
 };
 
@@ -169,7 +169,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
             <dt className="mb-1 font-semibold text-neutral-600 text-sm">Page URL</dt>
             <dd className="break-all font-mono text-neutral-900 text-sm">
               <a
-                className="text-orange-600"
+                className="text-rausch-600"
                 href={feedback.page_url}
                 rel="noopener noreferrer"
                 target="_blank"

@@ -140,14 +140,16 @@ export function PortfolioManager({
       {/* Featured Work */}
       <div>
         <label
-          className={cn("mb-2 block font-semibold text-neutral-900 text-sm", geistSans.className)}
+          className={cn("mb-2 block font-semibold text-foreground text-sm", geistSans.className)}
           htmlFor="featured-work"
         >
           {t("fields.description.label")}
         </label>
         <textarea
           className={cn(
-            "w-full border border-neutral-200 px-3 py-2 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/20",
+            "w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-foreground text-sm",
+            "focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
+            "dark:border-neutral-700 dark:bg-neutral-800",
             geistSans.className
           )}
           id="featured-work"
@@ -156,14 +158,14 @@ export function PortfolioManager({
           rows={3}
           value={featuredWork}
         />
-        <p className={cn("mt-1 text-neutral-700 text-xs", geistSans.className)}>
+        <p className={cn("mt-1 text-muted-foreground text-xs", geistSans.className)}>
           {t("fields.description.helper")}
         </p>
       </div>
 
       {/* Upload New Images */}
       <div>
-        <h3 className={cn("mb-3 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+        <h3 className={cn("mb-3 font-semibold text-foreground text-sm", geistSans.className)}>
           {t("upload.title")}
         </h3>
         <ImageUploadDropzone
@@ -174,7 +176,7 @@ export function PortfolioManager({
 
       {/* Current Images */}
       <div>
-        <h3 className={cn("mb-3 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+        <h3 className={cn("mb-3 font-semibold text-foreground text-sm", geistSans.className)}>
           {t("upload.currentImages", { count: images.length })}
         </h3>
 
@@ -182,7 +184,7 @@ export function PortfolioManager({
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
-                className="flex gap-3 border border-neutral-200 bg-neutral-50 p-3"
+                className="flex gap-3 rounded-lg border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-700 dark:bg-neutral-800"
                 key={image.id}
               >
                 {/* Thumbnail */}
@@ -202,7 +204,9 @@ export function PortfolioManager({
                       <input
                         autoFocus
                         className={cn(
-                          "w-full border border-neutral-200 px-2 py-1 text-sm focus:border-neutral-900 focus:outline-none",
+                          "w-full rounded-lg border border-neutral-200 bg-white px-2 py-1 text-foreground text-sm",
+                          "focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
+                          "dark:border-neutral-700 dark:bg-neutral-900",
                           geistSans.className
                         )}
                         defaultValue={image.caption || ""}
@@ -219,16 +223,13 @@ export function PortfolioManager({
                   ) : (
                     <>
                       <p
-                        className={cn(
-                          "font-semibold text-neutral-900 text-sm",
-                          geistSans.className
-                        )}
+                        className={cn("font-semibold text-foreground text-sm", geistSans.className)}
                       >
                         {image.caption || "(No caption)"}
                       </p>
                       <p
                         className={cn(
-                          "mt-1 truncate text-neutral-700 text-xs",
+                          "mt-1 truncate text-muted-foreground text-xs",
                           geistSans.className
                         )}
                       >
@@ -237,7 +238,7 @@ export function PortfolioManager({
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
                           className={cn(
-                            "text-neutral-700 text-xs hover:text-neutral-900",
+                            "text-muted-foreground text-xs hover:text-foreground",
                             geistSans.className
                           )}
                           onClick={() => setEditingId(image.id)}
@@ -245,10 +246,10 @@ export function PortfolioManager({
                         >
                           {t("actions.editCaption")}
                         </button>
-                        <span className="text-neutral-200 text-xs">•</span>
+                        <span className="text-neutral-300 text-xs dark:text-neutral-600">•</span>
                         <button
                           className={cn(
-                            "text-neutral-700 text-xs hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50",
+                            "text-muted-foreground text-xs hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50",
                             geistSans.className
                           )}
                           disabled={index === 0}
@@ -259,7 +260,7 @@ export function PortfolioManager({
                         </button>
                         <button
                           className={cn(
-                            "text-neutral-700 text-xs hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50",
+                            "text-muted-foreground text-xs hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50",
                             geistSans.className
                           )}
                           disabled={index === sortedImages.length - 1}
@@ -268,10 +269,10 @@ export function PortfolioManager({
                         >
                           {t("actions.moveDown")}
                         </button>
-                        <span className="text-neutral-200 text-xs">•</span>
+                        <span className="text-neutral-300 text-xs dark:text-neutral-600">•</span>
                         <button
                           className={cn(
-                            "text-neutral-700 text-xs hover:text-neutral-900",
+                            "text-muted-foreground text-xs hover:text-foreground",
                             geistSans.className
                           )}
                           onClick={() => handleDeleteImage(image.id)}
@@ -288,7 +289,7 @@ export function PortfolioManager({
                 <div className="flex-shrink-0">
                   <span
                     className={cn(
-                      "inline-flex h-6 w-6 items-center justify-center bg-neutral-200 font-semibold text-neutral-700 text-xs",
+                      "inline-flex h-6 w-6 items-center justify-center rounded bg-neutral-200 font-semibold text-neutral-700 text-xs dark:bg-neutral-700 dark:text-neutral-300",
                       geistSans.className
                     )}
                   >
@@ -301,12 +302,12 @@ export function PortfolioManager({
         )}
 
         {images.length === 0 && (
-          <div className="border border-neutral-200 bg-neutral-50 p-12 text-center">
+          <div className="rounded-lg border-2 border-neutral-200 border-dashed bg-neutral-50 p-12 text-center dark:border-neutral-700 dark:bg-neutral-800/50">
             <p className="text-2xl">📸</p>
-            <p className={cn("mt-2 font-semibold text-neutral-900 text-sm", geistSans.className)}>
+            <p className={cn("mt-2 font-semibold text-foreground text-sm", geistSans.className)}>
               {t("emptyState.title")}
             </p>
-            <p className={cn("mt-1 text-neutral-700 text-sm", geistSans.className)}>
+            <p className={cn("mt-1 text-muted-foreground text-sm", geistSans.className)}>
               {t("emptyState.description")}
             </p>
           </div>
@@ -314,11 +315,21 @@ export function PortfolioManager({
       </div>
 
       {/* Upload Tips */}
-      <div className="border border-neutral-200 bg-neutral-50 p-4">
-        <h4 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+      <div className="rounded-lg border border-babu-200 bg-babu-50 p-4 dark:border-babu-500/30 dark:bg-babu-500/10">
+        <h4
+          className={cn(
+            "font-semibold text-babu-900 text-sm dark:text-babu-400",
+            geistSans.className
+          )}
+        >
           📸 {t("tips.title")}
         </h4>
-        <ul className={cn("mt-2 space-y-1 text-neutral-700 text-sm", geistSans.className)}>
+        <ul
+          className={cn(
+            "mt-2 space-y-1 text-babu-700 text-sm dark:text-babu-300",
+            geistSans.className
+          )}
+        >
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>
           <li>• {t("tips.tip3")}</li>
@@ -331,7 +342,10 @@ export function PortfolioManager({
       <div className="flex justify-end gap-3">
         <button
           className={cn(
-            "border border-[#FF5200] bg-[#FF5200] px-6 py-2 font-semibold text-sm text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:border-orange-200 disabled:bg-orange-200 disabled:text-neutral-700",
+            "rounded-lg border border-rausch-500 bg-rausch-500 px-6 py-2 font-semibold text-sm text-white transition",
+            "hover:border-rausch-600 hover:bg-rausch-600",
+            "disabled:cursor-not-allowed disabled:border-neutral-300 disabled:bg-neutral-300 disabled:text-neutral-500",
+            "dark:disabled:border-neutral-700 dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400",
             geistSans.className
           )}
           disabled={loading}

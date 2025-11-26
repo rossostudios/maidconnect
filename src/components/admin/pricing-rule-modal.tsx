@@ -1,36 +1,18 @@
 /**
  * Pricing Rule Modal Component
  *
- * Modal for creating/editing pricing rules in the admin dashboard
- * Extracted for code-splitting optimization (385 LOC)
+ * Modal for creating/editing pricing rules in the admin dashboard.
+ * Uses usePricingRuleForm hook for state management, validation, and submission.
  *
- * Sprint: Week 2 Performance Optimization
+ * Refactored: Phase 1 complexity reduction - integrated existing hook
  */
 
 "use client";
 
-import { useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
-import { toast } from "@/lib/toast";
-
-type PricingRule = {
-  id: string;
-  service_category: string | null;
-  city: string | null;
-  country: string;
-  commission_rate: number;
-  background_check_fee_cop: number;
-  min_price_cop: number | null;
-  max_price_cop: number | null;
-  deposit_percentage: number | null;
-  late_cancel_hours: number;
-  late_cancel_fee_percentage: number;
-  effective_from: string;
-  effective_until: string | null;
-  is_active: boolean;
-  notes: string | null;
-  created_at: string;
-};
+import { usePricingRuleForm } from "@/hooks/usePricingRuleForm";
+import { getModalFooterLabel } from "@/lib/utils/pricing/payload";
+import type { PricingRule } from "@/types/pricing";
+import { CITIES, SERVICE_CATEGORIES } from "@/types/pricing";
 
 type PricingRuleModalProps = {
   rule: PricingRule | null;
@@ -39,117 +21,10 @@ type PricingRuleModalProps = {
 };
 
 export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    service_category: rule?.service_category || "",
-    city: rule?.city || "",
-    commission_rate: rule ? rule.commission_rate * 100 : 18, // Convert to percentage for display
-    background_check_fee_cop: rule?.background_check_fee_cop || 0,
-    min_price_cop: rule?.min_price_cop || null,
-    max_price_cop: rule?.max_price_cop || null,
-    deposit_percentage: rule?.deposit_percentage ? rule.deposit_percentage * 100 : null,
-    late_cancel_hours: rule?.late_cancel_hours || 24,
-    late_cancel_fee_percentage: rule ? rule.late_cancel_fee_percentage * 100 : 50,
-    effective_from: rule?.effective_from || new Date().toISOString().split("T")[0],
-    effective_until: rule?.effective_until || "",
-    notes: rule?.notes || "",
+  const { formData, updateField, handleSubmit, isLoading } = usePricingRuleForm({
+    initialRule: rule,
+    onSave,
   });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const supabase = createSupabaseBrowserClient();
-
-      // Validate commission rate
-      if (formData.commission_rate < 10 || formData.commission_rate > 30) {
-        toast.error("Commission rate must be between 10% and 30%");
-        setIsLoading(false);
-        return;
-      }
-
-      // Validate price range
-      if (
-        formData.min_price_cop !== null &&
-        formData.max_price_cop !== null &&
-        formData.min_price_cop > formData.max_price_cop
-      ) {
-        toast.error("Minimum price cannot exceed maximum price");
-        setIsLoading(false);
-        return;
-      }
-
-      const payload = {
-        service_category: formData.service_category || null,
-        city: formData.city || null,
-        commission_rate: formData.commission_rate / 100, // Convert back to decimal
-        background_check_fee_cop: formData.background_check_fee_cop,
-        min_price_cop: formData.min_price_cop,
-        max_price_cop: formData.max_price_cop,
-        deposit_percentage: formData.deposit_percentage ? formData.deposit_percentage / 100 : null,
-        late_cancel_hours: formData.late_cancel_hours,
-        late_cancel_fee_percentage: formData.late_cancel_fee_percentage / 100,
-        effective_from: formData.effective_from,
-        effective_until: formData.effective_until || null,
-        notes: formData.notes || null,
-        is_active: true,
-      };
-
-      if (rule) {
-        // Update existing rule
-        const { data, error } = await supabase
-          .from("pricing_controls")
-          .update(payload)
-          .eq("id", rule.id)
-          .select()
-          .single();
-
-        if (error) {
-          throw error;
-        }
-        toast.success("Pricing rule updated");
-        onSave(data);
-      } else {
-        // Create new rule
-        const { data, error } = await supabase
-          .from("pricing_controls")
-          .insert(payload)
-          .select()
-          .single();
-
-        if (error) {
-          throw error;
-        }
-        toast.success("Pricing rule created");
-        onSave(data);
-      }
-    } catch (error) {
-      console.error("Failed to save pricing rule:", error);
-      toast.error("Failed to save pricing rule");
-      setIsLoading(false);
-    }
-  };
-
-  const SERVICE_CATEGORIES = [
-    "cleaning",
-    "cooking",
-    "childcare",
-    "elderly_care",
-    "pet_care",
-    "gardening",
-    "laundry",
-  ];
-
-  const CITIES = [
-    "Bogotá",
-    "Medellín",
-    "Cali",
-    "Barranquilla",
-    "Cartagena",
-    "Bucaramanga",
-    "Pereira",
-  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
@@ -164,12 +39,16 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
             <h3 className="mb-4 font-medium text-gray-900">Scope (leave blank for "All")</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="service_category"
+                >
                   Service Category
                 </label>
                 <select
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  onChange={(e) => setFormData({ ...formData, service_category: e.target.value })}
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="service_category"
+                  onChange={(e) => updateField("service_category", e.target.value)}
                   value={formData.service_category}
                 >
                   <option value="">All Categories</option>
@@ -182,10 +61,13 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">City</label>
+                <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="city">
+                  City
+                </label>
                 <select
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="city"
+                  onChange={(e) => updateField("city", e.target.value)}
                   value={formData.city}
                 >
                   <option value="">All Cities</option>
@@ -204,15 +86,19 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
             <h3 className="mb-4 font-medium text-gray-900">Commission & Fees</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="commission_rate"
+                >
                   Commission Rate (%) *
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="commission_rate"
                   max="30"
                   min="10"
                   onChange={(e) =>
-                    setFormData({ ...formData, commission_rate: Number.parseFloat(e.target.value) })
+                    updateField("commission_rate", Number.parseFloat(e.target.value))
                   }
                   required
                   step="0.1"
@@ -223,17 +109,21 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="background_check_fee_cop"
+                >
                   Background Check Fee (COP)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="background_check_fee_cop"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      background_check_fee_cop: Number.parseInt(e.target.value, 10) || 0,
-                    })
+                    updateField(
+                      "background_check_fee_cop",
+                      Number.parseInt(e.target.value, 10) || 0
+                    )
                   }
                   step="1000"
                   type="number"
@@ -248,17 +138,21 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
             <h3 className="mb-4 font-medium text-gray-900">Price Limits (Optional)</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="min_price_cop"
+                >
                   Minimum Price (COP)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="min_price_cop"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      min_price_cop: e.target.value ? Number.parseInt(e.target.value, 10) : null,
-                    })
+                    updateField(
+                      "min_price_cop",
+                      e.target.value ? Number.parseInt(e.target.value, 10) : null
+                    )
                   }
                   placeholder="No minimum"
                   step="1000"
@@ -268,17 +162,21 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="max_price_cop"
+                >
                   Maximum Price (COP)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="max_price_cop"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      max_price_cop: e.target.value ? Number.parseInt(e.target.value, 10) : null,
-                    })
+                    updateField(
+                      "max_price_cop",
+                      e.target.value ? Number.parseInt(e.target.value, 10) : null
+                    )
                   }
                   placeholder="No maximum"
                   step="1000"
@@ -294,16 +192,22 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
             <h3 className="mb-4 font-medium text-gray-900">Deposit & Cancellation Policy</h3>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">Deposit (%)</label>
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="deposit_percentage"
+                >
+                  Deposit (%)
+                </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="deposit_percentage"
                   max="100"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      deposit_percentage: e.target.value ? Number.parseFloat(e.target.value) : null,
-                    })
+                    updateField(
+                      "deposit_percentage",
+                      e.target.value ? Number.parseFloat(e.target.value) : null
+                    )
                   }
                   placeholder="Default"
                   step="5"
@@ -313,17 +217,18 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="late_cancel_hours"
+                >
                   Late Cancel (hours)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="late_cancel_hours"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      late_cancel_hours: Number.parseInt(e.target.value, 10) || 24,
-                    })
+                    updateField("late_cancel_hours", Number.parseInt(e.target.value, 10) || 24)
                   }
                   step="1"
                   type="number"
@@ -332,18 +237,22 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="late_cancel_fee_percentage"
+                >
                   Late Cancel Fee (%)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="late_cancel_fee_percentage"
                   max="100"
                   min="0"
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      late_cancel_fee_percentage: Number.parseFloat(e.target.value) || 50,
-                    })
+                    updateField(
+                      "late_cancel_fee_percentage",
+                      Number.parseFloat(e.target.value) || 50
+                    )
                   }
                   step="5"
                   type="number"
@@ -358,12 +267,16 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
             <h3 className="mb-4 font-medium text-gray-900">Effective Dates</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="effective_from"
+                >
                   Effective From *
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  onChange={(e) => setFormData({ ...formData, effective_from: e.target.value })}
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="effective_from"
+                  onChange={(e) => updateField("effective_from", e.target.value)}
                   required
                   type="date"
                   value={formData.effective_from}
@@ -371,12 +284,16 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-gray-900 text-sm">
+                <label
+                  className="mb-2 block font-medium text-gray-900 text-sm"
+                  htmlFor="effective_until"
+                >
                   Effective Until
                 </label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  onChange={(e) => setFormData({ ...formData, effective_until: e.target.value })}
+                  className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                  id="effective_until"
+                  onChange={(e) => updateField("effective_until", e.target.value)}
                   placeholder="No end date"
                   type="date"
                   value={formData.effective_until}
@@ -387,10 +304,13 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
 
           {/* Notes Section */}
           <div>
-            <label className="mb-2 block font-medium text-gray-900 text-sm">Notes (Optional)</label>
+            <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="notes">
+              Notes (Optional)
+            </label>
             <textarea
-              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-              onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+              id="notes"
+              onChange={(e) => updateField("notes", e.target.value)}
               placeholder="Internal notes about this pricing rule..."
               rows={3}
               value={formData.notes}
@@ -400,7 +320,7 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
             <button
-              className="rounded-lg border border-neutral-200 px-6 py-3 font-medium text-gray-900 transition hover:border-orange-500 disabled:opacity-50"
+              className="rounded-lg border border-neutral-200 px-6 py-3 font-medium text-gray-900 transition hover:border-rausch-500 disabled:opacity-50"
               disabled={isLoading}
               onClick={onClose}
               type="button"
@@ -408,11 +328,11 @@ export function PricingRuleModal({ rule, onClose, onSave }: PricingRuleModalProp
               Cancel
             </button>
             <button
-              className="rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition hover:bg-orange-600 disabled:opacity-50"
+              className="rounded-lg bg-rausch-500 px-6 py-3 font-medium text-white transition hover:bg-rausch-600 disabled:opacity-50"
               disabled={isLoading}
               type="submit"
             >
-              {isLoading ? "Saving..." : rule ? "Update Rule" : "Create Rule"}
+              {getModalFooterLabel(isLoading, Boolean(rule))}
             </button>
           </div>
         </form>

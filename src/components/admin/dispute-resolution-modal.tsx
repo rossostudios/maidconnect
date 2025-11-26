@@ -155,11 +155,15 @@ export function DisputeResolutionModal({ dispute, onClose, onComplete }: Props) 
 
         {/* Resolution Type */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="resolution-type"
+          >
             Resolution Type
           </label>
           <select
             className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-neutral-500"
+            id="resolution-type"
             onChange={(e) =>
               form.updateField(
                 "resolutionType",
@@ -179,11 +183,15 @@ export function DisputeResolutionModal({ dispute, onClose, onComplete }: Props) 
         {/* Refund Amount (conditional) */}
         {form.formData.resolutionType === "refund" && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900"
+              htmlFor="refund-amount"
+            >
               Refund Amount ($)
             </label>
             <input
               className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-neutral-500"
+              id="refund-amount"
               max={dispute.booking.amount_estimated}
               min={0}
               onChange={(e) =>
@@ -201,11 +209,15 @@ export function DisputeResolutionModal({ dispute, onClose, onComplete }: Props) 
 
         {/* Action Taken */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="action-taken"
+          >
             Action Taken <span className="text-red-600">*</span>
           </label>
           <textarea
             className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500"
+            id="action-taken"
             onChange={(e) => form.updateField("actionTaken", e.target.value)}
             placeholder="Describe the action taken to resolve this dispute..."
             rows={3}
@@ -215,11 +227,15 @@ export function DisputeResolutionModal({ dispute, onClose, onComplete }: Props) 
 
         {/* Admin Notes (internal only) */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="admin-notes"
+          >
             Admin Notes (Internal Only)
           </label>
           <textarea
             className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500"
+            id="admin-notes"
             onChange={(e) => form.updateField("adminNotes", e.target.value)}
             placeholder="Internal notes (not visible to users)..."
             rows={3}
@@ -229,11 +245,15 @@ export function DisputeResolutionModal({ dispute, onClose, onComplete }: Props) 
 
         {/* Resolution Message (sent to users) */}
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900"
+            htmlFor="resolution-message"
+          >
             Resolution Message (Sent to Both Parties) <span className="text-red-600">*</span>
           </label>
           <textarea
             className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500"
+            id="resolution-message"
             onChange={(e) => form.updateField("resolutionMessage", e.target.value)}
             placeholder="This message will be sent to both the customer and professional..."
             rows={4}

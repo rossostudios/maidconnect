@@ -40,8 +40,10 @@ import { cn } from "@/lib/utils/core";
  *
  * Extends React Aria's Checkbox props with our custom styling.
  * React 19: ref is a regular prop.
+ * Backward compatible with Radix UI props (checked, onCheckedChange).
  */
-export interface CheckboxProps extends Omit<AriaCheckboxProps, "children"> {
+export interface CheckboxProps
+  extends Omit<AriaCheckboxProps, "children" | "isSelected" | "onChange"> {
   /**
    * Additional CSS classes for the checkbox container
    */
@@ -54,6 +56,24 @@ export interface CheckboxProps extends Omit<AriaCheckboxProps, "children"> {
    * Ref to the checkbox element
    */
   ref?: React.RefObject<HTMLLabelElement | null>;
+  /**
+   * Whether the checkbox is checked (Radix compatibility)
+   * @deprecated Use isSelected instead
+   */
+  checked?: boolean;
+  /**
+   * Whether the checkbox is selected (React Aria native)
+   */
+  isSelected?: boolean;
+  /**
+   * Callback when checked state changes (Radix compatibility)
+   * @deprecated Use onChange instead
+   */
+  onCheckedChange?: (checked: boolean | "indeterminate") => void;
+  /**
+   * Callback when selection changes (React Aria native)
+   */
+  onChange?: (isSelected: boolean) => void;
 }
 
 /**
@@ -62,8 +82,26 @@ export interface CheckboxProps extends Omit<AriaCheckboxProps, "children"> {
  * Provides accessible checkbox with Lia Design System styling.
  * Uses React Aria for robust keyboard navigation and screen reader support.
  * React 19: Uses ref as regular prop instead of forwardRef.
+ * Supports both Radix UI props (checked, onCheckedChange) and React Aria props (isSelected, onChange).
  */
-export const Checkbox = ({ className, children, ref, ...props }: CheckboxProps) => {
+export const Checkbox = ({
+  className,
+  children,
+  ref,
+  checked,
+  isSelected,
+  onCheckedChange,
+  onChange,
+  ...props
+}: CheckboxProps) => {
+  // Backward compatibility: support both Radix and React Aria prop names
+  const resolvedIsSelected = isSelected ?? checked;
+
+  const handleChange = (selected: boolean) => {
+    onChange?.(selected);
+    onCheckedChange?.(selected);
+  };
+
   return (
     <AriaCheckbox
       className={cn(
@@ -72,6 +110,8 @@ export const Checkbox = ({ className, children, ref, ...props }: CheckboxProps) 
         // Additional classes
         className
       )}
+      isSelected={resolvedIsSelected}
+      onChange={handleChange}
       ref={ref}
       {...props}
     >
@@ -85,11 +125,11 @@ export const Checkbox = ({ className, children, ref, ...props }: CheckboxProps) 
               // Border and shape (Lia Design System - Anthropic rounded corners)
               "rounded border",
               // Default state - orange border (primary)
-              "border-orange-500",
+              "border-rausch-500",
               // Focus state - ring
-              "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-orange-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
+              "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-rausch-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
               // Checked state - filled background
-              isSelected && "bg-orange-500 text-white",
+              isSelected && "bg-rausch-500 text-white",
               // Disabled state
               isDisabled && "cursor-not-allowed opacity-50"
             )}

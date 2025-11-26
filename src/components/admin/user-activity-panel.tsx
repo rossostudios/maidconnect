@@ -94,9 +94,9 @@ function getActivityColor(type: string) {
     case "booking":
       return "bg-green-50 border-green-200 text-green-700";
     case "user":
-      return "bg-blue-50 border-blue-200 text-blue-700";
+      return "bg-babu-50 border-babu-200 text-babu-700";
     case "professional":
-      return "bg-orange-50 border-orange-500 text-orange-700";
+      return "bg-rausch-50 border-rausch-500 text-rausch-700";
     case "dispute":
       return "bg-red-50 border-red-200 text-red-700";
     default:
@@ -142,8 +142,8 @@ export function UserActivityPanel({ enabled = true, currentUserId }: UserActivit
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Online Admins */}
         <div className="rounded-lg border border-neutral-200 bg-white p-4">
-          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-            <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={UserCircleIcon} />
+          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-lg border border-rausch-200 bg-rausch-50">
+            <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={UserCircleIcon} />
           </div>
           <div className={cn("font-medium text-2xl text-neutral-900", geistSans.className)}>
             {stats.onlineAdmins}

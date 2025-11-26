@@ -27,7 +27,7 @@ export function PriceLimitsFields({ formData, updateField }: PriceLimitsFieldsPr
             Minimum Price (COP)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-min-price"
             min="0"
             onChange={(e) =>
@@ -50,7 +50,7 @@ export function PriceLimitsFields({ formData, updateField }: PriceLimitsFieldsPr
             Maximum Price (COP)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-max-price"
             min="0"
             onChange={(e) =>

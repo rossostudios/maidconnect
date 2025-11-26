@@ -51,7 +51,7 @@ export default async function ProAvailabilityPage({
       <div>
         <h1
           className={cn(
-            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            "font-semibold text-3xl text-foreground uppercase tracking-tight",
             geistSans.className
           )}
         >
@@ -59,7 +59,7 @@ export default async function ProAvailabilityPage({
         </h1>
         <p
           className={cn(
-            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            "mt-1.5 font-normal text-muted-foreground text-sm tracking-wide",
             geistSans.className
           )}
         >
@@ -68,16 +68,16 @@ export default async function ProAvailabilityPage({
       </div>
 
       {/* Availability Editor */}
-      <div className="border border-neutral-200 bg-white p-6">
+      <div className="rounded-lg border border-border bg-card p-6">
         <AvailabilityEditor initialBlockedDates={blockedDates} initialWeeklyHours={weeklyHours} />
       </div>
 
       {/* Help Section */}
-      <div className="border border-neutral-200 bg-white">
-        <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+      <div className="rounded-lg border border-border bg-card">
+        <div className="border-border border-b bg-muted px-6 py-4">
           <h3
             className={cn(
-              "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+              "font-semibold text-foreground text-xs uppercase tracking-wider",
               geistSans.className
             )}
           >
@@ -87,36 +87,36 @@ export default async function ProAvailabilityPage({
         <div className="p-6">
           <ul className="space-y-3">
             <li className="flex gap-3">
-              <span className="flex-shrink-0 text-[#FF5200]">•</span>
-              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
-                <strong className="font-semibold text-neutral-900">
+              <span className="flex-shrink-0 text-rausch-500 dark:text-rausch-400">•</span>
+              <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
+                <strong className="font-semibold text-foreground">
                   {t("tips.workingHours.label")}
                 </strong>{" "}
                 {t("tips.workingHours.text")}
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex-shrink-0 text-[#FF5200]">•</span>
-              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
-                <strong className="font-semibold text-neutral-900">
+              <span className="flex-shrink-0 text-rausch-500 dark:text-rausch-400">•</span>
+              <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
+                <strong className="font-semibold text-foreground">
                   {t("tips.blockedDates.label")}
                 </strong>{" "}
                 {t("tips.blockedDates.text")}
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex-shrink-0 text-[#FF5200]">•</span>
-              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
-                <strong className="font-semibold text-neutral-900">
+              <span className="flex-shrink-0 text-rausch-500 dark:text-rausch-400">•</span>
+              <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
+                <strong className="font-semibold text-foreground">
                   {t("tips.bufferTime.label")}
                 </strong>{" "}
                 {t("tips.bufferTime.text")}
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex-shrink-0 text-[#FF5200]">•</span>
-              <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
-                <strong className="font-semibold text-neutral-900">
+              <span className="flex-shrink-0 text-rausch-500 dark:text-rausch-400">•</span>
+              <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
+                <strong className="font-semibold text-foreground">
                   {t("tips.flexibility.label")}
                 </strong>{" "}
                 {t("tips.flexibility.text")}

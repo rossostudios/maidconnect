@@ -27,7 +27,7 @@ export function CommissionFields({ formData, updateField }: CommissionFieldsProp
             Commission Rate (%) *
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-commission-rate"
             max="30"
             min="10"
@@ -47,7 +47,7 @@ export function CommissionFields({ formData, updateField }: CommissionFieldsProp
             Background Check Fee (COP)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-background-fee"
             min="0"
             onChange={(e) =>

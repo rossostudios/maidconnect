@@ -39,7 +39,7 @@ export function PricingFooterHero() {
 
         <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
           <Link href="/pricing">
-            <Button className="rounded-full bg-orange-500 px-6 py-3 text-white shadow-md shadow-orange-500/30 transition hover:bg-orange-600">
+            <Button className="rounded-full bg-rausch-500 px-6 py-3 text-white shadow-md shadow-rausch-500/30 transition hover:bg-rausch-600">
               View pricing
             </Button>
           </Link>

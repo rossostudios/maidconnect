@@ -239,9 +239,9 @@ export const colors = {
 
   /** Interactive colors */
   interactive: {
-    primary: "bg-orange-500 text-white", // Primary CTA
-    primaryHover: "hover:bg-orange-600", // Primary hover
-    link: "text-orange-600 hover:text-orange-700", // Links
+    primary: "bg-rausch-500 text-white", // Primary CTA
+    primaryHover: "hover:bg-rausch-600", // Primary hover
+    link: "text-rausch-600 hover:text-rausch-700", // Links
   },
 } as const;
 

@@ -19,7 +19,7 @@ export function NotesField({ formData, updateField }: NotesFieldProps) {
     <div className="border border-neutral-200 bg-white p-6">
       <h3 className="mb-4 font-semibold text-neutral-900">Notes</h3>
       <textarea
-        className="h-24 w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+        className="h-24 w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
         onChange={(e) => updateField("notes", e.target.value)}
         placeholder="Optional notes about this rule..."
         value={formData.notes}

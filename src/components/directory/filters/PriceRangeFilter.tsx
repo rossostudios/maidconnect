@@ -105,7 +105,7 @@ export function PriceRangeFilter({
           type="number"
           value={localMin}
         />
-        <span className="text-neutral-400">–</span>
+        <span className="text-neutral-400 dark:text-rausch-300">–</span>
         <Input
           className="w-24"
           onBlur={handleMaxBlur}
@@ -121,18 +121,19 @@ export function PriceRangeFilter({
   return (
     <div className={cn("space-y-4", className)}>
       {/* Section label */}
-      <p className="font-medium text-neutral-700 text-sm">
-        Price Range <span className="font-normal text-neutral-400">({currency}/hr)</span>
+      <p className="font-medium text-neutral-700 text-sm dark:text-rausch-100">
+        Price Range{" "}
+        <span className="font-normal text-neutral-400 dark:text-rausch-300">({currency}/hr)</span>
       </p>
 
       {/* Dual-thumb slider */}
       <div className="relative h-6">
         {/* Track background */}
-        <div className="-translate-y-1/2 absolute top-1/2 right-2 left-2 h-1 rounded-full bg-neutral-200" />
+        <div className="-translate-y-1/2 absolute top-1/2 right-2 left-2 h-1 rounded-full bg-neutral-200 dark:bg-rausch-800" />
 
         {/* Active track */}
         <div
-          className="-translate-y-1/2 absolute top-1/2 h-1 rounded-full bg-orange-400"
+          className="-translate-y-1/2 absolute top-1/2 h-1 rounded-full bg-rausch-400"
           style={{
             left: `calc(${minPercent}% + ${8 - minPercent * 0.16}px)`,
             right: `calc(${100 - maxPercent}% + ${8 - (100 - maxPercent) * 0.16}px)`,
@@ -141,7 +142,7 @@ export function PriceRangeFilter({
 
         {/* Min slider */}
         <input
-          className="pointer-events-none absolute top-0 h-6 w-full appearance-none bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-orange-400 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-orange-400 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:hover:border-orange-500"
+          className="pointer-events-none absolute top-0 h-6 w-full appearance-none bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-rausch-400 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-rausch-400 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:hover:border-rausch-500"
           max={MAX_PRICE}
           min={MIN_PRICE}
           onChange={handleSliderMinChange}
@@ -155,7 +156,7 @@ export function PriceRangeFilter({
 
         {/* Max slider */}
         <input
-          className="pointer-events-none absolute top-0 h-6 w-full appearance-none bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-orange-400 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-orange-400 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:hover:border-orange-500"
+          className="pointer-events-none absolute top-0 h-6 w-full appearance-none bg-transparent [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-rausch-400 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-rausch-400 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:hover:border-rausch-500"
           max={MAX_PRICE}
           min={MIN_PRICE}
           onChange={handleSliderMaxChange}
@@ -171,7 +172,7 @@ export function PriceRangeFilter({
       {/* Min/Max inputs */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <label className="text-neutral-500 text-xs" htmlFor="price-min">
+          <label className="text-neutral-500 text-xs dark:text-rausch-200" htmlFor="price-min">
             Min
           </label>
           <Input
@@ -186,7 +187,7 @@ export function PriceRangeFilter({
           />
         </div>
         <div className="space-y-1.5">
-          <label className="text-neutral-500 text-xs" htmlFor="price-max">
+          <label className="text-neutral-500 text-xs dark:text-rausch-200" htmlFor="price-max">
             Max
           </label>
           <Input

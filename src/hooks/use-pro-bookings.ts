@@ -11,7 +11,7 @@
  * - URL sync support via nuqs (optional)
  */
 
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import type { Currency } from "@/lib/utils/format";
 
@@ -19,12 +19,7 @@ import type { Currency } from "@/lib/utils/format";
 // Types
 // ============================================================================
 
-export type BookingStatus =
-  | "pending"
-  | "confirmed"
-  | "in_progress"
-  | "completed"
-  | "cancelled";
+export type BookingStatus = "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
 
 export type DateFilter = "all" | "today" | "week" | "month" | "history";
 
@@ -151,12 +146,7 @@ type UseProBookingsOptions = {
 };
 
 export function useProBookings(options: UseProBookingsOptions = {}) {
-  const {
-    initialPage = 1,
-    limit = 20,
-    initialFilters = {},
-    enabled = true,
-  } = options;
+  const { initialPage = 1, limit = 20, initialFilters = {}, enabled = true } = options;
 
   const queryClient = useQueryClient();
 
@@ -227,17 +217,26 @@ export function useProBookings(options: UseProBookingsOptions = {}) {
     setPage(1);
   }, []);
 
-  const setStatus = useCallback((status: BookingStatus | "all") => {
-    setFilters({ status });
-  }, [setFilters]);
+  const setStatus = useCallback(
+    (status: BookingStatus | "all") => {
+      setFilters({ status });
+    },
+    [setFilters]
+  );
 
-  const setDateFilter = useCallback((date: DateFilter) => {
-    setFilters({ date });
-  }, [setFilters]);
+  const setDateFilter = useCallback(
+    (date: DateFilter) => {
+      setFilters({ date });
+    },
+    [setFilters]
+  );
 
-  const setSearch = useCallback((search: string) => {
-    setFilters({ search });
-  }, [setFilters]);
+  const setSearch = useCallback(
+    (search: string) => {
+      setFilters({ search });
+    },
+    [setFilters]
+  );
 
   const clearFilters = useCallback(() => {
     setFiltersState({
@@ -278,9 +277,8 @@ export function useProBookings(options: UseProBookingsOptions = {}) {
   }, [queryClient]);
 
   const getBookingById = useCallback(
-    (bookingId: string): ProBookingWithCustomer | undefined => {
-      return query.data?.bookings.find((b) => b.id === bookingId);
-    },
+    (bookingId: string): ProBookingWithCustomer | undefined =>
+      query.data?.bookings.find((b) => b.id === bookingId),
     [query.data?.bookings]
   );
 
@@ -289,14 +287,9 @@ export function useProBookings(options: UseProBookingsOptions = {}) {
   // ============================================================================
 
   const hasActiveFilters =
-    filters.status !== "all" ||
-    filters.date !== "all" ||
-    filters.search.trim() !== "";
+    filters.status !== "all" || filters.date !== "all" || filters.search.trim() !== "";
 
-  const isEmpty =
-    !query.isLoading &&
-    !query.isError &&
-    (query.data?.bookings.length ?? 0) === 0;
+  const isEmpty = !(query.isLoading || query.isError) && (query.data?.bookings.length ?? 0) === 0;
 
   const pagination = query.data?.pagination ?? {
     page: 1,

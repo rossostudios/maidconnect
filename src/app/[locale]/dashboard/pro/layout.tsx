@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { LiaProShell } from "@/components/professional/lia-pro-shell";
+import { ProAirbnbShell } from "@/components/professional/pro-airbnb-shell";
 import { requireUser } from "@/lib/auth";
 import { calculateOnboardingCompletion } from "@/lib/onboarding/completion-calculator";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -42,7 +42,7 @@ export default async function ProLayout({ children }: Props) {
     .eq("read", false);
 
   return (
-    <LiaProShell
+    <ProAirbnbShell
       countryCode={professionalProfile?.country_code ?? undefined}
       onboardingCompletion={onboardingCompletion}
       onboardingStatus={profile?.onboarding_status ?? ""}
@@ -53,6 +53,6 @@ export default async function ProLayout({ children }: Props) {
       userName={profile?.full_name ?? undefined}
     >
       {children}
-    </LiaProShell>
+    </ProAirbnbShell>
   );
 }

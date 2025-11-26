@@ -88,8 +88,8 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
 
       {/* Stats Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border border-neutral-200 bg-gradient-to-br from-orange-500/10 to-white p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500">
+        <div className="rounded-lg border border-neutral-200 bg-gradient-to-br from-rausch-500/10 to-white p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-rausch-500">
             <HugeiconsIcon className="h-6 w-6 text-white" icon={GiftIcon} />
           </div>
           <div className="mb-1 text-neutral-700 text-sm">Total Earnings</div>
@@ -131,14 +131,14 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           />
         ) : (
           <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-8 text-center shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-orange-500" icon={GiftIcon} />
+            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-rausch-500" icon={GiftIcon} />
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl">Get Your Referral Code</h3>
             <p className="mb-6 text-neutral-700">
               Generate your unique referral code to start earning rewards
             </p>
             <form action="/api/referrals/generate-code" method="POST">
               <button
-                className="rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600 active:scale-[0.98]"
+                className="rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600 active:scale-[0.98]"
                 type="submit"
               >
                 Generate My Code
@@ -176,12 +176,12 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
                     </span>
                   )}
                   {referral.status === "qualified" && (
-                    <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-600 text-xs">
+                    <span className="rounded-full bg-babu-50 px-3 py-1 font-medium text-babu-600 text-xs">
                       Qualified
                     </span>
                   )}
                   {referral.status === "pending" && (
-                    <span className="rounded-full bg-orange-50 px-3 py-1 font-medium text-orange-600 text-xs">
+                    <span className="rounded-full bg-rausch-50 px-3 py-1 font-medium text-rausch-600 text-xs">
                       Pending
                     </span>
                   )}

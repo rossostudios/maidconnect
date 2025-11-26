@@ -11,7 +11,10 @@ type RawReviewData = {
   created_at: string;
   status: string;
   bookings: { id: string; customer_id: string } | { id: string; customer_id: string }[] | null;
-  professional_profiles: { id: string; full_name: string | null } | { id: string; full_name: string | null }[] | null;
+  professional_profiles:
+    | { id: string; full_name: string | null }
+    | { id: string; full_name: string | null }[]
+    | null;
   users: { id: string; email: string } | { id: string; email: string }[] | null;
 };
 
@@ -69,7 +72,9 @@ export function GET(request: Request) {
 
     // Transform to expected format
     const transformedReviews = ((reviews || []) as RawReviewData[]).map((review) => {
-      const profile = Array.isArray(review.professional_profiles) ? review.professional_profiles[0] : review.professional_profiles;
+      const profile = Array.isArray(review.professional_profiles)
+        ? review.professional_profiles[0]
+        : review.professional_profiles;
       const user = Array.isArray(review.users) ? review.users[0] : review.users;
       return {
         id: review.id,

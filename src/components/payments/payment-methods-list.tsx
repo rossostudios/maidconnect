@@ -126,7 +126,7 @@ export function PaymentMethodsList({ initialPaymentMethods = [], initialDefaultI
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-rausch-500 border-t-transparent" />
       </div>
     );
   }
@@ -164,7 +164,7 @@ export function PaymentMethodsList({ initialPaymentMethods = [], initialDefaultI
         <div
           className={cn(
             "flex items-center justify-between rounded-lg border bg-white p-4 transition",
-            pm.is_default ? "border-orange-200 bg-orange-50/50" : "border-neutral-200"
+            pm.is_default ? "border-rausch-200 bg-rausch-50/50" : "border-neutral-200"
           )}
           key={pm.id}
         >

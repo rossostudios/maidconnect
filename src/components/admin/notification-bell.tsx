@@ -60,7 +60,7 @@ function getSeverityClasses(severity: AdminNotification["severity"]) {
     case "error":
       return "bg-red-50 border-red-200 text-red-700";
     case "warning":
-      return "bg-orange-50 border-orange-500 text-orange-700";
+      return "bg-rausch-50 border-rausch-500 text-rausch-700";
     default:
       return "bg-neutral-50 border-neutral-200 text-neutral-700";
   }
@@ -121,8 +121,8 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
       <button
         aria-label={`Notifications ${unreadCount > 0 ? `(${unreadCount} unread)` : ""}`}
         className={cn(
-          "relative flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white transition-all hover:border-orange-500 hover:bg-orange-50",
-          isOpen && "border-orange-500 bg-orange-50"
+          "relative flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white transition-all hover:border-rausch-500 hover:bg-rausch-50",
+          isOpen && "border-rausch-500 bg-rausch-50"
         )}
         onClick={() => setIsOpen(!isOpen)}
         type="button"
@@ -130,16 +130,27 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
         <HugeiconsIcon
           className={cn(
             "h-5 w-5 transition-colors",
-            isOpen ? "text-orange-600" : "text-neutral-700"
+            isOpen ? "text-rausch-600" : "text-neutral-700"
           )}
           icon={Notification03Icon}
         />
 
-        {/* Unread Badge */}
+        {/* Unread Badge - Airbnb style with white ring separator */}
         {unreadCount > 0 && (
-          <span className="-right-1 -top-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-orange-500">
-            <span className={cn("font-medium text-white text-xs", geistSans.className)}>
-              {unreadCount > 9 ? "9+" : unreadCount}
+          <span
+            className={cn(
+              "-right-1 -top-1 absolute flex h-5 min-w-5 items-center justify-center",
+              "rounded-full bg-rausch-500 ring-2 ring-white",
+              "px-1"
+            )}
+          >
+            <span
+              className={cn(
+                "font-semibold text-[11px] text-white tabular-nums leading-none",
+                geistSans.className
+              )}
+            >
+              {unreadCount > 99 ? "99+" : unreadCount}
             </span>
           </span>
         )}
@@ -162,7 +173,7 @@ export function NotificationBell({ enabled = true }: NotificationBellProps) {
             {notifications.length > 0 && (
               <button
                 className={cn(
-                  "font-medium text-neutral-600 text-xs tracking-wider hover:text-orange-600",
+                  "font-medium text-neutral-600 text-xs tracking-wider hover:text-rausch-600",
                   geistSans.className
                 )}
                 onClick={() => clearNotifications()}

@@ -37,7 +37,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "House Cleaning",
     rating: 4.9,
     reviewCount: 127,
-    hourlyRate: 35000,
+    hourlyRate: 35_000,
     currency: "COP",
     verified: true,
     featured: true,
@@ -49,7 +49,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Plumbing",
     rating: 4.8,
     reviewCount: 89,
-    hourlyRate: 45000,
+    hourlyRate: 45_000,
     currency: "COP",
     verified: true,
     badge: "Top Rated",
@@ -61,7 +61,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Electrical",
     rating: 4.9,
     reviewCount: 64,
-    hourlyRate: 50000,
+    hourlyRate: 50_000,
     currency: "COP",
     verified: true,
     location: "Bogotá, Colombia",
@@ -72,7 +72,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Handyman",
     rating: 4.7,
     reviewCount: 156,
-    hourlyRate: 30000,
+    hourlyRate: 30_000,
     currency: "COP",
     verified: true,
     featured: true,
@@ -84,7 +84,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Gardening",
     rating: 4.8,
     reviewCount: 43,
-    hourlyRate: 32000,
+    hourlyRate: 32_000,
     currency: "COP",
     verified: true,
     location: "Cartagena, Colombia",
@@ -95,7 +95,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Painting",
     rating: 4.6,
     reviewCount: 78,
-    hourlyRate: 40000,
+    hourlyRate: 40_000,
     currency: "COP",
     verified: true,
     badge: "Fast Response",
@@ -107,7 +107,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Moving",
     rating: 4.9,
     reviewCount: 95,
-    hourlyRate: 55000,
+    hourlyRate: 55_000,
     currency: "COP",
     verified: true,
     location: "Asunción, Paraguay",
@@ -118,7 +118,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
     service: "Appliance Repair",
     rating: 4.8,
     reviewCount: 112,
-    hourlyRate: 48000,
+    hourlyRate: 48_000,
     currency: "COP",
     verified: true,
     featured: true,
@@ -147,19 +147,24 @@ export function FeaturedProfessionalsSection() {
         );
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24 dark:bg-background">
       <div className="container mx-auto px-4 md:px-8">
         {/* Section Header */}
         <div className="mb-8 text-center">
           <h2
             className={cn(
-              "font-bold text-2xl text-neutral-900 tracking-tight md:text-3xl",
+              "font-bold text-2xl text-neutral-900 tracking-tight md:text-3xl dark:text-neutral-50",
               geistSans.className
             )}
           >
             Top-Rated Professionals
           </h2>
-          <p className={cn("mx-auto mt-3 max-w-2xl text-neutral-600", geistSans.className)}>
+          <p
+            className={cn(
+              "mx-auto mt-3 max-w-2xl text-neutral-600 dark:text-neutral-400",
+              geistSans.className
+            )}
+          >
             Discover verified professionals trusted by thousands of customers in your area
           </p>
         </div>
@@ -185,7 +190,7 @@ export function FeaturedProfessionalsSection() {
         <div className="mt-10 text-center">
           <a
             className={cn(
-              "inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-8 py-3 font-semibold text-white transition-colors hover:bg-neutral-800",
+              "inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-8 py-3 font-semibold text-white transition-colors hover:bg-neutral-800 dark:border dark:border-border dark:bg-card dark:hover:bg-muted",
               geistSans.className
             )}
             href="/professionals"

@@ -7,10 +7,10 @@ Use these pre-flight lists before merging UI work. Each section maps back to `fo
 - [ ] Geist Sans for all text, Geist Mono for data/IDs.
 - [ ] No raw hex in JSX; only Tailwind tokens defined in `globals.css`.
 - [ ] Spacing sticks to the 8px scale (4, 8, 12, 16, 24, 32, 48, 64).
-- [ ] Focus states visible on keyboard navigation (`ring-2 ring-orange-500`).
+- [ ] Focus states visible on keyboard navigation (`ring-2 ring-rausch-500`).
 - [ ] Buttons use one of the exported variants from `@/components/ui`.
 - [ ] Cards/tables/modals use `border-neutral-200` and `bg-white`.
-- [ ] Primary CTA color is `orange-500`; inline links use `orange-600`.
+- [ ] Primary CTA color is `rausch-500`; inline links use `rausch-600`.
 - [ ] Skeletons or loading states in place for async sections.
 
 ## Admin & Dashboard
@@ -21,7 +21,7 @@ Use these pre-flight lists before merging UI work. Each section maps back to `fo
 - [ ] Tables use `DataTableEnhanced` + hover rows `bg-neutral-50`.
 - [ ] Filters snap to `grid grid-cols-4 gap-4` or `GridField`.
 - [ ] Badges follow semantic palette (success/warning/error/info).
-- [ ] Buttons: primary `orange-500`, secondary `neutral-100`, destructive `orange-700`.
+- [ ] Buttons: primary `rausch-500`, secondary `neutral-100`, destructive `rausch-700`.
 - [ ] Layout respects 64px module heights and 24px gutters.
 
 ## Marketing & Landing

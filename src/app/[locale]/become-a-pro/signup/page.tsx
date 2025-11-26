@@ -91,7 +91,7 @@ export default async function ProSignUpPage() {
           <div className="flex items-center gap-4 text-sm">
             <span className="text-neutral-600">{t("alreadyHaveAccount")}</span>
             <Link
-              className="font-semibold text-orange-600 hover:text-orange-700"
+              className="font-semibold text-rausch-600 hover:text-rausch-700"
               href="/auth/sign-in"
             >
               {t("signIn")}
@@ -111,11 +111,11 @@ export default async function ProSignUpPage() {
 
             <p className="mt-6 text-center text-neutral-600 text-xs">
               {t("terms.prefix")}{" "}
-              <Link className="text-orange-600 hover:underline" href="/terms">
+              <Link className="text-rausch-600 hover:underline" href="/terms">
                 {t("terms.termsLink")}
               </Link>{" "}
               {t("terms.and")}{" "}
-              <Link className="text-orange-600 hover:underline" href="/privacy">
+              <Link className="text-rausch-600 hover:underline" href="/privacy">
                 {t("terms.privacyLink")}
               </Link>
             </p>

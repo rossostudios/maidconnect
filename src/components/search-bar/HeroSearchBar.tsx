@@ -103,7 +103,9 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
   // Close panel on scroll (prevents sticky dropdown issue)
   useEffect(() => {
-    if (!activePanel) return;
+    if (!activePanel) {
+      return;
+    }
 
     const handleScroll = () => {
       setActivePanel(null);
@@ -165,7 +167,7 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
       {/* Desktop Search Bar */}
       <div className="hidden lg:block">
         <div
-          className="flex items-center rounded-full bg-white p-2 shadow-2xl ring-1 ring-black/5"
+          className="flex items-center rounded-full bg-white p-2 shadow-2xl ring-1 ring-black/5 dark:bg-card dark:shadow-none dark:ring-border"
           ref={searchBarRef}
         >
           {/* Where Segment */}
@@ -177,7 +179,9 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
             <span
               className={cn(
                 "block truncate text-sm",
-                selectedCityLabel ? "text-neutral-900" : "text-neutral-500"
+                selectedCityLabel
+                  ? "text-neutral-900 dark:text-neutral-50"
+                  : "text-neutral-500 dark:text-neutral-400"
               )}
             >
               {whereDisplay}
@@ -193,7 +197,9 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
             <span
               className={cn(
                 "block truncate text-sm",
-                selectedDate ? "text-neutral-900" : "text-neutral-500"
+                selectedDate
+                  ? "text-neutral-900 dark:text-neutral-50"
+                  : "text-neutral-500 dark:text-neutral-400"
               )}
             >
               {whenDisplay}
@@ -210,7 +216,9 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
             <span
               className={cn(
                 "block truncate text-sm",
-                selectedServiceLabel ? "text-neutral-900" : "text-neutral-500"
+                selectedServiceLabel
+                  ? "text-neutral-900 dark:text-neutral-50"
+                  : "text-neutral-500 dark:text-neutral-400"
               )}
             >
               {serviceDisplay}
@@ -221,8 +229,8 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
           <button
             className={cn(
               "ml-2 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full transition-all",
-              "bg-orange-500 hover:bg-orange-600 active:scale-95",
-              "shadow-lg shadow-orange-500/25"
+              "bg-rausch-500 hover:bg-rausch-600 active:scale-95",
+              "shadow-lg shadow-rausch-500/25"
             )}
             onClick={handleSearch}
             type="button"
@@ -288,21 +296,23 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
       {/* Mobile Search Bar */}
       <div className="lg:hidden">
-        <div className="overflow-hidden rounded-2xl bg-white shadow-2xl">
+        <div className="overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-transparent dark:bg-card dark:shadow-none dark:ring-border">
           {/* Service */}
           <button
-            className="flex w-full items-center justify-between border-neutral-100 border-b px-4 py-4 text-left transition-all hover:bg-neutral-50"
+            className="flex w-full items-center justify-between border-neutral-100 border-b px-4 py-4 text-left transition-all hover:bg-neutral-50 dark:border-border dark:hover:bg-muted"
             onClick={() => setActivePanel(activePanel === "service" ? null : "service")}
             type="button"
           >
             <div>
-              <span className="block font-semibold text-neutral-900 text-xs">
+              <span className="block font-semibold text-neutral-900 text-xs dark:text-neutral-50">
                 {t("searchBar.service")}
               </span>
               <span
                 className={cn(
                   "mt-0.5 block text-sm",
-                  selectedServiceLabel ? "text-neutral-900" : "text-neutral-500"
+                  selectedServiceLabel
+                    ? "text-neutral-900 dark:text-neutral-50"
+                    : "text-neutral-500 dark:text-neutral-400"
                 )}
               >
                 {serviceDisplay}
@@ -312,18 +322,20 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
           {/* Where */}
           <button
-            className="flex w-full items-center justify-between border-neutral-100 border-b px-4 py-4 text-left transition-all hover:bg-neutral-50"
+            className="flex w-full items-center justify-between border-neutral-100 border-b px-4 py-4 text-left transition-all hover:bg-neutral-50 dark:border-border dark:hover:bg-muted"
             onClick={() => setActivePanel(activePanel === "where" ? null : "where")}
             type="button"
           >
             <div>
-              <span className="block font-semibold text-neutral-900 text-xs">
+              <span className="block font-semibold text-neutral-900 text-xs dark:text-neutral-50">
                 {t("searchBar.where")}
               </span>
               <span
                 className={cn(
                   "mt-0.5 block text-sm",
-                  selectedCityLabel ? "text-neutral-900" : "text-neutral-500"
+                  selectedCityLabel
+                    ? "text-neutral-900 dark:text-neutral-50"
+                    : "text-neutral-500 dark:text-neutral-400"
                 )}
               >
                 {whereDisplay}
@@ -333,18 +345,20 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
           {/* When */}
           <button
-            className="flex w-full items-center justify-between px-4 py-4 text-left transition-all hover:bg-neutral-50"
+            className="flex w-full items-center justify-between px-4 py-4 text-left transition-all hover:bg-neutral-50 dark:hover:bg-muted"
             onClick={() => setActivePanel(activePanel === "when" ? null : "when")}
             type="button"
           >
             <div>
-              <span className="block font-semibold text-neutral-900 text-xs">
+              <span className="block font-semibold text-neutral-900 text-xs dark:text-neutral-50">
                 {t("searchBar.when")}
               </span>
               <span
                 className={cn(
                   "mt-0.5 block text-sm",
-                  selectedDate ? "text-neutral-900" : "text-neutral-500"
+                  selectedDate
+                    ? "text-neutral-900 dark:text-neutral-50"
+                    : "text-neutral-500 dark:text-neutral-400"
                 )}
               >
                 {whenDisplay}
@@ -357,8 +371,8 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
         <button
           className={cn(
             "mt-3 flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold text-white transition-all",
-            "bg-orange-500 hover:bg-orange-600 active:scale-[0.98]",
-            "shadow-lg shadow-orange-500/25"
+            "bg-rausch-500 hover:bg-rausch-600 active:scale-[0.98]",
+            "shadow-lg shadow-rausch-500/25"
           )}
           onClick={handleSearch}
           type="button"
@@ -369,18 +383,18 @@ export function HeroSearchBar({ className, onSearch }: HeroSearchBarProps) {
 
         {/* Mobile Panels (modal-style) */}
         {activePanel && (
-          <div className="fixed inset-0 z-50 flex items-end bg-neutral-900/80">
+          <div className="fixed inset-0 z-50 flex items-end bg-neutral-900/80 dark:bg-black/80">
             <div className="slide-in-from-bottom w-full animate-in duration-300">
-              <div className="rounded-t-3xl bg-white p-4 pb-8">
+              <div className="rounded-t-3xl bg-white p-4 pb-8 dark:bg-card">
                 {/* Close button */}
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="font-semibold text-lg">
+                  <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-50">
                     {activePanel === "where" && t("searchBar.where")}
                     {activePanel === "when" && t("searchBar.when")}
                     {activePanel === "service" && t("searchBar.service")}
                   </h3>
                   <button
-                    className="rounded-full p-2 hover:bg-neutral-100"
+                    className="rounded-full p-2 text-neutral-900 hover:bg-neutral-100 dark:text-neutral-50 dark:hover:bg-muted"
                     onClick={() => setActivePanel(null)}
                     type="button"
                   >

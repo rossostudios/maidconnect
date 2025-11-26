@@ -54,13 +54,19 @@ function getTimeUntil(dateString: string): string {
   const target = new Date(dateString);
   const diffMs = target.getTime() - now.getTime();
 
-  if (diffMs < 0) return "Started";
+  if (diffMs < 0) {
+    return "Started";
+  }
 
   const diffMins = Math.floor(diffMs / (1000 * 60));
   const diffHours = Math.floor(diffMins / 60);
 
-  if (diffMins < 60) return `${diffMins}m`;
-  if (diffHours < 24) return `${diffHours}h`;
+  if (diffMins < 60) {
+    return `${diffMins}m`;
+  }
+  if (diffHours < 24) {
+    return `${diffHours}h`;
+  }
   return `${Math.floor(diffHours / 24)}d`;
 }
 

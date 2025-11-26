@@ -197,7 +197,7 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-neutral-50 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/20" />
+          <div className="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-neutral-50 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-rausch-500/20" />
         </label>
       </div>
 
@@ -217,7 +217,7 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, auto_initiate: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-neutral-50 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50" />
+          <div className="peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:translate-x-full peer-checked:after:border-neutral-50 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-rausch-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50" />
         </label>
       </div>
 

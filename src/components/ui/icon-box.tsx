@@ -1,11 +1,12 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
 
 type IconBoxSize = "sm" | "md" | "lg";
 type IconBoxVariant = "neutral" | "primary" | "success" | "warning" | "info";
 
 type IconBoxProps = {
-  icon: React.ComponentType;
+  icon: HugeIcon;
   size?: IconBoxSize;
   variant?: IconBoxVariant;
   className?: string;
@@ -19,10 +20,10 @@ const sizeClasses: Record<IconBoxSize, { box: string; icon: string }> = {
 
 const variantClasses: Record<IconBoxVariant, string> = {
   neutral: "bg-neutral-100 text-neutral-600",
-  primary: "bg-orange-50 text-orange-600 border border-orange-200",
+  primary: "bg-rausch-50 text-rausch-600 border border-rausch-200",
   success: "bg-green-50 text-green-600 border border-green-200",
   warning: "bg-yellow-50 text-yellow-600 border border-yellow-200",
-  info: "bg-blue-50 text-blue-600 border border-blue-200",
+  info: "bg-babu-50 text-babu-600 border border-babu-200",
 };
 
 /**

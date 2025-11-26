@@ -111,7 +111,7 @@ export function RoadmapBoard() {
         {isLoading ? (
           /* Loading state - Auto Layout: Center aligned, padding 48px vertical */
           <div className="flex items-center justify-center py-12">
-            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
           </div>
         ) : items.length === 0 ? (
           /* Empty state - Auto Layout: Vertical stack, center aligned, gap 16px, padding 48px */

@@ -176,7 +176,7 @@ export interface ComboBoxItemProps extends Omit<ListBoxItemProps, "children"> {
  * ComboBox Item Component
  *
  * Individual option within the combobox dropdown.
- * Lia Design System: orange-50 focus, rounded corners.
+ * Lia Design System: rausch-50 focus, rounded corners.
  */
 export function ComboBoxItem({
   children,
@@ -194,16 +194,16 @@ export function ComboBoxItem({
         "px-4 py-3",
         // Typography
         "text-sm",
-        // Shape - rounded
-        "rounded",
+        // Shape - rounded-md for list items (Airbnb pattern)
+        "rounded-md",
         // Outline
         "outline-none",
-        // Focus/hover state - orange background (Lia Design System)
+        // Focus/hover state - rausch background (Lia Design System)
         "focus:bg-neutral-50",
         "data-[focused]:bg-neutral-50",
-        "data-[selected]:bg-orange-50",
-        // Transition
-        "transition-colors",
+        "data-[selected]:bg-rausch-50",
+        // Smooth transition
+        "transition-colors duration-200",
         className
       )}
       {...props}

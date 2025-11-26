@@ -12,6 +12,7 @@
 
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { DirectMessageModal } from "@/components/admin/direct-message-modal";
 import { ProfessionalVerificationModal } from "@/components/admin/professional-verification-modal";
 import { SuspensionAlert, UserProfileHeader } from "@/components/admin/user-detail-helpers";
@@ -150,7 +151,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
       document.body.removeChild(a);
     } catch (error) {
       console.error("Error exporting user data:", error);
-      alert("Failed to export user data. Please try again.");
+      toast.error("Failed to export user data. Please try again.");
     }
   }, [id]);
 

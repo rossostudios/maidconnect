@@ -114,8 +114,8 @@ export function RoadmapAdminList() {
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-orange-500 text-orange-600"
-                : "border-transparent text-neutral-600 hover:border-orange-500 hover:text-orange-600"
+                ? "border-rausch-500 text-rausch-600"
+                : "border-transparent text-neutral-600 hover:border-rausch-500 hover:text-rausch-600"
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
@@ -130,7 +130,7 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
@@ -140,7 +140,7 @@ export function RoadmapAdminList() {
           <h3 className="mb-2 font-semibold text-lg text-neutral-900">No roadmap items</h3>
           <p className="mb-4 text-neutral-600">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-medium text-white transition-all hover:bg-orange-600"
+            className="inline-flex items-center gap-2 bg-rausch-500 px-6 py-3 font-medium text-white transition-all hover:bg-rausch-600"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item

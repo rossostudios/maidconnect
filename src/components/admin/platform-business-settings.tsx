@@ -84,12 +84,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <h3 className="mb-4 font-semibold text-lg text-neutral-900">Commission & Fees</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="commission_rate"
+            >
               Platform Commission (%)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="commission_rate"
                 max={50}
                 min={0}
                 onChange={(e) =>
@@ -111,12 +115,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="service_fee"
+            >
               Customer Service Fee ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="service_fee"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -143,12 +151,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <h3 className="mb-4 font-semibold text-lg text-neutral-900">Cancellation Fees ($)</h3>
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="cancellation_customer"
+            >
               Customer Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="cancellation_customer"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -169,12 +181,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="cancellation_professional"
+            >
               Professional Cancellation
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="cancellation_professional"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -197,10 +213,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">No-Show Fee</label>
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="cancellation_no_show"
+            >
+              No-Show Fee
+            </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="cancellation_no_show"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -227,12 +249,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <h3 className="mb-4 font-semibold text-lg text-neutral-900">Booking Rules</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="min_advance_hours"
+            >
               Min Advance Notice (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="min_advance_hours"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -252,12 +278,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="max_duration_hours"
+            >
               Max Booking Duration (hours)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="max_duration_hours"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -277,12 +307,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="min_booking_amount"
+            >
               Min Booking Amount ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="min_booking_amount"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -305,12 +339,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="max_service_radius_km"
+            >
               Max Service Radius (km)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="max_service_radius_km"
                 min={1}
                 onChange={(e) =>
                   setSettings({
@@ -336,12 +374,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         <h3 className="mb-4 font-semibold text-lg text-neutral-900">Payout Settings</h3>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="payout_schedule"
+            >
               Payout Schedule
             </label>
             {isEditing ? (
               <select
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="payout_schedule"
                 onChange={(e) =>
                   setSettings({
                     ...settings,
@@ -363,12 +405,16 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-neutral-500 text-sm">
+            <label
+              className="mb-2 block font-medium text-neutral-500 text-sm"
+              htmlFor="min_threshold"
+            >
               Min Payout Threshold ($)
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
+                id="min_threshold"
                 min={0}
                 onChange={(e) =>
                   setSettings({
@@ -397,7 +443,7 @@ export function PlatformBusinessSettings({ initialSettings }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleSave}
               type="button"

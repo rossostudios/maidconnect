@@ -184,8 +184,8 @@ export default async function AdminDisputesPage() {
                   {agingDisputes} cases aging
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                <span className={cn("font-semibold text-orange-600 text-xs", geistSans.className)}>
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                <span className={cn("font-semibold text-rausch-600 text-xs", geistSans.className)}>
                   72h
                 </span>
               </div>
@@ -243,7 +243,7 @@ export default async function AdminDisputesPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {summaryCards.map((metric) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-rausch-500"
               key={metric.label}
             >
               <p

@@ -15,7 +15,6 @@
 
 import {
   Cancel01Icon,
-  CheckmarkCircle02Icon,
   Clock01Icon,
   Download01Icon,
   File01Icon,
@@ -34,7 +33,7 @@ import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/core";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 
 // ============================================================================
 // Types
@@ -165,7 +164,9 @@ export function VoiceNoteMessage({ voiceNote, isOwn = false, className }: VoiceN
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const togglePlayback = useCallback(() => {
-    if (!audioRef.current) return;
+    if (!audioRef.current) {
+      return;
+    }
 
     if (isPlaying) {
       audioRef.current.pause();
@@ -176,7 +177,9 @@ export function VoiceNoteMessage({ voiceNote, isOwn = false, className }: VoiceN
   }, [isPlaying]);
 
   const handleTimeUpdate = useCallback(() => {
-    if (!audioRef.current) return;
+    if (!audioRef.current) {
+      return;
+    }
     const newProgress = (audioRef.current.currentTime / audioRef.current.duration) * 100;
     setProgress(newProgress);
   }, []);
@@ -193,13 +196,14 @@ export function VoiceNoteMessage({ voiceNote, isOwn = false, className }: VoiceN
   };
 
   // Generate waveform bars (use provided or generate placeholder)
-  const waveformBars = voiceNote.waveform || Array.from({ length: 32 }, () => Math.random() * 0.7 + 0.3);
+  const waveformBars =
+    voiceNote.waveform || Array.from({ length: 32 }, () => Math.random() * 0.7 + 0.3);
 
   return (
     <div
       className={cn(
         "flex items-center gap-3 rounded-lg px-4 py-3",
-        isOwn ? "bg-orange-500" : "bg-neutral-100",
+        isOwn ? "bg-rausch-500" : "bg-neutral-100",
         className
       )}
     >
@@ -240,7 +244,7 @@ export function VoiceNoteMessage({ voiceNote, isOwn = false, className }: VoiceN
                     ? "bg-white"
                     : "bg-white/40"
                   : isActive
-                    ? "bg-orange-500"
+                    ? "bg-rausch-500"
                     : "bg-neutral-300"
               )}
               key={index}
@@ -300,7 +304,7 @@ export function LocationMessage({
 
         {/* Location pin overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 shadow-lg">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-rausch-500 shadow-lg">
             <HugeiconsIcon className="h-5 w-5 text-white" icon={Location01Icon} />
           </div>
         </div>
@@ -314,7 +318,7 @@ export function LocationMessage({
           </h4>
         )}
         {location.address && (
-          <p className={cn("mt-1 text-neutral-500 text-xs line-clamp-2", geistSans.className)}>
+          <p className={cn("mt-1 line-clamp-2 text-neutral-500 text-xs", geistSans.className)}>
             {location.address}
           </p>
         )}
@@ -329,11 +333,7 @@ export function LocationMessage({
           >
             View Map
           </Button>
-          <Button
-            className="flex-1"
-            onClick={() => onGetDirections?.(location.id)}
-            size="sm"
-          >
+          <Button className="flex-1" onClick={() => onGetDirections?.(location.id)} size="sm">
             Directions
           </Button>
         </div>
@@ -352,29 +352,40 @@ type FileAttachmentMessageProps = {
   className?: string;
 };
 
-export function FileAttachmentMessage({
-  file,
-  onDownload,
-  className,
-}: FileAttachmentMessageProps) {
+export function FileAttachmentMessage({ file, onDownload, className }: FileAttachmentMessageProps) {
   const formatFileSize = (bytes: number) => {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    if (bytes < 1024) {
+      return `${bytes} B`;
+    }
+    if (bytes < 1024 * 1024) {
+      return `${(bytes / 1024).toFixed(1)} KB`;
+    }
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
   const getFileIcon = (mimeType: string) => {
-    if (mimeType.startsWith("image/")) return Image01Icon;
-    if (mimeType.startsWith("video/")) return VideoIcon;
+    if (mimeType.startsWith("image/")) {
+      return Image01Icon;
+    }
+    if (mimeType.startsWith("video/")) {
+      return VideoIcon;
+    }
     return File01Icon;
   };
 
   const getFileColor = (mimeType: string) => {
-    if (mimeType.startsWith("image/")) return "bg-blue-100 text-blue-600";
-    if (mimeType.startsWith("video/")) return "bg-purple-100 text-purple-600";
-    if (mimeType.includes("pdf")) return "bg-red-100 text-red-600";
-    if (mimeType.includes("spreadsheet") || mimeType.includes("excel"))
+    if (mimeType.startsWith("image/")) {
+      return "bg-babu-100 text-babu-600";
+    }
+    if (mimeType.startsWith("video/")) {
+      return "bg-purple-100 text-purple-600";
+    }
+    if (mimeType.includes("pdf")) {
+      return "bg-red-100 text-red-600";
+    }
+    if (mimeType.includes("spreadsheet") || mimeType.includes("excel")) {
       return "bg-green-100 text-green-600";
+    }
     return "bg-neutral-100 text-neutral-600";
   };
 
@@ -438,9 +449,9 @@ export function EmbeddedBookingCard({
   const getStatusStyles = (status: EmbeddedBooking["status"]) => {
     switch (status) {
       case "pending":
-        return "bg-orange-50 text-orange-700 border-orange-200";
+        return "bg-rausch-50 text-rausch-700 border-rausch-200";
       case "confirmed":
-        return "bg-blue-50 text-blue-700 border-blue-200";
+        return "bg-babu-50 text-babu-700 border-babu-200";
       case "completed":
         return "bg-green-50 text-green-700 border-green-200";
       case "cancelled":
@@ -491,15 +502,17 @@ export function EmbeddedBookingCard({
                 src={booking.professionalAvatar}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
-                <span className="font-bold text-orange-600">
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rausch-100 to-rausch-200">
+                <span className="font-bold text-rausch-600">
                   {booking.professionalName.charAt(0)}
                 </span>
               </div>
             )}
           </div>
           <div className="min-w-0">
-            <p className={cn("truncate font-semibold text-neutral-900 text-sm", geistSans.className)}>
+            <p
+              className={cn("truncate font-semibold text-neutral-900 text-sm", geistSans.className)}
+            >
               {booking.service}
             </p>
             <p className={cn("truncate text-neutral-500 text-xs", geistSans.className)}>
@@ -534,11 +547,7 @@ export function EmbeddedBookingCard({
           >
             View Details
           </Button>
-          <Button
-            className="flex-1"
-            onClick={() => onContact?.(booking.id)}
-            size="sm"
-          >
+          <Button className="flex-1" onClick={() => onContact?.(booking.id)} size="sm">
             Contact
           </Button>
         </div>
@@ -605,7 +614,9 @@ export function ImageGallery({ images, initialIndex = 0, isOpen, onClose }: Imag
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   }, [images.length]);
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const currentImage = images[currentIndex];
 
@@ -624,16 +635,21 @@ export function ImageGallery({ images, initialIndex = 0, isOpen, onClose }: Imag
       {images.length > 1 && (
         <>
           <button
-            className="absolute top-1/2 left-4 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            className="-translate-y-1/2 absolute top-1/2 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
             onClick={goToPrevious}
             type="button"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+              <path
+                d="M15 19l-7-7 7-7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
             </svg>
           </button>
           <button
-            className="absolute top-1/2 right-4 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            className="-translate-y-1/2 absolute top-1/2 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
             onClick={goToNext}
             type="button"
           >
@@ -657,8 +673,8 @@ export function ImageGallery({ images, initialIndex = 0, isOpen, onClose }: Imag
 
       {/* Image counter */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <span className={cn("text-white/80 text-sm", geistSans.className)}>
+        <div className="-translate-x-1/2 absolute bottom-4 left-1/2">
+          <span className={cn("text-sm text-white/80", geistSans.className)}>
             {currentIndex + 1} / {images.length}
           </span>
         </div>

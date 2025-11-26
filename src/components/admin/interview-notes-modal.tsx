@@ -27,6 +27,63 @@ const interviewNotesSchema = z.object({
 
 type InterviewNotesFormData = z.infer<typeof interviewNotesSchema>;
 
+/**
+ * Helper function to get rating label text
+ */
+function getRatingLabel(value: number): string {
+  if (value === 5) {
+    return "Excellent";
+  }
+  if (value === 4) {
+    return "Good";
+  }
+  if (value === 3) {
+    return "Average";
+  }
+  if (value === 2) {
+    return "Below Average";
+  }
+  return "Poor";
+}
+
+/**
+ * Rating Input Component - Extracted to avoid nested component definition
+ */
+function RatingInput({
+  name,
+  label,
+  value,
+  onSetValue,
+}: {
+  name: string;
+  label: string;
+  value: number;
+  onSetValue: (rating: number) => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <Label className="font-medium text-neutral-900 text-sm">{label}</Label>
+      <div className="flex gap-2">
+        {[1, 2, 3, 4, 5].map((rating) => (
+          <button
+            className={`flex h-12 w-12 items-center justify-center rounded-lg border font-medium text-sm transition-colors ${
+              value >= rating
+                ? "border-rausch-500 bg-rausch-500 text-white"
+                : "border-neutral-200 bg-white text-neutral-600 hover:border-rausch-500 hover:bg-rausch-50"
+            }`}
+            key={rating}
+            onClick={() => onSetValue(rating)}
+            type="button"
+          >
+            {rating}
+          </button>
+        ))}
+      </div>
+      {value > 0 && <p className="text-neutral-600 text-xs">{getRatingLabel(value)}</p>}
+    </div>
+  );
+}
+
 type InterviewNotesModalProps = {
   applicationId: string;
   professionalName: string;
@@ -120,49 +177,6 @@ export function InterviewNotesModal({
     }
   };
 
-  const RatingInput = ({
-    name,
-    label,
-    value,
-  }: {
-    name: keyof typeof ratings;
-    label: string;
-    value: number;
-  }) => (
-    <div className="space-y-3">
-      <Label className="font-medium text-neutral-900 text-sm">{label}</Label>
-      <div className="flex gap-2">
-        {[1, 2, 3, 4, 5].map((rating) => (
-          <button
-            className={`flex h-12 w-12 items-center justify-center rounded-lg border font-medium text-sm transition-colors ${
-              value >= rating
-                ? "border-orange-500 bg-orange-500 text-white"
-                : "border-neutral-200 bg-white text-neutral-600 hover:border-orange-500 hover:bg-orange-50"
-            }`}
-            key={rating}
-            onClick={() => setValue(name, rating)}
-            type="button"
-          >
-            {rating}
-          </button>
-        ))}
-      </div>
-      {value > 0 && (
-        <p className="text-neutral-600 text-xs">
-          {value === 5
-            ? "Excellent"
-            : value === 4
-              ? "Good"
-              : value === 3
-                ? "Average"
-                : value === 2
-                  ? "Below Average"
-                  : "Poor"}
-        </p>
-      )}
-    </div>
-  );
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 p-4">
       <Card className="relative w-full max-w-3xl border-neutral-200 bg-white">
@@ -186,7 +200,7 @@ export function InterviewNotesModal({
               <div className="space-y-2">
                 <Label htmlFor="interviewDate">Interview Date</Label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-rausch-500 focus:outline-none"
                   id="interviewDate"
                   type="date"
                   {...register("interviewDate")}
@@ -199,7 +213,7 @@ export function InterviewNotesModal({
               <div className="space-y-2">
                 <Label htmlFor="interviewTime">Interview Time</Label>
                 <input
-                  className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-rausch-500 focus:outline-none"
                   id="interviewTime"
                   type="time"
                   {...register("interviewTime")}
@@ -214,7 +228,7 @@ export function InterviewNotesModal({
             <div className="space-y-2">
               <Label htmlFor="interviewerName">Interviewer Name (Optional)</Label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-orange-500 focus:outline-none"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-neutral-900 text-sm transition-colors focus:border-rausch-500 focus:outline-none"
                 id="interviewerName"
                 placeholder="Enter interviewer name"
                 type="text"
@@ -229,21 +243,25 @@ export function InterviewNotesModal({
               <RatingInput
                 label="Professionalism"
                 name="professionalism"
+                onSetValue={(rating) => setValue("professionalism", rating)}
                 value={ratings.professionalism}
               />
               <RatingInput
                 label="Communication Skills"
                 name="communication"
+                onSetValue={(rating) => setValue("communication", rating)}
                 value={ratings.communication}
               />
               <RatingInput
                 label="Technical Knowledge"
                 name="technicalKnowledge"
+                onSetValue={(rating) => setValue("technicalKnowledge", rating)}
                 value={ratings.technicalKnowledge}
               />
               <RatingInput
                 label="Customer Service Orientation"
                 name="customerService"
+                onSetValue={(rating) => setValue("customerService", rating)}
                 value={ratings.customerService}
               />
             </div>

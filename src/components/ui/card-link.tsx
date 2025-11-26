@@ -36,7 +36,7 @@ export function CardLink({ href, icon, title, description, className }: CardLink
     <Link
       className={cn(
         "flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-4",
-        "no-underline transition-all hover:border-orange-300 hover:shadow-sm",
+        "no-underline transition-all hover:border-rausch-300 hover:shadow-sm",
         className
       )}
       href={href}

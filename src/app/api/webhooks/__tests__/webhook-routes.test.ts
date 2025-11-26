@@ -8,7 +8,7 @@
  * - Event processing
  */
 
-import { describe, it, expect, beforeEach, mock } from "bun:test";
+import { beforeEach, describe, expect, it, mock } from "bun:test";
 import type Stripe from "stripe";
 
 // ============================================================================
@@ -47,7 +47,7 @@ function resetSupabaseMock() {
 const mockStripe = {
   webhooks: {
     constructEvent: mock(
-      (payload: string, signature: string, secret: string): Stripe.Event => ({
+      (_payload: string, _signature: string, _secret: string): Stripe.Event => ({
         id: "evt_test123",
         type: "payment_intent.succeeded",
         created: Math.floor(Date.now() / 1000),
@@ -66,7 +66,7 @@ const mockStripe = {
 const mockProcessWebhookEvent = mock(() => Promise.resolve());
 
 // Mock assertStripeSignature
-const mockAssertStripeSignature = mock((request: Request) => ({
+const mockAssertStripeSignature = mock((_request: Request) => ({
   signature: "test_signature",
   secret: "test_secret",
 }));
@@ -105,9 +105,9 @@ mock.module("@/lib/logger", () => ({
   },
 }));
 
+import { POST as paypalWebhook } from "../paypal/route";
 // Import routes after mocking
 import { POST as stripeWebhook } from "../stripe/route";
-import { POST as paypalWebhook } from "../paypal/route";
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -727,9 +727,7 @@ describe("Webhook Security", () => {
     });
 
     it("should verify against webhook ID from environment", async () => {
-      (mockPayPal.verifyWebhookSignature as MockFn).mockImplementation(() =>
-        Promise.resolve(true)
-      );
+      (mockPayPal.verifyWebhookSignature as MockFn).mockImplementation(() => Promise.resolve(true));
 
       const event = createPayPalEvent();
       const request = createPayPalRequest(JSON.stringify(event));

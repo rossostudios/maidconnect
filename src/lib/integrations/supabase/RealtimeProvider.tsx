@@ -135,7 +135,7 @@ export function useRealtime() {
  *     <div className={cn(
  *       'px-3 py-1 rounded-full text-sm',
  *       health.state === 'connected' && 'bg-green-50 text-green-700',
- *       health.state === 'connecting' && 'bg-blue-50 text-blue-700',
+ *       health.state === 'connecting' && 'bg-babu-50 text-babu-700',
  *       health.state === 'error' && 'bg-red-50 text-red-700'
  *     )}>
  *       {health.state}

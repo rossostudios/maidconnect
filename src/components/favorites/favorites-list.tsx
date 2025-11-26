@@ -113,7 +113,7 @@ function ProfessionalCard({
   }).format(professional.hourly_rate_cop);
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:border-orange-300 hover:shadow-md">
+    <div className="group relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:border-rausch-300 hover:shadow-md">
       <Link href={`/professionals/${professional.profile_id}`}>
         <div className="p-6">
           {/* Header */}
@@ -129,7 +129,7 @@ function ProfessionalCard({
                 width={64}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-rausch-100 font-semibold text-rausch-600 text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
@@ -178,7 +178,7 @@ function ProfessionalCard({
                 <span className="font-normal text-neutral-500 text-sm">{t("card.perHour")}</span>
               </p>
             </div>
-            <span className="rounded-full bg-neutral-100 px-3 py-1.5 font-medium text-neutral-600 text-sm transition group-hover:bg-orange-500 group-hover:text-white">
+            <span className="rounded-full bg-neutral-100 px-3 py-1.5 font-medium text-neutral-600 text-sm transition group-hover:bg-rausch-500 group-hover:text-white">
               {t("card.viewProfile")}
             </span>
           </div>

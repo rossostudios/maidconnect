@@ -80,15 +80,15 @@ export function ServicesTabs() {
   const activeService = services.find((s) => s.id === activeTab) ?? services[0]!;
 
   return (
-    <section className="w-full bg-white py-24 md:py-32">
+    <section className="w-full bg-card py-24 md:py-32">
       <Container className="mx-auto max-w-7xl px-4">
         {/* Section Header - Precision Typography */}
         <div className="mb-16">
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-foreground tracking-tight md:text-5xl">
             Our Services
           </h2>
-          <div className="mt-4 h-1 w-16 bg-orange-500" />
-          <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
+          <div className="mt-4 h-1 w-16 bg-rausch-500" />
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
             Premium household staff for every need.
           </p>
         </div>
@@ -101,8 +101,8 @@ export function ServicesTabs() {
                 className={cn(
                   "group relative px-6 py-4 text-left transition-all",
                   activeTab === service.id
-                    ? "bg-neutral-900 text-white"
-                    : "bg-transparent text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                    ? "bg-foreground text-card"
+                    : "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
                 key={service.id}
                 onClick={() => setActiveTab(service.id)}
@@ -110,7 +110,7 @@ export function ServicesTabs() {
               >
                 {/* Active Indicator - Orange Bar */}
                 {activeTab === service.id && (
-                  <div className="absolute top-0 left-0 h-full w-1 bg-orange-500" />
+                  <div className="absolute top-0 left-0 h-full w-1 bg-rausch-500" />
                 )}
 
                 <span className="font-[family-name:var(--font-geist-sans)] font-semibold text-base tracking-tight">
@@ -121,15 +121,15 @@ export function ServicesTabs() {
           </div>
 
           {/* Content Panel - Right Side */}
-          <div className="border border-neutral-200 bg-white p-8 md:p-12">
+          <div className="border border-border bg-card p-8 md:p-12">
             <div className="grid gap-12 md:grid-cols-2">
               {/* Text Content */}
               <div>
-                <h3 className="font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900 tracking-tight">
+                <h3 className="font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-foreground tracking-tight">
                   {activeService.title}
                 </h3>
 
-                <p className="mt-6 text-base text-neutral-600 leading-relaxed">
+                <p className="mt-6 text-base text-muted-foreground leading-relaxed">
                   {activeService.description}
                 </p>
 
@@ -138,15 +138,15 @@ export function ServicesTabs() {
                   {activeService.features.map((feature) => (
                     <li className="flex items-start gap-3" key={feature}>
                       {/* Orange Bar Instead of Circle */}
-                      <div className="mt-2 h-px w-6 flex-shrink-0 bg-orange-500" />
-                      <span className="text-neutral-700">{feature}</span>
+                      <div className="mt-2 h-px w-6 flex-shrink-0 bg-rausch-500" />
+                      <span className="text-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Image - Grayscale */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-neutral-200 shadow-sm">
+              <div className="relative aspect-[4/3] overflow-hidden bg-muted shadow-sm">
                 <Image
                   alt={activeService.title}
                   className="h-full w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"

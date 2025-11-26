@@ -213,23 +213,32 @@ describe("BalanceService", () => {
     function createTableMock(tableResponses: Record<string, unknown>): MockFromHandler {
       return (table: string) => ({
         select: () => ({
-          eq: (key: string, value: string | number) => ({
+          eq: (_key: string, value: string | number) => ({
             eq: (_key2: string, _value2: string | number) => ({
               single: () => {
                 const response = tableResponses[table];
                 return Promise.resolve(
-                  response ? { data: response, error: null } : { data: null, error: { message: "Not found" } }
+                  response
+                    ? { data: response, error: null }
+                    : { data: null, error: { message: "Not found" } }
                 );
               },
             }),
             single: () => {
               const response = tableResponses[table];
               // Handle platform_settings which needs key-based lookup
-              if (table === "platform_settings" && typeof tableResponses.platform_settings === "function") {
-                return Promise.resolve((tableResponses.platform_settings as (key: string) => unknown)(String(value)));
+              if (
+                table === "platform_settings" &&
+                typeof tableResponses.platform_settings === "function"
+              ) {
+                return Promise.resolve(
+                  (tableResponses.platform_settings as (key: string) => unknown)(String(value))
+                );
               }
               return Promise.resolve(
-                response ? { data: response, error: null } : { data: null, error: { message: "Not found" } }
+                response
+                  ? { data: response, error: null }
+                  : { data: null, error: { message: "Not found" } }
               );
             },
           }),
@@ -261,7 +270,9 @@ describe("BalanceService", () => {
       const result = await testService.validateInstantPayout("prof-123", 30_000); // Below 50k minimum
 
       expect(result.isValid).toBe(false);
-      expect(result.errors.some((e: string) => e.includes("Minimum instant payout is 50,000 COP"))).toBe(true);
+      expect(
+        result.errors.some((e: string) => e.includes("Minimum instant payout is 50,000 COP"))
+      ).toBe(true);
     });
 
     it("should reject payout if available balance is insufficient", async () => {
@@ -305,7 +316,9 @@ describe("BalanceService", () => {
       const result = await testService.validateInstantPayout("prof-123", 60_000);
 
       expect(result.isValid).toBe(false);
-      expect(result.errors.some((e: string) => e.includes("Please complete your payout setup"))).toBe(true);
+      expect(
+        result.errors.some((e: string) => e.includes("Please complete your payout setup"))
+      ).toBe(true);
     });
 
     it("should reject if daily rate limit is reached", async () => {

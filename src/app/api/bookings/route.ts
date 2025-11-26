@@ -9,7 +9,6 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { ok, requireCountryProfile, withAuth, withRateLimit } from "@/lib/api";
-import { invalidateBookings } from "@/lib/cache";
 import type { BookingInsertInput } from "@/lib/bookings/booking-creation-service";
 import {
   calculateBookingAmount,
@@ -22,6 +21,7 @@ import {
   sendNearbyJobAlertNotifications,
   sendNewBookingNotification,
 } from "@/lib/bookings/booking-creation-service";
+import { invalidateBookings } from "@/lib/cache";
 import { ValidationError } from "@/lib/errors";
 import { trackBookingSubmittedServer } from "@/lib/integrations/posthog/server";
 import type { CreateBookingInput } from "@/lib/validations/booking";

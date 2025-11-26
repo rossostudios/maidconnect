@@ -3,6 +3,7 @@
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
+import type React from "react";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { formatCurrency } from "@/lib/format";
@@ -42,6 +43,115 @@ type PricingControlsManagerProps = {
   initialRules: PricingRule[];
 };
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+function getStatusBadgeClassName(isActive: boolean): string {
+  const baseClasses = cn(
+    "inline-flex items-center rounded-full border px-3 py-1 font-medium text-xs tracking-[0.25em]",
+    geistSans.className
+  );
+  if (isActive) {
+    return cn(baseClasses, "border-emerald-200 bg-emerald-50 text-emerald-700");
+  }
+  return cn(baseClasses, "border-neutral-200 bg-neutral-100 text-neutral-600");
+}
+
+function formatPriceRange(minPrice: number | null, maxPrice: number | null): React.ReactNode {
+  if (!(minPrice || maxPrice)) {
+    return <p className={cn("text-neutral-500 text-sm", geistSans.className)}>No limits</p>;
+  }
+  return (
+    <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
+      {minPrice ? formatCurrency(minPrice, { currency: "COP" }) : "—"}
+      <span className="mx-2 text-neutral-500">to</span>
+      {maxPrice ? formatCurrency(maxPrice, { currency: "COP" }) : "—"}
+    </p>
+  );
+}
+
+function formatEffectiveDates(from: string, until: string | null): React.ReactNode {
+  return (
+    <>
+      <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
+        {new Date(from).toLocaleDateString()}
+      </p>
+      {until && (
+        <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
+          until {new Date(until).toLocaleDateString()}
+        </p>
+      )}
+    </>
+  );
+}
+
+// --- PricingRuleRow Component (extracted for complexity reduction) ---
+
+type PricingRuleRowProps = {
+  rule: PricingRule;
+  onEdit: (rule: PricingRule) => void;
+  onToggleActive: (ruleId: string, currentState: boolean) => void;
+};
+
+function PricingRuleRow({ rule, onEdit, onToggleActive }: PricingRuleRowProps) {
+  return (
+    <tr className={rule.is_active ? "" : "opacity-60"}>
+      <td className="px-6 py-4 align-top">
+        <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
+          {rule.service_category || "All Categories"}
+        </p>
+        <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
+          {rule.city || "All Cities"}
+        </p>
+      </td>
+      <td className="px-6 py-4 align-top">
+        <p className={cn("text-lg text-neutral-900", geistSans.className)}>
+          {(rule.commission_rate * 100).toFixed(1)}%
+        </p>
+        {rule.background_check_fee_cop > 0 && (
+          <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
+            +{formatCurrency(rule.background_check_fee_cop, { currency: "COP" })} BG check
+          </p>
+        )}
+      </td>
+      <td className="px-6 py-4 align-top">
+        {formatPriceRange(rule.min_price_cop, rule.max_price_cop)}
+      </td>
+      <td className="px-6 py-4 align-top">
+        {formatEffectiveDates(rule.effective_from, rule.effective_until)}
+      </td>
+      <td className="px-6 py-4 align-top">
+        <span className={getStatusBadgeClassName(rule.is_active)}>
+          {rule.is_active ? "Active" : "Inactive"}
+        </span>
+      </td>
+      <td className="px-6 py-4 align-top">
+        <div className="flex flex-col gap-2 text-left">
+          <button
+            className={cn(
+              "font-medium text-neutral-900 text-xs tracking-[0.3em] underline-offset-2 hover:underline",
+              geistSans.className
+            )}
+            onClick={() => onEdit(rule)}
+            type="button"
+          >
+            Edit
+          </button>
+          <button
+            className={cn(
+              "font-medium text-neutral-500 text-xs tracking-[0.3em] underline-offset-2 hover:underline",
+              geistSans.className
+            )}
+            onClick={() => onToggleActive(rule.id, rule.is_active)}
+            type="button"
+          >
+            {rule.is_active ? "Deactivate" : "Activate"}
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
+}
+
 export function PricingControlsManager({ initialRules }: PricingControlsManagerProps) {
   const [rules, setRules] = useState<PricingRule[]>(initialRules);
   const [isCreating, setIsCreating] = useState(false);
@@ -79,10 +189,11 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         </p>
         <button
           className={cn(
-            "inline-flex items-center gap-2 rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-2 font-medium text-white text-xs tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+            "inline-flex items-center gap-2 rounded-lg border border-neutral-900 bg-neutral-900 px-4 py-2 font-medium text-white text-xs tracking-[0.3em] transition hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
             geistSans.className
           )}
           onClick={() => setIsCreating(true)}
+          type="button"
         >
           <HugeiconsIcon className="h-4 w-4" icon={ArrowUpRight01Icon} />
           Create Rule
@@ -119,89 +230,12 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
               </tr>
             ) : (
               rules.map((rule) => (
-                <tr className={rule.is_active ? "" : "opacity-60"} key={rule.id}>
-                  <td className="px-6 py-4 align-top">
-                    <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
-                      {rule.service_category || "All Categories"}
-                    </p>
-                    <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                      {rule.city || "All Cities"}
-                    </p>
-                  </td>
-                  <td className="px-6 py-4 align-top">
-                    <p className={cn("text-lg text-neutral-900", geistSans.className)}>
-                      {(rule.commission_rate * 100).toFixed(1)}%
-                    </p>
-                    {rule.background_check_fee_cop > 0 && (
-                      <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                        +{formatCurrency(rule.background_check_fee_cop, { currency: "COP" })} BG
-                        check
-                      </p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 align-top">
-                    {rule.min_price_cop || rule.max_price_cop ? (
-                      <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
-                        {rule.min_price_cop
-                          ? formatCurrency(rule.min_price_cop, { currency: "COP" })
-                          : "—"}
-                        <span className="mx-2 text-neutral-500">to</span>
-                        {rule.max_price_cop
-                          ? formatCurrency(rule.max_price_cop, { currency: "COP" })
-                          : "—"}
-                      </p>
-                    ) : (
-                      <p className={cn("text-neutral-500 text-sm", geistSans.className)}>
-                        No limits
-                      </p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 align-top">
-                    <p className={cn("text-neutral-900 text-sm", geistSans.className)}>
-                      {new Date(rule.effective_from).toLocaleDateString()}
-                    </p>
-                    {rule.effective_until && (
-                      <p className={cn("text-neutral-600 text-xs", geistSans.className)}>
-                        until {new Date(rule.effective_until).toLocaleDateString()}
-                      </p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 align-top">
-                    <span
-                      className={cn(
-                        "inline-flex items-center rounded-full border px-3 py-1 font-medium text-xs tracking-[0.25em]",
-                        geistSans.className,
-                        rule.is_active
-                          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                          : "border-neutral-200 bg-neutral-100 text-neutral-600"
-                      )}
-                    >
-                      {rule.is_active ? "Active" : "Inactive"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 align-top">
-                    <div className="flex flex-col gap-2 text-left">
-                      <button
-                        className={cn(
-                          "font-medium text-neutral-900 text-xs tracking-[0.3em] underline-offset-2 hover:underline",
-                          geistSans.className
-                        )}
-                        onClick={() => setEditingRule(rule)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className={cn(
-                          "font-medium text-neutral-500 text-xs tracking-[0.3em] underline-offset-2 hover:underline",
-                          geistSans.className
-                        )}
-                        onClick={() => handleToggleActive(rule.id, rule.is_active)}
-                      >
-                        {rule.is_active ? "Deactivate" : "Activate"}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                <PricingRuleRow
+                  key={rule.id}
+                  onEdit={setEditingRule}
+                  onToggleActive={handleToggleActive}
+                  rule={rule}
+                />
               ))
             )}
           </tbody>

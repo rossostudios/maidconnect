@@ -16,7 +16,7 @@ import type { HugeIcon } from "@/types/icons";
  * - Geist Sans for UI text (font-normal to font-medium, avoiding bold)
  * - Geist Mono for numbers and data
  * - Warm neutral backgrounds with refined typography
- * - Orange (orange-500/600) for primary actions (brand color)
+ * - Orange (rausch-500/600) for primary actions (brand color)
  * - Soft borders with rounded corners for approachable aesthetic
  * - Generous whitespace and smooth transitions
  */
@@ -77,7 +77,7 @@ export function LiaStatCard({
   })();
 
   return (
-    <div className="group relative rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
+    <div className="group relative rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-rausch-500 hover:shadow-sm">
       {/* Header Row - Title + Icon */}
       <div className="mb-6 flex items-start justify-between">
         <div>
@@ -97,7 +97,7 @@ export function LiaStatCard({
         </div>
 
         {/* Icon - Anthropic rounded container */}
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500">
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-900 transition-colors group-hover:border-rausch-500 group-hover:bg-rausch-500">
           <HugeiconsIcon className="h-6 w-6 text-white" icon={icon} />
         </div>
       </div>
@@ -153,12 +153,12 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
       text: "text-emerald-600",
     },
     warning: {
-      bg: "bg-orange-500",
-      text: "text-orange-500",
+      bg: "bg-rausch-500",
+      text: "text-rausch-500",
     },
     info: {
-      bg: "bg-orange-500",
-      text: "text-orange-600",
+      bg: "bg-rausch-500",
+      text: "text-rausch-600",
     },
   };
 
@@ -218,7 +218,7 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
       <div className="rounded-b-lg border-neutral-200 border-t bg-neutral-50 px-6 py-3">
         <button
           className={cn(
-            "font-medium text-orange-600 text-sm transition-colors hover:text-orange-700",
+            "font-medium text-rausch-600 text-sm transition-colors hover:text-rausch-700",
             geistSans.className
           )}
           type="button"
@@ -416,7 +416,7 @@ export function LiaButton({
         geistSans.className,
         // Variants
         variant === "primary" &&
-          "border border-neutral-200 bg-orange-500 text-white hover:bg-orange-600 hover:shadow-sm",
+          "border border-neutral-200 bg-rausch-500 text-white hover:bg-rausch-600 hover:shadow-sm",
         variant === "secondary" &&
           "border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50",
         variant === "ghost" &&

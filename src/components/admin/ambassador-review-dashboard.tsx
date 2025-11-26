@@ -117,7 +117,7 @@ export function AmbassadorReviewDashboard() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">Loading ambassador queue...</p>
         </div>
       </div>
@@ -155,15 +155,15 @@ export function AmbassadorReviewDashboard() {
         return sorted.sort(
           (a, b) => new Date(b.applied_at).getTime() - new Date(a.applied_at).getTime()
         );
-      case "referral_reach":
+      case "referral_reach": {
         const reachOrder: Record<string, number> = { "31+": 4, "16-30": 3, "6-15": 2, "1-5": 1 };
         return sorted.sort(
-          (a, b) => (reachOrder[b.referral_reach || ""] || 0) - (reachOrder[a.referral_reach || ""] || 0)
+          (a, b) =>
+            (reachOrder[b.referral_reach || ""] || 0) - (reachOrder[a.referral_reach || ""] || 0)
         );
+      }
       case "name":
-        return sorted.sort((a, b) =>
-          (a.full_name || "").localeCompare(b.full_name || "")
-        );
+        return sorted.sort((a, b) => (a.full_name || "").localeCompare(b.full_name || ""));
       default:
         return sorted;
     }
@@ -174,7 +174,7 @@ export function AmbassadorReviewDashboard() {
     {
       name: "Pending",
       count: data.counts.pending,
-      color: "#3b82f6", // blue-500 - action needed
+      color: "#3b82f6", // babu-500 - action needed
     },
     {
       name: "Approved",
@@ -205,7 +205,9 @@ export function AmbassadorReviewDashboard() {
   const activeAmbassadors = getActiveAmbassadors();
 
   const formatProfession = (profession: string | null) => {
-    if (!profession) return "Not specified";
+    if (!profession) {
+      return "Not specified";
+    }
     return profession
       .split("_")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -282,7 +284,7 @@ export function AmbassadorReviewDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-blue-100 px-2 py-0.5 font-semibold text-blue-700 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-babu-100 px-2 py-0.5 font-semibold text-babu-700 text-xs">
                   {data.counts.pending}
                 </span>
               )}
@@ -429,11 +431,11 @@ function AmbassadorCard({ ambassador, variant, onReview, formatProfession }: Amb
   const statusConfig = {
     pending: {
       icon: TimeScheduleIcon,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
+      iconBg: "bg-babu-50",
+      iconColor: "text-babu-600",
       badge: "Pending Review",
-      badgeBg: "bg-blue-100",
-      badgeText: "text-blue-700",
+      badgeBg: "bg-babu-100",
+      badgeText: "text-babu-700",
       buttonText: "Review",
     },
     approved: {
@@ -567,9 +569,11 @@ function AmbassadorCard({ ambassador, variant, onReview, formatProfession }: Amb
 
             {/* Referral Code for approved */}
             {variant === "approved" && (
-              <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-orange-50 px-3 py-2">
+              <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-rausch-50 px-3 py-2">
                 <span className="text-neutral-600 text-sm">Referral Code:</span>
-                <span className="font-mono font-bold text-orange-600">{ambassador.referral_code}</span>
+                <span className="font-bold font-mono text-rausch-600">
+                  {ambassador.referral_code}
+                </span>
               </div>
             )}
 
@@ -586,7 +590,7 @@ function AmbassadorCard({ ambassador, variant, onReview, formatProfession }: Amb
 
           {/* Action Button */}
           <button
-            className="rounded-lg bg-orange-500 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-orange-600 sm:ml-6"
+            className="rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-rausch-600 sm:ml-6"
             onClick={onReview}
             type="button"
           >

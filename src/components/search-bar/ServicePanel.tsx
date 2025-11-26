@@ -55,14 +55,16 @@ export function ServicePanel({
   return (
     <div
       className={cn(
-        "w-[380px] rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-neutral-200/50",
+        "w-[380px] rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-neutral-200/50 dark:bg-card dark:shadow-none dark:ring-border",
         className
       )}
     >
       {/* Header */}
       <div className="mb-4 px-2">
-        <h3 className="font-semibold text-base text-neutral-900">What do you need help with?</h3>
-        <p className="mt-1 text-neutral-500 text-sm">Select a service type</p>
+        <h3 className="font-semibold text-base text-neutral-900 dark:text-neutral-50">
+          What do you need help with?
+        </h3>
+        <p className="mt-1 text-neutral-500 text-sm dark:text-neutral-400">Select a service type</p>
       </div>
 
       {/* Service chips grid */}
@@ -75,8 +77,10 @@ export function ServicePanel({
             <button
               className={cn(
                 "flex items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition-all",
-                "hover:border-neutral-300 hover:bg-neutral-50",
-                isSelected ? "border-orange-500 bg-orange-50" : "border-neutral-200 bg-white"
+                "hover:border-neutral-300 hover:bg-neutral-50 dark:hover:border-rausch-500/50 dark:hover:bg-muted",
+                isSelected
+                  ? "border-rausch-500 bg-rausch-50 dark:border-rausch-500/70 dark:bg-rausch-500/20"
+                  : "border-neutral-200 bg-white dark:border-border dark:bg-card"
               )}
               key={service.id}
               onClick={() => handleServiceClick(service)}
@@ -85,16 +89,28 @@ export function ServicePanel({
               <div
                 className={cn(
                   "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
-                  isSelected ? "bg-orange-100" : "bg-neutral-100"
+                  isSelected
+                    ? "bg-rausch-100 dark:bg-rausch-500/30"
+                    : "bg-neutral-100 dark:bg-muted"
                 )}
               >
                 <HugeiconsIcon
-                  className={cn("h-5 w-5", isSelected ? "text-orange-600" : "text-neutral-600")}
+                  className={cn(
+                    "h-5 w-5",
+                    isSelected
+                      ? "text-rausch-600 dark:text-rausch-400"
+                      : "text-neutral-600 dark:text-neutral-400"
+                  )}
                   icon={IconComponent}
                 />
               </div>
               <span
-                className={cn("font-medium", isSelected ? "text-orange-600" : "text-neutral-900")}
+                className={cn(
+                  "font-medium",
+                  isSelected
+                    ? "text-rausch-600 dark:text-rausch-400"
+                    : "text-neutral-900 dark:text-neutral-50"
+                )}
               >
                 {service.label}
               </span>
@@ -104,9 +120,9 @@ export function ServicePanel({
       </div>
 
       {/* All services link */}
-      <div className="mt-4 border-neutral-200 border-t pt-4">
+      <div className="mt-4 border-neutral-200 border-t pt-4 dark:border-border">
         <button
-          className="w-full rounded-xl px-4 py-3 text-center font-medium text-orange-600 transition-all hover:bg-orange-50"
+          className="w-full rounded-xl px-4 py-3 text-center font-medium text-rausch-600 transition-all hover:bg-rausch-50 dark:text-rausch-400 dark:hover:bg-rausch-500/20"
           onClick={() => {
             // Clear selection to show all
             onClose?.();

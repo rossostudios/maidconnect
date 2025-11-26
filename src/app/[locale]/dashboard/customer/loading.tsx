@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
       <div className="flex flex-col items-center gap-4">
-        <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+        <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
         <p className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-900">
           Loading your dashboard...
         </p>

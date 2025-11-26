@@ -1,12 +1,8 @@
 import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
-import {
-  CACHE_DURATIONS,
-  CACHE_HEADERS,
-  CACHE_TAGS,
-} from "@/lib/cache";
-import { withRateLimit } from "@/lib/rate-limit";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
+import { withRateLimit } from "@/lib/rate-limit";
 
 /**
  * Professional Search API Route
@@ -48,7 +44,10 @@ type FallbackProfessionalResult = {
   primary_services: string[] | null;
   bio: string | null;
   avatar_url: string | null;
-  profiles: { city: string | null; country: string | null } | { city: string | null; country: string | null }[] | null;
+  profiles:
+    | { city: string | null; country: string | null }
+    | { city: string | null; country: string | null }[]
+    | null;
 };
 
 type FullTextSearchResult = {
@@ -96,7 +95,9 @@ const getCachedSearchResults = unstable_cache(
           )
         `
         )
-        .or(`full_name.ilike.%${originalQuery}%,primary_services.cs.{${originalQuery}},bio.ilike.%${originalQuery}%`)
+        .or(
+          `full_name.ilike.%${originalQuery}%,primary_services.cs.{${originalQuery}},bio.ilike.%${originalQuery}%`
+        )
         .eq("status", "active")
         .limit(limit);
 
@@ -105,15 +106,16 @@ const getCachedSearchResults = unstable_cache(
       }
 
       // Format fallback results
-      const formattedResults: SearchResult[] = ((fallbackResults || []) as FallbackProfessionalResult[]).map((prof) => {
+      const formattedResults: SearchResult[] = (
+        (fallbackResults || []) as FallbackProfessionalResult[]
+      ).map((prof) => {
         const profiles = Array.isArray(prof.profiles) ? prof.profiles[0] : prof.profiles;
         return {
           id: prof.profile_id,
           name: prof.full_name || "Professional",
           service: Array.isArray(prof.primary_services) ? prof.primary_services[0] : null,
           location:
-            [profiles?.city, profiles?.country].filter(Boolean).join(", ") ||
-            "Location TBD",
+            [profiles?.city, profiles?.country].filter(Boolean).join(", ") || "Location TBD",
           photoUrl: prof.avatar_url || "/images/placeholder-avatar.png",
         };
       });
@@ -126,16 +128,18 @@ const getCachedSearchResults = unstable_cache(
     }
 
     // Format full-text search results
-    const formattedResults: SearchResult[] = ((ftsResults || []) as FullTextSearchResult[]).map((prof) => ({
-      id: prof.id,
-      name: prof.full_name || "Professional",
-      service: Array.isArray(prof.service_types) ? prof.service_types[0] : null,
-      location: [prof.city, prof.country].filter(Boolean).join(", ") || "Location TBD",
-      photoUrl: prof.profile_photo_url || "/images/placeholder-avatar.png",
-      rating: prof.avg_rating ?? undefined,
-      reviewCount: prof.review_count ?? undefined,
-      rank: prof.rank,
-    }));
+    const formattedResults: SearchResult[] = ((ftsResults || []) as FullTextSearchResult[]).map(
+      (prof) => ({
+        id: prof.id,
+        name: prof.full_name || "Professional",
+        service: Array.isArray(prof.service_types) ? prof.service_types[0] : null,
+        location: [prof.city, prof.country].filter(Boolean).join(", ") || "Location TBD",
+        photoUrl: prof.profile_photo_url || "/images/placeholder-avatar.png",
+        rating: prof.avg_rating ?? undefined,
+        reviewCount: prof.review_count ?? undefined,
+        rank: prof.rank,
+      })
+    );
 
     return {
       results: formattedResults,
@@ -199,10 +203,7 @@ async function handleGET(request: Request) {
     // Use cached search function
     const searchResults = await getCachedSearchResults(tsquery, limit, query);
 
-    return NextResponse.json(
-      { ...searchResults, query },
-      { headers: CACHE_HEADERS.SHORT }
-    );
+    return NextResponse.json({ ...searchResults, query }, { headers: CACHE_HEADERS.SHORT });
   } catch (error) {
     console.error("[Search API] Unexpected error:", error);
     return NextResponse.json(

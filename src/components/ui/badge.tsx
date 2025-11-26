@@ -10,7 +10,7 @@
  * Precision Variants:
  * - default: White background (neutral-900 text)
  * - secondary: Light neutral (neutral-700 text)
- * - primary: Orange highlight (orange-600 text) - use for featured/important
+ * - primary: Orange highlight (rausch-600 text) - use for featured/important
  * - muted: Subtle neutral (neutral-600 text)
  * - pending: Orange accent (indicates action needed)
  * - confirmed/in_progress: Neutral shades
@@ -25,27 +25,40 @@ import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2",
+  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 dark:focus:ring-offset-background",
   {
     variants: {
       variant: {
         // Precision palette: Neutral backgrounds with clear hierarchy
-        default: "border border-neutral-200 bg-white text-neutral-900",
-        secondary: "border border-neutral-200 bg-neutral-100 text-neutral-700",
-        primary: "border border-orange-200 bg-orange-50 text-orange-600",
-        muted: "border border-neutral-100 bg-neutral-50 text-neutral-700",
-        outline: "border border-neutral-300 bg-transparent text-neutral-700",
+        default:
+          "border border-neutral-200 bg-white text-neutral-900 dark:border-border dark:bg-card dark:text-neutral-50",
+        secondary:
+          "border border-neutral-200 bg-neutral-100 text-neutral-700 dark:border-border dark:bg-muted dark:text-neutral-300",
+        primary:
+          "border border-rausch-200 bg-rausch-50 text-rausch-600 dark:border-rausch-800 dark:bg-rausch-900/30 dark:text-rausch-300",
+        muted:
+          "border border-neutral-100 bg-neutral-50 text-neutral-700 dark:border-border dark:bg-muted dark:text-neutral-400",
+        outline:
+          "border border-neutral-300 bg-transparent text-neutral-700 dark:border-neutral-600 dark:text-neutral-300",
         // Status variants using Precision neutral + orange palette
-        pending: "border border-orange-200 bg-orange-50 text-orange-600",
-        confirmed: "border border-neutral-200 bg-neutral-100 text-neutral-700",
-        in_progress: "border border-neutral-200 bg-neutral-100 text-neutral-700",
-        completed: "border border-neutral-200 bg-white text-neutral-900",
-        cancelled: "border border-neutral-300 bg-neutral-200 text-neutral-900",
+        pending:
+          "border border-rausch-200 bg-rausch-50 text-rausch-600 dark:border-rausch-800 dark:bg-rausch-900/30 dark:text-rausch-300",
+        confirmed:
+          "border border-neutral-200 bg-neutral-100 text-neutral-700 dark:border-border dark:bg-muted dark:text-neutral-300",
+        in_progress:
+          "border border-neutral-200 bg-neutral-100 text-neutral-700 dark:border-border dark:bg-muted dark:text-neutral-300",
+        completed:
+          "border border-neutral-200 bg-white text-neutral-900 dark:border-border dark:bg-card dark:text-neutral-50",
+        cancelled:
+          "border border-neutral-300 bg-neutral-200 text-neutral-900 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-300",
         // Deprecated semantic colors (kept for backwards compatibility, migrate to neutral/orange)
-        success: "border border-neutral-200 bg-white text-neutral-900",
-        warning: "border border-orange-200 bg-orange-50 text-orange-600",
-        danger: "border border-neutral-300 bg-neutral-200 text-neutral-900",
-        info: "border border-neutral-200 bg-neutral-100 text-neutral-700",
+        success:
+          "border border-neutral-200 bg-white text-neutral-900 dark:border-border dark:bg-card dark:text-neutral-50",
+        warning:
+          "border border-rausch-200 bg-rausch-50 text-rausch-600 dark:border-rausch-800 dark:bg-rausch-900/30 dark:text-rausch-300",
+        danger:
+          "border border-neutral-300 bg-neutral-200 text-neutral-900 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-300",
+        info: "border border-neutral-200 bg-neutral-100 text-neutral-700 dark:border-border dark:bg-muted dark:text-neutral-300",
       },
       size: {
         sm: "px-2 py-0.5 text-xs",

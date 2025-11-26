@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { LiaCustomerShell } from "@/components/customer/lia-customer-shell";
+import { CustomerAirbnbShell } from "@/components/customer/customer-airbnb-shell";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -26,13 +26,13 @@ export default async function CustomerLayout({ children }: Props) {
     .eq("read", false);
 
   return (
-    <LiaCustomerShell
+    <CustomerAirbnbShell
       unreadMessagesCount={unreadMessagesCount ?? 0}
       userAvatarUrl={profile?.avatar_url ?? undefined}
       userEmail={user.email ?? undefined}
       userName={profile?.full_name ?? undefined}
     >
       {children}
-    </LiaCustomerShell>
+    </CustomerAirbnbShell>
   );
 }

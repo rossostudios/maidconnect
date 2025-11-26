@@ -5,6 +5,43 @@ import { BaseModal } from "@/components/shared/base-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
 
+function getVerificationButtonText(isLoading: boolean, isApproved: boolean): string {
+  if (isLoading) {
+    return "Processing...";
+  }
+  return isApproved ? "Approve Professional" : "Reject Verification";
+}
+
+function getStepButtonClassName(isActive: boolean): string {
+  const baseClasses = "type-ui-sm flex-1 rounded-lg px-4 py-2 font-medium transition";
+
+  if (isActive) {
+    return `${baseClasses} border border-neutral-900 bg-neutral-900 text-white`;
+  }
+  return `${baseClasses} border border-neutral-200 bg-white text-neutral-700`;
+}
+
+function getDecisionButtonClassName(isSelected: boolean, variant: "approve" | "reject"): string {
+  const baseClasses = "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition";
+
+  if (variant === "approve") {
+    return isSelected
+      ? `${baseClasses} border-green-600 bg-green-50 text-green-700`
+      : `${baseClasses} border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900`;
+  }
+  return isSelected
+    ? `${baseClasses} border-red-600 bg-red-50 text-red-700`
+    : `${baseClasses} border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900`;
+}
+
+function getChecklistIcon(isChecked: boolean): string {
+  return isChecked ? "✓" : "○";
+}
+
+function getChecklistIconClassName(isChecked: boolean): string {
+  return isChecked ? "text-green-600" : "text-neutral-400";
+}
+
 type Props = {
   userId: string;
   userName: string | null;
@@ -96,24 +133,14 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
         {/* Step Indicator */}
         <div className="flex gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
           <button
-            className={
-              "type-ui-sm flex-1 rounded-lg px-4 py-2 font-medium transition" +
-              (step === "review"
-                ? "border border-neutral-900 bg-neutral-900 text-white"
-                : "border border-neutral-200 bg-white text-neutral-700")
-            }
+            className={getStepButtonClassName(step === "review")}
             onClick={() => setStep("review")}
             type="button"
           >
             1. Review Checklist
           </button>
           <button
-            className={
-              "type-ui-sm flex-1 rounded-lg px-4 py-2 font-medium transition" +
-              (step === "decision"
-                ? "border border-neutral-900 bg-neutral-900 text-white"
-                : "border border-neutral-200 bg-white text-neutral-700")
-            }
+            className={getStepButtonClassName(step === "decision")}
             onClick={() => setStep("decision")}
             type="button"
           >
@@ -138,7 +165,7 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
                   <label className="flex items-start gap-3">
                     <input
                       checked={form.formData.identityVerified}
-                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-orange-500"
+                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-rausch-500"
                       onChange={(e) => form.updateField("identityVerified", e.target.checked)}
                       type="checkbox"
                     />
@@ -158,7 +185,7 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
                   <label className="flex items-start gap-3">
                     <input
                       checked={form.formData.backgroundCheckPassed}
-                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-orange-500"
+                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-rausch-500"
                       onChange={(e) => form.updateField("backgroundCheckPassed", e.target.checked)}
                       type="checkbox"
                     />
@@ -178,7 +205,7 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
                   <label className="flex items-start gap-3">
                     <input
                       checked={form.formData.documentsVerified}
-                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-orange-500"
+                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-rausch-500"
                       onChange={(e) => form.updateField("documentsVerified", e.target.checked)}
                       type="checkbox"
                     />
@@ -198,7 +225,7 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
                   <label className="flex items-start gap-3">
                     <input
                       checked={form.formData.skillsAssessed}
-                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-orange-500"
+                      className="mt-1 h-5 w-5 border-neutral-200 focus:ring-2 focus:ring-rausch-500"
                       onChange={(e) => form.updateField("skillsAssessed", e.target.checked)}
                       type="checkbox"
                     />
@@ -235,40 +262,26 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
               <p className="type-ui-sm mb-2 font-medium text-neutral-900">Checklist Summary:</p>
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex items-center gap-2">
-                  <span
-                    className={
-                      form.formData.identityVerified ? "text-green-600" : "text-neutral-400"
-                    }
-                  >
-                    {form.formData.identityVerified ? "✓" : "○"}
+                  <span className={getChecklistIconClassName(form.formData.identityVerified)}>
+                    {getChecklistIcon(form.formData.identityVerified)}
                   </span>
                   <span className="type-body-sm text-neutral-700">Identity Verified</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span
-                    className={
-                      form.formData.backgroundCheckPassed ? "text-green-600" : "text-neutral-400"
-                    }
-                  >
-                    {form.formData.backgroundCheckPassed ? "✓" : "○"}
+                  <span className={getChecklistIconClassName(form.formData.backgroundCheckPassed)}>
+                    {getChecklistIcon(form.formData.backgroundCheckPassed)}
                   </span>
                   <span className="type-body-sm text-neutral-700">Background Check</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span
-                    className={
-                      form.formData.documentsVerified ? "text-green-600" : "text-neutral-400"
-                    }
-                  >
-                    {form.formData.documentsVerified ? "✓" : "○"}
+                  <span className={getChecklistIconClassName(form.formData.documentsVerified)}>
+                    {getChecklistIcon(form.formData.documentsVerified)}
                   </span>
                   <span className="type-body-sm text-neutral-700">Documents Verified</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span
-                    className={form.formData.skillsAssessed ? "text-green-600" : "text-neutral-400"}
-                  >
-                    {form.formData.skillsAssessed ? "✓" : "○"}
+                  <span className={getChecklistIconClassName(form.formData.skillsAssessed)}>
+                    {getChecklistIcon(form.formData.skillsAssessed)}
                   </span>
                   <span className="type-body-sm text-neutral-700">Skills Assessed</span>
                 </div>
@@ -277,29 +290,19 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
 
             {/* Decision */}
             <div>
-              <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+              <p className="type-ui-sm mb-2 block font-medium text-neutral-900">
                 Verification Decision
-              </label>
-              <div className="flex gap-3">
+              </p>
+              <div aria-label="Verification decision" className="flex gap-3" role="group">
                 <button
-                  className={
-                    "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
-                    (form.formData.approved
-                      ? "border-green-600 bg-green-50 text-green-700"
-                      : "border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900")
-                  }
+                  className={getDecisionButtonClassName(form.formData.approved, "approve")}
                   onClick={() => form.updateField("approved", true)}
                   type="button"
                 >
                   ✓ Approve Verification
                 </button>
                 <button
-                  className={
-                    "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
-                    (form.formData.approved
-                      ? "border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900"
-                      : "border-red-600 bg-red-50 text-red-700")
-                  }
+                  className={getDecisionButtonClassName(!form.formData.approved, "reject")}
                   onClick={() => form.updateField("approved", false)}
                   type="button"
                 >
@@ -311,11 +314,15 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
             {/* Reason (required for rejection) */}
             {!form.formData.approved && (
               <div>
-                <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+                <label
+                  className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                  htmlFor="rejection_reason"
+                >
                   Reason for Rejection <span className="text-red-600">*</span>
                 </label>
                 <textarea
-                  className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+                  id="rejection_reason"
                   onChange={(e) => form.updateField("reason", e.target.value)}
                   placeholder="Explain why this professional cannot be verified at this time..."
                   rows={4}
@@ -326,11 +333,15 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
 
             {/* Additional Notes (optional) */}
             <div>
-              <label className="type-ui-sm mb-2 block font-medium text-neutral-900">
+              <label
+                className="type-ui-sm mb-2 block font-medium text-neutral-900"
+                htmlFor="additional_notes"
+              >
                 Additional Notes (optional)
               </label>
               <textarea
-                className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rausch-500"
+                id="additional_notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Any additional context or observations..."
                 rows={3}
@@ -373,11 +384,7 @@ export function ProfessionalVerificationModal({ userId, userName, onClose, onCom
                 onClick={handleSubmit}
                 type="button"
               >
-                {verificationMutation.isLoading
-                  ? "Processing..."
-                  : form.formData.approved
-                    ? "Approve Professional"
-                    : "Reject Verification"}
+                {getVerificationButtonText(verificationMutation.isLoading, form.formData.approved)}
               </button>
             </div>
           </div>

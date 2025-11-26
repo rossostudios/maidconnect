@@ -1,9 +1,5 @@
 import { unstable_cache } from "next/cache";
-import {
-  CACHE_DURATIONS,
-  CACHE_TAGS,
-  latestProfessionalsKey,
-} from "@/lib/cache";
+import { CACHE_DURATIONS, CACHE_TAGS, latestProfessionalsKey } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 
 export type NewProfessional = {

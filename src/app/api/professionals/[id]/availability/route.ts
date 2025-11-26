@@ -5,8 +5,8 @@ import {
   type DayAvailability,
   getAvailabilityForRange,
 } from "@/lib/availability";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
-import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS, availabilityKey } from "@/lib/cache";
 
 type RouteContext = {
   params: Promise<{ id: string }>;

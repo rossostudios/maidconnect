@@ -64,8 +64,8 @@ export function AdminHeader({ userEmail, userName }: Props) {
               <HugeiconsIcon className="h-4 w-4" icon={Notification02Icon} />
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping bg-orange-500 opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 bg-orange-500" />
+                  <span className="absolute inline-flex h-full w-full animate-ping bg-rausch-500 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 bg-rausch-500" />
                 </span>
               )}
             </button>

@@ -63,11 +63,11 @@ export function QuickFilters({ filters, setFilter, resetFilters, className }: Qu
     <div className={cn("relative", className)}>
       {/* Scrollable container with fade edges */}
       <div className="relative">
-        {/* Left fade */}
-        <div className="pointer-events-none absolute top-0 left-0 z-10 h-full w-8 bg-gradient-to-r from-white to-transparent" />
+        {/* Left fade - hidden in dark mode to avoid harsh edge */}
+        <div className="pointer-events-none absolute top-0 left-0 z-10 h-full w-8 bg-gradient-to-r from-neutral-50 to-transparent dark:opacity-0" />
 
-        {/* Right fade */}
-        <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-8 bg-gradient-to-l from-white to-transparent" />
+        {/* Right fade - hidden in dark mode to avoid harsh edge */}
+        <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-8 bg-gradient-to-l from-neutral-50 to-transparent dark:opacity-0" />
 
         {/* Scrollable pills */}
         <div className="scrollbar-hide flex gap-2 overflow-x-auto px-8 py-1">
@@ -77,12 +77,14 @@ export function QuickFilters({ filters, setFilter, resetFilters, className }: Qu
               className={cn(
                 "flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-sm transition-all",
                 "border-neutral-900 bg-neutral-900 text-white",
-                "hover:bg-neutral-800 active:scale-[0.98]"
+                "hover:bg-neutral-800 active:scale-[0.98]",
+                "dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-900",
+                "dark:hover:bg-neutral-200"
               )}
               onClick={resetFilters}
               type="button"
             >
-              <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
+              <HugeiconsIcon className="h-4 w-4 dark:text-neutral-900" icon={Cancel01Icon} />
               Clear all
             </button>
           )}
@@ -93,15 +95,20 @@ export function QuickFilters({ filters, setFilter, resetFilters, className }: Qu
                 "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all",
                 "active:scale-[0.98]",
                 option.active
-                  ? "border-neutral-900 bg-neutral-900 text-white shadow-sm"
-                  : "border-neutral-300 bg-white text-neutral-800 hover:border-neutral-900 hover:shadow-sm"
+                  ? "border-neutral-900 bg-neutral-900 text-white shadow-sm dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-900"
+                  : "border-neutral-300 bg-white text-neutral-800 hover:border-neutral-900 hover:shadow-sm dark:border-border dark:bg-card dark:text-neutral-200 dark:hover:border-neutral-400"
               )}
               key={option.key}
               onClick={option.toggle}
               type="button"
             >
               <HugeiconsIcon
-                className={cn("h-4 w-4", option.active ? "text-white" : "text-neutral-600")}
+                className={cn(
+                  "h-4 w-4",
+                  option.active
+                    ? "text-white dark:text-neutral-900"
+                    : "text-neutral-600 dark:text-neutral-400"
+                )}
                 icon={option.icon}
               />
               {option.label}

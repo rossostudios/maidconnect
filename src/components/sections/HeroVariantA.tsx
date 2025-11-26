@@ -55,18 +55,18 @@ export function HeroVariantA() {
     : ["Top-rated pros near you"];
 
   return (
-    <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
+    <section className="relative overflow-visible bg-muted" ref={containerRef}>
       {/* Trust Banner - Above Hero */}
-      <div className="flex items-center justify-center bg-white py-4">
-        <div className="w-full max-w-[1320px] border-neutral-200 border-b">
+      <div className="flex items-center justify-center bg-card py-4">
+        <div className="w-full max-w-[1320px] border-border border-b">
           <Container className="max-w-6xl px-4 md:px-8">
-            <p className="text-center text-neutral-700 text-sm sm:text-base">
-              <strong className="font-semibold text-neutral-900">
+            <p className="text-center text-muted-foreground text-sm sm:text-base">
+              <strong className="font-semibold text-foreground">
                 Trusted professionals, verified backgrounds.
               </strong>{" "}
               Every professional on Casaora is vetted with background checks and references.{" "}
               <Link
-                className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
+                className="inline-flex items-center font-semibold text-rausch-600 transition-colors hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
                 href="/how-it-works#vetting"
                 onClick={() =>
                   conversionTracking.heroCTAClicked({
@@ -88,8 +88,8 @@ export function HeroVariantA() {
       <div className="py-12 md:py-20">
         {/* Vertical Lines - Full height from navbar to bottom, aligned with container */}
         <div className="-translate-x-1/2 pointer-events-none fixed top-0 bottom-0 left-1/2 z-10 w-full max-w-[1320px]">
-          <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
-          <div className="absolute inset-y-0 right-0 w-px bg-neutral-200" />
+          <div className="absolute inset-y-0 left-0 w-px bg-border" />
+          <div className="absolute inset-y-0 right-0 w-px bg-border" />
         </div>
 
         <Container className="relative max-w-6xl px-4 md:px-8">
@@ -104,7 +104,7 @@ export function HeroVariantA() {
             <div className="md:col-span-7">
               {/* Overline - Emphasize Simplicity */}
               <motion.div
-                className="mb-4 font-semibold text-orange-600 text-xs uppercase tracking-wider"
+                className="mb-4 font-semibold text-rausch-600 text-xs uppercase tracking-wider"
                 variants={fadeIn}
               >
                 Book Instantly • 15% Service Fee
@@ -112,7 +112,7 @@ export function HeroVariantA() {
 
               {/* Display Heading - Variant A Messaging */}
               <motion.h1
-                className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
+                className="font-[family-name:var(--font-geist-sans)] font-normal text-5xl text-foreground tracking-tight sm:text-6xl md:text-7xl"
                 variants={fadeIn}
               >
                 Trusted household staff, matched to your needs.
@@ -120,7 +120,7 @@ export function HeroVariantA() {
 
               {/* Body Copy - Shorter, Benefit-Focused */}
               <motion.p
-                className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
+                className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed"
                 variants={fadeIn}
               >
                 Find verified cleaners, nannies, and household staff in {marketInfo.countryName}.
@@ -167,7 +167,7 @@ export function HeroVariantA() {
                   </Button>
                 </Link>
                 <Link
-                  className="text-center font-semibold text-neutral-600 text-sm transition hover:text-neutral-900 sm:text-base"
+                  className="text-center font-semibold text-muted-foreground text-sm transition hover:text-foreground sm:text-base"
                   href="/pros"
                 >
                   Browse Professionals →
@@ -199,23 +199,23 @@ export function HeroVariantA() {
                 src="/casaorahero.png"
               />
               {/* Elegant fade to blend into background - subtle blend */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-neutral-50/30 via-transparent to-transparent" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neutral-50/40" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-50/20 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/40" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
             </motion.div>
           </motion.div>
 
           {/* Trusted By Section - Marquee inside bordered card */}
           <div className="mt-24">
-            <div className="border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
-              <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
+            <div className="border border-border bg-card/80 px-6 py-10 shadow-lg sm:px-10">
+              <p className="mb-8 text-center text-muted-foreground text-xs uppercase tracking-[0.4em]">
                 Built for expat and local households in Latin America — serving Colombia, Paraguay,
                 Uruguay & Argentina
               </p>
 
               <div className="relative overflow-hidden">
-                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-card to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-card to-transparent" />
 
                 <motion.div
                   animate={{
@@ -233,7 +233,7 @@ export function HeroVariantA() {
                       className="flex min-w-[160px] items-center justify-center"
                       key={`${area}-${index}`}
                     >
-                      <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
+                      <span className="whitespace-nowrap font-semibold text-foreground text-sm tracking-tight">
                         {area}
                       </span>
                     </div>

@@ -39,19 +39,19 @@ export function StickyHeaderWrapper({ children, overlay }: Props) {
   }, []);
 
   if (!overlay) {
-    // Non-overlay mode: standard sticky header with white background
+    // Non-overlay mode: standard sticky header with semantic background
     return (
-      <header className="group sticky top-0 z-50 w-full border-neutral-200 border-b bg-white py-4">
+      <header className="group sticky top-0 z-50 w-full border-border border-b bg-background py-4">
         {children}
       </header>
     );
   }
 
-  // Overlay mode: floating glass pill header (always visible)
+  // Overlay mode: floating glass pill header (positioned over hero)
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full",
+        "absolute top-0 right-0 left-0 z-50 w-full",
         // Padding around the floating pill
         "px-3 pt-3 pb-3 sm:px-4 sm:pt-4 sm:pb-4 lg:px-6 lg:pt-6 lg:pb-6",
         // Page load animation
@@ -66,17 +66,17 @@ export function StickyHeaderWrapper({ children, overlay }: Props) {
           "mx-auto max-w-5xl",
           // Refined rounded corners (Lia Design System)
           "rounded-[20px]",
-          // Solid white background (Lia Design System - no glass morphism)
-          "bg-white",
+          // Solid background (Lia Design System - no glass morphism)
+          "bg-muted",
           // Subtle border
-          "border border-neutral-200",
+          "border border-border",
           // Vertical padding
           "py-3",
           // Shadow system - intensifies on scroll for depth feedback
           "transition-shadow duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
           isScrolled
-            ? "shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08),0_12px_32px_-4px_rgba(0,0,0,0.12),0_0_0_1px_rgba(255,255,255,0.1)_inset]"
-            : "shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05),0_8px_24px_-4px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.1)_inset]"
+            ? "shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08),0_12px_32px_-4px_rgba(0,0,0,0.12),0_0_0_1px_rgba(255,255,255,0.1)_inset] dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3),0_12px_32px_-4px_rgba(0,0,0,0.4)]"
+            : "shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05),0_8px_24px_-4px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.1)_inset] dark:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.2),0_8px_24px_-4px_rgba(0,0,0,0.3)]"
         )}
       >
         {/* Content */}

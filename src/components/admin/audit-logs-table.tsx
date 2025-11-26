@@ -18,7 +18,7 @@ export type AuditLog = {
 
 const getActionBadge = (action: string) => {
   // Lia design badge with semantic colors
-  let baseStyle = "bg-blue-50 text-blue-700 border border-blue-200"; // default
+  let baseStyle = "bg-babu-50 text-babu-700 border border-babu-200"; // default
 
   if (action.includes("approve")) {
     baseStyle = "bg-green-50 text-green-700 border border-green-200";

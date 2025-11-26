@@ -12,7 +12,7 @@ type Props = {
   inputClass: string;
 };
 
-const errorClass = "border-orange-500/50 focus:border-orange-500 focus:ring-orange-500/30";
+const errorClass = "border-rausch-500/50 focus:border-rausch-500 focus:ring-rausch-500/30";
 
 export function ApplicationForm({ services, inputClass }: Props) {
   const t = useTranslations("dashboard.pro.applicationForm");
@@ -122,13 +122,13 @@ export function ApplicationForm({ services, inputClass }: Props) {
           {services.map((service) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-lg border-2 border-neutral-200 bg-neutral-50 p-4 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
-                hasError("services") && "border-orange-500/50"
+                "flex cursor-pointer items-center gap-3 rounded-lg border-2 border-border bg-muted p-4 font-medium text-base text-foreground transition hover:border-rausch-500 dark:hover:border-rausch-400",
+                hasError("services") && "border-rausch-500/50 dark:border-rausch-400/50"
               )}
               key={service}
             >
               <input
-                className="h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-5 w-5 rounded border-border text-rausch-500 focus:ring-rausch-500 dark:text-rausch-400 dark:focus:ring-rausch-400"
                 name="services"
                 type="checkbox"
                 value={service}
@@ -183,19 +183,19 @@ export function ApplicationForm({ services, inputClass }: Props) {
       >
         <div className="space-y-4">
           {[1, 2].map((index) => (
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6" key={index}>
+            <div className="rounded-lg border border-border bg-muted p-6" key={index}>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500 font-semibold text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rausch-500 font-semibold text-sm text-white dark:bg-rausch-600">
                   {index}
                 </div>
-                <p className="font-semibold text-neutral-700 text-sm uppercase tracking-[0.2em]">
+                <p className="font-semibold text-muted-foreground text-sm uppercase tracking-[0.2em]">
                   {t("references.referenceLabel", { number: index })}
                 </p>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    className="mb-2 block font-medium text-muted-foreground text-sm"
                     htmlFor={`reference_name_${index}`}
                   >
                     {t("references.namePlaceholder")}
@@ -211,7 +211,7 @@ export function ApplicationForm({ services, inputClass }: Props) {
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    className="mb-2 block font-medium text-muted-foreground text-sm"
                     htmlFor={`reference_relationship_${index}`}
                   >
                     {t("references.relationshipPlaceholder")}
@@ -226,7 +226,7 @@ export function ApplicationForm({ services, inputClass }: Props) {
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-sm"
+                    className="mb-2 block font-medium text-muted-foreground text-sm"
                     htmlFor={`reference_contact_${index}`}
                   >
                     {t("references.contactPlaceholder")}
@@ -247,10 +247,10 @@ export function ApplicationForm({ services, inputClass }: Props) {
       </FormField>
 
       <FormField error={fieldError("consent")} label={t("consent.label")}>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border-2 border-neutral-200 bg-neutral-50 p-5 text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50">
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border-2 border-border bg-muted p-5 text-base text-foreground transition hover:border-rausch-500 dark:hover:border-rausch-400">
           <input
             aria-invalid={hasError("consent")}
-            className="mt-0.5 h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+            className="mt-0.5 h-5 w-5 rounded border-border text-rausch-500 focus:ring-rausch-500 dark:text-rausch-400 dark:focus:ring-rausch-400"
             name="consent"
             type="checkbox"
           />
@@ -258,11 +258,11 @@ export function ApplicationForm({ services, inputClass }: Props) {
         </label>
       </FormField>
 
-      <div className="flex flex-col gap-4 border-neutral-200 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-neutral-700 text-sm">{t("footer.note")}</p>
+      <div className="flex flex-col gap-4 border-border border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-muted-foreground text-sm">{t("footer.note")}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-lg bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center rounded-lg bg-rausch-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-700",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -279,14 +279,14 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
       <div
-        className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
+        className="rounded-lg border border-rausch-500/30 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
         role="alert"
       >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -300,7 +300,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.error}
+          </p>
         </div>
       </div>
     );
@@ -308,14 +310,14 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "success" && state.message) {
     return (
       <div
-        className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
+        className="rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
         role="status"
       >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -329,7 +331,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.message}
+          </p>
         </div>
       </div>
     );
@@ -350,13 +354,13 @@ function FormField({ label, children, helper, error, className }: FormFieldProps
 
   return (
     <div className={cn("space-y-3", className)}>
-      <label className="block font-semibold text-base text-neutral-900" htmlFor={childId}>
+      <label className="block font-semibold text-base text-foreground" htmlFor={childId}>
         {label}
       </label>
-      {helper ? <p className="text-neutral-700 text-sm">{helper}</p> : null}
+      {helper ? <p className="text-muted-foreground text-sm">{helper}</p> : null}
       {children}
       {error ? (
-        <p className="flex items-center gap-2 text-orange-500 text-sm">
+        <p className="flex items-center gap-2 text-rausch-500 text-sm dark:text-rausch-400">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"

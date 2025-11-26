@@ -3,7 +3,7 @@
  *
  * Features:
  * - Clean line chart (no axes, no grid)
- * - Anthropic orange stroke color (#D97757 / orange-500)
+ * - Burgundy Rausch stroke color (#7A3B4A)
  * - Smooth monotone interpolation
  * - Responsive container
  * - Fast animation (300ms)
@@ -25,7 +25,7 @@ type Props = {
   height?: number;
 };
 
-export function MiniSparkline({ data, color = "#FF5200", height = 40 }: Props) {
+export function MiniSparkline({ data, color = "#7A3B4A", height = 40 }: Props) {
   // Return empty state if no data
   if (!data || data.length === 0) {
     return <div className="h-10 w-full bg-neutral-100" />;

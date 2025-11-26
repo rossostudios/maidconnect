@@ -40,8 +40,10 @@ import { cn } from "@/lib/utils/core";
 /**
  * Select Root Props
  * React 19: ref is a regular prop.
+ * Backward compatible with Radix UI props (value, onValueChange).
  */
-export interface SelectProps<T extends object> extends AriaSelectProps<T> {
+export interface SelectProps<T extends object>
+  extends Omit<AriaSelectProps<T>, "selectedKey" | "onSelectionChange"> {
   /**
    * Additional CSS classes
    */
@@ -54,6 +56,24 @@ export interface SelectProps<T extends object> extends AriaSelectProps<T> {
    * Ref to the select container element
    */
   ref?: React.RefObject<HTMLDivElement | null>;
+  /**
+   * Currently selected value (Radix compatibility)
+   * @deprecated Use selectedKey instead
+   */
+  value?: string;
+  /**
+   * Currently selected key (React Aria native)
+   */
+  selectedKey?: string | null;
+  /**
+   * Callback when value changes (Radix compatibility)
+   * @deprecated Use onSelectionChange instead
+   */
+  onValueChange?: (value: string) => void;
+  /**
+   * Callback when selection changes (React Aria native)
+   */
+  onSelectionChange?: (key: React.Key) => void;
 }
 
 /**
@@ -62,12 +82,38 @@ export interface SelectProps<T extends object> extends AriaSelectProps<T> {
  * Container for the select with state management.
  * Uses React Aria for robust accessibility.
  * React 19: Uses ref as regular prop instead of forwardRef.
+ * Supports both Radix UI props (value, onValueChange) and React Aria props (selectedKey, onSelectionChange).
  */
-export const Select = ({ className, children, ref, ...props }: SelectProps<any>) => (
-  <AriaSelect className={cn("relative", className)} ref={ref} {...props}>
-    {children}
-  </AriaSelect>
-);
+export const Select = ({
+  className,
+  children,
+  ref,
+  value,
+  selectedKey,
+  onValueChange,
+  onSelectionChange,
+  ...props
+}: SelectProps<any>) => {
+  // Backward compatibility: support both Radix and React Aria prop names
+  const resolvedSelectedKey = selectedKey ?? value ?? null;
+
+  const handleSelectionChange = (key: React.Key) => {
+    onSelectionChange?.(key);
+    onValueChange?.(String(key));
+  };
+
+  return (
+    <AriaSelect
+      className={cn("relative", className)}
+      onSelectionChange={handleSelectionChange}
+      ref={ref}
+      selectedKey={resolvedSelectedKey}
+      {...props}
+    >
+      {children}
+    </AriaSelect>
+  );
+};
 
 /**
  * Select Value Component
@@ -100,6 +146,7 @@ export const SelectValue = ({ placeholder, className, ref }: SelectValueProps) =
 /**
  * Select Trigger Props
  * React 19: ref is a regular prop.
+ * Extends standard HTML button attributes for form integration.
  */
 export type SelectTriggerProps = {
   /**
@@ -114,6 +161,30 @@ export type SelectTriggerProps = {
    * Ref to the button element
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
+  /**
+   * ID for form field association
+   */
+  id?: string;
+  /**
+   * ARIA invalid state for form validation
+   */
+  "aria-invalid"?: boolean | "true" | "false";
+  /**
+   * ARIA describedby for error message association
+   */
+  "aria-describedby"?: string;
+  /**
+   * ARIA labelledby for label association
+   */
+  "aria-labelledby"?: string;
+  /**
+   * Name attribute for form submission
+   */
+  name?: string;
+  /**
+   * Whether the trigger is disabled
+   */
+  disabled?: boolean;
 };
 
 /**
@@ -123,9 +194,22 @@ export type SelectTriggerProps = {
  * Lia Design System: rounded-lg, orange focus ring.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const SelectTrigger = ({ className, children, ref }: SelectTriggerProps) => {
+export const SelectTrigger = ({
+  className,
+  children,
+  ref,
+  id,
+  "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedby,
+  "aria-labelledby": ariaLabelledby,
+  name,
+  disabled,
+}: SelectTriggerProps) => {
   return (
     <Button
+      aria-describedby={ariaDescribedby}
+      aria-invalid={ariaInvalid}
+      aria-labelledby={ariaLabelledby}
       className={cn(
         // Base layout
         "flex h-10 w-full items-center justify-between",
@@ -138,16 +222,21 @@ export const SelectTrigger = ({ className, children, ref }: SelectTriggerProps) 
         // Typography
         "text-sm",
         // Focus state - orange ring (Lia Design System)
-        "focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2",
         // Disabled state
         "disabled:cursor-not-allowed disabled:opacity-50",
         // Hover state
         "transition-colors hover:bg-neutral-100",
         // Text truncation
         "[&>span]:line-clamp-1",
+        // Invalid state styling
+        ariaInvalid && "border-red-500 focus:ring-red-500",
         // Additional classes
         className
       )}
+      id={id}
+      isDisabled={disabled}
+      name={name}
       ref={ref}
     >
       {children}
@@ -245,7 +334,7 @@ export interface SelectItemProps extends Omit<ListBoxItemProps, "children"> {
  * Select Item Component
  *
  * Individual select option with checkmark indicator.
- * Lia Design System: orange-50 hover, orange-600 selected.
+ * Lia Design System: rausch-50 hover, rausch-600 selected.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
 export const SelectItem = ({ className, children, value, ref, ...props }: SelectItemProps) => {
@@ -263,9 +352,9 @@ export const SelectItem = ({ className, children, value, ref, ...props }: Select
         // Outline
         "outline-none",
         // Focus state - orange background (Lia Design System)
-        "focus:bg-orange-50 focus:text-orange-900",
+        "focus:bg-rausch-50 focus:text-rausch-900",
         // Selected state
-        "data-[selected]:bg-orange-50 data-[selected]:text-orange-900",
+        "data-[selected]:bg-rausch-50 data-[selected]:text-rausch-900",
         // Disabled state
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         // Additional classes
@@ -281,7 +370,7 @@ export const SelectItem = ({ className, children, value, ref, ...props }: Select
           <span className="block truncate">{children}</span>
           {isSelected && (
             <span className="absolute right-2 flex h-4 w-4 items-center justify-center">
-              <HugeiconsIcon className="h-4 w-4 text-orange-600" icon={Tick02Icon} />
+              <HugeiconsIcon className="h-4 w-4 text-rausch-600" icon={Tick02Icon} />
             </span>
           )}
         </>

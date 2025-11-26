@@ -9,7 +9,6 @@
 
 import { z } from "zod";
 import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
-import { invalidateBookings } from "@/lib/cache";
 import type { BookingWorkflowData } from "@/lib/bookings/booking-workflow-service";
 import {
   cancelPaymentIntent,
@@ -18,6 +17,7 @@ import {
   updateBookingToDeclined,
   validateDeclineEligibility,
 } from "@/lib/bookings/booking-workflow-service";
+import { invalidateBookings } from "@/lib/cache";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 
 const declineBookingSchema = z.object({

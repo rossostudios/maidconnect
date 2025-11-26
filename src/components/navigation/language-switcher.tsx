@@ -52,7 +52,7 @@ export function LanguageSwitcher() {
       >
         {/* Sliding orange background indicator */}
         <div
-          className="absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-md bg-orange-500 transition-all duration-300 ease-out"
+          className="absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-md bg-rausch-500 transition-all duration-300 ease-out"
           style={{
             left: locale === "en" ? "4px" : "calc(50% + 0px)",
           }}

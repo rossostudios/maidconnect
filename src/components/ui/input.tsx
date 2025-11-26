@@ -10,7 +10,22 @@ const Input = ({
 }: React.ComponentProps<"input"> & { ref?: React.RefObject<HTMLInputElement | null> }) => (
   <input
     className={cn(
-      "flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+      // Base layout
+      "flex h-10 w-full px-3 py-2 text-base md:text-sm",
+      // Lia Design System: rounded-lg, neutral borders
+      "rounded-lg border border-neutral-200 bg-neutral-50",
+      // Smooth transitions for hover and focus
+      "transition-all duration-200",
+      // Hover state
+      "hover:border-neutral-300",
+      // Focus state with rausch ring
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
+      "focus-visible:border-rausch-500 focus-visible:bg-white",
+      // File inputs
+      "file:border-0 file:bg-transparent file:font-medium file:text-neutral-900 file:text-sm",
+      // Placeholder and disabled
+      "placeholder:text-neutral-500",
+      "disabled:cursor-not-allowed disabled:opacity-50",
       className
     )}
     ref={ref}

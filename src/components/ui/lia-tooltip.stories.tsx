@@ -45,10 +45,10 @@ export const Users: Story = {
     content: "Users",
     children: (
       <button
-        className="flex h-14 w-14 items-center justify-center border border-neutral-200 bg-white transition-colors hover:bg-orange-50"
+        className="flex h-14 w-14 items-center justify-center border border-neutral-200 bg-white transition-colors hover:bg-rausch-50"
         type="button"
       >
-        <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={UserGroupIcon} />
+        <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={UserGroupIcon} />
       </button>
     ),
   },
@@ -96,10 +96,10 @@ export const MultipleTooltips: Story = {
 
       <LiaTooltip content="Users">
         <button
-          className="flex h-14 w-14 items-center justify-center border border-neutral-200 bg-orange-50 transition-colors hover:bg-orange-100"
+          className="flex h-14 w-14 items-center justify-center border border-neutral-200 bg-rausch-50 transition-colors hover:bg-rausch-100"
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={UserGroupIcon} />
+          <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={UserGroupIcon} />
         </button>
       </LiaTooltip>
 

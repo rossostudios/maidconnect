@@ -34,10 +34,13 @@ type NotificationBookingData = {
 };
 
 // Address structure that may contain a formatted field
-type BookingAddress = {
-  formatted?: string;
-  [key: string]: unknown;
-} | string | null;
+type BookingAddress =
+  | {
+      formatted?: string;
+      [key: string]: unknown;
+    }
+  | string
+  | null;
 
 // Professional profile data from the select query
 type ProfessionalProfile = {
@@ -118,7 +121,8 @@ async function notifyProfessional(options: {
   }
 
   const details = formatBookingDetails(options.fullBooking);
-  const customerName = (options.customerUser?.user?.user_metadata?.full_name as string | undefined) || "A customer";
+  const customerName =
+    (options.customerUser?.user?.user_metadata?.full_name as string | undefined) || "A customer";
 
   await sendNewBookingRequestEmail(options.professionalUser.user.email, {
     professionalName: options.professionalProfile?.full_name || "there",
@@ -142,7 +146,7 @@ async function notifyCustomer(
   customerUser: AuthUserData | null,
   professionalProfile: ProfessionalProfile | null
 ) {
-  if (!customerUser?.user || !fullBooking.customer_id) {
+  if (!(customerUser?.user && fullBooking.customer_id)) {
     return;
   }
 

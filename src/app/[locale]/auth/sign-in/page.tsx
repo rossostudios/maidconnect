@@ -48,7 +48,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
             </span>
           </Link>
           <Link
-            className="font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700"
+            className="font-semibold text-rausch-600 text-sm transition-colors hover:text-rausch-700"
             href={AUTH_ROUTES.signUp}
           >
             {t("header.createAccount")}
@@ -63,9 +63,9 @@ export default async function SignInPage({ params, searchParams }: Props) {
               <p className="text-base text-neutral-700 leading-relaxed">{t("hero.description")}</p>
             </div>
             {signedOut && (
-              <div className="rounded-lg border border-orange-200 bg-orange-50 px-6 py-4 shadow-sm">
+              <div className="rounded-lg border border-rausch-200 bg-rausch-50 px-6 py-4 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rausch-500">
                     <svg
                       aria-label="Success"
                       className="h-5 w-5 text-white"
@@ -84,8 +84,8 @@ export default async function SignInPage({ params, searchParams }: Props) {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-orange-700 text-sm">Successfully signed out</p>
-                    <p className="mt-0.5 text-orange-600 text-xs">
+                    <p className="font-medium text-rausch-700 text-sm">Successfully signed out</p>
+                    <p className="mt-0.5 text-rausch-600 text-xs">
                       Sign in again to access your account
                     </p>
                   </div>
@@ -97,7 +97,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
               <p className="mt-8 text-neutral-900/70 text-sm">
                 {t("form.needAccount")}{" "}
                 <Link
-                  className="font-semibold text-orange-500 transition hover:text-orange-600"
+                  className="font-semibold text-rausch-500 transition hover:text-rausch-600"
                   href={AUTH_ROUTES.signUp}
                 >
                   {t("form.createOneNow")}

@@ -11,7 +11,9 @@ import type { Currency } from "@/lib/utils/format";
 const querySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(20),
-  status: z.enum(["all", "pending", "confirmed", "in_progress", "completed", "cancelled"]).default("all"),
+  status: z
+    .enum(["all", "pending", "confirmed", "in_progress", "completed", "cancelled"])
+    .default("all"),
   date: z.enum(["all", "today", "week", "month"]).default("all"),
   search: z.string().optional(),
 });
@@ -162,7 +164,12 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
 
   // Transform bookings
   let bookings: ProBookingWithCustomer[] = (bookingsData || []).map((b) => {
-    const customer = b.customer as { id: string; full_name: string; avatar_url: string | null; phone: string | null } | null;
+    const customer = b.customer as {
+      id: string;
+      full_name: string;
+      avatar_url: string | null;
+      phone: string | null;
+    } | null;
     return {
       id: b.id,
       status: b.status as BookingStatus,
@@ -189,7 +196,7 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
   });
 
   // Apply client-side search filter if provided
-  if (search && search.trim()) {
+  if (search?.trim()) {
     const searchLower = search.toLowerCase();
     bookings = bookings.filter((b) => {
       const customerName = b.customer?.fullName?.toLowerCase() || "";

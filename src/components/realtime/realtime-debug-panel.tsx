@@ -153,7 +153,7 @@ export function RealtimeDebugPanel() {
               className={cn(
                 "font-semibold text-sm",
                 healthScore >= 80 && "text-green-600",
-                healthScore >= 50 && healthScore < 80 && "text-orange-600",
+                healthScore >= 50 && healthScore < 80 && "text-rausch-600",
                 healthScore < 50 && "text-red-600"
               )}
             >
@@ -165,7 +165,7 @@ export function RealtimeDebugPanel() {
               className={cn(
                 "h-full transition-all duration-500",
                 healthScore >= 80 && "bg-green-500",
-                healthScore >= 50 && healthScore < 80 && "bg-orange-500",
+                healthScore >= 50 && healthScore < 80 && "bg-rausch-500",
                 healthScore < 50 && "bg-red-500"
               )}
               style={{ width: `${healthScore}%` }}
@@ -183,8 +183,8 @@ export function RealtimeDebugPanel() {
                 className={cn(
                   "h-2 w-2 rounded-full",
                   health.state === "connected" && "bg-green-500",
-                  health.state === "connecting" && "animate-pulse bg-blue-500",
-                  health.state === "reconnecting" && "animate-pulse bg-orange-500",
+                  health.state === "connecting" && "animate-pulse bg-babu-500",
+                  health.state === "reconnecting" && "animate-pulse bg-rausch-500",
                   health.state === "error" && "bg-red-500",
                   health.state === "disconnected" && "bg-neutral-400"
                 )}
@@ -244,10 +244,10 @@ export function RealtimeDebugPanel() {
 
         {/* Warning if approaching max reconnect attempts */}
         {health.reconnectAttempts >= 3 && health.state !== "connected" && (
-          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4">
             <div className="flex items-start gap-3">
               <svg
-                className="mt-0.5 h-5 w-5 text-orange-600"
+                className="mt-0.5 h-5 w-5 text-rausch-600"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
@@ -260,10 +260,10 @@ export function RealtimeDebugPanel() {
                 />
               </svg>
               <div className="flex-1">
-                <h4 className="font-semibold text-orange-900 text-sm">
+                <h4 className="font-semibold text-rausch-900 text-sm">
                   Connection Issues Detected
                 </h4>
-                <p className="mt-1 text-orange-700 text-sm">
+                <p className="mt-1 text-rausch-700 text-sm">
                   Multiple reconnection attempts failed ({health.reconnectAttempts}/5). If this
                   persists, check your internet connection or contact support.
                 </p>
@@ -329,10 +329,10 @@ export function RealtimeDebugPanel() {
         )}
 
         {/* Optimization Impact Notice */}
-        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <div className="rounded-lg border border-babu-200 bg-babu-50 p-4">
           <div className="flex items-start gap-3">
             <svg
-              className="mt-0.5 h-5 w-5 text-blue-600"
+              className="mt-0.5 h-5 w-5 text-babu-600"
               fill="none"
               stroke="currentColor"
               strokeWidth={2}
@@ -345,8 +345,8 @@ export function RealtimeDebugPanel() {
               />
             </svg>
             <div className="flex-1">
-              <h4 className="font-semibold text-blue-900 text-sm">Optimization Active</h4>
-              <p className="mt-1 text-blue-700 text-sm">
+              <h4 className="font-semibold text-babu-900 text-sm">Optimization Active</h4>
+              <p className="mt-1 text-babu-700 text-sm">
                 Channel multiplexing is active. Admin dashboard uses ~{health.subscriptionCount}{" "}
                 channels instead of ~7-10 (40-60% reduction in WebSocket overhead).
               </p>
@@ -399,8 +399,8 @@ export function RealtimeDebugWidget() {
 
   const stateColors = {
     connected: "text-green-600",
-    connecting: "text-blue-600",
-    reconnecting: "text-orange-600",
+    connecting: "text-babu-600",
+    reconnecting: "text-rausch-600",
     error: "text-red-600",
     disconnected: "text-neutral-400",
   };
@@ -411,8 +411,8 @@ export function RealtimeDebugWidget() {
         className={cn(
           "h-2 w-2 rounded-full",
           health.state === "connected" && "bg-green-500",
-          health.state === "connecting" && "animate-pulse bg-blue-500",
-          health.state === "reconnecting" && "animate-pulse bg-orange-500",
+          health.state === "connecting" && "animate-pulse bg-babu-500",
+          health.state === "reconnecting" && "animate-pulse bg-rausch-500",
           health.state === "error" && "bg-red-500",
           health.state === "disconnected" && "bg-neutral-400"
         )}
@@ -421,7 +421,7 @@ export function RealtimeDebugWidget() {
         {health.subscriptionCount} active
       </span>
       {health.reconnectAttempts > 0 && (
-        <span className="text-orange-600 text-xs">({health.reconnectAttempts} retries)</span>
+        <span className="text-rausch-600 text-xs">({health.reconnectAttempts} retries)</span>
       )}
     </div>
   );

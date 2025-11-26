@@ -6,8 +6,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "@/i18n/routing";
 import { GlobeButton } from "@/components/preferences";
+import { ThemeSelector } from "@/components/ui/theme-toggle";
+import { Link } from "@/i18n/routing";
 
 type NavLink = {
   href: string;
@@ -144,7 +145,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             animate="visible"
             aria-label="Mobile navigation menu"
             aria-modal="true"
-            className="fixed top-0 right-0 z-[210] flex h-full w-full max-w-[340px] flex-col border-neutral-200 border-l bg-white shadow-2xl"
+            className="fixed top-0 right-0 z-[210] flex h-full w-full max-w-[340px] flex-col border-border border-l bg-card shadow-2xl"
             exit="hidden"
             id="mobile-menu"
             initial="hidden"
@@ -152,15 +153,15 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             variants={menuVariants}
           >
             {/* Header */}
-            <div className="flex shrink-0 items-center justify-between border-neutral-200 border-b bg-neutral-50 px-6 py-5">
-              <span className="font-[family-name:var(--font-satoshi)] font-semibold text-neutral-900 text-xl tracking-tight">
+            <div className="flex shrink-0 items-center justify-between border-border border-b bg-muted px-6 py-5">
+              <span className="font-[family-name:var(--font-satoshi)] font-semibold text-foreground text-xl tracking-tight">
                 Menu
               </span>
               <div className="flex items-center gap-2">
                 <GlobeButton />
                 <motion.button
                   aria-label="Close menu"
-                  className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
                   onClick={closeMenu}
                   type="button"
                   whileTap={{ scale: 0.95 }}
@@ -182,7 +183,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 {links.map((link) => (
                   <motion.div key={link.href} variants={itemVariants}>
                     <Link
-                      className="group block rounded-lg px-4 py-3 font-[family-name:var(--font-manrope)] font-medium text-base text-neutral-700 no-underline transition-all hover:bg-orange-50 hover:pl-5 hover:text-orange-600"
+                      className="group block rounded-lg px-4 py-3 font-[family-name:var(--font-manrope)] font-medium text-base text-card-foreground no-underline transition-all hover:bg-rausch-50 hover:pl-5 hover:text-rausch-600 dark:hover:bg-rausch-500/10 dark:hover:text-rausch-400"
                       href={link.href}
                       onClick={() => {
                         link.onClick?.();
@@ -200,10 +201,22 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 ))}
               </motion.div>
 
+              {/* Theme Selector */}
+              <motion.div
+                animate="visible"
+                className="border-border border-t pt-6"
+                initial="hidden"
+                variants={containerVariants}
+              >
+                <motion.div variants={itemVariants}>
+                  <ThemeSelector />
+                </motion.div>
+              </motion.div>
+
               {/* Auth Actions */}
               <motion.div
                 animate="visible"
-                className="space-y-3 border-neutral-200 border-t pt-6"
+                className="space-y-3 border-border border-t pt-6"
                 initial="hidden"
                 variants={containerVariants}
               >
@@ -212,7 +225,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                     {dashboardHref && (
                       <motion.div variants={itemVariants}>
                         <Link
-                          className="block rounded-lg bg-orange-500 px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-white shadow-sm transition-all hover:bg-orange-600 hover:shadow-md active:scale-[0.98]"
+                          className="block rounded-lg bg-rausch-500 px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-white shadow-sm transition-all hover:bg-rausch-600 hover:shadow-md active:scale-[0.98]"
                           href={dashboardHref}
                           onClick={closeMenu}
                         >
@@ -221,7 +234,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                       </motion.div>
                     )}
                     <motion.button
-                      className="w-full rounded-lg border border-neutral-200 bg-white px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-neutral-900 transition-all hover:border-neutral-300 hover:bg-neutral-50 active:scale-[0.98]"
+                      className="w-full rounded-lg border border-border bg-card px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-card-foreground transition-all hover:bg-muted active:scale-[0.98]"
                       onClick={() => {
                         onSignOut?.();
                         closeMenu();
@@ -237,7 +250,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                   <>
                     <motion.div variants={itemVariants}>
                       <Link
-                        className="block rounded-lg border border-neutral-200 bg-white px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-neutral-900 transition-all hover:border-neutral-300 hover:bg-neutral-50 active:scale-[0.98]"
+                        className="block rounded-lg border border-border bg-card px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-card-foreground transition-all hover:bg-muted active:scale-[0.98]"
                         href="/auth/sign-in"
                         onClick={closeMenu}
                       >
@@ -246,7 +259,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                     </motion.div>
                     <motion.div variants={itemVariants}>
                       <Link
-                        className="block rounded-lg bg-orange-500 px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-white shadow-sm transition-all hover:bg-orange-600 hover:shadow-md active:scale-[0.98]"
+                        className="block rounded-lg bg-rausch-500 px-6 py-3 text-center font-[family-name:var(--font-manrope)] font-semibold text-base text-white shadow-sm transition-all hover:bg-rausch-600 hover:shadow-md active:scale-[0.98]"
                         href="/auth/sign-up"
                         onClick={closeMenu}
                       >
@@ -270,7 +283,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         aria-controls="mobile-menu"
         aria-expanded={isOpen}
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-900 transition-colors hover:bg-neutral-100"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted"
         onClick={toggleMenu}
         type="button"
         whileTap={{ scale: 0.95 }}

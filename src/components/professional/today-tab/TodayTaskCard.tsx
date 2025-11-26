@@ -24,6 +24,7 @@ import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
 
 export type TaskType =
   | "booking_today"
@@ -48,7 +49,7 @@ export type TodayTask = {
   onAction?: () => void;
 };
 
-const taskIcons: Record<TaskType, React.ComponentType> = {
+const taskIcons: Record<TaskType, HugeIcon> = {
   booking_today: Calendar03Icon,
   pending_response: Message01Icon,
   pending_review: StarIcon,
@@ -58,19 +59,22 @@ const taskIcons: Record<TaskType, React.ComponentType> = {
 
 const urgencyStyles: Record<TaskUrgency, { badge: string; border: string; icon: string }> = {
   urgent: {
-    badge: "bg-red-50 text-red-600 border-red-200",
-    border: "border-l-red-500",
-    icon: "text-red-500",
+    badge:
+      "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800",
+    border: "border-l-red-500 dark:border-l-red-400",
+    icon: "text-red-500 dark:text-red-400",
   },
   important: {
-    badge: "bg-orange-50 text-orange-600 border-orange-200",
-    border: "border-l-orange-500",
-    icon: "text-orange-500",
+    badge:
+      "bg-rausch-50 dark:bg-rausch-900/20 text-rausch-600 dark:text-rausch-400 border-rausch-200 dark:border-rausch-800",
+    border: "border-l-rausch-500 dark:border-l-rausch-400",
+    icon: "text-rausch-500 dark:text-rausch-400",
   },
   normal: {
-    badge: "bg-blue-50 text-blue-600 border-blue-200",
-    border: "border-l-blue-500",
-    icon: "text-blue-500",
+    badge:
+      "bg-babu-50 dark:bg-babu-900/20 text-babu-600 dark:text-babu-400 border-babu-200 dark:border-babu-800",
+    border: "border-l-babu-500 dark:border-l-babu-400",
+    icon: "text-babu-500 dark:text-babu-400",
   },
 };
 
@@ -96,7 +100,7 @@ export function TodayTaskCard({ task, index = 0 }: { task: TodayTask; index?: nu
     >
       <div
         className={cn(
-          "rounded-lg border border-neutral-200 border-l-4 bg-white p-4 transition-all hover:shadow-md",
+          "rounded-lg border border-border border-l-4 bg-card p-4 transition-all hover:shadow-md",
           styles.border
         )}
       >
@@ -104,7 +108,7 @@ export function TodayTaskCard({ task, index = 0 }: { task: TodayTask; index?: nu
           {/* Icon */}
           <div
             className={cn(
-              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-50"
+              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-muted"
             )}
           >
             <HugeiconsIcon className={cn("h-5 w-5", styles.icon)} icon={Icon} />
@@ -116,14 +120,14 @@ export function TodayTaskCard({ task, index = 0 }: { task: TodayTask; index?: nu
               <div>
                 <h4
                   className={cn(
-                    "font-semibold text-neutral-900 text-sm leading-tight",
+                    "font-semibold text-foreground text-sm leading-tight",
                     geistSans.className
                   )}
                 >
                   {task.title}
                 </h4>
                 {task.subtitle && (
-                  <p className={cn("mt-0.5 text-neutral-600 text-xs", geistSans.className)}>
+                  <p className={cn("mt-0.5 text-muted-foreground text-xs", geistSans.className)}>
                     {task.subtitle}
                   </p>
                 )}
@@ -144,7 +148,7 @@ export function TodayTaskCard({ task, index = 0 }: { task: TodayTask; index?: nu
 
             {/* Customer Info & Time */}
             {(task.customerName || task.scheduledTime) && (
-              <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+              <div className="mt-2 flex flex-wrap items-center gap-3 text-muted-foreground text-xs">
                 {task.customerName && (
                   <span className="flex items-center gap-1">
                     <HugeiconsIcon className="h-3 w-3" icon={UserIcon} />
@@ -190,16 +194,19 @@ export function NoTasksCard() {
       initial={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-50">
-          <HugeiconsIcon className="h-6 w-6 text-green-500" icon={CheckmarkCircle02Icon} />
+      <div className="rounded-lg border border-border border-dashed bg-muted p-8 text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-rausch-50 dark:bg-rausch-900/20">
+          <HugeiconsIcon
+            className="h-6 w-6 text-rausch-500 dark:text-rausch-400"
+            icon={CheckmarkCircle02Icon}
+          />
         </div>
         <h3
-          className={cn("font-semibold text-neutral-900 text-sm leading-none", geistSans.className)}
+          className={cn("font-semibold text-foreground text-sm leading-none", geistSans.className)}
         >
           All caught up!
         </h3>
-        <p className={cn("mt-1 text-neutral-600 text-xs", geistSans.className)}>
+        <p className={cn("mt-1 text-muted-foreground text-xs", geistSans.className)}>
           No pending tasks for today
         </p>
       </div>

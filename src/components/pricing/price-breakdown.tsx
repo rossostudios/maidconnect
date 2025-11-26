@@ -63,10 +63,10 @@ export function PriceBreakdown({
                   </span>
                   <div className="group relative">
                     <HugeiconsIcon
-                      className="h-3.5 w-3.5 cursor-help text-orange-600 transition hover:text-orange-700"
+                      className="h-3.5 w-3.5 cursor-help text-rausch-600 transition hover:text-rausch-700"
                       icon={HelpCircleIcon}
                     />
-                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-rausch-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                       <p className="mb-2 font-semibold text-neutral-900 text-sm">
                         Platform Service Fee
                       </p>
@@ -74,7 +74,7 @@ export function PriceBreakdown({
                         This fee covers verified professionals, secure payments, booking protection,
                         and customer support.
                       </p>
-                      <p className="font-semibold text-orange-600 text-xs">
+                      <p className="font-semibold text-rausch-600 text-xs">
                         ✓ Professional receives 100% of their rate
                       </p>
                     </div>
@@ -93,9 +93,9 @@ export function PriceBreakdown({
 
         {showPlatformFee && (
           <div className="mt-4 space-y-2">
-            <Card className="rounded-lg border-orange-200 bg-orange-50">
+            <Card className="rounded-lg border-rausch-200 bg-rausch-50">
               <CardContent className="p-3">
-                <p className="text-center text-orange-900 text-xs leading-relaxed">
+                <p className="text-center text-rausch-900 text-xs leading-relaxed">
                   <span className="font-semibold">Professional Receives:</span>{" "}
                   {formatCOP(baseAmount)} · <span className="font-semibold">You Pay:</span>{" "}
                   {formatCOP(totalWithFees)}

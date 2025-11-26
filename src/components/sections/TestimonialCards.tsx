@@ -73,7 +73,7 @@ function StarRating({ rating }: { rating: number }) {
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <HugeiconsIcon
-          className={cn("h-4 w-4", i < rating ? "text-orange-500" : "text-neutral-200")}
+          className={cn("h-4 w-4", i < rating ? "text-rausch-500" : "text-muted-foreground/30")}
           icon={StarIcon}
           key={`star-${i}`}
         />
@@ -88,14 +88,14 @@ type TestimonialCardsProps = {
 
 export function TestimonialCards({ className }: TestimonialCardsProps) {
   return (
-    <section className={cn("bg-neutral-50 py-16 sm:py-20 lg:py-24", className)}>
+    <section className={cn("bg-muted py-16 sm:py-20 lg:py-24", className)}>
       <Container className="max-w-6xl">
         {/* Section Header */}
         <div className="mb-10 text-center sm:mb-12">
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl">
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-foreground sm:text-3xl lg:text-4xl">
             Trusted by families across Latin America
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground sm:text-lg">
             Real reviews from real customers who found their perfect match
           </p>
         </div>
@@ -104,25 +104,25 @@ export function TestimonialCards({ className }: TestimonialCardsProps) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
           {testimonials.map((testimonial) => (
             <div
-              className="flex flex-col rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
               key={testimonial.id}
             >
               {/* Rating & Service */}
               <div className="mb-4 flex items-center justify-between">
                 <StarRating rating={testimonial.rating} />
-                <span className="rounded-full bg-neutral-100 px-3 py-1 text-neutral-600 text-xs">
+                <span className="rounded-full bg-muted px-3 py-1 text-muted-foreground text-xs">
                   {testimonial.service}
                 </span>
               </div>
 
               {/* Quote */}
-              <blockquote className="mb-6 flex-1 text-neutral-700 text-sm leading-relaxed sm:text-base">
+              <blockquote className="mb-6 flex-1 text-muted-foreground text-sm leading-relaxed sm:text-base">
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
 
               {/* Author */}
-              <div className="flex items-center gap-3 border-neutral-100 border-t pt-4">
-                <div className="relative h-10 w-10 overflow-hidden rounded-full bg-neutral-200">
+              <div className="flex items-center gap-3 border-border border-t pt-4">
+                <div className="relative h-10 w-10 overflow-hidden rounded-full bg-muted">
                   <Image
                     alt={testimonial.name}
                     className="object-cover"
@@ -132,8 +132,8 @@ export function TestimonialCards({ className }: TestimonialCardsProps) {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-neutral-900 text-sm">{testimonial.name}</p>
-                  <p className="text-neutral-500 text-xs">{testimonial.location}</p>
+                  <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
+                  <p className="text-muted-foreground text-xs">{testimonial.location}</p>
                 </div>
               </div>
             </div>
@@ -141,7 +141,7 @@ export function TestimonialCards({ className }: TestimonialCardsProps) {
         </div>
 
         {/* Bottom Note */}
-        <p className="mt-8 text-center text-neutral-500 text-sm sm:mt-10">
+        <p className="mt-8 text-center text-muted-foreground text-sm sm:mt-10">
           All reviews are from verified bookings on Casaora
         </p>
       </Container>

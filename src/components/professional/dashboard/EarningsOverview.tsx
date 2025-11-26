@@ -1,10 +1,9 @@
 /**
- * EarningsOverview - Three-Column Airbnb-Style Earnings Display
+ * EarningsOverview - Two-Column Airbnb-Style Earnings Display
  *
- * Displays professional earnings in three categories:
- * - PAID: Completed earnings from the selected period
- * - UPCOMING: Estimated earnings from confirmed future bookings
- * - PENDING: Earnings awaiting release/payout
+ * Simplified earnings display in two categories:
+ * - AVAILABLE: Money ready to withdraw (paid + pending release)
+ * - COMING: Estimated earnings from confirmed future bookings
  *
  * Following Lia Design System:
  * - Rounded corners (rounded-lg)
@@ -15,15 +14,16 @@
 
 "use client";
 
-import { ArrowDown01Icon, ArrowUp01Icon, Calendar03Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { ArrowDown01Icon, ArrowUp01Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { Link } from "@/i18n/routing";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import { cn } from "@/lib/utils";
-import { DateRangeFilter, type DatePeriod } from "./DateRangeFilter";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
+import type { HugeIcon } from "@/types/icons";
+import { type DatePeriod, DateRangeFilter } from "./DateRangeFilter";
 
 type EarningsData = {
   paid: number;
@@ -72,13 +72,13 @@ export function EarningsOverview({ className }: EarningsOverviewProps) {
   }, [fetchData]);
 
   return (
-    <div className={cn("rounded-lg border border-neutral-200 bg-white", className)}>
+    <div className={cn("rounded-lg border border-border bg-card", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between border-neutral-200 border-b px-6 py-4">
-        <h2 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+      <div className="flex items-center justify-between border-border border-b px-6 py-4">
+        <h2 className={cn("font-semibold text-foreground text-lg", geistSans.className)}>
           Your Earnings
         </h2>
-        <DateRangeFilter value={period} onChange={setPeriod} size="sm" />
+        <DateRangeFilter onChange={setPeriod} size="sm" value={period} />
       </div>
 
       {/* Content */}
@@ -87,55 +87,46 @@ export function EarningsOverview({ className }: EarningsOverviewProps) {
           <EarningsOverviewSkeleton />
         ) : error ? (
           <div className="py-8 text-center">
-            <p className="text-neutral-500 text-sm">{error}</p>
+            <p className="text-muted-foreground text-sm">{error}</p>
             <button
-              type="button"
+              className="mt-2 text-rausch-600 text-sm hover:text-rausch-700"
               onClick={fetchData}
-              className="mt-2 text-orange-600 text-sm hover:text-orange-700"
+              type="button"
             >
               Try again
             </button>
           </div>
         ) : data ? (
-          <div className="grid gap-6 md:grid-cols-3">
-            {/* PAID Column */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* AVAILABLE Column - Paid + Pending combined */}
             <EarningsColumn
-              label="Paid"
-              amount={data.paid}
+              actionHref="/dashboard/pro/finances"
+              actionLabel="Withdraw"
+              amount={data.paid + data.pending}
               currency={currency}
+              index={0}
+              label="Available"
+              subtext={
+                data.pending > 0
+                  ? `${data.paidBookingsCount} completed • ${formatFromMinorUnits(data.pending, currency)} releasing soon`
+                  : `${data.paidBookingsCount} booking${data.paidBookingsCount !== 1 ? "s" : ""}`
+              }
               trend={data.trend}
               trendLabel={`vs last ${period === "7d" ? "week" : period === "30d" ? "month" : "quarter"}`}
-              subtext={`${data.paidBookingsCount} booking${data.paidBookingsCount !== 1 ? "s" : ""}`}
-              actionLabel="View Details"
-              actionHref="/dashboard/pro/finances"
               variant="primary"
-              index={0}
             />
 
-            {/* UPCOMING Column */}
+            {/* COMING Column - Future confirmed bookings */}
             <EarningsColumn
-              label="Upcoming"
+              actionHref="/dashboard/pro/bookings"
+              actionLabel="View Schedule"
               amount={data.upcoming}
               currency={currency}
-              subtext={`${data.upcomingBookingsCount} booking${data.upcomingBookingsCount !== 1 ? "s" : ""}`}
-              actionLabel="View Schedule"
-              actionHref="/dashboard/pro/bookings"
               icon={Calendar03Icon}
-              variant="secondary"
               index={1}
-            />
-
-            {/* PENDING Column */}
-            <EarningsColumn
-              label="Pending"
-              amount={data.pending}
-              currency={currency}
-              subtext="Awaiting release"
-              actionLabel="View Details"
-              actionHref="/dashboard/pro/finances"
-              icon={Clock01Icon}
-              variant="tertiary"
-              index={2}
+              label="Coming"
+              subtext={`${data.upcomingBookingsCount} upcoming booking${data.upcomingBookingsCount !== 1 ? "s" : ""}`}
+              variant="secondary"
             />
           </div>
         ) : null}
@@ -153,7 +144,7 @@ type EarningsColumnProps = {
   subtext: string;
   actionLabel: string;
   actionHref: string;
-  icon?: React.ComponentType;
+  icon?: HugeIcon;
   variant: "primary" | "secondary" | "tertiary";
   index: number;
 };
@@ -175,33 +166,33 @@ function EarningsColumn({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
       className={cn(
         "rounded-lg border p-4",
         variant === "primary"
-          ? "border-orange-200 bg-orange-50/50"
-          : "border-neutral-200 bg-neutral-50/50"
+          ? "border-rausch-200 bg-rausch-50/50 dark:border-rausch-900/50 dark:bg-rausch-900/10"
+          : "border-border bg-muted/30"
       )}
+      initial={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
     >
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <span
           className={cn(
             "font-medium text-xs uppercase tracking-wide",
-            variant === "primary" ? "text-orange-700" : "text-neutral-600"
+            variant === "primary" ? "text-rausch-700 dark:text-rausch-400" : "text-muted-foreground"
           )}
         >
           {label}
         </span>
         {Icon && (
           <HugeiconsIcon
-            icon={Icon}
             className={cn(
               "h-4 w-4",
-              variant === "primary" ? "text-orange-500" : "text-neutral-400"
+              variant === "primary" ? "text-rausch-500" : "text-muted-foreground"
             )}
+            icon={Icon}
           />
         )}
       </div>
@@ -210,7 +201,7 @@ function EarningsColumn({
       <p
         className={cn(
           "font-bold text-2xl",
-          variant === "primary" ? "text-neutral-900" : "text-neutral-800"
+          variant === "primary" ? "text-foreground" : "text-foreground/80"
         )}
       >
         {formatFromMinorUnits(amount, currency)}
@@ -227,34 +218,30 @@ function EarningsColumn({
               )}
             >
               <HugeiconsIcon
-                icon={isPositiveTrend ? ArrowUp01Icon : ArrowDown01Icon}
                 className="h-3 w-3"
+                icon={isPositiveTrend ? ArrowUp01Icon : ArrowDown01Icon}
               />
               {Math.abs(trend)}%
             </span>
-            {trendLabel && (
-              <span className="text-neutral-500 text-xs">{trendLabel}</span>
-            )}
+            {trendLabel && <span className="text-muted-foreground text-xs">{trendLabel}</span>}
           </>
         ) : (
-          <span className="text-neutral-500 text-xs">{subtext}</span>
+          <span className="text-muted-foreground text-xs">{subtext}</span>
         )}
       </div>
 
       {/* Subtext (if trend is shown) */}
-      {trend !== undefined && (
-        <p className="mt-0.5 text-neutral-500 text-xs">{subtext}</p>
-      )}
+      {trend !== undefined && <p className="mt-0.5 text-muted-foreground text-xs">{subtext}</p>}
 
       {/* Action Link */}
       <Link
-        href={actionHref}
         className={cn(
           "mt-4 block text-center font-medium text-xs transition-colors",
           variant === "primary"
-            ? "text-orange-600 hover:text-orange-700"
-            : "text-neutral-600 hover:text-neutral-900"
+            ? "text-rausch-600 hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
+            : "text-muted-foreground hover:text-foreground"
         )}
+        href={actionHref}
       >
         {actionLabel} →
       </Link>
@@ -264,13 +251,13 @@ function EarningsColumn({
 
 function EarningsOverviewSkeleton() {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
-      {[0, 1, 2].map((i) => (
-        <div key={i} className="animate-pulse rounded-lg border border-neutral-200 bg-neutral-50/50 p-4">
-          <div className="mb-3 h-3 w-12 rounded bg-neutral-200" />
-          <div className="h-8 w-24 rounded bg-neutral-200" />
-          <div className="mt-2 h-3 w-20 rounded bg-neutral-200" />
-          <div className="mt-4 h-3 w-16 rounded bg-neutral-200" />
+    <div className="grid gap-6 md:grid-cols-2">
+      {[0, 1].map((i) => (
+        <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
+          <div className="mb-3 h-3 w-12 rounded bg-muted" />
+          <div className="h-8 w-24 rounded bg-muted" />
+          <div className="mt-2 h-3 w-20 rounded bg-muted" />
+          <div className="mt-4 h-3 w-16 rounded bg-muted" />
         </div>
       ))}
     </div>

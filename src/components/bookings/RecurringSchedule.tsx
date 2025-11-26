@@ -46,6 +46,56 @@ const FREQUENCY_DISCOUNTS: Record<RecurringFrequency, number> = {
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+function getToggleClass(isEnabled: boolean): string {
+  return isEnabled ? "bg-[neutral-500]" : "bg-[neutral-200]";
+}
+
+function getToggleKnobClass(isEnabled: boolean): string {
+  return isEnabled ? "right-1" : "left-1";
+}
+
+function getFrequencyButtonClass(
+  freq: RecurringFrequency,
+  currentFrequency: RecurringFrequency
+): string {
+  if (freq === currentFrequency) {
+    return "border-[neutral-500] bg-[neutral-50]";
+  }
+  return "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-200]";
+}
+
+function getDayButtonClass(dayIndex: number, selectedDay: number): string {
+  if (dayIndex === selectedDay) {
+    return "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]";
+  }
+  return "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]";
+}
+
+function getEndTypeButtonClass(type: string, selectedType: string): string {
+  if (type === selectedType) {
+    return "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]";
+  }
+  return "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]";
+}
+
+function createDefaultEndDate(): string {
+  return new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]!;
+}
+
+function getTodayDateString(): string {
+  return new Date().toISOString().split("T")[0]!;
+}
+
+function formatAmount(amount: number, currency: string): string {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: 0,
+  }).format(amount);
+}
+
 export function RecurringScheduleSelector({
   basePrice,
   currency = "COP",
@@ -56,18 +106,13 @@ export function RecurringScheduleSelector({
   const [frequency, setFrequency] = useState<RecurringFrequency>(
     initialSchedule?.frequency || "biweekly"
   );
-  const [startDate, setStartDate] = useState(
-    initialSchedule?.startDate || new Date().toISOString().split("T")[0]!
-  );
+  const [startDate, setStartDate] = useState(initialSchedule?.startDate || getTodayDateString());
   const [dayOfWeek, setDayOfWeek] = useState(initialSchedule?.dayOfWeek ?? 1); // Default Monday
   const [endType, setEndType] = useState<"occurrences" | "date" | "never">(
     initialSchedule?.endType || "occurrences"
   );
   const [occurrences, setOccurrences] = useState(initialSchedule?.occurrences || 12);
-  const [endDate, setEndDate] = useState(
-    initialSchedule?.endDate ||
-      new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]!
-  );
+  const [endDate, setEndDate] = useState(initialSchedule?.endDate || createDefaultEndDate());
 
   // Calculate pricing
   const discount = FREQUENCY_DISCOUNTS[frequency];
@@ -134,12 +179,7 @@ export function RecurringScheduleSelector({
     updateSchedule({ endDate: date });
   };
 
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency,
-      minimumFractionDigits: 0,
-    }).format(amount);
+  const formatCurrency = (amount: number) => formatAmount(amount, currency);
 
   return (
     <div className="space-y-6 border border-[neutral-200] bg-[neutral-50] p-6">
@@ -152,16 +192,12 @@ export function RecurringScheduleSelector({
           </p>
         </div>
         <button
-          className={`relative h-7 w-12 transition ${
-            isEnabled ? "bg-[neutral-500]" : "bg-[neutral-200]"
-          }`}
+          className={`relative h-7 w-12 transition ${getToggleClass(isEnabled)}`}
           onClick={() => handleToggle(!isEnabled)}
           type="button"
         >
           <span
-            className={`absolute top-1 h-5 w-5 bg-[neutral-50] transition ${
-              isEnabled ? "right-1" : "left-1"
-            }`}
+            className={`absolute top-1 h-5 w-5 bg-[neutral-50] transition ${getToggleKnobClass(isEnabled)}`}
           />
         </button>
       </div>
@@ -174,11 +210,7 @@ export function RecurringScheduleSelector({
             <div className="grid grid-cols-3 gap-3">
               {(["weekly", "biweekly", "monthly"] as RecurringFrequency[]).map((freq) => (
                 <button
-                  className={`flex flex-col items-center gap-2 border-2 p-4 transition ${
-                    frequency === freq
-                      ? "border-[neutral-500] bg-[neutral-50]"
-                      : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-200]"
-                  }`}
+                  className={`flex flex-col items-center gap-2 border-2 p-4 transition ${getFrequencyButtonClass(freq, frequency)}`}
                   key={freq}
                   onClick={() => handleFrequencyChange(freq)}
                   type="button"
@@ -207,7 +239,7 @@ export function RecurringScheduleSelector({
               <input
                 className="w-full border border-[neutral-200] py-3 pr-4 pl-11 text-[neutral-900] transition focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                 id="start-date"
-                min={new Date().toISOString().split("T")[0]}
+                min={getTodayDateString()}
                 onChange={(e) => handleStartDateChange(e.target.value)}
                 type="date"
                 value={startDate}
@@ -222,11 +254,7 @@ export function RecurringScheduleSelector({
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((day, index) => (
                   <button
-                    className={`border-2 px-2 py-3 text-xs transition ${
-                      dayOfWeek === index
-                        ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
-                        : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
-                    }`}
+                    className={`border-2 px-2 py-3 text-xs transition ${getDayButtonClass(index, dayOfWeek)}`}
                     key={day}
                     onClick={() => handleDayOfWeekChange(index)}
                     type="button"
@@ -243,33 +271,21 @@ export function RecurringScheduleSelector({
             <div className="block font-medium text-[neutral-900] text-sm">End Condition</div>
             <div className="grid grid-cols-3 gap-3">
               <button
-                className={`border-2 px-4 py-3 text-sm transition ${
-                  endType === "occurrences"
-                    ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
-                    : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
-                }`}
+                className={`border-2 px-4 py-3 text-sm transition ${getEndTypeButtonClass("occurrences", endType)}`}
                 onClick={() => handleEndTypeChange("occurrences")}
                 type="button"
               >
                 # of times
               </button>
               <button
-                className={`border-2 px-4 py-3 text-sm transition ${
-                  endType === "date"
-                    ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
-                    : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
-                }`}
+                className={`border-2 px-4 py-3 text-sm transition ${getEndTypeButtonClass("date", endType)}`}
                 onClick={() => handleEndTypeChange("date")}
                 type="button"
               >
                 End date
               </button>
               <button
-                className={`border-2 px-4 py-3 text-sm transition ${
-                  endType === "never"
-                    ? "border-[neutral-500] bg-[neutral-50] font-semibold text-[neutral-500]"
-                    : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-200]"
-                }`}
+                className={`border-2 px-4 py-3 text-sm transition ${getEndTypeButtonClass("never", endType)}`}
                 onClick={() => handleEndTypeChange("never")}
                 type="button"
               >

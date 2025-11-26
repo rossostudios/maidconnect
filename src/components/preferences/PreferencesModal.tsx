@@ -110,7 +110,7 @@ export function PreferencesModal({ isOpen, onClose }: Props) {
               "rounded-full p-2",
               "hover:bg-neutral-100",
               "transition-colors",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
             )}
             onPress={onClose}
           >
@@ -172,7 +172,7 @@ export function PreferencesModal({ isOpen, onClose }: Props) {
                           "flex flex-col items-start rounded-lg border-2 p-4 text-left",
                           "transition-all duration-200",
                           "hover:border-neutral-300",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                           locale === lang.code
                             ? "border-neutral-900 bg-neutral-50"
                             : "border-neutral-200"
@@ -203,7 +203,7 @@ export function PreferencesModal({ isOpen, onClose }: Props) {
                             "flex items-center gap-3 rounded-lg border-2 p-4 text-left",
                             "transition-all duration-200",
                             "hover:border-neutral-300",
-                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                             country === code
                               ? "border-neutral-900 bg-neutral-50"
                               : "border-neutral-200"
@@ -237,7 +237,7 @@ export function PreferencesModal({ isOpen, onClose }: Props) {
                           "flex flex-col items-start rounded-lg border-2 p-4 text-left",
                           "transition-all duration-200",
                           "hover:border-neutral-300",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                           displayCurrency === code
                             ? "border-neutral-900 bg-neutral-50"
                             : "border-neutral-200"

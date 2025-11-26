@@ -30,7 +30,7 @@ export function ProsHeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-neutral-50 py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-br from-rausch-50 via-white to-neutral-50 py-20 lg:py-28">
       <Container className="relative max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Content */}
@@ -41,7 +41,7 @@ export function ProsHeroSection() {
             variants={staggerContainer}
           >
             <motion.div
-              className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-700 text-sm"
+              className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-rausch-200 bg-rausch-50 px-4 py-1.5 font-medium text-rausch-700 text-sm"
               variants={fadeInUp}
             >
               <HugeiconsIcon className="h-4 w-4" icon={Award01Icon} />
@@ -113,8 +113,8 @@ export function ProsHeroSection() {
           >
             <div className="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-8 shadow-lg">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
-                  <HugeiconsIcon className="h-5 w-5 text-orange-700" icon={Award01Icon} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-100">
+                  <HugeiconsIcon className="h-5 w-5 text-rausch-700" icon={Award01Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900">{t("panel.title")}</h3>
@@ -133,7 +133,7 @@ export function ProsHeroSection() {
       </Container>
 
       {/* Decorative Elements */}
-      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 bg-orange-100 opacity-20 blur-3xl" />
+      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 bg-rausch-100 opacity-20 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 bg-neutral-200 opacity-20 blur-3xl" />
     </section>
   );

@@ -43,7 +43,7 @@ export default async function AdminRoadmapPage() {
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-medium text-white transition hover:bg-orange-600"
+          className="inline-flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-3 font-medium text-white transition hover:bg-rausch-600"
           href="/admin/roadmap/new"
         >
           <HugeiconsIcon icon={Add01Icon} size={20} />
@@ -55,7 +55,7 @@ export default async function AdminRoadmapPage() {
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-12">
-            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
           </div>
         }
       >

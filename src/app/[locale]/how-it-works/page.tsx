@@ -180,7 +180,7 @@ async function FAQSection() {
         <div className="mt-12 text-center">
           <p className="mb-4 text-neutral-600">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-orange-600 transition hover:text-orange-700"
+            className="inline-flex items-center gap-2 font-semibold text-rausch-600 transition hover:text-rausch-700"
             href="/contact"
           >
             {t("contactUs")}

@@ -50,37 +50,39 @@ export function PricingSection() {
   ];
 
   return (
-    <section className="bg-neutral-50 py-12 md:py-24">
+    <section className="bg-muted py-12 md:py-24">
       <Container className="max-w-6xl px-4 md:px-8">
         <div className="mb-12 text-center">
-          <div className="mb-4 inline-flex items-center justify-center rounded-full border border-orange-200 bg-orange-50 px-6 py-2">
-            <span className="font-semibold text-orange-600 text-xs uppercase tracking-[0.35em]">
+          <div className="mb-4 inline-flex items-center justify-center rounded-full border border-rausch-200 bg-rausch-50 px-6 py-2 dark:border-rausch-500/50 dark:bg-rausch-500/20">
+            <span className="font-semibold text-rausch-600 text-xs uppercase tracking-[0.35em] dark:text-rausch-400">
               {t("badge")}
             </span>
           </div>
-          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-foreground tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 leading-6">
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground leading-6">
             {t("subtitle")}
           </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-xl">
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-xl">
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-3">
-                <p className="font-semibold text-orange-600 text-xs uppercase tracking-[0.35em]">
+                <p className="font-semibold text-rausch-600 text-xs uppercase tracking-[0.35em] dark:text-rausch-400">
                   {plan.name}
                 </p>
-                <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-neutral-900 leading-[1.15]">
+                <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-foreground leading-[1.15]">
                   {plan.description}
                 </h3>
-                <p className="text-base text-neutral-600 leading-6">{t("subtitle")}</p>
+                <p className="text-base text-muted-foreground leading-6">{t("subtitle")}</p>
               </div>
               <div className="text-right">
-                <p className="text-neutral-600 text-xs uppercase tracking-[0.25em]">Service Fee</p>
-                <p className="font-[family-name:var(--font-geist-mono)] font-semibold text-4xl text-neutral-900 leading-tight">
+                <p className="text-muted-foreground text-xs uppercase tracking-[0.25em]">
+                  Service Fee
+                </p>
+                <p className="font-[family-name:var(--font-geist-mono)] font-semibold text-4xl text-foreground leading-tight">
                   {plan.commission}%
                 </p>
               </div>
@@ -89,13 +91,13 @@ export function PricingSection() {
             <ul className="mt-8 space-y-3">
               {plan.features.map((feature) => (
                 <li className="flex items-start gap-3" key={feature}>
-                  <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-green-50">
+                  <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-green-50 dark:bg-green-500/20">
                     <HugeiconsIcon
-                      className="h-4 w-4 text-green-700"
+                      className="h-4 w-4 text-green-700 dark:text-green-400"
                       icon={CheckmarkCircle01Icon}
                     />
                   </span>
-                  <span className="text-base text-neutral-700 leading-6">{feature}</span>
+                  <span className="text-base text-muted-foreground leading-6">{feature}</span>
                 </li>
               ))}
             </ul>
@@ -109,17 +111,17 @@ export function PricingSection() {
               </Button>
             </div>
 
-            <p className="mt-4 text-neutral-600 text-sm leading-6 sm:mt-6">
-              <span className="font-semibold text-neutral-900">{t("footer.highlight")}</span>{" "}
+            <p className="mt-4 text-muted-foreground text-sm leading-6 sm:mt-6">
+              <span className="font-semibold text-foreground">{t("footer.highlight")}</span>{" "}
               {t("footer.text")}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
-            <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl">
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-lg">
+            <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-foreground text-xl">
               What you get, every time
             </h3>
-            <p className="mt-3 text-base text-neutral-600 leading-6">
+            <p className="mt-3 text-base text-muted-foreground leading-6">
               We remove risk with hands-on vetting, insurance, and customer support that stays with
               you after the booking.
             </p>
@@ -127,14 +129,14 @@ export function PricingSection() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {guarantees.map((item) => (
                 <div
-                  className="rounded-lg border border-neutral-200 bg-neutral-50/60 p-4 shadow-sm"
+                  className="rounded-lg border border-border bg-muted/60 p-4 shadow-sm"
                   key={item.title}
                 >
-                  <div className="flex items-center gap-2 font-semibold text-neutral-900 text-sm">
-                    <span className="h-2 w-2 rounded-full bg-orange-600" />
+                  <div className="flex items-center gap-2 font-semibold text-foreground text-sm">
+                    <span className="h-2 w-2 rounded-full bg-rausch-600 dark:bg-rausch-500" />
                     {item.title}
                   </div>
-                  <p className="mt-2 text-neutral-600 text-sm leading-6">{item.description}</p>
+                  <p className="mt-2 text-muted-foreground text-sm leading-6">{item.description}</p>
                 </div>
               ))}
             </div>

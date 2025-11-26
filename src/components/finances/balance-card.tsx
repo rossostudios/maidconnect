@@ -1,8 +1,16 @@
 "use client";
 
+import {
+  AlertCircleIcon,
+  Clock01Icon,
+  DollarCircleIcon,
+  FlashIcon,
+  TrendingUp01Icon,
+  Wallet02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
-import { AlertCircle, Clock, DollarSign, TrendingUp, Wallet, Zap } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
@@ -145,7 +153,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
     return (
       <Card className={cn("border-red-200 bg-red-50", className)}>
         <CardContent className="flex items-center gap-4 p-6">
-          <AlertCircle className="size-5 text-red-600" />
+          <HugeiconsIcon className="size-5 text-red-600" icon={AlertCircleIcon} />
           <div>
             <p className={cn("font-semibold text-red-900 text-sm", geistSans.className)}>
               {t("error.title")}
@@ -170,8 +178,8 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
       <CardHeader className="p-8 pb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-orange-100">
-              <Wallet className="size-5 text-orange-600" />
+            <div className="flex size-10 items-center justify-center rounded-lg bg-rausch-100">
+              <HugeiconsIcon className="size-5 text-rausch-600" icon={Wallet02Icon} />
             </div>
             <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
               {t("title")}
@@ -185,7 +193,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
             size="sm"
             variant="default"
           >
-            <Zap className="size-4" />
+            <HugeiconsIcon className="size-4" icon={FlashIcon} />
             {t("actions.instantPayout")}
           </Button>
         </div>
@@ -217,7 +225,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
                 {t("available.description")}
               </p>
             </div>
-            <DollarSign className="size-8 text-neutral-400" />
+            <HugeiconsIcon className="size-8 text-neutral-400" icon={DollarCircleIcon} />
           </div>
 
           {/* Instant Payout Fee Estimate */}
@@ -245,21 +253,21 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
 
         {/* Pending Balance */}
         <div
-          className="flex items-center justify-between rounded-lg border border-neutral-200 bg-blue-50 p-4"
+          className="flex items-center justify-between rounded-lg border border-neutral-200 bg-babu-50 p-4"
           data-testid="pending-balance"
         >
           <div className="flex items-center gap-3">
-            <Clock className="size-5 text-blue-600" />
+            <HugeiconsIcon className="size-5 text-babu-600" icon={Clock01Icon} />
             <div>
-              <p className={cn("font-semibold text-blue-900 text-sm", geistSans.className)}>
+              <p className={cn("font-semibold text-babu-900 text-sm", geistSans.className)}>
                 {t("pending.label")}
               </p>
-              <p className={cn("text-blue-700 text-xs", geistSans.className)}>
+              <p className={cn("text-babu-700 text-xs", geistSans.className)}>
                 {t("pending.description")}
               </p>
             </div>
           </div>
-          <p className={cn("font-bold text-blue-900 text-lg", geistSans.className)}>
+          <p className={cn("font-bold text-babu-900 text-lg", geistSans.className)}>
             {formatFromMinorUnits(balance.pendingCop, currencyCode)}
           </p>
         </div>
@@ -282,7 +290,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
                   key={clearance.bookingId}
                 >
                   <div className="flex items-center gap-2">
-                    <TrendingUp className="size-4 text-neutral-500" />
+                    <HugeiconsIcon className="size-4 text-neutral-500" icon={TrendingUp01Icon} />
                     <span className={cn("text-neutral-900", geistSans.className)}>
                       {formatFromMinorUnits(clearance.amountCop, currencyCode)}
                     </span>
@@ -309,7 +317,7 @@ export function BalanceCard({ onRequestPayout, className, currencyCode }: Balanc
         {!eligibility.isEligible && eligibility.reasons.length > 0 && (
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
             <div className="flex items-start gap-3">
-              <AlertCircle className="mt-0.5 size-5 text-amber-600" />
+              <HugeiconsIcon className="mt-0.5 size-5 text-amber-600" icon={AlertCircleIcon} />
               <div className="flex-1">
                 <p className={cn("font-semibold text-amber-900 text-sm", geistSans.className)}>
                   {t("ineligible.title")}

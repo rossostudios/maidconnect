@@ -47,7 +47,7 @@ export default async function RoadmapPage() {
             fallback={
               <div className="flex items-center justify-center py-12">
                 <HugeiconsIcon
-                  className="h-8 w-8 animate-spin text-orange-500"
+                  className="h-8 w-8 animate-spin text-rausch-500"
                   icon={Loading03Icon}
                 />
               </div>

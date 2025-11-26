@@ -14,9 +14,9 @@ import { formatCurrency, formatDate } from "@/lib/utils/format";
 const getStatusBadgeColor = (status: string) => {
   switch (status) {
     case "pending":
-      return "bg-orange-50 text-orange-700 border border-orange-200";
+      return "bg-rausch-50 text-rausch-700 border border-rausch-200";
     case "confirmed":
-      return "bg-blue-50 text-blue-700 border border-blue-200";
+      return "bg-babu-50 text-babu-700 border border-babu-200";
     case "in_progress":
       return "bg-green-50 text-green-700 border border-green-200";
     case "completed":
@@ -47,7 +47,7 @@ const columns: ColumnDef<CombinedBooking>[] = [
       const booking = row.original;
       return (
         <Link
-          className="font-medium text-orange-600 text-sm hover:text-orange-700"
+          className="font-medium text-rausch-600 text-sm hover:text-rausch-700"
           href={`/admin/bookings/${booking.id}`}
         >
           {booking.id.slice(0, 8)}...

@@ -143,11 +143,11 @@ export default async function CustomerDisputesPage(props: { params: Promise<{ lo
       </div>
 
       {/* Info Section */}
-      <div className="rounded-lg border border-orange-200 bg-orange-50 p-6">
-        <h3 className={cn("font-semibold text-orange-900", geistSans.className)}>
+      <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-6">
+        <h3 className={cn("font-semibold text-rausch-900", geistSans.className)}>
           How Disputes Work
         </h3>
-        <div className="mt-3 space-y-2 text-orange-800 text-sm">
+        <div className="mt-3 space-y-2 text-rausch-800 text-sm">
           <p>
             <strong>48-Hour Window:</strong> You can file a dispute up to 48 hours after your
             booking is marked complete.

@@ -109,7 +109,7 @@ export function LocationFilter({
     <div className={cn("space-y-3", className)}>
       {/* Country select */}
       <div className="space-y-1.5">
-        <label className="font-medium text-neutral-700 text-sm">Country</label>
+        <label className="font-medium text-neutral-700 text-sm dark:text-rausch-100">Country</label>
         <Select onValueChange={handleCountryChange} value={country || "all"}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="All Countries" />
@@ -128,7 +128,7 @@ export function LocationFilter({
       {/* City select - only show if country is selected */}
       {country && cityOptions.length > 0 && (
         <div className="space-y-1.5">
-          <label className="font-medium text-neutral-700 text-sm">City</label>
+          <label className="font-medium text-neutral-700 text-sm dark:text-rausch-100">City</label>
           <Select onValueChange={handleCityChange} value={city || "all"}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="All Cities" />
@@ -148,7 +148,9 @@ export function LocationFilter({
       {/* Neighborhood select - only show if city is selected and has neighborhoods */}
       {city && neighborhoodOptions.length > 0 && (
         <div className="space-y-1.5">
-          <label className="font-medium text-neutral-700 text-sm">Neighborhood</label>
+          <label className="font-medium text-neutral-700 text-sm dark:text-rausch-100">
+            Neighborhood
+          </label>
           <Select onValueChange={handleNeighborhoodChange} value={neighborhood || "all"}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="All Neighborhoods" />

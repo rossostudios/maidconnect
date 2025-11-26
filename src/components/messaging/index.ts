@@ -15,16 +15,16 @@ export { MessagingInterface } from "./messaging-interface";
 
 // Rich media components
 export {
+  type EmbeddedBooking,
   EmbeddedBookingCard,
+  type FileAttachment,
   FileAttachmentMessage,
+  type ImageAttachment,
   ImageGallery,
   ImageMessage,
   LocationMessage,
-  MediaPicker,
-  VoiceNoteMessage,
-  type EmbeddedBooking,
-  type FileAttachment,
-  type ImageAttachment,
   type LocationShare,
+  MediaPicker,
   type VoiceNote,
+  VoiceNoteMessage,
 } from "./rich-media";

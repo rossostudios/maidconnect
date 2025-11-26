@@ -15,13 +15,13 @@ export type ProfessionalBooking = {
   stripe_payment_intent_id: string | null;
   stripe_payment_status: string | null;
   service_name?: string | null;
-  customer?: { id: string } | null;
+  customer?: { id: string; full_name?: string | null } | null;
   checked_in_at?: string | null;
   checked_out_at?: string | null;
   duration_minutes?: number | null;
   time_extension_minutes?: number | null;
   service_hourly_rate?: number | null;
-  address?: Record<string, any> | null;
+  address?: string | Record<string, unknown> | null;
   currency?: string | null;
 };
 
@@ -55,15 +55,15 @@ function formatAmount(amount: number | null): string {
 // Helper: Get status badge classes
 function getStatusBadgeClass(status: string): string {
   if (status === "authorized") {
-    return "border border-[#FF5200] bg-orange-50 text-[#FF5200]";
+    return "border border-[#FF5200] bg-rausch-50 text-[#FF5200]";
   }
   if (status === "confirmed") {
-    return "border border-neutral-200 bg-neutral-900 text-white";
+    return "border border-border bg-foreground text-background";
   }
   if (status === "declined") {
-    return "border border-neutral-200 bg-neutral-50 text-neutral-700";
+    return "border border-border bg-muted text-muted-foreground";
   }
-  return "border border-neutral-200 bg-neutral-50 text-neutral-700";
+  return "border border-border bg-muted text-muted-foreground";
 }
 
 // Helper: Determine action visibility
@@ -99,7 +99,7 @@ function AcceptDeclineActions({
       <button
         className={cn(
           baseClass,
-          "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70",
+          "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-70",
           geistSans.className
         )}
         disabled={loadingId !== null}
@@ -111,7 +111,7 @@ function AcceptDeclineActions({
       <button
         className={cn(
           baseClass,
-          `${isMobile ? "border-2" : "border"} border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-70`,
+          `${isMobile ? "border-2" : "border"} border-border bg-card text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-70`,
           geistSans.className
         )}
         disabled={loadingId !== null}
@@ -153,7 +153,7 @@ function CaptureVoidActions({
         <button
           className={cn(
             baseClass,
-            "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70",
+            "border border-neutral-200 bg-[#FF5200] text-white transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-70",
             geistSans.className
           )}
           disabled={loadingId !== null}
@@ -167,7 +167,7 @@ function CaptureVoidActions({
         <button
           className={cn(
             baseClass,
-            `${isMobile ? "border-2" : "border"} border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-70`,
+            `${isMobile ? "border-2" : "border"} border-border bg-card text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-70`,
             geistSans.className
           )}
           disabled={loadingId !== null}
@@ -279,15 +279,15 @@ const BookingTableRow = memo(function BookingTableRow({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <tr className="text-neutral-900" key={booking.id}>
+    <tr className="text-foreground" key={booking.id}>
       <td className={cn("px-4 py-3 font-medium", geistSans.className)}>{booking.id.slice(0, 8)}</td>
-      <td className={cn("px-4 py-3 text-neutral-700", geistSans.className)}>
+      <td className={cn("px-4 py-3 text-muted-foreground", geistSans.className)}>
         {booking.service_name || "—"}
       </td>
-      <td className={cn("px-4 py-3 text-neutral-700 tracking-tighter", geistSans.className)}>
+      <td className={cn("px-4 py-3 text-muted-foreground tracking-tighter", geistSans.className)}>
         {scheduled}
       </td>
-      <td className={cn("px-4 py-3 text-neutral-700 tracking-tighter", geistSans.className)}>
+      <td className={cn("px-4 py-3 text-muted-foreground tracking-tighter", geistSans.className)}>
         {amountDisplay}
       </td>
       <td className="px-4 py-3">
@@ -326,7 +326,7 @@ const BookingTableRow = memo(function BookingTableRow({
             );
           }
           return (
-            <span className={cn("text-neutral-700 text-xs", geistSans.className)}>
+            <span className={cn("text-muted-foreground text-xs", geistSans.className)}>
               {t("actions.noActions")}
             </span>
           );
@@ -353,17 +353,20 @@ const BookingMobileCard = memo(function BookingMobileCard({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <div className="border border-neutral-200 bg-white p-5" key={booking.id}>
+    <div className="border border-border bg-card p-5" key={booking.id}>
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <p
-            className={cn("text-neutral-700 text-xs uppercase tracking-wider", geistSans.className)}
+            className={cn(
+              "text-muted-foreground text-xs uppercase tracking-wider",
+              geistSans.className
+            )}
           >
             {t("table.booking")}
           </p>
           <p
             className={cn(
-              "mt-1 font-semibold text-base text-neutral-900 tracking-tighter",
+              "mt-1 font-semibold text-base text-foreground tracking-tighter",
               geistSans.className
             )}
           >
@@ -381,22 +384,22 @@ const BookingMobileCard = memo(function BookingMobileCard({
         </span>
       </div>
 
-      <div className="space-y-3 border-neutral-200 border-t pt-4">
+      <div className="space-y-3 border-border border-t pt-4">
         <div className="flex justify-between">
-          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+          <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
             {t("table.service")}
           </span>
-          <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
+          <span className={cn("font-medium text-foreground text-sm", geistSans.className)}>
             {booking.service_name || "—"}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+          <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
             {t("table.scheduled")}
           </span>
           <span
             className={cn(
-              "text-right font-medium text-neutral-900 text-sm tracking-tighter",
+              "text-right font-medium text-foreground text-sm tracking-tighter",
               geistSans.className
             )}
           >
@@ -404,12 +407,12 @@ const BookingMobileCard = memo(function BookingMobileCard({
           </span>
         </div>
         <div className="flex justify-between">
-          <span className={cn("text-neutral-700 text-sm", geistSans.className)}>
+          <span className={cn("text-muted-foreground text-sm", geistSans.className)}>
             {t("table.amount")}
           </span>
           <span
             className={cn(
-              "font-semibold text-base text-neutral-900 tracking-tighter",
+              "font-semibold text-base text-foreground tracking-tighter",
               geistSans.className
             )}
           >
@@ -419,7 +422,7 @@ const BookingMobileCard = memo(function BookingMobileCard({
       </div>
 
       {(showAcceptDecline || showCapture || showVoid) && (
-        <div className="mt-4 border-neutral-200 border-t pt-4">
+        <div className="mt-4 border-border border-t pt-4">
           {showAcceptDecline && (
             <AcceptDeclineActions
               booking={booking}
@@ -489,7 +492,9 @@ export function ProBookingList({ bookings }: Props) {
   );
 
   if (optimisticBookings.length === 0) {
-    return <p className={cn("text-neutral-700 text-sm", geistSans.className)}>{t("emptyState")}</p>;
+    return (
+      <p className={cn("text-muted-foreground text-sm", geistSans.className)}>{t("emptyState")}</p>
+    );
   }
 
   return (
@@ -498,7 +503,7 @@ export function ProBookingList({ bookings }: Props) {
         <p
           className={cn(
             "text-sm",
-            message.includes("successfully") ? "text-neutral-900" : "text-neutral-900",
+            message.includes("successfully") ? "text-foreground" : "text-foreground",
             geistSans.className
           )}
         >
@@ -540,9 +545,9 @@ export function ProBookingList({ bookings }: Props) {
           </h3>
 
           {/* Desktop Table View - Hidden on mobile */}
-          <div className="hidden overflow-hidden border border-neutral-200 md:block">
-            <table className="min-w-full divide-y divide-neutral-200 text-sm">
-              <thead className="bg-neutral-50 text-neutral-700 text-xs uppercase tracking-wider">
+          <div className="hidden overflow-hidden border border-border md:block">
+            <table className="min-w-full divide-y divide-border text-sm">
+              <thead className="bg-muted/50 text-muted-foreground text-xs uppercase tracking-wider">
                 <tr>
                   <th className={cn("px-4 py-3 text-left", geistSans.className)}>
                     {t("table.booking")}
@@ -564,7 +569,7 @@ export function ProBookingList({ bookings }: Props) {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-200 bg-white">
+              <tbody className="divide-y divide-border bg-card">
                 {otherBookings.map((booking) => (
                   <BookingTableRow
                     booking={booking}

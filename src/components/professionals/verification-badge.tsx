@@ -73,16 +73,16 @@ export function VerificationBadge({ level, size = "sm", className }: Verificatio
     "document-verified": {
       icon: DocumentValidationIcon,
       label: "Documents Verified",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-700",
-      hoverColor: "hover:bg-blue-100",
+      bgColor: "bg-babu-50",
+      textColor: "text-babu-700",
+      hoverColor: "hover:bg-babu-100",
     },
     "interview-completed": {
       icon: UserAccountIcon,
       label: "Interview Completed",
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-700",
-      hoverColor: "hover:bg-orange-100",
+      bgColor: "bg-rausch-50",
+      textColor: "text-rausch-700",
+      hoverColor: "hover:bg-rausch-100",
     },
     "reference-checked": {
       icon: UserMultiple02Icon,

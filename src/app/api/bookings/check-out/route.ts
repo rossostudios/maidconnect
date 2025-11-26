@@ -17,6 +17,7 @@ import {
   initializeRebookNudge,
   prepareCheckOutEmailData,
   sendCheckOutNotifications,
+  updateProfessionalEarningsStats,
   validateCheckOutEligibility,
   verifyAndLogCheckOutLocation,
 } from "@/lib/bookings/check-out-service";
@@ -109,6 +110,15 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
       updateResult.error || "Payment captured but booking update failed. Contact support."
     );
   }
+
+  // Update professional's career earnings stats (non-blocking - Digital CV feature)
+  // This powers the Earnings Badge on public profiles
+  await updateProfessionalEarningsStats(
+    supabase,
+    booking.professional_id,
+    paymentResult.capturedAmount,
+    bookingId
+  );
 
   // Initialize rebook nudge experiment using service (non-blocking)
   await initializeRebookNudge(supabase, bookingId, booking.customer_id);

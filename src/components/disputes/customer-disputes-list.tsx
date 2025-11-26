@@ -49,9 +49,9 @@ const statusConfig: Record<
   investigating: {
     label: "Investigating",
     icon: InformationCircleIcon,
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
-    borderColor: "border-blue-200",
+    bgColor: "bg-babu-50",
+    textColor: "text-babu-700",
+    borderColor: "border-babu-200",
   },
   resolved: {
     label: "Resolved",
@@ -167,7 +167,7 @@ function DisputeCard({ dispute }: { dispute: CustomerDispute }) {
 
       {/* Expand/Collapse */}
       <button
-        className="mt-4 font-medium text-orange-600 text-sm hover:text-orange-700"
+        className="mt-4 font-medium text-rausch-600 text-sm hover:text-rausch-700"
         onClick={() => setIsExpanded(!isExpanded)}
         type="button"
       >

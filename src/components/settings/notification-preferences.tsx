@@ -49,8 +49,8 @@ function ToggleSwitch({
     <button
       aria-checked={checked}
       className={cn(
-        "relative h-6 w-11 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
-        checked ? "bg-orange-500" : "bg-neutral-300",
+        "relative h-6 w-11 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
+        checked ? "bg-rausch-500" : "bg-neutral-300",
         disabled && "cursor-not-allowed opacity-50"
       )}
       disabled={disabled}
@@ -211,12 +211,12 @@ export function NotificationPreferences({ initialPreferences, onSave }: Props) {
         )}
 
         {isPushSupported && !pushEnabled && !pushDenied && (
-          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4">
             <p className="mb-3 text-neutral-700 text-sm">
               Enable push notifications to receive real-time updates about your bookings.
             </p>
             <button
-              className="rounded-lg bg-orange-500 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-orange-600"
+              className="rounded-lg bg-rausch-500 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-rausch-600"
               onClick={handleEnablePush}
               type="button"
             >
@@ -292,7 +292,7 @@ export function NotificationPreferences({ initialPreferences, onSave }: Props) {
       <div className="flex items-center gap-4">
         <button
           className={cn(
-            "rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-white transition-all hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50",
+            "rounded-lg bg-rausch-500 px-6 py-2.5 font-semibold text-white transition-all hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50",
             geistSans.className
           )}
           disabled={isPending}

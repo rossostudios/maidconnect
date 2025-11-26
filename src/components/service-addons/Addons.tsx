@@ -8,7 +8,7 @@ export type ServiceAddon = {
   id: string;
   professional_id: string;
   name: string;
-  description?: string;
+  description?: string | null;
   price_cop: number;
   duration_minutes: number;
   is_active: boolean;

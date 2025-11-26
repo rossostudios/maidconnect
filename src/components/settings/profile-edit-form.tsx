@@ -68,7 +68,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
   return (
     <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
       {/* Header with gradient accent */}
-      <div className="relative border-neutral-100 border-b bg-gradient-to-r from-neutral-50 to-orange-50/30 px-8 py-6">
+      <div className="relative border-neutral-100 border-b bg-gradient-to-r from-neutral-50 to-rausch-50/30 px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-5">
             {/* Avatar with edit overlay */}
@@ -82,9 +82,9 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
                     src={initialData.avatarUrl}
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rausch-100 to-rausch-200">
                     <span
-                      className={cn("font-semibold text-2xl text-orange-600", geistSans.className)}
+                      className={cn("font-semibold text-2xl text-rausch-600", geistSans.className)}
                     >
                       {(initialData.fullName || initialData.email).charAt(0).toUpperCase()}
                     </span>
@@ -128,7 +128,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
                   Cancel
                 </Button>
                 <Button
-                  className="flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2 font-medium text-sm text-white shadow-sm transition hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-lg bg-rausch-500 px-5 py-2 font-medium text-sm text-white shadow-sm transition hover:bg-rausch-600 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2 disabled:opacity-50"
                   isDisabled={isPending}
                   onPress={handleSave}
                 >
@@ -140,7 +140,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
               </div>
             ) : (
               <Button
-                className="rounded-lg border border-neutral-200 bg-white px-5 py-2 font-medium text-neutral-700 text-sm shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                className="rounded-lg border border-neutral-200 bg-white px-5 py-2 font-medium text-neutral-700 text-sm shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
                 onPress={() => setIsEditing(true)}
               >
                 {t("edit") || "Edit Profile"}
@@ -173,7 +173,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
               <Input
                 className={cn(
                   "w-full rounded-lg border bg-neutral-50 px-4 py-3 text-base text-neutral-900 transition",
-                  "focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+                  "focus:border-rausch-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
                   isEditing
                     ? "border-neutral-200 hover:border-neutral-300"
                     : "cursor-default border-transparent"
@@ -210,7 +210,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
               <Input
                 className={cn(
                   "w-full rounded-lg border bg-neutral-50 px-4 py-3 text-base text-neutral-900 transition",
-                  "focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+                  "focus:border-rausch-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
                   isEditing
                     ? "border-neutral-200 hover:border-neutral-300"
                     : "cursor-default border-transparent"
@@ -233,7 +233,7 @@ export function ProfileEditForm({ initialData, onSave }: Props) {
               <Input
                 className={cn(
                   "w-full rounded-lg border bg-neutral-50 px-4 py-3 text-base text-neutral-900 transition",
-                  "focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+                  "focus:border-rausch-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
                   isEditing
                     ? "border-neutral-200 hover:border-neutral-300"
                     : "cursor-default border-transparent"

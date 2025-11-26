@@ -1,8 +1,80 @@
 "use client";
 
+/**
+ * Professional Review Modal
+ *
+ * Modal for reviewing professional applications in admin dashboard.
+ * Uses useModalForm for state management and useApiMutation for API calls.
+ *
+ * Refactored: Phase 1 complexity reduction - extracted helper functions
+ */
+
 import { BaseModal } from "@/components/shared/base-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
+
+// --- Helper Functions (extracted for reduced complexity) ---
+
+/**
+ * Format currency amount in Colombian Pesos
+ */
+function formatMoney(amount?: number): string {
+  if (!amount) {
+    return "—";
+  }
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+/**
+ * Get submit button text based on loading state and action
+ */
+function getSubmitButtonText(
+  isLoading: boolean,
+  action: "approve" | "reject" | "request_info"
+): string {
+  if (isLoading) {
+    return "Submitting...";
+  }
+
+  if (action === "approve") {
+    return "Submit Approval";
+  }
+  if (action === "reject") {
+    return "Submit Rejection";
+  }
+  return "Submit Request";
+}
+
+/**
+ * Get action button className based on selection state
+ */
+function getReviewActionClassName(isSelected: boolean): string {
+  const baseClasses = "flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition";
+
+  if (isSelected) {
+    return `${baseClasses} border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100`;
+  }
+  return `${baseClasses} border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300`;
+}
+
+/**
+ * Format location from city and country
+ */
+function formatLocation(
+  city: string | null | undefined,
+  country: string | null | undefined
+): string {
+  if (city && country) {
+    return `${city}, ${country}`;
+  }
+  return "—";
+}
+
+// --- Types ---
 
 type ProfessionalInQueue = {
   profile_id: string;
@@ -86,17 +158,6 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
     }
   };
 
-  const formatMoney = (amount?: number) => {
-    if (!amount) {
-      return "—";
-    }
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
-
   return (
     <BaseModal
       closeOnBackdropClick={!reviewMutation.isLoading}
@@ -133,9 +194,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 Location
               </div>
               <p className="text-red-700 text-sm dark:text-red-200">
-                {professional.profile?.city
-                  ? `${professional.profile.city}, ${professional.profile.country}`
-                  : "—"}
+                {formatLocation(professional.profile?.city, professional.profile?.country)}
               </p>
             </div>
             <div>
@@ -252,33 +311,21 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           {/* Action Selection */}
           <div className="mb-4 flex gap-2">
             <button
-              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
-                form.formData.action === "approve"
-                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
-              }`}
+              className={getReviewActionClassName(form.formData.action === "approve")}
               onClick={() => form.updateField("action", "approve")}
               type="button"
             >
               ✓ Approve
             </button>
             <button
-              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
-                form.formData.action === "reject"
-                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
-              }`}
+              className={getReviewActionClassName(form.formData.action === "reject")}
               onClick={() => form.updateField("action", "reject")}
               type="button"
             >
               ✕ Reject
             </button>
             <button
-              className={`flex-1 rounded-lg border-2 px-4 py-2 font-medium text-sm transition ${
-                form.formData.action === "request_info"
-                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
-              }`}
+              className={getReviewActionClassName(form.formData.action === "request_info")}
               onClick={() => form.updateField("action", "request_info")}
               type="button"
             >
@@ -399,20 +446,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           onClick={handleSubmit}
           type="button"
         >
-          {(() => {
-            if (reviewMutation.isLoading) {
-              return "Submitting...";
-            }
-
-            let actionText = "Request";
-            if (form.formData.action === "approve") {
-              actionText = "Approval";
-            } else if (form.formData.action === "reject") {
-              actionText = "Rejection";
-            }
-
-            return `Submit ${actionText}`;
-          })()}
+          {getSubmitButtonText(reviewMutation.isLoading, form.formData.action)}
         </button>
       </div>
     </BaseModal>

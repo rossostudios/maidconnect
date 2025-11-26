@@ -21,7 +21,9 @@ import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { ReactAriaProvider } from "@/components/providers/react-aria-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
@@ -116,13 +118,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         {/* LCP Preload: Hero image is the largest contentful paint element */}
-        <link
-          as="image"
-          fetchPriority="high"
-          href="/hero.png"
-          rel="preload"
-          type="image/png"
-        />
+        <link as="image" fetchPriority="high" href="/hero.png" rel="preload" type="image/png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistSans.variable} antialiased`}
@@ -132,34 +128,43 @@ export default async function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <MarketProvider>
               <PreferencesProvider>
-                <SkipLinks>
-                  <SkipLink href="main-content">Skip to main content</SkipLink>
-                  <SkipLink href="footer">Skip to footer</SkipLink>
-                </SkipLinks>
-                <WebVitalsReporter />
-                <PostHogProvider nonce={nonce}>
-                  <FeedbackProvider>
-                    <UnifiedCommandPaletteWrapper>
-                      <ChangelogBanner />
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <SupabaseProvider>
-                          <RealtimeProvider>
-                            <QueryProvider>
-                              <KeyboardShortcutsProvider>
-                                <NuqsAdapter>{children}</NuqsAdapter>
-                              </KeyboardShortcutsProvider>
-                            </QueryProvider>
-                          </RealtimeProvider>
-                        </SupabaseProvider>
-                      </Suspense>
-                      <Suspense fallback={null}>
-                        {/* <AmaraFloatingButton locale={locale} /> */}
-                      </Suspense>
-                      <CookieConsent />
-                    </UnifiedCommandPaletteWrapper>
-                  </FeedbackProvider>
-                </PostHogProvider>
-                {isDraftMode && <DraftModeIndicator />}
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  disableTransitionOnChange
+                  enableSystem
+                >
+                  <SkipLinks>
+                    <SkipLink href="main-content">Skip to main content</SkipLink>
+                    <SkipLink href="footer">Skip to footer</SkipLink>
+                  </SkipLinks>
+                  <WebVitalsReporter />
+                  <PostHogProvider nonce={nonce}>
+                    <FeedbackProvider>
+                      <UnifiedCommandPaletteWrapper>
+                        <ChangelogBanner />
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <SupabaseProvider>
+                            <RealtimeProvider>
+                              <QueryProvider>
+                                <KeyboardShortcutsProvider>
+                                  <ReactAriaProvider>
+                                    <NuqsAdapter>{children}</NuqsAdapter>
+                                  </ReactAriaProvider>
+                                </KeyboardShortcutsProvider>
+                              </QueryProvider>
+                            </RealtimeProvider>
+                          </SupabaseProvider>
+                        </Suspense>
+                        <Suspense fallback={null}>
+                          {/* <AmaraFloatingButton locale={locale} /> */}
+                        </Suspense>
+                        <CookieConsent />
+                      </UnifiedCommandPaletteWrapper>
+                    </FeedbackProvider>
+                  </PostHogProvider>
+                  {isDraftMode && <DraftModeIndicator />}
+                </ThemeProvider>
               </PreferencesProvider>
               <Toaster
                 closeButton

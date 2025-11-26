@@ -76,8 +76,8 @@ function SecurityHero({ isSpanish, lastUpdated }: HeroProps) {
   return (
     <div className="mb-16 text-center">
       <div className="mb-6 flex items-center justify-center">
-        <div className="flex h-20 w-20 items-center justify-center bg-orange-100">
-          <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={SecurityCheckIcon} />
+        <div className="flex h-20 w-20 items-center justify-center bg-rausch-100">
+          <HugeiconsIcon className="h-10 w-10 text-rausch-600" icon={SecurityCheckIcon} />
         </div>
       </div>
       <h1 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
@@ -110,8 +110,8 @@ function SecurityLayerGrid({ isSpanish }: SectionProps) {
         ? "TLS 1.3 en tránsito, AES-256 en reposo"
         : "TLS 1.3 in transit, AES-256 at rest",
       icon: LockKeyIcon,
-      bg: "bg-blue-100",
-      color: "text-blue-600",
+      bg: "bg-babu-100",
+      color: "text-babu-600",
     },
     {
       title: isSpanish ? "Monitoreado" : "Monitored",
@@ -178,8 +178,8 @@ function EncryptionSection({ isSpanish }: SectionProps) {
             : "All your data is protected with enterprise-level encryption both in transit and at rest."
         }
         icon={LockKeyIcon}
-        iconBg="bg-blue-100"
-        iconColor="text-blue-600"
+        iconBg="bg-babu-100"
+        iconColor="text-babu-600"
         title={isSpanish ? "Cifrado de Datos" : "Data Encryption"}
       />
       <div className="space-y-4">
@@ -513,7 +513,7 @@ function DisclosureSection({ isSpanish }: SectionProps) {
       ];
 
   return (
-    <section className="border-2 border-orange-500 bg-orange-50 p-8">
+    <section className="border-2 border-rausch-500 bg-rausch-50 p-8">
       <h2 className="mb-4 font-bold text-2xl text-neutral-900">
         {isSpanish
           ? "Divulgación Responsable de Vulnerabilidades"
@@ -562,7 +562,7 @@ function SecurityContactSection({ isSpanish }: SectionProps) {
           : "For questions about our security practices or to report an issue, contact us:"}
       </p>
       <a
-        className="inline-flex items-center gap-2 bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-600"
+        className="inline-flex items-center gap-2 bg-rausch-500 px-8 py-3 font-semibold text-white transition hover:bg-rausch-600"
         href="mailto:security@casaora.co"
       >
         security@casaora.co

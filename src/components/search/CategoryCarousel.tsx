@@ -69,7 +69,8 @@ export function CategoryCarousel({
   return (
     <div
       className={cn(
-        sticky && "sticky top-16 z-20 -mx-4 bg-white px-4 py-3 shadow-sm md:-mx-8 md:px-8",
+        sticky &&
+          "-mx-4 md:-mx-8 sticky top-16 z-20 bg-white px-4 py-3 shadow-sm md:px-8 dark:border-border dark:border-b dark:bg-background dark:shadow-none",
         className
       )}
     >
@@ -83,8 +84,8 @@ export function CategoryCarousel({
                 "group flex flex-col items-center gap-2 rounded-lg px-4 py-3 transition-all",
                 "min-w-[80px] flex-shrink-0",
                 isActive
-                  ? "bg-orange-50 text-orange-600"
-                  : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
+                  ? "bg-rausch-50 text-rausch-600 dark:bg-rausch-900/30 dark:text-rausch-400"
+                  : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-card dark:hover:text-neutral-50"
               )}
               key={category.id}
               onClick={() => onCategoryChange?.(category.id)}
@@ -93,13 +94,17 @@ export function CategoryCarousel({
               <div
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-lg transition-colors",
-                  isActive ? "bg-orange-100" : "bg-neutral-100 group-hover:bg-neutral-200"
+                  isActive
+                    ? "bg-rausch-100 dark:bg-rausch-900/50"
+                    : "bg-neutral-100 group-hover:bg-neutral-200 dark:bg-card dark:group-hover:bg-muted"
                 )}
               >
                 <HugeiconsIcon
                   className={cn(
                     "h-5 w-5 transition-colors",
-                    isActive ? "text-orange-600" : "text-neutral-500 group-hover:text-neutral-700"
+                    isActive
+                      ? "text-rausch-600 dark:text-rausch-400"
+                      : "text-neutral-500 group-hover:text-neutral-700 dark:text-neutral-400 dark:group-hover:text-neutral-200"
                   )}
                   icon={category.icon}
                 />
@@ -107,7 +112,9 @@ export function CategoryCarousel({
               <span
                 className={cn(
                   "whitespace-nowrap font-medium text-xs",
-                  isActive ? "text-orange-600" : "text-neutral-600 group-hover:text-neutral-900",
+                  isActive
+                    ? "text-rausch-600 dark:text-rausch-400"
+                    : "text-neutral-600 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50",
                   geistSans.className
                 )}
               >
@@ -117,7 +124,7 @@ export function CategoryCarousel({
               <div
                 className={cn(
                   "h-0.5 w-full rounded-full transition-colors",
-                  isActive ? "bg-orange-500" : "bg-transparent"
+                  isActive ? "bg-rausch-500" : "bg-transparent"
                 )}
               />
             </button>

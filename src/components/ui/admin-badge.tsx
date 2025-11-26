@@ -37,9 +37,9 @@ export function AdminBadge({
         size === "lg" && "px-4 py-1.5 text-base",
 
         // Color variants - Neutral + Orange palette
-        variant === "default" && "border-orange-200 bg-orange-50 text-orange-600",
+        variant === "default" && "border-rausch-200 bg-rausch-50 text-rausch-600",
         variant === "success" && "border-neutral-300 bg-neutral-100 text-neutral-900",
-        variant === "warning" && "border-orange-300 bg-orange-100 text-orange-700",
+        variant === "warning" && "border-rausch-300 bg-rausch-100 text-rausch-700",
         variant === "danger" && "border-red-200 bg-red-50 text-red-600",
         variant === "info" && "border-neutral-200 bg-white text-neutral-700",
         variant === "neutral" && "border-neutral-200 bg-neutral-50 text-neutral-600",

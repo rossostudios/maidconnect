@@ -83,7 +83,7 @@ export function ApplicationTracking({
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">Loading application metrics...</p>
         </div>
       </div>
@@ -103,6 +103,17 @@ export function ApplicationTracking({
   if (!metrics) {
     return null;
   }
+
+  // Helper function to get timeline dot classes based on status
+  const getTimelineDotClasses = (status: "completed" | "pending" | "current"): string => {
+    if (status === "completed") {
+      return "border-neutral-900 bg-neutral-900";
+    }
+    if (status === "current") {
+      return "border-rausch-500 bg-rausch-500";
+    }
+    return "border-neutral-200 bg-white";
+  };
 
   return (
     <div className="space-y-8">
@@ -128,8 +139,8 @@ export function ApplicationTracking({
         <Card className="border-neutral-200 bg-neutral-50 transition-shadow hover:shadow-md">
           <CardContent className="p-6">
             <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-orange-50 p-3">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={ClockCircleIcon} />
+              <div className="rounded-lg bg-rausch-50 p-3">
+                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={ClockCircleIcon} />
               </div>
               <p className="font-semibold text-neutral-500 text-xs tracking-wider">
                 Pending Review
@@ -193,7 +204,7 @@ export function ApplicationTracking({
                 </div>
                 <div className="h-8 rounded-lg border border-neutral-200 bg-white">
                   <div
-                    className="h-full rounded-lg bg-orange-500 transition-all duration-500"
+                    className="h-full rounded-lg bg-rausch-500 transition-all duration-500"
                     style={{ width: `${stage.percentage}%` }}
                   />
                 </div>
@@ -221,13 +232,7 @@ export function ApplicationTracking({
                   {/* Timeline Dot */}
                   <div className="flex flex-col items-center">
                     <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border ${
-                        event.status === "completed"
-                          ? "border-neutral-900 bg-neutral-900"
-                          : event.status === "current"
-                            ? "border-orange-500 bg-orange-500"
-                            : "border-neutral-200 bg-white"
-                      }`}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border ${getTimelineDotClasses(event.status)}`}
                     >
                       {event.status === "completed" && (
                         <HugeiconsIcon

@@ -32,7 +32,7 @@ export function ActiveFilters({ chips, onRemove, onClearAll, className }: Active
 
       {activeChips.map((chip) => (
         <button
-          className="group flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-1 text-orange-700 text-sm transition-colors hover:border-orange-300 hover:bg-orange-100"
+          className="group flex items-center gap-1.5 rounded-full border border-rausch-200 bg-rausch-50 px-2.5 py-1 text-rausch-700 text-sm transition-colors hover:border-rausch-300 hover:bg-rausch-100"
           key={chip.key}
           onClick={() => onRemove(chip.key)}
           type="button"
@@ -48,7 +48,7 @@ export function ActiveFilters({ chips, onRemove, onClearAll, className }: Active
 
       {activeChips.length > 1 && (
         <Button
-          className="h-7 text-neutral-600 text-xs hover:text-orange-600"
+          className="h-7 text-neutral-600 text-xs hover:text-rausch-600"
           onClick={onClearAll}
           size="sm"
           variant="ghost"

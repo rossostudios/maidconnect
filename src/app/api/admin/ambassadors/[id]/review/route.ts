@@ -6,10 +6,7 @@ type ReviewRequest = {
   rejectionReason?: string;
 };
 
-export async function POST(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const supabase = await createSupabaseServerClient();
@@ -38,7 +35,7 @@ export async function POST(
     const body: ReviewRequest = await request.json();
     const { action, rejectionReason } = body;
 
-    if (!action || !["approve", "reject"].includes(action)) {
+    if (!(action && ["approve", "reject"].includes(action))) {
       return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }
 

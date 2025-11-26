@@ -47,10 +47,6 @@ export function ModerationQueueDashboard() {
   const [selectedFlagType, setSelectedFlagType] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
 
-  useEffect(() => {
-    loadFlags();
-  }, [loadFlags]);
-
   async function loadFlags() {
     setIsLoading(true);
     try {
@@ -79,6 +75,11 @@ export function ModerationQueueDashboard() {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    loadFlags();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadFlags]);
 
   async function handleDismiss(flagId: string) {
     try {
@@ -126,9 +127,124 @@ export function ModerationQueueDashboard() {
 
   const severityColors = {
     critical: "bg-red-600 text-white",
-    high: "bg-orange-600 text-white",
-    medium: "bg-orange-500 text-white",
+    high: "bg-rausch-600 text-white",
+    medium: "bg-rausch-500 text-white",
     low: "bg-neutral-600 text-white",
+  };
+
+  // Helper function to render flags list content based on state
+  const renderFlagsContent = () => {
+    if (isLoading) {
+      return (
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
+          <p className="text-neutral-600 text-sm">Loading flags...</p>
+        </div>
+      );
+    }
+
+    if (flags.length === 0) {
+      return (
+        <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
+          <p className="text-neutral-600 text-sm">No flags found</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid gap-4">
+        {flags.map((flag) => (
+          <div className="rounded-lg border border-neutral-200 bg-white p-6" key={flag.id}>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-200">
+                  <span className="font-medium text-lg text-neutral-600">
+                    {(flag.user.full_name || "?").charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-semibold text-neutral-900 text-sm">
+                    {flag.user.full_name || "Unnamed User"}
+                  </p>
+                  <p className="text-neutral-600 text-xs">{flag.user.email}</p>
+                  <p className="text-neutral-600 text-xs capitalize">Role: {flag.user.role}</p>
+                </div>
+              </div>
+
+              <span
+                className={`rounded-full px-3 py-1 font-medium text-xs${severityColors[flag.severity]}`}
+              >
+                {flag.severity.charAt(0).toUpperCase() + flag.severity.slice(1)}
+              </span>
+            </div>
+
+            <div className="mt-4 border-neutral-200 border-t pt-4">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="font-medium text-neutral-900 text-sm">
+                  {flag.flag_type
+                    .replace(/_/g, " ")
+                    .split(" ")
+                    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ")}
+                </span>
+                {flag.auto_detected && (
+                  <span className="rounded-lg border border-neutral-200 px-2 py-1 text-neutral-600 text-xs">
+                    Auto-detected
+                  </span>
+                )}
+              </div>
+              <p className="text-neutral-700 text-sm">{flag.reason}</p>
+
+              {flag.metadata && Object.keys(flag.metadata).length > 0 && (
+                <div className="mt-2 rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+                  <p className="mb-1 font-medium text-neutral-900 text-xs">Details:</p>
+                  {Object.entries(flag.metadata).map(([key, value]) => (
+                    <p className="text-neutral-700 text-xs" key={key}>
+                      {key}: {String(value)}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              <p className="mt-2 text-neutral-600 text-xs">
+                Created: {new Date(flag.created_at).toLocaleString()}
+              </p>
+            </div>
+
+            <div className="mt-4 flex gap-3 border-neutral-200 border-t pt-4">
+              <button
+                className="flex-1 rounded-lg border border-rausch-500 bg-rausch-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-rausch-600"
+                onClick={() => {
+                  setSelectedUser({
+                    id: flag.user.id,
+                    full_name: flag.user.full_name,
+                    email: flag.user.email,
+                    role: flag.user.role,
+                    suspension: null,
+                  });
+                }}
+                type="button"
+              >
+                View User / Take Action
+              </button>
+              <button
+                className="rounded-lg border border-neutral-200 px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-900"
+                onClick={() => handleMarkReviewed(flag.id)}
+                type="button"
+              >
+                Mark Reviewed
+              </button>
+              <button
+                className="rounded-lg border border-neutral-200 px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-900"
+                onClick={() => handleDismiss(flag.id)}
+                type="button"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -140,7 +256,7 @@ export function ModerationQueueDashboard() {
             className={
               "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedStatus === "pending" && !selectedSeverity
-                ? "bg-orange-500 text-white"
+                ? "bg-rausch-500 text-white"
                 : "bg-white text-neutral-900 first:rounded-tl-lg hover:bg-neutral-50")
             }
             onClick={() => {
@@ -174,7 +290,7 @@ export function ModerationQueueDashboard() {
             className={
               "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedSeverity === "high"
-                ? "bg-orange-600 text-white"
+                ? "bg-rausch-600 text-white"
                 : "bg-white text-neutral-900 hover:bg-neutral-50")
             }
             onClick={() => {
@@ -190,7 +306,7 @@ export function ModerationQueueDashboard() {
             className={
               "flex-1 border-neutral-200 border-r px-6 py-4 font-medium text-sm transition" +
               (selectedSeverity === "medium"
-                ? "bg-orange-500 text-white"
+                ? "bg-rausch-500 text-white"
                 : "bg-white text-neutral-900 hover:bg-neutral-50")
             }
             onClick={() => {
@@ -206,7 +322,7 @@ export function ModerationQueueDashboard() {
             className={
               "flex-1 px-6 py-4 font-medium text-sm transition" +
               (selectedStatus === "reviewed"
-                ? "bg-orange-500 text-white"
+                ? "bg-rausch-500 text-white"
                 : "bg-white text-neutral-900 last:rounded-tr-xl hover:bg-neutral-50")
             }
             onClick={() => {
@@ -222,14 +338,14 @@ export function ModerationQueueDashboard() {
 
       {/* Flag Type Filters */}
       <div className="rounded-lg border border-neutral-200 bg-white p-4">
-        <label className="mb-2 block font-medium text-neutral-900 text-sm">Filter by Type</label>
+        <p className="mb-2 block font-medium text-neutral-900 text-sm">Filter by Type</p>
         <div className="flex gap-2">
           <button
             className={
               "rounded-lg border px-4 py-2 text-sm transition" +
               (selectedFlagType
                 ? "border-neutral-200 text-neutral-900 hover:border-neutral-900"
-                : "border-orange-500 bg-orange-500 text-white")
+                : "border-rausch-500 bg-rausch-500 text-white")
             }
             onClick={() => setSelectedFlagType(null)}
             type="button"
@@ -276,109 +392,7 @@ export function ModerationQueueDashboard() {
       </div>
 
       {/* Flags List */}
-      {isLoading ? (
-        <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-          <p className="text-neutral-600 text-sm">Loading flags...</p>
-        </div>
-      ) : flags.length === 0 ? (
-        <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center">
-          <p className="text-neutral-600 text-sm">No flags found</p>
-        </div>
-      ) : (
-        <div className="grid gap-4">
-          {flags.map((flag) => (
-            <div className="rounded-lg border border-neutral-200 bg-white p-6" key={flag.id}>
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-200">
-                    <span className="font-medium text-lg text-neutral-600">
-                      {(flag.user.full_name || "?").charAt(0).toUpperCase()}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-neutral-900 text-sm">
-                      {flag.user.full_name || "Unnamed User"}
-                    </p>
-                    <p className="text-neutral-600 text-xs">{flag.user.email}</p>
-                    <p className="text-neutral-600 text-xs capitalize">Role: {flag.user.role}</p>
-                  </div>
-                </div>
-
-                <span
-                  className={`rounded-full px-3 py-1 font-medium text-xs${severityColors[flag.severity]}`}
-                >
-                  {flag.severity.charAt(0).toUpperCase() + flag.severity.slice(1)}
-                </span>
-              </div>
-
-              <div className="mt-4 border-neutral-200 border-t pt-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="font-medium text-neutral-900 text-sm">
-                    {flag.flag_type
-                      .replace(/_/g, " ")
-                      .split(" ")
-                      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-                      .join(" ")}
-                  </span>
-                  {flag.auto_detected && (
-                    <span className="rounded-lg border border-neutral-200 px-2 py-1 text-neutral-600 text-xs">
-                      Auto-detected
-                    </span>
-                  )}
-                </div>
-                <p className="text-neutral-700 text-sm">{flag.reason}</p>
-
-                {flag.metadata && Object.keys(flag.metadata).length > 0 && (
-                  <div className="mt-2 rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-                    <p className="mb-1 font-medium text-neutral-900 text-xs">Details:</p>
-                    {Object.entries(flag.metadata).map(([key, value]) => (
-                      <p className="text-neutral-700 text-xs" key={key}>
-                        {key}: {String(value)}
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                <p className="mt-2 text-neutral-600 text-xs">
-                  Created: {new Date(flag.created_at).toLocaleString()}
-                </p>
-              </div>
-
-              <div className="mt-4 flex gap-3 border-neutral-200 border-t pt-4">
-                <button
-                  className="flex-1 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-orange-600"
-                  onClick={() => {
-                    setSelectedUser({
-                      id: flag.user.id,
-                      full_name: flag.user.full_name,
-                      email: flag.user.email,
-                      role: flag.user.role,
-                      suspension: null,
-                    });
-                  }}
-                  type="button"
-                >
-                  View User / Take Action
-                </button>
-                <button
-                  className="rounded-lg border border-neutral-200 px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-900"
-                  onClick={() => handleMarkReviewed(flag.id)}
-                  type="button"
-                >
-                  Mark Reviewed
-                </button>
-                <button
-                  className="rounded-lg border border-neutral-200 px-4 py-2 font-medium text-neutral-900 text-sm transition hover:border-neutral-900"
-                  onClick={() => handleDismiss(flag.id)}
-                  type="button"
-                >
-                  Dismiss
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      {renderFlagsContent()}
 
       {/* User Moderation Modal */}
       {selectedUser && (

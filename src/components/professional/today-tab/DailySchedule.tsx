@@ -35,24 +35,26 @@ type DailyScheduleProps = {
   className?: string;
 };
 
-const statusStyles: Record<ScheduledBooking["status"], { bg: string; border: string; text: string }> =
-  {
-    confirmed: {
-      bg: "bg-blue-50",
-      border: "border-blue-200",
-      text: "text-blue-700",
-    },
-    in_progress: {
-      bg: "bg-orange-50",
-      border: "border-orange-200",
-      text: "text-orange-700",
-    },
-    completed: {
-      bg: "bg-green-50",
-      border: "border-green-200",
-      text: "text-green-700",
-    },
-  };
+const statusStyles: Record<
+  ScheduledBooking["status"],
+  { bg: string; border: string; text: string }
+> = {
+  confirmed: {
+    bg: "bg-babu-50",
+    border: "border-babu-200",
+    text: "text-babu-700",
+  },
+  in_progress: {
+    bg: "bg-rausch-50",
+    border: "border-rausch-200",
+    text: "text-rausch-700",
+  },
+  completed: {
+    bg: "bg-green-50",
+    border: "border-green-200",
+    text: "text-green-700",
+  },
+};
 
 function formatHour(hour: number): string {
   const ampm = hour >= 12 ? "PM" : "AM";
@@ -78,7 +80,7 @@ export function DailySchedule({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 60_000);
     return () => clearInterval(interval);
   }, []);
 
@@ -97,7 +99,7 @@ export function DailySchedule({
   return (
     <div className={cn("rounded-lg border border-neutral-200 bg-white", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-neutral-200 p-4">
+      <div className="flex items-center justify-between border-neutral-200 border-b p-4">
         <div className="flex items-center gap-2">
           <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Calendar03Icon} />
           <h3 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
@@ -126,8 +128,8 @@ export function DailySchedule({
             transition={{ duration: 0.3 }}
           >
             <div className="flex items-center gap-2">
-              <div className="h-2.5 w-2.5 rounded-full bg-orange-500 shadow-sm" />
-              <div className="h-px flex-1 bg-orange-500" />
+              <div className="h-2.5 w-2.5 rounded-full bg-rausch-500 shadow-sm" />
+              <div className="h-px flex-1 bg-rausch-500" />
             </div>
           </motion.div>
         )}
@@ -136,7 +138,8 @@ export function DailySchedule({
         <div className="space-y-0">
           {hours.map((hour) => {
             const hourBookings = bookings.filter((b) => {
-              const bookingEndHour = b.startHour + Math.floor((b.startMinute + b.durationMinutes) / 60);
+              const bookingEndHour =
+                b.startHour + Math.floor((b.startMinute + b.durationMinutes) / 60);
               return b.startHour <= hour && bookingEndHour > hour;
             });
 
@@ -145,8 +148,8 @@ export function DailySchedule({
             return (
               <div
                 className={cn(
-                  "relative flex min-h-[60px] border-b border-neutral-100 last:border-b-0",
-                  isCurrentHour && "bg-orange-50/30"
+                  "relative flex min-h-[60px] border-neutral-100 border-b last:border-b-0",
+                  isCurrentHour && "bg-rausch-50/30"
                 )}
                 key={hour}
               >
@@ -154,17 +157,19 @@ export function DailySchedule({
                 <div
                   className={cn(
                     "w-12 flex-shrink-0 py-2 pr-3 text-right text-xs",
-                    isCurrentHour ? "font-semibold text-orange-600" : "text-neutral-400"
+                    isCurrentHour ? "font-semibold text-rausch-600" : "text-neutral-400"
                   )}
                 >
                   {formatHour(hour)}
                 </div>
 
                 {/* Booking Slots */}
-                <div className="flex flex-1 flex-col gap-1 border-l border-neutral-100 py-2 pl-3">
+                <div className="flex flex-1 flex-col gap-1 border-neutral-100 border-l py-2 pl-3">
                   {hourBookings.map((booking) => {
                     // Only render at the start hour of the booking
-                    if (booking.startHour !== hour) return null;
+                    if (booking.startHour !== hour) {
+                      return null;
+                    }
 
                     const styles = statusStyles[booking.status];
 
@@ -175,13 +180,7 @@ export function DailySchedule({
                         key={booking.id}
                         transition={{ duration: 0.2 }}
                       >
-                        <div
-                          className={cn(
-                            "rounded-lg border p-2",
-                            styles.bg,
-                            styles.border
-                          )}
-                        >
+                        <div className={cn("rounded-lg border p-2", styles.bg, styles.border)}>
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0 flex-1">
                               <p
@@ -193,14 +192,12 @@ export function DailySchedule({
                               >
                                 {booking.serviceName}
                               </p>
-                              <div className="mt-0.5 flex items-center gap-2 text-xs text-neutral-500">
+                              <div className="mt-0.5 flex items-center gap-2 text-neutral-500 text-xs">
                                 <span className="flex items-center gap-0.5">
                                   <HugeiconsIcon className="h-3 w-3" icon={UserIcon} />
                                   {booking.customerName}
                                 </span>
-                                <span>
-                                  {formatTime(booking.startHour, booking.startMinute)}
-                                </span>
+                                <span>{formatTime(booking.startHour, booking.startMinute)}</span>
                               </div>
                             </div>
                             <Badge
@@ -224,7 +221,7 @@ export function DailySchedule({
 
                   {/* Empty hour slot indicator */}
                   {hourBookings.length === 0 && (
-                    <div className="py-1 text-xs text-neutral-300">Available</div>
+                    <div className="py-1 text-neutral-300 text-xs">Available</div>
                   )}
                 </div>
               </div>
@@ -247,7 +244,7 @@ export function DailyScheduleCompact({ bookings }: { bookings: ScheduledBooking[
 
   if (upcomingBookings.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-4 text-center">
+      <div className="rounded-lg border border-neutral-300 border-dashed bg-neutral-50 p-4 text-center">
         <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
           No bookings scheduled for today
         </p>
@@ -291,7 +288,7 @@ export function DailyScheduleCompact({ bookings }: { bookings: ScheduledBooking[
                 >
                   {booking.serviceName}
                 </p>
-                <p className="flex items-center gap-1 text-xs text-neutral-500">
+                <p className="flex items-center gap-1 text-neutral-500 text-xs">
                   <HugeiconsIcon className="h-3 w-3" icon={UserIcon} />
                   {booking.customerName}
                 </p>

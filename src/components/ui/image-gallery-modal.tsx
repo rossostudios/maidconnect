@@ -169,7 +169,7 @@ export function ImageGalleryModal({
                   "flex h-12 w-12 items-center justify-center rounded-full",
                   "bg-white shadow-lg",
                   "transition-all hover:scale-105 active:scale-95",
-                  "focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+                  "focus:outline-none focus:ring-2 focus:ring-rausch-500/50"
                 )}
                 onPress={goToPrevious}
               >
@@ -209,7 +209,7 @@ export function ImageGalleryModal({
                   "flex h-12 w-12 items-center justify-center rounded-full",
                   "bg-white shadow-lg",
                   "transition-all hover:scale-105 active:scale-95",
-                  "focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+                  "focus:outline-none focus:ring-2 focus:ring-rausch-500/50"
                 )}
                 onPress={goToNext}
               >
@@ -306,7 +306,7 @@ export function GalleryTrigger({ index, onOpen, children, className }: GalleryTr
     <button
       className={cn(
         "relative cursor-pointer overflow-hidden",
-        "focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-rausch-500/50 focus:ring-offset-2",
         className
       )}
       onClick={() => onOpen(index)}

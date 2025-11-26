@@ -12,19 +12,19 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 primary actions
+ * - rausch-500 primary actions
  * - neutral color palette
  */
 
 import {
   Calendar03Icon,
+  Cancel01Icon,
   CheckmarkCircle02Icon,
   Clock01Icon,
   Location01Icon,
   Message01Icon,
   MoreHorizontalIcon,
   SmartPhone01Icon,
-  Cancel01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
@@ -32,9 +32,9 @@ import { geistSans } from "@/app/fonts";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import type { ProBookingWithCustomer } from "@/hooks/use-pro-bookings";
 import { cn } from "@/lib/utils/core";
 import { formatFromMinorUnits } from "@/lib/utils/format";
-import type { ProBookingWithCustomer } from "@/hooks/use-pro-bookings";
 
 // ============================================================================
 // Types
@@ -171,9 +171,9 @@ function getUrgencyStyles(urgency: UrgencyLevel): {
       };
     case "important":
       return {
-        border: "border-l-4 border-l-orange-500",
-        indicator: "bg-orange-500",
-        badge: "border-orange-200 bg-orange-50 text-orange-700",
+        border: "border-l-4 border-l-rausch-500",
+        indicator: "bg-rausch-500",
+        badge: "border-rausch-200 bg-rausch-50 text-rausch-700",
       };
     default:
       return {
@@ -234,23 +234,23 @@ export function ProBookingCard({
         return (
           <div className="flex gap-2">
             <Button
-              variant="default"
-              size="sm"
-              onPress={() => onAccept?.(booking.id)}
-              isDisabled={isLoading || !onAccept}
               className="flex-1"
+              isDisabled={isLoading || !onAccept}
+              onPress={() => onAccept?.(booking.id)}
+              size="sm"
+              variant="default"
             >
-              <HugeiconsIcon icon={CheckmarkCircle02Icon} className="mr-1.5 h-4 w-4" />
+              <HugeiconsIcon className="mr-1.5 h-4 w-4" icon={CheckmarkCircle02Icon} />
               Accept
             </Button>
             <Button
-              variant="outline"
-              size="sm"
-              onPress={() => onDecline?.(booking.id)}
-              isDisabled={isLoading || !onDecline}
               className="border-red-200 text-red-600 hover:bg-red-50"
+              isDisabled={isLoading || !onDecline}
+              onPress={() => onDecline?.(booking.id)}
+              size="sm"
+              variant="outline"
             >
-              <HugeiconsIcon icon={Cancel01Icon} className="mr-1.5 h-4 w-4" />
+              <HugeiconsIcon className="mr-1.5 h-4 w-4" icon={Cancel01Icon} />
               Decline
             </Button>
           </div>
@@ -258,37 +258,37 @@ export function ProBookingCard({
       case "confirmed":
         return (
           <Button
-            variant="default"
-            size="sm"
-            onPress={() => onCheckIn?.(booking.id)}
-            isDisabled={isLoading || !onCheckIn}
             className="w-full"
+            isDisabled={isLoading || !onCheckIn}
+            onPress={() => onCheckIn?.(booking.id)}
+            size="sm"
+            variant="default"
           >
-            <HugeiconsIcon icon={Clock01Icon} className="mr-1.5 h-4 w-4" />
+            <HugeiconsIcon className="mr-1.5 h-4 w-4" icon={Clock01Icon} />
             Check In
           </Button>
         );
       case "in_progress":
         return (
           <Button
-            variant="default"
-            size="sm"
-            onPress={() => onCheckOut?.(booking.id)}
-            isDisabled={isLoading || !onCheckOut}
             className="w-full bg-green-600 hover:bg-green-700"
+            isDisabled={isLoading || !onCheckOut}
+            onPress={() => onCheckOut?.(booking.id)}
+            size="sm"
+            variant="default"
           >
-            <HugeiconsIcon icon={CheckmarkCircle02Icon} className="mr-1.5 h-4 w-4" />
+            <HugeiconsIcon className="mr-1.5 h-4 w-4" icon={CheckmarkCircle02Icon} />
             Check Out
           </Button>
         );
       case "completed":
         return (
           <Button
-            variant="outline"
-            size="sm"
-            onPress={() => onViewDetails?.(booking.id)}
-            isDisabled={!onViewDetails}
             className="w-full"
+            isDisabled={!onViewDetails}
+            onPress={() => onViewDetails?.(booking.id)}
+            size="sm"
+            variant="outline"
           >
             View Details
           </Button>
@@ -300,14 +300,14 @@ export function ProBookingCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
       className={cn(
         "group rounded-lg border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md",
         urgencyStyles.border,
         className
       )}
+      exit={{ opacity: 0, y: -8 }}
+      initial={{ opacity: 0, y: 8 }}
     >
       {/* Card Content */}
       <div className="p-4">
@@ -316,10 +316,7 @@ export function ProBookingCard({
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
               {booking.customer?.avatarUrl && (
-                <AvatarImage
-                  src={booking.customer.avatarUrl}
-                  alt={booking.customer.fullName}
-                />
+                <AvatarImage alt={booking.customer.fullName} src={booking.customer.avatarUrl} />
               )}
               <AvatarFallback>
                 {booking.customer ? getInitials(booking.customer.fullName) : "?"}
@@ -329,21 +326,19 @@ export function ProBookingCard({
               <h3 className={cn("font-semibold text-neutral-900", geistSans.className)}>
                 {booking.customer?.fullName || "Unknown Customer"}
               </h3>
-              <p className="text-neutral-500 text-sm">
-                {booking.serviceName || "Service"}
-              </p>
+              <p className="text-neutral-500 text-sm">{booking.serviceName || "Service"}</p>
             </div>
           </div>
 
           {/* Time Label Badge */}
           {timeLabel && (
             <Badge
-              variant="outline"
-              size="sm"
               className={cn(
                 urgency === "urgent" && "border-red-200 bg-red-50 text-red-700",
-                urgency === "important" && "border-orange-200 bg-orange-50 text-orange-700"
+                urgency === "important" && "border-rausch-200 bg-rausch-50 text-rausch-700"
               )}
+              size="sm"
+              variant="outline"
             >
               {timeLabel}
             </Badge>
@@ -354,7 +349,7 @@ export function ProBookingCard({
         <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-neutral-600 text-sm">
           {/* Date & Time */}
           <div className="flex items-center gap-1.5">
-            <HugeiconsIcon icon={Calendar03Icon} className="h-3.5 w-3.5 text-neutral-400" />
+            <HugeiconsIcon className="h-3.5 w-3.5 text-neutral-400" icon={Calendar03Icon} />
             <span>{formatDate(booking.scheduledStart)}</span>
             <span className="text-neutral-300">•</span>
             <span>{formatTime(booking.scheduledStart)}</span>
@@ -363,7 +358,7 @@ export function ProBookingCard({
           {/* Duration */}
           {booking.durationMinutes && (
             <div className="flex items-center gap-1.5">
-              <HugeiconsIcon icon={Clock01Icon} className="h-3.5 w-3.5 text-neutral-400" />
+              <HugeiconsIcon className="h-3.5 w-3.5 text-neutral-400" icon={Clock01Icon} />
               <span>{booking.durationMinutes}min</span>
             </div>
           )}
@@ -372,7 +367,10 @@ export function ProBookingCard({
         {/* Location */}
         {booking.address && (
           <div className="mb-3 flex items-start gap-1.5 text-neutral-600 text-sm">
-            <HugeiconsIcon icon={Location01Icon} className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400" />
+            <HugeiconsIcon
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400"
+              icon={Location01Icon}
+            />
             <span className="line-clamp-1">{booking.address}</span>
           </div>
         )}
@@ -390,7 +388,7 @@ export function ProBookingCard({
         {/* Price + Status Row */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Badge variant={getStatusVariant(booking.status)} size="sm">
+            <Badge size="sm" variant={getStatusVariant(booking.status)}>
               {booking.status.replace("_", " ")}
             </Badge>
           </div>
@@ -409,23 +407,23 @@ export function ProBookingCard({
           {/* Message Button */}
           {onMessage && booking.customer && (
             <button
-              type="button"
-              onClick={() => onMessage(booking.id)}
-              className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
               aria-label="Message customer"
+              className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
+              onClick={() => onMessage(booking.id)}
+              type="button"
             >
-              <HugeiconsIcon icon={Message01Icon} className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Message01Icon} />
             </button>
           )}
 
           {/* Call Button (if phone available) */}
           {booking.customer?.phone && (
             <a
-              href={`tel:${booking.customer.phone}`}
-              className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
               aria-label="Call customer"
+              className="rounded-lg p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
+              href={`tel:${booking.customer.phone}`}
             >
-              <HugeiconsIcon icon={SmartPhone01Icon} className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={SmartPhone01Icon} />
             </a>
           )}
         </div>
@@ -434,21 +432,21 @@ export function ProBookingCard({
         <div className="flex items-center gap-1">
           {onViewDetails && booking.status !== "completed" && (
             <button
-              type="button"
-              onClick={() => onViewDetails(booking.id)}
               className="rounded-lg px-2.5 py-1.5 text-neutral-500 text-xs transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+              onClick={() => onViewDetails(booking.id)}
+              type="button"
             >
               Details
             </button>
           )}
           {onCancel && (booking.status === "pending" || booking.status === "confirmed") && (
             <button
-              type="button"
-              onClick={() => onCancel(booking.id)}
-              className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-red-600"
               aria-label="More options"
+              className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-red-600"
+              onClick={() => onCancel(booking.id)}
+              type="button"
             >
-              <HugeiconsIcon icon={MoreHorizontalIcon} className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={MoreHorizontalIcon} />
             </button>
           )}
         </div>
@@ -488,20 +486,20 @@ export function ProBookingCardCompact({
         return (
           <div className="flex gap-1.5">
             <Button
-              variant="default"
-              size="sm"
-              onPress={() => onAccept?.(booking.id)}
-              isDisabled={isLoading || !onAccept}
               className="h-8 px-3 text-xs"
+              isDisabled={isLoading || !onAccept}
+              onPress={() => onAccept?.(booking.id)}
+              size="sm"
+              variant="default"
             >
               Accept
             </Button>
             <Button
-              variant="outline"
-              size="sm"
-              onPress={() => onDecline?.(booking.id)}
-              isDisabled={isLoading || !onDecline}
               className="h-8 border-red-200 px-3 text-red-600 text-xs hover:bg-red-50"
+              isDisabled={isLoading || !onDecline}
+              onPress={() => onDecline?.(booking.id)}
+              size="sm"
+              variant="outline"
             >
               Decline
             </Button>
@@ -510,11 +508,11 @@ export function ProBookingCardCompact({
       case "confirmed":
         return (
           <Button
-            variant="default"
-            size="sm"
-            onPress={() => onCheckIn?.(booking.id)}
-            isDisabled={isLoading || !onCheckIn}
             className="h-8 px-3 text-xs"
+            isDisabled={isLoading || !onCheckIn}
+            onPress={() => onCheckIn?.(booking.id)}
+            size="sm"
+            variant="default"
           >
             Check In
           </Button>
@@ -522,11 +520,11 @@ export function ProBookingCardCompact({
       case "in_progress":
         return (
           <Button
-            variant="default"
-            size="sm"
-            onPress={() => onCheckOut?.(booking.id)}
-            isDisabled={isLoading || !onCheckOut}
             className="h-8 bg-green-600 px-3 text-xs hover:bg-green-700"
+            isDisabled={isLoading || !onCheckOut}
+            onPress={() => onCheckOut?.(booking.id)}
+            size="sm"
+            variant="default"
           >
             Check Out
           </Button>
@@ -547,10 +545,7 @@ export function ProBookingCardCompact({
       {/* Avatar */}
       <Avatar className="h-9 w-9 shrink-0">
         {booking.customer?.avatarUrl && (
-          <AvatarImage
-            src={booking.customer.avatarUrl}
-            alt={booking.customer.fullName}
-          />
+          <AvatarImage alt={booking.customer.fullName} src={booking.customer.avatarUrl} />
         )}
         <AvatarFallback className="text-xs">
           {booking.customer ? getInitials(booking.customer.fullName) : "?"}
@@ -560,11 +555,17 @@ export function ProBookingCardCompact({
       {/* Main Info */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className={cn("truncate font-medium text-neutral-900 text-sm", geistSans.className)}>
+          <span
+            className={cn("truncate font-medium text-neutral-900 text-sm", geistSans.className)}
+          >
             {booking.customer?.fullName || "Unknown"}
           </span>
           {timeLabel && (
-            <Badge variant="outline" size="sm" className={cn("shrink-0 text-xs", urgencyStyles.badge)}>
+            <Badge
+              className={cn("shrink-0 text-xs", urgencyStyles.badge)}
+              size="sm"
+              variant="outline"
+            >
               {timeLabel}
             </Badge>
           )}
@@ -585,22 +586,22 @@ export function ProBookingCardCompact({
       <div className="flex shrink-0 items-center gap-2">
         {onMessage && booking.customer && (
           <button
-            type="button"
-            onClick={() => onMessage(booking.id)}
-            className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
             aria-label="Message customer"
+            className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
+            onClick={() => onMessage(booking.id)}
+            type="button"
           >
-            <HugeiconsIcon icon={Message01Icon} className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Message01Icon} />
           </button>
         )}
         {renderQuickAction()}
         {onViewDetails && (
           <button
-            type="button"
-            onClick={() => onViewDetails(booking.id)}
             className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
+            onClick={() => onViewDetails(booking.id)}
+            type="button"
           >
-            <HugeiconsIcon icon={MoreHorizontalIcon} className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={MoreHorizontalIcon} />
           </button>
         )}
       </div>

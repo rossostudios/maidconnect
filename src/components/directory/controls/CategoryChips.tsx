@@ -79,7 +79,9 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
   // Update gradient visibility on scroll
   const updateGradients = () => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const { scrollLeft, scrollWidth, clientWidth } = container;
     setShowLeftGradient(scrollLeft > 0);
@@ -88,7 +90,9 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
 
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     updateGradients();
     container.addEventListener("scroll", updateGradients);
@@ -98,7 +102,7 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
       container.removeEventListener("scroll", updateGradients);
       window.removeEventListener("resize", updateGradients);
     };
-  }, []);
+  }, [updateGradients]);
 
   const handleCategoryClick = (value: ServiceCategory | null) => {
     setFilter("service", value);
@@ -111,7 +115,7 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
       {/* Left gradient fade */}
       <div
         className={cn(
-          "pointer-events-none absolute top-0 left-0 z-10 h-full w-12 bg-gradient-to-r from-neutral-50 to-transparent transition-opacity duration-200",
+          "pointer-events-none absolute top-0 left-0 z-10 h-full w-12 bg-gradient-to-r from-neutral-50 to-transparent transition-opacity duration-200 dark:from-neutral-950",
           showLeftGradient ? "opacity-100" : "opacity-0"
         )}
       />
@@ -126,10 +130,10 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
             <button
               className={cn(
                 "group flex shrink-0 flex-col items-center gap-2 pb-3 transition-all",
-                "border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                "border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-background",
                 isActive
-                  ? "border-neutral-900 text-neutral-900"
-                  : "border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700"
+                  ? "border-neutral-900 text-neutral-900 dark:border-neutral-50 dark:text-neutral-50"
+                  : "border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:text-neutral-300"
               )}
               key={category.value ?? "all"}
               onClick={() => handleCategoryClick(category.value)}
@@ -138,7 +142,9 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
               <HugeiconsIcon
                 className={cn(
                   "h-6 w-6 transition-colors",
-                  isActive ? "text-neutral-900" : "text-neutral-500 group-hover:text-neutral-700"
+                  isActive
+                    ? "text-neutral-900 dark:text-neutral-50"
+                    : "text-neutral-500 group-hover:text-neutral-700 dark:text-neutral-400 dark:group-hover:text-neutral-300"
                 )}
                 icon={category.icon}
               />
@@ -151,7 +157,7 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
       {/* Right gradient fade */}
       <div
         className={cn(
-          "pointer-events-none absolute top-0 right-0 z-10 h-full w-12 bg-gradient-to-l from-neutral-50 to-transparent transition-opacity duration-200",
+          "pointer-events-none absolute top-0 right-0 z-10 h-full w-12 bg-gradient-to-l from-neutral-50 to-transparent transition-opacity duration-200 dark:from-neutral-950",
           showRightGradient ? "opacity-100" : "opacity-0"
         )}
       />

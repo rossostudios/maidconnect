@@ -159,7 +159,7 @@ export function EarningsBadge({
                 {/* Progress Bar */}
                 <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-100">
                   <div
-                    className="h-full rounded-full bg-orange-500 transition-all"
+                    className="h-full rounded-full bg-rausch-500 transition-all"
                     style={{ width: `${progress.progress}%` }}
                   />
                 </div>
@@ -264,7 +264,7 @@ export function EarningsBadgeTooltip({ totalBookings, children }: EarningsBadgeT
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-100">
                 <div
-                  className="h-full rounded-full bg-orange-500"
+                  className="h-full rounded-full bg-rausch-500"
                   style={{ width: `${progress.progress}%` }}
                 />
               </div>

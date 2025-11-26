@@ -199,7 +199,7 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
       <div className="mb-3 flex items-center justify-between">
         <span
           className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${
-            isPermanent ? "bg-red-50 text-red-700" : "bg-orange-50 text-orange-700"
+            isPermanent ? "bg-red-50 text-red-700" : "bg-rausch-50 text-rausch-700"
           }`}
         >
           {isPermanent ? "Banned" : "Suspended"}

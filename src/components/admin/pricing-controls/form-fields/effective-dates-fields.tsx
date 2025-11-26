@@ -27,7 +27,7 @@ export function EffectiveDatesFields({ formData, updateField }: EffectiveDatesFi
             Effective From
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-effective-from"
             onChange={(e) => updateField("effective_from", e.target.value)}
             type="date"
@@ -42,7 +42,7 @@ export function EffectiveDatesFields({ formData, updateField }: EffectiveDatesFi
             Effective Until (optional)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-effective-until"
             onChange={(e) => updateField("effective_until", e.target.value)}
             type="date"

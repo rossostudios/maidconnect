@@ -23,8 +23,8 @@ export default function ProLandingPage() {
       <div className="container mx-auto px-4 py-16 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
           {/* Icon */}
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
-            <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={Link01Icon} size={40} />
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-rausch-100">
+            <HugeiconsIcon className="h-10 w-10 text-rausch-600" icon={Link01Icon} size={40} />
           </div>
 
           {/* Heading */}
@@ -61,7 +61,7 @@ export default function ProLandingPage() {
             <h2 className="mb-4 font-semibold text-neutral-900">How profile links work</h2>
             <div className="space-y-4 text-neutral-700 text-sm">
               <div className="flex gap-3">
-                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-xs">
+                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rausch-100 font-semibold text-rausch-600 text-xs">
                   1
                 </div>
                 <p>
@@ -72,7 +72,7 @@ export default function ProLandingPage() {
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-xs">
+                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rausch-100 font-semibold text-rausch-600 text-xs">
                   2
                 </div>
                 <p>
@@ -81,13 +81,13 @@ export default function ProLandingPage() {
                 </p>
               </div>
               <div className="flex gap-3">
-                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 font-semibold text-orange-600 text-xs">
+                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rausch-100 font-semibold text-rausch-600 text-xs">
                   3
                 </div>
                 <p>
                   If you don't have a specific link, browse our{" "}
                   <Link
-                    className="font-medium text-orange-600 hover:underline"
+                    className="font-medium text-rausch-600 hover:underline"
                     href="/professionals"
                   >
                     professionals directory

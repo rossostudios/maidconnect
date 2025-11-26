@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
-import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
 import { requireAdmin } from "@/lib/admin-helpers";
+import { CACHE_DURATIONS, CACHE_TAGS } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
 import { withRateLimit } from "@/lib/utils/rate-limit";
 
@@ -9,10 +9,7 @@ type RawProfessionalData = {
   profile_id: string;
   status: string | null;
   created_at: string;
-  profile:
-    | { onboarding_status: string | null }
-    | { onboarding_status: string | null }[]
-    | null;
+  profile: { onboarding_status: string | null } | { onboarding_status: string | null }[] | null;
 };
 
 type TransformedProfessional = Omit<RawProfessionalData, "profile"> & {
@@ -74,10 +71,12 @@ const getCachedApplicationStats = unstable_cache(
     }
 
     // Transform profile from array to object
-    const transformedProfessionals = ((professionals || []) as RawProfessionalData[]).map((prof): TransformedProfessional => ({
-      ...prof,
-      profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
-    }));
+    const transformedProfessionals = ((professionals || []) as RawProfessionalData[]).map(
+      (prof): TransformedProfessional => ({
+        ...prof,
+        profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
+      })
+    );
 
     // Count applications by status
     const totalApplications = transformedProfessionals.length;

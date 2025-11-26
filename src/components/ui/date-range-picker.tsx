@@ -171,9 +171,9 @@ export function DateRangePicker({
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+          "flex w-full items-center justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
           !value.from && "text-neutral-500",
-          open && "border-orange-500 ring-2 ring-orange-500/20"
+          open && "border-rausch-500 ring-2 ring-rausch-500/20"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
@@ -253,13 +253,13 @@ export function DateRangePicker({
                     !inCurrentMonth && "cursor-default",
                     // Range styling
                     (start || end) &&
-                      "z-10 rounded-lg bg-orange-500 text-white shadow-sm hover:bg-orange-600",
-                    inRange && "rounded-none bg-orange-50 text-orange-900",
+                      "z-10 rounded-lg bg-rausch-500 text-white shadow-sm hover:bg-rausch-600",
+                    inRange && "rounded-none bg-rausch-50 text-rausch-900",
                     start && value.to && "rounded-r-none",
                     end && "rounded-l-none",
                     !selected &&
                       isToday &&
-                      "rounded-lg border border-orange-500 font-medium text-orange-600",
+                      "rounded-lg border border-rausch-500 font-medium text-rausch-600",
                     !(selected || isToday) && inCurrentMonth && "rounded-lg hover:bg-neutral-100"
                   )}
                   disabled={!inCurrentMonth}

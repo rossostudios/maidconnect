@@ -109,7 +109,7 @@ export function AdminSecuritySettings() {
                 Current Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
                 id="current-password"
                 onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
                 required
@@ -126,7 +126,7 @@ export function AdminSecuritySettings() {
                 New Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
                 id="new-password"
                 minLength={8}
                 onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
@@ -145,7 +145,7 @@ export function AdminSecuritySettings() {
                 Confirm New Password
               </label>
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
                 id="confirm-password"
                 onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
                 required

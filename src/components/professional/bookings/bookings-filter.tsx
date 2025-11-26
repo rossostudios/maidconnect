@@ -15,18 +15,14 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 active states
+ * - rausch-500 active states
  * - neutral color palette
  */
 
-import {
-  Cancel01Icon,
-  FilterIcon,
-  Search01Icon,
-} from "@hugeicons/core-free-icons";
+import { Cancel01Icon, FilterIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { motion, AnimatePresence } from "motion/react";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -36,7 +32,13 @@ import { cn } from "@/lib/utils";
 // Types
 // ============================================================================
 
-export type BookingStatusFilter = "all" | "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
+export type BookingStatusFilter =
+  | "all"
+  | "pending"
+  | "confirmed"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
 
 export type DateRangeFilter = "all" | "today" | "week" | "month" | "history";
 
@@ -122,13 +124,14 @@ export function BookingsFilter({
   }, [filters.search]);
 
   // Cleanup debounce on unmount
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
       }
-    };
-  }, []);
+    },
+    []
+  );
 
   return (
     <div className={cn("space-y-4", className)}>
@@ -137,14 +140,14 @@ export function BookingsFilter({
         {/* Search Input */}
         <div className="relative flex-1">
           <HugeiconsIcon
-            className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400"
+            className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-neutral-400"
             icon={Search01Icon}
           />
           <input
             className={cn(
               "h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 py-2 pr-4 pl-10 text-sm",
               "placeholder:text-neutral-400",
-              "focus:border-orange-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+              "focus:border-rausch-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
               "transition-all",
               geistSans.className
             )}
@@ -155,7 +158,7 @@ export function BookingsFilter({
           />
           {localSearch && (
             <button
-              className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-0.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
+              className="-translate-y-1/2 absolute top-1/2 right-3 rounded-full p-0.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
               onClick={() => {
                 setLocalSearch("");
                 onFiltersChange({ search: "" });
@@ -269,10 +272,10 @@ function FilterPill({ label, isActive, onClick }: FilterPillProps) {
     <button
       className={cn(
         "relative rounded-full border px-3 py-1.5 font-medium text-xs transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         isActive
-          ? "border-orange-200 bg-orange-50 text-orange-700"
-          : "border-neutral-200 bg-white text-neutral-600 hover:border-orange-200 hover:bg-orange-50/50"
+          ? "border-rausch-200 bg-rausch-50 text-rausch-700"
+          : "border-neutral-200 bg-white text-neutral-600 hover:border-rausch-200 hover:bg-rausch-50/50"
       )}
       onClick={onClick}
       type="button"
@@ -280,7 +283,7 @@ function FilterPill({ label, isActive, onClick }: FilterPillProps) {
       {label}
       {isActive && (
         <motion.div
-          className="absolute inset-0 rounded-full border-2 border-orange-300"
+          className="absolute inset-0 rounded-full border-2 border-rausch-300"
           layoutId="filter-pill-active"
           transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
         />
@@ -319,14 +322,14 @@ export function BookingsFilterCompact({
       {/* Search Input - Always visible */}
       <div className="relative flex-1">
         <HugeiconsIcon
-          className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400"
+          className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-neutral-400"
           icon={Search01Icon}
         />
         <input
           className={cn(
             "h-10 w-full rounded-lg border border-neutral-200 bg-neutral-50 py-2 pr-4 pl-10 text-sm",
             "placeholder:text-neutral-400",
-            "focus:border-orange-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+            "focus:border-rausch-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
             geistSans.className
           )}
           onChange={(e) => onFiltersChange({ search: e.target.value })}
@@ -338,20 +341,17 @@ export function BookingsFilterCompact({
 
       {/* Filter Toggle Button */}
       <Button
-        className={cn(
-          "relative",
-          activeFilterCount > 0 && "border-orange-200 bg-orange-50"
-        )}
+        className={cn("relative", activeFilterCount > 0 && "border-rausch-200 bg-rausch-50")}
         onPress={() => onOpenChange?.(!isOpen)}
         size="icon"
         variant="outline"
       >
         <HugeiconsIcon
-          className={cn("h-5 w-5", activeFilterCount > 0 && "text-orange-600")}
+          className={cn("h-5 w-5", activeFilterCount > 0 && "text-rausch-600")}
           icon={FilterIcon}
         />
         {activeFilterCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 font-semibold text-white text-xs">
+          <span className="-top-1 -right-1 absolute flex h-4 w-4 items-center justify-center rounded-full bg-rausch-500 font-semibold text-white text-xs">
             {activeFilterCount}
           </span>
         )}
@@ -373,12 +373,14 @@ export function BookingsFilterSummary({
   const activeFilters: Array<{ key: keyof BookingsFilterState; label: string; value: string }> = [];
 
   if (filters.status !== "all") {
-    const statusLabel = STATUS_OPTIONS.find((o) => o.value === filters.status)?.label || filters.status;
+    const statusLabel =
+      STATUS_OPTIONS.find((o) => o.value === filters.status)?.label || filters.status;
     activeFilters.push({ key: "status", label: "Status", value: statusLabel });
   }
 
   if (filters.dateRange !== "all") {
-    const dateLabel = DATE_OPTIONS.find((o) => o.value === filters.dateRange)?.label || filters.dateRange;
+    const dateLabel =
+      DATE_OPTIONS.find((o) => o.value === filters.dateRange)?.label || filters.dateRange;
     activeFilters.push({ key: "dateRange", label: "Date", value: dateLabel });
   }
 
@@ -404,7 +406,7 @@ export function BookingsFilterSummary({
       <span className={cn("text-neutral-500 text-sm", geistSans.className)}>Showing:</span>
       {activeFilters.map((filter) => (
         <Badge
-          className="cursor-pointer border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100"
+          className="cursor-pointer border-rausch-200 bg-rausch-50 text-rausch-700 hover:bg-rausch-100"
           key={filter.key}
           onClick={() => handleRemove(filter.key)}
           size="sm"

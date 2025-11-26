@@ -66,7 +66,7 @@ export function LiaDataTablePagination<TData>({
             </label>
             <select
               className={cn(
-                "rounded-lg border border-neutral-200 bg-white px-2 py-1 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25",
+                "rounded-lg border border-neutral-200 bg-white px-2 py-1 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-300 hover:bg-neutral-50 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/25",
                 geistSans.className
               )}
               id="page-size"

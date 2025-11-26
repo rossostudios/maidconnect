@@ -159,8 +159,8 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
                 width={96}
               />
             ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-neutral-200 bg-orange-50">
-                <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={UserCircleIcon} />
+              <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-neutral-200 bg-rausch-50">
+                <HugeiconsIcon className="h-12 w-12 text-rausch-500" icon={UserCircleIcon} />
               </div>
             )}
             <button
@@ -205,7 +205,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </label>
           {isEditing ? (
             <input
-              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="admin-profile-full-name"
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               type="text"
@@ -234,7 +234,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
                 id="admin-profile-phone"
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 type="tel"
@@ -255,7 +255,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
                 id="admin-profile-city"
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 type="text"
@@ -277,7 +277,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </label>
           {isEditing ? (
             <input
-              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="admin-profile-country"
               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
               type="text"
@@ -294,7 +294,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleSave}
               type="button"

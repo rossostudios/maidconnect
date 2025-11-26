@@ -113,7 +113,7 @@ export function SubscriptionManager({ subscription, discount }: Props) {
         </div>
 
         <Button
-          className="rounded-lg bg-orange-500 hover:bg-orange-600"
+          className="rounded-lg bg-rausch-500 hover:bg-rausch-600"
           onClick={() => router.push("/pricing")}
         >
           View Plans
@@ -124,7 +124,7 @@ export function SubscriptionManager({ subscription, discount }: Props) {
 
   const statusColors: Record<string, { bg: string; text: string }> = {
     active: { bg: "bg-green-100", text: "text-green-700" },
-    trialing: { bg: "bg-blue-100", text: "text-blue-700" },
+    trialing: { bg: "bg-babu-100", text: "text-babu-700" },
     past_due: { bg: "bg-yellow-100", text: "text-yellow-700" },
     canceled: { bg: "bg-red-100", text: "text-red-700" },
     unpaid: { bg: "bg-red-100", text: "text-red-700" },
@@ -155,7 +155,7 @@ export function SubscriptionManager({ subscription, discount }: Props) {
         </div>
 
         {subscription.plan.priorityBadge && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-3 py-1 font-medium text-orange-700 text-xs">
+          <span className="inline-flex items-center gap-1 rounded-full bg-rausch-100 px-3 py-1 font-medium text-rausch-700 text-xs">
             <HugeiconsIcon className="h-3 w-3" icon={CreditCardIcon} />
             Priority Badge
           </span>

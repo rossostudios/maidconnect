@@ -103,10 +103,10 @@ function ErrorDisplay({ error }: { error: Error }) {
       <div className="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-8 shadow-lg">
         {/* Error Icon */}
         <div className="mb-6 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-50">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-rausch-50">
             <svg
               aria-label="Error"
-              className="h-8 w-8 text-orange-500"
+              className="h-8 w-8 text-rausch-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -147,7 +147,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full rounded-lg bg-orange-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-orange-600"
+            className="w-full rounded-lg bg-rausch-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-rausch-600"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -165,7 +165,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Support Link */}
         <p className="mt-6 text-center text-neutral-500 text-xs">
           Need help?{" "}
-          <a className="text-orange-600 underline hover:text-orange-700" href="/contact">
+          <a className="text-rausch-600 underline hover:text-rausch-700" href="/contact">
             Contact Support
           </a>
         </p>

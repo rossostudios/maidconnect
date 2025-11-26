@@ -323,11 +323,11 @@ WHERE profile_id = '[professionalId]';
 4. Locate professional with approved video
 
 **Expected Results:**
-- ✅ Professional card shows orange "Intro video" badge
+- ✅ Professional card shows coral "Intro video" badge
 - ✅ Badge uses Lia Design System styling:
-  - Background: `bg-orange-50`
-  - Border: `border-orange-200`
-  - Text: `text-orange-600`
+  - Background: `bg-rausch-50`
+  - Border: `border-rausch-200`
+  - Text: `text-rausch-600`
   - Border radius: `rounded-lg`
 - ✅ Badge includes video icon
 - ✅ Badge only appears for professionals with `intro_video_status = 'approved'`

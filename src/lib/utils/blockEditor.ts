@@ -5,6 +5,24 @@
 
 import type { BlockType, CalloutType, EditorBlock } from "@/types/blockEditor";
 
+// Lookup object for callout emojis (Biome noNestedTernary fix)
+const CALLOUT_EMOJIS: Record<CalloutType, string> = {
+  info: "💡",
+  warning: "⚠️",
+  success: "✅",
+  error: "❌",
+};
+
+// Module-scope regex patterns for performance (Biome useTopLevelRegex fix)
+const DIVIDER_PATTERN = /^(-{3,}|\*{3,})$/;
+const EMOJI_PREFIX_PATTERN = /^(💡|⚠️|✅|❌)\s*/;
+const KEYWORD_PREFIX_PATTERN = /^(tip:|warning:|success:|error:)\s*/i;
+const IMAGE_PATTERN = /^!\[(.*?)]\((.*?)\)$/;
+const CHECKBOX_PATTERN = /^[-*]\s\[( |x|X)\]\s+/;
+const CHECKBOX_CHECKED_PATTERN = /^[-*]\s\[(x|X)\]\s+/;
+const BULLET_LIST_PATTERN = /^[-*]\s/;
+const ORDERED_LIST_PATTERN = /^\d+\.\s/;
+
 type MarkdownParseOptions = {
   deterministic?: boolean;
   seed?: string;
@@ -111,7 +129,7 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
     }
 
     // Divider markdown (--- or ***)
-    if (line?.match(/^(-{3,}|\*{3,})$/)) {
+    if (line?.match(DIVIDER_PATTERN)) {
       flushListBlock();
       blocks.push({
         id: nextId(),
@@ -140,8 +158,8 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
 
       // Remove emoji/keyword prefix
       const cleanContent = content
-        .replace(/^(💡|⚠️|✅|❌)\s*/, "")
-        .replace(/^(tip:|warning:|success:|error:)\s*/i, "");
+        .replace(EMOJI_PREFIX_PATTERN, "")
+        .replace(KEYWORD_PREFIX_PATTERN, "");
 
       blocks.push({
         id: nextId(),
@@ -153,7 +171,7 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
     }
 
     // Image block ![caption](url)
-    const imageMatch = line?.match(/^!\[(.*?)]\((.*?)\)$/);
+    const imageMatch = line?.match(IMAGE_PATTERN);
     if (imageMatch) {
       const [, caption = "", url = ""] = imageMatch;
       blocks.push({
@@ -166,10 +184,10 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
     }
 
     // Checkbox / checklist item
-    if (line?.match(/^[-*]\s\[( |x|X)\]\s+/)) {
+    if (line?.match(CHECKBOX_PATTERN)) {
       flushListBlock();
-      const checked = /^[-*]\s\[(x|X)\]\s+/.test(line);
-      const content = line.replace(/^[-*]\s\[( |x|X)\]\s+/, "").trim();
+      const checked = CHECKBOX_CHECKED_PATTERN.test(line);
+      const content = line.replace(CHECKBOX_PATTERN, "").trim();
       blocks.push({
         id: nextId(),
         type: "checkbox",
@@ -180,7 +198,7 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
     }
 
     // Bullet list
-    if (line?.match(/^[-*]\s/)) {
+    if (line?.match(BULLET_LIST_PATTERN)) {
       const content = line.slice(2).trim();
       if (currentBlock?.type === "bulletList") {
         listItems.push(content);
@@ -198,8 +216,8 @@ export function markdownToBlocks(markdown: string, options?: MarkdownParseOption
     }
 
     // Ordered list
-    if (line?.match(/^\d+\.\s/)) {
-      const content = line.replace(/^\d+\.\s/, "").trim();
+    if (line?.match(ORDERED_LIST_PATTERN)) {
+      const content = line.replace(ORDERED_LIST_PATTERN, "").trim();
       if (currentBlock?.type === "orderedList") {
         listItems.push(content);
       } else {
@@ -287,14 +305,7 @@ export function blocksToMarkdown(blocks: EditorBlock[]): string {
 
         case "callout": {
           const calloutType = block.metadata?.calloutType ?? "info";
-          const emoji =
-            calloutType === "info"
-              ? "💡"
-              : calloutType === "warning"
-                ? "⚠️"
-                : calloutType === "success"
-                  ? "✅"
-                  : "❌";
+          const emoji = CALLOUT_EMOJIS[calloutType];
           return `> ${emoji} ${block.content}`;
         }
 

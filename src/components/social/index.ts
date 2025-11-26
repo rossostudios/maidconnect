@@ -13,13 +13,13 @@
 
 export {
   ActivityFeed,
-  ProfileCard,
-  ProfileHeader,
-  ReviewsShowcase,
-  ShareProfileModal,
   type ActivityItem,
   type ProfileBadge,
+  ProfileCard,
+  ProfileHeader,
   type ProfileReview,
   type ProfileStats,
+  ReviewsShowcase,
+  ShareProfileModal,
   type SocialProfile,
 } from "./social-profile";

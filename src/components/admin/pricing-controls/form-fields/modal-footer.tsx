@@ -29,7 +29,7 @@ export function ModalFooter({ isEditing, isLoading, onClose }: ModalFooterProps)
         Cancel
       </button>
       <button
-        className="bg-orange-500 px-6 py-2 font-semibold text-sm text-white transition hover:bg-orange-600 disabled:opacity-50"
+        className="bg-rausch-500 px-6 py-2 font-semibold text-sm text-white transition hover:bg-rausch-600 disabled:opacity-50"
         disabled={isLoading}
         type="submit"
       >

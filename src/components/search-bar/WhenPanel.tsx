@@ -34,7 +34,9 @@ function MiniCalendar({
   }
 
   const isSelected = (day: number) => {
-    if (!(selectedDate && day)) return false;
+    if (!(selectedDate && day)) {
+      return false;
+    }
     return (
       selectedDate.getDate() === day &&
       selectedDate.getMonth() === month &&
@@ -75,26 +77,37 @@ function MiniCalendar({
       {/* Month navigation */}
       <div className="mb-4 flex items-center justify-between">
         <button
-          className="rounded-full p-2 hover:bg-neutral-100"
+          className="rounded-full p-2 hover:bg-neutral-100 dark:hover:bg-muted"
           onClick={handlePrevMonth}
           type="button"
         >
-          <HugeiconsIcon className="h-4 w-4 text-neutral-600" icon={ArrowLeft01Icon} />
+          <HugeiconsIcon
+            className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+            icon={ArrowLeft01Icon}
+          />
         </button>
-        <span className="font-semibold text-neutral-900">{format(viewDate, "MMMM yyyy")}</span>
+        <span className="font-semibold text-neutral-900 dark:text-neutral-50">
+          {format(viewDate, "MMMM yyyy")}
+        </span>
         <button
-          className="rounded-full p-2 hover:bg-neutral-100"
+          className="rounded-full p-2 hover:bg-neutral-100 dark:hover:bg-muted"
           onClick={handleNextMonth}
           type="button"
         >
-          <HugeiconsIcon className="h-4 w-4 text-neutral-600" icon={ArrowRight01Icon} />
+          <HugeiconsIcon
+            className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
+            icon={ArrowRight01Icon}
+          />
         </button>
       </div>
 
       {/* Weekday headers */}
       <div className="mb-2 grid grid-cols-7 gap-1">
         {weekDays.map((day, i) => (
-          <div className="py-2 text-center font-medium text-neutral-500 text-xs" key={i}>
+          <div
+            className="py-2 text-center font-medium text-neutral-500 text-xs dark:text-neutral-400"
+            key={i}
+          >
             {day}
           </div>
         ))}
@@ -109,10 +122,12 @@ function MiniCalendar({
                 className={cn(
                   "flex h-full w-full items-center justify-center rounded-full text-sm transition-all",
                   isPast(day)
-                    ? "cursor-not-allowed text-neutral-300"
-                    : "cursor-pointer hover:bg-neutral-100",
-                  isSelected(day) && "bg-orange-500 font-semibold text-white hover:bg-orange-600",
-                  isToday(day) && !isSelected(day) && "font-semibold text-orange-600"
+                    ? "cursor-not-allowed text-neutral-300 dark:text-neutral-600"
+                    : "cursor-pointer text-neutral-900 hover:bg-neutral-100 dark:text-neutral-50 dark:hover:bg-muted",
+                  isSelected(day) && "bg-rausch-500 font-semibold text-white hover:bg-rausch-600",
+                  isToday(day) &&
+                    !isSelected(day) &&
+                    "font-semibold text-rausch-600 dark:text-rausch-400"
                 )}
                 disabled={isPast(day)}
                 onClick={() => handleDayClick(day)}
@@ -151,13 +166,13 @@ export function WhenPanel({ selectedDate, onDateSelect, onClose, className }: Wh
   return (
     <div
       className={cn(
-        "w-[520px] rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-neutral-200/50",
+        "w-[520px] rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-neutral-200/50 dark:bg-card dark:shadow-none dark:ring-border",
         className
       )}
     >
       <div className="grid grid-cols-[140px_1fr] gap-8">
         {/* Quick picks column */}
-        <div className="border-neutral-200 border-r pr-6">
+        <div className="border-neutral-200 border-r pr-6 dark:border-border">
           <QuickDatePills onDateSelect={handleDateSelect} selectedDate={selectedDate} />
         </div>
 
@@ -168,21 +183,26 @@ export function WhenPanel({ selectedDate, onDateSelect, onClose, className }: Wh
       </div>
 
       {/* Flexible option */}
-      <div className="mt-6 border-neutral-200 border-t pt-4">
+      <div className="mt-6 border-neutral-200 border-t pt-4 dark:border-border">
         <button
-          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-all hover:bg-neutral-100"
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-all hover:bg-neutral-100 dark:hover:bg-muted"
           onClick={() => {
             // For flexible dates, we'll just close the panel without setting a date
             onClose?.();
           }}
           type="button"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100">
-            <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Calendar01Icon} />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-muted">
+            <HugeiconsIcon
+              className="h-5 w-5 text-neutral-600 dark:text-neutral-400"
+              icon={Calendar01Icon}
+            />
           </div>
           <div>
-            <div className="font-medium text-neutral-900">I'm flexible</div>
-            <div className="text-neutral-500 text-sm">Browse without specific dates</div>
+            <div className="font-medium text-neutral-900 dark:text-neutral-50">I'm flexible</div>
+            <div className="text-neutral-500 text-sm dark:text-neutral-400">
+              Browse without specific dates
+            </div>
           </div>
         </button>
       </div>

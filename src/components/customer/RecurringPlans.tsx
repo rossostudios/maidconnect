@@ -60,6 +60,28 @@ const FREQUENCY_LABELS: Record<string, string> = {
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+// Lookup objects to replace nested ternaries (Biome noNestedTernary fix)
+type PlanStatus = "active" | "paused" | "cancelled";
+type FilterType = "all" | "active" | "paused";
+
+const STATUS_LABELS: Record<PlanStatus, string> = {
+  active: "Active",
+  paused: "Paused",
+  cancelled: "Cancelled",
+};
+
+const STATUS_BADGE_CLASSES: Record<PlanStatus, string> = {
+  active: "bg-[neutral-500]/10 text-[neutral-500]",
+  paused: "bg-[neutral-500]/10 text-[neutral-500]",
+  cancelled: "bg-[neutral-200]/30 text-[neutral-400]",
+};
+
+const EMPTY_STATE_TITLES: Record<FilterType, string> = {
+  all: "No recurring plans yet",
+  active: "No active recurring plans",
+  paused: "No paused plans",
+};
+
 export function RecurringPlansManager({
   initialPlans,
   userId: _userId,
@@ -126,11 +148,7 @@ export function RecurringPlansManager({
             <HugeiconsIcon className="h-8 w-8 text-[neutral-400]" icon={Calendar03Icon} />
           </div>
           <h3 className="font-semibold text-[neutral-900] text-xl">
-            {filter === "active"
-              ? "No active recurring plans"
-              : filter === "paused"
-                ? "No paused plans"
-                : "No recurring plans yet"}
+            {EMPTY_STATE_TITLES[filter]}
           </h3>
           <p className="mt-2 text-[neutral-400]">
             {filter === "all"
@@ -273,19 +291,9 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
 
             {/* Status Badge */}
             <span
-              className={`inline-flex px-3 py-1 font-semibold text-xs ${
-                plan.status === "active"
-                  ? "bg-[neutral-500]/10 text-[neutral-500]"
-                  : plan.status === "paused"
-                    ? "bg-[neutral-500]/10 text-[neutral-500]"
-                    : "bg-[neutral-200]/30 text-[neutral-400]"
-              }`}
+              className={`inline-flex px-3 py-1 font-semibold text-xs ${STATUS_BADGE_CLASSES[plan.status]}`}
             >
-              {plan.status === "active"
-                ? "Active"
-                : plan.status === "paused"
-                  ? "Paused"
-                  : "Cancelled"}
+              {STATUS_LABELS[plan.status]}
             </span>
           </div>
 

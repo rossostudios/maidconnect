@@ -105,14 +105,14 @@ export async function GET(_request: NextRequest) {
     // Check Stripe Connect account
     const { data: profile } = await supabaseAdmin
       .from("professional_profiles")
-      .select("stripe_account_id, instant_payout_enabled")
+      .select("stripe_connect_account_id, instant_payout_enabled")
       .eq("profile_id", user.id)
       .single();
 
     const isEligible =
       balanceBreakdown.availableBalance >= minThresholdCop &&
       todayCount < dailyLimit &&
-      profile?.stripe_account_id &&
+      profile?.stripe_connect_account_id &&
       profile?.instant_payout_enabled;
 
     // Calculate fee for available balance (if user wants to cash out everything)
@@ -139,7 +139,7 @@ export async function GET(_request: NextRequest) {
               balanceBreakdown.availableBalance < minThresholdCop &&
                 `Minimum balance is ${minThresholdCop.toLocaleString()} COP`,
               todayCount >= dailyLimit && `Daily limit reached (${dailyLimit} payouts per day)`,
-              !profile?.stripe_account_id && "Stripe Connect account not set up",
+              !profile?.stripe_connect_account_id && "Stripe Connect account not set up",
               !profile?.instant_payout_enabled && "Instant payouts disabled for your account",
             ].filter(Boolean),
       },
@@ -253,11 +253,11 @@ export async function POST(request: NextRequest) {
 
     const { data: profile, error: profileError } = await supabaseAdmin
       .from("professional_profiles")
-      .select("stripe_account_id")
+      .select("stripe_connect_account_id")
       .eq("profile_id", user.id)
       .single();
 
-    if (profileError || !profile?.stripe_account_id) {
+    if (profileError || !profile?.stripe_connect_account_id) {
       logger.error("[Instant Payout API] Stripe account not found", {
         professionalId: user.id,
         error: profileError?.message,
@@ -360,7 +360,7 @@ export async function POST(request: NextRequest) {
           },
         },
         {
-          stripeAccount: profile.stripe_account_id,
+          stripeAccount: profile.stripe_connect_account_id,
         }
       );
 

@@ -1,8 +1,12 @@
 /**
  * Payout and Commission Calculation Utilities
  *
+ * Business Model (Airbnb-style):
+ * - Professionals keep 100% of their listed rate
+ * - Customers pay a 15% service fee on top (handled at checkout)
+ * - Platform commission from professionals: 0%
+ *
  * Platform commission is configurable via pricing_controls table
- * Default: 18% commission from completed bookings
  * Payouts are processed twice weekly (per operations manual)
  */
 
@@ -10,7 +14,8 @@ import { type Currency, formatCurrency } from "@/lib/format";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 // Default platform commission rate (fallback if no pricing rule found)
-export const DEFAULT_COMMISSION_RATE = 0.18; // 18%
+// Airbnb model: pros keep 100%, customer pays service fee separately
+export const DEFAULT_COMMISSION_RATE = 0; // 0% - pros keep 100%
 
 export type BookingForPayout = {
   id: string;
@@ -280,16 +285,13 @@ function getNextFriday(date: Date): Date {
 
 /**
  * Get description of payout schedule
+ * Airbnb model: pros keep 100%, customer pays 15% service fee
  */
-export function getPayoutScheduleDescription(commissionRate?: number): string {
-  const rateDisplay = commissionRate
-    ? `${(commissionRate * 100).toFixed(1)}%`
-    : "15-20% (varies by service and location)";
-
+export function getPayoutScheduleDescription(): string {
   return `Payouts are processed twice weekly:
 • Tuesday at 10 AM - covers bookings completed Friday through Monday
 • Friday at 10 AM - covers bookings completed Tuesday through Thursday
 
-The platform commission is ${rateDisplay}.
+You keep 100% of your listed rate. The 15% service fee is paid by the customer.
 Funds typically arrive in your bank account within 2-3 business days.`;
 }

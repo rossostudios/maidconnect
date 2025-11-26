@@ -37,8 +37,8 @@ export function TimeRangeSelector({ value, onChange }: Props) {
             "rounded-lg border px-4 py-2.5 font-medium text-xs tracking-wider transition-all",
             geistSans.className,
             value === range.value
-              ? "border-orange-500 bg-orange-50 text-orange-600"
-              : "border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:text-orange-600"
+              ? "border-rausch-500 bg-rausch-50 text-rausch-600"
+              : "border-neutral-200 bg-white text-neutral-900 hover:border-rausch-500 hover:text-rausch-600"
           )}
           key={range.value}
           onClick={() => onChange(range.value)}

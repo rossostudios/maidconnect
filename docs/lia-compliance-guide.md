@@ -2,39 +2,42 @@
 
 ## What is the Lia Design System?
 
-**Lia is a mathematical, precision-focused design system** that prioritizes:
-- **Sharp, clean edges** (zero rounded corners)
-- **Data-focused aesthetics** (inspired by financial dashboards and analytics platforms)
-- **Mathematical precision** (8px grid system, 24px baseline grid)
-- **Professional sophistication** (no decorative flourishes, no glass morphism)
+**Lia is an Airbnb-inspired design system** that prioritizes:
+- **Clean, modern aesthetics** (thoughtful rounded corners)
+- **Approachable, warm design** (cool neutrals with coral-pink and teal accents)
+- **Mathematical precision** (4px grid system, 24px baseline grid)
+- **Professional sophistication** (no glass morphism, solid backgrounds)
 
-**Philosophy:** Lia creates a **professional, trustworthy aesthetic** through rigid constraints and mathematical precision, not through decorative elements.
+**Philosophy:** Lia creates a **trustworthy, approachable aesthetic** through the Airbnb design language—rounded corners, cool neutrals, and signature coral-pink (Rausch) accents.
 
 ---
 
 ## Core Design Principles
 
-### 1. Zero Rounded Corners (MOST IMPORTANT!)
+### 1. Airbnb-Inspired Rounded Corners (MOST IMPORTANT!)
 
-**Rule:** All elements must have **0px border-radius** (sharp, square corners).
+**Rule:** All interactive elements must have **appropriate border-radius** based on their type.
 
-**❌ NEVER use:**
+**Border Radius Scale:**
+- `rounded-sm` = 4px (small elements, inline badges)
+- `rounded-md` = 8px (standard inputs, small cards)
+- `rounded-lg` = 12px (default for buttons, cards, inputs)
+- `rounded-xl` = 16px (large cards, modals)
+- `rounded-full` = 9999px (badges, pills, avatars)
+
+**Usage:**
 ```tsx
-<div className="rounded-full">...</div>
-<button className="rounded-lg">...</button>
-<span className="rounded-md">...</span>
-<img className="rounded-xl" />
+// Buttons, cards, inputs - use rounded-lg (12px)
+<button className="bg-rausch-500 text-white px-6 py-3 rounded-lg">...</button>
+<div className="border border-neutral-200 rounded-lg p-6">...</div>
+<input className="border border-neutral-200 rounded-lg px-4 py-2" />
+
+// Badges, pills, avatars - use rounded-full
+<span className="bg-rausch-50 px-3 py-1 border border-rausch-200 rounded-full">Badge</span>
+<img className="h-12 w-12 rounded-full border border-neutral-200" />
 ```
 
-**✅ ALWAYS use:**
-```tsx
-<div className="border border-neutral-200">...</div>
-<button className="bg-orange-500 px-6 py-3">...</button>
-<span className="border border-orange-200 px-3 py-1">...</span>
-<img className="border border-neutral-200" />
-```
-
-**Why?** Sharp corners convey **precision, professionalism, and data integrity**. Rounded corners are decorative and reduce visual clarity.
+**Why?** Rounded corners create a warm, modern, approachable aesthetic while maintaining professional precision—the Airbnb design philosophy.
 
 ---
 
@@ -42,19 +45,19 @@
 
 **Rule:** Never use blur effects or semi-transparent backgrounds.
 
-**❌ NEVER use:**
+**NEVER use:**
 ```tsx
 <div className="backdrop-blur-sm bg-white/70">...</div>
 <div className="backdrop-blur-lg bg-neutral-900/50">...</div>
 ```
 
-**✅ ALWAYS use:**
+**ALWAYS use:**
 ```tsx
-<div className="bg-white border border-neutral-200">...</div>
-<div className="bg-neutral-900">...</div>
+<div className="bg-white border border-neutral-200 rounded-lg">...</div>
+<div className="bg-neutral-900 rounded-lg">...</div>
 ```
 
-**Why?** Glass morphism reduces readability, creates visual noise, and conflicts with the data-focused aesthetic.
+**Why?** Glass morphism reduces readability, creates visual noise, and conflicts with the clean Airbnb aesthetic.
 
 ---
 
@@ -75,83 +78,88 @@
 
 ---
 
-### 4. Neutral + Orange Color Palette
+### 4. Airbnb Color Palette (Rausch + Babu)
 
 **Primary Colors:**
-- **Orange-500** (`#FF5200`) - Primary CTAs, important actions
-- **Orange-600** (`#E64A00`) - Links, hover states (WCAG AA compliant)
-- **Neutral-900** (`#181818`) - Headings, primary text
-- **Neutral-700** (`#64615D`) - Body text
-- **Neutral-200** (`#EBEAE9`) - Borders, dividers
+- **Rausch-500** (`#FF385C`) - Primary CTAs, important actions (Airbnb coral-pink)
+- **Rausch-600** (`#DA1249`) - Links, hover states (WCAG AA compliant)
+- **Babu-500** (`#00A699`) - Info states, secondary accent (Airbnb teal)
+- **Neutral-900** (`#222222`) - Headings, primary text (Airbnb dark)
+- **Neutral-700** (`#484848`) - Body text (Airbnb Hof)
+- **Neutral-500** (`#767676`) - Muted text (Airbnb Foggy)
+- **Neutral-200** (`#DDDDDD`) - Borders, dividers (Airbnb dividers)
+- **Neutral-50** (`#F7F7F7`) - Page backgrounds (Airbnb light)
 - **White** (`#FFFFFF`) - Card backgrounds, surfaces
 
 **Usage:**
 ```tsx
 // Primary CTA
-<button className="bg-orange-500 text-white hover:bg-orange-600">
+<button className="bg-rausch-500 text-white hover:bg-rausch-600 rounded-lg">
   Book Now
 </button>
 
 // Secondary button
-<button className="bg-neutral-100 text-neutral-900 hover:bg-neutral-200">
+<button className="bg-neutral-100 text-neutral-900 hover:bg-neutral-200 rounded-lg">
   Learn More
 </button>
 
-// Link (always orange-600 for contrast)
-<a href="#" className="text-orange-600 hover:text-orange-700">
+// Link (always rausch-600 for contrast)
+<a href="#" className="text-rausch-600 hover:text-rausch-700">
   View Details
 </a>
+
+// Info state (babu)
+<div className="bg-babu-50 border border-babu-200 text-babu-700 rounded-lg p-4">
+  Information message
+</div>
 ```
 
 ---
 
-### 5. 8px Grid System
+### 5. 4px Grid System
 
-**Rule:** All spacing must be multiples of 8px.
+**Rule:** All spacing must be multiples of 4px.
 
-**Common values:** `0.5` (4px), `1` (8px), `2` (16px), `3` (24px), `4` (32px), `6` (48px), `8` (64px)
+**Common values:** `1` (4px), `2` (8px), `3` (12px), `4` (16px), `5` (20px), `6` (24px), `8` (32px), `10` (40px), `12` (48px)
 
 ```tsx
 // Correct spacing
 <div className="p-6 gap-4 mb-8">...</div>
 
-// Incorrect spacing (not multiples of 8)
-<div className="p-5 gap-3 mb-7">...</div>
+// Also correct (4px base)
+<div className="p-4 gap-3 mb-6">...</div>
 ```
 
 ---
 
 ### 6. 24px Baseline Grid
 
-**Rule:** All typography line heights must be multiples of 24px.
+**Rule:** All typography line heights should align to multiples of 24px.
 
 ```tsx
 // Correct - line-height is 24px
-<p className="text-base leading-[24px]">Body text</p>
+<p className="text-base leading-6">Body text</p>
 
 // Correct - line-height is 48px (2 × 24)
 <h1 className="text-[48px] leading-[48px]">Heading</h1>
-
-// Incorrect - line-height not a multiple of 24
-<p className="text-base leading-5">...</p>
 ```
 
 ---
 
 ## Automated Enforcement
 
-### Pre-Commit Hook
+### Biome Linter
 
-**Casaora has a pre-commit hook that automatically checks for violations:**
+**Casaora uses Biome for code quality and consistency:**
 
 ```bash
-# Location: .husky/pre-commit
+# Location: biome.json
 
-# Checks performed:
-1. ✅ No rounded corners (rounded-*, rounded-full, etc.)
-2. ✅ No glass morphism (backdrop-blur)
-3. ✅ Biome linting passes
-4. ✅ TypeScript type checking passes
+# Run checks
+bun run check
+
+# Auto-fix issues
+bun run check:fix
 ```
 
 **When you commit:**
@@ -159,189 +167,89 @@
 git add .
 git commit -m "feat: add new component"
 
-# Hook runs automatically:
-🔍 Running Lia Design System checks...
-✅ Lia Design System checks passed!
-🔍 Running Biome linter...
-✅ Biome checks passed!
-```
-
-**If violations are found:**
-```bash
-❌ Lia Design System violation detected:
-   Found rounded corner classes (Lia mandates ZERO rounded corners)
-
-src/components/ui/button.tsx:12:    <button className="rounded-full">
-
-💡 Fix: Remove all rounded-* classes
-   Lia Design System uses sharp corners only (0px border-radius)
+# Pre-commit hook runs:
+# Running Biome linter...
+# Biome checks passed!
 ```
 
 ---
 
-## Common Violations & Fixes
+## Common Patterns & Best Practices
 
-### Violation 1: Circular Avatars
+### Pattern 1: Rounded Buttons
 
-**❌ Before (Violation):**
 ```tsx
-<img
-  src={user.avatar}
-  alt={user.name}
-  className="h-12 w-12 rounded-full"
-/>
-```
+import { Button } from '@/components/ui/button';
 
-**✅ After (Lia Compliant):**
-```tsx
-<img
-  src={user.avatar}
-  alt={user.name}
-  className="h-12 w-12 border border-neutral-200"
-/>
-```
+// Primary (rausch coral)
+<Button variant="default">Primary Action</Button>
 
----
+// Secondary
+<Button variant="secondary">Secondary Action</Button>
 
-### Violation 2: Rounded Badges
+// Outline
+<Button variant="outline">Outline Button</Button>
 
-**❌ Before (Violation):**
-```tsx
-<span className="rounded-full bg-orange-500 px-3 py-1 text-white">
-  New
-</span>
-```
-
-**✅ After (Lia Compliant) - Use AdminBadge:**
-```tsx
-import { AdminBadge } from '@/components/ui/admin-badge';
-
-<AdminBadge variant="default">New</AdminBadge>
+// Ghost
+<Button variant="ghost">Ghost Button</Button>
 ```
 
 ---
 
-### Violation 3: Rounded Loading Spinners
+### Pattern 2: Rounded Cards
 
-**❌ Before (Violation):**
 ```tsx
-<div className="rounded-full border-4 border-orange-500 animate-spin" />
-```
+import { Card } from '@/components/ui/card';
 
-**✅ After (Lia Compliant):**
-```tsx
-<div className="border-4 border-orange-500 animate-spin" />
-```
-
----
-
-### Violation 4: Circular Radio Buttons
-
-**❌ Before (Violation):**
-```tsx
-<div className="h-4 w-4 rounded-full border border-neutral-900" />
-```
-
-**✅ After (Lia Compliant):**
-```tsx
-<div className="h-4 w-4 border border-neutral-900" />
+<Card className="p-6">
+  <h3 className="text-lg font-semibold mb-2">Card Title</h3>
+  <p className="text-neutral-700">Card content here...</p>
+</Card>
 ```
 
 ---
 
-### Violation 5: Rounded Toggle Switches
+### Pattern 3: Rounded Badges
 
-**❌ Before (Violation):**
 ```tsx
-<button
-  className="rounded-full bg-orange-500 relative inline-flex h-6 w-11"
-  aria-pressed={enabled}
->
-  <span className="rounded-full bg-white h-4 w-4" />
-</button>
-```
+import { Badge } from '@/components/ui/badge';
 
-**✅ After (Lia Compliant):**
-```tsx
-<button
-  className="bg-orange-500 relative inline-flex h-6 w-11"
-  aria-pressed={enabled}
->
-  <span className="bg-white h-4 w-4" />
-</button>
-```
+// Default (rausch)
+<Badge>Featured</Badge>
 
----
+// Success (green)
+<Badge variant="success">Approved</Badge>
 
-## Reusable Components
-
-### AdminBadge Component
-
-**Location:** [`src/components/ui/admin-badge.tsx`](../src/components/ui/admin-badge.tsx)
-
-**Usage:**
-```tsx
-import { AdminBadge } from '@/components/ui/admin-badge';
-
-// Default (orange)
-<AdminBadge>Featured</AdminBadge>
-
-// Success
-<AdminBadge variant="success">Approved</AdminBadge>
+// Info (babu teal)
+<Badge variant="info">Draft</Badge>
 
 // Warning
-<AdminBadge variant="warning">Pending</AdminBadge>
-
-// Danger
-<AdminBadge variant="danger">Rejected</AdminBadge>
-
-// Info
-<AdminBadge variant="info">Draft</AdminBadge>
-
-// Sizes
-<AdminBadge size="sm">Small</AdminBadge>
-<AdminBadge size="md">Medium</AdminBadge>
-<AdminBadge size="lg">Large</AdminBadge>
+<Badge variant="warning">Pending</Badge>
 ```
-
-**Features:**
-- ✅ Zero rounded corners (Lia compliant)
-- ✅ Consistent color palette
-- ✅ WCAG AA accessible contrast
-- ✅ Multiple variants and sizes
 
 ---
 
-## Checking Compliance Manually
+### Pattern 4: Rounded Avatars
 
-### Find Rounded Corner Violations
-
-```bash
-# Search for rounded corners in source files
-grep -r "rounded-full\|rounded-lg\|rounded-md" src/ \
-  --include="*.tsx" --include="*.ts" \
-  --exclude-dir=node_modules
-
-# Count violations
-grep -r "rounded-" src/ --include="*.tsx" | wc -l
+```tsx
+<img
+  src={user.avatar}
+  alt={user.name}
+  className="h-12 w-12 rounded-full border border-neutral-200"
+/>
 ```
 
-### Find Glass Morphism Violations
+---
 
-```bash
-# Search for glass morphism effects
-grep -r "backdrop-blur" src/ \
-  --include="*.tsx" --include="*.ts" \
-  --exclude-dir=node_modules
-```
+### Pattern 5: Focus Rings (Rausch)
 
-### Validate Typography
+```tsx
+// All interactive elements should have rausch focus rings
+<button className="focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2">
+  Focusable Button
+</button>
 
-```bash
-# Find non-baseline line heights (not multiples of 24px)
-grep -r "leading-\[(?!24|48|72|96)" src/ \
-  --include="*.tsx" --include="*.ts" \
-  -P  # Requires grep with PCRE support
+<input className="focus:border-rausch-500 focus:ring-2 focus:ring-rausch-500" />
 ```
 
 ---
@@ -355,79 +263,59 @@ grep -r "leading-\[(?!24|48|72|96)" src/ \
    bun run check
    ```
 
-2. **Check for Lia violations manually (optional):**
+2. **Auto-fix issues:**
    ```bash
-   grep -r "rounded-" src/ --include="*.tsx" --include="*.ts"
+   bun run check:fix
    ```
 
-3. **Commit (hook runs automatically):**
+3. **Build to verify types:**
+   ```bash
+   bun run build
+   ```
+
+4. **Commit:**
    ```bash
    git add .
    git commit -m "feat: add new feature"
    ```
 
-### If Hook Fails
-
-1. **Review the violation output:**
-   ```bash
-   ❌ Lia Design System violation detected:
-      Found rounded corner classes
-
-   src/components/ui/card.tsx:15:    className="rounded-lg"
-   ```
-
-2. **Fix the violation:**
-   ```tsx
-   // Remove rounded-lg
-   className="border border-neutral-200"
-   ```
-
-3. **Re-commit:**
-   ```bash
-   git add .
-   git commit -m "fix: remove rounded corners (Lia compliance)"
-   ```
-
 ---
 
-## Bypassing the Hook (EMERGENCY ONLY)
+## Checking Compliance Manually
 
-**⚠️ WARNING:** Only bypass the hook for critical hotfixes. **Never bypass for design system violations.**
+### Verify Lia Color Usage
 
 ```bash
-# Bypass hook (NOT recommended)
-git commit --no-verify -m "hotfix: critical security patch"
+# Search for old orange-* classes (should be rausch-*)
+grep -r "orange-500\|orange-600" src/ --include="*.tsx" --include="*.ts"
+
+# Search for old blue-* classes (should be babu-*)
+grep -r "blue-500\|blue-600" src/ --include="*.tsx" --include="*.ts"
+
+# Search for old hex values
+grep -r "#D97757\|#FAF9F5\|#141413" src/ --include="*.tsx" --include="*.ts"
 ```
 
-**When to bypass:**
-- Critical security vulnerabilities
-- Production-breaking bugs
-- Emergency database migrations
+### Find Glass Morphism Violations
 
-**When NOT to bypass:**
-- Design system violations
-- "I'll fix it later"
-- Linting errors
+```bash
+# Search for glass morphism effects
+grep -r "backdrop-blur" src/ --include="*.tsx" --include="*.ts"
+```
 
 ---
 
 ## FAQ
 
-### Q: Why no rounded corners?
+### Q: Why Airbnb-inspired design?
 
-**A:** Lia Design System prioritizes **precision, professionalism, and data clarity**. Rounded corners are decorative and reduce visual precision. Sharp corners create a clean, data-focused aesthetic inspired by financial dashboards and analytics platforms.
+**A:** The Airbnb design language is modern, approachable, and trusted worldwide. It combines warm aesthetics with clean functionality—perfect for a home services marketplace like Casaora.
 
-### Q: Can I use rounded corners for avatars?
+### Q: What's the difference between Rausch and Babu?
 
-**A:** **No.** Lia Design System has **zero tolerance** for rounded corners. Use square avatars with borders for a professional, consistent aesthetic.
-
-### Q: What if a third-party library uses rounded corners?
-
-**A:** Override the styles with Tailwind utilities:
-
-```tsx
-<ThirdPartyComponent className="!rounded-none" />
-```
+**A:**
+- **Rausch** (`#FF385C` coral-pink) - Primary accent, CTAs, links, focus states
+- **Babu** (`#00A699` teal) - Secondary accent, info states, informational highlights
 
 ### Q: Can I use glass morphism for modals?
 
@@ -438,19 +326,22 @@ git commit --no-verify -m "hotfix: critical security patch"
 <div className="backdrop-blur-sm bg-white/70">...</div>
 
 // Use this
-<div className="bg-white border border-neutral-200 shadow-lg">...</div>
+<div className="bg-white border border-neutral-200 rounded-xl shadow-lg">...</div>
 ```
 
 ### Q: How do I check my code for violations?
 
-**A:** The pre-commit hook checks automatically. You can also run:
+**A:** Run the Biome linter:
 
 ```bash
-# Manual check
-grep -r "rounded-\|backdrop-blur" src/ --include="*.tsx"
-
-# Check before committing
+# Check code
 bun run check
+
+# Auto-fix issues
+bun run check:fix
+
+# Build to verify types
+bun run build
 ```
 
 ---
@@ -458,13 +349,15 @@ bun run check
 ## Resources
 
 - [Lia Design System Overview (CLAUDE.md)](../CLAUDE.md)
+- [Lia Foundations (docs/lia/foundations.md)](lia/foundations.md)
 - [Typography Guide (docs/typography.md)](typography.md)
-- [AdminBadge Component](../src/components/ui/admin-badge.tsx)
-- [Pre-Commit Hook](.husky/pre-commit)
+- [Button Component](../src/components/ui/button.tsx)
+- [Card Component](../src/components/ui/card.tsx)
+- [Badge Component](../src/components/ui/badge.tsx)
 
 ---
 
-**Last Updated:** 2025-01-17
-**Version:** 1.3.0
+**Last Updated:** 2025-11-25
+**Version:** 2.0.0 (Airbnb-Inspired Refresh)
 
-**Remember:** Lia Design System is **non-negotiable**. Zero rounded corners, zero glass morphism, sharp precision everywhere.
+**Remember:** Lia Design System uses **Airbnb-inspired rounded corners**, **cool neutrals**, and **Rausch coral-pink / Babu teal accents**. No glass morphism, solid backgrounds everywhere.

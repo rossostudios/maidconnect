@@ -169,7 +169,7 @@ support@casaora.com
         <div className="max-h-[70vh] overflow-y-auto p-6">
           {isLoading && (
             <div className="flex items-center justify-center py-12">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-rausch-500 border-t-transparent" />
             </div>
           )}
 
@@ -306,7 +306,7 @@ support@casaora.com
         {receipt && !isLoading && (
           <div className="flex gap-3 border-neutral-200 border-t p-6 print:hidden">
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-600"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-rausch-500 hover:text-rausch-600"
               onClick={handlePrint}
               type="button"
             >
@@ -314,7 +314,7 @@ support@casaora.com
               {t("print")}
             </button>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 font-semibold text-sm text-white shadow-[0_4px_12px_rgba(217,119,87,0.22)] transition hover:bg-orange-600"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-rausch-500 px-5 py-2.5 font-semibold text-sm text-white shadow-[0_4px_12px_rgba(217,119,87,0.22)] transition hover:bg-rausch-600"
               onClick={handleDownload}
               type="button"
             >

@@ -18,7 +18,7 @@ Vanilla Extract is **NOT COMPATIBLE** with Next.js 16 + Turbopack. Do not attemp
 
 ### Styling (CRITICAL)
 - **Tailwind CSS 4.1.16** - Utility-first CSS framework
-- **Lia Design System** - Anthropic-inspired rounded corners, Geist fonts, 4px grid, warm neutrals + three-accent palette (orange, blue, green)
+- **Lia Design System** - Airbnb-inspired rounded corners, Geist fonts, 4px grid, cool neutrals + three-accent palette (rausch coral, babu teal, green)
 
 **DO NOT USE:**
 - ❌ Vanilla Extract (incompatible with Next.js 16 + Turbopack)
@@ -27,7 +27,7 @@ Vanilla Extract is **NOT COMPATIBLE** with Next.js 16 + Turbopack. Do not attemp
 ### UI Components
 - **React Aria Components** - Accessible, unstyled UI primitives (Adobe)
 - **Tailwind CSS 4.1** - All styling via utility classes
-- **Lia Design System** - Anthropic-inspired design patterns
+- **Lia Design System** - Airbnb-inspired design patterns
 
 ### Key Integrations
 - **Supabase** - Database, auth, storage, realtime
@@ -595,10 +595,10 @@ src/lib/cache/invalidate.ts                   # Domain-specific invalidation hel
 
 ### Key Components (Lia-Compliant)
 ```
-src/components/ui/button.tsx                  # Anthropic rounded-lg button (CORRECT pattern)
-src/components/ui/card.tsx                    # Anthropic rounded-lg card (CORRECT pattern)
-src/components/ui/input.tsx                   # Anthropic rounded-lg input (CORRECT pattern)
-src/components/ui/badge.tsx                   # Anthropic rounded-full badge (CORRECT pattern)
+src/components/ui/button.tsx                  # Airbnb-inspired rounded-lg button (CORRECT pattern)
+src/components/ui/card.tsx                    # Airbnb-inspired rounded-lg card (CORRECT pattern)
+src/components/ui/input.tsx                   # Airbnb-inspired rounded-lg input (CORRECT pattern)
+src/components/ui/badge.tsx                   # Airbnb-inspired rounded-full badge (CORRECT pattern)
 ```
 
 ### Services & Repositories
@@ -612,37 +612,37 @@ src/lib/integrations/                         # External services (Supabase, Str
 
 ---
 
-## Lia Design System Rules (CRITICAL - ANTHROPIC DESIGN)
+## Lia Design System Rules (CRITICAL - AIRBNB-INSPIRED DESIGN)
 
 ### Core Principles
-1. **ANTHROPIC ROUNDED CORNERS** - Thoughtful border radius (4px-16px, pills at 9999px)
+1. **AIRBNB ROUNDED CORNERS** - Thoughtful border radius (4px-16px, pills at 9999px)
 2. **Geist Fonts Exclusively** - Geist Sans for UI, Geist Mono for data/code
-3. **4px Grid System** - All spacing in multiples of 4px (Anthropic precision)
+3. **4px Grid System** - All spacing in multiples of 4px (Airbnb precision)
 4. **24px Baseline Grid** - Typography locked to 24px vertical rhythm
-5. **Three-Accent Palette** - Warm neutrals + orange (primary), blue (secondary), green (success)
+5. **Three-Accent Palette** - Cool neutrals + rausch (primary coral), babu (secondary teal), green (success)
 
 ### ❌ NEVER Use Sharp Corners (OLD LIA PATTERN!)
 
 ```tsx
-// WRONG - Old Lia pattern, violates new Anthropic design
+// WRONG - Old Lia pattern, violates new Airbnb design
 <div className="border border-neutral-200">...</div>         // ← Missing rounded corners
-<button className="bg-orange-500 px-6 py-3">...</button>     // ← Missing rounded corners
+<button className="bg-rausch-500 px-6 py-3">...</button>     // ← Missing rounded corners
 <input className="border border-neutral-200 px-4 py-2" />    // ← Missing rounded corners
 ```
 
-### ✅ ALWAYS Use Anthropic Rounded Corners
+### ✅ ALWAYS Use Airbnb Rounded Corners
 
 ```tsx
-// CORRECT - Anthropic-Inspired Lia Design System
+// CORRECT - Airbnb-Inspired Lia Design System
 <div className="border border-neutral-200 rounded-lg">...</div>
-<button className="bg-orange-500 px-6 py-3 rounded-lg">...</button>
+<button className="bg-rausch-500 px-6 py-3 rounded-lg">...</button>
 <input className="border border-neutral-200 px-4 py-2 rounded-lg" />
-<span className="bg-orange-50 px-3 py-1 border border-orange-200 rounded-full">...</span>  // ← Pills use rounded-full
+<span className="bg-rausch-50 px-3 py-1 border border-rausch-200 rounded-full">...</span>  // ← Pills use rounded-full
 ```
 
-**⚠️ CRITICAL:** All buttons, cards, and inputs MUST use `rounded-lg` (12px). Badges and pills MUST use `rounded-full`. This is the new standard based on Anthropic design principles.
+**⚠️ CRITICAL:** All buttons, cards, and inputs MUST use `rounded-lg` (12px). Badges and pills MUST use `rounded-full`. This is the new standard based on Airbnb design principles.
 
-**Rationale:** Anthropic rounded corners create a warm, modern, approachable aesthetic while maintaining professional precision. The thoughtful use of border radius balances friendliness with technical sophistication.
+**Rationale:** Airbnb rounded corners create a warm, modern, approachable aesthetic while maintaining professional precision. The thoughtful use of border radius balances friendliness with technical sophistication.
 
 ### ❌ NEVER Use Glass Morphism
 
@@ -663,32 +663,32 @@ src/lib/integrations/                         # External services (Supabase, Str
 
 ### Color Palette
 
-**Neutral (Anthropic Warm Grays):**
-- `neutral-50` - Background (#FAF9F5) - Anthropic light
-- `neutral-900` - Headings (#141413) - Anthropic dark
-- `neutral-700` - Body text (#68665F)
-- `neutral-500` - Mid-gray (#B0AEA5) - Anthropic
-- `neutral-200` - Borders (#E8E6DC) - Anthropic light-gray
+**Neutral (Airbnb Cool Grays):**
+- `neutral-50` - Background (#F7F7F7) - Airbnb light
+- `neutral-900` - Headings (#222222) - Airbnb dark
+- `neutral-700` - Body text (#484848) - Airbnb Hof
+- `neutral-500` - Mid-gray (#767676) - Airbnb Foggy
+- `neutral-200` - Borders (#DDDDDD) - Airbnb dividers
 - `white` - Cards (#FFFFFF)
 
-**Orange (Primary Accent - Anthropic):**
-- `orange-500` - Primary CTA (#D97757) - Anthropic orange
-- `orange-600` - Links, hover (#C56847) - Anthropic hover
-- `orange-700` - Active state (#B15937)
-- `orange-50` - Highlights (#FAF0ED)
+**Rausch (Primary Accent - Deep Burgundy Wine):**
+- `rausch-500` - Primary CTA (#7A3B4A) - Deep burgundy
+- `rausch-600` - Links, hover (#6B3340) - Burgundy hover
+- `rausch-700` - Active state (#5D2B35)
+- `rausch-50` - Highlights (#F6EDEE)
 
-**Blue (Secondary Accent - Anthropic):**
-- `blue-500` - Info states (#6A9BCC) - Anthropic blue
-- `blue-600` - Info hover (#5A8BBC) - Anthropic blue hover
+**Babu (Secondary Accent - Airbnb Teal):**
+- `babu-500` - Info states (#00A699) - Airbnb teal
+- `babu-600` - Info hover (#008F84) - Airbnb teal hover
 
-**Green (Success Accent - Anthropic):**
-- `green-500` - Success states (#788C5D) - Anthropic green
-- `green-600` - Success hover (#687C4D) - Anthropic green hover
+**Green (Success Accent):**
+- `green-500` - Success states (#788C5D)
+- `green-600` - Success hover (#687C4D)
 
 **Color Usage:**
-1. Primary Actions → `orange-500`
-2. Links → `orange-600` (WCAG AA compliant)
-3. Info/Secondary → `blue-500` and `blue-600`
+1. Primary Actions → `rausch-500`
+2. Links → `rausch-600` (WCAG AA compliant)
+3. Info/Secondary → `babu-500` and `babu-600`
 4. Success → `green-500` and `green-600`
 5. Backgrounds → `neutral-50` for pages, `white` for cards
 6. Text → `neutral-900` headings, `neutral-700` body, `neutral-500` muted
@@ -732,7 +732,7 @@ export const SelectTrigger = ({ children, className }) => (
     className={cn(
       // Lia Design System styling
       "rounded-lg border border-neutral-200 bg-neutral-50",
-      "focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+      "focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2",
       className
     )}
   >
@@ -772,14 +772,14 @@ export const SelectTrigger = ({ children, className }) => (
 "rounded"           // Tab triggers, select items
 "rounded-full"      // Badges, pills, avatars
 
-// Focus states (orange-500)
-"focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+// Focus states (rausch-500)
+"focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
+"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
 
 // Colors
 "bg-white"          // Cards, elevated surfaces
 "bg-neutral-50"     // Page backgrounds, input backgrounds
-"bg-orange-500"     // Primary CTAs
+"bg-rausch-500"     // Primary CTAs
 "text-neutral-900"  // Headings
 "text-neutral-700"  // Body text
 "border-neutral-200" // Borders
@@ -788,7 +788,7 @@ export const SelectTrigger = ({ children, className }) => (
 **2. Use data attributes for state styling:**
 ```tsx
 // React Aria provides data attributes for component states
-"data-[selected]:bg-orange-50"           // Selected items
+"data-[selected]:bg-rausch-50"           // Selected items
 "data-[focused]:ring-2"                   // Focused state
 "data-[disabled]:opacity-50"              // Disabled state
 "data-[pressed]:scale-[0.98]"            // Active press
@@ -824,7 +824,7 @@ export const Tabs = ({ value, defaultValue, onValueChange, ...props }) => {
 When creating or updating UI components:
 
 - [ ] **Import from React Aria** - `react-aria-components`, not Radix UI
-- [ ] **Apply Lia styling** - `rounded-lg`, orange-500 focus rings, neutral colors
+- [ ] **Apply Lia styling** - `rounded-lg`, rausch-500 focus rings, neutral colors
 - [ ] **Use cn() utility** - For className merging from `@/lib/utils/core`
 - [ ] **Add data-attribute styles** - For React Aria state management
 - [ ] **Maintain exports** - Keep backward compatibility if replacing existing component
@@ -863,9 +863,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-orange-500 text-white hover:bg-orange-600",
-        outline: "border-2 border-neutral-200 hover:border-orange-500",
-        ghost: "hover:bg-orange-50 hover:text-orange-600",
+        default: "bg-rausch-500 text-white hover:bg-rausch-600",
+        outline: "border-2 border-neutral-200 hover:border-rausch-500",
+        ghost: "hover:bg-rausch-50 hover:text-rausch-600",
       },
       size: {
         default: "h-10 px-8",
@@ -907,7 +907,7 @@ const buttonVariants = cva(
 ### When Creating Components
 
 1. **Always use Tailwind CSS** - Never suggest CSS-in-JS alternatives
-2. **USE ANTHROPIC ROUNDED CORNERS** - `rounded-lg` for buttons/cards/inputs, `rounded-full` for badges (Lia requirement)
+2. **USE AIRBNB ROUNDED CORNERS** - `rounded-lg` for buttons/cards/inputs, `rounded-full` for badges (Lia requirement)
 3. **Use React Aria Components** - Import from `react-aria-components` for accessible UI primitives
 4. **Use Exa MCP before shipping** - Run "frontend-design" skill for latest Lia patterns
 5. **Use Context7 MCP for framework APIs** - Get latest Next.js 16+/React 19+ docs
@@ -920,7 +920,7 @@ const buttonVariants = cva(
 ### Common Mistakes to Avoid
 
 **❌ DO NOT:**
-- **Use sharp corners (old Lia)** - Missing `rounded-*` classes violates new Anthropic design (COMMON MISTAKE!)
+- **Use sharp corners (old Lia)** - Missing `rounded-*` classes violates new Airbnb design (COMMON MISTAKE!)
 - **Use glass morphism** - `backdrop-blur-*` effects violate Lia
 - Suggest Vanilla Extract, Styled Components, or CSS-in-JS
 - Use untyped components
@@ -929,14 +929,14 @@ const buttonVariants = cva(
 - Rely on outdated Next.js/React patterns without checking Context7
 
 **✅ DO:**
-- **Use Anthropic rounded corners** - `rounded-lg` for buttons/cards/inputs, `rounded-full` for badges
+- **Use Airbnb rounded corners** - `rounded-lg` for buttons/cards/inputs, `rounded-full` for badges
 - **Use solid backgrounds** - Never use backdrop-blur
 - **Use Exa MCP before shipping UI** - Get latest Lia patterns
 - **Use Context7 MCP for framework APIs** - Stay current with Next.js 16+/React 19+
 - Use Tailwind utility classes
 - Import from existing UI components
 - Define TypeScript types
-- Use `orange-600` for links (better WCAG contrast than orange-500)
+- Use `rausch-600` for links (better WCAG contrast than rausch-500)
 - Run `bun run check` after changes
 
 ---

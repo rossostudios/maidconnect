@@ -20,12 +20,12 @@ type PremiumStatCardProps = {
 
 const colorVariants = {
   orange: {
-    gradient: "from-orange-50/80 to-orange-100/40",
-    icon: "text-orange-600",
-    iconBg: "bg-orange-500/10",
-    border: "border-orange-200/50",
-    trendPositive: "text-orange-600",
-    trendNegative: "text-orange-600",
+    gradient: "from-rausch-50/80 to-rausch-100/40",
+    icon: "text-rausch-600",
+    iconBg: "bg-rausch-500/10",
+    border: "border-rausch-200/50",
+    trendPositive: "text-rausch-600",
+    trendNegative: "text-rausch-600",
   },
   green: {
     gradient: "from-emerald-50/80 to-emerald-100/40",
@@ -44,12 +44,12 @@ const colorVariants = {
     trendNegative: "text-pink-600",
   },
   blue: {
-    gradient: "from-blue-50/80 to-blue-100/40",
-    icon: "text-blue-600",
-    iconBg: "bg-blue-500/10",
-    border: "border-blue-200/50",
-    trendPositive: "text-blue-600",
-    trendNegative: "text-blue-600",
+    gradient: "from-babu-50/80 to-babu-100/40",
+    icon: "text-babu-600",
+    iconBg: "bg-babu-500/10",
+    border: "border-babu-200/50",
+    trendPositive: "text-babu-600",
+    trendNegative: "text-babu-600",
   },
   purple: {
     gradient: "from-purple-50/80 to-purple-100/40",
@@ -80,7 +80,7 @@ export function PremiumStatCard({
       transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Card Container */}
-      <div className="hover:-translate-y-0.5 relative overflow-hidden border border-neutral-200/60 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
+      <div className="hover:-translate-y-0.5 relative overflow-hidden rounded-lg border border-neutral-200/60 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
         {/* Gradient Overlay */}
         <div
           className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
@@ -91,7 +91,7 @@ export function PremiumStatCard({
           {/* Icon & Label */}
           <div className="mb-4 flex items-start justify-between">
             <div
-              className={`flex h-12 w-12 items-center justify-center ${colors.iconBg} transition-transform duration-300 group-hover:scale-110`}
+              className={`flex h-12 w-12 items-center justify-center rounded-lg ${colors.iconBg} transition-transform duration-300 group-hover:scale-110`}
             >
               <HugeiconsIcon className={`h-6 w-6 ${colors.icon}`} icon={icon} />
             </div>

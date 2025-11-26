@@ -17,7 +17,7 @@ export default async function AmbassadorApplyPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left: Info Panel */}
-      <div className="relative hidden w-1/2 bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 lg:block">
+      <div className="relative hidden w-1/2 bg-gradient-to-br from-rausch-500 via-rausch-600 to-rausch-700 lg:block">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div
@@ -104,7 +104,7 @@ export default async function AmbassadorApplyPage() {
           </Link>
           <div className="flex items-center gap-4 text-sm">
             <Link
-              className="font-semibold text-orange-600 hover:text-orange-700"
+              className="font-semibold text-rausch-600 hover:text-rausch-700"
               href="/ambassadors"
             >
               {t("learnMore")}
@@ -124,11 +124,11 @@ export default async function AmbassadorApplyPage() {
 
             <p className="mt-6 text-center text-neutral-600 text-xs">
               {t("terms.prefix")}{" "}
-              <Link className="text-orange-600 hover:underline" href="/terms">
+              <Link className="text-rausch-600 hover:underline" href="/terms">
                 {t("terms.termsLink")}
               </Link>{" "}
               {t("terms.and")}{" "}
-              <Link className="text-orange-600 hover:underline" href="/privacy">
+              <Link className="text-rausch-600 hover:underline" href="/privacy">
                 {t("terms.privacyLink")}
               </Link>
             </p>

@@ -103,11 +103,11 @@ export function ProsBenefitsSection() {
                 whileHover={{ y: -4 }}
               >
                 <motion.div
-                  className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100"
+                  className="flex h-12 w-12 items-center justify-center rounded-lg bg-rausch-100"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.15, rotate: 10 }}
                 >
-                  <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Icon} />
+                  <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={Icon} />
                 </motion.div>
 
                 <div>

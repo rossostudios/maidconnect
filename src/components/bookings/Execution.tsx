@@ -30,6 +30,109 @@ export type BookingForExecution = {
   customer?: { id: string } | null;
 };
 
+// --- Helper Functions (extracted for complexity reduction) ---
+
+function getStatusBadgeClass(status: string): string {
+  if (status === "confirmed") {
+    return "bg-[neutral-500]/10 text-[neutral-500]";
+  }
+  if (status === "in_progress") {
+    return "bg-[neutral-50] text-[neutral-500]";
+  }
+  if (status === "completed") {
+    return "bg-[neutral-500]/10 text-[neutral-500]";
+  }
+  return "bg-[neutral-200]/30 text-[neutral-900]";
+}
+
+function getMessageClass(type: "success" | "error"): string {
+  return type === "success"
+    ? "bg-[neutral-500]/10 text-[neutral-500]"
+    : "bg-[neutral-500]/10 text-[neutral-500]";
+}
+
+function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+}
+
+function formatScheduledDate(dateString: string | null): string {
+  if (!dateString) {
+    return "—";
+  }
+  return new Date(dateString).toLocaleString("es-CO", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+}
+
+function formatAddressDisplay(address: Record<string, any> | null): string {
+  if (!address) {
+    return "";
+  }
+  if (typeof address === "object" && "formatted" in address) {
+    return String(address.formatted);
+  }
+  return JSON.stringify(address);
+}
+
+function getGeoErrorMessage(geoError: GeolocationPositionError): string {
+  switch (geoError.code) {
+    case geoError.PERMISSION_DENIED:
+      return "Location permission denied. Please enable location access.";
+    case geoError.POSITION_UNAVAILABLE:
+      return "Location information unavailable.";
+    case geoError.TIMEOUT:
+      return "Location request timed out.";
+    default:
+      return "An unknown error occurred while getting location.";
+  }
+}
+
+function isLocationError(errorMessage: string): boolean {
+  return errorMessage.includes("location") || errorMessage.includes("Location");
+}
+
+function extractErrorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error ? error.message : fallback;
+}
+
+function getOvertimeTextClass(isOvertime: boolean): string {
+  return isOvertime ? "text-[neutral-500]" : "text-[neutral-500]";
+}
+
+function calculateTotalPlannedMinutes(duration: number | null, extension: number | null): number {
+  return (duration || 0) + (extension || 0);
+}
+
+// Get GPS coordinates - extracted outside component for complexity reduction
+function getGPSCoordinates(): Promise<{ latitude: number; longitude: number }> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation is not supported by your browser"));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (geoError) => {
+        reject(new Error(getGeoErrorMessage(geoError)));
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10_000,
+        maximumAge: 0,
+      }
+    );
+  });
+}
+
 type Props = {
   booking: BookingForExecution;
   onRatingComplete?: () => void;
@@ -70,47 +173,6 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     return;
   }, [optimisticBooking.status, optimisticBooking.checked_in_at]);
 
-  // Get GPS coordinates
-  const getGPSCoordinates = (): Promise<{ latitude: number; longitude: number }> =>
-    new Promise((resolve, reject) => {
-      if (!navigator.geolocation) {
-        reject(new Error("Geolocation is not supported by your browser"));
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        (geoError) => {
-          let errorMessage = "Unable to get location";
-          switch (geoError.code) {
-            case geoError.PERMISSION_DENIED:
-              errorMessage = "Location permission denied. Please enable location access.";
-              break;
-            case geoError.POSITION_UNAVAILABLE:
-              errorMessage = "Location information unavailable.";
-              break;
-            case geoError.TIMEOUT:
-              errorMessage = "Location request timed out.";
-              break;
-            default:
-              errorMessage = "An unknown error occurred while getting location.";
-              break;
-          }
-          reject(new Error(errorMessage));
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10_000,
-          maximumAge: 0,
-        }
-      );
-    });
-
   // Handle check-in
   const handleCheckIn = async () => {
     setLoading(true);
@@ -143,8 +205,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       setMessage({ type: "success", text: "Checked in successfully!" });
       router.refresh();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to check in";
-      if (errorMessage.includes("location") || errorMessage.includes("Location")) {
+      const errorMessage = extractErrorMessage(error, "Failed to check in");
+      if (isLocationError(errorMessage)) {
         setGpsError(errorMessage);
       }
       setMessage({ type: "error", text: errorMessage });
@@ -193,8 +255,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       router.refresh();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to check out";
-      if (errorMessage.includes("location") || errorMessage.includes("Location")) {
+      const errorMessage = extractErrorMessage(error, "Failed to check out");
+      if (isLocationError(errorMessage)) {
         setGpsError(errorMessage);
       }
       setMessage({ type: "error", text: errorMessage });
@@ -213,22 +275,11 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     router.refresh();
   };
 
-  // Format time display
-  const formatDuration = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-  };
-
-  const scheduledDate = optimisticBooking.scheduled_start
-    ? new Date(optimisticBooking.scheduled_start).toLocaleString("es-CO", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      })
-    : "—";
-
-  const totalPlannedMinutes =
-    (optimisticBooking.duration_minutes || 0) + (optimisticBooking.time_extension_minutes || 0);
+  const scheduledDate = formatScheduledDate(optimisticBooking.scheduled_start);
+  const totalPlannedMinutes = calculateTotalPlannedMinutes(
+    optimisticBooking.duration_minutes,
+    optimisticBooking.time_extension_minutes
+  );
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
@@ -242,19 +293,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <p className="text-[neutral-400] text-sm">{scheduledDate}</p>
         </div>
         <span
-          className={`inline-flex items-center px-3 py-1 font-semibold text-xs ${(() => {
-            const status = optimisticBooking.status;
-            if (status === "confirmed") {
-              return "bg-[neutral-500]/10 text-[neutral-500]";
-            }
-            if (status === "in_progress") {
-              return "bg-[neutral-50] text-[neutral-500]";
-            }
-            if (status === "completed") {
-              return "bg-[neutral-500]/10 text-[neutral-500]";
-            }
-            return "bg-[neutral-200]/30 text-[neutral-900]";
-          })()}`}
+          className={`inline-flex items-center px-3 py-1 font-semibold text-xs ${getStatusBadgeClass(optimisticBooking.status)}`}
         >
           {optimisticBooking.status.replace(/_/g, " ")}
         </span>
@@ -264,11 +303,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {optimisticBooking.address && (
         <div className="mb-4">
           <p className="text-[neutral-400] text-sm">
-            📍{" "}
-            {typeof optimisticBooking.address === "object" &&
-            "formatted" in optimisticBooking.address
-              ? String(optimisticBooking.address.formatted)
-              : JSON.stringify(optimisticBooking.address)}
+            📍 {formatAddressDisplay(optimisticBooking.address)}
           </p>
         </div>
       )}
@@ -284,9 +319,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
               </p>
             </div>
             <div className="text-right">
-              <p
-                className={`font-bold text-2xl ${isOvertime ? "text-[neutral-500]" : "text-[neutral-500]"}`}
-              >
+              <p className={`font-bold text-2xl ${getOvertimeTextClass(isOvertime)}`}>
                 {formatDuration(elapsedTime)}
               </p>
               {isOvertime && (
@@ -301,15 +334,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       {/* Messages */}
       {message && (
-        <div
-          className={`mb-4 p-3 text-sm ${
-            message.type === "success"
-              ? "bg-[neutral-500]/10 text-[neutral-500]"
-              : "bg-[neutral-500]/10 text-[neutral-500]"
-          }`}
-        >
-          {message.text}
-        </div>
+        <div className={`mb-4 p-3 text-sm ${getMessageClass(message.type)}`}>{message.text}</div>
       )}
 
       {gpsError && (

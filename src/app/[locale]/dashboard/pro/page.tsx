@@ -12,12 +12,14 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
 
 /**
- * Professional Dashboard Page
+ * Professional Dashboard Page - Airbnb-Style Focused Design
  *
- * Redesigned for actionable insights (Airbnb-style):
- * - UrgencyTaskBoard: Tasks grouped by urgency (urgent/important/normal)
- * - EarningsOverview: Three-column earnings (Paid/Upcoming/Pending)
- * - PerformanceCharts: Analytics with KPIs and charts
+ * Answers ONE question: "What should I do next?"
+ *
+ * Information hierarchy (simplified):
+ * - UrgencyTaskBoard: Single hero task with "X more" collapsed
+ * - EarningsOverview: Two-column (Available | Coming)
+ * - PerformanceCharts: Collapsed by default (analytics for weekly review)
  * - PendingRatings: Customers awaiting rating
  *
  * All analytics components fetch their own data via client-side APIs.
@@ -63,16 +65,17 @@ export default async function ProfessionalDashboardPage() {
     .select("booking_id")
     .eq("professional_id", user.id);
 
-  const reviewedBookingIds = new Set(
-    (customerReviewsData ?? []).map((r) => r.booking_id)
-  );
+  const reviewedBookingIds = new Set((customerReviewsData ?? []).map((r) => r.booking_id));
 
   const completedBookings: CompletedBooking[] = (bookingsData ?? [])
     .map((b) => ({
       id: b.id,
       service_name: b.service_name,
       scheduled_start: b.scheduled_start,
-      customer: b.customer as { id: string } | null,
+      // Supabase returns relations as arrays - extract first element
+      customer: Array.isArray(b.customer)
+        ? ((b.customer[0] as { id: string } | undefined) ?? null)
+        : null,
       hasReview: reviewedBookingIds.has(b.id),
     }))
     .filter((b) => !b.hasReview)
@@ -90,14 +93,25 @@ export default async function ProfessionalDashboardPage() {
           </h1>
         </div>
 
-        {/* Urgency Task Board - Airbnb-style "What needs your attention" */}
+        {/* Next Up - Single hero task (Airbnb-style) */}
         <UrgencyTaskBoard />
 
-        {/* Earnings Overview - Three-column Paid/Upcoming/Pending */}
+        {/* Earnings - Two-column Available/Coming */}
         <EarningsOverview />
 
-        {/* Performance Charts - KPIs & Analytics */}
-        <PerformanceCharts />
+        {/* Analytics - Collapsed by default for weekly review */}
+        <details className="group rounded-lg border border-neutral-200 bg-white">
+          <summary className="flex cursor-pointer select-none items-center justify-between px-6 py-4 text-neutral-900 marker:content-none">
+            <h2 className={cn("font-semibold text-lg", geistSans.className)}>
+              Performance Analytics
+            </h2>
+            <span className="text-neutral-500 text-sm group-open:hidden">View analytics →</span>
+            <span className="hidden text-neutral-500 text-sm group-open:block">Hide analytics</span>
+          </summary>
+          <div className="border-neutral-200 border-t">
+            <PerformanceCharts />
+          </div>
+        </details>
 
         {/* Pending Customer Ratings */}
         {completedBookings.length > 0 && (

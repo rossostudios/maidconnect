@@ -179,7 +179,7 @@ export type TabsTriggerProps = {
  * Tabs Trigger Component
  *
  * Individual tab button.
- * Lia Design System: orange-500 focus ring, rounded (Anthropic).
+ * Lia Design System: rausch-500 focus ring, rounded (Anthropic).
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
 export const TabsTrigger = ({ className, value, children, ref }: TabsTriggerProps) => {
@@ -197,7 +197,7 @@ export const TabsTrigger = ({ className, value, children, ref }: TabsTriggerProp
         // Transition
         "transition-all",
         // Focus state - orange ring (Lia Design System)
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         // Disabled state
         "disabled:pointer-events-none disabled:opacity-50",
         // Selected state (Lia Design System)
@@ -242,7 +242,7 @@ export type TabsContentProps = {
  * Tabs Content Component
  *
  * Content panel for each tab.
- * Lia Design System: orange-500 focus ring.
+ * Lia Design System: rausch-500 focus ring.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
 export const TabsContent = ({ className, value, children, ref }: TabsContentProps) => {
@@ -252,7 +252,7 @@ export const TabsContent = ({ className, value, children, ref }: TabsContentProp
         // Spacing
         "mt-6",
         // Focus state - orange ring (Lia Design System)
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         // Additional classes
         className
       )}

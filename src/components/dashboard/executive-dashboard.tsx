@@ -80,6 +80,14 @@ type Alert = {
 
 type DateRange = "7d" | "30d" | "90d" | "1y";
 
+// Lookup object to replace nested ternaries (Biome noNestedTernary fix)
+const DAYS_BY_RANGE: Record<DateRange, number> = {
+  "7d": 7,
+  "30d": 30,
+  "90d": 90,
+  "1y": 365,
+};
+
 export function ExecutiveDashboard() {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +97,7 @@ export function ExecutiveDashboard() {
   // Helper function to generate revenue data based on date range
   const generateRevenueData = useCallback((bookings: any[], range: DateRange) => {
     const data: Array<{ date: string; revenue: number; bookings: number }> = [];
-    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
+    const days = DAYS_BY_RANGE[range];
 
     // Group by day
     for (let i = days - 1; i >= 0; i--) {
@@ -120,7 +128,7 @@ export function ExecutiveDashboard() {
   // Helper function to generate utilization data
   const generateUtilizationData = useCallback((range: DateRange) => {
     const data: Array<{ date: string; rate: number }> = [];
-    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
+    const days = DAYS_BY_RANGE[range];
 
     for (let i = days - 1; i >= 0; i--) {
       const date = new Date();
@@ -363,7 +371,7 @@ export function ExecutiveDashboard() {
                 "flex items-center gap-4 border bg-white px-5 py-4 shadow-sm ring-1 ring-black/5 transition-all",
                 alert.type === "critical" && "border-red-200 bg-red-50",
                 alert.type === "warning" && "border-amber-200 bg-amber-50",
-                alert.type === "info" && "border-blue-200 bg-blue-50"
+                alert.type === "info" && "border-babu-200 bg-babu-50"
               )}
               key={alert.id}
             >
@@ -372,7 +380,7 @@ export function ExecutiveDashboard() {
                   "h-5 w-5 flex-shrink-0",
                   alert.type === "critical" && "text-red-600",
                   alert.type === "warning" && "text-amber-600",
-                  alert.type === "info" && "text-blue-600"
+                  alert.type === "info" && "text-babu-600"
                 )}
                 icon={Alert01Icon}
               />

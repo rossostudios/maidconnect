@@ -1,13 +1,8 @@
 import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import type { DirectoryProfessional, DirectoryResponse } from "@/components/directory/types";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS, type DirectoryParams } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
-import {
-  CACHE_DURATIONS,
-  CACHE_HEADERS,
-  CACHE_TAGS,
-  type DirectoryParams,
-} from "@/lib/cache";
 
 type DirectoryQueryParams = DirectoryParams & {
   minRating?: number;
@@ -42,7 +37,7 @@ const getCachedDirectory = unstable_cache(
       p_service: service || null,
       p_min_experience: minExperience || null,
       p_min_rating: minRating || null,
-      p_verified_only: verifiedOnly || false,
+      p_verified_only: verifiedOnly,
       p_search_query: query || null,
       p_sort_by: sort,
       p_page: page,
@@ -96,8 +91,8 @@ const getCachedDirectory = unstable_cache(
         isReferencesVerified: false, // TODO: Add to schema
         introVideoUrl: null, // Not in DB schema
         introVideoStatus: "none",
-        latitude: pro.location_latitude,
-        longitude: pro.location_longitude,
+        latitude: pro.location_latitude ? Number(pro.location_latitude) : null,
+        longitude: pro.location_longitude ? Number(pro.location_longitude) : null,
       };
     });
 

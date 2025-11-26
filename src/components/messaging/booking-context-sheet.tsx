@@ -15,7 +15,7 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 primary actions
+ * - rausch-500 primary actions
  * - neutral color palette
  */
 
@@ -119,16 +119,16 @@ const STATUS_CONFIG: Record<BookingStatus, StatusConfig> = {
   confirmed: {
     label: "Confirmed",
     variant: "outline",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
-    borderColor: "border-blue-200",
+    bgColor: "bg-babu-50",
+    textColor: "text-babu-700",
+    borderColor: "border-babu-200",
   },
   in_progress: {
     label: "In Progress",
     variant: "outline",
-    bgColor: "bg-orange-50",
-    textColor: "text-orange-700",
-    borderColor: "border-orange-200",
+    bgColor: "bg-rausch-50",
+    textColor: "text-rausch-700",
+    borderColor: "border-rausch-200",
   },
   completed: {
     label: "Completed",
@@ -242,7 +242,7 @@ export function BookingContextSheet({
             <div className="flex items-center gap-3">
               <Avatar className="h-12 w-12">
                 <AvatarImage alt={otherUser.fullName} src={otherUser.avatarUrl} />
-                <AvatarFallback className="bg-orange-100 text-orange-700">
+                <AvatarFallback className="bg-rausch-100 text-rausch-700">
                   {getInitials(otherUser.fullName)}
                 </AvatarFallback>
               </Avatar>
@@ -421,8 +421,8 @@ export function BookingContextTrigger({ booking, onClick, className }: BookingCo
     <button
       className={cn(
         "flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 transition-colors",
-        "hover:border-orange-200 hover:bg-orange-50/50",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "hover:border-rausch-200 hover:bg-rausch-50/50",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         className
       )}
       onClick={onClick}

@@ -9,7 +9,7 @@
  * - Error handling and edge cases
  */
 
-import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from "bun:test";
+import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 
 // Mock sendExpoNotification before importing the module
 const mockSendExpoNotification = mock(() =>
@@ -41,31 +41,31 @@ const mockFetch = mock(() =>
 
 // Import after mocking
 import {
-  notifyCustomerBookingConfirmed,
+  notifyAdminDisputeFiled,
+  notifyAdminPaymentCapturedButDBFailed,
+  notifyAdminPaymentFailure,
+  notifyAllAdmins,
   notifyCustomerBookingAccepted,
+  notifyCustomerBookingConfirmed,
   notifyCustomerBookingDeclined,
-  notifyCustomerServiceStarted,
-  notifyCustomerServiceCompleted,
+  notifyCustomerDisputeResolved,
   notifyCustomerNewMessage,
-  notifyCustomerReviewReminder,
   notifyCustomerProfessionalEnRoute,
-  notifyProfessionalNewBooking,
+  notifyCustomerRebookNudge,
+  notifyCustomerReviewReminder,
+  notifyCustomerServiceCompleted,
+  notifyCustomerServiceStarted,
+  notifyNearbyProfessionalsNewJob,
   notifyProfessionalBookingCanceled,
-  notifyProfessionalPaymentReceived,
-  notifyProfessionalNewMessage,
-  notifyProfessionalReviewReceived,
-  notifyProfessionalServiceReminder,
   notifyProfessionalBookingRescheduled,
   notifyProfessionalDisputeFiled,
-  notifyCustomerDisputeResolved,
   notifyProfessionalDisputeResolved,
-  notifyAdminDisputeFiled,
-  notifyAdminPaymentFailure,
-  notifyAdminPaymentCapturedButDBFailed,
-  notifyAllAdmins,
+  notifyProfessionalNewBooking,
   notifyProfessionalNewJobNearby,
-  notifyNearbyProfessionalsNewJob,
-  notifyCustomerRebookNudge,
+  notifyProfessionalNewMessage,
+  notifyProfessionalPaymentReceived,
+  notifyProfessionalReviewReceived,
+  notifyProfessionalServiceReminder,
   sendPushNotification,
 } from "../notifications";
 
@@ -145,9 +145,7 @@ describe("Notification Module", () => {
     });
 
     it("should handle Expo notification errors gracefully", async () => {
-      mockSendExpoNotification.mockImplementation(() =>
-        Promise.reject(new Error("Expo error"))
-      );
+      mockSendExpoNotification.mockImplementation(() => Promise.reject(new Error("Expo error")));
 
       const result = await sendPushNotification({
         userId: "user-123",
@@ -464,7 +462,7 @@ describe("Notification Module", () => {
         const booking = {
           id: "booking-123",
           serviceName: "Deep Cleaning",
-          amount: 120000, // 120,000 COP
+          amount: 120_000, // 120,000 COP
         };
 
         const result = await notifyProfessionalPaymentReceived("pro-123", booking);
@@ -482,7 +480,7 @@ describe("Notification Module", () => {
         const booking = {
           id: "booking-123",
           serviceName: "Deep Cleaning",
-          amount: 120000,
+          amount: 120_000,
         };
 
         await notifyProfessionalPaymentReceived("pro-123", booking);
@@ -603,7 +601,7 @@ describe("Notification Module", () => {
           serviceName: "Deep Cleaning",
           cityName: "Bogotá",
           scheduledDate: "2025-01-25T10:00:00Z",
-          estimatedPay: 120000,
+          estimatedPay: 120_000,
           currency: "COP",
         };
 
@@ -624,7 +622,7 @@ describe("Notification Module", () => {
           serviceName: "Deep Cleaning",
           cityName: "Bogotá",
           scheduledDate: "2025-01-25T10:00:00Z",
-          estimatedPay: 120000,
+          estimatedPay: 120_000,
         };
 
         await notifyProfessionalNewJobNearby("pro-123", job);
@@ -676,7 +674,7 @@ describe("Notification Module", () => {
           bookingId: "booking-123",
           professionalName: "Carlos López",
           customerName: "María García",
-          amount: 120000,
+          amount: 120_000,
           errorMessage: "Card declined",
         };
 
@@ -699,7 +697,7 @@ describe("Notification Module", () => {
           bookingId: "booking-123",
           professionalName: "Carlos López",
           customerName: "María García",
-          amountCaptured: 120000,
+          amountCaptured: 120_000,
           paymentIntentId: "pi_123",
         };
 
@@ -774,7 +772,7 @@ describe("Notification Module", () => {
           serviceName: "Deep Cleaning",
           cityName: "Bogotá",
           scheduledDate: "2025-01-25T10:00:00Z",
-          estimatedPay: 120000,
+          estimatedPay: 120_000,
         };
 
         const result = await notifyNearbyProfessionalsNewJob(professionalIds, job);
@@ -801,7 +799,7 @@ describe("Notification Module", () => {
           serviceName: "Deep Cleaning",
           cityName: "Bogotá",
           scheduledDate: "2025-01-25T10:00:00Z",
-          estimatedPay: 120000,
+          estimatedPay: 120_000,
         };
 
         const result = await notifyNearbyProfessionalsNewJob(professionalIds, job);
@@ -817,7 +815,7 @@ describe("Notification Module", () => {
           serviceName: "Deep Cleaning",
           cityName: "Bogotá",
           scheduledDate: "2025-01-25T10:00:00Z",
-          estimatedPay: 120000,
+          estimatedPay: 120_000,
         };
 
         const result = await notifyNearbyProfessionalsNewJob([], job);
@@ -886,7 +884,7 @@ describe("Notification Module", () => {
       const booking = {
         id: "booking-123",
         serviceName: "Event Cleaning",
-        amount: 5000000, // 5 million COP
+        amount: 5_000_000, // 5 million COP
       };
 
       const result = await notifyProfessionalPaymentReceived("pro-123", booking);

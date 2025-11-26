@@ -291,7 +291,7 @@ export const WithCustomDot: Story = {
     variant: "default",
     size: "md",
     dot: true,
-    dotColor: "bg-orange-500",
+    dotColor: "bg-rausch-500",
   },
 };
 

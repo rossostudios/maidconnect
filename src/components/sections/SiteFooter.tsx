@@ -4,6 +4,7 @@ import { Facebook02Icon, InstagramIcon, NewTwitterIcon } from "@hugeicons/core-f
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/brand/logo";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -64,9 +65,9 @@ export function SiteFooter() {
   return (
     <footer className="flex flex-col" id="footer">
       {/* Image Section - Hero-style container */}
-      <div className="bg-white px-4 pt-12 pb-8 md:px-8 lg:px-12">
+      <div className="bg-background px-4 pt-12 pb-8 md:px-8 lg:px-12">
         <div className="mx-auto max-w-screen-2xl">
-          <div className="relative overflow-hidden rounded-[28px] shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+          <div className="relative overflow-hidden rounded-[28px] shadow-lg">
             <div className="relative aspect-[21/9] md:aspect-[3/1]">
               <Image
                 alt="Casaora - Home in Latin America"
@@ -81,8 +82,8 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Navigation Section - Full width white background */}
-      <div className="w-full bg-white">
+      {/* Navigation Section - Full width background */}
+      <div className="w-full bg-background">
         <div className="mx-auto max-w-screen-2xl px-4 py-10 md:px-8 md:py-12 lg:px-12">
           {/* Main Footer Content */}
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
@@ -93,7 +94,7 @@ export function SiteFooter() {
                   <h3
                     className={cn(
                       "font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider",
-                      "text-neutral-500"
+                      "text-muted-foreground"
                     )}
                   >
                     {column.title}
@@ -104,8 +105,8 @@ export function SiteFooter() {
                         <Link
                           className={cn(
                             "font-[family-name:var(--font-geist-sans)] text-sm no-underline transition-colors duration-200",
-                            "text-neutral-700",
-                            "hover:text-orange-600"
+                            "text-foreground",
+                            "hover:text-rausch-500"
                           )}
                           href={link.href}
                         >
@@ -119,23 +120,16 @@ export function SiteFooter() {
             </div>
 
             {/* Brand - right side */}
-            <div className="flex flex-col gap-2 lg:max-w-xs lg:text-right">
-              <span
-                className={cn(
-                  "font-[family-name:var(--font-geist-sans)] font-bold text-xl uppercase tracking-wider",
-                  "text-neutral-900"
-                )}
-              >
-                CASAORA®
-              </span>
-              <p className={cn("text-sm leading-relaxed", "text-neutral-600")}>
+            <div className="flex flex-col gap-3 lg:max-w-xs lg:items-end">
+              <Logo size="lg" />
+              <p className={cn("text-sm leading-relaxed lg:text-right", "text-muted-foreground")}>
                 Trusted home professionals in Latin America. Simple, safe, and fair.
               </p>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-8 flex flex-col gap-4 border-neutral-200 border-t pt-6 md:flex-row md:items-center md:justify-between">
+          <div className="mt-8 flex flex-col gap-4 border-border border-t pt-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 {socialLinks.map(({ label, href, icon }) => (
@@ -143,8 +137,8 @@ export function SiteFooter() {
                     aria-label={label}
                     className={cn(
                       "flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200",
-                      "text-neutral-500 hover:bg-neutral-100",
-                      "hover:text-orange-600"
+                      "text-muted-foreground hover:bg-muted",
+                      "hover:text-rausch-500"
                     )}
                     href={href}
                     key={label}
@@ -156,7 +150,7 @@ export function SiteFooter() {
                 ))}
               </div>
             </div>
-            <p className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+            <p className="font-[family-name:var(--font-geist-sans)] text-muted-foreground text-xs">
               © {year} Casaora. All rights reserved.
             </p>
           </div>

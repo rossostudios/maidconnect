@@ -59,10 +59,9 @@ export async function GET(request: Request) {
     const sortedItems = sortRoadmapItems(itemsWithVotes, params.sortBy, params.sortOrder);
     const { data, total } = paginateRoadmapItems(sortedItems, params.page, params.limit);
 
-    return NextResponse.json(
-      buildRoadmapResponse(data, params.page, params.limit, total),
-      { headers: CACHE_HEADERS.STANDARD }
-    );
+    return NextResponse.json(buildRoadmapResponse(data, params.page, params.limit, total), {
+      headers: CACHE_HEADERS.STANDARD,
+    });
   } catch (error) {
     return handleApiError(error, request);
   }
@@ -147,7 +146,7 @@ const getCachedRoadmapItems = unstable_cache(
   }
 );
 
-async function fetchRoadmapItems(params: ParsedRoadmapParams) {
+function fetchRoadmapItems(params: ParsedRoadmapParams) {
   return getCachedRoadmapItems(params);
 }
 
@@ -197,7 +196,7 @@ const getCachedVoteCounts = unstable_cache(
   }
 );
 
-async function fetchVoteCounts(_supabase: ReturnType<typeof createSupabaseAnonClient>) {
+function fetchVoteCounts(_supabase: ReturnType<typeof createSupabaseAnonClient>) {
   return getCachedVoteCounts();
 }
 

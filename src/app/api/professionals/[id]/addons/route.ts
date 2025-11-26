@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/integrations/supabase/serverClient";
-import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS, addonsKey } from "@/lib/cache";
 
 type RouteContext = {
   params: Promise<{ id: string }>;

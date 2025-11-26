@@ -52,7 +52,7 @@ export function PerformanceMetrics({
     if (rate < 90) {
       return "bg-neutral-100 text-neutral-900";
     }
-    return "bg-orange-500/10 text-orange-600";
+    return "bg-rausch-500/10 text-rausch-600";
   };
 
   const onTimeBadgeClass = getRateBadgeClass(onTimeRate);

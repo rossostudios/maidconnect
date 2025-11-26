@@ -32,9 +32,9 @@ const variantConfig: Record<
 > = {
   bookings: {
     icon: Calendar03Icon,
-    bgColor: "bg-orange-50",
-    iconColor: "text-orange-500",
-    borderColor: "border-orange-100",
+    bgColor: "bg-rausch-50",
+    iconColor: "text-rausch-500",
+    borderColor: "border-rausch-100",
   },
   favorites: {
     icon: FavouriteIcon,
@@ -44,9 +44,9 @@ const variantConfig: Record<
   },
   messages: {
     icon: Message01Icon,
-    bgColor: "bg-blue-50",
-    iconColor: "text-blue-500",
-    borderColor: "border-blue-100",
+    bgColor: "bg-babu-50",
+    iconColor: "text-babu-500",
+    borderColor: "border-babu-100",
   },
   notifications: {
     icon: Notification03Icon,
@@ -176,9 +176,9 @@ export function EmptyStateLink({ href, children }: { href: string; children: Rea
   return (
     <a
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3",
+        "inline-flex items-center justify-center gap-2 rounded-lg bg-rausch-500 px-6 py-3",
         "font-semibold text-sm text-white shadow-sm transition",
-        "hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+        "hover:bg-rausch-600 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2",
         geistSans.className
       )}
       href={href}
@@ -194,7 +194,7 @@ export function EmptyStateLink({ href, children }: { href: string; children: Rea
 export function EmptyStateInlineLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
-      className="font-semibold text-orange-600 transition hover:text-orange-700 hover:underline"
+      className="font-semibold text-rausch-600 transition hover:text-rausch-700 hover:underline"
       href={href}
     >
       {children}

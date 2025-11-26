@@ -208,7 +208,7 @@ export function PayPalCheckoutButton({
     return (
       <div className="flex items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 p-8">
         <div className="flex items-center gap-3">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-300 border-t-orange-500" />
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-300 border-t-rausch-500" />
           <p className="text-neutral-600 text-sm">Loading PayPal...</p>
         </div>
       </div>

@@ -120,8 +120,8 @@ export const RadioGroup = ({
  * Radio Group Item Component
  *
  * Individual radio button with Lia Design System styling.
- * - Square indicator (no rounded corners - Lia Design System)
- * - Orange primary color
+ * - Circle indicator (rounded-full - Airbnb pattern)
+ * - Rausch primary color
  * - Focus ring for accessibility
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
@@ -141,22 +141,24 @@ export const RadioGroupItem = ({ className, id, ref, ...props }: RadioGroupItemP
       {({ isSelected, isDisabled }) => (
         <div
           className={cn(
-            // Square shape with border
-            "aspect-square h-4 w-4",
-            // Border styling (Lia Design System - orange primary)
-            "border border-orange-500",
+            // Circle shape with border (Airbnb pattern: radio = rounded-full)
+            "aspect-square h-4 w-4 rounded-full",
+            // Border styling (Lia Design System - rausch primary)
+            "border border-rausch-500",
+            // Smooth transition
+            "transition-all duration-200",
             // Focus ring
-            "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-orange-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
+            "group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-rausch-500 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-white",
             // Disabled state
             isDisabled && "cursor-not-allowed opacity-50",
             // Additional classes
             className
           )}
         >
-          {/* Inner indicator (square - Lia Design System: no rounded corners) */}
+          {/* Inner indicator (circle - Airbnb pattern: rounded-full) */}
           {isSelected && (
             <div className="flex h-full w-full items-center justify-center">
-              <div className="h-2.5 w-2.5 bg-orange-500" />
+              <div className="h-2.5 w-2.5 rounded-full bg-rausch-500" />
             </div>
           )}
         </div>

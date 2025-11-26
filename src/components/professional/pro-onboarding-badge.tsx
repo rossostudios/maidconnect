@@ -62,7 +62,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
   return (
     <Link
-      className="group mx-4 mt-4 mb-4 block border border-[#FF5200] bg-orange-50 p-3 transition-all hover:shadow-sm"
+      className="group mx-4 mt-4 mb-4 block border border-[#FF5200] bg-rausch-50 p-3 transition-all hover:shadow-sm"
       href="/dashboard/pro/onboarding"
     >
       <div className="flex items-start gap-3">

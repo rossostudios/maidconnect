@@ -98,8 +98,8 @@ export function RealtimeHealthMonitor() {
                 className={cn(
                   "h-2 w-2 rounded-full",
                   health.state === "connected" && "bg-green-500",
-                  health.state === "connecting" && "animate-pulse bg-blue-500",
-                  health.state === "reconnecting" && "animate-pulse bg-orange-500",
+                  health.state === "connecting" && "animate-pulse bg-babu-500",
+                  health.state === "reconnecting" && "animate-pulse bg-rausch-500",
                   health.state === "error" && "bg-red-500",
                   health.state === "disconnected" && "bg-neutral-400"
                 )}
@@ -134,10 +134,10 @@ export function RealtimeHealthMonitor() {
 
         {/* Warning if approaching max reconnect attempts */}
         {health.reconnectAttempts >= 3 && health.state !== "connected" && (
-          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4">
             <div className="flex items-start gap-3">
               <svg
-                className="mt-0.5 h-5 w-5 text-orange-600"
+                className="mt-0.5 h-5 w-5 text-rausch-600"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
@@ -150,10 +150,10 @@ export function RealtimeHealthMonitor() {
                 />
               </svg>
               <div className="flex-1">
-                <h4 className="font-semibold text-orange-900 text-sm">
+                <h4 className="font-semibold text-rausch-900 text-sm">
                   Connection Issues Detected
                 </h4>
-                <p className="mt-1 text-orange-700 text-sm">
+                <p className="mt-1 text-rausch-700 text-sm">
                   Multiple reconnection attempts failed. If this persists, check your internet
                   connection or contact support.
                 </p>

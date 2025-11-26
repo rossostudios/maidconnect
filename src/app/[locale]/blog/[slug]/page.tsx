@@ -127,7 +127,7 @@ export default async function BlogPostPage({
           <div className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-10">
             {/* Back Link */}
             <Link
-              className="mb-8 inline-flex items-center gap-2 font-medium text-orange-600 text-sm transition hover:gap-3 hover:text-orange-700"
+              className="mb-8 inline-flex items-center gap-2 font-medium text-rausch-600 text-sm transition hover:gap-3 hover:text-rausch-700"
               href={`/${locale}/blog`}
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
@@ -137,7 +137,7 @@ export default async function BlogPostPage({
             {/* Category Badge */}
             {post.category && (
               <div className="mb-6">
-                <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 font-medium text-orange-600 text-sm">
+                <span className="inline-block rounded-full border border-rausch-200 bg-rausch-50 px-4 py-1.5 font-medium text-rausch-600 text-sm">
                   {post.category.name}
                 </span>
               </div>
@@ -160,8 +160,8 @@ export default async function BlogPostPage({
               {/* Author */}
               {post.author && (
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
-                    <span className="font-semibold text-orange-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-rausch-100">
+                    <span className="font-semibold text-rausch-600">
                       {post.author
                         .split(" ")
                         .map((n) => n[0])
@@ -237,7 +237,7 @@ export default async function BlogPostPage({
             {/* Back to Blog */}
             <div className="mt-12 text-center">
               <Link
-                className="inline-flex items-center gap-2 font-medium text-orange-600 transition hover:gap-3 hover:text-orange-700"
+                className="inline-flex items-center gap-2 font-medium text-rausch-600 transition hover:gap-3 hover:text-rausch-700"
                 href={`/${locale}/blog`}
               >
                 <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />

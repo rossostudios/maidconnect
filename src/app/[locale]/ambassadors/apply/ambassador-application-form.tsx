@@ -191,11 +191,7 @@ export function AmbassadorApplicationForm() {
           </Field>
 
           <Field label={t("companyNameLabel")}>
-            <Input
-              id="companyName"
-              name="companyName"
-              placeholder={t("companyNamePlaceholder")}
-            />
+            <Input id="companyName" name="companyName" placeholder={t("companyNamePlaceholder")} />
           </Field>
         </div>
 
@@ -258,7 +254,7 @@ export function AmbassadorApplicationForm() {
           <div className="space-y-1">
             <Label className="font-normal text-neutral-700 text-sm" htmlFor="termsAccepted">
               {t("termsLabel")}{" "}
-              <Link className="text-orange-600 hover:underline" href="/ambassador-terms">
+              <Link className="text-rausch-600 hover:underline" href="/ambassador-terms">
                 {t("termsLink")}
               </Link>
             </Label>

@@ -483,7 +483,7 @@ export function UnifiedCommandPalette({
                   "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                   "text-neutral-900",
                   "hover:bg-neutral-50",
-                  "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                  "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                 )}
                 key={item.id}
                 onSelect={() => navigate(item.url, item.title, item.description)}
@@ -521,7 +521,7 @@ export function UnifiedCommandPalette({
                       "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                       "text-neutral-900",
                       "hover:bg-neutral-50",
-                      "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                      "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                     )}
                     key={cmd.id}
                     onSelect={() => {
@@ -561,7 +561,7 @@ export function UnifiedCommandPalette({
                     "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                     "text-neutral-900",
                     "hover:bg-neutral-50",
-                    "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                    "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
@@ -595,7 +595,7 @@ export function UnifiedCommandPalette({
                     "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                     "text-neutral-900",
                     "hover:bg-neutral-50",
-                    "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                    "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
@@ -629,7 +629,7 @@ export function UnifiedCommandPalette({
                     "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                     "text-neutral-900",
                     "hover:bg-neutral-50",
-                    "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                    "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
@@ -663,7 +663,7 @@ export function UnifiedCommandPalette({
                     "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                     "text-neutral-900",
                     "hover:bg-neutral-50",
-                    "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                    "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
@@ -697,7 +697,7 @@ export function UnifiedCommandPalette({
                     "group relative mb-1 flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm transition-all",
                     "text-neutral-900",
                     "hover:bg-neutral-50",
-                    "aria-selected:bg-orange-500 aria-selected:text-white aria-selected:shadow-sm"
+                    "aria-selected:bg-rausch-500 aria-selected:text-white aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}

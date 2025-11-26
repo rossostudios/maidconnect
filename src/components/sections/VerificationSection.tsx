@@ -59,7 +59,7 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
   return (
     <motion.div
       animate={{ opacity: 1, y: 0 }}
-      className="relative rounded-xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-6"
+      className="relative rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
       exit={{ opacity: 0, y: -10 }}
       initial={{ opacity: 0, y: 10 }}
       key={activeFeature}
@@ -67,22 +67,22 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
     >
       {/* Soft corner decorations - hidden on mobile for performance */}
       <div className="absolute inset-0 hidden overflow-hidden rounded-xl sm:block">
-        <div className="-top-8 -right-8 absolute h-32 w-32 rounded-full bg-neutral-200/40 blur-2xl" />
-        <div className="-bottom-4 -left-4 absolute h-24 w-24 rounded-full bg-neutral-200/30 blur-xl" />
+        <div className="-top-8 -right-8 absolute h-32 w-32 rounded-full bg-rausch-500/10 blur-2xl" />
+        <div className="-bottom-4 -left-4 absolute h-24 w-24 rounded-full bg-rausch-500/5 blur-xl" />
       </div>
 
       {/* Search/Input field */}
       <div className="relative mb-4 sm:mb-6">
-        <p className="mb-1.5 font-medium text-neutral-500 text-xs sm:mb-2">{config.title}</p>
-        <div className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2.5 sm:px-4 sm:py-3">
-          <span className="font-medium text-neutral-900 text-sm">María Camila S.</span>
+        <p className="mb-1.5 font-medium text-muted-foreground text-xs sm:mb-2">{config.title}</p>
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-2.5 sm:px-4 sm:py-3">
+          <span className="font-medium text-foreground text-sm">María Camila S.</span>
         </div>
       </div>
 
       {/* Vertical flow with connecting line */}
       <div className="relative space-y-0.5 sm:space-y-1">
         {/* Connecting line */}
-        <div className="absolute top-5 bottom-5 left-[14px] w-0.5 bg-gradient-to-b from-green-500 via-green-400 to-neutral-200 sm:top-6 sm:bottom-6 sm:left-[18px]" />
+        <div className="absolute top-5 bottom-5 left-[14px] w-0.5 bg-gradient-to-b from-green-500 via-green-400 to-border sm:top-6 sm:bottom-6 sm:left-[18px]" />
 
         <AnimatePresence mode="wait">
           {config.steps.map((step, index) => {
@@ -103,8 +103,8 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
                     isComplete
                       ? "bg-green-500 text-white"
                       : isActive
-                        ? "border-2 border-orange-400 bg-orange-50 text-orange-500"
-                        : "border-2 border-neutral-300 bg-white text-neutral-400"
+                        ? "border-2 border-rausch-400 bg-rausch-500/10 text-rausch-500"
+                        : "border-2 border-border bg-card text-muted-foreground"
                   }`}
                 >
                   {isComplete ? (
@@ -113,9 +113,9 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
                       icon={CheckmarkCircle02Icon}
                     />
                   ) : isActive ? (
-                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-orange-500 sm:h-2 sm:w-2" />
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-rausch-500 sm:h-2 sm:w-2" />
                   ) : (
-                    <div className="h-1.5 w-1.5 rounded-full bg-neutral-300 sm:h-2 sm:w-2" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-border sm:h-2 sm:w-2" />
                   )}
                 </div>
 
@@ -123,19 +123,19 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
                 <div
                   className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 transition-colors sm:px-4 sm:py-2 ${
                     isComplete
-                      ? "border-green-200 bg-green-50"
+                      ? "border-green-500/30 bg-green-500/10"
                       : isActive
-                        ? "border-orange-200 bg-orange-50"
-                        : "border-neutral-200 bg-white"
+                        ? "border-rausch-500/30 bg-rausch-500/10"
+                        : "border-border bg-card"
                   }`}
                 >
                   <span
                     className={`font-medium text-xs sm:text-sm ${
                       isComplete
-                        ? "text-green-700"
+                        ? "text-green-500"
                         : isActive
-                          ? "text-orange-700"
-                          : "text-neutral-600"
+                          ? "text-rausch-500"
+                          : "text-muted-foreground"
                     }`}
                   >
                     {step.label}
@@ -144,12 +144,12 @@ function VerificationFlowVisual({ activeFeature }: { activeFeature: string }) {
 
                 {/* Status badge - hidden on mobile, shown on tablet+ */}
                 {isComplete && (
-                  <span className="hidden font-medium text-green-600 text-xs md:inline">
+                  <span className="hidden font-medium text-green-500 text-xs md:inline">
                     ✓ Complete
                   </span>
                 )}
                 {isActive && (
-                  <span className="hidden font-medium text-orange-600 text-xs md:inline">
+                  <span className="hidden font-medium text-rausch-500 text-xs md:inline">
                     In progress
                   </span>
                 )}
@@ -180,8 +180,8 @@ function FeatureList({
           <motion.div
             className={`cursor-pointer rounded-xl border transition-all active:scale-[0.99] ${
               isActive
-                ? "border-orange-200 bg-orange-50/50"
-                : "border-neutral-200 bg-white hover:border-neutral-300"
+                ? "border-rausch-500/30 bg-rausch-500/10"
+                : "border-border bg-card hover:border-rausch-500/50"
             }`}
             key={feature.id}
             layout
@@ -191,24 +191,24 @@ function FeatureList({
             <div className="flex w-full items-center gap-3 px-3 py-3 sm:px-4">
               <div
                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors sm:h-8 sm:w-8 ${
-                  isActive ? "bg-orange-100" : "bg-neutral-100"
+                  isActive ? "bg-rausch-500/20" : "bg-muted"
                 }`}
               >
                 <HugeiconsIcon
-                  className={`h-4 w-4 ${isActive ? "text-orange-600" : "text-neutral-600"}`}
+                  className={`h-4 w-4 ${isActive ? "text-rausch-500" : "text-muted-foreground"}`}
                   icon={feature.icon}
                 />
               </div>
               <span
                 className={`flex-1 text-left font-medium text-sm ${
-                  isActive ? "text-orange-700" : "text-neutral-700"
+                  isActive ? "text-rausch-500" : "text-foreground"
                 }`}
               >
                 {feature.title}
               </span>
               <HugeiconsIcon
                 className={`h-4 w-4 shrink-0 transition-transform ${
-                  isActive ? "rotate-45 text-orange-500" : "text-neutral-400"
+                  isActive ? "rotate-45 text-rausch-500" : "text-muted-foreground"
                 }`}
                 icon={isActive ? Remove01Icon : Add01Icon}
               />
@@ -223,7 +223,7 @@ function FeatureList({
                   initial={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <p className="px-3 pb-3 text-neutral-600 text-sm leading-relaxed sm:px-4 sm:pb-4">
+                  <p className="px-3 pb-3 text-muted-foreground text-sm leading-relaxed sm:px-4 sm:pb-4">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -268,28 +268,28 @@ export function VerificationSection() {
   ];
 
   return (
-    <section className="bg-neutral-50 py-12 sm:py-16 lg:py-20">
+    <section className="bg-muted py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-10 sm:gap-6 md:flex-row md:items-center lg:mb-12">
           <div>
             {/* Badge */}
-            <span className="mb-3 inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 font-medium text-neutral-600 text-xs sm:mb-4">
+            <span className="mb-3 inline-block rounded-full border border-border bg-card px-3 py-1 font-medium text-muted-foreground text-xs sm:mb-4">
               {t("badge")}
             </span>
 
             {/* Headline - responsive sizing */}
-            <h2 className="mb-2 font-semibold text-2xl text-neutral-900 tracking-tight sm:mb-3 sm:text-3xl md:text-4xl">
+            <h2 className="mb-2 font-semibold text-2xl text-foreground tracking-tight sm:mb-3 sm:text-3xl md:text-4xl">
               {t("title")}
             </h2>
 
             {/* Subtitle */}
-            <p className="max-w-xl text-base text-neutral-600 sm:text-lg">{t("subtitle")}</p>
+            <p className="max-w-xl text-base text-muted-foreground sm:text-lg">{t("subtitle")}</p>
           </div>
 
           {/* Explore button - full width on mobile */}
           <button
-            className="group flex w-full items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-5 py-2.5 font-medium text-neutral-700 text-sm shadow-sm transition-all hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600 sm:w-auto"
+            className="group flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 font-medium text-foreground text-sm shadow-sm transition-all hover:border-rausch-500 hover:bg-rausch-500/10 hover:text-rausch-500 sm:w-auto"
             type="button"
           >
             Explore

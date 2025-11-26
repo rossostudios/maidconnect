@@ -18,7 +18,6 @@ import { ArrowLeft02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { geistSans } from "@/app/fonts";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/core";
 
 type FlexibleCarouselProps = {
@@ -54,7 +53,9 @@ export function FlexibleCarousel({
   }[gap];
 
   const checkScroll = useCallback(() => {
-    if (!scrollRef.current) return;
+    if (!scrollRef.current) {
+      return;
+    }
 
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
     setCanScrollLeft(scrollLeft > 0);
@@ -77,7 +78,9 @@ export function FlexibleCarousel({
   }, [checkScroll]);
 
   const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
+    if (!scrollRef.current) {
+      return;
+    }
 
     const scrollAmount = scrollRef.current.clientWidth * 0.75;
     scrollRef.current.scrollBy({
@@ -93,50 +96,50 @@ export function FlexibleCarousel({
         <div className="mb-4 flex items-center justify-between">
           <div>
             {title && (
-              <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
+              <h2 className={cn("font-semibold text-foreground text-xl", geistSans.className)}>
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className={cn("mt-1 text-neutral-500 text-sm", geistSans.className)}>{subtitle}</p>
+              <p className={cn("mt-1 text-muted-foreground text-sm", geistSans.className)}>
+                {subtitle}
+              </p>
             )}
           </div>
           <div className="flex items-center gap-2">
-            {/* Navigation Arrows - Desktop */}
-            <div className="hidden items-center gap-2 md:flex">
-              <Button
+            {/* Navigation Arrows - Desktop (Airbnb-style) */}
+            <div className="hidden items-center gap-1 md:flex">
+              <button
+                aria-label="Scroll left"
                 className={cn(
-                  "h-8 w-8 rounded-full p-0 transition-opacity",
-                  !canScrollLeft && "cursor-not-allowed opacity-30"
+                  "flex h-8 w-8 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-600 shadow-sm transition-all hover:scale-105 hover:shadow-md active:scale-95 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700",
+                  !canScrollLeft && "pointer-events-none opacity-30"
                 )}
                 disabled={!canScrollLeft}
                 onClick={() => scroll("left")}
-                size="sm"
-                variant="outline"
+                type="button"
               >
-                <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft02Icon} />
-                <span className="sr-only">Scroll left</span>
-              </Button>
-              <Button
+                <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft02Icon} strokeWidth={2} />
+              </button>
+              <button
+                aria-label="Scroll right"
                 className={cn(
-                  "h-8 w-8 rounded-full p-0 transition-opacity",
-                  !canScrollRight && "cursor-not-allowed opacity-30"
+                  "flex h-8 w-8 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-600 shadow-sm transition-all hover:scale-105 hover:shadow-md active:scale-95 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700",
+                  !canScrollRight && "pointer-events-none opacity-30"
                 )}
                 disabled={!canScrollRight}
                 onClick={() => scroll("right")}
-                size="sm"
-                variant="outline"
+                type="button"
               >
-                <HugeiconsIcon className="h-4 w-4" icon={ArrowRight02Icon} />
-                <span className="sr-only">Scroll right</span>
-              </Button>
+                <HugeiconsIcon className="h-4 w-4" icon={ArrowRight02Icon} strokeWidth={2} />
+              </button>
             </div>
 
             {/* View All Link */}
             {showViewAll && viewAllHref && (
               <a
                 className={cn(
-                  "flex items-center gap-1 text-orange-600 text-sm hover:text-orange-700",
+                  "flex items-center gap-1 text-rausch-600 text-sm hover:text-rausch-700",
                   geistSans.className
                 )}
                 href={viewAllHref}
@@ -151,22 +154,19 @@ export function FlexibleCarousel({
 
       {/* Scrollable Content */}
       <div className="relative">
-        {/* Left Gradient Fade */}
+        {/* Left Gradient Fade - Uses semantic background color */}
         {canScrollLeft && (
-          <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-16 bg-gradient-to-r from-white via-white/80 to-transparent dark:from-neutral-900 dark:via-neutral-900/80" />
         )}
 
-        {/* Right Gradient Fade */}
+        {/* Right Gradient Fade - Uses semantic background color */}
         {canScrollRight && (
-          <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-12 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-16 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-neutral-900 dark:via-neutral-900/80" />
         )}
 
         {/* Scrollable Container */}
         <div
-          className={cn(
-            "scrollbar-hide flex overflow-x-auto scroll-smooth pb-2",
-            gapClass
-          )}
+          className={cn("scrollbar-hide flex overflow-x-auto scroll-smooth pb-2", gapClass)}
           ref={scrollRef}
         >
           {children}
@@ -189,10 +189,7 @@ export function CarouselItem({
   minWidth?: string;
 }) {
   return (
-    <div
-      className={cn("flex-shrink-0", className)}
-      style={{ minWidth }}
-    >
+    <div className={cn("flex-shrink-0", className)} style={{ minWidth }}>
       {children}
     </div>
   );

@@ -44,6 +44,77 @@ function isSameMonth(dateInput: string | null, reference: Date) {
   );
 }
 
+function getAmountForStatus(booking: FinancialBooking): number {
+  const captured = booking.amount_captured ?? 0;
+  const authorized = booking.amount_authorized ?? 0;
+  const estimated = booking.amount_estimated ?? 0;
+
+  switch (booking.status) {
+    case "completed":
+      return captured || authorized || estimated;
+    case "authorized":
+      return authorized || estimated;
+    case "pending_payment":
+      return estimated;
+    case "canceled":
+      return authorized || estimated;
+    default:
+      return 0;
+  }
+}
+
+function updateSummaryForBooking(
+  summary: Totals,
+  booking: FinancialBooking,
+  amount: number,
+  isCurrentMonth: boolean
+): void {
+  switch (booking.status) {
+    case "completed":
+      summary.captured += amount;
+      if (isCurrentMonth) {
+        summary.thisMonthCaptured += amount;
+      }
+      break;
+    case "authorized":
+      summary.authorized += amount;
+      if (isCurrentMonth) {
+        summary.thisMonthAuthorized += amount;
+      }
+      break;
+    case "pending_payment":
+      summary.pending += amount;
+      break;
+    case "canceled":
+      summary.canceled += amount;
+      break;
+    default:
+      // Other statuses don't affect totals
+      break;
+  }
+}
+
+function processBookingTotals(bookings: FinancialBooking[]): Totals {
+  const summary: Totals = {
+    captured: 0,
+    authorized: 0,
+    pending: 0,
+    canceled: 0,
+    thisMonthCaptured: 0,
+    thisMonthAuthorized: 0,
+  };
+
+  const reference = new Date();
+
+  for (const booking of bookings) {
+    const amount = getAmountForStatus(booking);
+    const isCurrentMonth = isSameMonth(booking.scheduled_start ?? booking.created_at, reference);
+    updateSummaryForBooking(summary, booking, amount, isCurrentMonth);
+  }
+
+  return summary;
+}
+
 export function ProFinancialSummary({
   bookings,
   connectAccountId,
@@ -57,49 +128,7 @@ export function ProFinancialSummary({
   // Derive currency from first booking or use prop override
   const displayCurrency: Currency = currency || (bookings[0]?.currency as Currency) || "COP";
 
-  const totals = useMemo(() => {
-    const summary: Totals = {
-      captured: 0,
-      authorized: 0,
-      pending: 0,
-      canceled: 0,
-      thisMonthCaptured: 0,
-      thisMonthAuthorized: 0,
-    };
-
-    const reference = new Date();
-
-    for (const booking of bookings) {
-      const captured = booking.amount_captured ?? 0;
-      const authorized = booking.amount_authorized ?? 0;
-      const estimated = booking.amount_estimated ?? 0;
-
-      switch (booking.status) {
-        case "completed":
-          summary.captured += captured || authorized || estimated;
-          if (isSameMonth(booking.scheduled_start ?? booking.created_at, reference)) {
-            summary.thisMonthCaptured += captured || authorized || estimated;
-          }
-          break;
-        case "authorized":
-          summary.authorized += authorized || estimated;
-          if (isSameMonth(booking.scheduled_start ?? booking.created_at, reference)) {
-            summary.thisMonthAuthorized += authorized || estimated;
-          }
-          break;
-        case "pending_payment":
-          summary.pending += estimated;
-          break;
-        case "canceled":
-          summary.canceled += authorized || estimated;
-          break;
-        default:
-          break;
-      }
-    }
-
-    return summary;
-  }, [bookings]);
+  const totals = useMemo(() => processBookingTotals(bookings), [bookings]);
 
   const noData = bookings.length === 0;
   const normalizedStatus = (connectStatus ?? "not_started").toLowerCase();

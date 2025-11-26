@@ -15,7 +15,7 @@ import { Container } from "@/components/ui/container";
 
 export function NewsletterCTA() {
   return (
-    <section className="relative bg-orange-500 py-16">
+    <section className="relative bg-rausch-500 py-16">
       <Container className="max-w-7xl px-4">
         <motion.div
           className="flex flex-col items-center gap-6 text-center"
@@ -27,7 +27,7 @@ export function NewsletterCTA() {
           <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-white tracking-tight">
             Stay Updated
           </h2>
-          <p className="max-w-2xl font-[family-name:var(--font-geist-sans)] text-lg text-orange-50">
+          <p className="max-w-2xl font-[family-name:var(--font-geist-sans)] text-lg text-rausch-50">
             Get the latest updates on new features, professional spotlights, and exclusive offers
             delivered to your inbox.
           </p>
@@ -40,13 +40,13 @@ export function NewsletterCTA() {
               type="email"
             />
             <button
-              className="border-2 border-white bg-white px-8 py-4 font-[family-name:var(--font-geist-sans)] font-semibold text-orange-500 transition-all hover:bg-orange-50"
+              className="border-2 border-white bg-white px-8 py-4 font-[family-name:var(--font-geist-sans)] font-semibold text-rausch-500 transition-all hover:bg-rausch-50"
               type="submit"
             >
               Subscribe
             </button>
           </form>
-          <p className="font-[family-name:var(--font-geist-sans)] text-orange-100 text-sm">
+          <p className="font-[family-name:var(--font-geist-sans)] text-rausch-100 text-sm">
             Join 2,500+ subscribers. Unsubscribe anytime.
           </p>
         </motion.div>

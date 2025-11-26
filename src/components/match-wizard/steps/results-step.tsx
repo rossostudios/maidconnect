@@ -163,7 +163,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
     return (
       <div className="py-12">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">
             {t("searching", { defaultValue: "Finding your perfect matches..." })}
           </p>

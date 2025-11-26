@@ -15,8 +15,8 @@
 
 import { Location01Icon, UserMultipleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import Image from "next/image";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
@@ -223,13 +223,13 @@ type CityCardProps = {
 function CityCard({ city, index = 0 }: CityCardProps) {
   // Generate gradient colors based on country
   const gradientColors: Record<string, string> = {
-    CO: "from-yellow-400 via-blue-500 to-red-500",
-    PY: "from-red-500 via-white to-blue-500",
-    UY: "from-blue-400 via-white to-blue-400",
-    AR: "from-blue-300 via-white to-blue-300",
+    CO: "from-yellow-400 via-babu-500 to-red-500",
+    PY: "from-red-500 via-white to-babu-500",
+    UY: "from-babu-400 via-white to-babu-400",
+    AR: "from-babu-300 via-white to-babu-300",
   };
 
-  const gradient = gradientColors[city.countryCode] || "from-orange-400 to-orange-600";
+  const gradient = gradientColors[city.countryCode] || "from-rausch-400 to-rausch-600";
 
   return (
     <motion.div
@@ -285,7 +285,7 @@ function CityCard({ city, index = 0 }: CityCardProps) {
         <div className="p-3">
           <h3
             className={cn(
-              "font-semibold text-neutral-900 group-hover:text-orange-600",
+              "font-semibold text-neutral-900 group-hover:text-rausch-600",
               geistSans.className
             )}
           >

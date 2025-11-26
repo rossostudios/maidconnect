@@ -82,7 +82,7 @@ export function IntroVideoPlayer({
       <div className={cn("rounded-lg border border-neutral-200 bg-white p-8", className)}>
         <div className="flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-100">
           <div className="flex flex-col items-center gap-4">
-            <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-orange-500" />
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-rausch-500" />
             <p className="text-neutral-500 text-sm">{t("loading")}</p>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function IntroVideoPlayer({
     <div className={cn("rounded-lg border border-neutral-200 bg-white p-8", className)}>
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
-        <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={Video01Icon} />
+        <HugeiconsIcon className="h-6 w-6 text-rausch-500" icon={Video01Icon} />
         <h2 className="font-semibold text-2xl text-neutral-900">{t("title")}</h2>
       </div>
 

@@ -233,7 +233,7 @@ export function ProfessionalProfileView({
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
                     <HugeiconsIcon
-                      className="h-5 w-5 fill-orange-500 text-orange-500"
+                      className="h-5 w-5 fill-rausch-500 text-rausch-500"
                       icon={StarIcon}
                     />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
@@ -417,7 +417,7 @@ export function ProfessionalProfileView({
                                     showBreakdown={true}
                                   />
                                 ) : (
-                                  <div className="font-semibold text-lg text-orange-600">
+                                  <div className="font-semibold text-lg text-rausch-600">
                                     {formatCOPWithFallback(service.hourlyRateCop)}
                                   </div>
                                 )
@@ -485,7 +485,7 @@ export function ProfessionalProfileView({
                                 <HugeiconsIcon
                                   className={`h-4 w-4 ${
                                     i < review.rating
-                                      ? "fill-orange-500 text-orange-500"
+                                      ? "fill-rausch-500 text-rausch-500"
                                       : "text-neutral-200"
                                   }`}
                                   icon={StarIcon}

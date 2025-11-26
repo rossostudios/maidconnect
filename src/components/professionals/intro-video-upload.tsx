@@ -238,19 +238,19 @@ export function IntroVideoUpload({
         <h3 className="font-semibold text-base text-neutral-900">{t("guidelines.title")}</h3>
         <ul className="space-y-2 text-neutral-700 text-sm">
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>{t("guidelines.duration", { maxDuration: MAX_DURATION_SECONDS })}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>{t("guidelines.fileSize", { maxSize: MAX_FILE_SIZE_MB })}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>{t("guidelines.content")}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">•</span>
+            <span className="text-rausch-500">•</span>
             <span>{t("guidelines.quality")}</span>
           </li>
         </ul>

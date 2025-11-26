@@ -135,10 +135,10 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
         </nav>
 
         {/* Divider */}
-        <div className="mx-2 h-6 w-px bg-neutral-200" />
+        <div className="mx-2 h-6 w-px bg-border" />
 
         {/* Right: Globe + Hamburger Menu (Airbnb-style) */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/* Globe Button - Language/Region/Currency Preferences */}
           <GlobeButton />
 

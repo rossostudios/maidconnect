@@ -37,17 +37,17 @@ export function ConnectionStatusIndicator() {
       label: "Connected",
     },
     connecting: {
-      bg: "bg-blue-50",
-      border: "border-blue-200",
-      text: "text-blue-700",
-      dot: "bg-blue-500 animate-pulse",
+      bg: "bg-babu-50",
+      border: "border-babu-200",
+      text: "text-babu-700",
+      dot: "bg-babu-500 animate-pulse",
       label: "Connecting...",
     },
     reconnecting: {
-      bg: "bg-orange-50",
-      border: "border-orange-200",
-      text: "text-orange-700",
-      dot: "bg-orange-500 animate-pulse",
+      bg: "bg-rausch-50",
+      border: "border-rausch-200",
+      text: "text-rausch-700",
+      dot: "bg-rausch-500 animate-pulse",
       label: "Reconnecting...",
     },
     error: {
@@ -119,8 +119,8 @@ export function ConnectionStatusDot() {
 
   const stateStyles = {
     connected: "bg-green-500",
-    connecting: "bg-blue-500 animate-pulse",
-    reconnecting: "bg-orange-500 animate-pulse",
+    connecting: "bg-babu-500 animate-pulse",
+    reconnecting: "bg-rausch-500 animate-pulse",
     error: "bg-red-500",
     disconnected: "bg-neutral-400",
   };

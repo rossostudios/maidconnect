@@ -68,6 +68,94 @@ const SERVICE_TYPES: ServiceType[] = [
   },
 ];
 
+const WIZARD_STEPS: BookingStep[] = ["country", "city", "service"];
+
+function getStepIndicatorClass(isCompleted: boolean, isActive: boolean): string {
+  if (isCompleted) {
+    return "border-rausch-500 bg-rausch-500 text-white";
+  }
+  if (isActive) {
+    return "border-rausch-500 bg-rausch-50 text-rausch-700";
+  }
+  return "border-neutral-200 bg-neutral-50 text-neutral-400";
+}
+
+function isStepCompleted(
+  step: BookingStep,
+  country: string | null,
+  city: string | null,
+  selectedService: string | null
+): boolean {
+  switch (step) {
+    case "country":
+      return !!country;
+    case "city":
+      return !!city;
+    case "service":
+      return !!selectedService;
+    default:
+      return false;
+  }
+}
+
+function getStepLabelClass(isActive: boolean): string {
+  return isActive ? "font-medium text-neutral-900" : "text-neutral-500";
+}
+
+function getConnectorClass(isCompleted: boolean): string {
+  return isCompleted ? "bg-rausch-500" : "bg-neutral-200";
+}
+
+function getServiceCardClass(isSelected: boolean): string {
+  if (isSelected) {
+    return "rounded-lg border-2 p-4 text-left transition-all border-rausch-500 bg-rausch-50";
+  }
+  return "rounded-lg border-2 p-4 text-left transition-all border-neutral-200 bg-white hover:border-rausch-300 hover:bg-rausch-50/50";
+}
+
+type StepContent = {
+  titleKey: string;
+  titleFallback: string;
+  descKey: string;
+  descFallback: string;
+};
+
+function getLocationStepContent(step: BookingStep): StepContent {
+  if (step === "country") {
+    return {
+      titleKey: "wizard.countryTitle",
+      titleFallback: "¿Dónde necesitas ayuda?",
+      descKey: "wizard.countryDescription",
+      descFallback: "Selecciona el país donde necesitas nuestros servicios",
+    };
+  }
+  return {
+    titleKey: "wizard.cityTitle",
+    titleFallback: "¿En qué ciudad?",
+    descKey: "wizard.cityDescription",
+    descFallback: "Selecciona tu ciudad para mostrarte profesionales disponibles",
+  };
+}
+
+function buildMarketSummary(
+  country: string | null,
+  city: string | null,
+  selectedService: string | null,
+  t: (key: string) => string
+): string {
+  const parts: string[] = [];
+  if (country) {
+    parts.push(country);
+  }
+  if (city) {
+    parts.push(city);
+  }
+  if (selectedService) {
+    parts.push(t(`services.${selectedService}.name`));
+  }
+  return parts.join(" · ");
+}
+
 export function BookingWizard() {
   const t = useTranslations("booking");
   const router = useRouter();
@@ -128,21 +216,11 @@ export function BookingWizard() {
       {/* Progress Indicator */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
-          {["country", "city", "service"].map((step, index) => {
+          {WIZARD_STEPS.map((step, index) => {
             const stepNumber = index + 1;
             const isActive = currentStep === step;
-            const isCompleted =
-              (step === "country" && country) ||
-              (step === "city" && city) ||
-              (step === "service" && selectedService);
-
-            // Determine step indicator style
-            let stepClass = "border-neutral-200 bg-neutral-50 text-neutral-400";
-            if (isCompleted) {
-              stepClass = "border-orange-500 bg-orange-500 text-white";
-            } else if (isActive) {
-              stepClass = "border-orange-500 bg-orange-50 text-orange-700";
-            }
+            const completed = isStepCompleted(step, country, city, selectedService);
+            const stepClass = getStepIndicatorClass(completed, isActive);
 
             return (
               <div className="flex flex-1 items-center" key={step}>
@@ -150,21 +228,15 @@ export function BookingWizard() {
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold text-sm transition-all ${stepClass}`}
                   >
-                    {isCompleted ? "✓" : stepNumber}
+                    {completed ? "✓" : stepNumber}
                   </div>
-                  <span
-                    className={`mt-2 text-xs ${
-                      isActive ? "font-medium text-neutral-900" : "text-neutral-500"
-                    }`}
-                  >
+                  <span className={`mt-2 text-xs ${getStepLabelClass(isActive)}`}>
                     {t(`steps.${step}`)}
                   </span>
                 </div>
                 {index < 2 && (
                   <div
-                    className={`mx-2 h-0.5 flex-1 transition-all ${
-                      isCompleted ? "bg-orange-500" : "bg-neutral-200"
-                    }`}
+                    className={`mx-2 h-0.5 flex-1 transition-all ${getConnectorClass(completed)}`}
                   />
                 )}
               </div>
@@ -178,18 +250,19 @@ export function BookingWizard() {
         {/* Step 1 & 2: Country and City Selection */}
         {(currentStep === "country" || currentStep === "city") && (
           <div>
-            <h2 className="mb-2 font-semibold text-2xl text-neutral-900">
-              {currentStep === "country"
-                ? t("wizard.countryTitle") || "¿Dónde necesitas ayuda?"
-                : t("wizard.cityTitle") || "¿En qué ciudad?"}
-            </h2>
-            <p className="mb-6 text-neutral-600">
-              {currentStep === "country"
-                ? t("wizard.countryDescription") ||
-                  "Selecciona el país donde necesitas nuestros servicios"
-                : t("wizard.cityDescription") ||
-                  "Selecciona tu ciudad para mostrarte profesionales disponibles"}
-            </p>
+            {(() => {
+              const content = getLocationStepContent(currentStep);
+              return (
+                <>
+                  <h2 className="mb-2 font-semibold text-2xl text-neutral-900">
+                    {t(content.titleKey) || content.titleFallback}
+                  </h2>
+                  <p className="mb-6 text-neutral-600">
+                    {t(content.descKey) || content.descFallback}
+                  </p>
+                </>
+              );
+            })()}
 
             <CountryCitySelector
               city={city || undefined}
@@ -227,25 +300,18 @@ export function BookingWizard() {
             </p>
 
             <div className="grid grid-cols-2 gap-4">
-              {SERVICE_TYPES.map((service) => {
-                const isSelected = selectedService === service.id;
-                return (
-                  <button
-                    className={`rounded-lg border-2 p-4 text-left transition-all ${
-                      isSelected
-                        ? "border-orange-500 bg-orange-50"
-                        : "border-neutral-200 bg-white hover:border-orange-300 hover:bg-orange-50/50"
-                    }`}
-                    key={service.id}
-                    onClick={() => handleServiceSelect(service.id)}
-                    type="button"
-                  >
-                    <div className="mb-2 text-3xl">{service.icon}</div>
-                    <h3 className="mb-1 font-semibold text-neutral-900">{t(service.nameKey)}</h3>
-                    <p className="text-neutral-600 text-sm">{t(service.descriptionKey)}</p>
-                  </button>
-                );
-              })}
+              {SERVICE_TYPES.map((service) => (
+                <button
+                  className={getServiceCardClass(selectedService === service.id)}
+                  key={service.id}
+                  onClick={() => handleServiceSelect(service.id)}
+                  type="button"
+                >
+                  <div className="mb-2 text-3xl">{service.icon}</div>
+                  <h3 className="mb-1 font-semibold text-neutral-900">{t(service.nameKey)}</h3>
+                  <p className="text-neutral-600 text-sm">{t(service.descriptionKey)}</p>
+                </button>
+              ))}
             </div>
 
             <div className="mt-6 flex gap-3">
@@ -262,11 +328,10 @@ export function BookingWizard() {
 
       {/* Market Summary (shown after selections) */}
       {(country || city || selectedService) && (
-        <Card className="mt-4 bg-orange-50 p-4">
+        <Card className="mt-4 bg-rausch-50 p-4">
           <p className="text-neutral-700 text-sm">
-            <span className="font-medium">Tu selección:</span> {country && `${country}`}
-            {city && ` · ${city}`}
-            {selectedService && ` · ${t(`services.${selectedService}.name`)}`}
+            <span className="font-medium">Tu selección:</span>{" "}
+            {buildMarketSummary(country, city, selectedService, t)}
           </p>
         </Card>
       )}

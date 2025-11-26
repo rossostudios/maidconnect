@@ -31,6 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
 
 type UrgencyLevel = "urgent" | "important" | "normal";
 
@@ -87,36 +88,39 @@ const urgencyConfig: Record<
     borderColor: string;
     textColor: string;
     badgeClass: string;
-    icon: React.ComponentType;
+    icon: HugeIcon;
   }
 > = {
   urgent: {
     label: "Requires Action",
-    bgColor: "bg-red-50",
-    borderColor: "border-red-200",
-    textColor: "text-red-700",
-    badgeClass: "border-red-200 bg-red-100 text-red-700",
+    bgColor: "bg-red-50 dark:bg-red-900/20",
+    borderColor: "border-red-200 dark:border-red-900/50",
+    textColor: "text-red-700 dark:text-red-400",
+    badgeClass:
+      "border-red-200 dark:border-red-900/50 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300",
     icon: Clock01Icon,
   },
   important: {
     label: "Important",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-200",
-    textColor: "text-orange-700",
-    badgeClass: "border-orange-200 bg-orange-100 text-orange-700",
+    bgColor: "bg-rausch-50 dark:bg-rausch-900/20",
+    borderColor: "border-rausch-200 dark:border-rausch-900/50",
+    textColor: "text-rausch-700 dark:text-rausch-400",
+    badgeClass:
+      "border-rausch-200 dark:border-rausch-900/50 bg-rausch-100 dark:bg-rausch-900/40 text-rausch-700 dark:text-rausch-300",
     icon: Calendar03Icon,
   },
   normal: {
     label: "Upcoming",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
-    textColor: "text-blue-700",
-    badgeClass: "border-blue-200 bg-blue-100 text-blue-700",
+    bgColor: "bg-babu-50 dark:bg-babu-900/20",
+    borderColor: "border-babu-200 dark:border-babu-900/50",
+    textColor: "text-babu-700 dark:text-babu-400",
+    badgeClass:
+      "border-babu-200 dark:border-babu-900/50 bg-babu-100 dark:bg-babu-900/40 text-babu-700 dark:text-babu-300",
     icon: CheckmarkCircle02Icon,
   },
 };
 
-const taskTypeIcons: Record<TaskType, React.ComponentType> = {
+const taskTypeIcons: Record<TaskType, HugeIcon> = {
   booking_in_progress: Clock01Icon,
   booking_starting_soon: Clock01Icon,
   booking_today: Calendar03Icon,
@@ -162,132 +166,128 @@ export function UrgencyTaskBoard({ className }: UrgencyTaskBoardProps) {
 
   if (error) {
     return (
-      <div className={cn("rounded-lg border border-neutral-200 bg-white p-6", className)}>
-        <p className="text-center text-neutral-500 text-sm">{error}</p>
+      <div className={cn("rounded-lg border border-border bg-card p-6", className)}>
+        <p className="text-center text-muted-foreground text-sm">{error}</p>
       </div>
     );
   }
 
-  // No tasks at all
+  // No tasks at all - "All caught up!" state
   if (!data || data.summary.total === 0) {
     return <NoTasksState className={className} />;
   }
 
+  // Airbnb-style: Extract the SINGLE most urgent task as hero
+  const heroTask = data.tasks[0]; // First task is most urgent (API returns sorted)
+  const remainingTasksCount = data.summary.total - 1;
+  const heroUrgency = heroTask?.urgency || "normal";
+
   return (
-    <div className={cn("space-y-4", className)}>
-      {data.groups.map((group, groupIndex) => (
-        <TaskGroupSection key={group.level} group={group} index={groupIndex} />
-      ))}
+    <div className={cn("space-y-3", className)}>
+      {/* Section Header */}
+      <div className="flex items-center justify-between">
+        <h2 className={cn("font-semibold text-foreground text-lg", geistSans.className)}>
+          Next Up
+        </h2>
+        {remainingTasksCount > 0 && (
+          <Link
+            className="flex items-center gap-1 font-medium text-rausch-600 text-sm hover:text-rausch-700"
+            href="/dashboard/pro/bookings"
+          >
+            {remainingTasksCount} more task{remainingTasksCount !== 1 ? "s" : ""}
+            <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
+          </Link>
+        )}
+      </div>
+
+      {/* Hero Task Card - Prominent single task */}
+      {heroTask && <HeroTaskCard task={heroTask} urgency={heroUrgency} />}
     </div>
   );
 }
 
-type TaskGroupSectionProps = {
-  group: TaskGroup;
-  index: number;
-};
-
-function TaskGroupSection({ group, index }: TaskGroupSectionProps) {
-  const config = urgencyConfig[group.level];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-      className={cn("rounded-lg border", config.borderColor, config.bgColor)}
-    >
-      {/* Section Header */}
-      <div className="flex items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-2">
-          <HugeiconsIcon icon={config.icon} className={cn("h-4 w-4", config.textColor)} />
-          <h3 className={cn("font-semibold text-sm", config.textColor, geistSans.className)}>
-            {config.label}
-          </h3>
-          <Badge className={cn("ml-1", config.badgeClass)} size="sm" variant="outline">
-            {group.tasks.length}
-          </Badge>
-        </div>
-      </div>
-
-      {/* Task List */}
-      <div className="divide-y divide-neutral-200/50">
-        {group.tasks.map((task, taskIndex) => (
-          <TaskCard key={task.id} task={task} urgency={group.level} index={taskIndex} />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-type TaskCardProps = {
+type HeroTaskCardProps = {
   task: Task;
   urgency: UrgencyLevel;
-  index: number;
 };
 
-function TaskCard({ task, urgency, index }: TaskCardProps) {
+function HeroTaskCard({ task, urgency }: HeroTaskCardProps) {
+  const config = urgencyConfig[urgency];
   const TaskIcon = taskTypeIcons[task.type] || Calendar03Icon;
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.2, delay: index * 0.05 }}
-      className="flex items-center justify-between bg-white/80 px-4 py-3"
+      animate={{ opacity: 1, y: 0 }}
+      className={cn("rounded-lg border p-5", config.borderColor, config.bgColor)}
+      initial={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-4">
+        {/* Icon */}
         <div
           className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-lg",
+            "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg",
             urgency === "urgent"
-              ? "bg-red-100 text-red-600"
+              ? "bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400"
               : urgency === "important"
-                ? "bg-orange-100 text-orange-600"
-                : "bg-blue-100 text-blue-600"
+                ? "bg-rausch-100 text-rausch-600 dark:bg-rausch-900/40 dark:text-rausch-400"
+                : "bg-babu-100 text-babu-600 dark:bg-babu-900/40 dark:text-babu-400"
           )}
         >
-          <HugeiconsIcon icon={TaskIcon} className="h-5 w-5" />
+          <HugeiconsIcon className="h-6 w-6" icon={TaskIcon} />
         </div>
 
+        {/* Content */}
         <div className="min-w-0 flex-1">
-          <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
-            {task.title}
-          </p>
-          <div className="flex items-center gap-2 text-xs">
-            {task.customerName && (
-              <span className="flex items-center gap-1 text-neutral-600">
-                <HugeiconsIcon icon={UserIcon} className="h-3 w-3" />
-                {task.customerName}
-              </span>
-            )}
-            {task.scheduledTime && (
-              <span className="text-neutral-500">• {task.scheduledTime}</span>
-            )}
-            {task.timeUntil && (
-              <Badge
-                className={cn(
-                  "ml-1",
-                  urgency === "urgent"
-                    ? "border-red-200 bg-red-100 text-red-700"
-                    : "border-neutral-200 bg-neutral-100 text-neutral-600"
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className={cn("font-semibold text-base text-foreground", geistSans.className)}>
+                {task.title}
+              </p>
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-sm">
+                {task.customerName && (
+                  <span className="flex items-center gap-1 text-muted-foreground">
+                    <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
+                    {task.customerName}
+                  </span>
                 )}
-                size="sm"
-                variant="outline"
-              >
-                {task.timeUntil}
-              </Badge>
-            )}
+                {task.scheduledTime && (
+                  <span className="text-muted-foreground">• {task.scheduledTime}</span>
+                )}
+              </div>
+              {task.timeUntil && (
+                <Badge
+                  className={cn(
+                    "mt-2",
+                    urgency === "urgent"
+                      ? "border-red-200 bg-red-100 text-red-700 dark:border-red-900/50 dark:bg-red-900/40 dark:text-red-300"
+                      : urgency === "important"
+                        ? "border-rausch-200 bg-rausch-100 text-rausch-700 dark:border-rausch-900/50 dark:bg-rausch-900/40 dark:text-rausch-300"
+                        : "border-babu-200 bg-babu-100 text-babu-700 dark:border-babu-900/50 dark:bg-babu-900/40 dark:text-babu-300"
+                  )}
+                  size="sm"
+                  variant="outline"
+                >
+                  {task.timeUntil}
+                </Badge>
+              )}
+            </div>
+
+            {/* CTA Button - Prominent on right */}
+            <Button
+              asChild
+              className="flex-shrink-0"
+              size="default"
+              variant={urgency === "urgent" ? "default" : "outline"}
+            >
+              <Link href={task.actionHref}>
+                {task.actionLabel}
+                <HugeiconsIcon className="ml-1.5 h-4 w-4" icon={ArrowRight01Icon} />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
-
-      <Button asChild size="sm" variant={urgency === "urgent" ? "default" : "outline"}>
-        <Link href={task.actionHref}>
-          {task.actionLabel}
-          <HugeiconsIcon icon={ArrowRight01Icon} className="ml-1 h-4 w-4" />
-        </Link>
-      </Button>
     </motion.div>
   );
 }
@@ -295,25 +295,37 @@ function TaskCard({ task, urgency, index }: TaskCardProps) {
 function NoTasksState({ className }: { className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
+      className={cn(
+        "rounded-lg border border-green-200 bg-green-50 p-6 dark:border-green-900/50 dark:bg-green-900/20",
+        className
+      )}
+      initial={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.3 }}
-      className={cn("rounded-lg border border-green-200 bg-green-50 p-6", className)}
     >
       <div className="flex flex-col items-center text-center">
-        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-          <HugeiconsIcon icon={CheckmarkCircle02Icon} className="h-6 w-6 text-green-600" />
+        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/40">
+          <HugeiconsIcon
+            className="h-6 w-6 text-green-600 dark:text-green-400"
+            icon={CheckmarkCircle02Icon}
+          />
         </div>
-        <h3 className={cn("font-semibold text-green-800 text-sm", geistSans.className)}>
+        <h3
+          className={cn(
+            "font-semibold text-green-800 text-sm dark:text-green-300",
+            geistSans.className
+          )}
+        >
           All caught up!
         </h3>
-        <p className="mt-1 max-w-xs text-green-700 text-xs">
-          No tasks requiring your attention right now. Check your bookings calendar for upcoming work.
+        <p className="mt-1 max-w-xs text-green-700 text-xs dark:text-green-400">
+          No tasks requiring your attention right now. Check your bookings calendar for upcoming
+          work.
         </p>
         <Button asChild className="mt-4" size="sm" variant="outline">
           <Link href="/dashboard/pro/bookings">
             View Bookings
-            <HugeiconsIcon icon={ArrowRight01Icon} className="ml-1 h-4 w-4" />
+            <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
           </Link>
         </Button>
       </div>
@@ -325,22 +337,22 @@ function UrgencyTaskBoardSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-4", className)}>
       {[0, 1].map((i) => (
-        <div key={i} className="animate-pulse rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+        <div className="animate-pulse rounded-lg border border-border bg-muted/50 p-4" key={i}>
           <div className="mb-3 flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-neutral-200" />
-            <div className="h-4 w-24 rounded bg-neutral-200" />
+            <div className="h-4 w-4 rounded bg-muted" />
+            <div className="h-4 w-24 rounded bg-muted" />
           </div>
           <div className="space-y-3">
             {[0, 1].map((j) => (
-              <div key={j} className="flex items-center justify-between rounded-lg bg-white p-3">
+              <div className="flex items-center justify-between rounded-lg bg-card p-3" key={j}>
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-neutral-200" />
+                  <div className="h-10 w-10 rounded-lg bg-muted" />
                   <div className="space-y-2">
-                    <div className="h-4 w-32 rounded bg-neutral-200" />
-                    <div className="h-3 w-24 rounded bg-neutral-200" />
+                    <div className="h-4 w-32 rounded bg-muted" />
+                    <div className="h-3 w-24 rounded bg-muted" />
                   </div>
                 </div>
-                <div className="h-8 w-20 rounded-lg bg-neutral-200" />
+                <div className="h-8 w-20 rounded-lg bg-muted" />
               </div>
             ))}
           </div>

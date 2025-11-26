@@ -158,7 +158,7 @@ export const PopoverContent = ({
         // Layout
         "z-50 w-72 outline-none",
         // Border and background (Lia Design System)
-        "border border-neutral-200 bg-white",
+        "border border-neutral-200 bg-white dark:border-border dark:bg-card",
         // Shape - Lia Design System: rounded-lg (Anthropic)
         "rounded-lg",
         // Spacing

@@ -32,8 +32,8 @@ export default function AdminError({
         <div className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm">
           {/* Icon */}
           <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-50">
-              <Alert01Icon className="h-8 w-8 text-orange-500" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-rausch-50">
+              <Alert01Icon className="h-8 w-8 text-rausch-500" />
             </div>
           </div>
 
@@ -64,14 +64,14 @@ export default function AdminError({
           {/* Actions */}
           <div className="space-y-3">
             <button
-              className="w-full rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+              className="w-full rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600"
               onClick={reset}
               type="button"
             >
               Try again
             </button>
             <a
-              className="block w-full rounded-lg border-2 border-neutral-200 px-6 py-3 text-center font-semibold text-neutral-900 transition hover:border-orange-500 hover:text-orange-600"
+              className="block w-full rounded-lg border-2 border-neutral-200 px-6 py-3 text-center font-semibold text-neutral-900 transition hover:border-rausch-500 hover:text-rausch-600"
               href="/en/admin"
             >
               Go to Admin Home
@@ -82,7 +82,7 @@ export default function AdminError({
         {/* Support link */}
         <p className="mt-6 text-center text-neutral-500 text-sm">
           Need help?{" "}
-          <a className="font-medium text-orange-600 hover:text-orange-700" href="/en/support">
+          <a className="font-medium text-rausch-600 hover:text-rausch-700" href="/en/support">
             Contact Support
           </a>
         </p>

@@ -47,20 +47,21 @@ const buttonVariants = cva(
       variant: {
         // Orange primary CTA button (default)
         default:
-          "bg-primary text-primary-foreground shadow-md hover:bg-orange-600 active:scale-[0.98] active:bg-orange-700",
-        // Destructive actions (orange-700)
+          "bg-primary text-primary-foreground shadow-md hover:bg-rausch-600 active:scale-[0.98] active:bg-rausch-700",
+        // Destructive actions (rausch-700)
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-orange-800 active:scale-[0.98]",
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-rausch-800 active:scale-[0.98]",
         // Outline with orange accent on hover
         outline:
-          "border-2 border-neutral-200 bg-background shadow-sm hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 active:scale-[0.98]",
+          "border-2 border-neutral-200 bg-background shadow-sm hover:border-rausch-500 hover:bg-rausch-50 hover:text-rausch-600 active:scale-[0.98] dark:border-border dark:hover:border-rausch-400 dark:hover:bg-rausch-900/30 dark:hover:text-rausch-300",
         // Neutral secondary button
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-neutral-300 active:scale-[0.98]",
         // Ghost with orange accent on hover
-        ghost: "hover:bg-orange-50 hover:text-orange-600 active:scale-[0.98]",
-        // Link with orange accent (Lia guideline: orange-600 for better WCAG contrast)
-        link: "text-orange-600 hover:text-orange-700",
+        ghost:
+          "hover:bg-rausch-50 hover:text-rausch-600 active:scale-[0.98] dark:hover:bg-rausch-900/30 dark:hover:text-rausch-300",
+        // Link with orange accent (Lia guideline: rausch-600 for better WCAG contrast)
+        link: "text-rausch-600 hover:text-rausch-700",
       },
       size: {
         default: "h-10 px-8 py-2",
@@ -113,9 +114,10 @@ const Slot = ({ children, ref, ...props }: SlotProps) => {
  *
  * Extends React Aria Button props with variant configuration.
  * React 19: ref is a regular prop, no forwardRef needed.
+ * Backward compatible with HTML button props (disabled).
  */
 export interface ButtonProps
-  extends Omit<AriaButtonProps, "className">,
+  extends Omit<AriaButtonProps, "className" | "isDisabled">,
     VariantProps<typeof buttonVariants> {
   /**
    * Additional CSS classes
@@ -130,6 +132,15 @@ export interface ButtonProps
    * Ref to the button element (React 19 regular prop)
    */
   ref?: React.RefObject<HTMLButtonElement | null>;
+  /**
+   * Whether the button is disabled (HTML compatibility)
+   * @deprecated Use isDisabled instead
+   */
+  disabled?: boolean;
+  /**
+   * Whether the button is disabled (React Aria native)
+   */
+  isDisabled?: boolean;
 }
 
 /**
@@ -139,13 +150,27 @@ export interface ButtonProps
  * keyboard navigation, and Lia Design System styling.
  *
  * React 19: Uses ref as regular prop instead of forwardRef.
+ * Supports both HTML prop (disabled) and React Aria prop (isDisabled).
  */
-const Button = ({ className, variant, size, asChild = false, ref, ...props }: ButtonProps) => {
+const Button = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ref,
+  disabled,
+  isDisabled,
+  ...props
+}: ButtonProps) => {
   const Comp = asChild ? Slot : AriaButton;
+
+  // Backward compatibility: support both disabled and isDisabled
+  const resolvedIsDisabled = isDisabled ?? disabled;
 
   return (
     <Comp
       className={cn(buttonVariants({ variant, size }), className)}
+      isDisabled={resolvedIsDisabled}
       ref={ref as any}
       {...props}
     />

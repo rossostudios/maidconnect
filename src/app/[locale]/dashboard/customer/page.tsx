@@ -1,4 +1,5 @@
 import {
+  ArrowRight01Icon,
   Calendar03Icon,
   CreditCardIcon,
   FavouriteIcon,
@@ -12,18 +13,27 @@ import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { Suspense } from "react";
 import { geistSans } from "@/app/fonts";
-import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { RebookButton } from "@/components/bookings/rebook-button";
 import { FavoritesList } from "@/components/favorites/favorites-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
-import {
-  BookingsListSkeleton,
-  FavoritesListSkeleton,
-} from "@/components/skeletons/dashboard-skeletons";
-import { CardLink } from "@/components/ui/card-link";
+import { FavoritesListSkeleton } from "@/components/skeletons/dashboard-skeletons";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
+
+/**
+ * Customer Dashboard Page - Airbnb-Style Focused Design
+ *
+ * Answers ONE question: "What's my next booking?"
+ *
+ * Information hierarchy (simplified):
+ * - Hero: Your Next Booking (or prompt to book if none)
+ * - Book Again: Recent pros + favorites merged
+ * - Footer Links: Settings, Payments, Addresses, Help
+ */
 
 type BookingData = {
   id: string;
@@ -37,59 +47,6 @@ type BookingData = {
   created_at: string;
   professional: { full_name: string | null; profile_id: string } | null;
 };
-
-function isBookingThisMonth(booking: BookingData): boolean {
-  if (!booking.scheduled_start) {
-    return false;
-  }
-  const bookingDate = new Date(booking.scheduled_start);
-  const now = new Date();
-  return (
-    bookingDate.getMonth() === now.getMonth() && bookingDate.getFullYear() === now.getFullYear()
-  );
-}
-
-function calculateMetrics(bookings: BookingData[]): {
-  activeBookings: number;
-  upcomingBookings: number;
-  completedThisMonth: number;
-  totalSaved: number;
-} {
-  const now = new Date();
-  const activeBookings = bookings.filter(
-    (b) => b.status === "confirmed" || b.status === "in_progress"
-  ).length;
-
-  const upcomingBookings = bookings.filter((b) => {
-    if (!b.scheduled_start) {
-      return false;
-    }
-    const bookingDate = new Date(b.scheduled_start);
-    return bookingDate > now && b.status === "confirmed";
-  }).length;
-
-  const completedThisMonth = bookings.filter(
-    (b) => b.status === "completed" && isBookingThisMonth(b)
-  ).length;
-
-  // Calculate total saved from completed bookings (could be enhanced later)
-  const totalSaved = bookings
-    .filter((b) => b.status === "completed" && b.amount_captured)
-    .reduce((sum, b) => sum + (b.amount_captured || 0), 0);
-
-  return { activeBookings, upcomingBookings, completedThisMonth, totalSaved };
-}
-
-function formatCOPWithFallback(value?: number | null) {
-  if (!value || Number.isNaN(value)) {
-    return "$0";
-  }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 export default async function CustomerDashboardPage() {
   unstable_noStore(); // Opt out of caching for dynamic page
@@ -115,7 +72,7 @@ export default async function CustomerDashboardPage() {
     greeting = "Good afternoon";
   }
 
-  const userName = profileData?.full_name?.split(" ")[0] || "Customer";
+  const userName = profileData?.full_name?.split(" ")[0] || "there";
 
   // Fetch bookings
   const { data: bookingsData } = await supabase
@@ -125,233 +82,237 @@ export default async function CustomerDashboardPage() {
       professional:professional_profiles!professional_id(full_name, profile_id)`
     )
     .eq("customer_id", user.id)
-    .order("created_at", { ascending: false });
+    .order("scheduled_start", { ascending: true });
 
   const bookings = (bookingsData as BookingData[] | null) ?? [];
 
-  const metrics = calculateMetrics(bookings);
-  const { activeBookings, upcomingBookings, completedThisMonth, totalSaved } = metrics;
-
-  // Get upcoming bookings for display
+  // Get the NEXT upcoming booking (hero)
   const now = new Date();
-  const upcomingBookingsList = bookings
-    .filter((b) => {
-      if (!b.scheduled_start) {
-        return false;
-      }
-      const bookingDate = new Date(b.scheduled_start);
-      return bookingDate > now && (b.status === "confirmed" || b.status === "pending");
-    })
-    .slice(0, 5);
+  const nextBooking = bookings.find((b) => {
+    if (!b.scheduled_start) {
+      return false;
+    }
+    const bookingDate = new Date(b.scheduled_start);
+    return bookingDate > now && (b.status === "confirmed" || b.status === "pending");
+  });
 
-  // Get recent completed bookings for repeat booking CTA
-  const completedBookingsList = bookings.filter((b) => b.status === "completed").slice(0, 3);
+  // Get recent completed bookings for "Book Again" (limit 3)
+  const recentPros = bookings
+    .filter((b) => b.status === "completed" && b.professional?.full_name)
+    .slice(0, 3);
 
   return (
     <>
-      {/* Push Notification Permission Prompt */}
       <NotificationPermissionPrompt variant="banner" />
 
-      {/* Greeting & Quick Stats */}
-      <section className="mb-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Profile Photo Circle */}
-            <div className="flex-shrink-0">
-              {avatarUrl ? (
-                <Image
-                  alt={userName}
-                  className="h-12 w-12 rounded-lg border-2 border-neutral-200 object-cover"
-                  height={48}
-                  src={avatarUrl}
-                  width={48}
-                />
-              ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-orange-200 bg-orange-50">
-                  <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={UserCircleIcon} />
-                </div>
-              )}
+      <div className="space-y-8">
+        {/* Greeting - Simplified */}
+        <div className="flex items-center gap-3">
+          {avatarUrl ? (
+            <Image
+              alt={userName}
+              className="h-10 w-10 rounded-lg border border-neutral-200 object-cover"
+              height={40}
+              src={avatarUrl}
+              width={40}
+            />
+          ) : (
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-50">
+              <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={UserCircleIcon} />
             </div>
+          )}
+          <h1 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
+            {greeting}, {userName}
+          </h1>
+        </div>
 
-            {/* Greeting Text */}
-            <div>
-              <h1 className={cn("mb-1 font-bold text-3xl text-neutral-900", geistSans.className)}>
-                {greeting}, {userName}
-              </h1>
-              <p className="text-neutral-600">Manage your bookings and home services</p>
+        {/* Hero: Your Next Booking */}
+        {nextBooking ? <NextBookingHero booking={nextBooking} /> : <NoBookingPrompt />}
+
+        {/* Book Again - Recent pros + Favorites merged */}
+        <section>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className={cn("font-semibold text-lg text-neutral-900", geistSans.className)}>
+              Book Again
+            </h2>
+            <Link
+              className="flex items-center gap-1 font-medium text-rausch-600 text-sm hover:text-rausch-700"
+              href="/pros"
+            >
+              Browse all
+              <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
+            </Link>
+          </div>
+
+          {recentPros.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {recentPros.map((booking) => (
+                <RecentProCard booking={booking} key={booking.id} />
+              ))}
             </div>
-          </div>
-        </div>
-
-        {/* Metrics Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <MetricCard
-            color="info"
-            icon={Calendar03Icon}
-            label="Active Bookings"
-            value={activeBookings.toString()}
-          />
-          <MetricCard
-            color="warning"
-            icon={Home09Icon}
-            label="Upcoming Bookings"
-            value={upcomingBookings.toString()}
-          />
-          <MetricCard
-            color="success"
-            icon={Calendar03Icon}
-            label="Completed This Month"
-            value={completedThisMonth.toString()}
-          />
-          <MetricCard
-            color="primary"
-            icon={CreditCardIcon}
-            label="Total Spent"
-            value={formatCOPWithFallback(totalSaved)}
-          />
-        </div>
-      </section>
-
-      {/* Upcoming Bookings */}
-      {upcomingBookingsList.length > 0 ? (
-        <section className="mb-8">
-          <div className="mb-6">
-            <h2 className="mb-2 font-bold text-2xl text-neutral-900">Upcoming Bookings</h2>
-            <p className="text-neutral-600 text-sm">Your scheduled appointments</p>
-          </div>
-          <Suspense fallback={<BookingsListSkeleton />}>
-            <CustomerBookingList bookings={upcomingBookingsList} />
-          </Suspense>
+          ) : (
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+              <Suspense fallback={<FavoritesListSkeleton />}>
+                <FavoritesList />
+              </Suspense>
+            </div>
+          )}
         </section>
-      ) : null}
 
-      {/* Recent Completed Bookings - E-2: Repeat Booking CTA */}
-      {completedBookingsList.length > 0 && (
-        <section className="mb-8">
-          <div className="mb-6">
-            <h2 className="mb-2 font-bold text-2xl text-neutral-900">Recent Completed Bookings</h2>
-            <p className="text-neutral-600 text-sm">Book your favorite services again</p>
+        {/* Footer Links - Collapsed Quick Actions */}
+        <footer className="border-neutral-200 border-t pt-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+            <FooterLink
+              href="/dashboard/customer/payments"
+              icon={CreditCardIcon}
+              label="Payments"
+            />
+            <FooterLink
+              href="/dashboard/customer/addresses"
+              icon={Location01Icon}
+              label="Addresses"
+            />
+            <FooterLink
+              href="/dashboard/customer/favorites"
+              icon={FavouriteIcon}
+              label="Favorites"
+            />
+            <FooterLink
+              href="/dashboard/customer/settings"
+              icon={Settings02Icon}
+              label="Settings"
+            />
+            <FooterLink href="/help" icon={Home09Icon} label="Help" />
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {completedBookingsList.map((booking) => (
-              <div
-                className="group rounded-lg border border-neutral-200 bg-white p-6 transition hover:border-orange-500 hover:shadow-md"
-                key={booking.id}
-              >
-                <div className="mb-4">
-                  <h3 className="mb-1 font-semibold text-neutral-900">
-                    {booking.service_name || "Service"}
-                  </h3>
-                  <p className="text-neutral-600 text-sm">
-                    {booking.professional?.full_name || "Professional"}
-                  </p>
-                  {booking.scheduled_start && (
-                    <p className="mt-2 text-neutral-700 text-xs">
-                      {new Date(booking.scheduled_start).toLocaleDateString()}
-                    </p>
-                  )}
-                </div>
-                <RebookButton booking={booking} />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Favorite Professionals */}
-      <section className="mb-8">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Favorite Professionals</h2>
-          <p className="text-neutral-600 text-sm">Your trusted service providers</p>
-        </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-6">
-          <Suspense fallback={<FavoritesListSkeleton />}>
-            <FavoritesList />
-          </Suspense>
-        </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="mb-8">
-        <div className="mb-4">
-          <h2 className="font-bold text-2xl text-neutral-900">Quick Actions</h2>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <CardLink
-            description="Submit a service request and get matched"
-            href="/brief"
-            icon={Home09Icon}
-            title="Request Service"
-          />
-          <CardLink
-            description="View booking history and upcoming appointments"
-            href="/dashboard/customer/bookings"
-            icon={Calendar03Icon}
-            title="View All Bookings"
-          />
-          <CardLink
-            description="Add and update your saved service locations"
-            href="/dashboard/customer/addresses"
-            icon={Location01Icon}
-            title="Manage Addresses"
-          />
-          <CardLink
-            description="Update payment methods and billing"
-            href="/dashboard/customer/payments"
-            icon={CreditCardIcon}
-            title="Manage Payments"
-          />
-          <CardLink
-            description="View your favorite professionals"
-            href="/dashboard/customer/favorites"
-            icon={FavouriteIcon}
-            title="Favorites"
-          />
-          <CardLink
-            description="Update profile and account preferences"
-            href="/dashboard/customer/settings"
-            icon={Settings02Icon}
-            title="Settings"
-          />
-        </div>
-      </section>
+        </footer>
+      </div>
     </>
   );
 }
 
-function MetricCard({
-  icon,
-  label,
-  value,
-  color = "default",
-}: {
-  icon: any;
-  label: string;
-  value: string;
-  color?: "default" | "primary" | "success" | "warning" | "info";
-}) {
-  const colorClasses = {
-    default: "bg-neutral-100 text-neutral-600",
-    primary: "bg-orange-50 text-orange-600 border-orange-200",
-    success: "bg-green-50 text-green-600 border-green-200",
-    warning: "bg-yellow-50 text-yellow-600 border-yellow-200",
-    info: "bg-blue-50 text-blue-600 border-blue-200",
-  };
+function NextBookingHero({ booking }: { booking: BookingData }) {
+  const scheduledDate = booking.scheduled_start ? new Date(booking.scheduled_start) : null;
+
+  const formattedDate = scheduledDate
+    ? scheduledDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      })
+    : "Pending confirmation";
+
+  const formattedTime = scheduledDate
+    ? scheduledDate.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    : "";
+
+  // Calculate time until booking
+  const now = new Date();
+  const diffMs = scheduledDate ? scheduledDate.getTime() - now.getTime() : 0;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  let timeUntil = "";
+  if (diffDays > 0) {
+    timeUntil = `in ${diffDays} day${diffDays !== 1 ? "s" : ""}`;
+  } else if (diffHours > 0) {
+    timeUntil = `in ${diffHours} hour${diffHours !== 1 ? "s" : ""}`;
+  } else {
+    timeUntil = "starting soon";
+  }
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
-      <div className="mb-3 flex items-center justify-between">
-        <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg border ${colorClasses[color]}`}
-        >
-          <HugeiconsIcon className="h-5 w-5" icon={icon} />
+    <div className="rounded-lg border border-rausch-200 bg-rausch-50/50 p-6">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="font-medium text-rausch-700 text-xs uppercase tracking-wide">
+          Your Next Booking
+        </span>
+        <span className="rounded-full bg-rausch-100 px-2 py-0.5 font-medium text-rausch-700 text-xs">
+          {timeUntil}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
+            {booking.service_name || "Home Service"}
+          </h3>
+          <p className="mt-1 text-neutral-600">
+            {booking.professional?.full_name || "Professional"}
+          </p>
+          <p className="mt-2 flex items-center gap-2 text-neutral-700 text-sm">
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar03Icon} />
+            {formattedDate} {formattedTime && `at ${formattedTime}`}
+          </p>
+        </div>
+
+        <div className="flex gap-2">
+          <Button asChild size="sm" variant="outline">
+            <Link href={`/dashboard/customer/bookings/${booking.id}`}>View Details</Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link href={`/messages?booking=${booking.id}`}>
+              Message Pro
+              <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
+            </Link>
+          </Button>
         </div>
       </div>
-      <dt className="text-neutral-600 text-sm">{label}</dt>
-      <dd className={cn("mt-1 font-bold text-2xl text-neutral-900", geistSans.className)}>
-        {value}
-      </dd>
     </div>
+  );
+}
+
+function NoBookingPrompt() {
+  return (
+    <div className="rounded-lg border border-neutral-200 bg-white p-6 text-center">
+      <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+        <HugeiconsIcon className="h-6 w-6 text-neutral-500" icon={Calendar03Icon} />
+      </div>
+      <h3 className={cn("font-semibold text-neutral-900", geistSans.className)}>
+        No upcoming bookings
+      </h3>
+      <p className="mt-1 text-neutral-600 text-sm">Ready to schedule your next home service?</p>
+      <Button asChild className="mt-4">
+        <Link href="/brief">
+          Request Service
+          <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+function RecentProCard({ booking }: { booking: BookingData }) {
+  return (
+    <div className="rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-rausch-300 hover:shadow-sm">
+      <div className="mb-3">
+        <h3 className="font-medium text-neutral-900 text-sm">
+          {booking.service_name || "Service"}
+        </h3>
+        <p className="text-neutral-600 text-sm">
+          {booking.professional?.full_name || "Professional"}
+        </p>
+        {booking.scheduled_start && (
+          <p className="mt-1 text-neutral-500 text-xs">
+            Last: {new Date(booking.scheduled_start).toLocaleDateString()}
+          </p>
+        )}
+      </div>
+      <RebookButton booking={booking} />
+    </div>
+  );
+}
+
+function FooterLink({ href, icon, label }: { href: string; icon: HugeIcon; label: string }) {
+  return (
+    <Link
+      className="flex items-center gap-1.5 text-neutral-600 transition-colors hover:text-rausch-600"
+      href={href}
+    >
+      <HugeiconsIcon className="h-4 w-4" icon={icon} />
+      {label}
+    </Link>
   );
 }

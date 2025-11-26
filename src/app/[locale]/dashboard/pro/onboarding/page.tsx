@@ -17,7 +17,7 @@ import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
+  "w-full rounded-lg border border-border bg-muted px-4 py-4 text-base text-foreground shadow-sm transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -100,13 +100,13 @@ export default async function ProfessionalOnboardingPage({
     <section className="flex-1 space-y-10">
       <header className="flex items-start justify-between">
         <div>
-          <p className="font-semibold text-neutral-700 text-xs uppercase tracking-[0.2em]">
+          <p className="font-semibold text-muted-foreground text-xs uppercase tracking-[0.2em]">
             {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
-          <h1 className="type-serif-lg mt-4 text-neutral-900">
+          <h1 className="type-serif-lg mt-4 text-foreground">
             {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-neutral-700 leading-relaxed">
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground leading-relaxed">
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
@@ -128,35 +128,35 @@ export default async function ProfessionalOnboardingPage({
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500 font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
                     if (isCompleted) {
                       return (
-                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="rounded-full bg-rausch-500/10 px-3 py-1 font-semibold text-rausch-500 text-xs dark:bg-rausch-900/20 dark:text-rausch-400">
                           {t("status.completed")}
                         </span>
                       );
                     }
                     if (isCurrent) {
                       return (
-                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                        <span className="rounded-full bg-rausch-500/10 px-3 py-1 font-semibold text-rausch-500 text-xs dark:bg-rausch-900/20 dark:text-rausch-400">
                           {t("status.inProgress")}
                         </span>
                       );
                     }
                     return (
-                      <span className="rounded-full bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-700 text-xs">
+                      <span className="rounded-full bg-muted px-3 py-1 font-semibold text-muted-foreground text-xs">
                         {t("status.pending")}
                       </span>
                     );
                   })()}
                 </div>
-                <h2 className="mt-6 font-semibold text-neutral-900 text-xl">
+                <h2 className="mt-6 font-semibold text-foreground text-xl">
                   {t(`steps.${stepId}.title`)}
                 </h2>
-                <p className="mt-3 text-base text-neutral-700 leading-relaxed">
+                <p className="mt-3 text-base text-muted-foreground leading-relaxed">
                   {t(`steps.${stepId}.description`)}
                 </p>
               </li>
@@ -167,12 +167,12 @@ export default async function ProfessionalOnboardingPage({
 
       {isActive ? (
         <div className="space-y-8">
-          <div className="rounded-lg border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] dark:border-rausch-400/30 dark:bg-rausch-900/20">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500/10">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
                 <svg
                   aria-label="Success icon"
-                  className="h-6 w-6 text-orange-500"
+                  className="h-6 w-6 text-rausch-500 dark:text-rausch-400"
                   fill="none"
                   role="img"
                   stroke="currentColor"
@@ -187,10 +187,10 @@ export default async function ProfessionalOnboardingPage({
                 </svg>
               </div>
               <div>
-                <h2 className="font-semibold text-2xl text-orange-500">
+                <h2 className="font-semibold text-2xl text-rausch-500 dark:text-rausch-400">
                   {t("success.profileLive")}
                 </h2>
-                <p className="mt-2 text-base text-orange-500 leading-relaxed">
+                <p className="mt-2 text-base text-rausch-500/80 leading-relaxed dark:text-rausch-400/80">
                   {t("success.updateDescription")}
                 </p>
               </div>
@@ -232,37 +232,37 @@ export default async function ProfessionalOnboardingPage({
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="font-semibold text-neutral-900 text-xl">
+                  <h3 className="font-semibold text-foreground text-xl">
                     {t("sections.uploadDocuments.required")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-base text-neutral-700">
+                  <ul className="mt-4 space-y-3 text-base text-muted-foreground">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 bg-orange-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-rausch-500 dark:bg-rausch-400" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 bg-orange-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-rausch-500 dark:bg-rausch-400" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 font-semibold text-neutral-900 text-xl">
+                  <h3 className="mt-8 font-semibold text-foreground text-xl">
                     {t("sections.uploadDocuments.optional")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-base text-neutral-700">
+                  <ul className="mt-4 space-y-3 text-base text-muted-foreground">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 bg-neutral-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-muted-foreground" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 bg-neutral-500" />
+                      <span className="mt-1 h-1.5 w-1.5 bg-muted-foreground" />
                       <span>{t("sections.uploadDocuments.optionalDocs.workPermits")}</span>
                     </li>
                   </ul>
 
-                  <div className="mt-8 border border-neutral-200 bg-neutral-50 p-6">
-                    <p className="text-neutral-700 text-sm leading-relaxed">
-                      <strong className="text-neutral-900">
+                  <div className="mt-8 rounded-lg border border-border bg-muted p-6">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      <strong className="text-foreground">
                         {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
                       {t("sections.uploadDocuments.formatInfo")}
@@ -294,12 +294,12 @@ export default async function ProfessionalOnboardingPage({
           ) : null}
 
           {onboardingComplete && !isActive ? (
-            <div className="border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] dark:border-rausch-400/30 dark:bg-rausch-900/20">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center bg-orange-500/10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
                   <svg
                     aria-label="Success icon"
-                    className="h-6 w-6 text-orange-500"
+                    className="h-6 w-6 text-rausch-500 dark:text-rausch-400"
                     fill="none"
                     role="img"
                     stroke="currentColor"
@@ -314,8 +314,10 @@ export default async function ProfessionalOnboardingPage({
                   </svg>
                 </div>
                 <div>
-                  <h2 className="font-semibold text-2xl text-orange-500">{t("complete.title")}</h2>
-                  <p className="mt-2 text-base text-orange-500 leading-relaxed">
+                  <h2 className="font-semibold text-2xl text-rausch-500 dark:text-rausch-400">
+                    {t("complete.title")}
+                  </h2>
+                  <p className="mt-2 text-base text-rausch-500/80 leading-relaxed dark:text-rausch-400/80">
                     {t("complete.description")}
                   </p>
                 </div>
@@ -338,10 +340,10 @@ function SectionWrapper({
   children: ReactNode;
 }) {
   return (
-    <section className="border border-neutral-200 bg-neutral-50 p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+    <section className="rounded-lg border border-border bg-muted p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       <header className="mb-8">
-        <h2 className="font-semibold text-3xl text-neutral-900">{title}</h2>
-        <p className="mt-3 text-base text-neutral-700 leading-relaxed">{subtitle}</p>
+        <h2 className="font-semibold text-3xl text-foreground">{title}</h2>
+        <p className="mt-3 text-base text-muted-foreground leading-relaxed">{subtitle}</p>
       </header>
       {children}
     </section>

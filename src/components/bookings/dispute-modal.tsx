@@ -86,7 +86,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-base text-white shadow-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-base text-white shadow-sm transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={
               form.isSubmitting || !form.formData.reason || !form.formData.description.trim()
             }
@@ -114,13 +114,13 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
         <>
           {/* Header with Icon */}
           <div className="mb-6 flex items-center gap-3">
-            <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={Alert01Icon} />
+            <HugeiconsIcon className="h-6 w-6 text-rausch-500" icon={Alert01Icon} />
             <h2 className="font-semibold text-neutral-900 text-xl">Report an Issue</h2>
           </div>
 
           {/* Info Banner */}
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-            <p className="text-blue-800 text-sm leading-relaxed">
+          <div className="rounded-lg border border-babu-200 bg-babu-50 p-4">
+            <p className="text-babu-800 text-sm leading-relaxed">
               <span className="font-semibold">48-Hour Protection Period</span> – You have up to 48
               hours after service completion to report any issues. Our team will investigate and
               work with you to resolve the matter fairly.
@@ -157,10 +157,10 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               className="block font-semibold text-neutral-900 text-sm"
               htmlFor="dispute-reason"
             >
-              What went wrong? <span className="text-orange-500">*</span>
+              What went wrong? <span className="text-rausch-500">*</span>
             </label>
             <select
-              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-base text-neutral-900 transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="dispute-reason"
               onChange={(e) => form.updateField("reason", e.target.value)}
               value={form.formData.reason}
@@ -180,10 +180,10 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               className="block font-semibold text-neutral-900 text-sm"
               htmlFor="dispute-description"
             >
-              Please describe what happened <span className="text-orange-500">*</span>
+              Please describe what happened <span className="text-rausch-500">*</span>
             </label>
             <textarea
-              className="min-h-32 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-base text-neutral-900 leading-relaxed transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="min-h-32 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-base text-neutral-900 leading-relaxed transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="dispute-description"
               onChange={(e) => form.updateField("description", e.target.value)}
               placeholder="Include specific details about the issue, when it occurred, and any relevant context..."

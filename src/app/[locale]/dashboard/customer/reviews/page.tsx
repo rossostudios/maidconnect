@@ -93,8 +93,8 @@ export default async function CustomerReviewsPage() {
         {/* Stats Grid */}
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg border border-neutral-200 bg-white p-6">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-              <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={StarIcon} />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-rausch-200 bg-rausch-50">
+              <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={StarIcon} />
             </div>
             <dt className="text-neutral-600 text-sm">Reviews Given</dt>
             <dd className={cn("mt-1 font-bold text-2xl text-neutral-900", geistSans.className)}>
@@ -103,8 +103,8 @@ export default async function CustomerReviewsPage() {
           </div>
 
           <div className="rounded-lg border border-neutral-200 bg-white p-6">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-blue-200 bg-blue-50">
-              <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={StarIcon} />
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-babu-200 bg-babu-50">
+              <HugeiconsIcon className="h-5 w-5 text-babu-600" icon={StarIcon} />
             </div>
             <dt className="text-neutral-600 text-sm">Average Rating</dt>
             <dd className={cn("mt-1 font-bold text-2xl text-neutral-900", geistSans.className)}>

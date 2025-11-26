@@ -17,39 +17,33 @@
  * 6. Error handling (service failures)
  */
 
-import { afterEach, beforeEach, describe, expect, mock, test as it } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test as it, mock } from "bun:test";
 import type { MockStripeClient } from "@/lib/__mocks__/stripe";
-import {
-  createMockPaymentIntent,
-  createMockRefund,
-  createMockStripe,
-} from "@/lib/__mocks__/stripe";
+import { createMockRefund, createMockStripe } from "@/lib/__mocks__/stripe";
 import type { MockSupabaseClient } from "@/lib/__mocks__/supabase";
-import {
-  createMockBooking,
-  createMockProfessional,
-  createMockSupabaseClient,
-  createMockUser,
-} from "@/lib/__mocks__/supabase";
+import { createMockBooking, createMockSupabaseClient } from "@/lib/__mocks__/supabase";
 
 // ============================================================================
 // TEST CONSTANTS
 // ============================================================================
 
 const VALID_BOOKING_ID = "550e8400-e29b-41d4-a716-446655440000";
-const VALID_USER_ID = "user-123";
+
+// Module-scope regex patterns for performance (Biome useTopLevelRegex fix)
+const INVALID_BOOKING_ID_PATTERN = /Invalid booking ID format/;
+const _VALID_USER_ID = "user-123";
 const VALID_PROFESSIONAL_ID = "pro-456";
 const VALID_CUSTOMER_ID = "cust-789";
 
 const BOGOTA_COORDS = { latitude: 4.711, longitude: -74.0721 };
-const INVALID_COORDS = { latitude: 100, longitude: 200 }; // Out of range
+const _INVALID_COORDS = { latitude: 100, longitude: 200 }; // Out of range
 
 // ============================================================================
 // MOCK SETUP
 // ============================================================================
 
 let mockSupabase: MockSupabaseClient;
-let mockStripe: MockStripeClient;
+let _mockStripe: MockStripeClient;
 
 // Mock the service modules
 const mockValidateAcceptEligibility = mock(() => ({ success: true }));
@@ -74,13 +68,13 @@ const mockCompleteBookingCheckOut = mock(() => ({
     status: "completed",
     checked_out_at: new Date().toISOString(),
     actual_duration_minutes: 120,
-    amount_captured: 100000,
+    amount_captured: 100_000,
   },
 }));
 
 const mockCancelPaymentIntent = mock(() => Promise.resolve());
 const mockProcessStripeRefund = mock(() => ({ success: true, stripeStatus: "succeeded" }));
-const mockCaptureBookingPayment = mock(() => ({ success: true, capturedAmount: 100000 }));
+const mockCaptureBookingPayment = mock(() => ({ success: true, capturedAmount: 100_000 }));
 
 const mockFetchNotificationDetails = mock(() =>
   Promise.resolve({
@@ -93,18 +87,18 @@ const mockFetchNotificationDetails = mock(() =>
 
 const mockSendAcceptanceNotifications = mock(() => Promise.resolve());
 const mockSendDeclineNotifications = mock(() => Promise.resolve());
-const mockSendCancellationNotifications = mock(() => Promise.resolve());
+const _mockSendCancellationNotifications = mock(() => Promise.resolve());
 const mockSendCheckOutNotifications = mock(() => Promise.resolve());
 
-const mockVerifyBookingLocation = mock(() => ({
+const _mockVerifyBookingLocation = mock(() => ({
   verified: true,
   distance: 50,
   maxDistance: 150,
   reason: "Within acceptable range",
 }));
 
-const mockVerifyAndLogCheckOutLocation = mock(() => Promise.resolve());
-const mockCalculateActualDuration = mock(() => 120);
+const _mockVerifyAndLogCheckOutLocation = mock(() => Promise.resolve());
+const _mockCalculateActualDuration = mock(() => 120);
 const mockInitializeRebookNudge = mock(() => Promise.resolve());
 const mockPrepareCheckOutEmailData = mock(() =>
   Promise.resolve({
@@ -137,7 +131,7 @@ function createConfirmedBooking(overrides?: Record<string, unknown>) {
     professional_id: VALID_PROFESSIONAL_ID,
     customer_id: VALID_CUSTOMER_ID,
     scheduled_start: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-    amount_authorized: 100000,
+    amount_authorized: 100_000,
     currency: "COP",
     stripe_payment_intent_id: "pi_mock_123",
     ...overrides,
@@ -153,7 +147,7 @@ function createInProgressBooking(overrides?: Record<string, unknown>) {
     checked_in_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
     scheduled_start: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
     duration_minutes: 120,
-    amount_authorized: 100000,
+    amount_authorized: 100_000,
     currency: "COP",
     stripe_payment_intent_id: "pi_mock_123",
     address: "Carrera 7 #71-21, Bogotá",
@@ -168,7 +162,7 @@ function createPendingBooking(overrides?: Record<string, unknown>) {
     professional_id: VALID_PROFESSIONAL_ID,
     customer_id: VALID_CUSTOMER_ID,
     scheduled_start: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-    amount_authorized: 100000,
+    amount_authorized: 100_000,
     currency: "COP",
     stripe_payment_intent_id: "pi_mock_123",
     ...overrides,
@@ -182,7 +176,7 @@ function createPendingBooking(overrides?: Record<string, unknown>) {
 describe("Booking API Routes", () => {
   beforeEach(() => {
     mockSupabase = createMockSupabaseClient();
-    mockStripe = createMockStripe();
+    _mockStripe = createMockStripe();
 
     // Reset all mocks
     mockValidateAcceptEligibility.mockReset();
@@ -222,7 +216,7 @@ describe("Booking API Routes", () => {
         status: "completed",
         checked_out_at: new Date().toISOString(),
         actual_duration_minutes: 120,
-        amount_captured: 100000,
+        amount_captured: 100_000,
       },
     }));
 
@@ -233,7 +227,7 @@ describe("Booking API Routes", () => {
     }));
     mockCaptureBookingPayment.mockImplementation(() => ({
       success: true,
-      capturedAmount: 100000,
+      capturedAmount: 100_000,
     }));
     mockFetchNotificationDetails.mockImplementation(() =>
       Promise.resolve({
@@ -256,7 +250,7 @@ describe("Booking API Routes", () => {
   describe("POST /api/bookings/accept", () => {
     describe("Input Validation", () => {
       it("should reject missing bookingId", async () => {
-        const request = createMockRequest({});
+        const _request = createMockRequest({});
 
         // Zod validation should fail with missing bookingId
         expect(() => {
@@ -269,7 +263,7 @@ describe("Booking API Routes", () => {
       });
 
       it("should reject invalid UUID format", async () => {
-        const request = createMockRequest({ bookingId: "not-a-uuid" });
+        const _request = createMockRequest({ bookingId: "not-a-uuid" });
 
         expect(() => {
           const { z } = require("zod");
@@ -277,7 +271,7 @@ describe("Booking API Routes", () => {
             bookingId: z.string().uuid("Invalid booking ID format"),
           });
           schema.parse({ bookingId: "not-a-uuid" });
-        }).toThrow(/Invalid booking ID format/);
+        }).toThrow(INVALID_BOOKING_ID_PATTERN);
       });
 
       it("should accept valid UUID", async () => {
@@ -444,26 +438,30 @@ describe("Booking API Routes", () => {
         // Booking 24+ hours away should get 100% refund
         const booking = createConfirmedBooking({
           scheduled_start: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(),
-          amount_authorized: 100000,
+          amount_authorized: 100_000,
         });
 
         const refundPercentage = 100; // Full refund for early cancellation
-        const refundAmount = Math.round((booking.amount_authorized || 0) * (refundPercentage / 100));
+        const refundAmount = Math.round(
+          (booking.amount_authorized || 0) * (refundPercentage / 100)
+        );
 
-        expect(refundAmount).toBe(100000);
+        expect(refundAmount).toBe(100_000);
       });
 
       it("should calculate partial refund for late cancellation", () => {
         // Booking within 24 hours might have different policy
         const booking = createConfirmedBooking({
           scheduled_start: new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString(),
-          amount_authorized: 100000,
+          amount_authorized: 100_000,
         });
 
         const refundPercentage = 50; // 50% refund for late cancellation
-        const refundAmount = Math.round((booking.amount_authorized || 0) * (refundPercentage / 100));
+        const refundAmount = Math.round(
+          (booking.amount_authorized || 0) * (refundPercentage / 100)
+        );
 
-        expect(refundAmount).toBe(50000);
+        expect(refundAmount).toBe(50_000);
       });
 
       it("should not allow cancellation of in_progress bookings", () => {
@@ -476,11 +474,11 @@ describe("Booking API Routes", () => {
     describe("Refund Processing", () => {
       it("should process Stripe refund correctly", () => {
         const refund = createMockRefund({
-          amount: 100000,
+          amount: 100_000,
           status: "succeeded",
         });
 
-        expect(refund.amount).toBe(100000);
+        expect(refund.amount).toBe(100_000);
         expect(refund.status).toBe("succeeded");
       });
 
@@ -515,11 +513,11 @@ describe("Booking API Routes", () => {
       });
 
       it("should return formatted refund information", () => {
-        const refundAmount = 100000;
+        const refundAmount = 100_000;
         const currency = "COP";
 
         // Formatted refund should include amount and currency
-        expect(refundAmount).toBe(100000);
+        expect(refundAmount).toBe(100_000);
         expect(currency).toBe("COP");
       });
     });
@@ -708,11 +706,11 @@ describe("Booking API Routes", () => {
 
     describe("Payment Capture", () => {
       it("should capture payment based on actual duration", () => {
-        const hourlyRate = 50000; // COP
+        const hourlyRate = 50_000; // COP
         const actualMinutes = 120;
         const capturedAmount = Math.round((hourlyRate / 60) * actualMinutes);
 
-        expect(capturedAmount).toBe(100000);
+        expect(capturedAmount).toBe(100_000);
       });
 
       it("should handle payment capture failures", () => {
@@ -726,11 +724,11 @@ describe("Booking API Routes", () => {
       });
 
       it("should include time extension amount in capture", () => {
-        const baseAmount = 100000;
-        const extensionAmount = 25000;
+        const baseAmount = 100_000;
+        const extensionAmount = 25_000;
         const totalCapture = baseAmount + extensionAmount;
 
-        expect(totalCapture).toBe(125000);
+        expect(totalCapture).toBe(125_000);
       });
     });
 
@@ -743,12 +741,12 @@ describe("Booking API Routes", () => {
           status: "completed",
           checked_out_at: new Date().toISOString(),
           actual_duration_minutes: 120,
-          amount_captured: 100000,
+          amount_captured: 100_000,
         };
 
         expect(completedBooking.status).toBe("completed");
         expect(completedBooking.checked_out_at).toBeDefined();
-        expect(completedBooking.amount_captured).toBe(100000);
+        expect(completedBooking.amount_captured).toBe(100_000);
       });
 
       it("should initialize rebook nudge experiment", () => {

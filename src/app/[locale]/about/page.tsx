@@ -93,8 +93,8 @@ function TrustIndicators() {
     <section className="bg-white py-16 sm:py-20 lg:py-24">
       <Container className="max-w-5xl">
         <div className="mb-10 text-center sm:mb-12">
-          <div className="mb-4 inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5">
-            <span className="font-semibold text-orange-600 text-xs uppercase tracking-wider">
+          <div className="mb-4 inline-flex items-center rounded-full border border-rausch-200 bg-rausch-50 px-4 py-1.5">
+            <span className="font-semibold text-rausch-600 text-xs uppercase tracking-wider">
               Why Choose Us
             </span>
           </div>

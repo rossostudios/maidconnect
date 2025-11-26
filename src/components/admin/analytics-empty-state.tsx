@@ -27,8 +27,8 @@ export function AnalyticsEmptyState({ className }: AnalyticsEmptyStateProps) {
       )}
     >
       {/* Icon Container */}
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-orange-50">
-        <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={ChartColumnIcon} />
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-lg bg-rausch-50">
+        <HugeiconsIcon className="h-8 w-8 text-rausch-500" icon={ChartColumnIcon} />
       </div>
 
       {/* Heading */}
@@ -56,7 +56,7 @@ export function AnalyticsEmptyState({ className }: AnalyticsEmptyStateProps) {
           <li
             className={cn("flex items-start gap-3 text-neutral-700 text-sm", geistSans.className)}
           >
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-50 font-semibold text-orange-600 text-xs">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rausch-50 font-semibold text-rausch-600 text-xs">
               1
             </span>
             <span>Approve professionals through the vetting dashboard</span>
@@ -64,7 +64,7 @@ export function AnalyticsEmptyState({ className }: AnalyticsEmptyStateProps) {
           <li
             className={cn("flex items-start gap-3 text-neutral-700 text-sm", geistSans.className)}
           >
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-50 font-semibold text-orange-600 text-xs">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rausch-50 font-semibold text-rausch-600 text-xs">
               2
             </span>
             <span>Create test bookings or wait for customer requests</span>
@@ -72,7 +72,7 @@ export function AnalyticsEmptyState({ className }: AnalyticsEmptyStateProps) {
           <li
             className={cn("flex items-start gap-3 text-neutral-700 text-sm", geistSans.className)}
           >
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-50 font-semibold text-orange-600 text-xs">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rausch-50 font-semibold text-rausch-600 text-xs">
               3
             </span>
             <span>Return here to view platform performance and trends</span>

@@ -135,7 +135,7 @@ export function ProfessionalsFilterSheet({
             <HugeiconsIcon className="h-5 w-5 text-neutral-900" icon={FilterIcon} />
             <h2 className="font-semibold text-lg text-neutral-900">Filters</h2>
             {activeFilterCount > 0 && (
-              <span className="flex h-6 min-w-[24px] items-center justify-center bg-orange-500 px-2 font-semibold text-white text-xs">
+              <span className="flex h-6 min-w-[24px] items-center justify-center bg-rausch-500 px-2 font-semibold text-white text-xs">
                 {activeFilterCount}
               </span>
             )}
@@ -159,7 +159,7 @@ export function ProfessionalsFilterSheet({
               {t("filters.service")}
             </div>
             <select
-              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-rausch-500 focus:outline-none"
               onChange={(e) => setServiceFilter(e.target.value)}
               value={serviceFilter}
             >
@@ -178,7 +178,7 @@ export function ProfessionalsFilterSheet({
               {t("filters.city")}
             </div>
             <select
-              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-rausch-500 focus:outline-none"
               onChange={(e) => setCityFilter(e.target.value)}
               value={cityFilter}
             >
@@ -197,7 +197,7 @@ export function ProfessionalsFilterSheet({
               {t("filters.rating")}
             </div>
             <select
-              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-orange-500 focus:outline-none"
+              className="w-full border border-neutral-200 bg-neutral-50 px-4 py-3.5 text-base text-neutral-900 transition focus:border-rausch-500 focus:outline-none"
               onChange={(e) => setRatingFilter(e.target.value)}
               value={ratingFilter}
             >
@@ -214,7 +214,7 @@ export function ProfessionalsFilterSheet({
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 checked={availableToday}
-                className="h-6 w-6 cursor-pointer rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-6 w-6 cursor-pointer rounded border-neutral-200 text-rausch-500 focus:ring-rausch-500"
                 onChange={(e) => setAvailableToday(e.target.checked)}
                 type="checkbox"
               />
@@ -229,14 +229,14 @@ export function ProfessionalsFilterSheet({
         <div className="sticky bottom-0 border-neutral-200 border-t bg-neutral-50 p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 border-2 border-neutral-200 bg-neutral-50 px-6 py-3.5 font-semibold text-base text-neutral-900 transition hover:border-orange-500 active:scale-95"
+              className="flex-1 border-2 border-neutral-200 bg-neutral-50 px-6 py-3.5 font-semibold text-base text-neutral-900 transition hover:border-rausch-500 active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 bg-orange-500 px-6 py-3.5 font-semibold text-base text-white shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:bg-orange-500 active:scale-95"
+              className="flex-1 bg-rausch-500 px-6 py-3.5 font-semibold text-base text-white shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:bg-rausch-500 active:scale-95"
               onClick={handleApply}
               type="button"
             >

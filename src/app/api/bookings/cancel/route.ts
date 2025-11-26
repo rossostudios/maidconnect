@@ -9,7 +9,6 @@
 
 import { z } from "zod";
 import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
-import { invalidateBookings } from "@/lib/cache";
 import type { CancellationBookingData } from "@/lib/bookings/cancellation-service";
 import {
   cancelBookingInDatabase,
@@ -19,6 +18,7 @@ import {
   validateCancellationEligibility,
   validateCancellationPolicy,
 } from "@/lib/bookings/cancellation-service";
+import { invalidateBookings } from "@/lib/cache";
 import { calculateRefundAmount } from "@/lib/cancellation-policy";
 import { BusinessRuleError, ValidationError } from "@/lib/errors";
 import { trackBookingCancelledServer } from "@/lib/integrations/posthog/server";

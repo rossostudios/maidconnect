@@ -26,7 +26,7 @@ export function BriefPageClient() {
         {/* Header */}
         {!submitted && (
           <div className="mb-12 text-center">
-            <div className="mb-3 inline-block bg-orange-100 px-4 py-1 font-medium text-orange-600 text-sm">
+            <div className="mb-3 inline-block bg-rausch-100 px-4 py-1 font-medium text-rausch-600 text-sm">
               Free Service Matching
             </div>
             <h1 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">

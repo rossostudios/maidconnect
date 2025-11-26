@@ -141,7 +141,7 @@ export function CustomerReviewModal({
             value={form.formData.rating}
           />
           {form.formData.rating > 0 && (
-            <span className="rounded-full bg-orange-50 px-3 py-1 font-medium text-orange-600 text-sm">
+            <span className="rounded-full bg-rausch-50 px-3 py-1 font-medium text-rausch-600 text-sm">
               {ratingLabels[form.formData.rating]}
             </span>
           )}
@@ -154,7 +154,7 @@ export function CustomerReviewModal({
           Review Title (optional)
         </label>
         <input
-          className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm transition-all focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+          className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm transition-all focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
           disabled={form.isSubmitting}
           id="review-title"
           onChange={(e) => form.updateField("title", e.target.value)}
@@ -170,7 +170,7 @@ export function CustomerReviewModal({
           Your Review (optional)
         </label>
         <textarea
-          className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm transition-all focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+          className="w-full rounded-lg border border-neutral-200 px-4 py-2.5 text-sm transition-all focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
           disabled={form.isSubmitting}
           id="review-comment"
           onChange={(e) => form.updateField("comment", e.target.value)}

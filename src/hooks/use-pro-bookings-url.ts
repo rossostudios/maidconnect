@@ -7,20 +7,15 @@
  * Useful for shareable/bookmarkable filter states.
  */
 
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import {
-  parseAsInteger,
-  parseAsString,
-  parseAsStringLiteral,
-  useQueryStates,
-} from "nuqs";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { parseAsInteger, parseAsString, parseAsStringLiteral, useQueryStates } from "nuqs";
 import { useCallback } from "react";
 import {
   type BookingStatus,
   type DateFilter,
-  type ProBookingWithCustomer,
   type ProBookingsFilters,
   type ProBookingsResponse,
+  type ProBookingWithCustomer,
   proBookingsKeys,
 } from "./use-pro-bookings";
 
@@ -246,9 +241,8 @@ export function useProBookingsWithUrl(options: UseProBookingsWithUrlOptions = {}
   }, [queryClient]);
 
   const getBookingById = useCallback(
-    (bookingId: string): ProBookingWithCustomer | undefined => {
-      return query.data?.bookings.find((b) => b.id === bookingId);
-    },
+    (bookingId: string): ProBookingWithCustomer | undefined =>
+      query.data?.bookings.find((b) => b.id === bookingId),
     [query.data?.bookings]
   );
 
@@ -257,14 +251,9 @@ export function useProBookingsWithUrl(options: UseProBookingsWithUrlOptions = {}
   // ============================================================================
 
   const hasActiveFilters =
-    filters.status !== "all" ||
-    filters.date !== "all" ||
-    filters.search.trim() !== "";
+    filters.status !== "all" || filters.date !== "all" || filters.search.trim() !== "";
 
-  const isEmpty =
-    !query.isLoading &&
-    !query.isError &&
-    (query.data?.bookings.length ?? 0) === 0;
+  const isEmpty = !(query.isLoading || query.isError) && (query.data?.bookings.length ?? 0) === 0;
 
   const pagination = query.data?.pagination ?? {
     page: 1,

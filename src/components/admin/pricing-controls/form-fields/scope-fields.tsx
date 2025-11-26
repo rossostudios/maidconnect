@@ -28,7 +28,7 @@ export function ScopeFields({ formData, updateField }: ScopeFieldsProps) {
             Service Category
           </label>
           <select
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-service-category"
             onChange={(e) => updateField("service_category", e.target.value)}
             value={formData.service_category}
@@ -46,7 +46,7 @@ export function ScopeFields({ formData, updateField }: ScopeFieldsProps) {
             City
           </label>
           <select
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-city"
             onChange={(e) => updateField("city", e.target.value)}
             value={formData.city}

@@ -43,7 +43,7 @@ export default async function SignUpPage({ params }: Props) {
             </span>
           </Link>
           <Link
-            className="font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700"
+            className="font-semibold text-rausch-600 text-sm transition-colors hover:text-rausch-700"
             href={AUTH_ROUTES.signIn}
           >
             {t("header.signIn")}
@@ -62,7 +62,7 @@ export default async function SignUpPage({ params }: Props) {
               <p className="mt-8 text-neutral-900/70 text-sm">
                 {t("form.haveAccount")}{" "}
                 <Link
-                  className="font-semibold text-orange-500 transition hover:text-orange-600"
+                  className="font-semibold text-rausch-500 transition hover:text-rausch-600"
                   href={AUTH_ROUTES.signIn}
                 >
                   {t("form.signInInstead")}

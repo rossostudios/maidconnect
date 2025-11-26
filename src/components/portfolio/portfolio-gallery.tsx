@@ -32,9 +32,9 @@ export function PortfolioGallery({
     <div className="space-y-4">
       {/* Featured Work Description */}
       {featuredWork && (
-        <div className="border border-[neutral-200] bg-[neutral-50] p-4">
-          <h3 className="font-semibold text-[neutral-900] text-sm">Featured Work</h3>
-          <p className="mt-2 text-[neutral-400] text-sm">{featuredWork}</p>
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+          <h3 className="font-semibold text-foreground text-sm">Featured Work</h3>
+          <p className="mt-2 text-muted-foreground text-sm">{featuredWork}</p>
         </div>
       )}
 
@@ -42,7 +42,7 @@ export function PortfolioGallery({
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            className="group relative aspect-square overflow-hidden border border-[neutral-200] bg-[neutral-200] transition hover:border-[neutral-500] hover:shadow-md"
+            className="group relative aspect-square overflow-hidden rounded-lg border border-neutral-200 bg-neutral-200 transition hover:border-neutral-500 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-700 dark:hover:border-neutral-500"
             key={image.id}
             onClick={() => setSelectedImage(image)}
             type="button"
@@ -57,13 +57,13 @@ export function PortfolioGallery({
               width={300}
             />
             {image.caption && (
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[neutral-900]/70 to-transparent p-3 text-left">
-                <p className="line-clamp-2 text-[neutral-50] text-sm">{image.caption}</p>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-neutral-900/70 to-transparent p-3 text-left">
+                <p className="line-clamp-2 text-sm text-white">{image.caption}</p>
               </div>
             )}
             {/* Overlay icon */}
-            <div className="absolute inset-0 flex items-center justify-center bg-[neutral-900]/0 opacity-0 transition group-hover:bg-[neutral-900]/20 group-hover:opacity-100">
-              <span className="text-2xl text-[neutral-50]">🔍</span>
+            <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/0 opacity-0 transition group-hover:bg-neutral-900/20 group-hover:opacity-100">
+              <span className="text-2xl text-white">🔍</span>
             </div>
           </button>
         ))}
@@ -130,7 +130,7 @@ function Lightbox({
   return (
     <div
       aria-label="Close lightbox"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[neutral-900]/90 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/90 p-4"
       onClick={onClose}
       onKeyDown={handleKeyDown}
       role="button"
@@ -138,7 +138,7 @@ function Lightbox({
     >
       {/* Close Button */}
       <button
-        className="absolute top-4 right-4 bg-[neutral-50]/10 p-2 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+        className="absolute top-4 right-4 rounded-lg bg-white/10 p-2 text-2xl text-white transition hover:bg-white/20"
         onClick={onClose}
         type="button"
       >
@@ -148,7 +148,7 @@ function Lightbox({
       {/* Previous Button */}
       {hasPrevious && (
         <button
-          className="-translate-y-1/2 absolute top-1/2 left-4 bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+          className="-translate-y-1/2 absolute top-1/2 left-4 rounded-lg bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handlePrevious();
@@ -162,7 +162,7 @@ function Lightbox({
       {/* Next Button */}
       {hasNext && (
         <button
-          className="-translate-y-1/2 absolute top-1/2 right-4 bg-[neutral-50]/10 p-3 text-2xl text-[neutral-50] transition hover:bg-[neutral-50]/20"
+          className="-translate-y-1/2 absolute top-1/2 right-4 rounded-lg bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handleNext();
@@ -184,10 +184,8 @@ function Lightbox({
           src={image.url}
           width={1200}
         />
-        {image.caption && (
-          <p className="mt-3 text-center text-[neutral-50]/90 text-sm">{image.caption}</p>
-        )}
-        <p className="mt-2 text-center text-[neutral-50]/60 text-xs">
+        {image.caption && <p className="mt-3 text-center text-sm text-white/90">{image.caption}</p>}
+        <p className="mt-2 text-center text-white/60 text-xs">
           {currentIndex + 1} of {allImages.length}
         </p>
       </div>
@@ -210,7 +208,10 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
   return (
     <div className="grid grid-cols-4 gap-2">
       {previewImages.map((image, index) => (
-        <div className="relative aspect-square overflow-hidden bg-[neutral-200]" key={image.id}>
+        <div
+          className="relative aspect-square overflow-hidden rounded bg-neutral-200 dark:bg-neutral-700"
+          key={image.id}
+        >
           <Image
             alt={image.caption || `Portfolio ${index + 1}`}
             className="h-full w-full object-cover"
@@ -220,7 +221,7 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
             width={100}
           />
           {index === 3 && remaining > 0 && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[neutral-900]/60 font-semibold text-[neutral-50] text-sm">
+            <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/60 font-semibold text-sm text-white">
               +{remaining}
             </div>
           )}

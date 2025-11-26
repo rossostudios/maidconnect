@@ -44,7 +44,7 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
     };
     return (
       <div className={cn("flex items-center gap-2", className)}>
-        <span className="text-neutral-600 text-sm">{getLabel()}</span>
+        <span className="text-neutral-600 text-sm dark:text-rausch-200">{getLabel()}</span>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
   return (
     <div className={cn("space-y-3", className)}>
       {/* Section label */}
-      <p className="font-medium text-neutral-700 text-sm">Service Type</p>
+      <p className="font-medium text-neutral-700 text-sm dark:text-rausch-100">Service Type</p>
 
       {/* Checkbox list */}
       <div aria-label="Service Type" className="space-y-2" role="group">
@@ -65,7 +65,7 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
               onCheckedChange={(checked) => handleToggle(cat.value, !!checked)}
             />
             <label
-              className="cursor-pointer text-neutral-700 text-sm group-hover:text-neutral-900"
+              className="cursor-pointer text-neutral-700 text-sm group-hover:text-neutral-900 dark:text-rausch-200 dark:group-hover:text-rausch-50"
               htmlFor={`service-${cat.value}`}
             >
               {cat.label}

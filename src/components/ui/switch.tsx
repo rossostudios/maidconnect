@@ -52,7 +52,7 @@ export interface SwitchProps extends Omit<AriaSwitchProps, "children"> {
  * Switch Component
  *
  * Accessible toggle switch with visual feedback.
- * Lia Design System: orange-500 for checked state, neutral for unchecked.
+ * Lia Design System: rausch-500 for checked state, neutral for unchecked.
  */
 export const Switch = ({
   className,
@@ -92,12 +92,12 @@ export const Switch = ({
           "border-2 border-transparent",
           // Background - unchecked
           "bg-neutral-200",
-          // Background - checked (Lia Design System - orange-500)
-          "group-data-[selected]:bg-orange-500",
+          // Background - checked (Lia Design System - rausch-500)
+          "group-data-[selected]:bg-rausch-500",
           // Transition
           "transition-colors duration-200",
           // Focus ring
-          "group-data-[focus-visible]:ring-2 group-data-[focus-visible]:ring-orange-500/50 group-data-[focus-visible]:ring-offset-2"
+          "group-data-[focus-visible]:ring-2 group-data-[focus-visible]:ring-rausch-500/50 group-data-[focus-visible]:ring-offset-2"
         )}
       >
         {/* Thumb */}

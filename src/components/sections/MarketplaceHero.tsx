@@ -10,15 +10,16 @@ export function MarketplaceHero() {
   const t = useTranslations("home.hero");
 
   return (
-    <section className="w-full px-3 pt-3 sm:px-4 sm:pt-4 lg:px-5 lg:pt-5">
-      <div className="relative min-h-[calc(100svh-1.5rem)] w-full overflow-hidden rounded-3xl lg:min-h-[calc(85vh-1.25rem)]">
-        {/* Background Image */}
+    <section className="relative w-full">
+      {/* Full-bleed hero container */}
+      <div className="relative min-h-svh w-full overflow-hidden lg:min-h-[90vh]">
+        {/* Background Image - full bleed */}
         <div className="absolute inset-0">
           <Image
             alt="Professional household services"
             // Low-res base64 blur placeholder - prevents layout shift and improves perceived performance
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIDBAARBRIhMQYTQf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC3xnKT8ZLYkrQwyCaMS9ZgSAQDodT6yLz/ADc1u/IIwqRop6KFOz2+/mMYD//Z"
-            className="rounded-3xl object-cover object-center"
+            className="object-cover object-center"
             fetchPriority="high"
             fill
             placeholder="blur"
@@ -26,12 +27,12 @@ export function MarketplaceHero() {
             sizes="100vw"
             src="/hero.png"
           />
-          {/* Gradient overlay for text readability */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+          {/* Cinematic gradient overlay - darker at top for navbar contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/50" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex min-h-[calc(100svh-1.5rem)] flex-col items-center justify-center px-4 py-24 sm:px-6 lg:min-h-[calc(85vh-1.25rem)] lg:py-20">
+        {/* Content - centered with generous top padding for navbar */}
+        <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-4 pt-32 pb-24 sm:px-6 lg:min-h-[90vh] lg:pt-28 lg:pb-20">
           {/* Headline */}
           <div className="mb-6 max-w-3xl text-center sm:mb-8">
             <h1 className="mb-3 font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-white tracking-tight sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl">

@@ -27,7 +27,7 @@ export function PolicyFields({ formData, updateField }: PolicyFieldsProps) {
             Deposit (%)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-deposit"
             max="100"
             min="0"
@@ -51,7 +51,7 @@ export function PolicyFields({ formData, updateField }: PolicyFieldsProps) {
             Late Cancel (hours)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-late-hours"
             min="0"
             onChange={(e) =>
@@ -70,7 +70,7 @@ export function PolicyFields({ formData, updateField }: PolicyFieldsProps) {
             Late Cancel Fee (%)
           </label>
           <input
-            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="w-full border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             id="pricing-late-fee"
             max="100"
             min="0"

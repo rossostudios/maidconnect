@@ -1,6 +1,12 @@
 "use client";
 
-import { Award, ExternalLink, TrendingUp, Wallet } from "lucide-react";
+import {
+  Award01Icon,
+  LinkSquare01Icon,
+  TrendingUp01Icon,
+  Wallet02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
@@ -113,7 +119,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
       <Card className={cn("border-neutral-200 bg-white", className)}>
         <CardContent className="flex flex-col items-center justify-center p-12">
           <div className="mb-4 flex size-16 items-center justify-center rounded-lg bg-neutral-100">
-            <Wallet className="size-8 text-neutral-400" />
+            <HugeiconsIcon className="size-8 text-neutral-400" icon={Wallet02Icon} />
           </div>
           <h3 className={cn("font-semibold text-base text-neutral-900", geistSans.className)}>
             No earnings yet
@@ -141,7 +147,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-lg bg-green-100">
-              <Wallet className="size-5 text-green-600" />
+              <HugeiconsIcon className="size-5 text-green-600" icon={Wallet02Icon} />
             </div>
             <h2 className={cn("font-semibold text-neutral-900 text-xl", geistSans.className)}>
               Career Earnings
@@ -150,7 +156,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
           {slug && (
             <Link href={`/pro/${slug}`}>
               <Button className="gap-2" size="sm" variant="outline">
-                <ExternalLink className="size-4" />
+                <HugeiconsIcon className="size-4" icon={LinkSquare01Icon} />
                 View Profile
               </Button>
             </Link>
@@ -160,7 +166,7 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
 
       <CardContent className="space-y-6 p-8 pt-0">
         {/* Total Earnings - Large Display */}
-        <div className="rounded-lg border border-neutral-200 bg-gradient-to-br from-green-50 to-blue-50 p-6">
+        <div className="rounded-lg border border-neutral-200 bg-gradient-to-br from-green-50 to-babu-50 p-6">
           <div className="flex items-baseline justify-between">
             <div className="flex-1">
               <p
@@ -184,14 +190,14 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
                 {totalBookingsCompleted === 1 ? "booking" : "bookings"}
               </p>
             </div>
-            <TrendingUp className="size-8 text-green-600" />
+            <HugeiconsIcon className="size-8 text-green-600" icon={TrendingUp01Icon} />
           </div>
         </div>
 
         {/* Earnings Badge Section */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Award className="size-5 text-orange-600" />
+            <HugeiconsIcon className="size-5 text-rausch-600" icon={Award01Icon} />
             <h3
               className={cn(
                 "font-semibold text-neutral-900 text-sm uppercase tracking-wider",
@@ -214,14 +220,14 @@ export function WalletEarningsSummary({ className }: WalletEarningsSummaryProps)
           </div>
 
           {/* Badge Visibility Info */}
-          <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <div className="flex items-start gap-3 rounded-lg border border-babu-200 bg-babu-50 p-4">
             <div className="flex-1">
-              <p className={cn("font-medium text-blue-900 text-sm", geistSans.className)}>
+              <p className={cn("font-medium text-babu-900 text-sm", geistSans.className)}>
                 {shareEarningsBadge
                   ? "✓ Badge visible on your public profile"
                   : "Badge hidden from public profile"}
               </p>
-              <p className={cn("mt-1 text-blue-700 text-xs", geistSans.className)}>
+              <p className={cn("mt-1 text-babu-700 text-xs", geistSans.className)}>
                 {shareEarningsBadge
                   ? "Visitors can see your achievement tier and earnings"
                   : "Update visibility in Profile Settings"}

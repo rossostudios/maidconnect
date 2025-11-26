@@ -1,6 +1,14 @@
 "use client";
 
-import { Check, Facebook, Linkedin, MessageCircle, Share2, Twitter } from "lucide-react";
+import {
+  CheckmarkCircle02Icon,
+  Facebook01Icon,
+  Linkedin01Icon,
+  MessageMultiple02Icon,
+  NewTwitterIcon,
+  Share01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -256,7 +264,7 @@ export function SocialShareButtons({
       {/* Native Share (Mobile) */}
       {typeof navigator !== "undefined" && navigator.share && (
         <Button className="gap-2" onClick={handleNativeShare} size={buttonSize} variant="outline">
-          <Share2 className={iconSize} />
+          <HugeiconsIcon className={iconSize} icon={Share01Icon} />
           {!compact && t("share")}
         </Button>
       )}
@@ -270,20 +278,20 @@ export function SocialShareButtons({
         size={buttonSize}
         variant="outline"
       >
-        <MessageCircle className={iconSize} />
+        <HugeiconsIcon className={iconSize} icon={MessageMultiple02Icon} />
         {!compact && t("whatsapp")}
       </Button>
 
       {/* Facebook */}
       <Button
         aria-label={t("facebook")}
-        className="gap-2 border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
+        className="gap-2 border-babu-200 bg-babu-50 text-babu-700 hover:bg-babu-100 hover:text-babu-800"
         data-testid="share-facebook"
         onClick={handleFacebookShare}
         size={buttonSize}
         variant="outline"
       >
-        <Facebook className={iconSize} />
+        <HugeiconsIcon className={iconSize} icon={Facebook01Icon} />
         {!compact && t("facebook")}
       </Button>
 
@@ -295,19 +303,19 @@ export function SocialShareButtons({
         size={buttonSize}
         variant="outline"
       >
-        <Twitter className={iconSize} />
+        <HugeiconsIcon className={iconSize} icon={NewTwitterIcon} />
         {!compact && t("twitter")}
       </Button>
 
       {/* LinkedIn */}
       <Button
         aria-label={t("linkedin")}
-        className="gap-2 border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
+        className="gap-2 border-babu-200 bg-babu-50 text-babu-700 hover:bg-babu-100 hover:text-babu-800"
         onClick={handleLinkedInShare}
         size={buttonSize}
         variant="outline"
       >
-        <Linkedin className={iconSize} />
+        <HugeiconsIcon className={iconSize} icon={Linkedin01Icon} />
         {!compact && t("linkedin")}
       </Button>
 
@@ -326,12 +334,12 @@ export function SocialShareButtons({
       >
         {copied ? (
           <>
-            <Check className={iconSize} />
+            <HugeiconsIcon className={iconSize} icon={CheckmarkCircle02Icon} />
             {!compact && t("copied")}
           </>
         ) : (
           <>
-            <Share2 className={iconSize} />
+            <HugeiconsIcon className={iconSize} icon={Share01Icon} />
             {!compact && t("copyLink")}
           </>
         )}
@@ -378,8 +386,8 @@ export function ShareSection({ url, professionalName, service, className }: Shar
     <div className={cn("rounded-lg border border-neutral-200 bg-white p-8 shadow-sm", className)}>
       <div className="flex flex-col items-center text-center">
         {/* Icon */}
-        <div className="flex size-12 items-center justify-center rounded-full bg-orange-100">
-          <Share2 className="size-6 text-orange-600" />
+        <div className="flex size-12 items-center justify-center rounded-full bg-rausch-100">
+          <HugeiconsIcon className="size-6 text-rausch-600" icon={Share01Icon} />
         </div>
 
         {/* Heading */}

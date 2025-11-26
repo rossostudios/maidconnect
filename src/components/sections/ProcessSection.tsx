@@ -77,7 +77,7 @@ function StepCard({
     <div className="relative flex flex-col items-center">
       {/* Step Number Badge */}
       <motion.div
-        className="-top-4 absolute z-10 flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 font-semibold text-sm text-white shadow-md"
+        className="-top-4 absolute z-10 flex h-8 w-8 items-center justify-center rounded-full bg-rausch-500 font-semibold text-sm text-white shadow-md"
         variants={fadeIn}
       >
         {step.number}
@@ -85,32 +85,32 @@ function StepCard({
 
       {/* Card */}
       <motion.div
-        className="flex h-full w-full flex-col items-center rounded-xl border border-neutral-200 bg-white px-6 pt-10 pb-6 text-center shadow-sm transition-all hover:border-orange-200 hover:shadow-md sm:px-8 sm:pt-12 sm:pb-8"
+        className="flex h-full w-full flex-col items-center rounded-xl border border-neutral-200 bg-white px-6 pt-10 pb-6 text-center shadow-sm transition-all hover:border-rausch-200 hover:shadow-md sm:px-8 sm:pt-12 sm:pb-8 dark:border-border dark:bg-card dark:shadow-none dark:hover:border-rausch-500/50 dark:hover:shadow-none"
         variants={fadeIn}
       >
         {/* Icon */}
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 sm:h-16 sm:w-16">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rausch-50 sm:h-16 sm:w-16 dark:bg-rausch-500/20">
           <HugeiconsIcon
-            className="h-7 w-7 text-orange-600 sm:h-8 sm:w-8"
+            className="h-7 w-7 text-rausch-600 sm:h-8 sm:w-8 dark:text-rausch-400"
             icon={step.icon}
             strokeWidth={1.5}
           />
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 font-semibold text-lg text-neutral-900 sm:text-xl">
+        <h3 className="mb-2 font-semibold text-lg text-neutral-900 sm:text-xl dark:text-neutral-50">
           {t(step.titleKey)}
         </h3>
 
         {/* Description */}
-        <p className="text-neutral-600 text-sm leading-relaxed sm:text-base">
+        <p className="text-neutral-600 text-sm leading-relaxed sm:text-base dark:text-neutral-400">
           {t(step.descriptionKey)}
         </p>
       </motion.div>
 
       {/* Connector Arrow (hidden on last step and mobile) */}
       {!isLast && (
-        <div className="-right-3 -translate-y-1/2 lg:-right-5 absolute top-1/2 hidden text-orange-300 md:block">
+        <div className="-right-3 -translate-y-1/2 lg:-right-5 absolute top-1/2 hidden text-rausch-300 md:block dark:text-rausch-500/50">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
           </svg>
@@ -124,7 +124,7 @@ export function ProcessSection() {
   const t = useTranslations("home.process");
 
   return (
-    <section className="bg-neutral-50 py-16 sm:py-20 lg:py-24" id="how-it-works">
+    <section className="bg-neutral-50 py-16 sm:py-20 lg:py-24 dark:bg-background" id="how-it-works">
       <Container className="max-w-6xl">
         {/* Section Header */}
         <motion.div
@@ -134,19 +134,19 @@ export function ProcessSection() {
           variants={stagger}
         >
           <motion.span
-            className="mb-3 inline-block rounded-full bg-orange-100 px-4 py-1.5 font-medium text-orange-700 text-xs uppercase tracking-wider"
+            className="mb-3 inline-block rounded-full bg-rausch-100 px-4 py-1.5 font-medium text-rausch-700 text-xs uppercase tracking-wider dark:bg-rausch-500/20 dark:text-rausch-400"
             variants={fadeIn}
           >
             How It Works
           </motion.span>
           <motion.h2
-            className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl"
+            className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50"
             variants={fadeIn}
           >
             {t("title")}
           </motion.h2>
           <motion.p
-            className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg"
+            className="mx-auto mt-3 max-w-xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400"
             variants={fadeIn}
           >
             {t("description")}
@@ -179,7 +179,7 @@ export function ProcessSection() {
         >
           <motion.div className="mb-4" variants={fadeIn}>
             <Link
-              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-orange-600 hover:shadow-xl"
+              className="inline-flex items-center gap-2 rounded-full bg-rausch-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-rausch-500/25 transition-all hover:bg-rausch-600 hover:shadow-xl"
               href="/brief"
             >
               {t("cta")}
@@ -193,7 +193,7 @@ export function ProcessSection() {
               </svg>
             </Link>
           </motion.div>
-          <motion.p className="text-neutral-500 text-sm" variants={fadeIn}>
+          <motion.p className="text-neutral-500 text-sm dark:text-neutral-400" variants={fadeIn}>
             15% service fee covers background checks, insurance & support. Professionals keep 100%.
           </motion.p>
         </motion.div>

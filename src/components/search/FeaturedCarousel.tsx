@@ -15,14 +15,14 @@
 
 import { ArrowRight01Icon, CheckmarkCircle02Icon, StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import Image from "next/image";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { geistSans } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils/core";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 import { CarouselItem, FlexibleCarousel } from "./FlexibleCarousel";
 
 export type FeaturedProfessional = {
@@ -55,7 +55,9 @@ export function FeaturedCarousel({
   className,
   cardVariant = "default",
 }: FeaturedCarouselProps) {
-  if (professionals.length === 0) return null;
+  if (professionals.length === 0) {
+    return null;
+  }
 
   return (
     <FlexibleCarousel
@@ -69,7 +71,9 @@ export function FeaturedCarousel({
       {professionals.map((pro, index) => (
         <CarouselItem
           key={pro.id}
-          minWidth={cardVariant === "compact" ? "200px" : cardVariant === "expanded" ? "320px" : "280px"}
+          minWidth={
+            cardVariant === "compact" ? "200px" : cardVariant === "expanded" ? "320px" : "280px"
+          }
         >
           <FeaturedProfessionalCard index={index} professional={pro} variant={cardVariant} />
         </CarouselItem>
@@ -99,7 +103,7 @@ function FeaturedProfessionalCard({
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       <Link
-        className="group block rounded-lg border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-md"
+        className="group block rounded-lg border border-neutral-200 bg-white transition-all hover:border-neutral-300 hover:shadow-md dark:border-border dark:bg-card dark:hover:border-neutral-600 dark:hover:shadow-none"
         href={`/professionals/${professional.id}`}
       >
         {/* Image Section */}
@@ -113,8 +117,10 @@ function FeaturedProfessionalCard({
               src={professional.avatar}
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
-              <span className={cn("font-bold text-orange-600", isCompact ? "text-3xl" : "text-4xl")}>
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rausch-100 to-rausch-200">
+              <span
+                className={cn("font-bold text-rausch-600", isCompact ? "text-3xl" : "text-4xl")}
+              >
                 {professional.name.charAt(0)}
               </span>
             </div>
@@ -123,7 +129,7 @@ function FeaturedProfessionalCard({
           {/* Featured Badge */}
           {professional.featured && (
             <Badge
-              className="absolute top-3 left-3 border-orange-200 bg-orange-50 text-orange-600"
+              className="absolute top-3 left-3 border-rausch-200 bg-rausch-50 text-rausch-600 dark:border-rausch-800 dark:bg-rausch-900/60 dark:text-rausch-300"
               size="sm"
             >
               Featured
@@ -133,7 +139,7 @@ function FeaturedProfessionalCard({
           {/* Custom Badge */}
           {professional.badge && !professional.featured && (
             <Badge
-              className="absolute top-3 left-3 border-blue-200 bg-blue-50 text-blue-600"
+              className="absolute top-3 left-3 border-babu-200 bg-babu-50 text-babu-600 dark:border-babu-800 dark:bg-babu-900/60 dark:text-babu-300"
               size="sm"
             >
               {professional.badge}
@@ -142,8 +148,11 @@ function FeaturedProfessionalCard({
 
           {/* Verified Icon */}
           {professional.verified && (
-            <div className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm">
-              <HugeiconsIcon className="h-4 w-4 text-green-500" icon={CheckmarkCircle02Icon} />
+            <div className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm dark:bg-card dark:shadow-none dark:ring-1 dark:ring-border">
+              <HugeiconsIcon
+                className="h-4 w-4 text-green-500 dark:text-green-400"
+                icon={CheckmarkCircle02Icon}
+              />
             </div>
           )}
         </div>
@@ -154,7 +163,7 @@ function FeaturedProfessionalCard({
           <div className="flex items-center justify-between">
             <h3
               className={cn(
-                "truncate font-semibold text-neutral-900 group-hover:text-orange-600",
+                "truncate font-semibold text-neutral-900 group-hover:text-rausch-600 dark:text-neutral-50 dark:group-hover:text-rausch-400",
                 isCompact ? "text-sm" : "text-base",
                 geistSans.className
               )}
@@ -163,11 +172,24 @@ function FeaturedProfessionalCard({
             </h3>
             {/* Rating */}
             <div className="flex items-center gap-1">
-              <HugeiconsIcon className="h-4 w-4 fill-orange-500 text-orange-500" icon={StarIcon} />
-              <span className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
+              <HugeiconsIcon
+                className="h-4 w-4 fill-rausch-500 text-rausch-500 dark:fill-rausch-400 dark:text-rausch-400"
+                icon={StarIcon}
+              />
+              <span
+                className={cn(
+                  "font-semibold text-neutral-900 text-sm dark:text-neutral-50",
+                  geistSans.className
+                )}
+              >
                 {professional.rating.toFixed(1)}
               </span>
-              <span className={cn("text-neutral-400 text-xs", geistSans.className)}>
+              <span
+                className={cn(
+                  "text-neutral-400 text-xs dark:text-neutral-500",
+                  geistSans.className
+                )}
+              >
                 ({professional.reviewCount})
               </span>
             </div>
@@ -176,7 +198,7 @@ function FeaturedProfessionalCard({
           {/* Service */}
           <p
             className={cn(
-              "truncate text-neutral-500",
+              "truncate text-neutral-500 dark:text-neutral-400",
               isCompact ? "text-xs" : "text-sm",
               geistSans.className
             )}
@@ -186,16 +208,28 @@ function FeaturedProfessionalCard({
 
           {/* Location - Only in expanded */}
           {isExpanded && professional.location && (
-            <p className={cn("truncate text-neutral-400 text-xs", geistSans.className)}>
+            <p
+              className={cn(
+                "truncate text-neutral-400 text-xs dark:text-neutral-500",
+                geistSans.className
+              )}
+            >
               {professional.location}
             </p>
           )}
 
           {/* Price */}
           <div className="flex items-center justify-between pt-1">
-            <p className={cn("font-semibold text-neutral-900", isCompact ? "text-sm" : "text-base")}>
+            <p
+              className={cn(
+                "font-semibold text-neutral-900 dark:text-neutral-50",
+                isCompact ? "text-sm" : "text-base"
+              )}
+            >
               {formatCurrency(professional.hourlyRate, professional.currency)}
-              <span className="font-normal text-neutral-400 text-sm">/hr</span>
+              <span className="font-normal text-neutral-400 text-sm dark:text-neutral-500">
+                /hr
+              </span>
             </p>
             {isExpanded && (
               <Button className="h-8 gap-1 text-xs" size="sm" variant="ghost">

@@ -34,7 +34,35 @@ export {
   type CacheDuration,
   type CacheHeaderPreset,
 } from "./config";
+// Invalidation helpers
+export {
+  invalidateBookings,
+  invalidateChangelogs,
+  invalidateCities,
+  invalidateDomain,
+  invalidateHelp,
+  invalidatePlatformStats,
+  invalidateProfessionalAddons,
+  invalidateProfessionalAvailability,
+  invalidateProfessionals,
+  invalidateRoadmap,
+  invalidateSanityContent,
+  invalidateTag,
+  invalidateTags,
+} from "./invalidate";
 
+// Key generators
+export {
+  addonsKey,
+  availabilityKey,
+  changelogListKey,
+  cityProfessionalsKey,
+  type DirectoryParams,
+  directoryKey,
+  latestProfessionalsKey,
+  platformStatsKey,
+  searchKey,
+} from "./keys";
 // Tags
 export {
   CACHE_TAGS,
@@ -42,33 +70,3 @@ export {
   getTagsForDomain,
   isValidTag,
 } from "./tags";
-
-// Key generators
-export {
-  directoryKey,
-  availabilityKey,
-  addonsKey,
-  platformStatsKey,
-  changelogListKey,
-  searchKey,
-  latestProfessionalsKey,
-  cityProfessionalsKey,
-  type DirectoryParams,
-} from "./keys";
-
-// Invalidation helpers
-export {
-  invalidateTag,
-  invalidateTags,
-  invalidateDomain,
-  invalidateProfessionals,
-  invalidateProfessionalAvailability,
-  invalidateProfessionalAddons,
-  invalidateBookings,
-  invalidateChangelogs,
-  invalidateRoadmap,
-  invalidatePlatformStats,
-  invalidateHelp,
-  invalidateCities,
-  invalidateSanityContent,
-} from "./invalidate";

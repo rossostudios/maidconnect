@@ -97,7 +97,7 @@ async function BlogList({ locale }: { locale: string }) {
 
         return (
           <Link
-            className="group overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:border-orange-500 hover:shadow-md"
+            className="group overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:border-rausch-500 hover:shadow-md"
             href={`/${locale}/blog/${post.slug.current}`}
             key={post._id}
           >
@@ -120,14 +120,14 @@ async function BlogList({ locale }: { locale: string }) {
               {/* Category Badge */}
               {post.categoryName && (
                 <div className="mb-3">
-                  <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-3 py-1 font-medium text-orange-600 text-sm">
+                  <span className="inline-block rounded-full border border-rausch-200 bg-rausch-50 px-3 py-1 font-medium text-rausch-600 text-sm">
                     {post.categoryName}
                   </span>
                 </div>
               )}
 
               {/* Title */}
-              <h2 className="mb-3 font-bold text-neutral-900 text-xl leading-tight transition group-hover:text-orange-600">
+              <h2 className="mb-3 font-bold text-neutral-900 text-xl leading-tight transition group-hover:text-rausch-600">
                 {post.title}
               </h2>
 
@@ -191,8 +191,8 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500/10 to-orange-600/10">
-              <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={BookOpen01Icon} />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-rausch-500/10 to-rausch-600/10">
+              <HugeiconsIcon className="h-8 w-8 text-rausch-500" icon={BookOpen01Icon} />
             </div>
             <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl">
               {t("hero.title")}

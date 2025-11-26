@@ -2,13 +2,20 @@
  * REFACTORED VERSION - Professional portfolio management
  * GET/PUT/POST /api/professional/portfolio
  *
- * BEFORE: 172 lines (3 handlers)
- * AFTER: 125 lines (3 handlers) (27% reduction)
+ * Supports:
+ * - Portfolio images (gallery)
+ * - Before/After transformation pairs
+ * - Featured work description
+ * - Featured image ID
  */
 
 import { z } from "zod";
 import { created, ok, withProfessional } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
+
+// ============================================================================
+// Types
+// ============================================================================
 
 export type PortfolioImage = {
   id: string;
@@ -19,6 +26,29 @@ export type PortfolioImage = {
   created_at?: string;
 };
 
+export type BeforeAfterPair = {
+  id: string;
+  beforeUrl: string;
+  afterUrl: string;
+  beforeThumbnail?: string;
+  afterThumbnail?: string;
+  caption?: string;
+  projectType?: string;
+  order: number;
+  createdAt: string;
+};
+
+export type PortfolioData = {
+  images: PortfolioImage[];
+  beforeAfterPairs: BeforeAfterPair[];
+  featuredImageId?: string;
+  featuredWork?: string;
+};
+
+// ============================================================================
+// Schemas
+// ============================================================================
+
 const portfolioImageSchema = z.object({
   id: z.string(),
   url: z.string().url(),
@@ -27,9 +57,23 @@ const portfolioImageSchema = z.object({
   order: z.number(),
 });
 
+const beforeAfterPairSchema = z.object({
+  id: z.string(),
+  beforeUrl: z.string().url(),
+  afterUrl: z.string().url(),
+  beforeThumbnail: z.string().url().optional(),
+  afterThumbnail: z.string().url().optional(),
+  caption: z.string().optional(),
+  projectType: z.string().optional(),
+  order: z.number(),
+  createdAt: z.string(),
+});
+
 const updatePortfolioSchema = z.object({
   images: z.array(portfolioImageSchema),
+  beforeAfterPairs: z.array(beforeAfterPairSchema).optional(),
   featuredWork: z.string().optional(),
+  featuredImageId: z.string().optional(),
 });
 
 const addImageSchema = z.object({
@@ -39,12 +83,12 @@ const addImageSchema = z.object({
 });
 
 /**
- * Get professional's portfolio images
+ * Get professional's portfolio data
  */
 export const GET = withProfessional(async ({ user, supabase }) => {
   const { data: profile, error } = await supabase
     .from("professional_profiles")
-    .select("portfolio_images, featured_work")
+    .select("portfolio_images, before_after_pairs, featured_work, featured_image_id")
     .eq("profile_id", user.id)
     .single();
 
@@ -54,7 +98,9 @@ export const GET = withProfessional(async ({ user, supabase }) => {
 
   return ok({
     images: (profile?.portfolio_images as PortfolioImage[]) || [],
+    beforeAfterPairs: (profile?.before_after_pairs as BeforeAfterPair[]) || [],
     featuredWork: profile?.featured_work || "",
+    featuredImageId: profile?.featured_image_id || undefined,
   });
 });
 
@@ -66,12 +112,25 @@ export const PUT = withProfessional(async ({ user, supabase }, request: Request)
   const body = await request.json();
   const validatedData = updatePortfolioSchema.parse(body);
 
-  const updateData: { portfolio_images: PortfolioImage[]; featured_work?: string } = {
+  const updateData: {
+    portfolio_images: PortfolioImage[];
+    before_after_pairs?: BeforeAfterPair[];
+    featured_work?: string;
+    featured_image_id?: string;
+  } = {
     portfolio_images: validatedData.images,
   };
 
+  if (validatedData.beforeAfterPairs !== undefined) {
+    updateData.before_after_pairs = validatedData.beforeAfterPairs;
+  }
+
   if (validatedData.featuredWork !== undefined) {
     updateData.featured_work = validatedData.featuredWork;
+  }
+
+  if (validatedData.featuredImageId !== undefined) {
+    updateData.featured_image_id = validatedData.featuredImageId;
   }
 
   const { error } = await supabase
@@ -86,7 +145,9 @@ export const PUT = withProfessional(async ({ user, supabase }, request: Request)
   return ok({
     success: true,
     images: validatedData.images,
+    beforeAfterPairs: validatedData.beforeAfterPairs || [],
     featuredWork: validatedData.featuredWork || "",
+    featuredImageId: validatedData.featuredImageId,
   });
 });
 

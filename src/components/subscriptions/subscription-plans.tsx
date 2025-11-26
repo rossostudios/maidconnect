@@ -99,7 +99,7 @@ export function SubscriptionPlans({ plans, currentPlanSlug, planType }: Props) {
           <motion.div
             className={cn(
               "relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm transition-shadow hover:shadow-md",
-              plan.popular ? "border-orange-300" : "border-neutral-200",
+              plan.popular ? "border-rausch-300" : "border-neutral-200",
               isCurrentPlan && "ring-2 ring-green-500"
             )}
             key={plan.slug}
@@ -108,7 +108,7 @@ export function SubscriptionPlans({ plans, currentPlanSlug, planType }: Props) {
             {/* Popular Badge */}
             {plan.popular && (
               <div className="absolute top-0 right-0">
-                <div className="flex items-center gap-1 rounded-bl-lg bg-orange-500 px-4 py-1 font-semibold text-white text-xs">
+                <div className="flex items-center gap-1 rounded-bl-lg bg-rausch-500 px-4 py-1 font-semibold text-white text-xs">
                   <HugeiconsIcon className="h-3 w-3" icon={SparklesIcon} />
                   Most Popular
                 </div>
@@ -158,7 +158,7 @@ export function SubscriptionPlans({ plans, currentPlanSlug, planType }: Props) {
             <Button
               className={cn(
                 "w-full rounded-lg",
-                plan.popular && "bg-orange-500 hover:bg-orange-600"
+                plan.popular && "bg-rausch-500 hover:bg-rausch-600"
               )}
               disabled={isCurrentPlan || isLoading}
               onClick={() => handleSelectPlan(plan)}

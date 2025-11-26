@@ -204,7 +204,7 @@ export function UserManagementTable({ users, isLoading, pagination, onPageChange
       <div className="border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+            <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
             <p className="text-[#737373] text-sm">Loading users...</p>
           </div>
         </div>

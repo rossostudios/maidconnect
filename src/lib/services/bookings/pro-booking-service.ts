@@ -127,7 +127,10 @@ export function isWithinMinutes(dateStr: string, minutes: number): boolean {
 /**
  * Get relative time label (e.g., "Starting in 15m", "In Progress")
  */
-export function getTimeLabel(booking: { scheduledStart: string; status: BookingStatus }): string | null {
+export function getTimeLabel(booking: {
+  scheduledStart: string;
+  status: BookingStatus;
+}): string | null {
   if (booking.status === "in_progress") {
     return "In Progress";
   }
@@ -290,7 +293,12 @@ export function transformBooking(raw: {
   checked_in_at: string | null;
   checked_out_at: string | null;
   created_at: string;
-  customer: { id: string; full_name: string | null; avatar_url: string | null; phone: string | null } | null;
+  customer: {
+    id: string;
+    full_name: string | null;
+    avatar_url: string | null;
+    phone: string | null;
+  } | null;
 }): ProBookingWithCustomer {
   return {
     id: raw.id,
@@ -324,7 +332,9 @@ export function filterBookingsBySearch(
   bookings: ProBookingWithCustomer[],
   search: string
 ): ProBookingWithCustomer[] {
-  if (!search.trim()) return bookings;
+  if (!search.trim()) {
+    return bookings;
+  }
 
   const searchLower = search.toLowerCase();
   return bookings.filter((b) => {

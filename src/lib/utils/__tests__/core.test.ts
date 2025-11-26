@@ -63,14 +63,14 @@ describe("cn (className utility)", () => {
 
     const result = cn(
       "button",
-      variant === "primary" && "bg-orange-500",
+      variant === "primary" && "bg-rausch-500",
       variant === "secondary" && "bg-neutral-100",
       size === "sm" && "px-4 py-2",
       size === "lg" && "px-8 py-4",
       disabled && "cursor-not-allowed opacity-50"
     );
 
-    expect(result).toBe("button bg-orange-500 px-8 py-4");
+    expect(result).toBe("button bg-rausch-500 px-8 py-4");
   });
 
   it("handles mixed valid and invalid classes", () => {
@@ -95,11 +95,11 @@ describe("cn (className utility)", () => {
 
   it("handles hover and focus states", () => {
     const result = cn(
-      "bg-orange-500",
-      "hover:bg-orange-600",
+      "bg-rausch-500",
+      "hover:bg-rausch-600",
       "focus:ring-2",
-      "focus:ring-orange-500/25"
+      "focus:ring-rausch-500/25"
     );
-    expect(result).toBe("bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-orange-500/25");
+    expect(result).toBe("bg-rausch-500 hover:bg-rausch-600 focus:ring-2 focus:ring-rausch-500/25");
   });
 });

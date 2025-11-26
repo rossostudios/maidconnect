@@ -200,7 +200,7 @@ export function LiaDataTable<TData, TValue>({
           {enableRowSelection && Object.keys(rowSelection).length > 0 && (
             <div
               className={cn(
-                "flex items-center gap-2 rounded-lg border-l-2 border-l-orange-500 bg-orange-50 px-3 py-1 font-medium text-orange-500 text-xs tracking-wider",
+                "flex items-center gap-2 rounded-lg border-l-2 border-l-rausch-500 bg-rausch-50 px-3 py-1 font-medium text-rausch-500 text-xs tracking-wider",
                 geistSans.className
               )}
             >
@@ -244,9 +244,9 @@ export function LiaDataTable<TData, TValue>({
               table.getRowModel().rows.map((row, index) => (
                 <tr
                   className={cn(
-                    "border-neutral-200 border-b transition-colors hover:bg-orange-50/30",
+                    "border-neutral-200 border-b transition-colors hover:bg-rausch-50/30",
                     index % 2 === 0 ? "bg-white" : "bg-neutral-50/50",
-                    row.getIsSelected() && "bg-orange-50"
+                    row.getIsSelected() && "bg-rausch-50"
                   )}
                   key={row.id}
                 >

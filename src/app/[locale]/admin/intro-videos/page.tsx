@@ -59,7 +59,7 @@ export default function AdminIntroVideosPage() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-orange-500" />
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-rausch-500" />
           <p className="text-neutral-500 text-sm">Loading intro videos...</p>
         </div>
       </div>
@@ -85,8 +85,8 @@ export default function AdminIntroVideosPage() {
               <p className="text-neutral-600 text-sm">Pending Review</p>
               <p className="mt-2 font-semibold text-3xl text-neutral-900">{pendingVideos.length}</p>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
-              <Icon className="h-6 w-6 text-orange-600" icon={Video01Icon} />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-200 bg-rausch-50">
+              <Icon className="h-6 w-6 text-rausch-600" icon={Video01Icon} />
             </div>
           </div>
         </Card>

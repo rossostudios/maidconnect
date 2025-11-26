@@ -21,6 +21,13 @@ import type { HugeIcon } from "@/types/icons";
 
 export type MetricTrend = "up" | "down" | "neutral";
 
+// Lookup object to replace nested ternary (Biome noNestedTernary fix)
+const TREND_BADGE_VARIANTS: Record<MetricTrend, "success" | "danger" | "outline"> = {
+  up: "success",
+  down: "danger",
+  neutral: "outline",
+};
+
 export type MetricCardProps = {
   /** Metric title */
   title: string;
@@ -52,10 +59,10 @@ export type MetricCardProps = {
  */
 const colorVariants = {
   blue: {
-    accent: "border-blue-500",
-    iconBg: "bg-blue-50",
-    iconColor: "text-blue-500",
-    trend: "text-blue-500",
+    accent: "border-babu-500",
+    iconBg: "bg-babu-50",
+    iconColor: "text-babu-500",
+    trend: "text-babu-500",
   },
   green: {
     accent: "border-green-500",
@@ -64,10 +71,10 @@ const colorVariants = {
     trend: "text-green-500",
   },
   orange: {
-    accent: "border-orange-500",
-    iconBg: "bg-orange-50",
-    iconColor: "text-orange-500",
-    trend: "text-orange-500",
+    accent: "border-rausch-500",
+    iconBg: "bg-rausch-50",
+    iconColor: "text-rausch-500",
+    trend: "text-rausch-500",
   },
   pink: {
     accent: "border-pink-500",
@@ -257,7 +264,7 @@ export function MetricCard({
                 <Badge
                   className="font-semibold"
                   size="sm"
-                  variant={trend === "up" ? "success" : trend === "down" ? "danger" : "outline"}
+                  variant={TREND_BADGE_VARIANTS[trend]}
                 >
                   {trendValue}
                 </Badge>

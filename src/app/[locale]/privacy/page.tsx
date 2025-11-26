@@ -71,7 +71,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+              <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                 privacy@casaora.co
               </a>
             </p>
@@ -221,7 +221,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
+          <div className="border-rausch-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">¿Cómo Ejercer Sus Derechos?</h3>
             <p className="mb-2 text-neutral-700">
               Para ejercer cualquiera de estos derechos, puede contactarnos por los siguientes
@@ -230,7 +230,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Correo electrónico:</strong>{" "}
-                <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                   privacy@casaora.co
                 </a>
               </li>
@@ -330,7 +330,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Dirección del servicio (solo para el profesional asignado)</li>
           </ul>
 
-          <p className="font-semibold text-orange-500">
+          <p className="font-semibold text-rausch-500">
             ⚠️ NO vendemos sus datos personales a terceros bajo ninguna circunstancia.
           </p>
         </section>
@@ -476,7 +476,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-neutral-700">
                 Web:{" "}
                 <a
-                  className="text-orange-500"
+                  className="text-rausch-500"
                   href="https://www.sic.gov.co"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -500,7 +500,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-neutral-700">
                 Web:{" "}
                 <a
-                  className="text-orange-500"
+                  className="text-rausch-500"
                   href="https://www.gub.uy/urcdp"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -516,7 +516,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-neutral-700">
                 Web:{" "}
                 <a
-                  className="text-orange-500"
+                  className="text-rausch-500"
                   href="https://www.argentina.gob.ar/aaip"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -538,7 +538,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+              <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                 privacy@casaora.co
               </a>
             </p>
@@ -552,7 +552,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         {/* Legal Declaration */}
-        <section className="border-2 border-orange-500 bg-neutral-50 p-6">
+        <section className="border-2 border-rausch-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Declaración de Consentimiento</h2>
           <p className="text-neutral-700">Al registrarse y usar Casaora, usted declara que:</p>
           <ul className="mb-4 ml-6 list-disc text-neutral-700">
@@ -599,7 +599,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+              <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                 privacy@casaora.co
               </a>
             </p>
@@ -666,13 +666,13 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="border-orange-500 border-l-4 bg-neutral-50 p-4">
+          <div className="border-rausch-500 border-l-4 bg-neutral-50 p-4">
             <h3 className="mb-2 font-semibold text-neutral-900">How to Exercise Your Rights</h3>
             <p className="mb-2 text-neutral-700">Contact us at:</p>
             <ul className="ml-6 list-disc text-neutral-700">
               <li>
                 <strong>Email:</strong>{" "}
-                <a className="text-orange-500" href="mailto:privacy@casaora.co">
+                <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                   privacy@casaora.co
                 </a>
               </li>
@@ -718,7 +718,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               </p>
             </div>
           </div>
-          <p className="font-semibold text-orange-500">
+          <p className="font-semibold text-rausch-500">
             ⚠️ We NEVER sell your personal data to third parties.
           </p>
         </section>
@@ -773,7 +773,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="border border-neutral-200 bg-neutral-50 p-4">
             <p className="mb-2 text-neutral-900">
               <strong>Email:</strong>{" "}
-              <a className="text-orange-500" href="mailto:privacy@casaora.co">
+              <a className="text-rausch-500" href="mailto:privacy@casaora.co">
                 privacy@casaora.co
               </a>
             </p>
@@ -783,7 +783,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </div>
         </section>
 
-        <section className="border-2 border-orange-500 bg-neutral-50 p-6">
+        <section className="border-2 border-rausch-500 bg-neutral-50 p-6">
           <h2 className="mb-4 font-bold text-neutral-900 text-xl">Consent Declaration</h2>
           <p className="text-neutral-700">By registering and using Casaora, you declare that:</p>
           <ul className="mb-4 ml-6 list-disc text-neutral-700">

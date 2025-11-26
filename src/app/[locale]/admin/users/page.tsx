@@ -148,7 +148,7 @@ export default async function AdminUsersPage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="rounded-lg border border-orange-500 bg-orange-500 px-4 py-2 shadow-sm">
+            <div className="rounded-lg border border-rausch-500 bg-rausch-500 px-4 py-2 shadow-sm">
               <span
                 className={cn(
                   "font-medium text-white text-xs uppercase tracking-wide",
@@ -208,8 +208,8 @@ export default async function AdminUsersPage() {
                   Suspensions + AML Flags
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Alert01Icon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={Alert01Icon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -219,7 +219,7 @@ export default async function AdminUsersPage() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg border border-orange-500 bg-orange-500 px-4 py-2.5 font-medium text-sm text-white transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-rausch-500 bg-rausch-500 px-4 py-2.5 font-medium text-sm text-white transition hover:bg-rausch-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/admin/users?status=suspended"
@@ -229,7 +229,7 @@ export default async function AdminUsersPage() {
               </Link>
               <a
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 font-medium text-neutral-900 text-sm transition hover:border-neutral-300 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="#directory"
@@ -303,7 +303,7 @@ export default async function AdminUsersPage() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {oversightPanels.map((panel) => (
             <Link
-              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-200 hover:shadow-md"
+              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-rausch-200 hover:shadow-md"
               href={panel.href}
               key={panel.label}
             >
@@ -321,8 +321,8 @@ export default async function AdminUsersPage() {
                     {panel.description}
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                  <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={panel.icon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                  <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={panel.icon} />
                 </div>
               </div>
               <div className="mt-6 flex items-end justify-between">
@@ -330,7 +330,7 @@ export default async function AdminUsersPage() {
                   {panel.value}
                 </p>
                 <HugeiconsIcon
-                  className="h-4 w-4 text-neutral-400 transition group-hover:text-orange-500"
+                  className="h-4 w-4 text-neutral-400 transition group-hover:text-rausch-500"
                   icon={ArrowUpRight01Icon}
                 />
               </div>

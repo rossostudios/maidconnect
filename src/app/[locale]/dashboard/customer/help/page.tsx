@@ -38,8 +38,8 @@ export default async function CustomerHelpPage(props: { params: Promise<{ locale
       title: t("contact.liveChat.title"),
       description: t("contact.liveChat.description"),
       action: t("contact.liveChat.action"),
-      bgColor: "bg-orange-50",
-      iconColor: "text-orange-500",
+      bgColor: "bg-rausch-50",
+      iconColor: "text-rausch-500",
     },
     {
       icon: Mail01Icon,
@@ -47,8 +47,8 @@ export default async function CustomerHelpPage(props: { params: Promise<{ locale
       description: t("contact.email.description"),
       action: t("contact.email.action"),
       href: "mailto:help@casaora.co",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-500",
+      bgColor: "bg-babu-50",
+      iconColor: "text-babu-500",
     },
     {
       icon: HeadsetIcon,
@@ -94,7 +94,7 @@ export default async function CustomerHelpPage(props: { params: Promise<{ locale
       <div className="grid gap-6 md:grid-cols-3">
         {contactOptions.map((option) => (
           <div
-            className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-300 hover:shadow-md"
+            className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-rausch-300 hover:shadow-md"
             key={option.title}
           >
             <div
@@ -111,14 +111,14 @@ export default async function CustomerHelpPage(props: { params: Promise<{ locale
             <p className="mt-2 text-neutral-600 text-sm leading-relaxed">{option.description}</p>
             {option.href ? (
               <a
-                className="mt-4 inline-flex items-center font-semibold text-orange-600 text-sm transition hover:text-orange-700"
+                className="mt-4 inline-flex items-center font-semibold text-rausch-600 text-sm transition hover:text-rausch-700"
                 href={option.href}
               >
                 {option.action} →
               </a>
             ) : (
               <button
-                className="mt-4 inline-flex items-center font-semibold text-orange-600 text-sm transition hover:text-orange-700"
+                className="mt-4 inline-flex items-center font-semibold text-rausch-600 text-sm transition hover:text-rausch-700"
                 type="button"
               >
                 {option.action} →

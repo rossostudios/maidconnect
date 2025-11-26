@@ -125,12 +125,12 @@ export async function GET(request: Request) {
     }
 
     // Transform profile from array to object (Supabase joins return arrays)
-    const transformedProfessionals = (
-      (professionals || []) as RawProfessionalProfile[]
-    ).map((prof): TransformedProfessional => ({
-      ...prof,
-      profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
-    }));
+    const transformedProfessionals = ((professionals || []) as RawProfessionalProfile[]).map(
+      (prof): TransformedProfessional => ({
+        ...prof,
+        profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
+      })
+    );
 
     // Filter by onboarding_status if needed
     let filteredProfessionals = transformedProfessionals;

@@ -28,8 +28,8 @@ export default async function WorkerSafetyPage({
         {/* Page Header */}
         <div className="mb-12 text-center">
           <div className="mb-6 flex justify-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
-              <CheckmarkCircle01Icon className="h-10 w-10 text-orange-600" />
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-rausch-100">
+              <CheckmarkCircle01Icon className="h-10 w-10 text-rausch-600" />
             </div>
           </div>
           <h1
@@ -53,8 +53,8 @@ export default async function WorkerSafetyPage({
         {/* Key Protections Overview */}
         <div className="mb-12 grid gap-6 sm:grid-cols-3">
           <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-              <CheckmarkCircle01Icon className="h-6 w-6 text-blue-600" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-babu-100">
+              <CheckmarkCircle01Icon className="h-6 w-6 text-babu-600" />
             </div>
             <h3 className="mb-2 font-semibold text-lg text-neutral-900">
               {t("overview.legal.title")}
@@ -73,8 +73,8 @@ export default async function WorkerSafetyPage({
           </div>
 
           <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
-              <Briefcase01Icon className="h-6 w-6 text-orange-600" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-rausch-100">
+              <Briefcase01Icon className="h-6 w-6 text-rausch-600" />
             </div>
             <h3 className="mb-2 font-semibold text-lg text-neutral-900">
               {t("overview.support.title")}
@@ -92,7 +92,7 @@ export default async function WorkerSafetyPage({
             </h2>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-orange-500">✓</span>
+                <span className="mt-1 text-lg text-rausch-500">✓</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("workerRights.contracts.title")}
@@ -104,7 +104,7 @@ export default async function WorkerSafetyPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-orange-500">✓</span>
+                <span className="mt-1 text-lg text-rausch-500">✓</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("workerRights.minimumWage.title")}
@@ -116,7 +116,7 @@ export default async function WorkerSafetyPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-orange-500">✓</span>
+                <span className="mt-1 text-lg text-rausch-500">✓</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("workerRights.workingHours.title")}
@@ -128,7 +128,7 @@ export default async function WorkerSafetyPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-lg text-orange-500">✓</span>
+                <span className="mt-1 text-lg text-rausch-500">✓</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("workerRights.benefits.title")}
@@ -142,33 +142,33 @@ export default async function WorkerSafetyPage({
           </section>
 
           {/* Anti-Harassment Policy */}
-          <section className="rounded-lg border border-orange-200 bg-orange-50 p-8">
+          <section className="rounded-lg border border-rausch-200 bg-rausch-50 p-8">
             <div className="flex items-start gap-4">
-              <Alert01Icon className="mt-1 h-6 w-6 flex-shrink-0 text-orange-600" />
+              <Alert01Icon className="mt-1 h-6 w-6 flex-shrink-0 text-rausch-600" />
               <div>
-                <h2 className="mb-3 font-semibold text-2xl text-orange-900">
+                <h2 className="mb-3 font-semibold text-2xl text-rausch-900">
                   {t("antiHarassment.title")}
                 </h2>
-                <p className="mb-4 text-orange-800">{t("antiHarassment.description")}</p>
+                <p className="mb-4 text-rausch-800">{t("antiHarassment.description")}</p>
 
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-lg text-orange-900">
+                  <h3 className="font-semibold text-lg text-rausch-900">
                     {t("antiHarassment.zeroTolerance.title")}
                   </h3>
                   <ul className="space-y-2">
-                    <li className="flex items-start gap-2 text-orange-800 text-sm">
+                    <li className="flex items-start gap-2 text-rausch-800 text-sm">
                       <span className="mt-1">•</span>
                       <span>{t("antiHarassment.zeroTolerance.verbal")}</span>
                     </li>
-                    <li className="flex items-start gap-2 text-orange-800 text-sm">
+                    <li className="flex items-start gap-2 text-rausch-800 text-sm">
                       <span className="mt-1">•</span>
                       <span>{t("antiHarassment.zeroTolerance.physical")}</span>
                     </li>
-                    <li className="flex items-start gap-2 text-orange-800 text-sm">
+                    <li className="flex items-start gap-2 text-rausch-800 text-sm">
                       <span className="mt-1">•</span>
                       <span>{t("antiHarassment.zeroTolerance.discrimination")}</span>
                     </li>
-                    <li className="flex items-start gap-2 text-orange-800 text-sm">
+                    <li className="flex items-start gap-2 text-rausch-800 text-sm">
                       <span className="mt-1">•</span>
                       <span>{t("antiHarassment.zeroTolerance.workEnvironment")}</span>
                     </li>
@@ -189,7 +189,7 @@ export default async function WorkerSafetyPage({
                   {t("reporting.channels.title")}
                 </h3>
                 <div className="space-y-3">
-                  <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
+                  <div className="border-neutral-200 border-l-4 border-l-rausch-500 bg-neutral-50 p-4">
                     <h4 className="font-semibold text-neutral-900">
                       {t("reporting.channels.casaoraSupport.title")}
                     </h4>
@@ -199,7 +199,7 @@ export default async function WorkerSafetyPage({
                     <p className="mt-2 font-mono text-neutral-900 text-sm">support@casaora.co</p>
                   </div>
 
-                  <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
+                  <div className="border-neutral-200 border-l-4 border-l-rausch-500 bg-neutral-50 p-4">
                     <h4 className="font-semibold text-neutral-900">
                       {t("reporting.channels.emergencyHotline.title")}
                     </h4>
@@ -211,7 +211,7 @@ export default async function WorkerSafetyPage({
                     </p>
                   </div>
 
-                  <div className="border-neutral-200 border-l-4 border-l-orange-500 bg-neutral-50 p-4">
+                  <div className="border-neutral-200 border-l-4 border-l-rausch-500 bg-neutral-50 p-4">
                     <h4 className="font-semibold text-neutral-900">
                       {t("reporting.channels.localAuthorities.title")}
                     </h4>
@@ -222,11 +222,11 @@ export default async function WorkerSafetyPage({
                 </div>
               </div>
 
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <h4 className="font-semibold text-blue-900">
+              <div className="rounded-lg border border-babu-200 bg-babu-50 p-4">
+                <h4 className="font-semibold text-babu-900">
                   {t("reporting.confidentiality.title")}
                 </h4>
-                <p className="mt-1 text-blue-800 text-sm">
+                <p className="mt-1 text-babu-800 text-sm">
                   {t("reporting.confidentiality.description")}
                 </p>
               </div>
@@ -242,7 +242,7 @@ export default async function WorkerSafetyPage({
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-blue-500 text-lg">📄</span>
+                <span className="mt-1 text-babu-500 text-lg">📄</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("legalContracts.written.title")}
@@ -254,7 +254,7 @@ export default async function WorkerSafetyPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-blue-500 text-lg">💰</span>
+                <span className="mt-1 text-babu-500 text-lg">💰</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("legalContracts.payment.title")}
@@ -266,7 +266,7 @@ export default async function WorkerSafetyPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="mt-1 text-blue-500 text-lg">🔒</span>
+                <span className="mt-1 text-babu-500 text-lg">🔒</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">
                     {t("legalContracts.termination.title")}
@@ -364,7 +364,7 @@ export default async function WorkerSafetyPage({
           <h2 className="mb-3 font-semibold text-2xl text-neutral-900">{t("footer.title")}</h2>
           <p className="mb-6 text-neutral-600">{t("footer.description")}</p>
           <a
-            className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white transition hover:bg-orange-600"
+            className="inline-flex items-center justify-center rounded-lg bg-rausch-500 px-8 py-4 font-semibold text-white transition hover:bg-rausch-600"
             href="mailto:support@casaora.co"
           >
             {t("footer.cta")}

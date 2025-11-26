@@ -21,10 +21,10 @@ import { defaultSignUpState, type SignUpActionState } from "./types";
 
 function ProfessionalCallout({ t }: { t: (key: string) => string }) {
   return (
-    <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+    <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4">
       <p className="mb-2 font-medium text-neutral-900 text-sm">{t("professionalCallout")}</p>
       <Link
-        className="inline-flex items-center gap-1.5 font-semibold text-orange-600 text-sm transition-colors hover:text-orange-700"
+        className="inline-flex items-center gap-1.5 font-semibold text-rausch-600 text-sm transition-colors hover:text-rausch-700"
         href="/become-a-pro"
       >
         {t("professionalCalloutLink")}

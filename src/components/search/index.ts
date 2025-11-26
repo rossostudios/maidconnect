@@ -10,10 +10,10 @@
  * @see https://news.airbnb.com/airbnb-2025-summer-release/
  */
 
-export { CategoryCarousel } from "./CategoryCarousel";
 export type { ServiceCategory } from "./CategoryCarousel";
-export { FeaturedCarousel } from "./FeaturedCarousel";
+export { CategoryCarousel } from "./CategoryCarousel";
 export type { FeaturedProfessional } from "./FeaturedCarousel";
+export { FeaturedCarousel } from "./FeaturedCarousel";
 export { CarouselItem, FlexibleCarousel } from "./FlexibleCarousel";
-export { FlexibleDestinations } from "./FlexibleDestinations";
 export type { CityDestination } from "./FlexibleDestinations";
+export { FlexibleDestinations } from "./FlexibleDestinations";

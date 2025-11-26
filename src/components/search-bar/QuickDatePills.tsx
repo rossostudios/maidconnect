@@ -41,11 +41,12 @@ const createQuickDateOptions = (): QuickDateOption[] => {
     {
       id: "this-weekend",
       label: "This weekend",
-      sublabel:
-        format(nextSaturday(today), "MMM d") + " – " + format(addDays(nextSaturday(today), 1), "d"),
+      sublabel: `${format(nextSaturday(today), "MMM d")} – ${format(addDays(nextSaturday(today), 1), "d")}`,
       getDate: () => nextSaturday(today),
       isSelected: (date) => {
-        if (!date) return false;
+        if (!date) {
+          return false;
+        }
         const saturday = nextSaturday(today);
         const sunday = addDays(saturday, 1);
         return isWithinInterval(date, { start: saturday, end: sunday });
@@ -57,11 +58,13 @@ const createQuickDateOptions = (): QuickDateOption[] => {
       sublabel: (() => {
         const nextWeekStart = startOfWeek(addDays(today, 7), { weekStartsOn: 1 });
         const nextWeekEnd = endOfWeek(addDays(today, 7), { weekStartsOn: 1 });
-        return format(nextWeekStart, "MMM d") + " – " + format(nextWeekEnd, "d");
+        return `${format(nextWeekStart, "MMM d")} – ${format(nextWeekEnd, "d")}`;
       })(),
       getDate: () => startOfWeek(addDays(today, 7), { weekStartsOn: 1 }),
       isSelected: (date) => {
-        if (!date) return false;
+        if (!date) {
+          return false;
+        }
         const nextWeekStart = startOfWeek(addDays(today, 7), { weekStartsOn: 1 });
         const nextWeekEnd = endOfWeek(addDays(today, 7), { weekStartsOn: 1 });
         return isWithinInterval(date, { start: nextWeekStart, end: nextWeekEnd });
@@ -95,8 +98,8 @@ export function QuickDatePills({ selectedDate, onDateSelect, className }: QuickD
           <button
             className={cn(
               "w-full rounded-lg px-3 py-2.5 text-left transition-all",
-              "hover:bg-neutral-100",
-              isSelected && "bg-orange-50"
+              "hover:bg-neutral-100 dark:hover:bg-muted",
+              isSelected && "bg-rausch-50 dark:bg-rausch-500/20"
             )}
             key={option.id}
             onClick={() => onDateSelect(option.getDate())}
@@ -105,13 +108,22 @@ export function QuickDatePills({ selectedDate, onDateSelect, className }: QuickD
             <div
               className={cn(
                 "font-medium text-sm",
-                isSelected ? "text-orange-600" : "text-neutral-900"
+                isSelected
+                  ? "text-rausch-600 dark:text-rausch-400"
+                  : "text-neutral-900 dark:text-neutral-50"
               )}
             >
               {option.label}
             </div>
             {option.sublabel && (
-              <div className={cn("text-xs", isSelected ? "text-orange-500" : "text-neutral-500")}>
+              <div
+                className={cn(
+                  "text-xs",
+                  isSelected
+                    ? "text-rausch-500 dark:text-rausch-400"
+                    : "text-neutral-500 dark:text-neutral-400"
+                )}
+              >
                 {option.sublabel}
               </div>
             )}

@@ -22,10 +22,10 @@ export default function GlobalError({
         <div className="flex min-h-screen items-center justify-center bg-neutral-50 p-4">
           <div className="w-full max-w-lg">
             <div className="bg-white p-8 text-center shadow-lg">
-              {/* Icon - Precision: Sharp edges, orange-50 background */}
+              {/* Icon - Precision: Sharp edges, rausch-50 background */}
               <div className="mb-6 flex justify-center">
-                <div className="bg-orange-50 p-6">
-                  <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={Alert01Icon} />
+                <div className="bg-rausch-50 p-6">
+                  <HugeiconsIcon className="h-12 w-12 text-rausch-500" icon={Alert01Icon} />
                 </div>
               </div>
 
@@ -40,10 +40,10 @@ export default function GlobalError({
                 the issue.
               </p>
 
-              {/* Actions - Precision: Sharp edges, orange-500 primary, neutral outline */}
+              {/* Actions - Precision: Sharp edges, rausch-500 primary, neutral outline */}
               <div className="flex flex-col gap-3">
                 <button
-                  className="inline-flex items-center justify-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-base text-white transition-colors hover:bg-orange-600 active:bg-orange-700"
+                  className="inline-flex items-center justify-center gap-2 bg-rausch-500 px-6 py-3 font-semibold text-base text-white transition-colors hover:bg-rausch-600 active:bg-rausch-700"
                   onClick={reset}
                   type="button"
                 >

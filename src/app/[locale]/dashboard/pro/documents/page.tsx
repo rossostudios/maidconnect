@@ -116,7 +116,7 @@ export default async function ProDocumentsPage({
           <DocumentUploadForm
             countryCode={professionalProfile?.country_code as any}
             inputClass={
-              "w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              "w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm shadow-sm transition focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
             }
           />
           <p className={cn("mt-3 text-neutral-500 text-xs", geistSans.className)}>

@@ -18,10 +18,10 @@ type ArticleTagsProps = {
 };
 
 const colorMap = {
-  blue: "bg-blue-100 text-blue-700 hover:bg-blue-200",
+  blue: "bg-babu-100 text-babu-700 hover:bg-babu-200",
   green: "bg-green-100 text-green-700 hover:bg-green-200",
   red: "bg-red-100 text-red-700 hover:bg-red-200",
-  orange: "bg-orange-100 text-orange-700 hover:bg-orange-200",
+  orange: "bg-rausch-100 text-rausch-700 hover:bg-rausch-200",
   purple: "bg-purple-100 text-purple-700 hover:bg-purple-200",
   gray: "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
   pink: "bg-pink-100 text-pink-700 hover:bg-pink-200",

@@ -65,7 +65,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
           geistSans.className,
           isBanned
             ? "border border-red-200 bg-red-50 text-red-700"
-            : "border border-orange-200 bg-orange-50 text-orange-700"
+            : "border border-rausch-200 bg-rausch-50 text-rausch-700"
         )}
       >
         {isBanned ? "Banned" : "Suspended"}

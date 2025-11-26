@@ -44,29 +44,29 @@ export function BenefitsGrid() {
   ];
 
   return (
-    <section className="relative w-full bg-neutral-50 py-16 md:py-20">
+    <section className="relative w-full bg-muted py-16 md:py-20">
       <Container className="relative mx-auto max-w-7xl px-4">
-        <div className="overflow-hidden border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
+        <div className="overflow-hidden border border-border bg-card shadow-[0_24px_80px_rgba(15,23,42,0.12)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.3)]">
           {/* Section Header - Swiss Typography */}
-          <div className="border-neutral-200/80 border-b px-6 py-12 sm:px-12">
-            <p className="mb-4 flex items-center gap-2 text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
-              <span aria-hidden="true" className="h-2 w-2 bg-orange-500" />
+          <div className="border-border border-b px-6 py-12 sm:px-12">
+            <p className="mb-4 flex items-center gap-2 text-[0.7rem] text-rausch-600 uppercase tracking-[0.35em] dark:text-rausch-400">
+              <span aria-hidden="true" className="h-2 w-2 bg-rausch-500" />
               In Action
             </p>
-            <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-neutral-900 tracking-tight md:text-5xl">
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-normal text-4xl text-foreground tracking-tight md:text-5xl">
               How It Works
             </h2>
-            <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
               Three simple steps to finding your perfect household professional.
             </p>
           </div>
 
           {/* How It Works Grid - Aurius-style Asymmetric Layout */}
-          <div className="grid border-neutral-200/80 border-t md:grid-cols-2 md:grid-rows-[auto_auto_auto]">
+          <div className="grid border-border border-t md:grid-cols-2 md:grid-rows-[auto_auto_auto]">
             {steps.map((step, index) => (
               <div
                 className={cn(
-                  "group relative border-neutral-200/80 border-b bg-white p-8 transition-all",
+                  "group relative border-border border-b bg-card p-8 transition-all",
                   index === steps.length - 1 && "border-b-0",
                   index >= steps.length - 2 && "md:border-b-0",
                   (index === 1 || index === 3) && "md:border-r",
@@ -81,13 +81,13 @@ export function BenefitsGrid() {
                     <div className="flow-diagram flex w-full flex-col items-center gap-8 py-8">
                       {/* Trigger Node */}
                       <div
-                        className="flow-node flow-node--muted flow-node--has-next flex items-center gap-4 border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
+                        className="flow-node flow-node--muted flow-node--has-next flex items-center gap-4 border-2 border-border bg-card px-6 py-4 shadow-sm"
                         style={{ "--connector-length": "64px" } as CSSProperties}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center bg-blue-50">
+                        <div className="flex h-12 w-12 items-center justify-center bg-babu-50 dark:bg-babu-500/20">
                           <svg
                             aria-hidden="true"
-                            className="h-6 w-6 text-blue-500"
+                            className="h-6 w-6 text-babu-500 dark:text-babu-400"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth={2}
@@ -101,24 +101,22 @@ export function BenefitsGrid() {
                           </svg>
                         </div>
                         <div>
-                          <div className="text-neutral-700 text-xs uppercase tracking-wider">
+                          <div className="text-muted-foreground text-xs uppercase tracking-wider">
                             Trigger
                           </div>
-                          <div className="font-normal text-lg text-neutral-900">
-                            Brief Submitted
-                          </div>
+                          <div className="font-normal text-foreground text-lg">Brief Submitted</div>
                         </div>
                       </div>
 
                       {/* Action Node */}
                       <div
-                        className="flow-node flow-node--branch flex items-center gap-4 border-2 border-neutral-200 bg-white px-6 py-4 shadow-sm"
+                        className="flow-node flow-node--branch flex items-center gap-4 border-2 border-border bg-card px-6 py-4 shadow-sm"
                         style={{ "--branch-connector-length": "32px" } as CSSProperties}
                       >
-                        <div className="flex h-12 w-12 items-center justify-center bg-green-50">
+                        <div className="flex h-12 w-12 items-center justify-center bg-green-50 dark:bg-green-500/20">
                           <svg
                             aria-hidden="true"
-                            className="h-6 w-6 text-green-500"
+                            className="h-6 w-6 text-green-500 dark:text-green-400"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth={2}
@@ -132,10 +130,10 @@ export function BenefitsGrid() {
                           </svg>
                         </div>
                         <div>
-                          <div className="text-neutral-700 text-xs uppercase tracking-wider">
+                          <div className="text-muted-foreground text-xs uppercase tracking-wider">
                             Action
                           </div>
-                          <div className="font-normal text-lg text-neutral-900">
+                          <div className="font-normal text-foreground text-lg">
                             AI Matching & Curation
                           </div>
                         </div>
@@ -147,11 +145,11 @@ export function BenefitsGrid() {
                         <div className="flow-leaves relative z-10 flex w-full gap-4">
                           <div className="flow-leaf flex-1">
                             <span aria-hidden="true" className="flow-leaf-line" />
-                            <div className="flex items-center gap-3 border-2 border-orange-200 bg-orange-50 px-4 py-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-100">
+                            <div className="flex items-center gap-3 border-2 border-rausch-200 bg-rausch-50 px-4 py-3 dark:border-rausch-500/50 dark:bg-rausch-500/20">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-rausch-100 dark:bg-rausch-500/30">
                                 <svg
                                   aria-hidden="true"
-                                  className="h-5 w-5 text-orange-600"
+                                  className="h-5 w-5 text-rausch-600"
                                   fill="none"
                                   stroke="currentColor"
                                   strokeWidth={2}
@@ -165,22 +163,20 @@ export function BenefitsGrid() {
                                 </svg>
                               </div>
                               <div>
-                                <div className="font-medium text-orange-600 text-xs uppercase tracking-wider">
+                                <div className="font-medium text-rausch-600 text-xs uppercase tracking-wider dark:text-rausch-400">
                                   Candidates
                                 </div>
-                                <div className="font-normal text-neutral-900 text-sm">
-                                  5 matched
-                                </div>
+                                <div className="font-normal text-foreground text-sm">5 matched</div>
                               </div>
                             </div>
                           </div>
                           <div className="flow-leaf flex-1">
                             <span aria-hidden="true" className="flow-leaf-line" />
-                            <div className="flex items-center gap-3 border-2 border-orange-200 bg-orange-50 px-4 py-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-100">
+                            <div className="flex items-center gap-3 border-2 border-rausch-200 bg-rausch-50 px-4 py-3 dark:border-rausch-500/50 dark:bg-rausch-500/20">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-rausch-100 dark:bg-rausch-500/30">
                                 <svg
                                   aria-hidden="true"
-                                  className="h-5 w-5 text-orange-600"
+                                  className="h-5 w-5 text-rausch-600 dark:text-rausch-400"
                                   fill="none"
                                   stroke="currentColor"
                                   strokeWidth={2}
@@ -194,10 +190,10 @@ export function BenefitsGrid() {
                                 </svg>
                               </div>
                               <div>
-                                <div className="font-medium text-orange-600 text-xs uppercase tracking-wider">
+                                <div className="font-medium text-rausch-600 text-xs uppercase tracking-wider dark:text-rausch-400">
                                   Timeline
                                 </div>
-                                <div className="font-normal text-neutral-900 text-sm">
+                                <div className="font-normal text-foreground text-sm">
                                   5 business days
                                 </div>
                               </div>
@@ -210,21 +206,21 @@ export function BenefitsGrid() {
                 ) : (
                   <>
                     <div className="mb-6 flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 font-normal text-neutral-900">
+                      <div className="flex h-12 w-12 items-center justify-center border border-border font-normal text-foreground">
                         {step.number}
                       </div>
-                      <div className="font-normal text-neutral-600 text-xs uppercase tracking-[0.35em]">
+                      <div className="font-normal text-muted-foreground text-xs uppercase tracking-[0.35em]">
                         {step.label}
                       </div>
                     </div>
 
                     {step.title && (
                       <div className="space-y-3">
-                        <h3 className="font-[family-name:var(--font-geist-sans)] font-normal text-2xl text-neutral-900 tracking-tight">
+                        <h3 className="font-[family-name:var(--font-geist-sans)] font-normal text-2xl text-foreground tracking-tight">
                           {step.title}
                         </h3>
 
-                        <p className="text-base text-neutral-600 leading-relaxed">
+                        <p className="text-base text-muted-foreground leading-relaxed">
                           {step.description}
                         </p>
                       </div>

@@ -14,7 +14,7 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 primary actions
+ * - rausch-500 primary actions
  * - neutral color palette
  */
 
@@ -150,7 +150,7 @@ export function QuickActionBar({
 
   const containerClasses = cn(
     "z-50",
-    variant === "floating" && "fixed right-4 bottom-4 left-4 md:right-auto md:left-4 md:bottom-6",
+    variant === "floating" && "fixed right-4 bottom-4 left-4 md:right-auto md:bottom-6 md:left-4",
     variant === "sticky" && "sticky top-0 z-40",
     variant === "inline" && "relative",
     className
@@ -176,7 +176,7 @@ export function QuickActionBar({
             className={cn(
               "flex items-center justify-between border-b px-4 py-3",
               totalUrgent > 0
-                ? "border-red-100 bg-gradient-to-r from-red-50 to-orange-50"
+                ? "border-red-100 bg-gradient-to-r from-red-50 to-rausch-50"
                 : "border-neutral-100 bg-neutral-50"
             )}
           >
@@ -225,7 +225,7 @@ export function QuickActionBar({
 
           {/* Footer - View All */}
           {actions.length > 4 && (
-            <div className="border-t border-neutral-100 bg-neutral-50 px-4 py-2">
+            <div className="border-neutral-100 border-t bg-neutral-50 px-4 py-2">
               <Button asChild className="w-full" size="sm" variant="ghost">
                 <Link href="/dashboard/pro/bookings">
                   View all {actions.length} items
@@ -257,9 +257,9 @@ function QuickActionItem({ action, onClick }: QuickActionItemProps) {
       hover: "hover:bg-red-50/50",
     },
     important: {
-      icon: "bg-orange-100 text-orange-600",
-      badge: "border-orange-200 bg-orange-50 text-orange-700",
-      hover: "hover:bg-orange-50/50",
+      icon: "bg-rausch-100 text-rausch-600",
+      badge: "border-rausch-200 bg-rausch-50 text-rausch-700",
+      hover: "hover:bg-rausch-50/50",
     },
     normal: {
       icon: "bg-neutral-100 text-neutral-600",
@@ -330,9 +330,7 @@ export function QuickActionBarCompact({
         asChild
         className={cn(
           "w-full shadow-lg",
-          totalPending > 0
-            ? "bg-red-600 hover:bg-red-700"
-            : "bg-orange-500 hover:bg-orange-600"
+          totalPending > 0 ? "bg-red-600 hover:bg-red-700" : "bg-rausch-500 hover:bg-rausch-600"
         )}
         size="lg"
       >
@@ -341,7 +339,11 @@ export function QuickActionBarCompact({
           {totalPending > 0
             ? `${totalPending} action${totalPending > 1 ? "s" : ""} required`
             : `${totalItems} item${totalItems > 1 ? "s" : ""} to review`}
-          <Badge className="ml-2 border-white/20 bg-white/20 text-white" size="sm" variant="outline">
+          <Badge
+            className="ml-2 border-white/20 bg-white/20 text-white"
+            size="sm"
+            variant="outline"
+          >
             {totalItems}
           </Badge>
         </Link>

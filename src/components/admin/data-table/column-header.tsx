@@ -58,7 +58,7 @@ export function LiaDataTableColumnHeader<TData, TValue>({
       className={cn(
         "group flex items-center gap-2 rounded-lg border border-transparent bg-white font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-neutral-200 hover:bg-neutral-50",
         geistSans.className,
-        sorted && "bg-orange-50 text-orange-500",
+        sorted && "bg-rausch-50 text-rausch-500",
         className
       )}
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -75,10 +75,10 @@ export function LiaDataTableColumnHeader<TData, TValue>({
           />
         )}
         {sorted === "desc" && (
-          <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={ArrowDown01Icon} />
+          <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={ArrowDown01Icon} />
         )}
         {sorted === "asc" && (
-          <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={ArrowUp01Icon} />
+          <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={ArrowUp01Icon} />
         )}
       </div>
     </button>

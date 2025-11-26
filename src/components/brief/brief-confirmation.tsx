@@ -39,7 +39,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
           <h2 className="mb-4 font-semibold text-neutral-900">What happens next?</h2>
           <div className="space-y-4">
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-rausch-100 font-semibold text-rausch-600 text-sm">
                 1
               </div>
               <div>
@@ -51,7 +51,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-rausch-100 font-semibold text-rausch-600 text-sm">
                 2
               </div>
               <div>
@@ -63,7 +63,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-rausch-100 font-semibold text-rausch-600 text-sm">
                 3
               </div>
               <div>
@@ -76,7 +76,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
             </div>
 
             <div className="flex gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-orange-100 font-semibold text-orange-600 text-sm">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-rausch-100 font-semibold text-rausch-600 text-sm">
                 4
               </div>
               <div>
@@ -99,8 +99,8 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         </div>
 
         {/* Confirmation Email */}
-        <div className="border border-blue-200 bg-blue-50 p-4">
-          <p className="text-blue-900 text-sm">
+        <div className="border border-babu-200 bg-babu-50 p-4">
+          <p className="text-babu-900 text-sm">
             📧 A confirmation email has been sent to <strong>{email}</strong>. Please check your
             spam folder if you don't see it within a few minutes.
           </p>
@@ -124,7 +124,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         <div className="pt-6">
           <p className="text-neutral-700 text-sm">
             Have questions?{" "}
-            <Link className="text-orange-600" href="/contact">
+            <Link className="text-rausch-600" href="/contact">
               Contact our support team
             </Link>
           </p>

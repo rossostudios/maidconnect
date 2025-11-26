@@ -68,8 +68,8 @@ async function HeroSection() {
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
           {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5">
-            <span className="font-medium text-orange-400 text-sm">{t("badge")}</span>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-rausch-500/30 bg-rausch-500/10 px-4 py-1.5">
+            <span className="font-medium text-rausch-400 text-sm">{t("badge")}</span>
           </div>
 
           {/* Headline */}
@@ -85,10 +85,10 @@ async function HeroSection() {
             <Link
               className={cn(
                 "inline-flex items-center justify-center gap-2 rounded-full px-8 py-4",
-                "bg-orange-500 font-semibold text-white",
-                "shadow-lg shadow-orange-500/20",
+                "bg-rausch-500 font-semibold text-white",
+                "shadow-lg shadow-rausch-500/20",
                 "transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-                "hover:bg-orange-600 hover:shadow-orange-600/25 hover:shadow-xl",
+                "hover:bg-rausch-600 hover:shadow-rausch-600/25 hover:shadow-xl",
                 "active:scale-[0.98]"
               )}
               href="/become-a-pro/signup"
@@ -179,11 +179,11 @@ async function BenefitsSection() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit, index) => (
             <div
-              className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-8 transition-all hover:border-orange-200 hover:bg-orange-50/50"
+              className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-8 transition-all hover:border-rausch-200 hover:bg-rausch-50/50"
               key={index}
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100 transition-colors group-hover:bg-orange-200">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={benefit.icon} />
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rausch-100 transition-colors group-hover:bg-rausch-200">
+                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={benefit.icon} />
               </div>
               <h3 className="mb-2 font-semibold text-lg text-neutral-900">{benefit.title}</h3>
               <p className="text-neutral-600">{benefit.description}</p>
@@ -233,14 +233,14 @@ async function HowItWorksSection() {
 
         <div className="relative">
           {/* Connection line - hidden on mobile */}
-          <div className="absolute top-12 right-0 left-0 hidden h-0.5 bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 lg:block" />
+          <div className="absolute top-12 right-0 left-0 hidden h-0.5 bg-gradient-to-r from-rausch-100 via-rausch-300 to-rausch-100 lg:block" />
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, index) => (
               <div className="relative text-center" key={index}>
                 {/* Step number */}
                 <div className="relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg">
-                  <span className="font-bold text-2xl text-orange-500">{step.number}</span>
+                  <span className="font-bold text-2xl text-rausch-500">{step.number}</span>
                 </div>
                 <h3 className="mb-2 font-semibold text-lg text-neutral-900">{step.title}</h3>
                 <p className="text-neutral-600 text-sm">{step.description}</p>
@@ -254,10 +254,10 @@ async function HowItWorksSection() {
           <Link
             className={cn(
               "inline-flex items-center justify-center gap-2 rounded-full px-8 py-4",
-              "bg-orange-500 font-semibold text-white",
-              "shadow-lg shadow-orange-500/20",
+              "bg-rausch-500 font-semibold text-white",
+              "shadow-lg shadow-rausch-500/20",
               "transition-all duration-300",
-              "hover:bg-orange-600 hover:shadow-xl"
+              "hover:bg-rausch-600 hover:shadow-xl"
             )}
             href="/become-a-pro/signup"
           >
@@ -418,7 +418,7 @@ async function TestimonialsSection() {
               {/* Stars */}
               <div className="mb-4 flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <HugeiconsIcon className="h-5 w-5 text-orange-400" icon={StarIcon} key={i} />
+                  <HugeiconsIcon className="h-5 w-5 text-rausch-400" icon={StarIcon} key={i} />
                 ))}
               </div>
               {/* Quote */}
@@ -476,7 +476,7 @@ async function CTASection() {
   const t = await getTranslations("becomeAPro.cta");
 
   return (
-    <section className="bg-gradient-to-br from-orange-500 to-orange-600 py-20 md:py-28">
+    <section className="bg-gradient-to-br from-rausch-500 to-rausch-600 py-20 md:py-28">
       <Container className="max-w-3xl">
         <div className="text-center">
           <h2 className="mb-4 font-bold text-3xl text-white tracking-tight sm:text-4xl">
@@ -486,7 +486,7 @@ async function CTASection() {
           <Link
             className={cn(
               "inline-flex items-center justify-center gap-2 rounded-full px-10 py-4",
-              "bg-white font-semibold text-orange-600",
+              "bg-white font-semibold text-rausch-600",
               "shadow-lg",
               "transition-all duration-300",
               "hover:bg-neutral-50 hover:shadow-xl"

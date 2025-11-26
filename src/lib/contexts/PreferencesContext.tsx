@@ -59,10 +59,14 @@ const PreferencesContext = createContext<PreferencesContextValue | undefined>(un
  * Get cookie value by name
  */
 function getCookie(name: string): string | null {
-  if (typeof document === "undefined") return null;
+  if (typeof document === "undefined") {
+    return null;
+  }
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
+  if (parts.length === 2) {
+    return parts.pop()?.split(";").shift() || null;
+  }
   return null;
 }
 
@@ -70,7 +74,9 @@ function getCookie(name: string): string | null {
  * Set cookie with 1 year expiry
  */
 function setCookie(name: string, value: string) {
-  if (typeof document === "undefined") return;
+  if (typeof document === "undefined") {
+    return;
+  }
   const maxAge = 60 * 60 * 24 * 365; // 1 year in seconds
   document.cookie = `${name}=${value}; path=/; max-age=${maxAge}; SameSite=Lax`;
 }

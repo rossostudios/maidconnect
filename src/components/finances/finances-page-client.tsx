@@ -1,16 +1,24 @@
 "use client";
 
+import { Invoice03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import { geistSans } from "@/app/fonts";
+import { Button } from "@/components/ui/button";
 import { trackFinancesDashboardViewed } from "@/lib/analytics/professional-events";
+import { cn } from "@/lib/utils/core";
 import type { Currency } from "@/lib/utils/format";
-import { BalanceCard } from "./balance-card";
+
 import { BankAccountManager } from "./bank-account-manager";
+import { EarningsSummaryCards } from "./earnings-summary-cards";
+import { type CurrencyCode, FeeTransparencySection } from "./fee-transparency-section";
+import { type FinancesTab, FinancesTabPanel, FinancesTabs, useFinancesTab } from "./finances-tabs";
+import { HeroBalanceSection } from "./hero-balance-section";
 import { InstantPayoutModal } from "./instant-payout-modal";
-import { PaymentProcessorInfo } from "./payment-processor-info";
-import { PayoutHistory } from "./payout-history";
+import { PayoutHistorySheet } from "./payout-history-sheet";
 
 // ========================================
 // Types
@@ -49,18 +57,10 @@ type BalanceEligibilityResponse = {
     usedToday: number;
     remainingToday: number;
   };
-  estimate: {
-    grossAmountCop: number;
-    feeAmountCop: number;
-    netAmountCop: number;
-  };
-  pendingClearances: Array<{
-    bookingId: string;
-    amountCop: number;
-    completedAt: string;
-    clearanceAt: string;
-    hoursRemaining: number;
-  }>;
+};
+
+type FinancesPageClientProps = {
+  currencyCode: Currency;
 };
 
 // ========================================
@@ -68,24 +68,30 @@ type BalanceEligibilityResponse = {
 // ========================================
 
 /**
- * FinancesPageClient - Client-side wrapper for instant payout UI
+ * FinancesPageClient - Redesigned Airbnb-inspired finances dashboard
  *
- * Handles state management and data fetching for:
- * - Balance card
- * - Instant payout modal
- * - Payout history
+ * Ultra-minimal layout:
+ * - Hero balance section (prominent balance + Get Paid CTA)
+ * - Tab navigation (Overview | Transactions | Settings)
+ * - Overview: 2 summary cards (no charts)
+ * - Transactions: Button → opens PayoutHistorySheet
+ * - Settings: Bank account + collapsible fee breakdown
  */
-export function FinancesPageClient({ currencyCode }: { currencyCode: Currency }) {
+export function FinancesPageClient({ currencyCode }: FinancesPageClientProps) {
   const t = useTranslations("dashboard.pro.finances");
 
-  // State
+  // Tab state from URL
+  const activeTab = useFinancesTab();
+
+  // UI State
+  const [showPayoutModal, setShowPayoutModal] = useState(false);
+  const [showPayoutHistorySheet, setShowPayoutHistorySheet] = useState(false);
+
+  // Data State
   const [balanceData, setBalanceData] = useState<BalanceEligibilityResponse | null>(null);
   const [transfers, setTransfers] = useState<PayoutTransfer[]>([]);
-  const [_isLoadingBalance, setIsLoadingBalance] = useState(true);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-  const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [professionalId, setProfessionalId] = useState<string>("");
-  const [_hasBankAccount, _setHasBankAccount] = useState(false);
 
   // ========================================
   // Data Fetching
@@ -93,7 +99,6 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
 
   const fetchBalance = useCallback(async () => {
     try {
-      // Fetch user session to get professional ID
       const userResponse = await fetch("/api/auth/session");
       const userData = await userResponse.json();
 
@@ -103,24 +108,23 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
 
       const response = await fetch("/api/pro/payouts/instant");
       const data = await response.json();
+
       if (response.ok) {
         setBalanceData(data);
 
-        // Track analytics - dashboard viewed
+        // Track analytics
         if (userData.user?.id) {
           trackFinancesDashboardViewed({
             professionalId: userData.user.id,
             totalBalanceCOP: data.balance.totalCop,
             availableBalanceCOP: data.balance.availableCop,
             pendingBalanceCOP: data.balance.pendingCop,
-            hasBankAccount: false, // Will be updated by BankAccountManager
+            hasBankAccount: false,
           });
         }
       }
     } catch (error) {
       console.error("Failed to fetch balance:", error);
-    } finally {
-      setIsLoadingBalance(false);
     }
   }, []);
 
@@ -128,6 +132,7 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
     try {
       const response = await fetch("/api/pro/payouts/history?limit=50");
       const data = await response.json();
+
       if (response.ok && data.transfers) {
         setTransfers(data.transfers);
       }
@@ -138,7 +143,6 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
     }
   }, []);
 
-  // Initial data fetch
   useEffect(() => {
     fetchBalance();
     fetchPayoutHistory();
@@ -152,23 +156,22 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
     setShowPayoutModal(true);
   };
 
-  const handlePayoutSuccess = (_result: any) => {
+  const handlePayoutSuccess = () => {
     toast.success(t("payout.success"), {
       description: t("payout.successDescription"),
     });
-
-    // Refresh balance and history
     fetchBalance();
     fetchPayoutHistory();
-
-    // Close modal
     setShowPayoutModal(false);
   };
 
   const handlePayoutError = (error: string) => {
-    toast.error(t("payout.failed"), {
-      description: error,
-    });
+    toast.error(t("payout.failed"), { description: error });
+  };
+
+  const handleTabChange = (_tab: FinancesTab) => {
+    // URL is updated via FinancesTabs component
+    // This callback is for any additional side effects
   };
 
   // ========================================
@@ -176,20 +179,39 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
   // ========================================
 
   return (
-    <div className="space-y-8">
-      {/* Balance Card with Instant Payout Button */}
-      <BalanceCard currencyCode={currencyCode} onRequestPayout={handleRequestPayout} />
+    <div className="space-y-6">
+      {/* Hero Balance Section */}
+      <HeroBalanceSection currencyCode={currencyCode} onRequestPayout={handleRequestPayout} />
 
-      {/* Bank Account Manager */}
-      <BankAccountManager />
+      {/* Tab Navigation */}
+      <FinancesTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
-      {/* Payment Processor Information */}
-      <PaymentProcessorInfo />
+      {/* Tab Content */}
+      <FinancesTabPanel activeTab={activeTab} tabId="overview">
+        <EarningsSummaryCards
+          currencyCode={currencyCode}
+          isLoading={isLoadingHistory}
+          transfers={transfers}
+        />
+      </FinancesTabPanel>
 
-      {/* Payout History */}
-      <PayoutHistory
+      <FinancesTabPanel activeTab={activeTab} tabId="transactions">
+        <TransactionsTabContent onViewHistory={() => setShowPayoutHistorySheet(true)} />
+      </FinancesTabPanel>
+
+      <FinancesTabPanel activeTab={activeTab} tabId="settings">
+        <SettingsTabContent
+          currencyCode={currencyCode}
+          feePercentage={balanceData?.feeInfo.feePercentage ?? 15}
+        />
+      </FinancesTabPanel>
+
+      {/* Payout History Sheet */}
+      <PayoutHistorySheet
         currencyCode={currencyCode}
         isLoading={isLoadingHistory}
+        isOpen={showPayoutHistorySheet}
+        onOpenChange={setShowPayoutHistorySheet}
         professionalId={professionalId}
         transfers={transfers}
       />
@@ -197,18 +219,71 @@ export function FinancesPageClient({ currencyCode }: { currencyCode: Currency })
       {/* Instant Payout Modal */}
       {balanceData && (
         <InstantPayoutModal
-          availableBalanceCop={balanceData.balance.availableCop}
+          availableBalance={balanceData.balance.availableCop}
           currencyCode={currencyCode}
           feePercentage={balanceData.feeInfo.feePercentage}
-          minThresholdCop={balanceData.feeInfo.minThresholdCop}
+          minThreshold={balanceData.feeInfo.minThresholdCop}
           onClose={() => setShowPayoutModal(false)}
           onError={handlePayoutError}
           onSuccess={handlePayoutSuccess}
           open={showPayoutModal}
-          pendingBalanceCop={balanceData.balance.pendingCop}
+          pendingBalance={balanceData.balance.pendingCop}
           professionalId={professionalId}
         />
       )}
+    </div>
+  );
+}
+
+// ========================================
+// Transactions Tab Content
+// ========================================
+
+type TransactionsTabContentProps = {
+  onViewHistory: () => void;
+};
+
+function TransactionsTabContent({ onViewHistory }: TransactionsTabContentProps) {
+  const t = useTranslations("dashboard.pro.finances");
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-8 text-center">
+      <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-muted">
+        <HugeiconsIcon className="size-6 text-muted-foreground" icon={Invoice03Icon} />
+      </div>
+      <h3 className={cn("mt-4 font-semibold text-foreground text-lg", geistSans.className)}>
+        {t("transactions.title")}
+      </h3>
+      <p className={cn("mt-1 text-muted-foreground text-sm", geistSans.className)}>
+        {t("transactions.description")}
+      </p>
+      <Button className="mt-6" onClick={onViewHistory} variant="default">
+        {t("transactions.viewHistory")}
+      </Button>
+    </div>
+  );
+}
+
+// ========================================
+// Settings Tab Content
+// ========================================
+
+type SettingsTabContentProps = {
+  currencyCode: Currency;
+  feePercentage: number;
+};
+
+function SettingsTabContent({ currencyCode, feePercentage }: SettingsTabContentProps) {
+  return (
+    <div className="space-y-6">
+      {/* Bank Account */}
+      <BankAccountManager />
+
+      {/* Fee Breakdown - Collapsible */}
+      <FeeTransparencySection
+        currency={currencyCode as CurrencyCode}
+        fees={{ platformFeePercent: feePercentage }}
+      />
     </div>
   );
 }

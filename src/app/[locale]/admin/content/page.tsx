@@ -261,7 +261,7 @@ export default async function AdminContentPage() {
                 </span>
               </div>
             ))}
-            <div className="rounded-lg border border-orange-500 bg-orange-500 px-3 py-1.5">
+            <div className="rounded-lg border border-rausch-500 bg-rausch-500 px-3 py-1.5">
               <span
                 className={cn(
                   "font-semibold text-white text-xs uppercase tracking-wide",
@@ -289,8 +289,8 @@ export default async function AdminContentPage() {
                   Content editor ready
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={FileEditIcon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={FileEditIcon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -300,7 +300,7 @@ export default async function AdminContentPage() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-rausch-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="/studio"
@@ -341,7 +341,7 @@ export default async function AdminContentPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {metricCards.map((metric) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-rausch-500"
               key={metric.label}
             >
               <p
@@ -387,7 +387,7 @@ export default async function AdminContentPage() {
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {contentTypes.map((contentType) => (
             <div
-              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md"
+              className="group flex flex-col rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-rausch-500 hover:shadow-md"
               key={contentType.title}
             >
               <div className="flex items-start justify-between">
@@ -404,8 +404,8 @@ export default async function AdminContentPage() {
                     {contentType.description}
                   </p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                  <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={contentType.icon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                  <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={contentType.icon} />
                 </div>
               </div>
               <div className="mt-4 space-y-2 border-neutral-100 border-t pt-4">
@@ -428,7 +428,7 @@ export default async function AdminContentPage() {
               <div className="mt-6 flex flex-wrap gap-2">
                 <Link
                   className={cn(
-                    "inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                    "inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-rausch-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                     geistSans.className
                   )}
                   href={contentType.studioPath}
@@ -489,15 +489,15 @@ export default async function AdminContentPage() {
                   recent.recentArticles.map((article) => (
                     <Link
                       className={cn(
-                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
+                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500",
                         geistSans.className
                       )}
                       href={`/studio/structure/helpArticle;${article._id}`}
                       key={article._id}
                       target="_blank"
                     >
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                        <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={Book01Icon} />
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                        <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={Book01Icon} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium text-neutral-900 text-sm">
@@ -516,7 +516,7 @@ export default async function AdminContentPage() {
                               Published
                             </span>
                           ) : (
-                            <span className="rounded-full bg-orange-500 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-wide">
+                            <span className="rounded-full bg-rausch-500 px-2 py-0.5 font-semibold text-white text-xs uppercase tracking-wide">
                               Draft
                             </span>
                           )}
@@ -558,15 +558,15 @@ export default async function AdminContentPage() {
                   recent.recentChangelogs.map((changelog) => (
                     <Link
                       className={cn(
-                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
+                        "group flex items-center gap-4 px-6 py-4 transition hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500",
                         geistSans.className
                       )}
                       href={`/studio/structure/changelog;${changelog._id}`}
                       key={changelog._id}
                       target="_blank"
                     >
-                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                        <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={ClipboardIcon} />
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                        <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={ClipboardIcon} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium text-neutral-900 text-sm">

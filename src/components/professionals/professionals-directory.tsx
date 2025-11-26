@@ -675,7 +675,7 @@ const ProfessionalsDirectoryComponent = memo(
                     {/* Intro Video Badge (Phase 2.3) */}
                     {professional.introVideoStatus === "approved" &&
                       professional.introVideoPath && (
-                        <span className="inline-flex items-center gap-1 rounded-lg border border-orange-200 bg-orange-50 px-3 py-1.5 font-semibold text-orange-600">
+                        <span className="inline-flex items-center gap-1 rounded-lg border border-rausch-200 bg-rausch-50 px-3 py-1.5 font-semibold text-rausch-600">
                           <HugeiconsIcon className="h-3.5 w-3.5" icon={Video01Icon} />
                           {t("card.hasIntroVideo")}
                         </span>

@@ -103,7 +103,7 @@ function FeeCardsSection() {
             variants={fadeIn}
           >
             <div className="mb-6">
-              <span className="inline-flex rounded-full bg-orange-50 px-3 py-1 font-medium text-orange-600 text-sm">
+              <span className="inline-flex rounded-full bg-rausch-50 px-3 py-1 font-medium text-rausch-600 text-sm">
                 {t("instantBook.badge")}
               </span>
             </div>

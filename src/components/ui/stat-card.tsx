@@ -17,16 +17,16 @@ type StatCardProps = {
 
 const colorClasses = {
   blue: {
-    icon: "bg-blue-50 text-blue-600",
-    trend: "text-blue-600",
+    icon: "bg-babu-50 text-babu-600",
+    trend: "text-babu-600",
   },
   green: {
     icon: "bg-green-50 text-green-600",
     trend: "text-green-600",
   },
   orange: {
-    icon: "bg-orange-50 text-orange-600",
-    trend: "text-orange-600",
+    icon: "bg-rausch-50 text-rausch-600",
+    trend: "text-rausch-600",
   },
   pink: {
     icon: "bg-pink-50 text-pink-600",
@@ -44,7 +44,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
   return (
     <div
       className={cn(
-        "border border-neutral-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md",
+        "rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md",
         className
       )}
     >
@@ -59,7 +59,7 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
             <div className="mt-2 flex items-center gap-1.5">
               <span
                 className={cn(
-                  "inline-flex items-center gap-0.5 px-1.5 py-0.5 font-medium text-xs",
+                  "inline-flex items-center gap-0.5 rounded-lg px-1.5 py-0.5 font-medium text-xs",
                   trend.isPositive !== false
                     ? "bg-green-50 text-green-700"
                     : "bg-red-50 text-red-700"
@@ -77,7 +77,10 @@ export function StatCard({ label, value, trend, icon, color = "blue", className 
 
         {icon && (
           <div
-            className={cn("flex h-10 w-10 flex-shrink-0 items-center justify-center", colors.icon)}
+            className={cn(
+              "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
+              colors.icon
+            )}
           >
             <HugeiconsIcon className="h-5 w-5" icon={icon} />
           </div>

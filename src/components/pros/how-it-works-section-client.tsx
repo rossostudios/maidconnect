@@ -59,7 +59,7 @@ export function ProsHowItWorksSection() {
               {/* Connector Line (desktop only) */}
               {index < howItWorksSteps.length - 1 && (
                 <motion.div
-                  className="absolute top-12 left-1/2 hidden h-0.5 w-full bg-orange-200 lg:block"
+                  className="absolute top-12 left-1/2 hidden h-0.5 w-full bg-rausch-200 lg:block"
                   initial={{ scaleX: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
                   viewport={{ once: true }}
@@ -69,7 +69,7 @@ export function ProsHowItWorksSection() {
 
               <div className="relative flex flex-col items-center text-center">
                 <motion.div
-                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-orange-500 font-bold text-2xl text-white shadow-md"
+                  className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-rausch-500 font-bold text-2xl text-white shadow-md"
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   whileHover={{ scale: 1.15, rotate: 10 }}
                 >

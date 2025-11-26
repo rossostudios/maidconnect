@@ -94,7 +94,7 @@ export function WherePanel({
   return (
     <div
       className={cn(
-        "w-[380px] rounded-2xl bg-white shadow-2xl ring-1 ring-neutral-200/50",
+        "w-[380px] rounded-2xl bg-white shadow-2xl ring-1 ring-neutral-200/50 dark:bg-card dark:shadow-none dark:ring-border",
         className
       )}
     >
@@ -103,16 +103,19 @@ export function WherePanel({
         <div
           className={cn(
             "flex items-center gap-3 rounded-xl px-4 py-3 transition-all",
-            isFocused ? "bg-neutral-100" : "bg-neutral-50"
+            isFocused ? "bg-neutral-100 dark:bg-muted" : "bg-neutral-50 dark:bg-muted/50"
           )}
         >
           <HugeiconsIcon
-            className={cn("h-5 w-5", isFocused ? "text-orange-500" : "text-neutral-400")}
+            className={cn(
+              "h-5 w-5",
+              isFocused ? "text-rausch-500 dark:text-rausch-400" : "text-neutral-400"
+            )}
             icon={Search01Icon}
           />
           <input
             autoFocus
-            className="flex-1 bg-transparent text-neutral-900 placeholder:text-neutral-500 focus:outline-none"
+            className="flex-1 bg-transparent text-neutral-900 placeholder:text-neutral-500 focus:outline-none dark:text-neutral-50 dark:placeholder:text-neutral-400"
             onBlur={() => setIsFocused(false)}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={() => setIsFocused(true)}
@@ -130,7 +133,7 @@ export function WherePanel({
             <div className="mb-2 last:mb-0" key={countryName}>
               {/* Country header - only show if there's a search query or multiple countries */}
               {(searchQuery.trim() || Object.keys(groupedCities).length > 1) && (
-                <div className="px-3 py-2 font-semibold text-neutral-500 text-xs uppercase tracking-wide">
+                <div className="px-3 py-2 font-semibold text-neutral-500 text-xs uppercase tracking-wide dark:text-neutral-400">
                   {countryName}
                 </div>
               )}
@@ -140,8 +143,8 @@ export function WherePanel({
                 <button
                   className={cn(
                     "flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-all",
-                    "hover:bg-neutral-100",
-                    selectedCity === city.id && "bg-orange-50"
+                    "hover:bg-neutral-100 dark:hover:bg-muted",
+                    selectedCity === city.id && "bg-rausch-50 dark:bg-rausch-500/20"
                   )}
                   key={city.id}
                   onClick={() => handleCityClick(city)}
@@ -150,13 +153,17 @@ export function WherePanel({
                   <div
                     className={cn(
                       "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
-                      selectedCity === city.id ? "bg-orange-100" : "bg-neutral-100"
+                      selectedCity === city.id
+                        ? "bg-rausch-100 dark:bg-rausch-500/30"
+                        : "bg-neutral-100 dark:bg-muted"
                     )}
                   >
                     <HugeiconsIcon
                       className={cn(
                         "h-5 w-5",
-                        selectedCity === city.id ? "text-orange-600" : "text-neutral-600"
+                        selectedCity === city.id
+                          ? "text-rausch-600 dark:text-rausch-400"
+                          : "text-neutral-600 dark:text-neutral-400"
                       )}
                       icon={Location01Icon}
                     />
@@ -165,19 +172,23 @@ export function WherePanel({
                     <div
                       className={cn(
                         "font-medium",
-                        selectedCity === city.id ? "text-orange-600" : "text-neutral-900"
+                        selectedCity === city.id
+                          ? "text-rausch-600 dark:text-rausch-400"
+                          : "text-neutral-900 dark:text-neutral-50"
                       )}
                     >
                       {city.label}
                     </div>
-                    <div className="text-neutral-500 text-sm">{city.countryName}</div>
+                    <div className="text-neutral-500 text-sm dark:text-neutral-400">
+                      {city.countryName}
+                    </div>
                   </div>
                 </button>
               ))}
             </div>
           ))
         ) : (
-          <div className="py-8 text-center text-neutral-500">
+          <div className="py-8 text-center text-neutral-500 dark:text-neutral-400">
             No cities found for "{searchQuery}"
           </div>
         )}

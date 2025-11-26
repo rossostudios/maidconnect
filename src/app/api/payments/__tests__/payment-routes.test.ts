@@ -23,6 +23,15 @@ import {
 import { createMockSupabaseClient, type MockSupabaseClient } from "@/lib/__mocks__/supabase";
 
 // ============================================================================
+// MODULE-SCOPE REGEX PATTERNS (Biome useTopLevelRegex fix)
+// ============================================================================
+
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SETI_PREFIX_PATTERN = /^seti_/;
+const PAYMENT_METHOD_REQUIRED_PATTERN = /Payment method ID is required/;
+
+// ============================================================================
 // TEST SETUP & MOCKS
 // ============================================================================
 
@@ -119,7 +128,6 @@ describe("Payment API Routes", () => {
           bookingId: "550e8400-e29b-41d4-a716-446655440000",
         };
 
-        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         expect(UUID_REGEX.test(validInput.bookingId)).toBe(true);
       });
 
@@ -141,7 +149,6 @@ describe("Payment API Routes", () => {
           customerEmail: "john@example.com",
         };
 
-        const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         expect(EMAIL_REGEX.test(validInput.customerEmail)).toBe(true);
       });
 
@@ -861,7 +868,6 @@ describe("Payment API Routes", () => {
           tipAmount: 50_000,
         };
 
-        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         expect(UUID_REGEX.test(invalidInput.bookingId)).toBe(false);
       });
 
@@ -1343,7 +1349,10 @@ describe("Payment API Routes", () => {
         });
 
         // Should return empty payment methods
-        const profile = await mockSupabase.from("profiles").select("stripe_customer_id").eq("id", "user-123");
+        const profile = await mockSupabase
+          .from("profiles")
+          .select("stripe_customer_id")
+          .eq("id", "user-123");
         expect(profile.data?.stripe_customer_id).toBeNull();
       });
     });
@@ -1421,7 +1430,7 @@ describe("Payment API Routes", () => {
             exp_month: 12,
             exp_year: 2025,
           },
-          created: 1700000000,
+          created: 1_700_000_000,
         };
 
         const formatted = {
@@ -1444,7 +1453,7 @@ describe("Payment API Routes", () => {
         const rawMethod = {
           id: "pm_test",
           card: null,
-          created: 1700000000,
+          created: 1_700_000_000,
         };
 
         const formatted = {
@@ -1485,7 +1494,7 @@ describe("Payment API Routes", () => {
         mockStripe.paymentIntents.create.mockResolvedValue(mockSetupIntent as any);
 
         expect(mockSetupIntent.client_secret).toBeDefined();
-        expect(mockSetupIntent.id).toMatch(/^seti_/);
+        expect(mockSetupIntent.id).toMatch(SETI_PREFIX_PATTERN);
       });
 
       it("should create Stripe customer if none exists", async () => {
@@ -1518,7 +1527,9 @@ describe("Payment API Routes", () => {
           error: null,
         });
 
-        const profile = await mockSupabase.from("profiles").update({ stripe_customer_id: "cus_new_456" });
+        const profile = await mockSupabase
+          .from("profiles")
+          .update({ stripe_customer_id: "cus_new_456" });
         expect(profile.error).toBeNull();
       });
 
@@ -1555,7 +1566,9 @@ describe("Payment API Routes", () => {
           paymentMethodId: z.string().min(1, "Payment method ID is required"),
         });
 
-        expect(() => schema.parse({ paymentMethodId: "" })).toThrow(/Payment method ID is required/);
+        expect(() => schema.parse({ paymentMethodId: "" })).toThrow(
+          PAYMENT_METHOD_REQUIRED_PATTERN
+        );
       });
 
       it("should accept valid paymentMethodId", () => {
@@ -1634,9 +1647,7 @@ describe("Payment API Routes", () => {
       });
 
       it("should handle Stripe detach errors", async () => {
-        mockStripe.paymentMethods.detach.mockRejectedValue(
-          new Error("Payment method not found")
-        );
+        mockStripe.paymentMethods.detach.mockRejectedValue(new Error("Payment method not found"));
 
         await expect(mockStripe.paymentMethods.detach("pm_invalid")).rejects.toThrow();
       });
@@ -1715,9 +1726,7 @@ describe("Payment API Routes", () => {
       });
 
       it("should handle Stripe update errors", async () => {
-        mockStripe.customers.update.mockRejectedValue(
-          new Error("Customer not found")
-        );
+        mockStripe.customers.update.mockRejectedValue(new Error("Customer not found"));
 
         await expect(
           mockStripe.customers.update("cus_invalid", {

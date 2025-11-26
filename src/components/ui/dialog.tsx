@@ -244,7 +244,7 @@ export const DialogContent = ({ className, children, ref, ...props }: DialogCont
               // Styling
               "opacity-70 transition-opacity hover:opacity-100",
               // Focus state - orange ring (Lia Design System)
-              "focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:ring-offset-2",
+              "focus:outline-none focus:ring-2 focus:ring-rausch-500/50 focus:ring-offset-2",
               // Ring offset
               "ring-offset-white",
               // Disabled state

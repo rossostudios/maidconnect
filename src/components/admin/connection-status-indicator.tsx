@@ -56,14 +56,14 @@ const statusInfoMap: Record<
     label: "Connected",
   },
   connecting: {
-    color: "text-blue-600",
-    bgColor: "bg-blue-500",
+    color: "text-babu-600",
+    bgColor: "bg-babu-500",
     icon: Loading03Icon,
     label: "Connecting...",
   },
   reconnecting: {
-    color: "text-orange-600",
-    bgColor: "bg-orange-500",
+    color: "text-rausch-600",
+    bgColor: "bg-rausch-500",
     icon: Loading03Icon,
     label: "Reconnecting...",
   },
@@ -102,7 +102,7 @@ function ConnectionStatusCompact({
     <div className="relative">
       <button
         aria-label={`Connection status: ${statusInfo.label}`}
-        className="group relative flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white transition-all hover:border-orange-500 hover:bg-orange-50"
+        className="group relative flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white transition-all hover:border-rausch-500 hover:bg-rausch-50"
         onBlur={() => setShowTooltip(false)}
         onFocus={() => setShowTooltip(true)}
         onMouseEnter={() => setShowTooltip(true)}
@@ -147,7 +147,7 @@ function ConnectionStatusCompact({
             </p>
           )}
           {health.reconnectAttempts > 0 && (
-            <p className={cn("mt-1 text-orange-600 text-xs tracking-wide", geistSans.className)}>
+            <p className={cn("mt-1 text-rausch-600 text-xs tracking-wide", geistSans.className)}>
               Reconnect attempt {health.reconnectAttempts}
             </p>
           )}
@@ -214,7 +214,7 @@ function ConnectionStatusDetail({ health, statusInfo, showDetails }: ConnectionS
               <span className={cn("text-neutral-600 text-xs tracking-wide", geistSans.className)}>
                 Reconnect Attempts
               </span>
-              <span className={cn("font-medium text-orange-600 text-sm", geistSans.className)}>
+              <span className={cn("font-medium text-rausch-600 text-sm", geistSans.className)}>
                 {health.reconnectAttempts}
               </span>
             </div>

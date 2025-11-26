@@ -73,22 +73,27 @@ const getCachedDisputes = unstable_cache(
       .filter((id): id is string => id !== null);
 
     // Fetch all booking details in one query
-    const { data: bookings } = bookingIds.length > 0
-      ? await supabase
-          .from("bookings")
-          .select("id, service_name, scheduled_start")
-          .in("id", bookingIds)
-      : { data: [] };
+    const { data: bookings } =
+      bookingIds.length > 0
+        ? await supabase
+            .from("bookings")
+            .select("id, service_name, scheduled_start")
+            .in("id", bookingIds)
+        : { data: [] };
 
     // Create a map for quick lookup
     const bookingMap = new Map(
-      (bookings ?? []).map((b) => [b.id, { serviceName: b.service_name, bookingDate: b.scheduled_start }])
+      (bookings ?? []).map((b) => [
+        b.id,
+        { serviceName: b.service_name, bookingDate: b.scheduled_start },
+      ])
     );
 
     // Merge disputes with booking data
     const disputesWithBookings: DisputeWithBooking[] = (disputes ?? []).map((dispute) => ({
       ...dispute,
-      serviceName: (dispute.booking_id && bookingMap.get(dispute.booking_id)?.serviceName) ?? "Unknown",
+      serviceName:
+        (dispute.booking_id && bookingMap.get(dispute.booking_id)?.serviceName) ?? "Unknown",
       bookingDate: (dispute.booking_id && bookingMap.get(dispute.booking_id)?.bookingDate) ?? null,
     }));
 

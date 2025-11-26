@@ -32,6 +32,68 @@ type ModerationFormData = {
   details: string;
 };
 
+/**
+ * Get modal title based on current action state
+ */
+function getModalTitle(isUnsuspending: boolean, isBanning: boolean): string {
+  if (isUnsuspending) {
+    return "Lift Suspension";
+  }
+  if (isBanning) {
+    return "Ban User";
+  }
+  return "Suspend User";
+}
+
+/**
+ * Get submit button text based on loading and action state
+ */
+function getSubmitButtonText(
+  isLoading: boolean,
+  isUnsuspending: boolean,
+  isBanning: boolean
+): string {
+  if (isLoading) {
+    return "Processing...";
+  }
+  if (isUnsuspending) {
+    return "Lift Suspension";
+  }
+  if (isBanning) {
+    return "Ban User";
+  }
+  return "Suspend User";
+}
+
+/**
+ * Get action button className based on selection state
+ */
+function getActionButtonClassName(isSelected: boolean): string {
+  const baseClasses = "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition";
+
+  if (isSelected) {
+    return `${baseClasses} border-neutral-900 bg-neutral-900 text-white dark:border-neutral-100 dark:bg-neutral-100/10 dark:text-neutral-100`;
+  }
+  return `${baseClasses} border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100`;
+}
+
+/**
+ * Validate form data and return error message if invalid
+ */
+function validateModerationForm(
+  action: ModerationAction,
+  reason: string,
+  liftReason: string
+): string | null {
+  if ((action === "suspend" || action === "ban") && !reason) {
+    return "Reason is required";
+  }
+  if (action === "unsuspend" && !liftReason) {
+    return "Reason for lifting suspension is required";
+  }
+  return null;
+}
+
 export function UserModerationModal({ user, onClose, onComplete }: Props) {
   const form = useModalForm<ModerationFormData>({
     initialData: {
@@ -54,14 +116,14 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
   const handleSubmit = async () => {
     const action = form.formData.action;
+    const validationError = validateModerationForm(
+      action,
+      form.formData.reason,
+      form.formData.liftReason
+    );
 
-    if ((action === "suspend" || action === "ban") && !form.formData.reason) {
-      form.setError("Reason is required");
-      return;
-    }
-
-    if (action === "unsuspend" && !form.formData.liftReason) {
-      form.setError("Reason for lifting suspension is required");
+    if (validationError) {
+      form.setError(validationError);
       return;
     }
 
@@ -88,7 +150,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
       isOpen={true}
       onClose={onClose}
       size="lg"
-      title={isUnsuspending ? "Lift Suspension" : isBanning ? "Ban User" : "Suspend User"}
+      title={getModalTitle(isUnsuspending, isBanning)}
     >
       <div className="space-y-6">
         <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
@@ -131,46 +193,40 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         </div>
 
         {!user.suspension && (
-          <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
+          <fieldset>
+            <legend className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
               Action
-            </label>
+            </legend>
             <div className="flex gap-3">
               <button
-                className={
-                  "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
-                  (form.formData.action === "suspend"
-                    ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-100 dark:bg-neutral-100/10 dark:text-neutral-100"
-                    : "border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100")
-                }
+                className={getActionButtonClassName(form.formData.action === "suspend")}
                 onClick={() => form.updateField("action", "suspend")}
                 type="button"
               >
                 Suspend (Temporary)
               </button>
               <button
-                className={
-                  "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
-                  (form.formData.action === "ban"
-                    ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
-                    : "border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100")
-                }
+                className={getActionButtonClassName(form.formData.action === "ban")}
                 onClick={() => form.updateField("action", "ban")}
                 type="button"
               >
                 Ban (Permanent)
               </button>
             </div>
-          </div>
+          </fieldset>
         )}
 
         {form.formData.action === "suspend" && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100"
+              htmlFor="mod-duration"
+            >
               Duration (days)
             </label>
             <select
               className="w-full rounded-lg border border-neutral-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:focus:ring-neutral-400"
+              id="mod-duration"
               onChange={(e) =>
                 form.updateField("durationDays", Number.parseInt(e.target.value, 10))
               }
@@ -188,11 +244,15 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {!isUnsuspending && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100"
+              htmlFor="mod-reason"
+            >
               Reason <span className="text-neutral-900 dark:text-neutral-100">*</span>
             </label>
             <textarea
               className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:focus:ring-neutral-400"
+              id="mod-reason"
               onChange={(e) => form.updateField("reason", e.target.value)}
               placeholder="Provide a clear reason for this action..."
               rows={4}
@@ -203,12 +263,16 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {isUnsuspending && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
+            <label
+              className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100"
+              htmlFor="mod-lift-reason"
+            >
               Reason for Lifting Suspension{" "}
               <span className="text-neutral-900 dark:text-neutral-100">*</span>
             </label>
             <textarea
               className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:focus:ring-neutral-400"
+              id="mod-lift-reason"
               onChange={(e) => form.updateField("liftReason", e.target.value)}
               placeholder="Why is this suspension being lifted?"
               rows={4}
@@ -218,11 +282,15 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         )}
 
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100">
+          <label
+            className="type-ui-sm mb-2 block font-medium text-neutral-900 dark:text-neutral-100"
+            htmlFor="mod-details"
+          >
             Additional Notes (optional)
           </label>
           <textarea
             className="w-full resize-none rounded-lg border border-neutral-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500 dark:border-neutral-800 dark:focus:ring-neutral-400"
+            id="mod-details"
             onChange={(e) => form.updateField("details", e.target.value)}
             placeholder="Any additional context or notes..."
             rows={3}
@@ -268,13 +336,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
             onClick={handleSubmit}
             type="button"
           >
-            {moderationMutation.isLoading
-              ? "Processing..."
-              : isUnsuspending
-                ? "Lift Suspension"
-                : isBanning
-                  ? "Ban User"
-                  : "Suspend User"}
+            {getSubmitButtonText(moderationMutation.isLoading, isUnsuspending, isBanning)}
           </button>
         </div>
       </div>

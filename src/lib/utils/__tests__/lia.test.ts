@@ -340,9 +340,9 @@ describe("colors", () => {
 
   describe("interactive colors", () => {
     it("provides interactive color classes", () => {
-      expect(colors.interactive.primary).toBe("bg-orange-500 text-white");
-      expect(colors.interactive.primaryHover).toBe("hover:bg-orange-600");
-      expect(colors.interactive.link).toBe("text-orange-600 hover:text-orange-700");
+      expect(colors.interactive.primary).toBe("bg-rausch-500 text-white");
+      expect(colors.interactive.primaryHover).toBe("hover:bg-rausch-600");
+      expect(colors.interactive.link).toBe("text-rausch-600 hover:text-rausch-700");
     });
 
     it("all interactive classes are strings", () => {

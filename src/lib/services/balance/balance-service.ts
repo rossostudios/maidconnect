@@ -7,10 +7,14 @@
  * - 24-hour clearance period management
  * - Atomic balance deductions for payouts
  *
- * Business Rules:
+ * Business Model (Airbnb-style):
+ * - Professionals keep 100% of their listed rate
+ * - Customers pay a 15% service fee on top (handled at checkout)
+ * - Platform commission from professionals: 0%
+ *
+ * Balance Rules:
  * - Pending Balance: Bookings completed < 24 hours ago (fraud protection)
  * - Available Balance: Bookings cleared after 24-hour hold period
- * - Platform Fee: 18% commission deducted automatically
  * - Instant Payout Fee: 1.5% of payout amount (configurable)
  */
 
@@ -64,7 +68,7 @@ export type InstantPayoutValidation = {
 // Constants
 // ========================================
 
-const PLATFORM_FEE_PERCENTAGE = 0.18; // 18% commission
+const PLATFORM_FEE_PERCENTAGE = 0; // Airbnb model: pros keep 100%, customer pays fee
 const CLEARANCE_PERIOD_HOURS = 24; // 24-hour fraud protection hold
 const DEFAULT_INSTANT_PAYOUT_FEE = 1.5; // 1.5% fee
 const DEFAULT_MINIMUM_PAYOUT = 50_000; // 50,000 COP (~$12 USD)
@@ -96,8 +100,8 @@ export class BalanceService {
     // Fetch current balance from database
     const { data: profile, error: profileError } = await this.supabase
       .from("professional_profiles")
-      .select("available_balance_cop, pending_balance_cop, last_balance_update")
-      .eq("id", professionalId)
+      .select("available_balance_cents, pending_balance_cents, last_balance_update")
+      .eq("profile_id", professionalId)
       .single();
 
     if (profileError || !profile) {
@@ -140,9 +144,9 @@ export class BalanceService {
 
     return {
       professionalId,
-      availableBalance: profile.available_balance_cop ?? 0, // Database still uses _cop column
-      pendingBalance: profile.pending_balance_cop ?? 0, // Database still uses _cop column
-      totalBalance: (profile.available_balance_cop ?? 0) + (profile.pending_balance_cop ?? 0),
+      availableBalance: profile.available_balance_cents ?? 0,
+      pendingBalance: profile.pending_balance_cents ?? 0,
+      totalBalance: (profile.available_balance_cents ?? 0) + (profile.pending_balance_cents ?? 0),
       currencyCode,
       lastUpdate: profile.last_balance_update,
       pendingClearances,
@@ -151,10 +155,12 @@ export class BalanceService {
 
   /**
    * Calculate net professional earnings from a booking amount
-   * Deducts 18% platform commission
+   * Airbnb model: professionals keep 100% of their rate
+   * (Customer pays the 15% service fee separately at checkout)
    */
-  calculateProfessionalEarnings(bookingAmountCop: number): number {
-    return Math.round(bookingAmountCop * (1 - PLATFORM_FEE_PERCENTAGE));
+  calculateProfessionalEarnings(bookingAmount: number): number {
+    // Pros keep 100% - no platform fee deducted from their earnings
+    return Math.round(bookingAmount * (1 - PLATFORM_FEE_PERCENTAGE));
   }
 
   /**
@@ -502,9 +508,9 @@ export class BalanceService {
     const { data: profile, error: profileError } = await this.supabase
       .from("professional_profiles")
       .select(
-        "available_balance_cop, instant_payout_enabled, stripe_connect_account_id, stripe_connect_onboarding_status"
+        "available_balance_cents, instant_payout_enabled, stripe_connect_account_id, stripe_connect_onboarding_status"
       )
-      .eq("id", professionalId)
+      .eq("profile_id", professionalId)
       .single();
 
     if (profileError || !profile) {
@@ -521,7 +527,7 @@ export class BalanceService {
       };
     }
 
-    const availableBalance = profile.available_balance_cop ?? 0;
+    const availableBalance = profile.available_balance_cents ?? 0;
 
     // 2. Check if instant payouts are enabled for this professional
     if (!profile.instant_payout_enabled) {

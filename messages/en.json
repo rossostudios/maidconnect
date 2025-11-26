@@ -393,7 +393,15 @@
         "title": "Booking calendar",
         "description": "View your upcoming bookings, manage requests, and track completed visits.",
         "updateAvailability": "Update availability",
-        "allBookings": "All bookings"
+        "allBookings": "All bookings",
+        "calendarTip": "Select dates to block time off, adjust your hourly rate, or view booking details. Click on booked dates to see appointment information."
+      },
+      "availabilitySheet": {
+        "title": "Update Availability",
+        "description": "Set your working hours and block dates when you're unavailable.",
+        "loading": "Loading availability...",
+        "errorTitle": "Failed to load availability",
+        "retry": "Try again"
       },
       "bookingCalendar": {
         "days": {
@@ -426,6 +434,27 @@
       "finances": {
         "title": "Finances & Analytics",
         "description": "Track your earnings, view analytics, and manage payouts.",
+        "tabs": {
+          "overview": "Overview",
+          "transactions": "Transactions",
+          "settings": "Settings"
+        },
+        "summary": {
+          "thisMonth": "This Month",
+          "vsLastMonth": "vs. last month",
+          "nextPayout": "Next Payout",
+          "scheduledPayouts": "Payouts on Tue & Fri"
+        },
+        "transactions": {
+          "title": "Transaction History",
+          "description": "View all your payouts, fees, and earnings in one place.",
+          "viewHistory": "View All Transactions"
+        },
+        "payout": {
+          "success": "Payout requested successfully",
+          "successDescription": "Your funds will arrive in your bank account shortly.",
+          "failed": "Payout request failed"
+        },
         "paymentProcessor": {
           "title": "Payment Processor: {processor}",
           "description": "Earnings in {country} are processed through {processor}",
@@ -469,7 +498,160 @@
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "Showcase your best work with photos and descriptions. A strong portfolio helps customers choose you with confidence."
+        "description": "Showcase your best work with photos and descriptions. A strong portfolio helps customers choose you with confidence.",
+        "sections": {
+          "featured": {
+            "title": "Featured Work",
+            "description": "Highlight your signature work with a hero image and description."
+          },
+          "beforeAfter": {
+            "title": "Before & After Transformations",
+            "description": "Show the impact of your work with compelling before and after comparisons."
+          },
+          "gallery": {
+            "title": "Work Gallery",
+            "description": "Upload photos of your completed projects to showcase your skills."
+          },
+          "credentials": {
+            "title": "Credentials & Certifications",
+            "description": "Add professional certifications, licenses, and training to build trust."
+          },
+          "trustProfile": {
+            "title": "Trust & Verification",
+            "description": "Complete verification steps to earn trust badges and stand out."
+          }
+        },
+        "fields": {
+          "featuredImage": {
+            "label": "Featured Image",
+            "hint": "Select one image from your gallery to highlight.",
+            "empty": "No featured image selected",
+            "helper": "Click an image below to set it as featured"
+          },
+          "description": {
+            "label": "Featured Description",
+            "placeholder": "Describe your signature work, approach, and what sets you apart...",
+            "helper": "A compelling description helps customers understand your unique value"
+          }
+        },
+        "upload": {
+          "title": "Upload Images",
+          "dropzone": "Drag and drop images here, or click to browse",
+          "formats": "PNG, JPG, WebP up to 10MB each",
+          "uploading": "Uploading...",
+          "processing": "Processing..."
+        },
+        "actions": {
+          "setFeatured": "Set as Featured",
+          "removeFeatured": "Remove Featured",
+          "editCaption": "Edit Caption",
+          "deleteImage": "Delete Image",
+          "reorder": "Drag to Reorder",
+          "moveUp": "Move up",
+          "moveDown": "Move down",
+          "delete": "Delete"
+        },
+        "emptyState": {
+          "title": "No images yet",
+          "description": "Upload photos of your work to build your portfolio."
+        },
+        "tips": {
+          "title": "Portfolio Tips",
+          "tip1": "Use high-quality, well-lit photos",
+          "tip2": "Show variety in your work",
+          "tip3": "Include context (room size, challenges overcome)",
+          "tip4": "Feature recent work to stay current"
+        },
+        "unsavedChanges": "You have unsaved changes",
+        "saving": "Saving...",
+        "saveChanges": "Save Changes",
+        "saveSuccess": "Portfolio saved successfully",
+        "saveError": "Failed to save portfolio. Please try again.",
+        "previewProfile": "Preview Customer View",
+        "completeness": {
+          "title": "Portfolio Strength",
+          "complete": "complete",
+          "nextStep": "Next Step",
+          "points": "points",
+          "viewChecklist": "View full checklist",
+          "message": {
+            "complete": "Your portfolio is complete! Keep it updated to attract more clients.",
+            "almostThere": "Almost there! Complete a few more items to maximize your visibility.",
+            "gettingThere": "You're making great progress. Keep building your portfolio.",
+            "goodStart": "Good start! Add more content to help customers choose you.",
+            "justStarted": "Let's get started! Complete these items to build trust."
+          },
+          "completion": {
+            "featuredImage": "Featured image set",
+            "featuredImageAction": "Select a featured image for your profile",
+            "featuredDescription": "Featured description added",
+            "featuredDescriptionAction": "Write a compelling description (20+ characters)",
+            "portfolioImages": "3+ portfolio images",
+            "portfolioImagesAction": "Upload at least 3 work samples",
+            "beforeAfterPairs": "Before/After transformation",
+            "beforeAfterPairsAction": "Add a before/after comparison"
+          }
+        },
+        "preview": {
+          "title": "Portfolio Preview",
+          "subtitle": "See how customers will view your portfolio",
+          "portfolioLabel": "Portfolio",
+          "sections": {
+            "featured": "Featured Work",
+            "transformations": "Transformations",
+            "gallery": "Work Gallery"
+          },
+          "moreImages": "more images",
+          "emptyState": {
+            "title": "Portfolio is empty",
+            "description": "Add images and content to see how it will appear to customers."
+          },
+          "footer": {
+            "hint": "This is a preview. Make changes in the editor above.",
+            "close": "Close Preview"
+          }
+        },
+        "beforeAfter": {
+          "sectionTitle": "Before & After",
+          "sectionDescription": "Show the impact of your work with compelling before and after comparisons.",
+          "description": "Showcase transformations with side-by-side comparisons.",
+          "addNew": "Add New",
+          "addFirst": "Add Your First Transformation",
+          "addFirstPair": "Add Your First Transformation",
+          "deleteConfirm": "Are you sure you want to delete this transformation?",
+          "deleteTitle": "Delete Transformation",
+          "deleteConfirmDescription": "This action cannot be undone.",
+          "caption": {
+            "label": "Caption",
+            "placeholder": "Describe this transformation..."
+          },
+          "captionPlaceholder": "Add a caption...",
+          "noCaption": "No caption",
+          "editCaption": "Edit",
+          "moveUp": "Move up",
+          "moveDown": "Move down",
+          "projectType": {
+            "label": "Project Type",
+            "placeholder": "e.g., Deep Clean, Organization"
+          },
+          "before": "Before",
+          "after": "After",
+          "reorder": "Drag to reorder",
+          "delete": "Delete",
+          "uploadBefore": "Upload Before",
+          "uploadAfter": "Upload After",
+          "emptyTitle": "No transformations yet",
+          "emptyDescription": "Show the impact of your work with before and after photos.",
+          "emptyState": {
+            "title": "No transformations yet",
+            "description": "Show the impact of your work with before and after photos."
+          },
+          "pairCount": "{count} of {max} transformations",
+          "limit": "Maximum {max} transformations",
+          "slider": {
+            "dragHint": "Drag to compare"
+          }
+        }
       },
       "profile": {
         "title": "Profile Settings",
@@ -1145,6 +1327,17 @@
         "noPlan": {
           "title": "No Active Subscription",
           "description": "You're currently on the free plan. Upgrade to unlock premium features."
+        }
+      },
+      "settings": {
+        "verification": {
+          "breadcrumb": "SETTINGS / VERIFICATION",
+          "title": "Trust & Verification",
+          "description": "Build trust with customers by verifying your identity, completing background checks, and adding professional credentials.",
+          "credentials": {
+            "title": "Credentials & Certifications",
+            "description": "Add professional certifications, licenses, and training to build trust with customers."
+          }
         }
       }
     },
@@ -4247,6 +4440,27 @@
       "saturday": "S"
     }
   },
+  "proCalendar": {
+    "actionPanel": {
+      "oneDay": "1 day selected",
+      "multipleDays": "{count} days selected",
+      "blockNights": "Block",
+      "open": "Open",
+      "clearSelection": "Clear selection"
+    },
+    "priceEditor": {
+      "title": "Set Hourly Rate",
+      "days": "days",
+      "hourlyRate": "Hourly Rate",
+      "hour": "hour",
+      "preview": "Preview",
+      "perHour": "per hour",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "close": "Close"
+    }
+  },
   "cookieConsent": {
     "title": "We use cookies",
     "message": "We use cookies to improve your experience, analyze site traffic, and provide personalized content. By clicking \"Accept\", you consent to our use of cookies.",
@@ -4987,5 +5201,19 @@
         "successMessage": "Thank you for applying! We'll review your application and get back to you within 48 hours."
       }
     }
+  },
+  "share": {
+    "shareProfile": "Share Profile",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "copy": "Copy",
+    "shareVia": "Share via",
+    "shareThisProfile": "Share this profile",
+    "vanityUrl": "Your shareable link",
+    "shareWithFriends": "Share with friends & family",
+    "socialProof": "{count} people have shared this profile",
+    "copySuccess": "Link copied to clipboard!",
+    "copyError": "Failed to copy link",
+    "nativeShareFallback": "Link copied - you can paste it anywhere"
   }
 }

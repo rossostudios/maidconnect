@@ -16,7 +16,9 @@ type ModeratePayload = {
   reason?: string;
 };
 
-const parseModerationPayload = (body: Record<string, unknown> | null): { payload?: ModeratePayload; error?: NextResponse } => {
+const parseModerationPayload = (
+  body: Record<string, unknown> | null
+): { payload?: ModeratePayload; error?: NextResponse } => {
   const { reviewId, action, reason } = body ?? {};
 
   if (!reviewId || typeof reviewId !== "string") {

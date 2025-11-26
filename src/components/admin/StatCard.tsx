@@ -18,7 +18,7 @@
  * - Border-only status badges with rounded-full design
  * - Mini sparkline chart (Recharts)
  * - Orange gradient bottom border accent (featured cards)
- * - Hover: Border transitions to orange-500
+ * - Hover: Border transitions to rausch-500
  * - WCAG AAA contrast ratios
  */
 

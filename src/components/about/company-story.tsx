@@ -146,8 +146,8 @@ export function StoryContent() {
           {/* Key Features Grid */}
           <div className="grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg bg-neutral-50 p-5">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100">
-                <HugeiconsIcon className="h-5 w-5 text-orange-600" icon={Shield01Icon} />
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-rausch-100">
+                <HugeiconsIcon className="h-5 w-5 text-rausch-600" icon={Shield01Icon} />
               </div>
               <h3 className="mb-2 font-semibold text-neutral-900 text-sm">
                 {t("solution.feature1.title")}
@@ -156,8 +156,8 @@ export function StoryContent() {
             </div>
 
             <div className="rounded-lg bg-neutral-50 p-5">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={GlobeIcon} />
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-babu-100">
+                <HugeiconsIcon className="h-5 w-5 text-babu-600" icon={GlobeIcon} />
               </div>
               <h3 className="mb-2 font-semibold text-neutral-900 text-sm">
                 {t("solution.feature2.title")}

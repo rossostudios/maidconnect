@@ -9,45 +9,79 @@
  * - Baseline grid alignment (24px vertical rhythm)
  * - Modular structure (64px modules for layout)
  * - Asymmetric balance within rigid grid
- * - Warm neutral palette with vibrant orange accents
+ * - Deep burgundy wine palette with Rausch burgundy and Babu teal accents
  */
 
 /**
  * Color Palette
  *
- * Casaora uses a warm neutral palette inspired by premium hospitality brands,
- * combined with vibrant orange accents for CTAs and interactive elements.
+ * Casaora uses a sophisticated palette with cool neutrals,
+ * deep Burgundy wine for primary CTAs, and Babu teal for secondary accents.
  *
  * All colors follow the 50-950 scale for consistency with Tailwind CSS.
  */
 export const COLORS = {
-  /** Neutral Palette - Warm Cream/Beige tones */
+  /** Neutral Palette - Airbnb Cool Grays */
   neutral: {
-    50: "rgb(255 253 252)", // Off-white cream background
-    100: "rgb(250 248 246)", // Lightest cream
-    200: "rgb(235 234 233)", // Borders, subtle dividers
-    300: "rgb(220 218 215)", // Light gray-cream
-    400: "rgb(190 187 183)", // Medium-light
-    500: "rgb(184 182 179)", // Mid-tone
-    600: "rgb(140 137 133)", // Secondary text
-    700: "rgb(100 97 93)", // Body text
-    800: "rgb(60 57 53)", // Darker text
-    900: "rgb(24 24 24)", // Headings, primary text
-    950: "rgb(12 10 9)", // Deepest black
+    50: "rgb(247 247 247)", // #F7F7F7 - Page background (Airbnb)
+    100: "rgb(235 235 235)", // #EBEBEB - Lightest gray
+    200: "rgb(221 221 221)", // #DDDDDD - Borders, dividers (Airbnb)
+    300: "rgb(194 194 194)", // #C2C2C2 - Light gray
+    400: "rgb(168 168 168)", // #A8A8A8 - Medium-light
+    500: "rgb(118 118 118)", // #767676 - Foggy mid-gray (Airbnb)
+    600: "rgb(94 94 94)", // #5E5E5E - Secondary text
+    700: "rgb(72 72 72)", // #484848 - Hof body text (Airbnb)
+    800: "rgb(51 51 51)", // #333333 - Darker text
+    900: "rgb(34 34 34)", // #222222 - Headings (Airbnb)
+    950: "rgb(17 17 17)", // #111111 - Deepest black
   },
 
-  /** Orange Palette - Energy & Action */
+  /** Rausch Palette - Deep Burgundy Wine (Primary) */
+  rausch: {
+    50: "rgb(246 237 238)", // #F6EDEE - Lightest burgundy tint
+    100: "rgb(228 202 208)", // #E4CAD0 - Very light burgundy
+    200: "rgb(199 155 166)", // #C79BA6 - Light burgundy
+    300: "rgb(168 115 131)", // #A87383 - Medium-light burgundy
+    400: "rgb(143 82 97)", // #8F5261 - Medium burgundy, highlights
+    500: "rgb(122 59 74)", // #7A3B4A - Primary CTA (Burgundy)
+    600: "rgb(107 51 64)", // #6B3340 - Hover state, links
+    700: "rgb(93 43 53)", // #5D2B35 - Active state
+    800: "rgb(79 36 44)", // #4F242C - Pressed state
+    900: "rgb(66 29 36)", // #421D24 - Darkest burgundy
+  },
+
+  /** Babu Palette - Airbnb Teal (Secondary) */
+  babu: {
+    50: "rgb(230 247 246)", // #E6F7F6 - Lightest teal tint
+    100: "rgb(204 240 238)", // #CCF0EE - Very light teal
+    200: "rgb(153 225 221)", // #99E1DD - Light teal
+    300: "rgb(102 210 204)", // #66D2CC - Medium-light teal
+    400: "rgb(51 195 187)", // #33C3BB - Medium teal, highlights
+    500: "rgb(0 166 153)", // #00A699 - Info/Secondary (Airbnb teal)
+    600: "rgb(0 143 132)", // #008F84 - Hover state
+    700: "rgb(0 120 112)", // #007870 - Active state
+    800: "rgb(0 97 91)", // #00615B - Pressed state
+    900: "rgb(0 74 71)", // #004A47 - Darkest teal
+  },
+
+  /** Green Palette - Success (unchanged) */
+  green: {
+    500: "rgb(120 140 93)", // #788C5D - Success (Anthropic green)
+    600: "rgb(104 124 77)", // #687C4D - Success hover
+  },
+
+  /** Legacy aliases (for migration compatibility) */
   orange: {
-    50: "rgb(255 247 240)", // Lightest orange tint
-    100: "rgb(255 235 220)", // Very light orange
-    200: "rgb(255 215 185)", // Light orange
-    300: "rgb(255 185 140)", // Medium-light orange
-    400: "rgb(255 135 70)", // Medium orange, highlights
-    500: "rgb(255 82 0)", // #FF5200 - Primary CTA
-    600: "rgb(230 74 0)", // #E64A00 - Hover, links (WCAG AA)
-    700: "rgb(200 64 0)", // Active state, dark accents
-    800: "rgb(170 54 0)", // Pressed state
-    900: "rgb(140 44 0)", // Darkest orange
+    50: "rgb(246 237 238)", // Maps to rausch-50
+    100: "rgb(228 202 208)", // Maps to rausch-100
+    200: "rgb(199 155 166)", // Maps to rausch-200
+    300: "rgb(168 115 131)", // Maps to rausch-300
+    400: "rgb(143 82 97)", // Maps to rausch-400
+    500: "rgb(122 59 74)", // Maps to rausch-500
+    600: "rgb(107 51 64)", // Maps to rausch-600
+    700: "rgb(93 43 53)", // Maps to rausch-700
+    800: "rgb(79 36 44)", // Maps to rausch-800
+    900: "rgb(66 29 36)", // Maps to rausch-900
   },
 } as const;
 
@@ -56,33 +90,41 @@ export const COLORS = {
  *
  * Use these semantic names in components for consistency and easier theming.
  * These map directly to shadcn UI variables defined in globals.css.
+ *
+ * Burgundy palette: Rausch deep wine for primary, Babu teal for secondary.
  */
 export const SEMANTIC_COLORS = {
   // Backgrounds
-  background: COLORS.neutral[50], // Main page background
+  background: COLORS.neutral[50], // Main page background (#F7F7F7)
   card: "rgb(255 255 255)", // Card surfaces
   muted: COLORS.neutral[100], // Muted backgrounds
 
   // Text
-  foreground: COLORS.neutral[900], // Primary text (headings)
-  secondaryText: COLORS.neutral[700], // Body text
-  mutedText: COLORS.neutral[600], // Secondary/muted text
+  foreground: COLORS.neutral[900], // Primary text/headings (#222222)
+  secondaryText: COLORS.neutral[700], // Body text (#484848 Hof)
+  mutedText: COLORS.neutral[500], // Secondary/muted text (#767676 Foggy)
 
-  // Interactive
-  primary: COLORS.orange[500], // Primary CTA buttons
-  primaryHover: COLORS.orange[600], // Primary button hover
-  primaryActive: COLORS.orange[700], // Primary button active
-  link: COLORS.orange[600], // Links (WCAG AA)
-  linkHover: COLORS.orange[700], // Link hover
+  // Interactive - Rausch burgundy wine (Primary)
+  primary: COLORS.rausch[500], // Primary CTA buttons (#7A3B4A)
+  primaryHover: COLORS.rausch[600], // Primary button hover (#6B3340)
+  primaryActive: COLORS.rausch[700], // Primary button active (#5D2B35)
+  link: COLORS.rausch[600], // Links (WCAG AA) (#6B3340)
+  linkHover: COLORS.rausch[700], // Link hover (#5D2B35)
+
+  // Secondary - Babu teal (Airbnb secondary)
+  secondary: COLORS.babu[500], // Info/secondary actions (#00A699)
+  secondaryHover: COLORS.babu[600], // Secondary hover (#008F84)
 
   // UI Elements
-  border: COLORS.neutral[200], // Borders, dividers
-  input: COLORS.neutral[200], // Input borders
-  ring: COLORS.orange[500], // Focus rings
+  border: COLORS.neutral[200], // Borders, dividers (#DDDDDD)
+  input: COLORS.neutral[200], // Input borders (#DDDDDD)
+  ring: COLORS.rausch[500], // Focus rings (#7A3B4A)
 
   // Feedback
-  destructive: COLORS.orange[700], // Destructive actions
-  accent: COLORS.orange[500], // Accent highlights
+  destructive: COLORS.rausch[700], // Destructive actions (#5D2B35)
+  accent: COLORS.rausch[500], // Accent highlights (#7A3B4A)
+  info: COLORS.babu[500], // Info states (#00A699)
+  success: COLORS.green[500], // Success states (#788C5D)
 } as const;
 
 /**

@@ -192,7 +192,7 @@ export function AccordionItem({
  * Accordion Trigger Component
  *
  * Button that toggles the accordion section.
- * Lia Design System: orange-500 focus ring.
+ * Lia Design System: rausch-500 focus ring.
  */
 export function AccordionTrigger({ children, className }: AccordionTriggerProps) {
   const { variant } = useAccordionContext();
@@ -211,7 +211,7 @@ export function AccordionTrigger({ children, className }: AccordionTriggerProps)
         // Variant spacing
         variantStyles[variant],
         // Focus state - orange ring (Lia Design System)
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
         // Additional classes
         className
       )}

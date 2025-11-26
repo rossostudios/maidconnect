@@ -176,8 +176,8 @@ export function ProBookingCalendar({ bookings }: Props) {
           <div className="flex-1 overflow-y-auto p-4">
             {selectedBookings.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-100 bg-orange-50">
-                  <HugeiconsIcon className="h-7 w-7 text-orange-500" icon={Calendar03Icon} />
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-rausch-100 bg-rausch-50">
+                  <HugeiconsIcon className="h-7 w-7 text-rausch-500" icon={Calendar03Icon} />
                 </div>
                 <p className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
                   {t("noBookings")}
@@ -260,7 +260,7 @@ function CustomDayContent({ date, bookingsCount }: { date: Date; bookingsCount: 
       {bookingsCount > 0 && (
         <span
           className={cn(
-            "rounded-full border border-orange-500 bg-orange-50 px-2 py-0.5 font-semibold text-orange-600 text-xs",
+            "rounded-full border border-rausch-500 bg-rausch-50 px-2 py-0.5 font-semibold text-rausch-600 text-xs",
             geistSans.className
           )}
         >

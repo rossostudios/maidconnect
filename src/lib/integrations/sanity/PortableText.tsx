@@ -39,7 +39,7 @@ export const portableTextComponents: PortableTextComponents = {
     ),
     // Blockquote
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-orange-500 border-l-4 bg-orange-50 px-6 py-4 text-base text-neutral-700 italic leading-relaxed">
+      <blockquote className="my-8 border-rausch-500 border-l-4 bg-rausch-50 px-6 py-4 text-base text-neutral-700 italic leading-relaxed">
         {children}
       </blockquote>
     ),
@@ -88,7 +88,7 @@ export const portableTextComponents: PortableTextComponents = {
     em: ({ children }) => <em className="italic">{children}</em>,
     // Code
     code: ({ children }) => (
-      <code className="relative rounded bg-orange-50 px-[0.4rem] py-[0.2rem] font-medium font-mono text-orange-600 text-sm">
+      <code className="relative rounded bg-rausch-50 px-[0.4rem] py-[0.2rem] font-medium font-mono text-rausch-600 text-sm">
         {children}
       </code>
     ),
@@ -98,7 +98,7 @@ export const portableTextComponents: PortableTextComponents = {
     "strike-through": ({ children }) => <s className="line-through">{children}</s>,
     // Highlight
     highlight: ({ children }) => (
-      <mark className="bg-orange-100 px-1 text-neutral-900">{children}</mark>
+      <mark className="bg-rausch-100 px-1 text-neutral-900">{children}</mark>
     ),
     // External link
     link: ({ children, value }) => {
@@ -108,7 +108,7 @@ export const portableTextComponents: PortableTextComponents = {
       if (href.startsWith("http")) {
         return (
           <a
-            className="font-medium text-orange-600 underline underline-offset-4 transition hover:text-orange-700"
+            className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
             href={href}
             rel={blank ? "noopener noreferrer" : undefined}
             target={blank ? "_blank" : undefined}
@@ -120,7 +120,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-orange-600 underline underline-offset-4 transition hover:text-orange-700"
+          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
           href={href}
         >
           {children}
@@ -147,7 +147,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-orange-600 underline underline-offset-4 transition hover:text-orange-700"
+          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
           href={href}
         >
           {children}
@@ -222,10 +222,10 @@ export const portableTextComponents: PortableTextComponents = {
       const styles =
         {
           info: {
-            container: "border-blue-200 bg-blue-50",
+            container: "border-babu-200 bg-babu-50",
             icon: "ℹ️",
-            title: "text-blue-900",
-            text: "text-blue-800",
+            title: "text-babu-900",
+            text: "text-babu-800",
           },
           success: {
             container: "border-green-200 bg-green-50",
@@ -234,10 +234,10 @@ export const portableTextComponents: PortableTextComponents = {
             text: "text-green-800",
           },
           warning: {
-            container: "border-orange-200 bg-orange-50",
+            container: "border-rausch-200 bg-rausch-50",
             icon: "⚠️",
-            title: "text-orange-900",
-            text: "text-orange-800",
+            title: "text-rausch-900",
+            text: "text-rausch-800",
           },
           error: {
             container: "border-red-200 bg-red-50",

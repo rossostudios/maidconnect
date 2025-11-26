@@ -61,15 +61,15 @@ export function AdminCountrySelector() {
       <Button
         className={cn(
           // Anthropic rounded corners + refined borders
-          "group flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm transition-all hover:border-orange-500 hover:bg-orange-50",
+          "group flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm transition-all hover:border-rausch-500 hover:bg-rausch-50",
           // Geist Sans for text
           geistSans.className,
           // Focus ring
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
         )}
       >
         <HugeiconsIcon
-          className="h-4 w-4 text-neutral-500 group-hover:text-orange-500"
+          className="h-4 w-4 text-neutral-500 group-hover:text-rausch-500"
           icon={Location03Icon}
         />
         <SelectValue className="font-medium text-neutral-900">
@@ -109,11 +109,11 @@ export function AdminCountrySelector() {
                 "flex cursor-pointer items-center gap-2.5 rounded px-3 py-2 text-sm outline-none transition-colors",
                 geistSans.className,
                 // Hover state (orange accent)
-                "hover:bg-orange-50 hover:text-orange-600",
+                "hover:bg-rausch-50 hover:text-rausch-600",
                 // Selected state
-                "data-[selected]:bg-orange-100 data-[selected]:font-semibold data-[selected]:text-orange-700",
+                "data-[selected]:bg-rausch-100 data-[selected]:font-semibold data-[selected]:text-rausch-700",
                 // Focus state
-                "data-[focused]:bg-orange-50 data-[focused]:text-orange-600"
+                "data-[focused]:bg-rausch-50 data-[focused]:text-rausch-600"
               )}
               id={item.id}
               textValue={item.label}

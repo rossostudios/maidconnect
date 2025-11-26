@@ -38,32 +38,32 @@ const categoryConfig = {
   features: {
     icon: MagicWand01Icon,
     label: { en: "Features", es: "Características" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
   improvements: {
     icon: FlashIcon,
     label: { en: "Improvements", es: "Mejoras" },
-    color: "text-orange-500 bg-neutral-50 border-neutral-200",
+    color: "text-rausch-500 bg-neutral-50 border-neutral-200",
   },
   bug_fixes: {
     icon: Bug01Icon,
     label: { en: "Bug Fixes", es: "Correcciones" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/40",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/40",
   },
   performance: {
     icon: FlashIcon,
     label: { en: "Performance", es: "Rendimiento" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
   security: {
     icon: Shield01Icon,
     label: { en: "Security", es: "Seguridad" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/30",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/30",
   },
   design: {
     icon: PaintBoardIcon,
     label: { en: "Design", es: "Diseño" },
-    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
+    color: "text-rausch-500 bg-rausch-500/10 border-rausch-500/35",
   },
 };
 
@@ -132,19 +132,19 @@ async function ChangelogList({ locale }: { locale: string }) {
 
         return (
           <article
-            className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md sm:p-8"
+            className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-rausch-500 hover:shadow-md sm:p-8"
             key={changelog._id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
+              <span className="bg-rausch-500/20 px-3 py-1 font-semibold text-rausch-500 text-sm">
                 Sprint {changelog.sprintNumber}
               </span>
               <span className="text-neutral-500 text-sm">{formattedDate}</span>
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-2xl text-neutral-900 group-hover:text-orange-500 sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-neutral-900 group-hover:text-rausch-500 sm:text-3xl">
               {changelog.title}
             </h2>
 
@@ -196,7 +196,7 @@ async function ChangelogList({ locale }: { locale: string }) {
 
             {/* Read More Link */}
             <Link
-              className="inline-flex items-center gap-2 font-semibold text-base text-orange-500 transition hover:gap-3"
+              className="inline-flex items-center gap-2 font-semibold text-base text-rausch-500 transition hover:gap-3"
               href={`/${locale}/changelog/${changelog.slug.current}`}
             >
               Read full update
@@ -234,8 +234,8 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-orange-500/10 to-orange-500/10">
-              <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={MagicWand01Icon} />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-rausch-500/10 to-rausch-500/10">
+              <HugeiconsIcon className="h-8 w-8 text-rausch-500" icon={MagicWand01Icon} />
             </div>
             <h1 className="type-serif-lg mb-4 text-neutral-900">{t("hero.title")}</h1>
             <p className="text-lg text-neutral-500 sm:text-xl">{t("hero.subtitle")}</p>

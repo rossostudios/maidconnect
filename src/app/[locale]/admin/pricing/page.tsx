@@ -131,7 +131,7 @@ export default async function AdminPricingPage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="rounded-lg border border-orange-500 bg-orange-500 px-4 py-1.5">
+            <div className="rounded-lg border border-rausch-500 bg-rausch-500 px-4 py-1.5">
               <span
                 className={cn(
                   "font-semibold text-white text-xs uppercase tracking-wide",
@@ -175,8 +175,8 @@ export default async function AdminPricingPage() {
                   {activeRules.length} active schedules
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-orange-100 bg-orange-50">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={MoneyBag02Icon} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-rausch-100 bg-rausch-50">
+                <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={MoneyBag02Icon} />
               </div>
             </div>
             <p className={cn("mt-3 text-neutral-700 text-sm", geistSans.className)}>
@@ -186,7 +186,7 @@ export default async function AdminPricingPage() {
             <div className="mt-5 flex flex-col gap-3">
               <a
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+                  "inline-flex items-center justify-center gap-2 rounded-lg bg-rausch-500 px-4 py-2 font-semibold text-white text-xs uppercase tracking-wide transition hover:bg-rausch-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
                   geistSans.className
                 )}
                 href="#ratebook"
@@ -227,7 +227,7 @@ export default async function AdminPricingPage() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {coverageMetrics.map((metric) => (
             <div
-              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-orange-500"
+              className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm transition hover:border-rausch-500"
               key={metric.label}
             >
               <p

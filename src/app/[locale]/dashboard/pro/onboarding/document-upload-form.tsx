@@ -14,7 +14,7 @@ import {
   REQUIRED_DOCUMENTS,
 } from "./state";
 
-const errorClass = "border-orange-500/50 focus:border-orange-500 focus:ring-orange-500/30";
+const errorClass = "border-rausch-500/50 focus:border-rausch-500 focus:ring-rausch-500/30";
 const ACCEPTED_EXTENSIONS = ".pdf,.jpg,.jpeg,.png";
 const MAX_FILE_SIZE_LABEL = "5MB";
 
@@ -76,20 +76,28 @@ export function DocumentUploadForm({ inputClass, countryCode }: Props) {
       <div className="space-y-6">
         {/* Per-country document type guidance */}
         {countryDocTypes && (
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
-            <h3 className="mb-3 font-semibold text-blue-900 text-sm">
+          <div className="rounded-lg border border-babu-200 bg-babu-50 p-6 dark:border-babu-800 dark:bg-babu-900/20">
+            <h3 className="mb-3 font-semibold text-babu-900 text-sm dark:text-babu-100">
               {t("countryGuidance.title", { country: countryDocTypes.name })}
             </h3>
-            <p className="mb-4 text-blue-800 text-sm">{t("countryGuidance.description")}</p>
+            <p className="mb-4 text-babu-800 text-sm dark:text-babu-200">
+              {t("countryGuidance.description")}
+            </p>
             <ul className="space-y-2">
               {countryDocTypes.types.map((docType) => (
-                <li className="flex items-center gap-2 text-blue-800 text-sm" key={docType.code}>
-                  <span className="inline-flex h-6 min-w-[2.5rem] items-center justify-center rounded bg-blue-100 px-2 font-mono font-semibold text-blue-700 text-xs">
+                <li
+                  className="flex items-center gap-2 text-babu-800 text-sm dark:text-babu-200"
+                  key={docType.code}
+                >
+                  <span className="inline-flex h-6 min-w-[2.5rem] items-center justify-center rounded bg-babu-100 px-2 font-mono font-semibold text-babu-700 text-xs dark:bg-babu-800 dark:text-babu-300">
                     {docType.code}
                   </span>
                   <span>
                     <strong>{docType.label}</strong>
-                    <span className="text-blue-600"> — {docType.description}</span>
+                    <span className="text-babu-600 dark:text-babu-400">
+                      {" "}
+                      — {docType.description}
+                    </span>
                   </span>
                 </li>
               ))}
@@ -107,10 +115,10 @@ export function DocumentUploadForm({ inputClass, countryCode }: Props) {
         ))}
       </div>
 
-      <div className="flex justify-end border-neutral-200 border-t pt-8">
+      <div className="flex justify-end border-border border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center rounded-lg bg-rausch-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-700",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -170,26 +178,26 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
   return (
     <div
       className={cn(
-        "border bg-neutral-50 p-6 shadow-sm transition hover:shadow-md",
-        config.required ? "border-neutral-200" : "border-neutral-200 border-dashed"
+        "rounded-lg border bg-muted p-6 shadow-sm transition hover:shadow-md",
+        config.required ? "border-border" : "border-border border-dashed"
       )}
     >
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-lg text-neutral-900" htmlFor={inputId}>
+        <label className="font-semibold text-foreground text-lg" htmlFor={inputId}>
           {config.label}
         </label>
         <span
           className={cn(
-            "px-3 py-1 font-semibold text-xs",
+            "rounded-full px-3 py-1 font-semibold text-xs",
             config.required
-              ? "bg-orange-500/10 text-orange-500"
-              : "bg-neutral-200/30 text-neutral-500"
+              ? "bg-rausch-500/10 text-rausch-500 dark:bg-rausch-900/20 dark:text-rausch-400"
+              : "bg-muted text-muted-foreground"
           )}
         >
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-neutral-700 text-sm">
+      <p className="mt-3 text-muted-foreground text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,
@@ -200,7 +208,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "file: mt-4 cursor-pointer file:mr-4 file:border-0 file:bg-orange-500 file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-orange-500",
+          "file: mt-4 cursor-pointer file:mr-4 file:rounded-lg file:border-0 file:bg-rausch-500 file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-rausch-600 dark:file:bg-rausch-600 dark:hover:file:bg-rausch-700",
           (serverError || clientError) && errorClass
         )}
         id={inputId}
@@ -211,7 +219,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       />
       <div className="mt-4">
         <label
-          className="mb-2 block font-medium text-neutral-700 text-sm"
+          className="mb-2 block font-medium text-muted-foreground text-sm"
           htmlFor={`document_${config.key}_note`}
         >
           {t("notePlaceholder")}
@@ -225,10 +233,10 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         />
       </div>
       {selectedFile ? (
-        <div className="mt-4 flex items-center gap-2 border border-orange-500/40 bg-orange-500/10 p-3">
+        <div className="mt-4 flex items-center gap-2 rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-3 dark:border-rausch-400/30 dark:bg-rausch-900/20">
           <svg
             aria-label="Check mark icon"
-            className="h-5 w-5 text-orange-500"
+            className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
             fill="currentColor"
             role="img"
             viewBox="0 0 20 20"
@@ -239,13 +247,13 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
               fillRule="evenodd"
             />
           </svg>
-          <p className="text-orange-500 text-sm">
+          <p className="text-rausch-500 text-sm dark:text-rausch-400">
             {t("selectedFile", { name: selectedFile.name, size: formatBytes(selectedFile.size) })}
           </p>
         </div>
       ) : null}
       {clientError ? (
-        <p className="mt-3 flex items-center gap-2 text-orange-500 text-sm">
+        <p className="mt-3 flex items-center gap-2 text-rausch-500 text-sm dark:text-rausch-400">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -263,7 +271,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         </p>
       ) : null}
       {serverError ? (
-        <p className="mt-3 flex items-center gap-2 text-orange-500 text-sm">
+        <p className="mt-3 flex items-center gap-2 text-rausch-500 text-sm dark:text-rausch-400">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -287,12 +295,15 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
+      <div
+        className="rounded-lg border border-rausch-500/30 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
+        role="alert"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -306,19 +317,24 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.error}
+          </p>
         </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
+      <div
+        className="rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
+        role="status"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -332,7 +348,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.message}
+          </p>
         </div>
       </div>
     );

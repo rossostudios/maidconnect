@@ -8,9 +8,9 @@ import {
   type SavedAddress,
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
-import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import { PriceBreakdown } from "@/components/pricing/price-breakdown";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import { useAddressesAndAddons } from "@/hooks/use-addresses-and-addons";
 import { useBookingSubmission } from "@/hooks/use-booking-submission";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
@@ -43,6 +43,24 @@ type BookingFormProps = {
 };
 
 type BookingStep = "service-details" | "address-addons" | "confirmation" | "payment";
+
+// Step order for progress calculations
+const STEP_ORDER: BookingStep[] = ["service-details", "address-addons", "confirmation", "payment"];
+
+// Helper function to get step indicator styling (Biome noNestedTernary fix)
+function getStepIndicatorClass(
+  stepKey: BookingStep,
+  stepIndex: number,
+  currentStep: BookingStep
+): string {
+  if (currentStep === stepKey) {
+    return "bg-[neutral-500] text-[neutral-50]";
+  }
+  if (stepIndex < STEP_ORDER.indexOf(currentStep)) {
+    return "bg-[neutral-900] text-[neutral-50]";
+  }
+  return "bg-[neutral-200] text-[neutral-400]";
+}
 
 type BookingData = {
   serviceName: string;
@@ -122,14 +140,19 @@ export function EnhancedBookingForm({
 
   // Memoize selected service lookup
   const selectedService = useMemo(
-    () => serviceWithName.find((service) => normalizeServiceName(service.name) === bookingData.serviceName),
+    () =>
+      serviceWithName.find(
+        (service) => normalizeServiceName(service.name) === bookingData.serviceName
+      ),
     [serviceWithName, bookingData.serviceName]
   );
 
   // Memoize pricing calculations
   const { selectedRate, baseAmount, addonsTotal, totalAmount } = useMemo(() => {
-    const rate = bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
-    const base = rate && bookingData.durationHours > 0 ? Math.round(rate * bookingData.durationHours) : 0;
+    const rate =
+      bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
+    const base =
+      rate && bookingData.durationHours > 0 ? Math.round(rate * bookingData.durationHours) : 0;
     const addons = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
     return {
       selectedRate: rate,
@@ -176,23 +199,14 @@ export function EnhancedBookingForm({
       {/* Progress Steps */}
       <div className="flex items-center justify-between">
         {[
-          { key: "service-details", label: "Service & Time" },
-          { key: "address-addons", label: "Location & Add-ons" },
-          { key: "confirmation", label: "Review" },
-          { key: "payment", label: "Payment" },
+          { key: "service-details" as BookingStep, label: "Service & Time" },
+          { key: "address-addons" as BookingStep, label: "Location & Add-ons" },
+          { key: "confirmation" as BookingStep, label: "Review" },
+          { key: "payment" as BookingStep, label: "Payment" },
         ].map((step, index) => (
           <div className="flex items-center" key={step.key}>
             <div
-              className={`flex h-8 w-8 items-center justify-center font-semibold text-xs ${
-                currentStep === step.key
-                  ? "bg-[neutral-500] text-[neutral-50]"
-                  : index <
-                      ["service-details", "address-addons", "confirmation", "payment"].indexOf(
-                        currentStep
-                      )
-                    ? "bg-[neutral-900] text-[neutral-50]"
-                    : "bg-[neutral-200] text-[neutral-400]"
-              }`}
+              className={`flex h-8 w-8 items-center justify-center font-semibold text-xs ${getStepIndicatorClass(step.key, index, currentStep)}`}
             >
               {index + 1}
             </div>

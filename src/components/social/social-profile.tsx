@@ -19,7 +19,6 @@ import {
   Facebook01Icon,
   Link01Icon,
   Mail01Icon,
-  MoreHorizontalIcon,
   Share01Icon,
   StarIcon,
   TwitterIcon,
@@ -112,7 +111,7 @@ export function ProfileHeader({
   return (
     <div className={cn("overflow-hidden rounded-lg border border-neutral-200 bg-white", className)}>
       {/* Cover Image */}
-      <div className="relative h-32 bg-gradient-to-r from-orange-100 to-orange-50 md:h-48">
+      <div className="relative h-32 bg-gradient-to-r from-rausch-100 to-rausch-50 md:h-48">
         {profile.coverImage && (
           <Image
             alt="Cover"
@@ -128,7 +127,7 @@ export function ProfileHeader({
       {/* Profile Info */}
       <div className="relative px-4 pb-4 md:px-6 md:pb-6">
         {/* Avatar */}
-        <div className="-mt-12 mb-4 flex items-end justify-between md:-mt-16">
+        <div className="-mt-12 md:-mt-16 mb-4 flex items-end justify-between">
           <div className="relative">
             <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white bg-neutral-100 shadow-sm md:h-32 md:w-32">
               {profile.avatar ? (
@@ -140,8 +139,8 @@ export function ProfileHeader({
                   src={profile.avatar}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
-                  <HugeiconsIcon className="h-12 w-12 text-orange-600" icon={UserIcon} />
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rausch-100 to-rausch-200">
+                  <HugeiconsIcon className="h-12 w-12 text-rausch-600" icon={UserIcon} />
                 </div>
               )}
             </div>
@@ -183,7 +182,7 @@ export function ProfileHeader({
             <p className={cn("mt-1 text-neutral-500", geistSans.className)}>{profile.location}</p>
           )}
           {profile.bio && (
-            <p className={cn("mt-3 text-neutral-700 line-clamp-3", geistSans.className)}>
+            <p className={cn("mt-3 line-clamp-3 text-neutral-700", geistSans.className)}>
               {profile.bio}
             </p>
           )}
@@ -193,7 +192,9 @@ export function ProfileHeader({
         <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
           <StatCard label="Reviews" value={stats.totalReviews.toString()} />
           <StatCard
-            icon={<HugeiconsIcon className="h-4 w-4 fill-orange-500 text-orange-500" icon={StarIcon} />}
+            icon={
+              <HugeiconsIcon className="h-4 w-4 fill-rausch-500 text-rausch-500" icon={StarIcon} />
+            }
             label="Rating"
             value={stats.averageRating.toFixed(1)}
           />
@@ -212,7 +213,7 @@ export function ProfileHeader({
 
         {/* Response Info */}
         {(profile.responseRate || profile.responseTime) && (
-          <div className="mt-4 flex flex-wrap gap-4 border-neutral-100 border-t pt-4 text-sm text-neutral-500">
+          <div className="mt-4 flex flex-wrap gap-4 border-neutral-100 border-t pt-4 text-neutral-500 text-sm">
             {profile.responseRate && (
               <span>
                 <strong className="text-neutral-900">{profile.responseRate}%</strong> response rate
@@ -248,7 +249,9 @@ function StatCard({ label, value, icon }: StatCardProps) {
     <div className="rounded-lg bg-neutral-50 p-3 text-center">
       <div className="flex items-center justify-center gap-1">
         {icon}
-        <span className={cn("font-bold text-neutral-900 text-xl", geistSans.className)}>{value}</span>
+        <span className={cn("font-bold text-neutral-900 text-xl", geistSans.className)}>
+          {value}
+        </span>
       </div>
       <span className={cn("text-neutral-500 text-xs", geistSans.className)}>{label}</span>
     </div>
@@ -265,8 +268,8 @@ type ProfileBadgeChipProps = {
 
 function ProfileBadgeChip({ badge }: ProfileBadgeChipProps) {
   const colorStyles = {
-    orange: "border-orange-200 bg-orange-50 text-orange-700",
-    blue: "border-blue-200 bg-blue-50 text-blue-700",
+    orange: "border-rausch-200 bg-rausch-50 text-rausch-700",
+    blue: "border-babu-200 bg-babu-50 text-babu-700",
     green: "border-green-200 bg-green-50 text-green-700",
     neutral: "border-neutral-200 bg-neutral-50 text-neutral-700",
   };
@@ -310,7 +313,7 @@ export function ReviewsShowcase({
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <HugeiconsIcon className="h-5 w-5 fill-orange-500 text-orange-500" icon={StarIcon} />
+          <HugeiconsIcon className="h-5 w-5 fill-rausch-500 text-rausch-500" icon={StarIcon} />
           <span className={cn("font-bold text-neutral-900 text-xl", geistSans.className)}>
             {averageRating.toFixed(1)}
           </span>
@@ -379,7 +382,7 @@ function ReviewCard({ review }: ReviewCardProps) {
           <HugeiconsIcon
             className={cn(
               "h-4 w-4",
-              i < review.rating ? "fill-orange-500 text-orange-500" : "text-neutral-200"
+              i < review.rating ? "fill-rausch-500 text-rausch-500" : "text-neutral-200"
             )}
             icon={StarIcon}
             key={i}
@@ -393,7 +396,7 @@ function ReviewCard({ review }: ReviewCardProps) {
       </div>
 
       {/* Text */}
-      <p className={cn("text-neutral-700 text-sm line-clamp-3", geistSans.className)}>
+      <p className={cn("line-clamp-3 text-neutral-700 text-sm", geistSans.className)}>
         {review.text}
       </p>
     </div>
@@ -420,9 +423,9 @@ export function ActivityFeed({
   const getActivityIcon = (type: ActivityItem["type"]) => {
     switch (type) {
       case "booking":
-        return "bg-blue-100 text-blue-600";
+        return "bg-babu-100 text-babu-600";
       case "review":
-        return "bg-orange-100 text-orange-600";
+        return "bg-rausch-100 text-rausch-600";
       case "badge":
         return "bg-green-100 text-green-600";
       case "milestone":
@@ -434,7 +437,7 @@ export function ActivityFeed({
 
   return (
     <div className={cn("rounded-lg border border-neutral-200 bg-white p-4 md:p-6", className)}>
-      <h3 className={cn("mb-4 font-semibold text-neutral-900 text-lg", geistSans.className)}>
+      <h3 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
         Recent Activity
       </h3>
 
@@ -451,7 +454,9 @@ export function ActivityFeed({
               >
                 {activity.icon || <div className="h-2 w-2 rounded-full bg-current" />}
               </div>
-              {index < activities.length - 1 && <div className="my-1 h-full w-0.5 bg-neutral-100" />}
+              {index < activities.length - 1 && (
+                <div className="my-1 h-full w-0.5 bg-neutral-100" />
+              )}
             </div>
 
             {/* Content */}
@@ -533,7 +538,9 @@ export function ShareProfileModal({
     },
   ];
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -542,7 +549,7 @@ export function ShareProfileModal({
 
       {/* Modal */}
       <div className="relative w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
-        <h3 className={cn("mb-4 font-semibold text-neutral-900 text-lg", geistSans.className)}>
+        <h3 className={cn("mb-4 font-semibold text-lg text-neutral-900", geistSans.className)}>
           Share Profile
         </h3>
 
@@ -559,7 +566,7 @@ export function ShareProfileModal({
           {shareOptions.map((option) =>
             option.href ? (
               <a
-                className="flex items-center gap-2 rounded-lg border border-neutral-200 px-4 py-3 text-neutral-700 transition-colors hover:border-orange-300 hover:bg-orange-50"
+                className="flex items-center gap-2 rounded-lg border border-neutral-200 px-4 py-3 text-neutral-700 transition-colors hover:border-rausch-300 hover:bg-rausch-50"
                 href={option.href}
                 key={option.id}
                 rel="noopener noreferrer"
@@ -572,7 +579,7 @@ export function ShareProfileModal({
               </a>
             ) : (
               <button
-                className="flex items-center gap-2 rounded-lg border border-neutral-200 px-4 py-3 text-neutral-700 transition-colors hover:border-orange-300 hover:bg-orange-50"
+                className="flex items-center gap-2 rounded-lg border border-neutral-200 px-4 py-3 text-neutral-700 transition-colors hover:border-rausch-300 hover:bg-rausch-50"
                 key={option.id}
                 onClick={option.onClick}
                 type="button"
@@ -630,14 +637,12 @@ export function ProfileCard({ profile, stats, onViewProfile, className }: Profil
                 src={profile.avatar}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200">
-                <span className="font-bold text-orange-600 text-lg">
-                  {profile.name.charAt(0)}
-                </span>
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rausch-100 to-rausch-200">
+                <span className="font-bold text-lg text-rausch-600">{profile.name.charAt(0)}</span>
               </div>
             )}
             {profile.verified && (
-              <div className="absolute -right-0.5 -bottom-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-sm">
+              <div className="-right-0.5 -bottom-0.5 absolute flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-sm">
                 <HugeiconsIcon className="h-3 w-3 text-green-500" icon={CheckmarkCircle02Icon} />
               </div>
             )}
@@ -658,7 +663,7 @@ export function ProfileCard({ profile, stats, onViewProfile, className }: Profil
         {/* Stats */}
         <div className="mt-3 flex items-center gap-4 text-sm">
           <div className="flex items-center gap-1">
-            <HugeiconsIcon className="h-4 w-4 fill-orange-500 text-orange-500" icon={StarIcon} />
+            <HugeiconsIcon className="h-4 w-4 fill-rausch-500 text-rausch-500" icon={StarIcon} />
             <span className={cn("font-medium text-neutral-900", geistSans.className)}>
               {stats.averageRating.toFixed(1)}
             </span>

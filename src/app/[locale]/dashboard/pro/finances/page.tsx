@@ -1,23 +1,13 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
+
 import { geistSans } from "@/app/fonts";
-import { EarningsComparison } from "@/components/finances/earnings-comparison";
-import { FinancesOverview } from "@/components/finances/finances-overview";
 import { FinancesPageClient } from "@/components/finances/finances-page-client";
 import { requireUser } from "@/lib/auth";
+import type { CountryCode } from "@/lib/shared/config/territories";
+import { getCurrencyForCountry } from "@/lib/shared/config/pricing";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils/core";
-
-type BookingRow = {
-  id: string;
-  status: string;
-  scheduled_start: string | null;
-  amount_captured: number | null;
-  amount_authorized: number | null;
-  currency: string | null;
-  service_name: string | null;
-  created_at: string;
-};
 
 export default async function ProFinancesPage({ params }: { params: Promise<{ locale: string }> }) {
   unstable_noStore();
@@ -35,72 +25,29 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
     .eq("user_id", user.id)
     .maybeSingle();
 
-  // Determine currency from country code
-  const currencyCode =
-    professionalProfile?.country_code === "CO"
-      ? "COP"
-      : professionalProfile?.country_code === "PY"
-        ? "PYG"
-        : professionalProfile?.country_code === "UY"
-          ? "UYU"
-          : professionalProfile?.country_code === "AR"
-            ? "ARS"
-            : "COP"; // Default to COP for backward compatibility
-
-  // Fetch all bookings data for charts and YoY comparison
-  // Need all statuses for gross vs net breakdown (pending/confirmed) and YoY comparison (completed)
-  const { data: bookingsData } = await supabase
-    .from("bookings")
-    .select(
-      "id, status, scheduled_start, amount_captured, amount_authorized, currency, service_name, created_at"
-    )
-    .eq("professional_id", user.id)
-    .in("status", ["completed", "confirmed", "pending"])
-    .order("scheduled_start", { ascending: true });
-
-  const bookings = (bookingsData as BookingRow[] | null) ?? [];
-
-  // Filter completed bookings for the overview charts
-  const completedBookings = bookings.filter((b) => b.status === "completed");
-
-  // Fetch payouts data for charts
-  const { data: payoutsData } = await supabase
-    .from("payouts")
-    .select("*")
-    .eq("professional_id", user.id)
-    .order("created_at", { ascending: false });
-
-  const payouts = payoutsData ?? [];
+  // Determine currency from country code (using centralized pricing config)
+  const countryCode = (professionalProfile?.country_code ?? "CO") as CountryCode;
+  const currencyCode = getCurrencyForCountry(countryCode);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
+      {/* Page Header */}
       <div>
         <h1
           className={cn(
-            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            "font-semibold text-2xl text-foreground tracking-tight",
             geistSans.className
           )}
         >
           {t("title")}
         </h1>
-        <p
-          className={cn(
-            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
-            geistSans.className
-          )}
-        >
+        <p className={cn("mt-1 text-muted-foreground text-sm", geistSans.className)}>
           {t("description")}
         </p>
       </div>
 
-      {/* Client-side instant payout UI (balance card, modal, payout history) */}
+      {/* Redesigned Finances Dashboard - Ultra-minimal Airbnb-inspired layout */}
       <FinancesPageClient currencyCode={currencyCode} />
-
-      {/* Airbnb-inspired YoY comparison and gross vs net breakdown */}
-      <EarningsComparison bookings={bookings} currencyCode={currencyCode} />
-
-      {/* Server-side overview charts */}
-      <FinancesOverview bookings={completedBookings} currencyCode={currencyCode} payouts={payouts} />
     </div>
   );
 }

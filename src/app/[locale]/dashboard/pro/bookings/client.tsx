@@ -1,39 +1,16 @@
 "use client";
 
-import { Calendar01Icon, GridViewIcon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { Calendar01Icon, Clock01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 import { geistSans } from "@/app/fonts";
-import { ProBookingCalendar as SimpleCalendar } from "@/components/bookings/pro-booking-calendar";
+import { AvailabilitySheet } from "@/components/availability/availability-sheet";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
-import { LazyProBookingCalendar as AdvancedCalendar } from "@/components/calendar/lazy-pro-booking-calendar";
+import { AirbnbBookingCalendar } from "@/components/pro-calendar";
 import type { Currency } from "@/lib/format";
 import { cn } from "@/lib/utils";
-
-type SimpleBooking = {
-  id: string;
-  status: string;
-  scheduled_start: string | null;
-  duration_minutes: number | null;
-  amount_authorized: number | null;
-  amount_captured: number | null;
-  currency: string | null;
-};
-
-type AdvancedBooking = {
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-  status: "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
-  customer_name: string;
-  service_name: string;
-  amount: number;
-  currency: Currency;
-  address: string;
-};
 
 type FullBooking = {
   id: string;
@@ -54,78 +31,56 @@ type FullBooking = {
   checked_in_at: string | null;
   checked_out_at: string | null;
   time_extension_minutes: number | null;
-  address: string | null;
-  customer: { id: string; full_name: string | null } | null;
+  address?: string | Record<string, unknown> | null;
+  customer?: { id: string; full_name: string | null } | null;
 };
 
-type ViewType = "simple" | "advanced" | "list";
+type ViewType = "calendar" | "list";
 
 type Props = {
   bookings: FullBooking[];
-  simpleCalendarBookings: SimpleBooking[];
-  advancedCalendarBookings: AdvancedBooking[];
+  professionalId: string;
+  defaultHourlyRateCents: number;
+  currency: Currency;
 };
 
 const VIEW_OPTIONS: { key: ViewType; label: string; icon: typeof Calendar01Icon }[] = [
-  { key: "simple", label: "Simple", icon: Calendar01Icon },
-  { key: "advanced", label: "Advanced", icon: GridViewIcon },
+  { key: "calendar", label: "Calendar", icon: Calendar01Icon },
   { key: "list", label: "List", icon: Menu01Icon },
 ];
 
 export function ProBookingsClient({
   bookings,
-  simpleCalendarBookings,
-  advancedCalendarBookings,
+  professionalId,
+  defaultHourlyRateCents,
+  currency,
 }: Props) {
   const t = useTranslations("dashboard.pro.bookings");
-  const [activeView, setActiveView] = useState<ViewType>("advanced");
-  const [isRescheduling, setIsRescheduling] = useState(false);
+  const router = useRouter();
+  const [activeView, setActiveView] = useState<ViewType>("calendar");
+  const [isAvailabilitySheetOpen, setIsAvailabilitySheetOpen] = useState(false);
 
-  // Handle booking reschedule from drag-drop
-  const handleBookingMove = useCallback(
-    async (bookingId: string, newStart: Date, newEnd: Date): Promise<boolean> => {
-      setIsRescheduling(true);
-      try {
-        const response = await fetch("/api/pro/bookings/reschedule", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            bookingId,
-            newStart: newStart.toISOString(),
-            newEnd: newEnd.toISOString(),
-          }),
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          toast.error(error.message || "Failed to reschedule booking");
-          return false;
-        }
-
-        toast.success("Booking rescheduled successfully");
-        return true;
-      } catch {
-        toast.error("Failed to reschedule booking");
-        return false;
-      } finally {
-        setIsRescheduling(false);
-      }
+  // Handle booking click from calendar
+  const handleBookingClick = useCallback(
+    (bookingId: string) => {
+      // Navigate to booking details or open sheet
+      router.push(`/dashboard/pro/bookings/${bookingId}`);
     },
-    []
+    [router]
   );
 
   return (
     <div className="space-y-6">
-      {/* View Toggle */}
-      <div className="flex items-center justify-between">
-        <div className="flex rounded-lg border-2 border-neutral-200 bg-neutral-50 p-1">
+      {/* View Toggle + Actions */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex rounded-lg border-2 border-border bg-muted p-1">
           {VIEW_OPTIONS.map((view) => (
             <button
               className={cn(
                 "flex items-center gap-2 rounded-lg px-4 py-2 font-semibold text-sm transition-all",
                 activeView === view.key
-                  ? "bg-orange-500 text-white shadow-sm"
-                  : "text-neutral-700 hover:bg-neutral-100"
+                  ? "bg-rausch-500 text-white shadow-sm"
+                  : "text-muted-foreground hover:bg-background"
               )}
               key={view.key}
               onClick={() => setActiveView(view.key)}
@@ -137,35 +92,42 @@ export function ProBookingsClient({
           ))}
         </div>
 
-        {isRescheduling && (
-          <span className="animate-pulse text-neutral-500 text-sm">Rescheduling...</span>
-        )}
+        {/* Update Availability Button */}
+        <button
+          className={cn(
+            "flex items-center gap-2 rounded-lg px-4 py-2.5",
+            "border-2 border-rausch-500 bg-rausch-500 text-white",
+            "font-semibold text-sm transition-all",
+            "hover:border-rausch-600 hover:bg-rausch-600",
+            "focus:outline-none focus:ring-2 focus:ring-rausch-500/50 focus:ring-offset-2",
+            "dark:focus:ring-offset-neutral-900",
+            geistSans.className
+          )}
+          onClick={() => setIsAvailabilitySheetOpen(true)}
+          type="button"
+        >
+          <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} strokeWidth={2} />
+          {t("updateAvailability")}
+        </button>
       </div>
 
-      {/* Simple Calendar View */}
-      {activeView === "simple" && (
-        <div className="rounded-lg border border-neutral-200 bg-white p-6">
-          <SimpleCalendar bookings={simpleCalendarBookings} />
-        </div>
-      )}
-
-      {/* Advanced Calendar View (FullCalendar with drag-drop) */}
-      {activeView === "advanced" && (
-        <div className="rounded-lg border border-neutral-200 bg-white p-6">
-          <AdvancedCalendar
-            initialBookings={advancedCalendarBookings}
-            onBookingMove={handleBookingMove}
-          />
-        </div>
+      {/* Airbnb-Style Calendar View */}
+      {activeView === "calendar" && (
+        <AirbnbBookingCalendar
+          currency={currency}
+          defaultHourlyRateCents={defaultHourlyRateCents}
+          onBookingClick={handleBookingClick}
+          professionalId={professionalId}
+        />
       )}
 
       {/* List View */}
       {activeView === "list" && (
-        <div className="rounded-lg border border-neutral-200 bg-white">
-          <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">
+        <div className="rounded-lg border border-border bg-card">
+          <div className="border-border border-b bg-muted/50 px-6 py-4">
             <h2
               className={cn(
-                "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                "font-semibold text-foreground text-xs uppercase tracking-wider",
                 geistSans.className
               )}
             >
@@ -178,15 +140,24 @@ export function ProBookingsClient({
         </div>
       )}
 
-      {/* Help Text */}
-      {activeView === "advanced" && (
-        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <p className="font-medium text-blue-900 text-sm">
-            💡 Tip: Use the Advanced calendar to drag and drop bookings to reschedule them. Only
-            pending and confirmed bookings can be rescheduled.
+      {/* Help Text for Calendar */}
+      {activeView === "calendar" && (
+        <div className="rounded-lg border border-rausch-200 bg-rausch-50 p-4 dark:border-rausch-900/50 dark:bg-rausch-900/20">
+          <p className="font-medium text-rausch-900 text-sm dark:text-rausch-200">
+            {t("calendarTip")}
           </p>
         </div>
       )}
+
+      {/* Availability Sheet */}
+      <AvailabilitySheet
+        isOpen={isAvailabilitySheetOpen}
+        onClose={() => setIsAvailabilitySheetOpen(false)}
+        onSaveSuccess={() => {
+          // Optionally refresh calendar data after save
+          router.refresh();
+        }}
+      />
     </div>
   );
 }

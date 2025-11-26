@@ -16,7 +16,10 @@ import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Container } from "@/components/ui/container";
 import { serverClient } from "@/lib/integrations/sanity/client";
-import { HELP_ARTICLES_BY_CATEGORY_QUERY, HELP_CATEGORIES_QUERY } from "@/lib/integrations/sanity/queries";
+import {
+  HELP_ARTICLES_BY_CATEGORY_QUERY,
+  HELP_CATEGORIES_QUERY,
+} from "@/lib/integrations/sanity/queries";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type Category = {
@@ -197,15 +200,15 @@ export default async function HelpCenterPage({
 
                 return (
                   <Link
-                    className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md"
+                    className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-rausch-500 hover:shadow-md"
                     href={`/${locale}/help/${category.slug.current}`}
                     key={category._id}
                   >
                     <div className="mb-4 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center bg-orange-500/10 text-orange-500 transition group-hover:bg-orange-500 group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center bg-rausch-500/10 text-rausch-500 transition group-hover:bg-rausch-500 group-hover:text-white">
                         <HugeiconsIcon className="h-6 w-6" icon={Icon} />
                       </div>
-                      <span className="bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm group-hover:bg-orange-500/10 group-hover:text-orange-500">
+                      <span className="bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm group-hover:bg-rausch-500/10 group-hover:text-rausch-500">
                         {category.article_count}{" "}
                         {category.article_count === 1
                           ? t("categories.article")
@@ -213,7 +216,7 @@ export default async function HelpCenterPage({
                       </span>
                     </div>
 
-                    <h3 className="mb-2 font-semibold text-lg text-neutral-900 group-hover:text-orange-500">
+                    <h3 className="mb-2 font-semibold text-lg text-neutral-900 group-hover:text-rausch-500">
                       {category.name}
                     </h3>
 
@@ -221,7 +224,7 @@ export default async function HelpCenterPage({
                       <p className="text-neutral-500 text-sm">{category.description}</p>
                     )}
 
-                    <div className="mt-4 flex items-center text-orange-500 text-sm">
+                    <div className="mt-4 flex items-center text-rausch-500 text-sm">
                       <span>{t("categories.browse")}</span>
                       <HugeiconsIcon
                         className="ml-1 h-4 w-4 transition group-hover:translate-x-1"
@@ -244,11 +247,11 @@ export default async function HelpCenterPage({
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {popularArticles.map((article) => (
                   <Link
-                    className="group border border-neutral-200 bg-neutral-50 p-5 transition hover:border-orange-500 hover:shadow-md"
+                    className="group border border-neutral-200 bg-neutral-50 p-5 transition hover:border-rausch-500 hover:shadow-md"
                     href={`/${locale}/help/${article.category_slug}/${article.slug}`}
                     key={article._id}
                   >
-                    <h3 className="mb-2 font-semibold text-neutral-900 group-hover:text-orange-500">
+                    <h3 className="mb-2 font-semibold text-neutral-900 group-hover:text-rausch-500">
                       {article.title}
                     </h3>
 
@@ -264,7 +267,7 @@ export default async function HelpCenterPage({
                         {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                       </span>
                       <HugeiconsIcon
-                        className="h-4 w-4 text-orange-500 opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                        className="h-4 w-4 text-rausch-500 opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
                         icon={ArrowRight01Icon}
                       />
                     </div>
@@ -279,7 +282,7 @@ export default async function HelpCenterPage({
             <h2 className="mb-4 font-bold text-2xl text-neutral-900">{t("contact.title")}</h2>
             <p className="mb-6 text-lg text-neutral-700">{t("contact.description")}</p>
             <Link
-              className="inline-flex items-center gap-2 bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-500"
+              className="inline-flex items-center gap-2 bg-rausch-500 px-8 py-3 font-semibold text-white transition hover:bg-rausch-500"
               href={`/${locale}/contact`}
             >
               {t("contact.button")}

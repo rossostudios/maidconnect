@@ -54,7 +54,7 @@ const typeConfig = {
 
 // Lia Design: Neutral palette with orange for active states
 const statusBadge = {
-  new: "bg-orange-500 text-white",
+  new: "bg-rausch-500 text-white",
   in_review: "bg-neutral-200 text-neutral-900",
   resolved: "bg-neutral-100 text-neutral-700",
   closed: "bg-neutral-100 text-neutral-700",
@@ -65,8 +65,8 @@ const statusBadge = {
 const priorityBadge = {
   low: "bg-neutral-100 text-neutral-700",
   medium: "bg-neutral-200 text-neutral-900",
-  high: "bg-orange-500 text-white",
-  critical: "bg-orange-500 text-white",
+  high: "bg-rausch-500 text-white",
+  critical: "bg-rausch-500 text-white",
 };
 
 export default async function AdminFeedbackPage({
@@ -139,8 +139,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
-              : "bg-orange-500 text-white"
+              ? "border border-neutral-200 text-neutral-600 hover:border-rausch-500 hover:text-rausch-600"
+              : "bg-rausch-500 text-white"
           }`}
           href="/admin/feedback"
         >
@@ -149,8 +149,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-orange-500 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
+              ? "bg-rausch-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-rausch-500 hover:text-rausch-600"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -159,8 +159,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-orange-500 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
+              ? "bg-rausch-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-rausch-500 hover:text-rausch-600"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -169,8 +169,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-orange-500 text-white"
-              : "border border-neutral-200 text-neutral-600 hover:border-orange-500 hover:text-orange-600"
+              ? "bg-rausch-500 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-rausch-500 hover:text-rausch-600"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -256,7 +256,7 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-orange-600"
+                    className="flex items-center gap-2 rounded-lg bg-rausch-500 px-4 py-2 font-medium text-sm text-white transition hover:bg-rausch-600"
                     href={`/admin/feedback/${item.id}`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />

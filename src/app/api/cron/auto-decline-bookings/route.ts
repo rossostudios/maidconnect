@@ -117,7 +117,10 @@ async function declineBooking(supabase: SupabaseClient, bookingId: string): Prom
 }
 
 // Helper: Send decline notification email
-async function sendDeclineNotification(supabase: SupabaseClient, booking: BookingData): Promise<void> {
+async function sendDeclineNotification(
+  supabase: SupabaseClient,
+  booking: BookingData
+): Promise<void> {
   try {
     const { data: professionalProfile } = await supabase
       .from("professional_profiles")

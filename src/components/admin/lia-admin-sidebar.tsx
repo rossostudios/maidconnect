@@ -118,7 +118,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 "group relative flex items-center gap-3 rounded-lg border-l-2 bg-white px-3 py-2.5 font-medium text-xs tracking-wider transition-all",
                 geistSans.className,
                 active
-                  ? "border-l-orange-500 bg-orange-50 text-orange-600"
+                  ? "border-l-rausch-500 bg-rausch-50 text-rausch-600"
                   : "border-l-transparent text-neutral-700 hover:border-l-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               )}
               href={item.href}
@@ -127,7 +127,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
               <HugeiconsIcon
                 className={cn(
                   "h-[18px] w-[18px] flex-shrink-0 transition-colors",
-                  active ? "text-orange-600" : "text-neutral-700"
+                  active ? "text-rausch-600" : "text-neutral-700"
                 )}
                 icon={item.icon}
               />
@@ -143,7 +143,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
           <button
             aria-controls="admin-account-dropdown"
             aria-expanded={showProfileMenu}
-            className="relative flex w-full flex-col gap-3 px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="relative flex w-full flex-col gap-3 px-4 pt-4 pb-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             onClick={() => setShowProfileMenu((prev) => !prev)}
             type="button"
           >
@@ -222,7 +222,7 @@ export function LiaAdminSidebar({ userEmail, userName, userAvatarUrl }: Props) {
                 <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Settings01Icon} />
               </Link>
               <Link
-                className="flex items-center justify-between rounded-lg border border-transparent bg-orange-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-orange-600"
+                className="flex items-center justify-between rounded-lg border border-transparent bg-rausch-500 px-4 py-3 font-medium text-sm text-white transition hover:bg-rausch-600"
                 href="/auth/sign-out"
                 onClick={() => setShowProfileMenu(false)}
               >

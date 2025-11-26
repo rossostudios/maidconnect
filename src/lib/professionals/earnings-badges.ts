@@ -188,15 +188,15 @@ export function getBadgeColorClasses(tier: BadgeTier): {
   switch (tier) {
     case "platinum":
       return {
-        bg: "bg-blue-50",
-        border: "border-blue-200",
-        text: "text-blue-700",
+        bg: "bg-babu-50",
+        border: "border-babu-200",
+        text: "text-babu-700",
       };
     case "gold":
       return {
-        bg: "bg-orange-50",
-        border: "border-orange-200",
-        text: "text-orange-700",
+        bg: "bg-rausch-50",
+        border: "border-rausch-200",
+        text: "text-rausch-700",
       };
     case "silver":
       return {
@@ -206,9 +206,9 @@ export function getBadgeColorClasses(tier: BadgeTier): {
       };
     case "bronze":
       return {
-        bg: "bg-orange-50",
-        border: "border-orange-200",
-        text: "text-orange-600",
+        bg: "bg-rausch-50",
+        border: "border-rausch-200",
+        text: "text-rausch-600",
       };
     default:
       return {

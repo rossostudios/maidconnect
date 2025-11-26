@@ -71,7 +71,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
           </p>
         </div>
         <button
-          className="bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+          className="bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600"
           onClick={() => setIsCreating(true)}
           type="button"
         >

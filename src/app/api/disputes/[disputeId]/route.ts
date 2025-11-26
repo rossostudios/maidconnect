@@ -19,6 +19,15 @@ const updateDisputeSchema = z.object({
   resolution_notes: z.string().max(2000).optional(),
 });
 
+// Lookup object for status action messages (Biome noNestedTernary fix)
+type DisputeStatus = "pending" | "investigating" | "resolved" | "dismissed";
+const STATUS_ACTION_MESSAGES: Record<DisputeStatus, string> = {
+  pending: "updated",
+  investigating: "updated",
+  resolved: "resolved",
+  dismissed: "dismissed",
+};
+
 // GET - Get dispute details
 export const GET = withRateLimit(
   withAuth(async ({ user, supabase }, _request: Request, { params }: RouteContext) => {
@@ -185,7 +194,7 @@ export const PATCH = withRateLimit(
 
     return ok(
       { dispute: updatedDispute },
-      `Dispute ${status === "resolved" ? "resolved" : status === "dismissed" ? "dismissed" : "updated"} successfully`
+      `Dispute ${STATUS_ACTION_MESSAGES[status]} successfully`
     );
   }),
   "api"

@@ -104,16 +104,17 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
   return (
     <div className="space-y-6">
       {/* Filter Tabs */}
-      <div className="flex gap-2 border-neutral-200 border-b">
+      <div className="flex gap-2 border-border border-b">
         <button
           className={cn(
             "border-b-2 px-6 py-3 font-semibold text-sm transition",
             filter === "all"
-              ? "border-[#FF5200] text-neutral-900"
-              : "border-transparent text-neutral-700 hover:text-neutral-900",
+              ? "border-rausch-500 text-foreground dark:border-rausch-400"
+              : "border-transparent text-muted-foreground hover:text-foreground",
             geistSans.className
           )}
           onClick={() => setFilter("all")}
+          type="button"
         >
           All ({bookings.length})
         </button>
@@ -121,11 +122,12 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
           className={cn(
             "border-b-2 px-6 py-3 font-semibold text-sm transition",
             filter === "pending"
-              ? "border-[#FF5200] text-neutral-900"
-              : "border-transparent text-neutral-700 hover:text-neutral-900",
+              ? "border-rausch-500 text-foreground dark:border-rausch-400"
+              : "border-transparent text-muted-foreground hover:text-foreground",
             geistSans.className
           )}
           onClick={() => setFilter("pending")}
+          type="button"
         >
           Pending ({pendingCount})
         </button>
@@ -133,11 +135,12 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
           className={cn(
             "border-b-2 px-6 py-3 font-semibold text-sm transition",
             filter === "confirmed"
-              ? "border-[#FF5200] text-neutral-900"
-              : "border-transparent text-neutral-700 hover:text-neutral-900",
+              ? "border-rausch-500 text-foreground dark:border-rausch-400"
+              : "border-transparent text-muted-foreground hover:text-foreground",
             geistSans.className
           )}
           onClick={() => setFilter("confirmed")}
+          type="button"
         >
           Confirmed ({confirmedCount})
         </button>
@@ -145,13 +148,13 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
 
       {/* Lead Cards */}
       {filteredBookings.length === 0 ? (
-        <div className="border border-neutral-200 bg-white p-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center border border-neutral-200 bg-neutral-900">
+        <div className="rounded-lg border border-border bg-card p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg border border-border bg-rausch-500 dark:bg-rausch-600">
             <HugeiconsIcon className="h-8 w-8 text-white" icon={Calendar03Icon} />
           </div>
           <h3
             className={cn(
-              "font-semibold text-neutral-900 text-xl uppercase tracking-wider",
+              "font-semibold text-foreground text-xl uppercase tracking-wider",
               geistSans.className
             )}
           >
@@ -161,7 +164,7 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
                 ? "No confirmed bookings"
                 : "No booking requests"}
           </h3>
-          <p className={cn("mt-2 text-neutral-700", geistSans.className)}>
+          <p className={cn("mt-2 text-muted-foreground", geistSans.className)}>
             {filter === "pending"
               ? "You're all caught up! New requests will appear here."
               : filter === "confirmed"
@@ -212,20 +215,20 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
   };
 
   return (
-    <div className="border border-neutral-200 bg-white p-6 transition hover:border-[#FF5200]">
+    <div className="rounded-lg border border-border bg-card p-6 transition hover:border-rausch-500 dark:hover:border-rausch-400">
       <div className="flex items-start gap-6">
         {/* Customer Avatar */}
         <div className="flex-shrink-0">
           {booking.customer?.avatar_url ? (
             <Image
               alt={booking.customer.full_name}
-              className="h-16 w-16 border border-neutral-200 object-cover"
+              className="h-16 w-16 rounded-lg border border-border object-cover"
               height={64}
               src={booking.customer.avatar_url}
               width={64}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center border border-neutral-200 bg-neutral-900 font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-border bg-rausch-500 font-bold text-white text-xl dark:bg-rausch-600">
               {booking.customer?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -235,12 +238,12 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <h3 className={cn("mb-1 font-bold text-neutral-900 text-xl", geistSans.className)}>
+              <h3 className={cn("mb-1 font-bold text-foreground text-xl", geistSans.className)}>
                 {booking.service_name}
               </h3>
               <div
                 className={cn(
-                  "flex items-center gap-2 text-neutral-700 text-sm",
+                  "flex items-center gap-2 text-muted-foreground text-sm",
                   geistSans.className
                 )}
               >
@@ -252,12 +255,12 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
             {/* Status Badge */}
             <span
               className={cn(
-                "inline-flex border px-3 py-1 font-semibold text-xs uppercase tracking-wider",
+                "inline-flex rounded-full border px-3 py-1 font-semibold text-xs uppercase tracking-wider",
                 isPending
-                  ? "border-[#FF5200] bg-orange-50 text-[#FF5200]"
+                  ? "border-rausch-500/40 bg-rausch-500/10 text-rausch-500 dark:border-rausch-400/30 dark:bg-rausch-900/20 dark:text-rausch-400"
                   : booking.status === "confirmed"
-                    ? "border-neutral-200 bg-neutral-900 text-white"
-                    : "border-neutral-200 bg-neutral-50 text-neutral-700",
+                    ? "border-border bg-rausch-500 text-white dark:bg-rausch-600"
+                    : "border-border bg-muted text-muted-foreground",
                 geistSans.className
               )}
             >
@@ -272,16 +275,21 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {/* Booking Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Calendar03Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-muted-foreground" icon={Calendar03Icon} />
               <div>
-                <p className={cn("font-medium text-neutral-900", geistSans.className)}>
+                <p className={cn("font-medium text-foreground", geistSans.className)}>
                   {new Date(booking.scheduled_start).toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
                     day: "numeric",
                   })}
                 </p>
-                <p className={cn("text-neutral-700 text-xs tracking-tighter", geistSans.className)}>
+                <p
+                  className={cn(
+                    "text-muted-foreground text-xs tracking-tighter",
+                    geistSans.className
+                  )}
+                >
                   {new Date(booking.scheduled_start).toLocaleTimeString("en-US", {
                     hour: "numeric",
                     minute: "2-digit",
@@ -292,29 +300,31 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
             {booking.duration_minutes && (
               <div className="flex items-center gap-2 text-sm">
-                <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={Clock01Icon} />
+                <HugeiconsIcon className="h-5 w-5 text-muted-foreground" icon={Clock01Icon} />
                 <div>
                   <p
                     className={cn(
-                      "font-medium text-neutral-900 tracking-tighter",
+                      "font-medium text-foreground tracking-tighter",
                       geistSans.className
                     )}
                   >
                     {booking.duration_minutes} minutes
                   </p>
-                  <p className={cn("text-neutral-700 text-xs", geistSans.className)}>Duration</p>
+                  <p className={cn("text-muted-foreground text-xs", geistSans.className)}>
+                    Duration
+                  </p>
                 </div>
               </div>
             )}
 
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex h-5 w-5 items-center justify-center border border-neutral-200 bg-neutral-900 font-bold text-white text-xs">
+              <div className="flex h-5 w-5 items-center justify-center rounded border border-border bg-rausch-500 font-bold text-white text-xs dark:bg-rausch-600">
                 $
               </div>
               <div>
                 <p
                   className={cn(
-                    "font-medium text-neutral-900 tracking-tighter",
+                    "font-medium text-foreground tracking-tighter",
                     geistSans.className
                   )}
                 >
@@ -324,7 +334,9 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
                       : "COP") as Currency,
                   })}
                 </p>
-                <p className={cn("text-neutral-700 text-xs", geistSans.className)}>Estimated</p>
+                <p className={cn("text-muted-foreground text-xs", geistSans.className)}>
+                  Estimated
+                </p>
               </div>
             </div>
           </div>
@@ -333,20 +345,20 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {booking.address && (
             <div className="mb-4 flex items-start gap-2 text-sm">
               <HugeiconsIcon
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-neutral-700"
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-muted-foreground"
                 icon={LocationIcon}
               />
-              <p className={cn("text-neutral-700", geistSans.className)}>{booking.address}</p>
+              <p className={cn("text-muted-foreground", geistSans.className)}>{booking.address}</p>
             </div>
           )}
 
           {/* Special Instructions */}
           {booking.special_instructions && (
-            <div className="mb-4 border border-neutral-200 bg-neutral-50 p-4">
-              <p className={cn("mb-1 font-medium text-neutral-900 text-sm", geistSans.className)}>
+            <div className="mb-4 rounded-lg border border-border bg-muted p-4">
+              <p className={cn("mb-1 font-medium text-foreground text-sm", geistSans.className)}>
                 Special Instructions:
               </p>
-              <p className={cn("text-neutral-700 text-sm", geistSans.className)}>
+              <p className={cn("text-muted-foreground text-sm", geistSans.className)}>
                 {booking.special_instructions}
               </p>
             </div>
@@ -355,7 +367,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {/* Metadata */}
           <div
             className={cn(
-              "flex items-center justify-between text-neutral-700 text-xs",
+              "flex items-center justify-between text-muted-foreground text-xs",
               geistSans.className
             )}
           >
@@ -369,24 +381,26 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
       {/* Actions */}
       {isPending && (
-        <div className="mt-6 flex gap-3 border-neutral-200 border-t pt-6">
+        <div className="mt-6 flex gap-3 border-border border-t pt-6">
           <button
             className={cn(
-              "flex-1 border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50",
+              "flex-1 rounded-lg border border-border bg-card px-6 py-3 font-semibold text-foreground text-xs uppercase tracking-wider transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50",
               geistSans.className
             )}
             disabled={isProcessing}
             onClick={handleDecline}
+            type="button"
           >
             {isProcessing ? "Processing..." : "Decline"}
           </button>
           <button
             className={cn(
-              "flex-1 border border-neutral-200 bg-[#FF5200] px-6 py-3 font-semibold text-white text-xs uppercase tracking-wider transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50",
+              "flex-1 rounded-lg border border-transparent bg-rausch-500 px-6 py-3 font-semibold text-white text-xs uppercase tracking-wider transition hover:bg-rausch-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-rausch-600 dark:hover:bg-rausch-700",
               geistSans.className
             )}
             disabled={isProcessing}
             onClick={handleAccept}
+            type="button"
           >
             {isProcessing ? "Processing..." : "Accept Booking"}
           </button>
@@ -394,12 +408,13 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
       )}
 
       {booking.status === "confirmed" && (
-        <div className="mt-6 border-neutral-200 border-t pt-6">
+        <div className="mt-6 border-border border-t pt-6">
           <button
             className={cn(
-              "w-full border border-neutral-200 bg-white px-6 py-3 font-semibold text-neutral-900 text-xs uppercase tracking-wider transition hover:bg-neutral-50",
+              "w-full rounded-lg border border-border bg-card px-6 py-3 font-semibold text-foreground text-xs uppercase tracking-wider transition hover:bg-muted",
               geistSans.className
             )}
+            type="button"
           >
             View Booking Details
           </button>

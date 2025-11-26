@@ -9,7 +9,6 @@
 
 import { z } from "zod";
 import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
-import { invalidateBookings } from "@/lib/cache";
 import type { BookingWorkflowData } from "@/lib/bookings/booking-workflow-service";
 import {
   fetchNotificationDetails,
@@ -17,6 +16,7 @@ import {
   updateBookingToConfirmed,
   validateAcceptEligibility,
 } from "@/lib/bookings/booking-workflow-service";
+import { invalidateBookings } from "@/lib/cache";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { trackBookingConfirmedServer } from "@/lib/integrations/posthog/server";
 

@@ -2,15 +2,15 @@
 
 ## Lia Design System Overview
 
-**Casaora uses the Lia Design System for mathematical precision, data-focused aesthetics, and professional sophistication.**
+**Casaora uses the Lia Design System (Airbnb-Inspired) for clean aesthetics, approachable design, and professional sophistication.**
 
 ### Core Design Principles
 
-1. **Zero Rounded Corners** - Sharp, precise edges for professional, data-focused aesthetic
+1. **Airbnb-Inspired Rounded Corners** - Thoughtful border radius (`rounded-lg` for buttons/cards/inputs, `rounded-full` for badges/pills)
 2. **Geist Fonts Exclusively** - Geist Sans for UI, Geist Mono for numbers/data/code
-3. **8px Grid System** - All spacing in multiples of 8px
+3. **4px Grid System** - All spacing in multiples of 4px
 4. **24px Baseline Grid** - Typography locked to 24px vertical rhythm
-5. **Neutral + Orange Palette** - Warm, sophisticated color system
+5. **Airbnb Cool Neutrals + Rausch/Babu Palette** - Clean, sophisticated color system
 
 ---
 
@@ -398,7 +398,7 @@ export function BaselineGridDebug() {
       {Array.from({ length: 100 }).map((_, i) => (
         <div
           key={i}
-          className="absolute w-full h-px bg-orange-500/20"
+          className="absolute w-full h-px bg-rausch-500/20"
           style={{ top: `${i * 24}px` }}
         />
       ))}
@@ -494,9 +494,9 @@ code {
 - **Minimum font size:** 14px (WCAG AAA compliant)
 - **Line height:** 1.5× font size minimum (24px for 16px text)
 - **Contrast ratios:** All text meets WCAG AA standards
-  - `neutral-900` on `white` - 16.7:1 (AAA)
-  - `neutral-700` on `white` - 11.6:1 (AAA)
-  - `orange-600` on `white` - 4.6:1 (AA for large text)
+  - `neutral-900` (#222222) on `white` - High contrast (AAA)
+  - `neutral-700` (#484848) on `white` - High contrast (AAA)
+  - `rausch-600` (#DA1249) on `white` - 4.5:1+ (AA compliant for links)
 
 ### Semantic HTML
 

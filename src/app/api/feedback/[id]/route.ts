@@ -71,10 +71,13 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
     const filteredUpdates = Object.keys(updates)
       .filter((key) => allowedFields.includes(key))
-      .reduce((obj: Record<string, unknown>, key) => {
-        obj[key] = updates[key];
-        return obj;
-      }, {} as Record<string, unknown>);
+      .reduce(
+        (obj: Record<string, unknown>, key) => {
+          obj[key] = updates[key];
+          return obj;
+        },
+        {} as Record<string, unknown>
+      );
 
     // If status is being changed to 'resolved', set resolved_at and resolved_by
     if (updates.status === "resolved") {

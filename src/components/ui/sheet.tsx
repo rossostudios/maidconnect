@@ -47,7 +47,7 @@ const sheetVariants = cva(
     // Position
     "fixed z-50",
     // Background and border (Lia Design System)
-    "border border-neutral-200 bg-white",
+    "border border-neutral-200 bg-white dark:border-rausch-800 dark:bg-rausch-900",
     // Shadow
     "shadow-lg",
     // Animation base
@@ -83,9 +83,16 @@ const sheetVariants = cva(
           "data-[exiting]:slide-out-to-right data-[exiting]:animate-out"
         ),
       },
+      size: {
+        default: "",
+        lg: "sm:max-w-[480px]",
+        xl: "sm:max-w-[640px]",
+        full: "sm:max-w-full",
+      },
     },
     defaultVariants: {
       side: "right",
+      size: "default",
     },
   }
 );
@@ -250,6 +257,7 @@ export const SheetContent = ({
   className,
   children,
   side = "right",
+  size,
   ref,
   ...props
 }: SheetContentProps) => {
@@ -266,7 +274,7 @@ export const SheetContent = ({
       )}
       isDismissable
     >
-      <Modal className={cn(sheetVariants({ side }), className)}>
+      <Modal className={cn(sheetVariants({ side, size }), className)}>
         <AriaDialog
           className={cn(
             // Layout
@@ -293,11 +301,11 @@ export const SheetContent = ({
               // Shape - Lia Design System
               "rounded-sm",
               // Styling
-              "opacity-70 transition-opacity hover:opacity-100",
+              "text-neutral-500 opacity-70 transition-opacity hover:opacity-100 dark:text-rausch-200",
               // Focus state - orange ring (Lia Design System)
-              "focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:ring-offset-2",
+              "focus:outline-none focus:ring-2 focus:ring-rausch-500/50 focus:ring-offset-2 dark:focus:ring-rausch-400/50",
               // Ring offset
-              "ring-offset-white",
+              "ring-offset-white dark:ring-offset-rausch-900",
               // Disabled state
               "disabled:pointer-events-none"
             )}
@@ -419,7 +427,7 @@ export const SheetTitle = ({ className, children, ref, ...props }: SheetTitlePro
     <Heading
       className={cn(
         // Typography (Lia Design System)
-        "font-semibold text-lg text-neutral-900",
+        "font-semibold text-lg text-neutral-900 dark:text-rausch-50",
         // Additional classes
         className
       )}
@@ -463,7 +471,7 @@ export const SheetDescription = ({ className, children, ref, ...props }: SheetDe
     <p
       className={cn(
         // Typography (Lia Design System)
-        "text-neutral-500 text-sm",
+        "text-neutral-500 text-sm dark:text-rausch-200",
         // Additional classes
         className
       )}

@@ -39,7 +39,7 @@ export type Dispute = {
 const getPriorityBadge = (priority: string) => {
   const configs = {
     urgent: "bg-red-50 text-red-700 border border-red-200",
-    high: "bg-orange-50 text-orange-600 border border-orange-200",
+    high: "bg-rausch-50 text-rausch-600 border border-rausch-200",
     medium: "bg-yellow-50 text-yellow-700 border border-yellow-200",
     low: "bg-green-50 text-green-700 border border-green-200",
   };
@@ -61,7 +61,7 @@ const getPriorityBadge = (priority: string) => {
 
 const getStatusBadge = (status: string) => {
   const configs = {
-    open: "bg-blue-50 text-blue-700 border border-blue-200",
+    open: "bg-babu-50 text-babu-700 border border-babu-200",
     investigating: "bg-yellow-50 text-yellow-700 border border-yellow-200",
     resolved: "bg-green-50 text-green-700 border border-green-200",
     closed: "bg-neutral-100 text-neutral-700 border border-neutral-200",
@@ -91,7 +91,7 @@ const columns: ColumnDef<Dispute>[] = [
       return (
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-neutral-200 bg-red-50">
-            <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={Alert02Icon} />
+            <HugeiconsIcon className="h-5 w-5 text-rausch-500" icon={Alert02Icon} />
           </div>
           <p className={cn("font-medium text-neutral-900 text-sm capitalize", geistSans.className)}>
             {type.replace(/_/g, " ")}
@@ -178,7 +178,7 @@ const columns: ColumnDef<Dispute>[] = [
       <div className="text-right">
         <Link
           className={cn(
-            "inline-flex items-center rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-orange-500 hover:bg-orange-500 hover:text-white",
+            "inline-flex items-center rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs tracking-wider transition-all hover:border-rausch-500 hover:bg-rausch-500 hover:text-white",
             geistSans.className
           )}
           href={`/admin/disputes/${row.original.id}`}

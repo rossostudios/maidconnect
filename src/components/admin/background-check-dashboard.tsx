@@ -281,7 +281,7 @@ export function BackgroundCheckDashboard() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <HugeiconsIcon className="h-12 w-12 animate-spin text-orange-500" icon={Loading03Icon} />
+          <HugeiconsIcon className="h-12 w-12 animate-spin text-rausch-500" icon={Loading03Icon} />
           <p className="font-medium text-neutral-900">Loading background checks...</p>
         </div>
       </div>

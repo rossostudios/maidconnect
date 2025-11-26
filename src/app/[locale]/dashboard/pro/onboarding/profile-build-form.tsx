@@ -41,7 +41,7 @@ type Props = {
   footnote?: string;
 };
 
-const errorClass = "border-orange-500/50 focus:border-orange-500 focus:ring-orange-500/30";
+const errorClass = "border-rausch-500/50 focus:border-rausch-500 focus:ring-rausch-500/30";
 
 function parseServiceDefaults(
   services?: Array<{
@@ -161,13 +161,13 @@ export function ProfileBuildForm({
           {languages.map((language) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 border-2 border-neutral-200 bg-neutral-50 px-5 py-3 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
-                hasError("languages") && "border-orange-500/50"
+                "flex cursor-pointer items-center gap-3 rounded-lg border-2 border-border bg-muted px-5 py-3 font-medium text-base text-foreground transition hover:border-rausch-500 hover:bg-muted dark:hover:border-rausch-400",
+                hasError("languages") && "border-rausch-500/50 dark:border-rausch-400/50"
               )}
               key={language}
             >
               <input
-                className="h-5 w-5 border-neutral-200 text-orange-500 focus:ring-orange-500"
+                className="h-5 w-5 rounded border-border text-rausch-500 focus:ring-rausch-500 dark:text-rausch-400 dark:focus:ring-rausch-400"
                 defaultChecked={initialLanguages.includes(language)}
                 name="languages"
                 type="checkbox"
@@ -187,12 +187,12 @@ export function ProfileBuildForm({
         <div className="space-y-4">
           {services.map((service) => (
             <div
-              className="border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md"
+              className="rounded-lg border border-border bg-muted p-6 shadow-sm transition hover:shadow-md"
               key={service.name}
             >
               <input name="service_name" type="hidden" value={service.name} />
               <div className="space-y-4">
-                <h4 className="font-semibold text-lg text-neutral-900">{service.name}</h4>
+                <h4 className="font-semibold text-foreground text-lg">{service.name}</h4>
                 {(() => {
                   const defaults = serviceDefaults.get(service.name);
                   const rateValue =
@@ -205,7 +205,7 @@ export function ProfileBuildForm({
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label
-                          className="mb-2 block font-medium text-neutral-700 text-sm"
+                          className="mb-2 block font-medium text-muted-foreground text-sm"
                           htmlFor={`service_rate_${service.name}`}
                         >
                           {t("services.hourlyRate", { currency: currencyCode })}
@@ -221,7 +221,7 @@ export function ProfileBuildForm({
                       </div>
                       <div className="sm:col-span-2">
                         <label
-                          className="mb-2 block font-medium text-neutral-700 text-sm"
+                          className="mb-2 block font-medium text-muted-foreground text-sm"
                           htmlFor={`service_description_${service.name}`}
                         >
                           {t("services.serviceDescription")}
@@ -247,14 +247,14 @@ export function ProfileBuildForm({
       <FormField helper={t("availability.helper")} label={t("availability.label")}>
         <div className="space-y-3">
           {availabilityDays.map((day) => (
-            <div className="border border-neutral-200 bg-neutral-50 p-5 shadow-sm" key={day.slug}>
+            <div className="rounded-lg border border-border bg-muted p-5 shadow-sm" key={day.slug}>
               <div className="grid gap-4 sm:grid-cols-[120px_1fr_1fr_1fr]">
                 <div className="flex items-center">
-                  <span className="font-semibold text-base text-neutral-900">{day.label}</span>
+                  <span className="font-semibold text-base text-foreground">{day.label}</span>
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-muted-foreground text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_start`}
                   >
                     {t("availability.start")}
@@ -269,7 +269,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-muted-foreground text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_end`}
                   >
                     {t("availability.end")}
@@ -284,7 +284,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-neutral-700 text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-muted-foreground text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_notes`}
                   >
                     {t("availability.notes")}
@@ -304,11 +304,11 @@ export function ProfileBuildForm({
         </div>
       </FormField>
 
-      <div className="flex flex-col gap-4 border-neutral-200 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-neutral-700 text-sm">{defaultFootnote}</p>
+      <div className="flex flex-col gap-4 border-border border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-muted-foreground text-sm">{defaultFootnote}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
+            "inline-flex items-center justify-center rounded-lg bg-rausch-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-700",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -324,12 +324,15 @@ export function ProfileBuildForm({
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm" role="alert">
+      <div
+        className="rounded-lg border border-rausch-500/30 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
+        role="alert"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -343,19 +346,24 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.error}
+          </p>
         </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm" role="status">
+      <div
+        className="rounded-lg border border-rausch-500/40 bg-rausch-500/10 p-6 shadow-sm dark:border-rausch-400/30 dark:bg-rausch-900/20"
+        role="status"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-orange-500/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rausch-500/10 dark:bg-rausch-900/30">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-orange-500"
+              className="h-5 w-5 text-rausch-500 dark:text-rausch-400"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -369,7 +377,9 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-base text-rausch-500 leading-relaxed dark:text-rausch-400">
+            {state.message}
+          </p>
         </div>
       </div>
     );
@@ -392,19 +402,19 @@ function FormField({ label, children, helper, error, characterCount }: FormField
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block font-semibold text-base text-neutral-900" htmlFor={childId}>
+        <label className="block font-semibold text-base text-foreground" htmlFor={childId}>
           {label}
         </label>
         {characterCount !== undefined ? (
-          <span className="text-neutral-700 text-sm">
+          <span className="text-muted-foreground text-sm">
             {t("characterCount", { count: characterCount })}
           </span>
         ) : null}
       </div>
-      {helper ? <p className="text-neutral-700 text-sm">{helper}</p> : null}
+      {helper ? <p className="text-muted-foreground text-sm">{helper}</p> : null}
       {children}
       {error ? (
-        <p className="flex items-center gap-2 text-orange-500 text-sm">
+        <p className="flex items-center gap-2 text-rausch-500 text-sm dark:text-rausch-400">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"

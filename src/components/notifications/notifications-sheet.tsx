@@ -130,12 +130,12 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
       />
 
       {/* Sheet */}
-      <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col rounded-l-lg bg-neutral-50 shadow-2xl">
+      <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col rounded-l-lg bg-background shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-neutral-200 border-b px-6 py-4">
-          <h2 className="font-semibold text-neutral-900 text-xl">Notifications</h2>
+        <div className="flex items-center justify-between border-border border-b px-6 py-4">
+          <h2 className="font-semibold text-foreground text-xl">Notifications</h2>
           <button
-            className="rounded-lg p-2 text-neutral-400 transition hover:bg-neutral-100"
+            className="rounded-lg p-2 text-muted-foreground transition hover:bg-muted"
             onClick={onClose}
             type="button"
           >
@@ -157,11 +157,13 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center justify-between border-neutral-200 border-b px-6 py-3">
+        <div className="flex items-center justify-between border-border border-b px-6 py-3">
           <div className="flex gap-4">
             <button
               className={`font-medium text-sm transition ${
-                filter === "unread" ? "text-neutral-900" : "text-neutral-400 hover:text-neutral-900"
+                filter === "unread"
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
               onClick={() => setFilter("unread")}
               type="button"
@@ -170,7 +172,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             </button>
             <button
               className={`font-medium text-sm transition ${
-                filter === "all" ? "text-neutral-900" : "text-neutral-400 hover:text-neutral-900"
+                filter === "all" ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
               onClick={() => setFilter("all")}
               type="button"
@@ -180,7 +182,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           </div>
           {unreadCount > 0 && (
             <button
-              className="font-medium text-neutral-500 text-xs transition hover:text-neutral-700"
+              className="font-medium text-muted-foreground text-xs transition hover:text-foreground"
               onClick={markAllAsRead}
               type="button"
             >
@@ -196,7 +198,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               return (
                 <div className="flex items-center justify-center p-12">
                   <HugeiconsIcon
-                    className="h-8 w-8 animate-spin text-orange-500"
+                    className="h-8 w-8 animate-spin text-rausch-500"
                     icon={Loading03Icon}
                   />
                 </div>
@@ -205,10 +207,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             if (notifications.length === 0) {
               return (
                 <div className="flex flex-col items-center justify-center p-12">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-neutral-100">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-muted">
                     <svg
                       aria-hidden="true"
-                      className="h-8 w-8 text-neutral-400"
+                      className="h-8 w-8 text-muted-foreground"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -221,10 +223,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-base text-neutral-900">
+                  <h3 className="font-semibold text-base text-foreground">
                     {filter === "unread" ? "All caught up!" : "No notifications"}
                   </h3>
-                  <p className="mt-1 text-center text-neutral-500 text-sm">
+                  <p className="mt-1 text-center text-muted-foreground text-sm">
                     {filter === "unread"
                       ? "You've read all your notifications"
                       : "You'll see notifications here when there's activity"}
@@ -233,11 +235,11 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               );
             }
             return (
-              <div className="divide-y divide-neutral-200">
+              <div className="divide-y divide-border">
                 {notifications.map((notification) => (
                   <div
-                    className={`p-4 transition hover:bg-neutral-100 ${
-                      notification.read_at ? "" : "bg-orange-50"
+                    className={`p-4 transition hover:bg-muted ${
+                      notification.read_at ? "" : "bg-rausch-50 dark:bg-rausch-900/20"
                     }`}
                     key={notification.id}
                   >
@@ -253,29 +255,31 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-neutral-900 text-sm">
+                            <p className="font-semibold text-foreground text-sm">
                               {notification.title}
                             </p>
-                            <p className="mt-1 text-neutral-500 text-sm">{notification.body}</p>
-                            <p className="mt-1 text-neutral-400 text-xs">
+                            <p className="mt-1 text-muted-foreground text-sm">
+                              {notification.body}
+                            </p>
+                            <p className="mt-1 text-muted-foreground text-xs">
                               {formatDistanceToNow(new Date(notification.created_at), {
                                 addSuffix: true,
                               })}
                             </p>
                           </div>
                           {!notification.read_at && (
-                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-orange-500" />
+                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-rausch-500" />
                           )}
                         </div>
                       </Link>
                     ) : (
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-neutral-900 text-sm">
+                          <p className="font-semibold text-foreground text-sm">
                             {notification.title}
                           </p>
-                          <p className="mt-1 text-neutral-500 text-sm">{notification.body}</p>
-                          <p className="mt-1 text-neutral-400 text-xs">
+                          <p className="mt-1 text-muted-foreground text-sm">{notification.body}</p>
+                          <p className="mt-1 text-muted-foreground text-xs">
                             {formatDistanceToNow(new Date(notification.created_at), {
                               addSuffix: true,
                             })}
@@ -283,7 +287,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                         </div>
                         {!notification.read_at && (
                           <button
-                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-orange-500 transition hover:bg-orange-600"
+                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-rausch-500 transition hover:bg-rausch-600"
                             onClick={() => markAsRead([notification.id])}
                             type="button"
                           />

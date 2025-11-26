@@ -77,14 +77,14 @@ export async function GET(
     // ========================================
 
     let verificationBadge = "";
-    let verificationColor = "#D97757"; // orange-500
+    let verificationColor = "#7A3B4A"; // rausch-500 (Burgundy)
 
     if (professional.verificationLevel === "verified") {
       verificationBadge = "✓ Verified";
       verificationColor = "#788C5D"; // green-500
     } else if (professional.verificationLevel === "background_checked") {
       verificationBadge = "✓ Background Checked";
-      verificationColor = "#6A9BCC"; // blue-500
+      verificationColor = "#6A9BCC"; // babu-500
     }
 
     // ========================================
@@ -111,7 +111,7 @@ export async function GET(
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          background: "#FAF9F5", // neutral-50
+          background: "#F7F7F7", // neutral-50 (Airbnb)
           padding: "60px 80px",
           fontFamily: "system-ui, sans-serif",
         }}
@@ -137,7 +137,7 @@ export async function GET(
                 width: "48px",
                 height: "48px",
                 borderRadius: "12px",
-                background: "#D97757", // orange-500
+                background: "#7A3B4A", // rausch-500 (Burgundy)
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -151,7 +151,7 @@ export async function GET(
               style={{
                 fontSize: "32px",
                 fontWeight: 600,
-                color: "#141413", // neutral-900
+                color: "#222222", // neutral-900 (Airbnb)
               }}
             >
               Casaora
@@ -163,7 +163,7 @@ export async function GET(
             style={{
               fontSize: "72px",
               fontWeight: 700,
-              color: "#141413", // neutral-900
+              color: "#222222", // neutral-900 (Airbnb)
               lineHeight: 1.1,
               maxWidth: "900px",
             }}
@@ -176,7 +176,7 @@ export async function GET(
             style={{
               fontSize: "40px",
               fontWeight: 500,
-              color: "#68665F", // neutral-700
+              color: "#484848", // neutral-700 (Airbnb Hof)
               lineHeight: 1.3,
             }}
           >
@@ -207,11 +207,11 @@ export async function GET(
                 display: "flex",
                 alignItems: "center",
                 background: "#FFFFFF",
-                border: "2px solid #E8E6DC", // neutral-200
+                border: "2px solid #DDDDDD", // neutral-200 (Airbnb)
                 borderRadius: "9999px",
                 padding: "12px 24px",
                 fontSize: "24px",
-                color: "#68665F", // neutral-700
+                color: "#484848", // neutral-700 (Airbnb Hof)
               }}
             >
               📍 {professional.location}
@@ -242,11 +242,11 @@ export async function GET(
                   display: "flex",
                   alignItems: "center",
                   background: "#FFFFFF",
-                  border: "2px solid #E8E6DC", // neutral-200
+                  border: "2px solid #DDDDDD", // neutral-200 (Airbnb)
                   borderRadius: "9999px",
                   padding: "12px 24px",
                   fontSize: "24px",
-                  color: "#68665F", // neutral-700
+                  color: "#484848", // neutral-700 (Airbnb Hof)
                 }}
               >
                 {experienceBadge}

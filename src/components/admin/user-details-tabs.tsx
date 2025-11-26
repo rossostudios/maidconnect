@@ -13,7 +13,7 @@
 
 import { Calendar03Icon, CreditCardIcon, Home09Icon, StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Type definitions
@@ -105,6 +105,200 @@ function ReviewsSkeleton() {
   );
 }
 
+// --- Helper Types (extracted for complexity reduction) ---
+
+type ProfessionalMetrics = {
+  totalBookings: number;
+  completedBookings: number;
+  completionRate: number;
+  avgRating: number;
+  totalReviews: number;
+};
+
+type CustomerMetrics = {
+  totalBookings: number;
+  completedBookings: number;
+  totalSpent: number;
+  addressCount: number;
+  favoritesCount: number;
+};
+
+type ExtractedProfessionalData = {
+  profile: any;
+  verification: any;
+  services: any[];
+  metrics: ProfessionalMetrics;
+} | null;
+
+type ExtractedCustomerData = {
+  metrics: CustomerMetrics;
+} | null;
+
+// --- Helper Functions (extracted for complexity reduction) ---
+
+const DEFAULT_PROFESSIONAL_METRICS: ProfessionalMetrics = {
+  totalBookings: 0,
+  completedBookings: 0,
+  completionRate: 0,
+  avgRating: 0,
+  totalReviews: 0,
+};
+
+const DEFAULT_CUSTOMER_METRICS: CustomerMetrics = {
+  totalBookings: 0,
+  completedBookings: 0,
+  totalSpent: 0,
+  addressCount: 0,
+  favoritesCount: 0,
+};
+
+function extractProfessionalData(apiData: any, isProfessional: boolean): ExtractedProfessionalData {
+  if (!(isProfessional && apiData?.professional)) {
+    return null;
+  }
+  return {
+    profile: apiData.professional.profile,
+    verification: apiData.professional.verification,
+    services: apiData.professional.services || [],
+    metrics: apiData.professional.metrics || DEFAULT_PROFESSIONAL_METRICS,
+  };
+}
+
+function extractCustomerData(apiData: any, isCustomer: boolean): ExtractedCustomerData {
+  if (!(isCustomer && apiData?.customer)) {
+    return null;
+  }
+  return {
+    metrics: apiData.customer.metrics || DEFAULT_CUSTOMER_METRICS,
+  };
+}
+
+function formatAvgRating(avgRating: number): string {
+  return avgRating > 0 ? `${avgRating.toFixed(1)} ★` : "N/A";
+}
+
+function getVerificationStatus(
+  verification: any,
+  field: "identity" | "documents"
+): "verified" | "pending" {
+  if (field === "identity") {
+    return verification?.identity_verified ? "verified" : "pending";
+  }
+  return verification?.documents_verified ? "verified" : "pending";
+}
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+// --- Finance Helper Types (for FinancesTab complexity reduction) ---
+
+type ProfessionalEarnings = {
+  total: number;
+  pending: number;
+  completed: number;
+};
+
+type StripeAccountStatus = {
+  connected: boolean;
+  verified: boolean;
+  account_id: string | null;
+};
+
+type ExtractedProfessionalFinances = {
+  earnings: ProfessionalEarnings;
+  stripe: StripeAccountStatus;
+  payouts: any[];
+  transactions: any[];
+} | null;
+
+type CustomerSpending = {
+  total: number;
+  averagePerBooking: number;
+  thisMonth: number;
+};
+
+type ExtractedCustomerFinances = {
+  spending: CustomerSpending;
+  paymentMethods: any[];
+  transactions: any[];
+  spendingByCategory: any[];
+} | null;
+
+// --- Finance Helper Functions ---
+
+const DEFAULT_EARNINGS: ProfessionalEarnings = {
+  total: 0,
+  pending: 0,
+  completed: 0,
+};
+
+const DEFAULT_STRIPE: StripeAccountStatus = {
+  connected: false,
+  verified: false,
+  account_id: null,
+};
+
+const DEFAULT_SPENDING: CustomerSpending = {
+  total: 0,
+  averagePerBooking: 0,
+  thisMonth: 0,
+};
+
+function extractProfessionalFinances(
+  apiData: any,
+  isProfessional: boolean
+): ExtractedProfessionalFinances {
+  if (!(isProfessional && apiData?.professional)) {
+    return null;
+  }
+  return {
+    earnings: apiData.professional.earnings || DEFAULT_EARNINGS,
+    stripe: apiData.professional.stripe || DEFAULT_STRIPE,
+    payouts: apiData.professional.payouts || [],
+    transactions: apiData.professional.transactions || [],
+  };
+}
+
+function extractCustomerFinances(apiData: any, isCustomer: boolean): ExtractedCustomerFinances {
+  if (!(isCustomer && apiData?.customer)) {
+    return null;
+  }
+  return {
+    spending: apiData.customer.spending || DEFAULT_SPENDING,
+    paymentMethods: apiData.customer.paymentMethods || [],
+    transactions: apiData.customer.transactions || [],
+    spendingByCategory: apiData.customer.spendingByCategory || [],
+  };
+}
+
+function getStripeStatusBadgeClass(
+  isActive: boolean,
+  variant: "connection" | "verification"
+): string {
+  const baseClasses =
+    "inline-block rounded-full border px-3 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-xs tracking-wider";
+  if (isActive) {
+    return `${baseClasses} border-green-600 bg-green-50 text-green-900`;
+  }
+  if (variant === "connection") {
+    return `${baseClasses} border-red-600 bg-red-50 text-red-900`;
+  }
+  return `${baseClasses} border-rausch-600 bg-rausch-50 text-rausch-900`;
+}
+
+function getStripeConnectionText(connected: boolean): string {
+  return connected ? "Connected" : "Not Connected";
+}
+
+function getStripeVerificationText(verified: boolean): string {
+  return verified ? "Verified" : "Pending";
+}
+
 // Overview Tab - Lia Design System
 // Professional, data-focused layout with sharp edges and clear hierarchy
 // Memoized to prevent re-renders when other tabs change
@@ -116,36 +310,10 @@ const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; 
   const isProfessional = user.role === "professional";
   const isCustomer = user.role === "customer";
 
-  // Extract API data (from /api/admin/users/[id]/overview)
+  // Extract API data using helper functions
   const apiData = data as any;
-  const professionalData =
-    isProfessional && apiData?.professional
-      ? {
-          profile: apiData.professional.profile,
-          verification: apiData.professional.verification,
-          services: apiData.professional.services || [],
-          metrics: apiData.professional.metrics || {
-            totalBookings: 0,
-            completedBookings: 0,
-            completionRate: 0,
-            avgRating: 0,
-            totalReviews: 0,
-          },
-        }
-      : null;
-
-  const customerData =
-    isCustomer && apiData?.customer
-      ? {
-          metrics: apiData.customer.metrics || {
-            totalBookings: 0,
-            completedBookings: 0,
-            totalSpent: 0,
-            addressCount: 0,
-            favoritesCount: 0,
-          },
-        }
-      : null;
+  const professionalData = extractProfessionalData(apiData, isProfessional);
+  const customerData = extractCustomerData(apiData, isCustomer);
 
   return (
     <div className="space-y-6">
@@ -197,9 +365,7 @@ const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; 
                 <div className="grid gap-4 md:grid-cols-3">
                   <VerificationBadge
                     label="Identity Verification"
-                    status={
-                      professionalData.verification.identity_verified ? "verified" : "pending"
-                    }
+                    status={getVerificationStatus(professionalData.verification, "identity")}
                   />
                   <VerificationBadge
                     label="Background Check"
@@ -207,9 +373,7 @@ const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; 
                   />
                   <VerificationBadge
                     label="Documents"
-                    status={
-                      professionalData.verification.documents_verified ? "verified" : "pending"
-                    }
+                    status={getVerificationStatus(professionalData.verification, "documents")}
                   />
                 </div>
               ) : (
@@ -241,11 +405,7 @@ const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; 
                 />
                 <MetricCard
                   label="Avg Rating"
-                  value={
-                    professionalData.metrics.avgRating > 0
-                      ? `${professionalData.metrics.avgRating.toFixed(1)} ★`
-                      : "N/A"
-                  }
+                  value={formatAvgRating(professionalData.metrics.avgRating)}
                 />
                 <MetricCard
                   label="Total Reviews"
@@ -318,11 +478,7 @@ const OverviewTab = memo(function OverviewTab({ user, data }: { user: BaseUser; 
                 />
                 <MetricCard
                   label="Total Spent"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(customerData.metrics.totalSpent)}
+                  value={formatCurrency(customerData.metrics.totalSpent)}
                 />
                 <MetricCard
                   label="Saved Addresses"
@@ -370,7 +526,7 @@ function MetricCard({ label, value }: { label: string; value: string }) {
 function VerificationBadge({ label, status }: { label: string; status: string }) {
   const statusConfig = {
     verified: { color: "bg-green-50 border-green-600 text-green-900", text: "Verified" },
-    pending: { color: "bg-orange-50 border-orange-600 text-orange-900", text: "Pending" },
+    pending: { color: "bg-rausch-50 border-rausch-600 text-rausch-900", text: "Pending" },
     rejected: { color: "bg-red-50 border-red-600 text-red-900", text: "Rejected" },
   };
 
@@ -593,7 +749,7 @@ const BookingCard = memo(function BookingCard({
   type: "professional" | "customer";
 }) {
   const statusConfig = {
-    upcoming: { color: "bg-blue-50 border-blue-600 text-blue-900", text: "Upcoming" },
+    upcoming: { color: "bg-babu-50 border-babu-600 text-babu-900", text: "Upcoming" },
     completed: { color: "bg-green-50 border-green-600 text-green-900", text: "Completed" },
     cancelled: { color: "bg-red-50 border-red-600 text-red-900", text: "Cancelled" },
   };
@@ -673,7 +829,7 @@ function AddressCard({
           {label}
         </p>
         {is_default && (
-          <span className="inline-block rounded-full border border-orange-600 bg-orange-50 px-2 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-orange-900 text-xs tracking-wider">
+          <span className="inline-block rounded-full border border-rausch-600 bg-rausch-50 px-2 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-rausch-900 text-xs tracking-wider">
             Default
           </span>
         )}
@@ -715,31 +871,10 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
   const isProfessional = user.role === "professional";
   const isCustomer = user.role === "customer";
 
-  // Extract API data (from /api/admin/users/[id]/finances)
+  // Extract API data using helper functions (from /api/admin/users/[id]/finances)
   const apiData = data as any;
-  const professionalFinances =
-    isProfessional && apiData?.professional
-      ? {
-          earnings: apiData.professional.earnings || { total: 0, pending: 0, completed: 0 },
-          stripe: apiData.professional.stripe || {
-            connected: false,
-            verified: false,
-            account_id: null,
-          },
-          payouts: apiData.professional.payouts || [],
-          transactions: apiData.professional.transactions || [],
-        }
-      : null;
-
-  const customerFinances =
-    isCustomer && apiData?.customer
-      ? {
-          spending: apiData.customer.spending || { total: 0, pending: 0 },
-          paymentMethods: apiData.customer.paymentMethods || [],
-          transactions: apiData.customer.transactions || [],
-          spendingByCategory: apiData.customer.spendingByCategory || {},
-        }
-      : null;
+  const professionalFinances = extractProfessionalFinances(apiData, isProfessional);
+  const customerFinances = extractCustomerFinances(apiData, isCustomer);
 
   return (
     <div className="space-y-6">
@@ -757,27 +892,15 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
               <div className="grid gap-6 md:grid-cols-3">
                 <MetricCard
                   label="Total Earnings"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(professionalFinances.earnings.total)}
+                  value={formatCurrency(professionalFinances.earnings.total)}
                 />
                 <MetricCard
                   label="Pending Payouts"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(professionalFinances.earnings.pending)}
+                  value={formatCurrency(professionalFinances.earnings.pending)}
                 />
                 <MetricCard
                   label="Completed Payouts"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(professionalFinances.earnings.completed)}
+                  value={formatCurrency(professionalFinances.earnings.completed)}
                 />
               </div>
             </div>
@@ -796,13 +919,12 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
                   label="Connection Status"
                   value={
                     <span
-                      className={`inline-block rounded-full border px-3 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-xs tracking-wider ${
-                        professionalFinances.stripe.connected
-                          ? "border-green-600 bg-green-50 text-green-900"
-                          : "border-red-600 bg-red-50 text-red-900"
-                      }`}
+                      className={getStripeStatusBadgeClass(
+                        professionalFinances.stripe.connected,
+                        "connection"
+                      )}
                     >
-                      {professionalFinances.stripe.connected ? "Connected" : "Not Connected"}
+                      {getStripeConnectionText(professionalFinances.stripe.connected)}
                     </span>
                   }
                 />
@@ -810,13 +932,12 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
                   label="Verification Status"
                   value={
                     <span
-                      className={`inline-block rounded-full border px-3 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-xs tracking-wider ${
-                        professionalFinances.stripe.verified
-                          ? "border-green-600 bg-green-50 text-green-900"
-                          : "border-orange-600 bg-orange-50 text-orange-900"
-                      }`}
+                      className={getStripeStatusBadgeClass(
+                        professionalFinances.stripe.verified,
+                        "verification"
+                      )}
                     >
-                      {professionalFinances.stripe.verified ? "Verified" : "Pending"}
+                      {getStripeVerificationText(professionalFinances.stripe.verified)}
                     </span>
                   }
                 />
@@ -893,27 +1014,15 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
               <div className="grid gap-6 md:grid-cols-3">
                 <MetricCard
                   label="Total Spent"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(customerFinances.spending.total)}
+                  value={formatCurrency(customerFinances.spending.total)}
                 />
                 <MetricCard
                   label="Avg Per Booking"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(customerFinances.spending.averagePerBooking)}
+                  value={formatCurrency(customerFinances.spending.averagePerBooking)}
                 />
                 <MetricCard
                   label="This Month"
-                  value={new Intl.NumberFormat("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                    maximumFractionDigits: 0,
-                  }).format(customerFinances.spending.thisMonth)}
+                  value={formatCurrency(customerFinances.spending.thisMonth)}
                 />
               </div>
             </div>
@@ -963,11 +1072,7 @@ const FinancesTab = memo(function FinancesTab({ user, data }: { user: BaseUser; 
                       {category.category}
                     </span>
                     <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-900 tabular-nums">
-                      {new Intl.NumberFormat("es-CO", {
-                        style: "currency",
-                        currency: "COP",
-                        maximumFractionDigits: 0,
-                      }).format(category.amount)}
+                      {formatCurrency(category.amount)}
                     </span>
                   </div>
                 ))}
@@ -1018,7 +1123,7 @@ function PayoutCard({
 }) {
   const statusConfig = {
     completed: { color: "bg-green-50 border-green-600 text-green-900", text: "Completed" },
-    pending: { color: "bg-orange-50 border-orange-600 text-orange-900", text: "Pending" },
+    pending: { color: "bg-rausch-50 border-rausch-600 text-rausch-900", text: "Pending" },
     failed: { color: "bg-red-50 border-red-600 text-red-900", text: "Failed" },
   };
 
@@ -1069,7 +1174,7 @@ function PaymentMethodCard({
           </span>
         </div>
         {is_default && (
-          <span className="inline-block rounded-full border border-orange-600 bg-orange-50 px-2 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-orange-900 text-xs tracking-wider">
+          <span className="inline-block rounded-full border border-rausch-600 bg-rausch-50 px-2 py-1 font-[family-name:var(--font-geist-sans)] font-medium text-rausch-900 text-xs tracking-wider">
             Default
           </span>
         )}
@@ -1094,13 +1199,31 @@ const TransactionCard = memo(function TransactionCard({
   status: string;
 }) {
   const isNegative = amount < 0;
-  const typeLabel = type === "booking" ? "Booking" : type === "fee" ? "Fee" : "Tip";
-  const typeColor =
-    type === "booking"
-      ? "border-blue-600 bg-blue-50 text-blue-900"
-      : type === "fee"
-        ? "border-red-600 bg-red-50 text-red-900"
-        : "border-green-600 bg-green-50 text-green-900";
+
+  // Helper function to get type label
+  const getTypeLabel = (t: string): string => {
+    if (t === "booking") {
+      return "Booking";
+    }
+    if (t === "fee") {
+      return "Fee";
+    }
+    return "Tip";
+  };
+
+  // Helper function to get type color classes
+  const getTypeColor = (t: string): string => {
+    if (t === "booking") {
+      return "border-babu-600 bg-babu-50 text-babu-900";
+    }
+    if (t === "fee") {
+      return "border-red-600 bg-red-50 text-red-900";
+    }
+    return "border-green-600 bg-green-50 text-green-900";
+  };
+
+  const typeLabel = getTypeLabel(type);
+  const typeColor = getTypeColor(type);
 
   return (
     <div className="flex items-center justify-between border-neutral-100 border-b pb-3 last:border-0 last:pb-0">
@@ -1320,7 +1443,7 @@ function RatingBreakdownBar({
         {stars} ★
       </span>
       <div className="h-2 flex-1 rounded-lg bg-neutral-100">
-        <div className="h-full rounded-lg bg-orange-500" style={{ width: `${percentage}%` }} />
+        <div className="h-full rounded-lg bg-rausch-500" style={{ width: `${percentage}%` }} />
       </div>
       <span className="w-12 text-right font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm tabular-nums">
         {count}
@@ -1360,7 +1483,7 @@ const ReviewCard = memo(function ReviewCard({
           <span className="font-[family-name:var(--font-geist-sans)] font-medium text-lg text-neutral-900 tabular-nums">
             {rating.toFixed(1)}
           </span>
-          <span className="text-orange-500 text-xl">★</span>
+          <span className="text-rausch-500 text-xl">★</span>
         </div>
       </div>
 
@@ -1369,7 +1492,7 @@ const ReviewCard = memo(function ReviewCard({
       <p className="text-neutral-600 text-sm">{new Date(date).toLocaleDateString()}</p>
 
       {response && (
-        <div className="mt-4 border-orange-500 border-l-2 bg-white py-2 pl-4">
+        <div className="mt-4 border-rausch-500 border-l-2 bg-white py-2 pl-4">
           <p className="mb-1 font-[family-name:var(--font-geist-sans)] font-medium text-neutral-900 text-xs tracking-wider">
             Professional Response
           </p>

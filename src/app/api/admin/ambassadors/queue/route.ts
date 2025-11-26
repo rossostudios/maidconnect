@@ -68,14 +68,18 @@ const getCachedAmbassadors = unstable_cache(
 
     // Calculate waiting days and group by status
     const now = new Date();
-    const processedAmbassadors: ProcessedAmbassador[] = ((ambassadors ?? []) as Ambassador[]).map((ambassador) => {
-      const appliedAt = new Date(ambassador.applied_at);
-      const waitingDays = Math.floor((now.getTime() - appliedAt.getTime()) / (1000 * 60 * 60 * 24));
-      return {
-        ...ambassador,
-        waitingDays,
-      };
-    });
+    const processedAmbassadors: ProcessedAmbassador[] = ((ambassadors ?? []) as Ambassador[]).map(
+      (ambassador) => {
+        const appliedAt = new Date(ambassador.applied_at);
+        const waitingDays = Math.floor(
+          (now.getTime() - appliedAt.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        return {
+          ...ambassador,
+          waitingDays,
+        };
+      }
+    );
 
     // Group by status
     const grouped = {

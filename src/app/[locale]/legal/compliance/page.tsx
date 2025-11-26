@@ -63,8 +63,8 @@ function ComplianceHero({ isSpanish, lastUpdated }: HeroProps) {
   return (
     <div className="mb-16 text-center">
       <div className="mb-6 flex items-center justify-center">
-        <div className="flex h-20 w-20 items-center justify-center bg-orange-100">
-          <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={Shield01Icon} />
+        <div className="flex h-20 w-20 items-center justify-center bg-rausch-100">
+          <HugeiconsIcon className="h-10 w-10 text-rausch-600" icon={Shield01Icon} />
         </div>
       </div>
       <h1 className="mb-4 font-bold text-4xl text-neutral-900 sm:text-5xl">
@@ -122,8 +122,8 @@ function PaymentSecuritySection({ isSpanish }: SectionProps) {
   return (
     <section className="border border-neutral-200 bg-white p-8 shadow-sm">
       <div className="mb-6 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-orange-100">
-          <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={SecurityCheckIcon} />
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-rausch-100">
+          <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={SecurityCheckIcon} />
         </div>
         <div>
           <div className="mb-2 flex items-center gap-3">
@@ -363,7 +363,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
           <h2 className="font-bold text-2xl text-neutral-900">
             {isSpanish ? "Cumplimiento de Privacidad" : "Data Privacy Compliance"}
           </h2>
-          <Badge className="bg-blue-100 text-blue-700">GDPR</Badge>
+          <Badge className="bg-babu-100 text-babu-700">GDPR</Badge>
         </div>
         <p className="text-neutral-600">
           {isSpanish
@@ -375,7 +375,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
       <div className="space-y-4">
         <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
-            <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={CheckmarkCircle02Icon} />
+            <HugeiconsIcon className="h-5 w-5 text-babu-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">
               {isSpanish ? "Leyes de Protección de Datos LATAM" : "LATAM Data Protection Laws"}
             </h3>
@@ -403,7 +403,7 @@ function DataPrivacySection({ isSpanish }: SectionProps) {
 
         <div className="border border-neutral-100 bg-neutral-50 p-4">
           <div className="mb-2 flex items-center gap-2">
-            <HugeiconsIcon className="h-5 w-5 text-blue-600" icon={CheckmarkCircle02Icon} />
+            <HugeiconsIcon className="h-5 w-5 text-babu-600" icon={CheckmarkCircle02Icon} />
             <h3 className="font-semibold text-neutral-900">
               GDPR (General Data Protection Regulation)
             </h3>
@@ -590,7 +590,7 @@ function IncidentResponseSection({ isSpanish }: SectionProps) {
 
       <div className="space-y-3">
         {steps.map((step) => (
-          <div className="border-orange-500 border-l-4 bg-orange-50 p-4" key={step.title}>
+          <div className="border-rausch-500 border-l-4 bg-rausch-50 p-4" key={step.title}>
             <h3 className="mb-2 font-semibold text-neutral-900">{step.title}</h3>
             <p className="text-neutral-600 text-sm">{step.description}</p>
           </div>
@@ -602,7 +602,7 @@ function IncidentResponseSection({ isSpanish }: SectionProps) {
 
 function QuestionsSection({ isSpanish }: SectionProps) {
   return (
-    <section className="border-2 border-orange-500 bg-orange-50 p-8">
+    <section className="border-2 border-rausch-500 bg-rausch-50 p-8">
       <h2 className="mb-4 font-bold text-2xl text-neutral-900">
         {isSpanish ? "¿Tiene Preguntas?" : "Have Questions?"}
       </h2>
@@ -612,11 +612,11 @@ function QuestionsSection({ isSpanish }: SectionProps) {
           : "If you have questions about our certifications, compliance, or security practices, please don't hesitate to contact us."}
       </p>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <a className="font-semibold text-orange-600" href="mailto:security@casaora.co">
+        <a className="font-semibold text-rausch-600" href="mailto:security@casaora.co">
           security@casaora.co
         </a>
         <span className="hidden text-neutral-400 sm:block">•</span>
-        <a className="font-semibold text-orange-600" href="/legal/security">
+        <a className="font-semibold text-rausch-600" href="/legal/security">
           {isSpanish ? "Ver Prácticas de Seguridad" : "View Security Practices"}
         </a>
       </div>

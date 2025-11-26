@@ -12,6 +12,20 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
 
 /**
+ * Helper function to get time-based greeting
+ * Reduces complexity and avoids nested ternary
+ */
+function getGreeting(hour: number): string {
+  if (hour < 12) {
+    return "Good morning";
+  }
+  if (hour < 18) {
+    return "Good afternoon";
+  }
+  return "Good evening";
+}
+
+/**
  * Admin Dashboard - Anthropic-Inspired Lia Design
  *
  * Warm, approachable design with thoughtful rounded corners:
@@ -19,7 +33,7 @@ import { cn } from "@/lib/utils";
  * - Geist Sans for UI text (font-normal to font-medium)
  * - Geist Mono for data display
  * - Warm neutral backgrounds with refined typography
- * - Orange (orange-500/600) for primary actions
+ * - Orange (rausch-500/600) for primary actions
  * - Soft borders with rounded corners for approachable aesthetic
  */
 export default async function AdminHomePage() {
@@ -68,8 +82,7 @@ export default async function AdminHomePage() {
     (pendingBookingsCount ?? 0) + (pendingProfessionals ?? 0) + (activeDisputesCount ?? 0);
 
   // Calculate greeting based on time of day
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const greeting = getGreeting(new Date().getHours());
 
   return (
     <div className="space-y-8">
@@ -98,8 +111,8 @@ export default async function AdminHomePage() {
 
         {/* Action Items Alert - Anthropic rounded design */}
         {actionItemsCount > 0 && (
-          <div className="flex items-center gap-3 rounded-lg border border-orange-500 bg-orange-50 px-4 py-2.5">
-            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-orange-500 bg-orange-500">
+          <div className="flex items-center gap-3 rounded-lg border border-rausch-500 bg-rausch-50 px-4 py-2.5">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-rausch-500 bg-rausch-500">
               <HugeiconsIcon className="h-5 w-5 text-white" icon={Alert01Icon} />
             </div>
             <div>
@@ -130,10 +143,10 @@ export default async function AdminHomePage() {
             {/* Pending Bookings */}
             {(pendingBookingsCount ?? 0) > 0 && (
               <Link href="/admin/bookings?status=pending">
-                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
+                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-rausch-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <IconBox icon={Calendar03Icon} size="lg" variant="neutral" />
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-rausch-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {pendingBookingsCount}
                       </span>
@@ -162,10 +175,10 @@ export default async function AdminHomePage() {
             {/* Pending Professionals */}
             {(pendingProfessionals ?? 0) > 0 && (
               <Link href="/admin/users?role=professional&status=pending">
-                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
+                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-rausch-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <IconBox icon={ClockIcon} size="lg" variant="neutral" />
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-rausch-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {pendingProfessionals}
                       </span>
@@ -194,10 +207,10 @@ export default async function AdminHomePage() {
             {/* Active Disputes */}
             {(activeDisputesCount ?? 0) > 0 && (
               <Link href="/admin/disputes">
-                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-500 hover:shadow-sm">
+                <div className="group rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-rausch-500 hover:shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <IconBox icon={Alert01Icon} size="lg" variant="neutral" />
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-rausch-500">
                       <span className={cn("font-medium text-white text-xs", geistSans.className)}>
                         {activeDisputesCount}
                       </span>

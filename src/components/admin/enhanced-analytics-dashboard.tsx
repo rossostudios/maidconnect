@@ -384,8 +384,8 @@ export function EnhancedAnalyticsDashboard() {
               "rounded-lg px-4 py-2 font-semibold text-sm transition-all",
               geistSans.className,
               selectedTimeRange === range
-                ? "bg-orange-500 text-white shadow-sm"
-                : "border border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:bg-orange-50"
+                ? "bg-rausch-500 text-white shadow-sm"
+                : "border border-neutral-200 bg-white text-neutral-900 hover:border-rausch-500 hover:bg-rausch-50"
             )}
             key={range}
             onClick={() => setSelectedTimeRange(range)}

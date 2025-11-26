@@ -158,13 +158,13 @@ export function DatePicker({
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center transition-all focus:outline-none",
+          "flex w-full items-center transition-all duration-200 focus:outline-none",
           // Default variant: bordered input for forms
           variant === "default" && [
             "justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm",
             "hover:border-neutral-300 hover:bg-neutral-50",
-            "focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20",
-            open && "border-orange-500 ring-2 ring-orange-500/20",
+            "focus:border-rausch-500 focus:ring-2 focus:ring-rausch-500/20",
+            open && "border-rausch-500 ring-2 ring-rausch-500/20",
           ],
           // Inline variant: borderless for search bars (Airbnb-style)
           variant === "inline" && ["gap-2 bg-transparent"],
@@ -196,7 +196,7 @@ export function DatePicker({
         <div className="fade-in zoom-in-95 absolute right-0 z-[100] mt-2 w-[320px] animate-in rounded-xl border border-neutral-200 bg-white p-4 shadow-xl ring-1 ring-black/5 duration-200">
           <div className="mb-4 flex items-center justify-between">
             <button
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition-all duration-200 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
@@ -209,7 +209,7 @@ export function DatePicker({
               {new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(viewDate)}
             </div>
             <button
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 text-neutral-500 transition-all duration-200 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
@@ -254,10 +254,10 @@ export function DatePicker({
                     geistSans.className,
                     inCurrentMonth ? "text-neutral-900" : "text-neutral-300",
                     isSelected &&
-                      "bg-orange-500 font-medium text-white shadow-sm hover:bg-orange-600",
+                      "bg-rausch-500 font-medium text-white shadow-sm hover:bg-rausch-600",
                     !isSelected &&
                       isToday &&
-                      "border border-orange-500 font-medium text-orange-600",
+                      "border border-rausch-500 font-medium text-rausch-600",
                     !(isSelected || isToday) && inCurrentMonth && "hover:bg-neutral-100",
                     !inCurrentMonth && "cursor-default"
                   )}

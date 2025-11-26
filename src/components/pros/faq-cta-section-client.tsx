@@ -72,7 +72,7 @@ export function ProsFaqCtaSection() {
 
       {/* Final CTA Section */}
       <section
-        className="relative overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 py-20 text-white lg:py-28"
+        className="relative overflow-hidden bg-gradient-to-br from-rausch-500 to-rausch-600 py-20 text-white lg:py-28"
         id="apply"
       >
         <Container className="relative max-w-4xl text-center">
@@ -88,7 +88,7 @@ export function ProsFaqCtaSection() {
             >
               {t("cta.title")}
             </motion.h2>
-            <motion.p className="mb-8 text-orange-50 text-xl" variants={fadeInUp}>
+            <motion.p className="mb-8 text-rausch-50 text-xl" variants={fadeInUp}>
               {t("cta.subtitle")}
             </motion.p>
 
@@ -103,7 +103,7 @@ export function ProsFaqCtaSection() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button
-                    className="min-w-[250px] border-white bg-white text-orange-600 hover:bg-neutral-50"
+                    className="min-w-[250px] border-white bg-white text-rausch-600 hover:bg-neutral-50"
                     size="lg"
                     variant="outline"
                   >
@@ -130,7 +130,7 @@ export function ProsFaqCtaSection() {
             </motion.div>
 
             <motion.div
-              className="mt-8 flex flex-wrap items-center justify-center gap-4 text-orange-100 text-sm"
+              className="mt-8 flex flex-wrap items-center justify-center gap-4 text-rausch-100 text-sm"
               variants={fadeInUp}
             >
               <div className="flex items-center gap-2">
@@ -151,7 +151,7 @@ export function ProsFaqCtaSection() {
 
         {/* Decorative Elements */}
         <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 bg-white opacity-10 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 bg-orange-900 opacity-20 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 bg-rausch-900 opacity-20 blur-3xl" />
       </section>
     </>
   );

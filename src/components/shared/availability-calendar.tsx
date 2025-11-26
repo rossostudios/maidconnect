@@ -242,7 +242,7 @@ export function AvailabilityCalendar({
           {showTodayButton && (
             <button
               className={cn(
-                "rounded-lg border border-neutral-200 font-medium text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
+                "rounded-lg border border-neutral-200 font-medium text-neutral-700 transition hover:border-rausch-500 hover:text-rausch-600",
                 sizeConfig.button,
                 geistSans.className
               )}
@@ -255,7 +255,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
+              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-rausch-500 hover:text-rausch-600",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
@@ -266,7 +266,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Next month"
             className={cn(
-              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-orange-500 hover:text-orange-600",
+              "rounded-lg border border-neutral-200 text-neutral-700 transition hover:border-rausch-500 hover:text-rausch-600",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
@@ -294,15 +294,15 @@ export function AvailabilityCalendar({
       {error && (
         <div
           className={cn(
-            "rounded-lg border border-orange-200 bg-orange-50 p-4 text-center",
+            "rounded-lg border border-rausch-200 bg-rausch-50 p-4 text-center",
             geistSans.className
           )}
         >
-          <p className={cn("text-orange-600", sizeConfig.text)}>{error.message}</p>
+          <p className={cn("text-rausch-600", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
               className={cn(
-                "mt-2 font-semibold text-orange-600 hover:text-orange-700",
+                "mt-2 font-semibold text-rausch-600 hover:text-rausch-700",
                 sizeConfig.smallText
               )}
               onClick={apiData.refetch}
@@ -404,8 +404,8 @@ export function AvailabilityCalendar({
             >
               <span className="font-medium text-neutral-600">Status:</span>
               <LegendItem color="bg-green-500" label="Available" />
-              <LegendItem color="bg-orange-400" label="Limited" />
-              <LegendItem color="bg-orange-500" label="Booked" />
+              <LegendItem color="bg-rausch-400" label="Limited" />
+              <LegendItem color="bg-rausch-500" label="Booked" />
               <LegendItem color="bg-neutral-300" label="Unavailable" />
             </div>
           )}
@@ -458,8 +458,8 @@ export function AvailabilityCalendar({
                       "rounded-lg border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
-                        ? "border-orange-500 bg-orange-500 text-white hover:bg-orange-600"
-                        : "border-neutral-200 bg-white text-neutral-900 hover:border-orange-500 hover:text-orange-600"
+                        ? "border-rausch-500 bg-rausch-500 text-white hover:bg-rausch-600"
+                        : "border-neutral-200 bg-white text-neutral-900 hover:border-rausch-500 hover:text-rausch-600"
                     )}
                     key={time}
                     onClick={() => onTimeSelect?.(time)}
@@ -514,8 +514,8 @@ function DefaultDayContent({
   const sizeConfig = getSizeConfig(size);
   const statusColors = {
     available: "bg-green-500",
-    limited: "bg-orange-400",
-    booked: "bg-orange-500",
+    limited: "bg-rausch-400",
+    booked: "bg-rausch-500",
     blocked: "bg-neutral-300",
   };
 
@@ -550,20 +550,20 @@ function getThemeConfig(theme: CalendarTheme) {
   const configs = {
     default: {
       gridBorder: "border-neutral-200",
-      selected: "ring-2 ring-orange-500 ring-inset",
+      selected: "ring-2 ring-rausch-500 ring-inset",
       today: "font-bold",
-      selectable: "cursor-pointer hover:ring-2 hover:ring-orange-500/20",
+      selectable: "cursor-pointer hover:ring-2 hover:ring-rausch-500/20",
     },
     professional: {
       gridBorder: "border-neutral-200",
-      selected: "border-orange-500 ring-2 ring-orange-500/20",
-      today: "font-bold text-orange-600",
-      selectable: "cursor-pointer hover:border-orange-500",
+      selected: "border-rausch-500 ring-2 ring-rausch-500/20",
+      today: "font-bold text-rausch-600",
+      selectable: "cursor-pointer hover:border-rausch-500",
     },
     customer: {
       gridBorder: "border-neutral-200",
-      selected: "scale-105 ring-4 ring-orange-500 ring-offset-2",
-      today: "border-orange-500",
+      selected: "scale-105 ring-4 ring-rausch-500 ring-offset-2",
+      today: "border-rausch-500",
       selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
@@ -629,24 +629,26 @@ function getSizeConfig(size: CalendarSize) {
 function getStatusColors(status: DayAvailability["status"] | undefined) {
   const colors = {
     available: {
-      bg: "bg-green-50 border-green-200",
-      text: "text-green-600",
+      bg: "bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800",
+      text: "text-green-600 dark:text-green-400",
     },
     limited: {
-      bg: "bg-orange-50 border-orange-200",
-      text: "text-orange-600",
+      bg: "bg-rausch-50 dark:bg-rausch-900/30 border-rausch-200 dark:border-rausch-800",
+      text: "text-rausch-600 dark:text-rausch-400",
     },
     booked: {
-      bg: "bg-orange-50 border-orange-300",
-      text: "text-orange-600",
+      bg: "bg-rausch-50 dark:bg-rausch-900/30 border-rausch-300 dark:border-rausch-700",
+      text: "text-rausch-600 dark:text-rausch-400",
     },
     blocked: {
-      bg: "bg-neutral-100 border-neutral-200",
-      text: "text-neutral-400",
+      bg: "bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700",
+      text: "text-neutral-400 dark:text-neutral-500",
     },
   };
 
-  return status ? colors[status] : { bg: "bg-white", text: "text-neutral-900" };
+  return status
+    ? colors[status]
+    : { bg: "bg-white dark:bg-neutral-800", text: "text-neutral-900 dark:text-neutral-100" };
 }
 
 /**

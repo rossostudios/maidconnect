@@ -15,7 +15,7 @@
  *
  * Following Lia Design System:
  * - rounded-lg containers
- * - orange-500 active states
+ * - rausch-500 active states
  * - neutral color palette
  */
 
@@ -428,13 +428,13 @@ export function QuickReplies({ onSelectReply, bookingContext, className }: Quick
           className={cn(
             "flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2",
             "font-medium text-neutral-700 text-sm shadow-sm transition-all",
-            "hover:border-orange-200 hover:bg-orange-50/50",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+            "hover:border-rausch-200 hover:bg-rausch-50/50",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
           )}
           onClick={() => setIsExpanded(true)}
           type="button"
         >
-          <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={Message01Icon} />
+          <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={Message01Icon} />
           <span className={geistSans.className}>Quick Replies</span>
           <HugeiconsIcon className="h-4 w-4" icon={ArrowDown01Icon} />
         </button>
@@ -445,10 +445,10 @@ export function QuickReplies({ onSelectReply, bookingContext, className }: Quick
             {smartSuggestions.slice(0, 2).map((suggestion) => (
               <button
                 className={cn(
-                  "rounded-full border border-orange-200 bg-orange-50 px-3 py-1",
-                  "font-medium text-orange-700 text-xs transition-all",
-                  "hover:bg-orange-100",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                  "rounded-full border border-rausch-200 bg-rausch-50 px-3 py-1",
+                  "font-medium text-rausch-700 text-xs transition-all",
+                  "hover:bg-rausch-100",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
                 )}
                 key={suggestion.id}
                 onClick={() => handleSelectReply(suggestion)}
@@ -474,7 +474,7 @@ export function QuickReplies({ onSelectReply, bookingContext, className }: Quick
           </h3>
           {bookingContext && (
             <Badge
-              className="border-orange-200 bg-orange-50 text-orange-700"
+              className="border-rausch-200 bg-rausch-50 text-rausch-700"
               size="sm"
               variant="outline"
             >
@@ -506,10 +506,10 @@ export function QuickReplies({ onSelectReply, bookingContext, className }: Quick
             {smartSuggestions.map((suggestion) => (
               <button
                 className={cn(
-                  "flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5",
-                  "font-medium text-orange-700 text-xs transition-all",
-                  "hover:bg-orange-100",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                  "flex items-center gap-1.5 rounded-full border border-rausch-200 bg-rausch-50 px-3 py-1.5",
+                  "font-medium text-rausch-700 text-xs transition-all",
+                  "hover:bg-rausch-100",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
                 )}
                 key={suggestion.id}
                 onClick={() => handleSelectReply(suggestion)}
@@ -578,17 +578,17 @@ function CategoryPill({ label, icon, isActive, onClick }: CategoryPillProps) {
       className={cn(
         "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5",
         "font-medium text-xs transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500",
         isActive
-          ? "border-orange-200 bg-orange-50 text-orange-700"
-          : "border-neutral-200 bg-white text-neutral-600 hover:border-orange-200 hover:bg-orange-50/50"
+          ? "border-rausch-200 bg-rausch-50 text-rausch-700"
+          : "border-neutral-200 bg-white text-neutral-600 hover:border-rausch-200 hover:bg-rausch-50/50"
       )}
       onClick={onClick}
       type="button"
     >
       {icon && (
         <HugeiconsIcon
-          className={cn("h-3.5 w-3.5", isActive ? "text-orange-600" : "text-neutral-400")}
+          className={cn("h-3.5 w-3.5", isActive ? "text-rausch-600" : "text-neutral-400")}
           icon={icon}
         />
       )}
@@ -607,15 +607,15 @@ function TemplateCard({ template, onClick }: TemplateCardProps) {
     <button
       className={cn(
         "rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-left transition-all",
-        "hover:border-orange-200 hover:bg-orange-50/50",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+        "hover:border-rausch-200 hover:bg-rausch-50/50",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500"
       )}
       onClick={onClick}
       type="button"
     >
       <div className="mb-1 flex items-center gap-2">
         {template.icon && (
-          <HugeiconsIcon className="h-4 w-4 text-orange-500" icon={template.icon} />
+          <HugeiconsIcon className="h-4 w-4 text-rausch-500" icon={template.icon} />
         )}
         <span className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
           {template.label}

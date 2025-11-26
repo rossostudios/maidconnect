@@ -61,7 +61,7 @@ export function CustomerPendingReviews({ bookings }: Props) {
 
           return (
             <div
-              className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-orange-200 hover:shadow-sm"
+              className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-6 transition-all hover:border-rausch-200 hover:shadow-sm"
               key={booking.id}
             >
               <div className="flex items-center gap-4">
@@ -94,7 +94,7 @@ export function CustomerPendingReviews({ bookings }: Props) {
               {/* Rate Button */}
               <button
                 className={cn(
-                  "rounded-lg border border-orange-200 bg-orange-500 px-4 py-2 font-semibold text-sm text-white transition-all hover:bg-orange-600",
+                  "rounded-lg border border-rausch-200 bg-rausch-500 px-4 py-2 font-semibold text-sm text-white transition-all hover:bg-rausch-600",
                   geistSans.className
                 )}
                 onClick={() => setSelectedBooking(booking)}

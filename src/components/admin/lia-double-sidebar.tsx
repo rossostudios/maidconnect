@@ -222,7 +222,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                 <button
                   className={cn(
                     "group relative flex h-14 w-full items-center justify-center transition-all",
-                    isSelected || hasActiveItem ? "bg-orange-50" : "bg-white hover:bg-neutral-50"
+                    isSelected || hasActiveItem ? "bg-rausch-50" : "bg-white hover:bg-neutral-50"
                   )}
                   onClick={() => setSelectedCategory(category.id)}
                   type="button"
@@ -231,7 +231,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                   <span
                     className={cn(
                       "absolute top-0 left-0 h-full w-1 transition-all",
-                      isSelected || hasActiveItem ? "bg-orange-500" : "bg-transparent"
+                      isSelected || hasActiveItem ? "bg-rausch-500" : "bg-transparent"
                     )}
                   />
 
@@ -239,7 +239,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                     className={cn(
                       "h-5 w-5 transition-colors",
                       isSelected || hasActiveItem
-                        ? "text-orange-500"
+                        ? "text-rausch-500"
                         : "text-neutral-400 group-hover:text-neutral-700"
                     )}
                     icon={category.icon}
@@ -255,7 +255,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
           <button
             className={cn(
               "flex h-14 w-full items-center justify-center border-neutral-200 border-t transition-colors",
-              selectedCategory === "settings" ? "bg-orange-50" : "bg-white hover:bg-neutral-50"
+              selectedCategory === "settings" ? "bg-rausch-50" : "bg-white hover:bg-neutral-50"
             )}
             onClick={() => setSelectedCategory("settings")}
             type="button"
@@ -264,7 +264,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
               className={cn(
                 "h-5 w-5 transition-colors",
                 selectedCategory === "settings"
-                  ? "text-orange-500"
+                  ? "text-rausch-500"
                   : "text-neutral-400 hover:text-neutral-700"
               )}
               icon={Settings01Icon}
@@ -279,15 +279,15 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
         <div className="flex items-center gap-2.5 border-neutral-200 border-b bg-white px-4 py-3">
           {selectedCategoryData && (
             <>
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-orange-200 bg-orange-50">
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-rausch-200 bg-rausch-50">
                 <HugeiconsIcon
-                  className="h-4.5 w-4.5 text-orange-500"
+                  className="h-4.5 w-4.5 text-rausch-500"
                   icon={selectedCategoryData.icon}
                 />
               </div>
               <h2
                 className={cn(
-                  "min-w-0 flex-1 font-semibold text-orange-500 text-sm",
+                  "min-w-0 flex-1 font-semibold text-rausch-500 text-sm",
                   geistSans.className
                 )}
               >
@@ -306,7 +306,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
             />
             <input
               className={cn(
-                "w-full rounded-lg border border-neutral-200 bg-white py-1.5 pr-3 pl-9 text-neutral-900 text-sm placeholder-neutral-400 transition-colors focus:border-orange-500 focus:outline-none",
+                "w-full rounded-lg border border-neutral-200 bg-white py-1.5 pr-3 pl-9 text-neutral-900 text-sm placeholder-neutral-400 transition-colors focus:border-rausch-500 focus:outline-none",
                 geistSans.className
               )}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -326,7 +326,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                   "group flex items-start justify-between px-3 py-2.5 transition-all",
                   geistSans.className,
                   pathname === "/admin/settings"
-                    ? "bg-orange-50 text-orange-600"
+                    ? "bg-rausch-50 text-rausch-600"
                     : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
                 )}
                 href="/admin/settings"
@@ -349,7 +349,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
                       "group flex items-start justify-between px-3 py-2.5 transition-all",
                       geistSans.className,
                       active
-                        ? "bg-orange-50 text-orange-600"
+                        ? "bg-rausch-50 text-rausch-600"
                         : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
                     )}
                     href={item.href}
@@ -386,7 +386,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
             <button
               aria-controls="admin-profile-menu"
               aria-expanded={showProfileMenu}
-              className="flex w-full items-center gap-2.5 p-3 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+              className="flex w-full items-center gap-2.5 p-3 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
               onClick={() => setShowProfileMenu((prev) => !prev)}
               type="button"
             >
@@ -476,7 +476,7 @@ export function LiaDoubleSidebar({ userEmail, userName, userAvatarUrl }: Props) 
 
                   <button
                     className={cn(
-                      "flex w-full items-center justify-between rounded-lg bg-orange-500 px-3 py-2 font-medium text-white text-xs transition-colors hover:bg-orange-600",
+                      "flex w-full items-center justify-between rounded-lg bg-rausch-500 px-3 py-2 font-medium text-white text-xs transition-colors hover:bg-rausch-600",
                       isLoading && "cursor-wait opacity-70"
                     )}
                     disabled={isLoading}

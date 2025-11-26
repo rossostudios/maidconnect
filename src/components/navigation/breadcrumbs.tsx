@@ -69,7 +69,7 @@ export function Breadcrumbs() {
         <li className="m-0 p-0">
           <Link
             className={cn(
-              "flex items-center gap-2 font-normal text-neutral-700 text-xs uppercase tracking-wider transition-colors hover:text-[#FF5200]",
+              "flex items-center gap-2 font-normal text-muted-foreground text-xs uppercase tracking-wider transition-colors hover:text-primary",
               geistSans.className
             )}
             href="/"
@@ -82,13 +82,13 @@ export function Breadcrumbs() {
           <li className="m-0 flex items-center gap-2 p-0" key={index}>
             <HugeiconsIcon
               aria-hidden="true"
-              className="h-3.5 w-3.5 flex-shrink-0 text-neutral-600"
+              className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground"
               icon={ArrowRight01Icon}
             />
             {item.href ? (
               <Link
                 className={cn(
-                  "font-normal text-neutral-700 text-xs uppercase tracking-wider transition-colors hover:text-[#FF5200]",
+                  "font-normal text-muted-foreground text-xs uppercase tracking-wider transition-colors hover:text-primary",
                   geistSans.className
                 )}
                 href={item.href}
@@ -98,7 +98,7 @@ export function Breadcrumbs() {
             ) : (
               <span
                 className={cn(
-                  "font-semibold text-neutral-900 text-xs uppercase tracking-wider",
+                  "font-semibold text-foreground text-xs uppercase tracking-wider",
                   geistSans.className
                 )}
               >

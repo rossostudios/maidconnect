@@ -83,7 +83,7 @@ export function CustomerSubmittedReviews({ reviews }: Props) {
                     {review.professional ? (
                       <Link
                         className={cn(
-                          "font-semibold text-neutral-900 hover:text-orange-600",
+                          "font-semibold text-neutral-900 hover:text-rausch-600",
                           geistSans.className
                         )}
                         href={`/professionals/${review.professional.profile_id}`}

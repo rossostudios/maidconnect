@@ -8,9 +8,9 @@ import { Container } from "@/components/ui/container";
 
 const colorClasses = {
   orange: {
-    bg: "bg-orange-100",
-    text: "text-orange-600",
-    border: "border-orange-200",
+    bg: "bg-rausch-100",
+    text: "text-rausch-600",
+    border: "border-rausch-200",
   },
   neutral: {
     bg: "bg-neutral-100",
@@ -18,9 +18,9 @@ const colorClasses = {
     border: "border-neutral-200",
   },
   blue: {
-    bg: "bg-blue-100",
-    text: "text-blue-600",
-    border: "border-blue-200",
+    bg: "bg-babu-100",
+    text: "text-babu-600",
+    border: "border-babu-200",
   },
 };
 
@@ -121,13 +121,13 @@ export function ProsThreeWaysToEarnSection() {
         </motion.div>
 
         <motion.div
-          className="mt-12 rounded-lg border border-blue-200 bg-blue-50 p-6 text-center shadow-sm"
+          className="mt-12 rounded-lg border border-babu-200 bg-babu-50 p-6 text-center shadow-sm"
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
           whileInView={{ opacity: 1, y: 0 }}
         >
-          <p className="font-[family-name:var(--font-geist-sans)] font-semibold text-blue-900 text-lg leading-relaxed">
+          <p className="font-[family-name:var(--font-geist-sans)] font-semibold text-babu-900 text-lg leading-relaxed">
             {t("ctaText")}
           </p>
         </motion.div>

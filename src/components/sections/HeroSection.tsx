@@ -87,17 +87,14 @@ export function HeroSection() {
   const titleWords = heroTitle.split(" ");
 
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-b from-[#fffaf5] via-[#fffefd] to-[#f3f6f9] text-neutral-900"
-      ref={sectionRef}
-    >
+    <section className="relative overflow-hidden bg-background text-foreground" ref={sectionRef}>
       {/* Subtle gradient overlays */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/60 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background via-background/60 to-transparent" />
 
       {/* Subtle decorative elements */}
-      <div className="pointer-events-none absolute top-1/3 left-1/4 h-[500px] w-[500px] rounded-full bg-orange-100/30 blur-3xl" />
-      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full bg-blue-100/20 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/3 left-1/4 h-[500px] w-[500px] rounded-full bg-rausch-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full bg-babu-500/10 blur-3xl" />
 
       <Container className="relative z-10 max-w-screen-2xl px-4 md:px-8 lg:px-12">
         <motion.div
@@ -111,7 +108,7 @@ export function HeroSection() {
           <div className="flex flex-col gap-6 lg:col-span-6 lg:gap-8">
             {/* Word-by-word animated headline */}
             <motion.h1
-              className="max-w-2xl font-[family-name:var(--font-geist-sans)] text-[40px] text-neutral-950 leading-[1.05] tracking-tight sm:text-[50px] md:text-[60px]"
+              className="max-w-2xl font-[family-name:var(--font-geist-sans)] text-[40px] text-foreground leading-[1.05] tracking-tight sm:text-[50px] md:text-[60px]"
               variants={stagger}
             >
               {titleWords.map((word, index) => (
@@ -138,7 +135,7 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              className="max-w-xl text-lg text-neutral-600 leading-relaxed md:text-[19px]"
+              className="max-w-xl text-lg text-muted-foreground leading-relaxed md:text-[19px]"
               variants={slideUp}
             >
               {heroSubtitle}
@@ -149,7 +146,7 @@ export function HeroSection() {
               <motion.div variants={buttonVariants}>
                 <Link href="/brief">
                   <Button
-                    className="group hover:-translate-y-0.5 relative rounded-full bg-orange-500 px-7 py-3.5 text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:bg-orange-600 hover:shadow-orange-500/30 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+                    className="group hover:-translate-y-0.5 relative rounded-full bg-rausch-500 px-7 py-3.5 text-white shadow-lg shadow-rausch-500/25 transition-all duration-300 hover:bg-rausch-600 hover:shadow-rausch-500/30 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
                         ctaType: "start_brief",
@@ -168,7 +165,7 @@ export function HeroSection() {
               <motion.div variants={buttonVariants}>
                 <Link href="/how-it-works">
                   <Button
-                    className="hover:-translate-y-0.5 rounded-full border-2 border-neutral-200 bg-white px-7 py-3.5 text-neutral-800 shadow-sm transition-all duration-300 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-md focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
+                    className="hover:-translate-y-0.5 rounded-full border-2 border-border bg-card px-7 py-3.5 text-foreground shadow-sm transition-all duration-300 hover:border-rausch-500/50 hover:bg-muted hover:shadow-md focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2"
                     onClick={() =>
                       conversionTracking.heroCTAClicked({
                         ctaType: "learn_more",
@@ -190,14 +187,11 @@ export function HeroSection() {
             <motion.div className="flex items-center gap-3" variants={fadeIn}>
               <div className="-space-x-1.5 flex">
                 {[1, 2, 3, 4].map((i) => (
-                  <div
-                    className="h-7 w-7 rounded-full border-2 border-white bg-gradient-to-br from-neutral-100 to-neutral-200"
-                    key={i}
-                  />
+                  <div className="h-7 w-7 rounded-full border-2 border-card bg-muted" key={i} />
                 ))}
               </div>
-              <p className="font-medium text-neutral-600 text-sm">
-                <span className="text-neutral-900">500+</span> families matched with trusted staff
+              <p className="font-medium text-muted-foreground text-sm">
+                <span className="text-foreground">500+</span> families matched with trusted staff
               </p>
             </motion.div>
           </div>
@@ -209,7 +203,7 @@ export function HeroSection() {
             variants={imageStagger}
           >
             <motion.div
-              className="group relative mx-auto max-w-2xl rounded-[28px] border border-neutral-200/80 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] transition-all duration-500 hover:shadow-[0_32px_100px_rgba(15,23,42,0.12)]"
+              className="group relative mx-auto max-w-2xl rounded-[28px] border border-border bg-card shadow-lg transition-all duration-500 hover:shadow-xl"
               transition={{ duration: 0.3 }}
               variants={fadeInScale}
               whileHover={{ y: -4 }}
@@ -226,17 +220,17 @@ export function HeroSection() {
                   />
                 </div>
                 {/* Subtle gradient overlay on image */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-transparent" />
               </div>
               <motion.div
-                className="flex items-center justify-between gap-3 rounded-b-[28px] border-neutral-200/80 border-t bg-neutral-50/80 px-5 py-4 text-neutral-700 text-sm"
+                className="flex items-center justify-between gap-3 rounded-b-[28px] border-border border-t bg-muted/80 px-5 py-4 text-muted-foreground text-sm"
                 variants={slideUp}
               >
                 <div>
-                  <div className="font-semibold text-[13px] text-neutral-900">
+                  <div className="font-semibold text-[13px] text-foreground">
                     Book instantly online
                   </div>
-                  <div className="text-neutral-500 text-xs">Background checked & insured</div>
+                  <div className="text-muted-foreground text-xs">Background checked & insured</div>
                 </div>
                 <motion.span
                   animate={{

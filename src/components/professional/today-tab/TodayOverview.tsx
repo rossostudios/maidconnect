@@ -22,7 +22,6 @@ import {
   Clock01Icon,
   DollarCircleIcon,
   Message01Icon,
-  StarIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
@@ -32,8 +31,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
 import { DailyScheduleCompact, type ScheduledBooking } from "./DailySchedule";
-import { NoTasksCard, TodayTaskCard, type TodayTask } from "./TodayTaskCard";
+import { NoTasksCard, type TodayTask, TodayTaskCard } from "./TodayTaskCard";
 
 type Booking = {
   id: string;
@@ -55,8 +55,12 @@ type TodayOverviewProps = {
 
 function getGreeting(): string {
   const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
+  if (hour < 12) {
+    return "Good morning";
+  }
+  if (hour < 17) {
+    return "Good afternoon";
+  }
   return "Good evening";
 }
 
@@ -65,13 +69,19 @@ function getTimeUntil(dateString: string): string {
   const target = new Date(dateString);
   const diffMs = target.getTime() - now.getTime();
 
-  if (diffMs < 0) return "Started";
+  if (diffMs < 0) {
+    return "Started";
+  }
 
   const diffMins = Math.floor(diffMs / (1000 * 60));
   const diffHours = Math.floor(diffMins / 60);
 
-  if (diffMins < 60) return `${diffMins}m`;
-  if (diffHours < 24) return `${diffHours}h`;
+  if (diffMins < 60) {
+    return `${diffMins}m`;
+  }
+  if (diffHours < 24) {
+    return `${diffHours}h`;
+  }
   return `${Math.floor(diffHours / 24)}d`;
 }
 
@@ -86,7 +96,9 @@ function buildTasks(
 
   // Today's bookings - highest priority
   const todayBookings = bookings.filter((b) => {
-    if (!b.scheduled_start || b.status === "completed" || b.status === "cancelled") return false;
+    if (!b.scheduled_start || b.status === "completed" || b.status === "cancelled") {
+      return false;
+    }
     return new Date(b.scheduled_start).toDateString() === today;
   });
 
@@ -104,10 +116,12 @@ function buildTasks(
     // Determine urgency based on time
     let urgency: TodayTask["urgency"] = "normal";
     if (booking.scheduled_start) {
-      const diffMins =
-        (new Date(booking.scheduled_start).getTime() - now.getTime()) / (1000 * 60);
-      if (diffMins < 30 && diffMins > 0) urgency = "urgent";
-      else if (diffMins < 120 && diffMins > 0) urgency = "important";
+      const diffMins = (new Date(booking.scheduled_start).getTime() - now.getTime()) / (1000 * 60);
+      if (diffMins < 30 && diffMins > 0) {
+        urgency = "urgent";
+      } else if (diffMins < 120 && diffMins > 0) {
+        urgency = "important";
+      }
     }
 
     if (booking.status === "in_progress") {
@@ -127,7 +141,7 @@ function buildTasks(
       timeUntil: booking.status === "in_progress" ? "Now" : timeUntil,
       urgency,
       actionLabel: booking.status === "in_progress" ? "Complete Check-out" : "View Details",
-      actionHref: `/dashboard/pro/bookings`,
+      actionHref: "/dashboard/pro/bookings",
     });
   }
 
@@ -148,7 +162,7 @@ function buildTasks(
         : undefined,
       urgency: "important",
       actionLabel: "Respond",
-      actionHref: `/dashboard/pro/bookings`,
+      actionHref: "/dashboard/pro/bookings",
     });
   }
 
@@ -191,7 +205,9 @@ function buildSchedule(bookings: Booking[]): ScheduledBooking[] {
 
   return bookings
     .filter((b) => {
-      if (!b.scheduled_start) return false;
+      if (!b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return (
         bookingDate.toDateString() === today &&
@@ -259,11 +275,7 @@ export function TodayOverview({
               {urgentCount} urgent
             </Badge>
           )}
-          <Badge
-            className="border-blue-200 bg-blue-50 text-blue-600"
-            size="sm"
-            variant="outline"
-          >
+          <Badge className="border-babu-200 bg-babu-50 text-babu-600" size="sm" variant="outline">
             <HugeiconsIcon className="mr-1 h-3 w-3" icon={Calendar03Icon} />
             {todayBookingsCount} today
           </Badge>
@@ -277,7 +289,7 @@ export function TodayOverview({
           initial={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <div className="rounded-lg border border-red-200 bg-gradient-to-r from-red-50 to-orange-50 p-4">
+          <div className="rounded-lg border border-red-200 bg-gradient-to-r from-red-50 to-rausch-50 p-4">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
                 <HugeiconsIcon className="h-5 w-5 text-red-600" icon={Clock01Icon} />
@@ -313,7 +325,10 @@ export function TodayOverview({
         <div>
           <div className="mb-4 flex items-center justify-between">
             <h2 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-              <HugeiconsIcon className="mr-2 inline h-4 w-4 text-neutral-500" icon={CheckmarkCircle02Icon} />
+              <HugeiconsIcon
+                className="mr-2 inline h-4 w-4 text-neutral-500"
+                icon={CheckmarkCircle02Icon}
+              />
               Tasks
             </h2>
             <span className="text-neutral-500 text-xs">{tasks.length} pending</span>
@@ -321,9 +336,9 @@ export function TodayOverview({
 
           <div className="space-y-3">
             {tasks.length > 0 ? (
-              tasks.slice(0, 5).map((task, index) => (
-                <TodayTaskCard index={index} key={task.id} task={task} />
-              ))
+              tasks
+                .slice(0, 5)
+                .map((task, index) => <TodayTaskCard index={index} key={task.id} task={task} />)
             ) : (
               <NoTasksCard />
             )}
@@ -343,11 +358,14 @@ export function TodayOverview({
         <div>
           <div className="mb-4 flex items-center justify-between">
             <h2 className={cn("font-semibold text-neutral-900 text-sm", geistSans.className)}>
-              <HugeiconsIcon className="mr-2 inline h-4 w-4 text-neutral-500" icon={Calendar03Icon} />
+              <HugeiconsIcon
+                className="mr-2 inline h-4 w-4 text-neutral-500"
+                icon={Calendar03Icon}
+              />
               Today&apos;s Schedule
             </h2>
             <Link
-              className="text-orange-600 text-xs hover:text-orange-700"
+              className="text-rausch-600 text-xs hover:text-rausch-700"
               href="/dashboard/pro/bookings"
             >
               Full calendar →
@@ -360,9 +378,7 @@ export function TodayOverview({
 
       {/* Quick Actions */}
       <div>
-        <h2
-          className={cn("mb-4 font-semibold text-neutral-900 text-sm", geistSans.className)}
-        >
+        <h2 className={cn("mb-4 font-semibold text-neutral-900 text-sm", geistSans.className)}>
           Quick Actions
         </h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -373,10 +389,10 @@ export function TodayOverview({
             variant="primary"
           />
           <QuickActionCard
+            badge={pendingMessages > 0 ? pendingMessages : undefined}
             href="/dashboard/pro/messages"
             icon={Message01Icon}
             label="Messages"
-            badge={pendingMessages > 0 ? pendingMessages : undefined}
           />
           <QuickActionCard
             href="/dashboard/pro/finances"
@@ -401,7 +417,7 @@ function QuickActionCard({
   badge,
   variant = "default",
 }: {
-  icon: React.ComponentType;
+  icon: HugeIcon;
   label: string;
   href: string;
   badge?: number;
@@ -412,8 +428,8 @@ function QuickActionCard({
       className={cn(
         "group relative flex flex-col items-center gap-2 rounded-lg border p-4 transition-all hover:shadow-md",
         variant === "primary"
-          ? "border-orange-200 bg-orange-50 hover:border-orange-300"
-          : "border-neutral-200 bg-white hover:border-orange-200"
+          ? "border-rausch-200 bg-rausch-50 hover:border-rausch-300"
+          : "border-neutral-200 bg-white hover:border-rausch-200"
       )}
       href={href}
     >
@@ -426,8 +442,8 @@ function QuickActionCard({
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-lg transition-colors",
           variant === "primary"
-            ? "bg-orange-100 text-orange-600 group-hover:bg-orange-200"
-            : "bg-neutral-100 text-neutral-600 group-hover:bg-orange-50 group-hover:text-orange-600"
+            ? "bg-rausch-100 text-rausch-600 group-hover:bg-rausch-200"
+            : "bg-neutral-100 text-neutral-600 group-hover:bg-rausch-50 group-hover:text-rausch-600"
         )}
       >
         <HugeiconsIcon className="h-5 w-5" icon={icon} />
@@ -435,7 +451,7 @@ function QuickActionCard({
       <span
         className={cn(
           "font-medium text-xs",
-          variant === "primary" ? "text-orange-700" : "text-neutral-700"
+          variant === "primary" ? "text-rausch-700" : "text-neutral-700"
         )}
       >
         {label}

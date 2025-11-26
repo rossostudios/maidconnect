@@ -87,7 +87,7 @@ export function FeedbackActions({
               Status
             </label>
             <select
-              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -106,7 +106,7 @@ export function FeedbackActions({
               Priority
             </label>
             <select
-              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -126,7 +126,7 @@ export function FeedbackActions({
         <h3 className="mb-4 font-bold text-lg text-neutral-900">Add Admin Notes</h3>
 
         <textarea
-          className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+          className="w-full rounded-lg border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."

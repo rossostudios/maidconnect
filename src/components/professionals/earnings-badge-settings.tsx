@@ -156,7 +156,7 @@ export function EarningsBadgeSettings() {
     return (
       <div className="rounded-lg border border-neutral-200 bg-white p-6">
         <div className="flex items-center gap-3">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-200 border-t-orange-500" />
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-200 border-t-rausch-500" />
           <span className={cn("text-neutral-600", geistSans.className)}>Loading settings...</span>
         </div>
       </div>
@@ -223,8 +223,8 @@ export function EarningsBadgeSettings() {
       </div>
 
       {/* Info Message */}
-      <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <p className={cn("text-blue-700 text-sm", geistSans.className)}>
+      <div className="mt-4 rounded-lg border border-babu-200 bg-babu-50 p-4">
+        <p className={cn("text-babu-700 text-sm", geistSans.className)}>
           💡 <strong>Tip:</strong> Professionals who display their earnings badge see 23% more
           bookings on average. Your badge tier is based on total completed bookings.
         </p>

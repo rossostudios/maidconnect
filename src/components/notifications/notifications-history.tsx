@@ -109,7 +109,7 @@ export function NotificationsHistory() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <HugeiconsIcon className="h-8 w-8 animate-spin text-orange-500" icon={Loading03Icon} />
+        <HugeiconsIcon className="h-8 w-8 animate-spin text-rausch-500" icon={Loading03Icon} />
       </div>
     );
   }
@@ -152,7 +152,7 @@ export function NotificationsHistory() {
         </div>
         {unreadCount > 0 && (
           <button
-            className="rounded-lg bg-orange-50 px-4 py-2 font-medium text-orange-600 text-sm transition hover:bg-orange-100"
+            className="rounded-lg bg-rausch-50 px-4 py-2 font-medium text-rausch-600 text-sm transition hover:bg-rausch-100"
             onClick={markAllAsRead}
             type="button"
           >
@@ -179,7 +179,7 @@ export function NotificationsHistory() {
               className={`rounded-lg border p-5 transition ${
                 notification.read_at
                   ? "border-neutral-200 bg-white hover:border-neutral-300"
-                  : "border-orange-200 bg-orange-50/50 hover:border-orange-300"
+                  : "border-rausch-200 bg-rausch-50/50 hover:border-rausch-300"
               }`}
               key={notification.id}
             >
@@ -187,7 +187,7 @@ export function NotificationsHistory() {
                 <div className="min-w-0 flex-1">
                   {/* Unread indicator */}
                   {!notification.read_at && (
-                    <span className="mb-2 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 font-medium text-orange-700 text-xs">
+                    <span className="mb-2 inline-flex items-center rounded-full bg-rausch-100 px-2 py-0.5 font-medium text-rausch-700 text-xs">
                       New
                     </span>
                   )}
@@ -198,7 +198,7 @@ export function NotificationsHistory() {
                       href={sanitizeURL(notification.url)}
                       onClick={() => markAsRead([notification.id])}
                     >
-                      <h3 className="font-semibold text-base text-neutral-900 transition group-hover:text-orange-600">
+                      <h3 className="font-semibold text-base text-neutral-900 transition group-hover:text-rausch-600">
                         {notification.title}
                       </h3>
                       <p className="mt-1 text-neutral-600 text-sm">{notification.body}</p>
