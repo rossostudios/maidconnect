@@ -14,45 +14,33 @@
     "product": "Producto",
     "resources": "Recursos",
     "dropdown": {
-      "professionals": {
-        "title": "Profesionales",
-        "featuredDesc": "Encuentra profesionales verificados y con antecedentes comprobados listos para ayudarte.",
-        "howItWorks": "Cómo Funciona",
-        "howItWorksDesc": "Aprende cómo Casaora te conecta con profesionales de confianza",
-        "vettingProcess": "Proceso de Verificación",
-        "vettingProcessDesc": "Nuestra rigurosa selección garantiza calidad y seguridad",
-        "pricing": "Precios",
-        "pricingDesc": "Precios transparentes sin costos ocultos",
+      "findHelp": {
+        "title": "Buscar Ayuda",
+        "featuredDesc": "Encuentra profesionales verificados y con antecedentes comprobados para tu hogar.",
         "browse": "Explorar Profesionales",
-        "browseDesc": "Encuentra profesionales de confianza para cualquier necesidad del hogar"
+        "browseDesc": "Encuentra y reserva ayuda de confianza para tu hogar",
+        "howItWorks": "Cómo Funciona",
+        "howItWorksDesc": "Aprende cómo Casaora te conecta con profesionales"
       },
-      "customers": {
-        "title": "Clientes",
-        "featuredDesc": "Todo lo que necesitas para reservar y gestionar servicios del hogar con confianza.",
-        "bookNow": "Reservar Ahora",
-        "bookNowDesc": "Agenda tu primer servicio en minutos",
-        "helpCenter": "Centro de Ayuda",
-        "helpCenterDesc": "Encuentra respuestas a preguntas frecuentes",
-        "support": "Contactar Soporte",
-        "supportDesc": "Obtén ayuda de nuestro equipo de atención al cliente"
+      "forProfessionals": {
+        "title": "Para Profesionales",
+        "featuredDesc": "Únete a nuestra red de profesionales verificados del hogar.",
+        "becomePro": "Ser Profesional",
+        "becomeProDesc": "Aplica para unirte a nuestra red verificada y hacer crecer tu negocio",
+        "ambassador": "Programa de Embajadores",
+        "ambassadorDesc": "Gana recompensas refiriendo excelentes profesionales"
       },
       "company": {
         "title": "Empresa",
-        "featuredDesc": "Conoce nuestra misión de transformar los servicios del hogar en América Latina.",
+        "featuredDesc": "Conoce nuestra misión de transformar los servicios del hogar.",
         "about": "Nosotros",
         "aboutDesc": "Nuestra historia y misión",
         "blog": "Blog",
         "blogDesc": "Noticias, consejos e información del sector",
-        "careers": "Carreras",
-        "careersDesc": "Únete a nuestro equipo en crecimiento"
-      },
-      "join": {
-        "title": "Únete",
-        "featuredDesc": "Construye tu carrera o amplía tu red con Casaora.",
-        "becomePro": "Ser Profesional",
-        "becomeProDesc": "Únete a nuestra red de profesionales verificados",
-        "ambassador": "Programa de Embajadores",
-        "ambassadorDesc": "Gana recompensas refiriendo profesionales"
+        "help": "Centro de Ayuda",
+        "helpDesc": "Encuentra respuestas a preguntas frecuentes",
+        "contact": "Contáctanos",
+        "contactDesc": "Comunícate con nuestro equipo"
       }
     },
     "desktopMenu": {
@@ -65,6 +53,10 @@
     }
   },
   "professionals": {
+    "meta": {
+      "title": "Encontrar Profesionales | Casaora",
+      "description": "Explora y reserva profesionales del hogar verificados en tu zona. Filtra por ubicación, tipo de servicio, disponibilidad y calificaciones."
+    },
     "title": "Encuentra tu profesional perfecto",
     "filterBy": "Filtrar por",
     "serviceType": "Tipo de servicio",
@@ -117,6 +109,39 @@
     "allServices": {
       "title": "Todo lo que tu hogar necesita",
       "description": "Desde limpieza hasta cuidado de niños y cocina: encuentre ayuda para cada tarea del hogar."
+    },
+    "visuals": {
+      "profileCard": {
+        "backgroundName": "Laura Sofía",
+        "mainName": "María Camila",
+        "proBadge": "Pro",
+        "backgroundSpecialty": "Cuidado infantil • Medellín",
+        "mainSpecialty": "Especialista en limpieza • Bogotá",
+        "reviewCount": "(127 reseñas)",
+        "idVerified": "ID Verificado",
+        "backgroundCheck": "Antecedentes Verificados",
+        "bio": "He sido limpiadora profesional durante 8 años, especializada en limpieza profunda y organización. Trato cada hogar como si fuera el mío, con atención al detalle y cuidado de sus pertenencias."
+      },
+      "securePayment": {
+        "paymentHeld": "Pago retenido de forma segura",
+        "protected": "Protegido",
+        "amount": "$85.000 COP",
+        "releasedWhen": "Se libera cuando el servicio está completo"
+      },
+      "reviews": {
+        "backgroundReview": "Los profesionales en Casaora son increíbles. He contratado a tres limpiadores diferentes y cada uno ha sido...",
+        "backgroundName": "Andrea M.",
+        "featuredReview": "Encontrar ayuda confiable en casa solía ser tan estresante. Casaora verificó todo—antecedentes, entrevistas, reseñas—para que pudiera concentrarme en mi familia.",
+        "featuredName": "Brooke",
+        "verifiedCustomer": "Cliente Verificado",
+        "hiredFor": "Contratado para: Limpieza",
+        "location": "Bogotá, Colombia"
+      },
+      "calendar": {
+        "month": "Noviembre 2025",
+        "days": ["D", "L", "M", "M", "J", "V", "S"],
+        "times": ["9:00 AM", "11:00 AM", "2:00 PM", "4:00 PM"]
+      }
     }
   },
   "home": {
@@ -144,8 +169,10 @@
       }
     },
     "process": {
+      "badge": "Cómo Funciona",
       "title": "Cómo funciona Casaora para tu hogar",
       "description": "Tres simples pasos te conectan con profesionales verificados",
+      "disclaimer": "La tarifa del 15% cubre verificación de antecedentes, seguro y soporte. Los profesionales mantienen el 100%.",
       "step1": {
         "title": "Cuéntanos qué necesitas",
         "description": "Selecciona el servicio—limpieza, niñera, cocina o cuidado de adultos mayores. Elige tu horario, ubicación y requisitos especiales."
@@ -159,6 +186,39 @@
         "description": "Confirma tu reserva con pago seguro. Chatea por la app y disfruta de la tranquilidad de nuestra garantía de satisfacción."
       },
       "cta": "Encontrar Ayuda Ahora"
+    },
+    "howItWorksCards": {
+      "title": "Cómo funciona",
+      "subtitle": "Reserva ayuda de confianza para tu hogar en 3 simples pasos",
+      "browse": "Busca y Elige",
+      "browseDescription": "Busca profesionales verificados por servicio, ubicación y disponibilidad. Lee reseñas de otras familias.",
+      "book": "Reserva al Instante",
+      "bookDescription": "Selecciona tu horario preferido y reserva directamente. Sin esperas, sin llamadas—solo confirmación instantánea.",
+      "enjoy": "Disfruta con Tranquilidad",
+      "enjoyDescription": "Cada reserva incluye verificación de antecedentes, pagos seguros y nuestra garantía de satisfacción.",
+      "footer": "La tarifa del 15% cubre verificación de antecedentes, seguro y soporte. Los profesionales mantienen el 100% de su tarifa."
+    },
+    "trustChecklist": {
+      "badge": "Confianza y Seguridad",
+      "title": "Tu seguridad es nuestra prioridad",
+      "subtitle": "Cada profesional en Casaora está evaluado, verificado y respaldado por nuestras garantías de plataforma.",
+      "background": {
+        "title": "Verificación de Antecedentes",
+        "description": "Cada profesional pasa una verificación completa de antecedentes penales a través de agencias certificadas antes de unirse a nuestra plataforma."
+      },
+      "identity": {
+        "title": "Verificación de Identidad",
+        "description": "La verificación de identificación gubernamental confirma la identidad de cada profesional con escaneo de documentos y verificación biométrica."
+      },
+      "payments": {
+        "title": "Pagos Seguros",
+        "description": "Todos los pagos se procesan a través de procesadores compatibles con PCI. Tus datos de pago están encriptados y nunca se comparten."
+      },
+      "guarantee": {
+        "title": "Garantía de Satisfacción",
+        "description": "¿No estás satisfecho con un servicio? Contáctanos dentro de las 24 horas y lo solucionaremos—o te reembolsamos la reserva."
+      },
+      "footer": "Estas protecciones están incluidas en cada reserva sin costo adicional."
     },
     "verification": {
       "badge": "Confianza y Seguridad",
@@ -1991,6 +2051,14 @@
       }
     }
   },
+  "getStarted": {
+    "title": "¿Listo para Encontrar Ayuda de Confianza?",
+    "subtitle": "Explora profesionales verificados en toda América Latina. Reserva al instante con precios transparentes y soporte completo.",
+    "browseProfessionals": "Explorar Profesionales",
+    "bookConsultation": "Comenzar",
+    "cities": "Servicio en Colombia, Paraguay, Uruguay y Argentina",
+    "languages": "Soporte en inglés, español y portugués"
+  },
   "auth": {
     "email": "Correo electrónico",
     "password": "Contraseña",
@@ -2058,6 +2126,8 @@
   },
   "footer": {
     "description": "Profesionales del hogar de confianza en América Latina",
+    "tagline": "Profesionales del hogar de confianza en América Latina. Simple, seguro y justo.",
+    "copyright": "© {year} Casaora. Todos los derechos reservados.",
     "platform": "Plataforma",
     "company": "Empresa",
     "mobile": "Móvil",
@@ -2067,6 +2137,13 @@
     "roadmap": "Hoja de ruta",
     "helpCenter": "Centro de Ayuda",
     "contact": "Contacto",
+    "legal": "Legal",
+    "contactSection": "Contacto",
+    "blog": "Blog",
+    "whatsNew": "Novedades",
+    "compliance": "Cumplimiento",
+    "security": "Seguridad",
+    "contactSales": "Contactar Ventas",
     "services": "Servicios",
     "about": "Acerca de",
     "loginSignup": "Iniciar sesión / Registrarse",
@@ -2681,32 +2758,32 @@
     "contact": {
       "meta": {
         "title": "Contáctanos | Casaora",
-        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
+        "description": "¿Tienes una pregunta o necesitas ayuda? Nuestro equipo está aquí para ayudarte a encontrar profesionales de confianza o hacer crecer tu negocio."
       },
       "hero": {
-        "badge": "CONTACTO",
-        "title": "¿Cómo podemos ayudarte?",
-        "description": "Ya sea que estés buscando contratar profesionales de confianza, interesado en unirte a nuestra red o simplemente tengas una pregunta, nuestro equipo está aquí para ayudarte."
+        "badge": "ESTAMOS AQUÍ PARA TI",
+        "title": "Tu hogar merece el mejor cuidado—y tú también",
+        "description": "¿Tienes una pregunta, necesitas ayuda o quieres compartir comentarios? Nuestro equipo está listo para ayudarte en cada paso del camino."
       },
       "cards": {
         "support": {
-          "title": "Soporte",
-          "description": "Completa nuestro formulario o envíanos un correo a support@casaora.co con tu pregunta.",
-          "buttonText": "Enviar consulta"
+          "title": "¿Necesitas ayuda con algo?",
+          "description": "Ya sea una pregunta sobre una reserva, un problema con tu cuenta o cualquier otra cosa—estamos a solo un mensaje de distancia. Nuestro equipo de soporte generalmente responde en pocas horas.",
+          "buttonText": "Obtener Ayuda"
         },
         "customers": {
-          "title": "Para clientes",
-          "description": "Explora nuestros profesionales verificados y reserva ayuda confiable para tu hogar.",
-          "buttonText": "Encontrar un profesional"
+          "title": "¿Buscas al profesional indicado?",
+          "description": "Encontrar ayuda confiable para tu hogar debería ser fácil. Explora nuestros profesionales verificados y reserva con confianza—estamos aquí si necesitas orientación.",
+          "buttonText": "Encontrar un Profesional"
         },
         "professionals": {
-          "title": "Para profesionales",
-          "description": "Únete a nuestra red y conéctate con familias que buscan ayuda confiable.",
-          "buttonText": "Solicitar unirme"
+          "title": "¿Listo para hacer crecer tu negocio?",
+          "description": "Únete a una comunidad de profesionales de servicios domésticos de confianza. Te ayudaremos a conectar con excelentes hogares y construir tu reputación.",
+          "buttonText": "Solicitar Unirme"
         }
       },
       "faq": {
-        "title": "Preguntas frecuentes",
+        "title": "Preguntas frecuentes, resueltas",
         "questions": {
           "verification": {
             "question": "¿Cómo verifique Casaora a los profesionales?",
@@ -3106,6 +3183,7 @@
     "gotIt": "¡Entendido!",
     "marking": "Marcando como leído...",
     "noUpdates": "No hay nuevas actualizaciones",
+    "readMore": "Leer más",
     "success": {
       "title": "¡Gracias por revisar!",
       "message": "está al día con las últimas actualizaciones."
@@ -3118,18 +3196,30 @@
       "title": "Qué hay de nuevo",
       "subtitle": "Mantente al día con las últimas funciones, mejoras y actualizaciones de Casaora"
     },
+    "empty": {
+      "title": "Aún no hay actualizaciones",
+      "description": "Publicaremos actualizaciones aquí a medida que lancemos nuevas funciones. ¡Vuelve pronto!"
+    },
     "detail": {
       "backToChangelog": "Volver a todas las actualizaciones"
-    }
+    },
+    "sprint": "Sprint {number}",
+    "readFullUpdate": "Leer actualización completa"
   },
   "blog": {
     "meta": {
       "title": "Blog | Casaora",
-      "description": "Perspectivas, historias y actualizaciones del equipo de Casaora. Aprende sobre la contratación de personal doméstico, tendencias de la industria y cómo construir relaciones confiables."
+      "description": "Perspectivas, historias y actualizaciones del equipo de Casaora. Aprende sobre la contratación de personal doméstico, tendencias de la industria y cómo construir relaciones confiables.",
+      "readTime": "{minutes} min de lectura",
+      "author": "Por {author}"
     },
     "hero": {
       "title": "El Blog de Casaora",
       "subtitle": "Perspectivas sobre la contratación de personal doméstico de confianza en América Latina"
+    },
+    "empty": {
+      "title": "Aún no hay publicaciones",
+      "description": "Publicaremos nuestra primera entrada de blog pronto. ¡Mantente atento!"
     },
     "detail": {
       "backToBlog": "Volver al blog"
@@ -3364,6 +3454,39 @@
     "empty": {
       "title": "Aún no hay elementos en la hoja de ruta",
       "description": "Vuelva pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más le importa."
+    }
+  },
+  "support": {
+    "title": "¿Necesitas Ayuda?",
+    "subtitle": "Estamos aquí para asistirte",
+    "greeting": "👋 ¡Hola! Bienvenido a Casaora.",
+    "welcomeMessage": "¿Buscas ayuda? Explora nuestras preguntas frecuentes o contacta a nuestro equipo de soporte.",
+    "openChat": "Contactar Soporte",
+    "closeChat": "Cerrar",
+    "inputPlaceholder": "Describe tu pregunta...",
+    "send": "Enviar mensaje",
+    "errorMessage": "Lo sentimos, algo salió mal. Por favor intenta de nuevo o envíanos un correo a support@casaora.com.",
+    "typing": "Cargando...",
+    "onboarding": {
+      "title": "¿Necesitas Asistencia?",
+      "description": "Nuestro equipo de soporte bilingüe está aquí para ayudarte con reservas, preguntas y cualquier problema.",
+      "dismiss": "¡Entendido!",
+      "hint": "Obtener ayuda"
+    },
+    "searchingProfessionals": "Buscando profesionales...",
+    "checkingAvailability": "Verificando disponibilidad...",
+    "creatingBookingDraft": "Creando vista previa de reserva...",
+    "thumbsUp": "Útil",
+    "thumbsDown": "No útil",
+    "copyMessage": "Copiar",
+    "retry": "Reintentar",
+    "quickActions": {
+      "browseProfessionals": "Explorar profesionales",
+      "checkAvailability": "Ver disponibilidad",
+      "viewBookings": "Ver mis reservas",
+      "contactSupport": "Contactar soporte",
+      "faqs": "Ver preguntas frecuentes",
+      "pricing": "Ver precios"
     }
   },
   "amara": {
@@ -4472,6 +4595,10 @@
     }
   },
   "becomeAPro": {
+    "meta": {
+      "title": "Conviértete en Profesional Casaora | Convierte tus Habilidades en Ingresos",
+      "description": "Únete a Casaora como profesional verificado del hogar. Establece tus propias tarifas, horario flexible y haz crecer tu base de clientes con nuestra plataforma confiable."
+    },
     "title": "Conviértete en un Profesional Casaora",
     "subtitle": "Únete a la plataforma líder para profesionales del hogar en América Latina",
     "hero": {
@@ -4657,6 +4784,10 @@
     }
   },
   "ambassadors": {
+    "meta": {
+      "title": "Programa de Embajadores Casaora | Refiere Profesionales y Gana",
+      "description": "Únete al Programa de Embajadores de Casaora. Refiere profesionales del hogar y gana $15 por cada referido exitoso. Ayuda a crecer la comunidad de servicios del hogar."
+    },
     "hero": {
       "badge": "Programa de Embajadores",
       "title": "Gana $15 por Cada Profesional que Refieras",

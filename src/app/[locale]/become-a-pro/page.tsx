@@ -8,7 +8,6 @@ import {
   UserCheck01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
@@ -22,11 +21,15 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Become a Casaora Pro | Turn Your Skills Into Income",
-  description:
-    "Join Casaora as a verified home service professional. Set your own rates, flexible schedule, and grow your client base with our trusted platform.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "becomeAPro" });
+
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+  };
+}
 
 export default async function BecomeAProPage() {
   return (

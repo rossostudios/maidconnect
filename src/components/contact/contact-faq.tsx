@@ -17,25 +17,25 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="bg-[neutral-50] py-20 sm:py-24 lg:py-32">
+    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32 dark:bg-rausch-900">
       <Container className="max-w-4xl">
-        <h2 className="serif-display-lg mb-12 text-center text-[neutral-900]">{t("title")}</h2>
+        <h2 className="mb-12 text-center font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white">{t("title")}</h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
-              className="overflow-hidden border border-[neutral-200] bg-[neutral-50] shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
+              className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-rausch-700 dark:bg-rausch-800"
               key={key}
             >
               <button
-                className="flex w-full items-center justify-between p-8 text-left transition"
+                className="flex w-full items-center justify-between p-6 text-left transition sm:p-8"
                 onClick={() => toggleFAQ(index)}
                 type="button"
               >
-                <span className="serif-headline-sm pr-8 text-[neutral-900]">
+                <span className="pr-8 font-semibold text-lg text-neutral-900 dark:text-white">
                   {t(`questions.${key}.question`)}
                 </span>
                 <HugeiconsIcon
-                  className={`h-6 w-6 flex-shrink-0 text-[neutral-500] transition-transform duration-300 ${
+                  className={`h-5 w-5 flex-shrink-0 text-neutral-500 transition-transform duration-300 dark:text-rausch-400 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                   icon={ArrowDown01Icon}
@@ -47,8 +47,8 @@ export function ContactFAQ() {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <div className="border-[neutral-200] border-t p-8 pt-6">
-                    <p className="text-[neutral-900]/70 text-base leading-relaxed">
+                  <div className="border-neutral-200 border-t p-6 pt-4 sm:p-8 sm:pt-6 dark:border-rausch-700">
+                    <p className="text-neutral-600 text-base leading-relaxed dark:text-rausch-300">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

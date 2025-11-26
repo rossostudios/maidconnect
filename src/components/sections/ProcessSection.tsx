@@ -137,7 +137,7 @@ export function ProcessSection() {
             className="mb-3 inline-block rounded-full bg-rausch-100 px-4 py-1.5 font-medium text-rausch-700 text-xs uppercase tracking-wider dark:bg-rausch-500/20 dark:text-rausch-400"
             variants={fadeIn}
           >
-            How It Works
+            {t("badge")}
           </motion.span>
           <motion.h2
             className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50"
@@ -194,7 +194,7 @@ export function ProcessSection() {
             </Link>
           </motion.div>
           <motion.p className="text-neutral-500 text-sm dark:text-neutral-400" variants={fadeIn}>
-            15% service fee covers background checks, insurance & support. Professionals keep 100%.
+            {t("disclaimer")}
           </motion.p>
         </motion.div>
       </Container>

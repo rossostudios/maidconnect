@@ -1,23 +1,27 @@
-import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { DirectoryGridSkeleton } from "./DirectoryGridSkeleton";
 import { ProfessionalsDirectory } from "./ProfessionalsDirectory";
 
-export const metadata: Metadata = {
-  title: "Find Professionals | Casaora",
-  description:
-    "Browse and book verified home service professionals in your area. Filter by location, service type, availability, and ratings.",
-  openGraph: {
-    title: "Find Professionals | Casaora",
-    description: "Browse and book verified home service professionals in your area.",
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "professionals" });
+
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+    openGraph: {
+      title: t("meta.title"),
+      description: t("meta.description"),
+    },
+  };
+}
 
 export default function ProfessionalsPage() {
   return (
-    <div className="bg-neutral-50 text-neutral-900">
+    <div className="bg-neutral-50 dark:bg-rausch-950 text-neutral-900 dark:text-white">
       <SiteHeader />
       <main className="min-h-screen">
         <Suspense fallback={<DirectoryGridSkeleton />}>

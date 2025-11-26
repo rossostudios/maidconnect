@@ -15,13 +15,6 @@ type Props = {
   dashboardHref?: string;
 };
 
-type MenuItem = {
-  href: string;
-  label: string;
-  description?: string;
-  featured?: boolean;
-};
-
 export function DesktopMenu({ isAuthenticated, onSignOut, dashboardHref }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -61,24 +54,6 @@ export function DesktopMenu({ isAuthenticated, onSignOut, dashboardHref }: Props
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, closeMenu]);
-
-  const menuItems: MenuItem[] = [
-    {
-      href: "/help",
-      label: t("desktopMenu.helpCenter"),
-    },
-    {
-      href: "/become-a-pro",
-      label: t("desktopMenu.becomePro"),
-      description: t("desktopMenu.becomeProDesc"),
-      featured: true,
-    },
-    {
-      href: "/ambassadors",
-      label: t("desktopMenu.ambassador"),
-      description: t("desktopMenu.ambassadorDesc"),
-    },
-  ];
 
   const dropdownVariants = {
     hidden: {
@@ -125,7 +100,7 @@ export function DesktopMenu({ isAuthenticated, onSignOut, dashboardHref }: Props
 
   return (
     <div className="relative">
-      {/* Hamburger Button - Simple menu icon */}
+      {/* Hamburger Button - Simple menu icon (Airbnb-style) */}
       <motion.button
         aria-controls="desktop-menu"
         aria-expanded={isOpen}
@@ -142,12 +117,12 @@ export function DesktopMenu({ isAuthenticated, onSignOut, dashboardHref }: Props
         <HugeiconsIcon className="h-5 w-5 text-foreground" icon={Menu01Icon} />
       </motion.button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - Airbnb-style: Theme + Auth only */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             animate="visible"
-            className="absolute top-full right-0 z-50 mt-3 w-72 origin-top-right overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
+            className="absolute top-full right-0 z-50 mt-3 w-64 origin-top-right overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
             exit="hidden"
             id="desktop-menu"
             initial="hidden"
@@ -161,49 +136,6 @@ export function DesktopMenu({ isAuthenticated, onSignOut, dashboardHref }: Props
               initial="hidden"
               variants={containerVariants}
             >
-              {/* Menu Items */}
-              {menuItems.map((item, index) => (
-                <motion.div key={item.href} variants={itemVariants}>
-                  {index === 1 && <div className="my-2 border-border border-t" />}
-                  <Link
-                    className={cn(
-                      "group flex items-center justify-between px-4 py-3 no-underline transition-colors",
-                      item.featured
-                        ? "bg-rausch-50/50 hover:bg-rausch-50 dark:bg-rausch-500/10 dark:hover:bg-rausch-500/20"
-                        : "hover:bg-muted"
-                    )}
-                    href={item.href}
-                    onClick={closeMenu}
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={cn(
-                            "font-medium text-sm",
-                            item.featured ? "text-foreground" : "text-card-foreground"
-                          )}
-                        >
-                          {item.label}
-                        </span>
-                        {item.featured && (
-                          <span className="rounded-full bg-rausch-500 px-2 py-0.5 font-medium text-[10px] text-white uppercase tracking-wide">
-                            Join
-                          </span>
-                        )}
-                      </div>
-                      {item.description && (
-                        <p className="mt-0.5 text-muted-foreground text-xs">{item.description}</p>
-                      )}
-                    </div>
-                    <HugeiconsIcon
-                      className="h-4 w-4 text-neutral-400 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
-                      icon={ArrowRight02Icon}
-                    />
-                  </Link>
-                  {index === 2 && <div className="my-2 border-border border-t" />}
-                </motion.div>
-              ))}
-
               {/* Theme Selector */}
               <motion.div className="px-3 py-2" variants={itemVariants}>
                 <ThemeSelector />

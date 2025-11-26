@@ -47,7 +47,7 @@ export function LanguageSwitcher() {
       {/* Segmented Control - Rounded Lia Aesthetic */}
       <div
         aria-label="Language selection"
-        className="relative inline-flex rounded-lg border border-neutral-200 bg-white p-1"
+        className="relative inline-flex rounded-lg border border-neutral-200 dark:border-rausch-700 bg-white dark:bg-rausch-900 p-1"
         role="group"
       >
         {/* Sliding orange background indicator */}
@@ -63,7 +63,7 @@ export function LanguageSwitcher() {
           aria-label="Switch to English"
           aria-pressed={locale === "en"}
           className={`relative z-10 px-4 py-1.5 font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider transition-colors duration-300 ${
-            locale === "en" ? "text-white" : "text-neutral-600 hover:text-neutral-900"
+            locale === "en" ? "text-white" : "text-neutral-600 dark:text-rausch-400 hover:text-neutral-900 dark:hover:text-white"
           }`}
           onClick={() => switchLanguage("en")}
           type="button"
@@ -76,7 +76,7 @@ export function LanguageSwitcher() {
           aria-label="Switch to Spanish"
           aria-pressed={locale === "es"}
           className={`relative z-10 px-4 py-1.5 font-[family-name:var(--font-geist-sans)] font-semibold text-xs uppercase tracking-wider transition-colors duration-300 ${
-            locale === "es" ? "text-white" : "text-neutral-600 hover:text-neutral-900"
+            locale === "es" ? "text-white" : "text-neutral-600 dark:text-rausch-400 hover:text-neutral-900 dark:hover:text-white"
           }`}
           onClick={() => switchLanguage("es")}
           type="button"

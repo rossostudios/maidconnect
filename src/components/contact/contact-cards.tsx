@@ -26,17 +26,17 @@ export async function ContactCards() {
         <div className="grid gap-8 md:grid-cols-3">
           {contactOptions.map((option) => (
             <div
-              className="flex flex-col justify-between border border-[neutral-200] bg-gradient-to-br from-[bg-[neutral-50]] to-[neutral-50] p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]"
+              className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-10 shadow-sm transition-shadow hover:shadow-lg dark:border-rausch-700 dark:bg-rausch-800"
               key={option.key}
             >
               <div className="space-y-6">
-                <h2 className="serif-headline-lg text-[neutral-900]">{t(`${option.key}.title`)}</h2>
-                <p className="text-[neutral-900]/70 text-base leading-relaxed">
+                <h2 className="font-semibold text-2xl text-neutral-900 dark:text-white">{t(`${option.key}.title`)}</h2>
+                <p className="text-neutral-600 text-base leading-relaxed dark:text-rausch-200">
                   {t(`${option.key}.description`)}
                 </p>
               </div>
               <Link
-                className="mt-12 inline-flex w-fit items-center justify-center bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500]"
+                className="mt-12 inline-flex w-fit items-center justify-center rounded-lg bg-rausch-500 px-8 py-4 font-semibold text-white text-base transition-colors hover:bg-rausch-600 dark:bg-white dark:text-rausch-700 dark:hover:bg-rausch-50"
                 href={option.buttonHref}
               >
                 {t(`${option.key}.buttonText`)}

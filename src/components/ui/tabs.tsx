@@ -136,9 +136,9 @@ export const TabsList = ({ className, children, ref }: TabsListProps) => {
       className={cn(
         // Layout
         "inline-flex h-12 items-center justify-center",
-        // Background and text (Lia Design System)
-        "bg-neutral-50 text-neutral-400",
-        // Shape - Lia Design System: rounded-lg (Anthropic)
+        // Background and text (Lia Design System - neutral theme)
+        "bg-neutral-50 text-neutral-400 dark:bg-muted dark:text-muted-foreground",
+        // Shape - Lia Design System: rounded-lg
         "rounded-lg",
         // Spacing
         "p-1",
@@ -192,18 +192,20 @@ export const TabsTrigger = ({ className, value, children, ref }: TabsTriggerProp
         "px-6 py-2",
         // Typography
         "font-medium text-sm",
-        // Shape - Lia Design System: rounded (Anthropic)
+        // Shape - Lia Design System: rounded
         "rounded",
         // Transition
         "transition-all",
-        // Focus state - orange ring (Lia Design System)
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2",
+        // Focus state - rausch ring (Lia Design System)
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-card",
         // Disabled state
         "disabled:pointer-events-none disabled:opacity-50",
-        // Selected state (Lia Design System)
+        // Selected state (Lia Design System - neutral theme)
         "data-[selected]:bg-white data-[selected]:text-neutral-900 data-[selected]:shadow-sm",
+        "dark:data-[selected]:bg-card dark:data-[selected]:text-foreground",
         // Inactive state
         "data-[selected=false]:text-neutral-400 data-[selected=false]:hover:text-neutral-900",
+        "dark:data-[selected=false]:text-muted-foreground dark:data-[selected=false]:hover:text-foreground",
         // Additional classes
         className
       )}

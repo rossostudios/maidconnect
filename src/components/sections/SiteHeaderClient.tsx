@@ -5,6 +5,7 @@ import {
   Calendar03Icon,
   CheckmarkBadge01Icon,
   HeadphonesIcon,
+  HelpCircleIcon,
   Home09Icon,
   News01Icon,
   UserMultiple02Icon,
@@ -25,39 +26,39 @@ type Props = {
 export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, overlay }: Props) {
   const t = useTranslations("navigation");
 
-  // Professionals dropdown - About hiring/working with professionals
-  const professionalsItems: NavDropdownItem[] = [
+  // "Find Help" dropdown - Customer-focused actions
+  const findHelpItems: NavDropdownItem[] = [
     {
-      name: t("dropdown.professionals.howItWorks"),
-      href: "/how-it-works",
-      description: t("dropdown.professionals.howItWorksDesc"),
-      icon: Home09Icon,
-    },
-    {
-      name: t("dropdown.professionals.vettingProcess"),
-      href: "/how-it-works#vetting",
-      description: t("dropdown.professionals.vettingProcessDesc"),
-      icon: CheckmarkBadge01Icon,
-    },
-  ];
-
-  // Customers dropdown - For homeowners looking to book
-  const customersItems: NavDropdownItem[] = [
-    {
-      name: t("dropdown.customers.bookNow"),
-      href: "/pros",
-      description: t("dropdown.customers.bookNowDesc"),
+      name: t("dropdown.findHelp.browse"),
+      href: "/professionals",
+      description: t("dropdown.findHelp.browseDesc"),
       icon: Calendar03Icon,
     },
     {
-      name: t("dropdown.customers.support"),
-      href: "/contact",
-      description: t("dropdown.customers.supportDesc"),
-      icon: HeadphonesIcon,
+      name: t("dropdown.findHelp.howItWorks"),
+      href: "/how-it-works",
+      description: t("dropdown.findHelp.howItWorksDesc"),
+      icon: Home09Icon,
     },
   ];
 
-  // Company dropdown - About the company
+  // "For Professionals" dropdown - Supply-side recruitment
+  const forProfessionalsItems: NavDropdownItem[] = [
+    {
+      name: t("dropdown.forProfessionals.becomePro"),
+      href: "/become-a-pro",
+      description: t("dropdown.forProfessionals.becomeProDesc"),
+      icon: CheckmarkBadge01Icon,
+    },
+    {
+      name: t("dropdown.forProfessionals.ambassador"),
+      href: "/ambassadors",
+      description: t("dropdown.forProfessionals.ambassadorDesc"),
+      icon: UserMultiple02Icon,
+    },
+  ];
+
+  // "Company" dropdown - Corporate & support
   const companyItems: NavDropdownItem[] = [
     {
       name: t("dropdown.company.about"),
@@ -71,16 +72,32 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       description: t("dropdown.company.blogDesc"),
       icon: News01Icon,
     },
+    {
+      name: t("dropdown.company.help"),
+      href: "/help",
+      description: t("dropdown.company.helpDesc"),
+      icon: HelpCircleIcon,
+    },
+    {
+      name: t("dropdown.company.contact"),
+      href: "/contact",
+      description: t("dropdown.company.contactDesc"),
+      icon: HeadphonesIcon,
+    },
   ];
 
   // Navigation links for mobile menu (flattened)
   const mobileLinks = [
-    { href: "/how-it-works", label: t("dropdown.professionals.howItWorks") },
-    { href: "/pros", label: t("dropdown.customers.bookNow") },
-    { href: "/become-a-pro", label: t("dropdown.join.becomePro") },
-    { href: "/ambassadors", label: t("dropdown.join.ambassador") },
+    // Customer actions
+    { href: "/professionals", label: t("dropdown.findHelp.browse") },
+    { href: "/how-it-works", label: t("dropdown.findHelp.howItWorks") },
+    // Professional actions
+    { href: "/become-a-pro", label: t("dropdown.forProfessionals.becomePro") },
+    { href: "/ambassadors", label: t("dropdown.forProfessionals.ambassador") },
+    // Company
     { href: "/about", label: t("dropdown.company.about") },
-    { href: "/contact", label: "Contact" },
+    { href: "/help", label: t("dropdown.company.help") },
+    { href: "/contact", label: t("dropdown.company.contact") },
   ];
 
   return (
@@ -89,31 +106,31 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       <div className="col-span-2 hidden items-center lg:flex">
         {/* Center: Navigation Links with Dropdowns */}
         <nav className="flex flex-1 items-center justify-center gap-2">
-          {/* Professionals Dropdown */}
-          <NavDropdown
-            featured={{
-              icon: UserMultiple02Icon,
-              title: t("dropdown.professionals.title"),
-              description: t("dropdown.professionals.featuredDesc"),
-            }}
-            items={professionalsItems}
-            label={t("dropdown.professionals.title")}
-            overlay={overlay}
-          />
-
-          {/* Customers Dropdown */}
+          {/* Find Help Dropdown - Customer-focused */}
           <NavDropdown
             featured={{
               icon: Home09Icon,
-              title: t("dropdown.customers.title"),
-              description: t("dropdown.customers.featuredDesc"),
+              title: t("dropdown.findHelp.title"),
+              description: t("dropdown.findHelp.featuredDesc"),
             }}
-            items={customersItems}
-            label={t("dropdown.customers.title")}
+            items={findHelpItems}
+            label={t("dropdown.findHelp.title")}
             overlay={overlay}
           />
 
-          {/* Company Dropdown */}
+          {/* For Professionals Dropdown - Pro recruitment */}
+          <NavDropdown
+            featured={{
+              icon: UserMultiple02Icon,
+              title: t("dropdown.forProfessionals.title"),
+              description: t("dropdown.forProfessionals.featuredDesc"),
+            }}
+            items={forProfessionalsItems}
+            label={t("dropdown.forProfessionals.title")}
+            overlay={overlay}
+          />
+
+          {/* Company Dropdown - Corporate & support */}
           <NavDropdown
             featured={{
               icon: Building06Icon,

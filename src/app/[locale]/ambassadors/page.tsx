@@ -7,7 +7,6 @@ import {
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
@@ -21,15 +20,19 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Casaora Ambassador Program | Refer Professionals & Earn",
-  description:
-    "Join the Casaora Ambassador Program. Refer home service professionals and earn $15 for each successful referral. Help grow the home services community.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ambassadors" });
+
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+  };
+}
 
 export default async function AmbassadorsPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-rausch-950">
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
@@ -148,18 +151,18 @@ async function HowItWorksSection() {
   ];
 
   return (
-    <section className="bg-white py-20 md:py-28" id="how-it-works">
+    <section className="bg-white dark:bg-rausch-950 py-20 md:py-28" id="how-it-works">
       <Container>
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 dark:text-rausch-200">{t("subtitle")}</p>
         </div>
 
         <div className="relative">
           {/* Connection line - hidden on mobile */}
-          <div className="absolute top-12 right-0 left-0 hidden h-0.5 bg-gradient-to-r from-rausch-100 via-rausch-300 to-rausch-100 lg:block" />
+          <div className="absolute top-12 right-0 left-0 hidden h-0.5 bg-gradient-to-r from-rausch-100 via-rausch-300 to-rausch-100 dark:from-rausch-800 dark:via-rausch-600 dark:to-rausch-800 lg:block" />
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, index) => (
@@ -168,9 +171,9 @@ async function HowItWorksSection() {
                 <div className="relative z-10 mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-rausch-500 to-rausch-600 shadow-lg">
                   <HugeiconsIcon className="h-10 w-10 text-white" icon={step.icon} />
                 </div>
-                <div className="mb-2 font-bold text-rausch-600 text-sm">{step.number}</div>
-                <h3 className="mb-2 font-semibold text-lg text-neutral-900">{step.title}</h3>
-                <p className="text-neutral-600 text-sm">{step.description}</p>
+                <div className="mb-2 font-bold text-rausch-600 dark:text-rausch-400 text-sm">{step.number}</div>
+                <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-white">{step.title}</h3>
+                <p className="text-neutral-600 dark:text-rausch-300 text-sm">{step.description}</p>
               </div>
             ))}
           </div>
@@ -184,22 +187,22 @@ async function RewardsSection() {
   const t = await getTranslations("ambassadors.rewards");
 
   return (
-    <section className="bg-neutral-50 py-20 md:py-28">
+    <section className="bg-neutral-50 dark:bg-rausch-900 py-20 md:py-28">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left: Content */}
           <div>
-            <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+            <h2 className="mb-6 font-bold text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
               {t("title")}
             </h2>
-            <p className="mb-8 text-lg text-neutral-600">{t("description")}</p>
+            <p className="mb-8 text-lg text-neutral-600 dark:text-rausch-200">{t("description")}</p>
 
             <div className="space-y-4">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                   <svg
                     aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -211,15 +214,15 @@ async function RewardsSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.reward.title")}</h4>
-                  <p className="text-neutral-600">{t("points.reward.description")}</p>
+                  <h4 className="font-semibold text-neutral-900 dark:text-white">{t("points.reward.title")}</h4>
+                  <p className="text-neutral-600 dark:text-rausch-300">{t("points.reward.description")}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                   <svg
                     aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -231,15 +234,15 @@ async function RewardsSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.noLimit.title")}</h4>
-                  <p className="text-neutral-600">{t("points.noLimit.description")}</p>
+                  <h4 className="font-semibold text-neutral-900 dark:text-white">{t("points.noLimit.title")}</h4>
+                  <p className="text-neutral-600 dark:text-rausch-300">{t("points.noLimit.description")}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                   <svg
                     aria-hidden="true"
-                    className="h-4 w-4 text-green-600"
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -251,8 +254,8 @@ async function RewardsSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-900">{t("points.tracking.title")}</h4>
-                  <p className="text-neutral-600">{t("points.tracking.description")}</p>
+                  <h4 className="font-semibold text-neutral-900 dark:text-white">{t("points.tracking.title")}</h4>
+                  <p className="text-neutral-600 dark:text-rausch-300">{t("points.tracking.description")}</p>
                 </div>
               </div>
             </div>
@@ -260,24 +263,24 @@ async function RewardsSection() {
 
           {/* Right: Stats card */}
           <div className="relative">
-            <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-xl">
+            <div className="rounded-2xl border border-neutral-200 dark:border-rausch-700 bg-white dark:bg-rausch-800 p-8 shadow-xl">
               <div className="mb-6 text-center">
-                <p className="mb-2 text-neutral-600 text-sm">{t("card.label")}</p>
-                <p className="font-bold text-5xl text-neutral-900">$15</p>
-                <p className="text-neutral-500 text-sm">{t("card.perReferral")}</p>
+                <p className="mb-2 text-neutral-600 dark:text-rausch-300 text-sm">{t("card.label")}</p>
+                <p className="font-bold text-5xl text-neutral-900 dark:text-white">$15</p>
+                <p className="text-neutral-500 dark:text-rausch-400 text-sm">{t("card.perReferral")}</p>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center justify-between rounded-lg bg-neutral-50 p-3">
-                  <span className="text-neutral-600 text-sm">{t("card.example5")}</span>
-                  <span className="font-semibold text-neutral-900">$75</span>
+                <div className="flex items-center justify-between rounded-lg bg-neutral-50 dark:bg-rausch-700/50 p-3">
+                  <span className="text-neutral-600 dark:text-rausch-300 text-sm">{t("card.example5")}</span>
+                  <span className="font-semibold text-neutral-900 dark:text-white">$75</span>
                 </div>
-                <div className="flex items-center justify-between rounded-lg bg-neutral-50 p-3">
-                  <span className="text-neutral-600 text-sm">{t("card.example10")}</span>
-                  <span className="font-semibold text-neutral-900">$150</span>
+                <div className="flex items-center justify-between rounded-lg bg-neutral-50 dark:bg-rausch-700/50 p-3">
+                  <span className="text-neutral-600 dark:text-rausch-300 text-sm">{t("card.example10")}</span>
+                  <span className="font-semibold text-neutral-900 dark:text-white">$150</span>
                 </div>
-                <div className="flex items-center justify-between rounded-lg bg-rausch-50 p-3">
-                  <span className="text-rausch-600 text-sm">{t("card.example20")}</span>
-                  <span className="font-semibold text-rausch-600">$300</span>
+                <div className="flex items-center justify-between rounded-lg bg-rausch-50 dark:bg-rausch-600/30 p-3">
+                  <span className="text-rausch-600 dark:text-rausch-300 text-sm">{t("card.example20")}</span>
+                  <span className="font-semibold text-rausch-600 dark:text-rausch-300">$300</span>
                 </div>
               </div>
             </div>
@@ -301,26 +304,26 @@ async function WhoCanJoinSection() {
   ];
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white dark:bg-rausch-950 py-20 md:py-28">
       <Container>
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 dark:text-rausch-200">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {personas.map((persona) => (
             <div
-              className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition-all hover:border-rausch-200 hover:bg-rausch-50/50"
+              className="group rounded-2xl border border-neutral-200 dark:border-rausch-700 bg-neutral-50 dark:bg-rausch-900 p-6 transition-all hover:border-rausch-200 dark:hover:border-rausch-600 hover:bg-rausch-50/50 dark:hover:bg-rausch-800/50"
               key={persona.key}
             >
               <div className="mb-4 text-4xl">{persona.icon}</div>
-              <h3 className="mb-2 font-semibold text-lg text-neutral-900">
+              <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-white">
                 {t(`personas.${persona.key}.title`)}
               </h3>
-              <p className="text-neutral-600 text-sm">{t(`personas.${persona.key}.description`)}</p>
+              <p className="text-neutral-600 dark:text-rausch-300 text-sm">{t(`personas.${persona.key}.description`)}</p>
             </div>
           ))}
         </div>
@@ -341,13 +344,13 @@ async function FAQSection() {
   ];
 
   return (
-    <section className="bg-neutral-50 py-20 md:py-28">
+    <section className="bg-neutral-50 dark:bg-rausch-900 py-20 md:py-28">
       <Container className="max-w-3xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="text-lg text-neutral-600 dark:text-rausch-200">{t("subtitle")}</p>
         </div>
 
         <Accordion allowMultiple={false} variant="default">

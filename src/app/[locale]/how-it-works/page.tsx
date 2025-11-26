@@ -26,7 +26,7 @@ import { HeroSectionClient } from "./hero-section-client";
 
 export default async function HowItWorksPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-rausch-950">
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
@@ -159,13 +159,13 @@ async function FAQSection() {
   const faqs = [{ key: "q1" }, { key: "q2" }, { key: "q3" }, { key: "q4" }];
 
   return (
-    <section className="bg-white py-16 md:py-24 lg:py-32">
+    <section className="bg-white dark:bg-rausch-950 py-16 md:py-24 lg:py-32">
       <Container className="max-w-3xl">
         <div className="mb-12 text-center">
-          <h2 className="font-medium text-3xl text-neutral-900 tracking-tight sm:text-4xl">
+          <h2 className="font-medium text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-neutral-600">{t("subtitle")}</p>
+          <p className="mt-4 text-lg text-neutral-600 dark:text-rausch-300">{t("subtitle")}</p>
         </div>
 
         <Accordion allowMultiple={false} variant="default">
@@ -178,7 +178,7 @@ async function FAQSection() {
         </Accordion>
 
         <div className="mt-12 text-center">
-          <p className="mb-4 text-neutral-600">{t("stillHaveQuestions")}</p>
+          <p className="mb-4 text-neutral-600 dark:text-rausch-300">{t("stillHaveQuestions")}</p>
           <Link
             className="inline-flex items-center gap-2 font-semibold text-rausch-600 transition hover:text-rausch-700"
             href="/contact"
@@ -196,7 +196,7 @@ async function CTASection() {
   const t = await getTranslations("howItWorks.cta");
 
   return (
-    <section className="bg-neutral-900 py-16 md:py-24">
+    <section className="bg-rausch-600 py-16 md:py-24">
       <Container className="max-w-3xl">
         <div className="text-center">
           <h2 className="font-medium text-3xl text-white tracking-tight sm:text-4xl">
@@ -205,13 +205,13 @@ async function CTASection() {
           <p className="mt-4 text-lg text-white/80">{t("subtitle")}</p>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 font-semibold text-neutral-900 transition hover:bg-neutral-100"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 font-semibold text-rausch-700 transition hover:bg-rausch-50"
               href="/pros"
             >
               {t("browseButton")}
             </Link>
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-3.5 font-semibold text-white transition hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-8 py-3.5 font-semibold text-white transition hover:bg-white/10"
               href="/professionals"
             >
               {t("signUpButton")}

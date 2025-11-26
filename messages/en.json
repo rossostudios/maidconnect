@@ -14,45 +14,33 @@
     "product": "Product",
     "resources": "Resources",
     "dropdown": {
-      "professionals": {
-        "title": "Professionals",
-        "featuredDesc": "Find vetted, background-checked home service professionals ready to help.",
-        "howItWorks": "How It Works",
-        "howItWorksDesc": "Learn how Casaora connects you with trusted professionals",
-        "vettingProcess": "Vetting Process",
-        "vettingProcessDesc": "Our rigorous screening ensures quality and safety",
-        "pricing": "Pricing",
-        "pricingDesc": "Transparent pricing with no hidden fees",
+      "findHelp": {
+        "title": "Find Help",
+        "featuredDesc": "Find vetted, background-checked professionals ready to help your home.",
         "browse": "Browse Professionals",
-        "browseDesc": "Find trusted professionals for any home service need"
+        "browseDesc": "Find and book trusted help for your home",
+        "howItWorks": "How It Works",
+        "howItWorksDesc": "Learn how Casaora connects you with professionals"
       },
-      "customers": {
-        "title": "Customers",
-        "featuredDesc": "Everything you need to book and manage home services with confidence.",
-        "bookNow": "Book Now",
-        "bookNowDesc": "Schedule your first service in minutes",
-        "helpCenter": "Help Center",
-        "helpCenterDesc": "Find answers to common questions",
-        "support": "Contact Support",
-        "supportDesc": "Get help from our customer service team"
+      "forProfessionals": {
+        "title": "For Professionals",
+        "featuredDesc": "Join our network of verified home service professionals.",
+        "becomePro": "Become a Pro",
+        "becomeProDesc": "Apply to join our vetted network and grow your business",
+        "ambassador": "Ambassador Program",
+        "ambassadorDesc": "Earn rewards by referring great professionals"
       },
       "company": {
         "title": "Company",
-        "featuredDesc": "Learn about our mission to transform home services in Latin America.",
+        "featuredDesc": "Learn about our mission to transform home services.",
         "about": "About Us",
         "aboutDesc": "Our story and mission",
         "blog": "Blog",
         "blogDesc": "News, tips, and industry insights",
-        "careers": "Careers",
-        "careersDesc": "Join our growing team"
-      },
-      "join": {
-        "title": "Join",
-        "featuredDesc": "Build your career or grow your network with Casaora.",
-        "becomePro": "Become a Pro",
-        "becomeProDesc": "Join our network of vetted professionals",
-        "ambassador": "Ambassador Program",
-        "ambassadorDesc": "Earn rewards by referring professionals"
+        "help": "Help Center",
+        "helpDesc": "Find answers to common questions",
+        "contact": "Contact Us",
+        "contactDesc": "Get in touch with our team"
       }
     },
     "desktopMenu": {
@@ -65,6 +53,10 @@
     }
   },
   "professionals": {
+    "meta": {
+      "title": "Find Professionals | Casaora",
+      "description": "Browse and book verified home service professionals in your area. Filter by location, service type, availability, and ratings."
+    },
     "title": "Find your perfect professional",
     "filterBy": "Filter by",
     "serviceType": "Service type",
@@ -117,6 +109,39 @@
     "allServices": {
       "title": "All your home needs",
       "description": "From cleaning to childcare to cooking—find help for every household task."
+    },
+    "visuals": {
+      "profileCard": {
+        "backgroundName": "Laura Sofia",
+        "mainName": "María Camila",
+        "proBadge": "Pro",
+        "backgroundSpecialty": "Childcare • Medellín",
+        "mainSpecialty": "Cleaning Specialist • Bogotá",
+        "reviewCount": "(127 reviews)",
+        "idVerified": "ID Verified",
+        "backgroundCheck": "Background Check",
+        "bio": "I've been a professional cleaner for 8 years, specializing in deep cleaning and organizing. I treat every home as if it were my own, with attention to detail and care for your belongings."
+      },
+      "securePayment": {
+        "paymentHeld": "Payment held securely",
+        "protected": "Protected",
+        "amount": "$85,000 COP",
+        "releasedWhen": "Released when service is complete"
+      },
+      "reviews": {
+        "backgroundReview": "The professionals on Casaora are amazing. I've hired three different cleaners and each one has been...",
+        "backgroundName": "Andrea M.",
+        "featuredReview": "Finding reliable help at home used to be so stressful. Casaora verified everything—background checks, interviews, reviews—so I could focus on my family.",
+        "featuredName": "Brooke",
+        "verifiedCustomer": "Verified Customer",
+        "hiredFor": "Hired for: Cleaning",
+        "location": "Bogotá, Colombia"
+      },
+      "calendar": {
+        "month": "November 2025",
+        "days": ["S", "M", "T", "W", "T", "F", "S"],
+        "times": ["9:00 AM", "11:00 AM", "2:00 PM", "4:00 PM"]
+      }
     }
   },
   "home": {
@@ -144,8 +169,10 @@
       }
     },
     "process": {
+      "badge": "How It Works",
       "title": "How Casaora works for your home",
       "description": "Three simple steps connect you with trusted, background-checked professionals",
+      "disclaimer": "15% service fee covers background checks, insurance & support. Professionals keep 100%.",
       "step1": {
         "title": "Tell us what you need",
         "description": "Select your service—cleaning, childcare, cooking, or eldercare. Choose your schedule, location, and any special requirements."
@@ -2196,9 +2223,13 @@
   },
   "footer": {
     "description": "Trusted home professionals in Latin America",
+    "tagline": "Trusted home professionals in Latin America. Simple, safe, and fair.",
+    "copyright": "© {year} Casaora. All rights reserved.",
     "platform": "Platform",
     "company": "Company",
     "mobile": "Mobile",
+    "legal": "Legal",
+    "contactSection": "Contact",
     "findProfessional": "Browse Professionals",
     "howItWorks": "How It Works",
     "pricing": "Pricing",
@@ -2207,6 +2238,11 @@
     "contact": "Contact",
     "services": "Services",
     "about": "About",
+    "blog": "Blog",
+    "whatsNew": "What's New",
+    "compliance": "Compliance",
+    "security": "Security",
+    "contactSales": "Contact Sales",
     "loginSignup": "Login / Signup",
     "applyProfessional": "Join Our Network",
     "careers": "Careers",
@@ -2782,32 +2818,32 @@
     "contact": {
       "meta": {
         "title": "Contact Us | Casaora",
-        "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
+        "description": "Have a question or need support? Our team is here to help you find trusted home professionals or grow your business."
       },
       "hero": {
-        "badge": "CONTACT",
-        "title": "How can we help?",
-        "description": "Whether you're looking to hire trusted professionals, interested in joining our network, or just have a question, our team is here to help."
+        "badge": "WE'RE HERE FOR YOU",
+        "title": "Your home deserves the best care—and so do you",
+        "description": "Have a question, need support, or want to share feedback? Our team is ready to help you every step of the way."
       },
       "cards": {
         "support": {
-          "title": "Support",
-          "description": "Fill out our form or email us at support@casaora.co with your question.",
-          "buttonText": "Submit an inquiry"
+          "title": "Need help with something?",
+          "description": "Whether it's a booking question, account issue, or anything else—we're just a message away. Our support team typically responds within a few hours.",
+          "buttonText": "Get Support"
         },
         "customers": {
-          "title": "For customers",
-          "description": "Browse our verified professionals and book trusted help for your home.",
-          "buttonText": "Find a professional"
+          "title": "Looking for the right professional?",
+          "description": "Finding trusted help for your home should be easy. Browse our verified professionals and book with confidence—we're here if you need guidance.",
+          "buttonText": "Find a Professional"
         },
         "professionals": {
-          "title": "For professionals",
-          "description": "Join our network and connect with families looking for reliable help.",
-          "buttonText": "Apply to join"
+          "title": "Ready to grow your business?",
+          "description": "Join a community of trusted home service professionals. We'll help you connect with great households and build your reputation.",
+          "buttonText": "Apply to Join"
         }
       },
       "faq": {
-        "title": "Frequently asked questions",
+        "title": "Common questions, answered",
         "questions": {
           "verification": {
             "question": "How does Casaora verify professionals?",
@@ -3244,6 +3280,7 @@
     "gotIt": "Got it!",
     "marking": "Marking as read...",
     "noUpdates": "No new updates",
+    "readMore": "Read more",
     "success": {
       "title": "Thanks for checking!",
       "message": "You're all caught up with the latest updates."
@@ -3256,18 +3293,30 @@
       "title": "What's New",
       "subtitle": "Stay up to date with the latest features, improvements, and updates to Casaora"
     },
+    "empty": {
+      "title": "No Updates Yet",
+      "description": "We'll post updates here as we ship new features. Check back soon!"
+    },
     "detail": {
       "backToChangelog": "Back to all updates"
-    }
+    },
+    "sprint": "Sprint {number}",
+    "readFullUpdate": "Read full update"
   },
   "blog": {
     "meta": {
       "title": "Blog | Casaora",
-      "description": "Insights, stories, and updates from the Casaora team. Learn about hiring household staff, industry trends, and building trusted domestic staffing relationships."
+      "description": "Insights, stories, and updates from the Casaora team. Learn about hiring household staff, industry trends, and building trusted domestic staffing relationships.",
+      "readTime": "{minutes} min read",
+      "author": "By {author}"
     },
     "hero": {
       "title": "The Casaora Blog",
       "subtitle": "Insights on hiring trusted household staff in Latin America"
+    },
+    "empty": {
+      "title": "No Posts Yet",
+      "description": "We'll publish our first blog post soon. Stay tuned!"
     },
     "detail": {
       "backToBlog": "Back to blog"
@@ -4745,6 +4794,10 @@
     }
   },
   "becomeAPro": {
+    "meta": {
+      "title": "Become a Casaora Pro | Turn Your Skills Into Income",
+      "description": "Join Casaora as a verified home service professional. Set your own rates, flexible schedule, and grow your client base with our trusted platform."
+    },
     "title": "Become a Casaora Pro",
     "subtitle": "Join the leading platform for home service professionals in Latin America",
     "hero": {
@@ -4930,6 +4983,10 @@
     }
   },
   "ambassadors": {
+    "meta": {
+      "title": "Casaora Ambassador Program | Refer Professionals & Earn",
+      "description": "Join the Casaora Ambassador Program. Refer home service professionals and earn $15 for each successful referral. Help grow the home services community."
+    },
     "hero": {
       "badge": "Ambassador Program",
       "title": "Refer Professionals, Earn Rewards",

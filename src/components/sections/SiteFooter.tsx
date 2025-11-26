@@ -30,8 +30,8 @@ export function SiteFooter() {
       title: t("company"),
       links: [
         { href: "/about", label: t("about") },
-        { href: "/blog", label: "Blog" },
-        { href: "/changelog", label: "What's New" },
+        { href: "/blog", label: t("blog") },
+        { href: "/changelog", label: t("whatsNew") },
       ],
     },
     {
@@ -43,19 +43,19 @@ export function SiteFooter() {
       ],
     },
     {
-      title: "Legal",
+      title: t("legal"),
       links: [
         { href: "/terms", label: t("terms") },
         { href: "/privacy", label: t("privacy") },
-        { href: "/legal/compliance", label: "Compliance" },
-        { href: "/legal/security", label: "Security" },
+        { href: "/legal/compliance", label: t("compliance") },
+        { href: "/legal/security", label: t("security") },
       ],
     },
     {
-      title: "Contact",
+      title: t("contactSection"),
       links: [
         { href: "mailto:hello@casaora.co", label: "hello@casaora.co" },
-        { href: "/contact", label: "Contact Sales" },
+        { href: "/contact", label: t("contactSales") },
       ],
     },
   ];
@@ -121,7 +121,7 @@ export function SiteFooter() {
             <div className="flex flex-col gap-3 lg:max-w-xs lg:items-end">
               <Logo size="lg" />
               <p className={cn("text-sm leading-relaxed lg:text-right", "text-muted-foreground")}>
-                Trusted home professionals in Latin America. Simple, safe, and fair.
+                {t("tagline")}
               </p>
             </div>
           </div>
@@ -149,7 +149,7 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="font-[family-name:var(--font-geist-sans)] text-muted-foreground text-xs">
-              © {year} Casaora. All rights reserved.
+              {t("copyright", { year })}
             </p>
           </div>
         </div>

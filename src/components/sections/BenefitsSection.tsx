@@ -24,9 +24,11 @@ import { cn } from "@/lib/utils";
 function VerifiedProfileVisual({
   isExpanded,
   setIsExpanded,
+  t,
 }: {
   isExpanded?: boolean;
   setIsExpanded?: (value: boolean) => void;
+  t: ReturnType<typeof useTranslations>;
 }) {
   return (
     <>
@@ -55,12 +57,12 @@ function VerifiedProfileVisual({
               </div>
               <div className="opacity-60">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-medium text-muted-foreground text-sm">Laura Sofia</span>
+                  <span className="font-medium text-muted-foreground text-sm">{t("visuals.profileCard.backgroundName")}</span>
                   <span className="rounded-full bg-amber-100 px-1.5 py-0.5 font-medium text-[10px] text-amber-700">
-                    Pro
+                    {t("visuals.profileCard.proBadge")}
                   </span>
                 </div>
-                <p className="text-muted-foreground/70 text-xs">Childcare • Medellín</p>
+                <p className="text-muted-foreground/70 text-xs">{t("visuals.profileCard.backgroundSpecialty")}</p>
               </div>
             </div>
           </motion.div>
@@ -104,12 +106,12 @@ function VerifiedProfileVisual({
               {/* Name and details - positioned next to avatar */}
               <div className="ml-[76px] min-h-[40px]">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-foreground text-sm">María Camila</span>
+                  <span className="font-semibold text-foreground text-sm">{t("visuals.profileCard.mainName")}</span>
                   <span className="rounded-full bg-rausch-100 px-1.5 py-0.5 font-medium text-[10px] text-rausch-700 dark:bg-rausch-500/20 dark:text-rausch-400">
-                    Pro
+                    {t("visuals.profileCard.proBadge")}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-xs">Cleaning Specialist • Bogotá</p>
+                <p className="text-muted-foreground text-xs">{t("visuals.profileCard.mainSpecialty")}</p>
               </div>
 
               {/* Rating row - clean single line */}
@@ -124,18 +126,18 @@ function VerifiedProfileVisual({
                   ))}
                 </div>
                 <span className="font-semibold text-foreground text-sm">4.9</span>
-                <span className="text-muted-foreground/70 text-xs">(127 reviews)</span>
+                <span className="text-muted-foreground/70 text-xs">{t("visuals.profileCard.reviewCount")}</span>
               </div>
 
               {/* Verification badges - horizontal pills */}
               <div className="mt-3 flex gap-2">
                 <span className="flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-1 text-[10px] text-green-700 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-400">
                   <HugeiconsIcon className="h-3 w-3" icon={Shield01Icon} />
-                  ID Verified
+                  {t("visuals.profileCard.idVerified")}
                 </span>
                 <span className="flex items-center gap-1 rounded-full border border-babu-200 bg-babu-50 px-2 py-1 text-[10px] text-babu-700 dark:border-babu-500/30 dark:bg-babu-500/10 dark:text-babu-400">
                   <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle02Icon} />
-                  Background Check
+                  {t("visuals.profileCard.backgroundCheck")}
                 </span>
               </div>
             </div>
@@ -201,12 +203,12 @@ function VerifiedProfileVisual({
 
                 <div className="pt-16">
                   <div className="flex items-center gap-3">
-                    <h3 className="font-bold text-2xl text-foreground">María Camila</h3>
+                    <h3 className="font-bold text-2xl text-foreground">{t("visuals.profileCard.mainName")}</h3>
                     <span className="rounded-full bg-rausch-100 px-3 py-1 font-semibold text-rausch-700 text-sm dark:bg-rausch-500/20 dark:text-rausch-400">
-                      Pro
+                      {t("visuals.profileCard.proBadge")}
                     </span>
                   </div>
-                  <p className="mt-1 text-lg text-muted-foreground">Cleaning Specialist • Bogotá</p>
+                  <p className="mt-1 text-lg text-muted-foreground">{t("visuals.profileCard.mainSpecialty")}</p>
 
                   {/* Rating */}
                   <div className="mt-4 flex items-center gap-2">
@@ -220,25 +222,23 @@ function VerifiedProfileVisual({
                       ))}
                     </div>
                     <span className="font-semibold text-foreground text-lg">4.9</span>
-                    <span className="text-muted-foreground">(127 reviews)</span>
+                    <span className="text-muted-foreground">{t("visuals.profileCard.reviewCount")}</span>
                   </div>
 
                   {/* Bio */}
                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    "I've been a professional cleaner for 8 years, specializing in deep cleaning and
-                    organizing. I treat every home as if it were my own, with attention to detail
-                    and care for your belongings."
+                    {t("visuals.profileCard.bio")}
                   </p>
 
                   {/* Verification badges */}
                   <div className="mt-6 flex flex-wrap gap-2">
                     <span className="flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 font-medium text-green-700 text-sm dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-400">
                       <HugeiconsIcon className="h-4 w-4" icon={Shield01Icon} />
-                      ID Verified
+                      {t("visuals.profileCard.idVerified")}
                     </span>
                     <span className="flex items-center gap-2 rounded-full border border-babu-200 bg-babu-50 px-4 py-2 font-medium text-babu-700 text-sm dark:border-babu-500/30 dark:bg-babu-500/10 dark:text-babu-400">
                       <HugeiconsIcon className="h-4 w-4" icon={CheckmarkCircle02Icon} />
-                      Background Check
+                      {t("visuals.profileCard.backgroundCheck")}
                     </span>
                   </div>
                 </div>
@@ -251,7 +251,7 @@ function VerifiedProfileVisual({
   );
 }
 
-function SecurePaymentVisual() {
+function SecurePaymentVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
   return (
     <div className="relative flex flex-col items-center gap-3 py-2">
       {/* Payment flow animation */}
@@ -312,19 +312,19 @@ function SecurePaymentVisual() {
       <div className="w-full max-w-[220px] overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         <div className="border-border border-b px-3 py-2">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs">Payment held securely</span>
+            <span className="text-muted-foreground text-xs">{t("visuals.securePayment.paymentHeld")}</span>
             <span className="flex items-center gap-1 text-green-600 text-xs dark:text-green-400">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              Protected
+              {t("visuals.securePayment.protected")}
             </span>
           </div>
         </div>
         <div className="px-3 py-2">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-foreground text-sm">$85,000 COP</span>
+            <span className="font-medium text-foreground text-sm">{t("visuals.securePayment.amount")}</span>
             <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={CreditCardIcon} />
           </div>
-          <p className="mt-0.5 text-muted-foreground text-xs">Released when service is complete</p>
+          <p className="mt-0.5 text-muted-foreground text-xs">{t("visuals.securePayment.releasedWhen")}</p>
         </div>
       </div>
     </div>
@@ -334,9 +334,11 @@ function SecurePaymentVisual() {
 function ReviewsVisual({
   isExpanded,
   setIsExpanded,
+  t,
 }: {
   isExpanded?: boolean;
   setIsExpanded?: (value: boolean) => void;
+  t: ReturnType<typeof useTranslations>;
 }) {
   return (
     <>
@@ -360,13 +362,12 @@ function ReviewsVisual({
                 ))}
               </div>
               <p className="line-clamp-2 text-muted-foreground text-xs leading-relaxed">
-                "The professionals on Casaora are amazing. I've hired three different cleaners and
-                each one has been..."
+                {t("visuals.reviews.backgroundReview")}
               </p>
             </div>
             <div className="flex items-center gap-2 bg-muted/50 px-4 py-2">
               <div className="h-7 w-7 rounded-full bg-gradient-to-br from-babu-200 to-babu-300 dark:from-babu-400 dark:to-babu-500" />
-              <span className="text-muted-foreground text-xs">Andrea M.</span>
+              <span className="text-muted-foreground text-xs">{t("visuals.reviews.backgroundName")}</span>
             </div>
           </motion.div>
 
@@ -388,19 +389,18 @@ function ReviewsVisual({
                 ))}
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                "Finding reliable help at home used to be so stressful. Casaora verified
-                everything—background checks, interviews, reviews—so I could focus on my family."
+                {t("visuals.reviews.featuredReview")}
               </p>
             </div>
 
             {/* Author */}
             <div className="flex items-center gap-3 border-border border-t bg-muted/50 px-4 py-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                <Image alt="Brooke" className="object-cover" fill src="/review-brooke.png" />
+                <Image alt={t("visuals.reviews.featuredName")} className="object-cover" fill src="/review-brooke.png" />
               </div>
               <div>
-                <p className="font-semibold text-foreground text-sm">Brooke</p>
-                <p className="text-muted-foreground text-xs">Verified Customer</p>
+                <p className="font-semibold text-foreground text-sm">{t("visuals.reviews.featuredName")}</p>
+                <p className="text-muted-foreground text-xs">{t("visuals.reviews.verifiedCustomer")}</p>
               </div>
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
@@ -447,7 +447,7 @@ function ReviewsVisual({
               <div className="flex gap-6 p-6">
                 {/* Avatar */}
                 <div className="relative h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl">
-                  <Image alt="Brooke" className="object-cover" fill src="/review-brooke.png" />
+                  <Image alt={t("visuals.reviews.featuredName")} className="object-cover" fill src="/review-brooke.png" />
                 </div>
 
                 <div className="flex-1">
@@ -464,16 +464,14 @@ function ReviewsVisual({
 
                   {/* Quote */}
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    "Finding reliable help at home used to be so stressful. Casaora verified
-                    everything—background checks, interviews, reviews—so I could focus on my
-                    family."
+                    {t("visuals.reviews.featuredReview")}
                   </p>
 
                   {/* Author info */}
                   <div className="mt-6 flex items-center gap-3">
                     <div>
-                      <p className="font-bold text-foreground text-xl">Brooke</p>
-                      <p className="text-muted-foreground">Verified Customer</p>
+                      <p className="font-bold text-foreground text-xl">{t("visuals.reviews.featuredName")}</p>
+                      <p className="text-muted-foreground">{t("visuals.reviews.verifiedCustomer")}</p>
                     </div>
                     <div className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20">
                       <HugeiconsIcon
@@ -485,9 +483,9 @@ function ReviewsVisual({
 
                   {/* Additional info */}
                   <div className="mt-4 flex gap-4 border-border border-t pt-4 text-muted-foreground text-sm">
-                    <span>Hired for: Cleaning</span>
+                    <span>{t("visuals.reviews.hiredFor")}</span>
                     <span>•</span>
-                    <span>Bogotá, Colombia</span>
+                    <span>{t("visuals.reviews.location")}</span>
                   </div>
                 </div>
               </div>
@@ -499,19 +497,19 @@ function ReviewsVisual({
   );
 }
 
-function InstantBookingVisual() {
-  const times = ["9:00 AM", "11:00 AM", "2:00 PM", "4:00 PM"];
+function InstantBookingVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
+  const times = t.raw("visuals.calendar.times") as string[];
 
   return (
     <div className="flex flex-col gap-3 py-2">
       {/* Mini calendar */}
       <div className="rounded-xl border border-border bg-card p-3 shadow-sm">
         <div className="mb-2 flex items-center justify-between">
-          <span className="font-medium text-foreground text-sm">November 2025</span>
+          <span className="font-medium text-foreground text-sm">{t("visuals.calendar.month")}</span>
           <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={Calendar03Icon} />
         </div>
         <div className="grid grid-cols-7 gap-1 text-center text-xs">
-          {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+          {(t.raw("visuals.calendar.days") as string[]).map((d, i) => (
             <span className="text-muted-foreground" key={`day-${d}-${i}`}>
               {d}
             </span>
@@ -610,7 +608,7 @@ export function BenefitsSection() {
       title: t("verifiedProfessionals.title"),
       description: t("verifiedProfessionals.description"),
       visual: ({ isExpanded, setIsExpanded }) => (
-        <VerifiedProfileVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+        <VerifiedProfileVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} t={t} />
       ),
       span: "md:col-span-2 md:row-span-2 lg:col-span-3",
       gradient: "from-rausch-50/80 via-white to-amber-50/40",
@@ -620,7 +618,7 @@ export function BenefitsSection() {
       id: "payments",
       title: t("securePayments.title"),
       description: t("securePayments.description"),
-      visual: <SecurePaymentVisual />,
+      visual: <SecurePaymentVisual t={t} />,
       span: "md:col-span-2 lg:col-span-3",
       gradient: "from-rausch-50/60 via-white to-amber-50/40",
     },
@@ -629,7 +627,7 @@ export function BenefitsSection() {
       title: t("reviewSystem.title"),
       description: t("reviewSystem.description"),
       visual: ({ isExpanded, setIsExpanded }) => (
-        <ReviewsVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+        <ReviewsVisual isExpanded={isExpanded} setIsExpanded={setIsExpanded} t={t} />
       ),
       span: "md:col-span-2 md:row-span-2 lg:col-span-3",
       gradient: "from-amber-50/60 via-white to-rausch-50/40",
@@ -639,7 +637,7 @@ export function BenefitsSection() {
       id: "booking",
       title: t("realTimeBooking.title"),
       description: t("realTimeBooking.description"),
-      visual: <InstantBookingVisual />,
+      visual: <InstantBookingVisual t={t} />,
       span: "md:col-span-2 lg:col-span-3",
       gradient: "from-amber-50/60 via-white to-rausch-50/40",
     },

@@ -91,6 +91,7 @@ function ChangelogSkeleton() {
 
 // Server component to fetch changelogs
 async function ChangelogList({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "changelog" });
   // Fetch changelogs from Sanity
   const changelogs = await serverClient.fetch<Changelog[]>(
     `*[_type == "changelog" && language == $language && publishedAt <= now()] | order(sprintNumber desc, publishedAt desc) [0...20] {
@@ -113,10 +114,10 @@ async function ChangelogList({ locale }: { locale: string }) {
 
   if (!changelogs || changelogs.length === 0) {
     return (
-      <div className="border border-neutral-200 bg-neutral-50 p-12 text-center">
-        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-700" icon={MagicWand01Icon} />
-        <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Updates Yet</h3>
-        <p className="text-neutral-700">We'll post our first changelog soon. Stay tuned!</p>
+      <div className="rounded-lg border border-neutral-200 dark:border-rausch-700 bg-white dark:bg-rausch-900 p-12 text-center shadow-sm">
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-600 dark:text-rausch-300" icon={MagicWand01Icon} />
+        <h3 className="mb-2 font-bold text-neutral-900 dark:text-white text-xl">{t("empty.title")}</h3>
+        <p className="text-neutral-600 dark:text-rausch-300">{t("empty.description")}</p>
       </div>
     );
   }
@@ -132,25 +133,25 @@ async function ChangelogList({ locale }: { locale: string }) {
 
         return (
           <article
-            className="group border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-rausch-500 hover:shadow-md sm:p-8"
+            className="group rounded-lg border border-neutral-200 dark:border-rausch-700 bg-white dark:bg-rausch-900 p-6 shadow-sm transition hover:border-rausch-500 hover:shadow-md sm:p-8"
             key={changelog._id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
               <span className="bg-rausch-500/20 px-3 py-1 font-semibold text-rausch-500 text-sm">
-                Sprint {changelog.sprintNumber}
+                {t("sprint", { number: changelog.sprintNumber })}
               </span>
-              <span className="text-neutral-500 text-sm">{formattedDate}</span>
+              <span className="text-neutral-500 dark:text-rausch-400 text-sm">{formattedDate}</span>
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-2xl text-neutral-900 group-hover:text-rausch-500 sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-neutral-900 dark:text-white group-hover:text-rausch-500 sm:text-3xl">
               {changelog.title}
             </h2>
 
             {/* Summary */}
             {changelog.summary && (
-              <p className="mb-4 text-base text-neutral-500 leading-relaxed sm:text-lg">
+              <p className="mb-4 text-base text-neutral-600 dark:text-rausch-300 leading-relaxed sm:text-lg">
                 {changelog.summary}
               </p>
             )}
@@ -199,7 +200,7 @@ async function ChangelogList({ locale }: { locale: string }) {
               className="inline-flex items-center gap-2 font-semibold text-base text-rausch-500 transition hover:gap-3"
               href={`/${locale}/changelog/${changelog.slug.current}`}
             >
-              Read full update
+              {t("readFullUpdate")}
               <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
             </Link>
           </article>
@@ -230,15 +231,15 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-neutral-50 px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-neutral-50 dark:bg-rausch-950 px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-gradient-to-br from-rausch-500/10 to-rausch-500/10">
               <HugeiconsIcon className="h-8 w-8 text-rausch-500" icon={MagicWand01Icon} />
             </div>
-            <h1 className="type-serif-lg mb-4 text-neutral-900">{t("hero.title")}</h1>
-            <p className="text-lg text-neutral-500 sm:text-xl">{t("hero.subtitle")}</p>
+            <h1 className="type-serif-lg mb-4 text-neutral-900 dark:text-white">{t("hero.title")}</h1>
+            <p className="text-lg text-neutral-700 dark:text-rausch-200 sm:text-xl">{t("hero.subtitle")}</p>
           </div>
 
           {/* Changelogs List */}
