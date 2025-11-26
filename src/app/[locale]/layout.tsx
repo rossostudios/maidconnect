@@ -130,7 +130,7 @@ export default async function RootLayout({
               <PreferencesProvider>
                 <ThemeProvider
                   attribute="class"
-                  defaultTheme="system"
+                  defaultTheme="dark"
                   disableTransitionOnChange
                   enableSystem
                 >

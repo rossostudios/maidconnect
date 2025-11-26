@@ -28,9 +28,9 @@ import { cn } from "@/lib/utils";
 const articleTheme = {
   shell: "mx-auto w-full max-w-4xl space-y-10 px-4 sm:px-0",
   metaCard:
-    "flex flex-wrap items-center gap-4  border border-[neutral-200] bg-[neutral-50]/90 px-4 py-3 text-sm text-[neutral-400]",
+    "flex flex-wrap items-center gap-4 rounded-lg border border-neutral-200 bg-neutral-50/90 px-4 py-3 text-sm text-neutral-500 dark:border-border dark:bg-card/90 dark:text-neutral-400",
   gradientCard:
-    " border border-[neutral-200] bg-gradient-to-br from-[neutral-50] via-[neutral-50] to-[bg-[neutral-50]] px-6 py-5",
+    "rounded-lg border border-neutral-200 bg-gradient-to-br from-neutral-50 via-neutral-50 to-neutral-50 px-6 py-5 dark:border-border dark:from-card dark:via-card dark:to-card",
 };
 
 type ArticleTag = {
@@ -271,12 +271,12 @@ export function ArticleViewer({
   return (
     <div className={articleTheme.shell}>
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-[neutral-400] text-sm">
-        <Link className="hover:text-[neutral-500]" href={`/${locale}/help`}>
+      <nav className="flex items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
+        <Link className="hover:text-neutral-700 dark:hover:text-neutral-300" href={`/${locale}/help`}>
           {t("breadcrumb.home")}
         </Link>
         <span>/</span>
-        <Link className="hover:text-[neutral-500]" href={`/${locale}/help/${categorySlug}`}>
+        <Link className="hover:text-neutral-700 dark:hover:text-neutral-300" href={`/${locale}/help/${categorySlug}`}>
           {categoryName}
         </Link>
       </nav>
@@ -284,13 +284,13 @@ export function ArticleViewer({
       {/* Article Header */}
       <div className="space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <h1 className="font-semibold text-3xl text-[neutral-900] tracking-tight md:text-[40px] md:leading-tight">
+          <h1 className="font-semibold text-3xl text-neutral-900 tracking-tight md:text-[40px] md:leading-tight dark:text-neutral-50">
             {article.title}
           </h1>
 
           {isAdmin && articleId && (
             <Link
-              className="inline-flex shrink-0 items-center gap-2 border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-400] text-xs shadow-sm transition hover:border-[neutral-500]/40 hover:text-[neutral-500]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 font-medium text-neutral-500 text-xs shadow-sm transition hover:border-neutral-400 hover:text-neutral-700 dark:border-border dark:bg-card dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:text-neutral-300"
               href={`/${locale}/admin/help/articles/${articleId}/edit`}
             >
               <HugeiconsIcon className="h-3.5 w-3.5" icon={PencilEdit02Icon} />
@@ -306,17 +306,17 @@ export function ArticleViewer({
         <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_320px]">
           <div className={articleTheme.metaCard}>
             {recentlyUpdated && (
-              <span className="inline-flex items-center gap-1 bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
+              <span className="inline-flex items-center gap-1 rounded-full bg-neutral-500/10 px-3 py-1 font-semibold text-neutral-600 text-xs dark:bg-neutral-400/10 dark:text-neutral-400">
                 <HugeiconsIcon className="h-3.5 w-3.5" icon={CheckmarkCircle02Icon} />
                 {t("meta.recentlyUpdated")}
               </span>
             )}
             <div className="flex items-center gap-1.5">
-              <HugeiconsIcon className="h-4 w-4 text-[neutral-400]/70" icon={Calendar01Icon} />
+              <HugeiconsIcon className="h-4 w-4 text-neutral-400/70" icon={Calendar01Icon} />
               <span>{t("meta.updated", { date: formatDate(article.updated_at) })}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <HugeiconsIcon className="h-4 w-4 text-[neutral-400]/70" icon={ViewIcon} />
+              <HugeiconsIcon className="h-4 w-4 text-neutral-400/70" icon={ViewIcon} />
               <span>{t("meta.views", { count: article.view_count })}</span>
             </div>
           </div>
@@ -324,14 +324,14 @@ export function ArticleViewer({
           {/* Need-to-Know Summary Card (Zendesk 2025 - above-the-fold orientation) */}
           <div className={cn(articleTheme.gradientCard, "lg:sticky lg:top-6")}>
             <div className="mb-3 flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-[neutral-400]" icon={Note01Icon} />
-              <h3 className="font-semibold text-[neutral-900] text-lg">
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-400" icon={Note01Icon} />
+              <h3 className="font-semibold text-neutral-900 text-lg dark:text-neutral-50">
                 {locale === "en" ? "Need to Know" : "Lo que necesitas saber"}
               </h3>
             </div>
-            <div className="space-y-3 text-[neutral-400] text-sm">
+            <div className="space-y-3 text-neutral-500 text-sm dark:text-neutral-400">
               <div className="flex items-start gap-2">
-                <HugeiconsIcon className="mt-0.5 h-4 w-4 text-[neutral-400]" icon={Clock01Icon} />
+                <HugeiconsIcon className="mt-0.5 h-4 w-4 text-neutral-400" icon={Clock01Icon} />
                 <div>
                   <span className="font-medium">
                     {locale === "en" ? "Read time:" : "Tiempo de lectura:"}
@@ -341,7 +341,7 @@ export function ArticleViewer({
               </div>
               <div className="flex items-start gap-2">
                 <HugeiconsIcon
-                  className="mt-0.5 h-4 w-4 text-[neutral-500]"
+                  className="mt-0.5 h-4 w-4 text-neutral-500 dark:text-neutral-400"
                   icon={CheckmarkCircle02Icon}
                 />
                 <div>
@@ -355,7 +355,7 @@ export function ArticleViewer({
               </div>
               {relatedArticles.length > 0 && (
                 <div className="flex items-start gap-2">
-                  <HugeiconsIcon className="mt-0.5 h-4 w-4 text-[neutral-500]" icon={Link01Icon} />
+                  <HugeiconsIcon className="mt-0.5 h-4 w-4 text-neutral-500 dark:text-neutral-400" icon={Link01Icon} />
                   <div>
                     <span className="font-medium">
                       {locale === "en" ? "Related:" : "Relacionado:"}
@@ -371,22 +371,22 @@ export function ArticleViewer({
 
       {/* Article Content - Constrained for readability (50-75ch per UXPin 2025) */}
       <div
-        className="prose prose-lg w-full max-w-none prose-a:text-[neutral-500] prose-headings:text-[neutral-900] prose-p:text-[neutral-900]"
+        className="prose prose-lg w-full max-w-none prose-a:text-neutral-600 prose-headings:text-neutral-900 prose-p:text-neutral-700 dark:prose-invert dark:prose-a:text-neutral-400 dark:prose-headings:text-neutral-50 dark:prose-p:text-neutral-300"
         ref={contentRef}
       >
         <PortableText components={portableTextComponents} value={article.content} />
       </div>
 
       {/* Enhanced Feedback Section (W3C findable-support pattern) */}
-      <div className="border border-[neutral-200] bg-[neutral-50]/80 px-6 py-8">
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50/80 px-6 py-8 dark:border-border dark:bg-card/80">
         {feedbackSubmitted ? (
-          <div className="bg-[neutral-500]/10 p-6 text-[neutral-500]">
+          <div className="rounded-lg bg-neutral-100 p-6 text-neutral-600 dark:bg-muted dark:text-neutral-300">
             <p className="mb-2 font-semibold text-lg">
               {feedbackType === "helpful"
                 ? t("feedback.thanksHelpful")
                 : t("feedback.thanksNotHelpful")}
             </p>
-            <p className="text-[neutral-500] text-sm">
+            <p className="text-neutral-500 text-sm dark:text-neutral-400">
               {locale === "en"
                 ? "Your feedback helps us improve our help center."
                 : "Tu retroalimentación nos ayuda a mejorar nuestro centro de ayuda."}
@@ -395,7 +395,7 @@ export function ArticleViewer({
         ) : (
           <div>
             {/* Contextual question based on article type */}
-            <h3 className="mb-6 font-semibold text-[neutral-900] text-xl">
+            <h3 className="mb-6 font-semibold text-neutral-900 text-xl dark:text-neutral-50">
               {locale === "en"
                 ? "Did this article help you complete your task?"
                 : "¿Este artículo te ayudó a completar tu tarea?"}
@@ -403,7 +403,7 @@ export function ArticleViewer({
 
             <div className="flex flex-wrap gap-4">
               <button
-                className="flex items-center gap-2 border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500] hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
+                className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-6 py-3 font-medium text-neutral-600 transition hover:border-green-500 hover:bg-green-50 hover:text-green-600 disabled:opacity-50 dark:border-border dark:bg-card dark:text-neutral-300 dark:hover:border-green-400 dark:hover:bg-green-900/20 dark:hover:text-green-400"
                 disabled={submitting}
                 onClick={() => handleFeedback(true)}
                 type="button"
@@ -412,7 +412,7 @@ export function ArticleViewer({
                 {t("feedback.helpful")}
               </button>
               <button
-                className="flex items-center gap-2 border border-[neutral-400]/40 bg-[neutral-50] px-6 py-3 font-medium text-[neutral-400] transition hover:border-[neutral-500]/100 hover:bg-[neutral-500]/10 hover:text-[neutral-500] disabled:opacity-50"
+                className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-6 py-3 font-medium text-neutral-600 transition hover:border-rausch-500 hover:bg-rausch-50 hover:text-rausch-600 disabled:opacity-50 dark:border-border dark:bg-card dark:text-neutral-300 dark:hover:border-rausch-400 dark:hover:bg-rausch-900/20 dark:hover:text-rausch-400"
                 disabled={submitting}
                 onClick={() => {
                   setShowFeedbackForm(true);
@@ -429,8 +429,8 @@ export function ArticleViewer({
 
         {/* Enhanced Feedback Form with Quick Responses */}
         {showFeedbackForm && !feedbackSubmitted && (
-          <div className="mt-6 border border-[neutral-200] bg-[neutral-50] p-6">
-            <h4 className="mb-4 font-semibold text-[neutral-900] text-lg">
+          <div className="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-border dark:bg-card">
+            <h4 className="mb-4 font-semibold text-neutral-900 text-lg dark:text-neutral-50">
               {locale === "en"
                 ? "What stopped you from completing your task?"
                 : "¿Qué te impidió completar tu tarea?"}
@@ -438,17 +438,17 @@ export function ArticleViewer({
 
             {/* Quick Response Chips */}
             <div className="mb-4">
-              <p className="mb-3 text-[neutral-400] text-sm">
+              <p className="mb-3 text-neutral-500 text-sm dark:text-neutral-400">
                 {locale === "en" ? "Quick responses:" : "Respuestas rápidas:"}
               </p>
               <div className="flex flex-wrap gap-2">
                 {quickResponses.map((response) => (
                   <button
                     className={cn(
-                      "border px-4 py-2 text-sm transition-all",
+                      "rounded-lg border px-4 py-2 text-sm transition-all",
                       selectedQuickResponse === response
-                        ? "border-[neutral-500] bg-[neutral-500]/10 text-[neutral-500]"
-                        : "border-[neutral-400]/40 bg-[neutral-50] text-[neutral-400] hover:border-[neutral-400] hover:bg-[neutral-50]"
+                        ? "border-neutral-500 bg-neutral-100 text-neutral-700 dark:border-neutral-400 dark:bg-muted dark:text-neutral-200"
+                        : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50 dark:border-border dark:bg-card dark:text-neutral-400 dark:hover:border-neutral-500 dark:hover:bg-muted"
                     )}
                     key={response}
                     onClick={() => {
@@ -465,13 +465,13 @@ export function ArticleViewer({
 
             {/* Free Text Area */}
             <div className="mb-4">
-              <label className="mb-2 block font-medium text-[neutral-400] text-sm">
+              <label className="mb-2 block font-medium text-neutral-500 text-sm dark:text-neutral-400">
                 {locale === "en"
                   ? "Additional details (optional):"
                   : "Detalles adicionales (opcional):"}
               </label>
               <textarea
-                className="w-full border border-[neutral-400]/40 p-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
+                className="w-full rounded-lg border border-neutral-200 p-3 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-border dark:bg-background dark:text-neutral-50 dark:focus:border-neutral-400"
                 onChange={(e) => setFeedbackText(e.target.value)}
                 placeholder={
                   locale === "en"
@@ -485,7 +485,7 @@ export function ArticleViewer({
 
             <div className="flex flex-wrap gap-3">
               <button
-                className="bg-[neutral-500] px-6 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
+                className="rounded-lg bg-rausch-500 px-6 py-2 font-medium text-white text-sm transition hover:bg-rausch-600 disabled:opacity-50 dark:bg-rausch-600 dark:hover:bg-rausch-500"
                 disabled={submitting || !feedbackText}
                 onClick={handleFeedbackTextSubmit}
                 type="button"
@@ -497,7 +497,7 @@ export function ArticleViewer({
                   : t("feedback.submit")}
               </button>
               <button
-                className="border border-[neutral-400]/40 bg-[neutral-50] px-6 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
+                className="rounded-lg border border-neutral-200 bg-white px-6 py-2 font-medium text-neutral-600 text-sm transition hover:bg-neutral-50 dark:border-border dark:bg-card dark:text-neutral-400 dark:hover:bg-muted"
                 onClick={() => setShowFeedbackForm(false)}
                 type="button"
               >
@@ -511,19 +511,19 @@ export function ArticleViewer({
       {/* Related Articles */}
       {showRelatedArticles && relatedArticles.length > 0 && (
         <div className="mx-auto mb-12 max-w-3xl">
-          <h3 className="mb-6 font-semibold text-[neutral-900] text-xl">{t("related.title")}</h3>
+          <h3 className="mb-6 font-semibold text-neutral-900 text-xl dark:text-neutral-50">{t("related.title")}</h3>
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
-                className="group border border-[neutral-200] bg-[neutral-50]/80 p-5 transition hover:border-[neutral-500]/40 hover:shadow-md"
+                className="group rounded-lg border border-neutral-200 bg-neutral-50/80 p-5 transition hover:border-neutral-400 hover:shadow-md dark:border-border dark:bg-card/80 dark:hover:border-neutral-600"
                 href={`/${locale}/help/${related.category_slug}/${related.slug}`}
                 key={related.id}
               >
-                <h4 className="mb-2 font-semibold text-[neutral-900] group-hover:text-[neutral-500]">
+                <h4 className="mb-2 font-semibold text-neutral-900 group-hover:text-rausch-600 dark:text-neutral-50 dark:group-hover:text-rausch-400">
                   {related.title}
                 </h4>
-                {related.excerpt && <p className="text-[neutral-400] text-sm">{related.excerpt}</p>}
-                <div className="mt-3 flex items-center text-[neutral-500] text-sm">
+                {related.excerpt && <p className="text-neutral-500 text-sm dark:text-neutral-400">{related.excerpt}</p>}
+                <div className="mt-3 flex items-center text-rausch-600 text-sm dark:text-rausch-400">
                   <span>{t("related.readMore")}</span>
                   <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
                 </div>
@@ -536,13 +536,13 @@ export function ArticleViewer({
       {/* Contact Support CTA */}
       <div className={cn(articleTheme.gradientCard, "text-center")}>
         <HugeiconsIcon
-          className="mx-auto mb-4 h-12 w-12 text-[neutral-500]"
+          className="mx-auto mb-4 h-12 w-12 text-rausch-500 dark:text-rausch-400"
           icon={BubbleChatIcon}
         />
-        <h3 className="mb-2 font-semibold text-[neutral-900] text-xl">{t("contact.title")}</h3>
-        <p className="mb-6 text-[neutral-400]">{t("contact.description")}</p>
+        <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-50">{t("contact.title")}</h3>
+        <p className="mb-6 text-neutral-500 dark:text-neutral-400">{t("contact.description")}</p>
         <Link
-          className="inline-flex items-center gap-2 bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500]"
+          className="inline-flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-500"
           href={`/${locale}/contact`}
         >
           {t("contact.button")}

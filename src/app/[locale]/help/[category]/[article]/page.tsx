@@ -271,7 +271,7 @@ export default async function HelpArticlePage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-neutral-50 py-12">
+      <div className="min-h-screen bg-neutral-50 py-12 dark:bg-background">
         <Container>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
             <div className="mx-auto w-full max-w-4xl">
