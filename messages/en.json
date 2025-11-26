@@ -3857,7 +3857,7 @@
     },
     "everythingYouNeed": {
       "title": "Everything you need, and more",
-      "description": "Access vetted, background-checked home professionals and fine-tune every detail to fit your household needs.",
+      "description": "Access the top 20% of home professionals who pass our rigorous three-step verification. Fine-tune every detail to fit your household needs.",
       "features": {
         "vettedProfessionals": "Vetted professionals",
         "backgroundChecks": "Background checks included",
@@ -3925,20 +3925,20 @@
       "subtitle": "One simple fee: 15% added to your booking. Pros keep 100%. Background checks and insurance included.",
       "steps": {
         "search": {
-          "title": "Browse and choose",
-          "description": "Find verified professionals by service, location, and availability."
+          "title": "Browse verified pros",
+          "description": "Only 1 in 5 applicants pass our vetting. Filter by service, location, and availability."
         },
         "book": {
-          "title": "Book instantly",
-          "description": "See the full price upfront. Pay securely online in minutes."
+          "title": "Vetting included",
+          "description": "Background checks via official databases, ID verification, and skills assessment—all covered."
         },
         "service": {
-          "title": "Safety included",
-          "description": "Background checks, insurance, and support are covered by the 15% fee."
+          "title": "See total upfront",
+          "description": "Your rate + 15% fee, nothing more. Professionals receive 100% of their rate."
         },
         "review": {
           "title": "Ongoing support",
-          "description": "Messaging, scheduling, and customer support included with every booking."
+          "description": "Messaging, scheduling, replacements, and support included with every booking."
         }
       },
       "cta": "Find Help Now",
@@ -3976,7 +3976,7 @@
       "subtitle": "Your security is our top priority. Here's how we keep you protected.",
       "verification": {
         "title": "Rigorous Verification",
-        "description": "Every professional undergoes background checks, ID verification, and skills assessment before joining our platform. We continuously monitor quality through reviews."
+        "description": "Only 1 in 5 applicants pass our three-step process: ID verification, background checks via official databases (POLICIA in Colombia, RNPP in Paraguay, DNIC in Uruguay, PFA in Argentina), and skills assessment. We continuously monitor quality through reviews."
       },
       "payments": {
         "title": "Secure Payments",
@@ -3992,7 +3992,7 @@
       "subtitle": "Got questions? We've got answers.",
       "q1": {
         "question": "How are professionals verified?",
-        "answer": "Every professional goes through a comprehensive verification process including background checks, ID verification, reference checks, and skills assessment. We also continuously monitor service quality through customer reviews and ratings."
+        "answer": "Only 1 in 5 applicants (20%) pass our three-step verification process: identity verification, background checks through official national databases (Colombian National Police, Paraguayan RNPP, Uruguayan DNIC, or Argentine Federal Police depending on country), and skills assessment with reference checks. We continuously monitor quality through customer reviews, ensuring only the top professionals remain on our platform."
       },
       "q2": {
         "question": "What if I'm not satisfied with the service?",

@@ -3566,7 +3566,7 @@
     },
     "everythingYouNeed": {
       "title": "Todo lo que necesitas, y más",
-      "description": "Accede a profesionales del hogar verificados con antecedentes comprobados y ajusta cada detalle según las necesidades de tu hogar.",
+      "description": "Accede al 20% superior de profesionales del hogar que pasan nuestra rigurosa verificación de tres pasos. Ajusta cada detalle según las necesidades de tu hogar.",
       "features": {
         "vettedProfessionals": "Profesionales verificados",
         "backgroundChecks": "Verificación de antecedentes incluida",
@@ -3634,23 +3634,23 @@
       "subtitle": "Tarifa de servicio del 15%. Los profesionales reciben el 100%. Antecedentes y seguros incluidos.",
       "steps": {
         "search": {
-          "title": "Elige tu nivel de servicio",
-          "description": "Instantánea para auto-servicio en minutos o Contratación Directa con acompañamiento."
+          "title": "Explora profesionales verificados",
+          "description": "Solo 1 de cada 5 postulantes pasa nuestra verificación. Filtra por servicio, ubicación y disponibilidad."
         },
         "book": {
-          "title": "Vetting y matching incluidos",
-          "description": "Solo profesionales verificados. Antecedentes y seguros cubiertos por la tarifa."
+          "title": "Verificación incluida",
+          "description": "Antecedentes vía bases de datos oficiales, verificación de ID y evaluación de habilidades—todo cubierto."
         },
         "service": {
           "title": "Ves el total por adelantado",
-          "description": "Servicio + tarifa del 15%, nada más. Los profesionales reciben el 100%."
+          "description": "Tu tarifa + 15% de comisión, nada más. Los profesionales reciben el 100%."
         },
         "review": {
-          "title": "Servicio con soporte",
-          "description": "Mensajería, agenda, reemplazos y soporte incluidos."
+          "title": "Soporte continuo",
+          "description": "Mensajería, agenda, reemplazos y soporte incluidos con cada reserva."
         }
       },
-      "cta": "Solicitar Contratación Directa",
+      "cta": "Encuentra Ayuda",
       "ctaSecondary": "Ver profesionales"
     },
     "professional": {
@@ -3685,7 +3685,7 @@
       "subtitle": "Tu seguridad es nuestra máxima prioridad. Así es como te mantenemos protegido.",
       "verification": {
         "title": "Verificación Rigurosa",
-        "description": "Cada profesional se somete a verificación de antecedentes, verificación de ID y evaluación de habilidades antes de unirse a nuestra plataforma. Monitoreamos continuamente la calidad a través de opiniones."
+        "description": "Solo 1 de cada 5 postulantes pasa nuestro proceso de tres pasos: verificación de ID, antecedentes vía bases de datos oficiales (POLICIA en Colombia, RNPP en Paraguay, DNIC en Uruguay, PFA en Argentina), y evaluación de habilidades. Monitoreamos continuamente la calidad a través de opiniones."
       },
       "payments": {
         "title": "Pagos Seguros",
@@ -3701,7 +3701,7 @@
       "subtitle": "¿Tienes preguntas? Tenemos respuestas.",
       "q1": {
         "question": "¿Cómo se verifican los profesionales?",
-        "answer": "Cada profesional pasa por un proceso de verificación integral que incluye verificación de antecedentes, verificación de ID, verificación de referencias y evaluación de habilidades. También monitoreamos continuamente la calidad del servicio a través de opiniones y calificaciones de clientes."
+        "answer": "Solo 1 de cada 5 postulantes (20%) pasa nuestro proceso de verificación de tres pasos: verificación de identidad, antecedentes a través de bases de datos oficiales (Policía Nacional de Colombia, RNPP de Paraguay, DNIC de Uruguay o Policía Federal Argentina según el país), y evaluación de habilidades con verificación de referencias. Monitoreamos continuamente la calidad a través de opiniones de clientes, asegurando que solo los mejores profesionales permanezcan en nuestra plataforma."
       },
       "q2": {
         "question": "¿Qué pasa si no estoy satisfecho con el servicio?",

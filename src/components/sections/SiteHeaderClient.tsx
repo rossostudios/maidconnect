@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Award01Icon,
   Building06Icon,
   Calendar03Icon,
   CheckmarkBadge01Icon,
@@ -72,12 +71,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       description: t("dropdown.company.blogDesc"),
       icon: News01Icon,
     },
-    {
-      name: t("dropdown.company.careers"),
-      href: "/careers",
-      description: t("dropdown.company.careersDesc"),
-      icon: Award01Icon,
-    },
   ];
 
   // Navigation links for mobile menu (flattened)
@@ -86,7 +79,6 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
     { href: "/pros", label: t("dropdown.customers.bookNow") },
     { href: "/become-a-pro", label: t("dropdown.join.becomePro") },
     { href: "/ambassadors", label: t("dropdown.join.ambassador") },
-    { href: "/help", label: t("dropdown.customers.helpCenter") },
     { href: "/about", label: t("dropdown.company.about") },
     { href: "/contact", label: "Contact" },
   ];

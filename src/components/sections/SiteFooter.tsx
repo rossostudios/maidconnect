@@ -23,7 +23,6 @@ export function SiteFooter() {
       title: t("platform"),
       links: [
         { href: "/how-it-works", label: t("howItWorks") },
-        { href: "/pricing", label: t("pricing") },
         { href: "/help", label: t("helpCenter") },
       ],
     },
@@ -32,7 +31,6 @@ export function SiteFooter() {
       links: [
         { href: "/about", label: t("about") },
         { href: "/blog", label: "Blog" },
-        { href: "/careers", label: t("careers") },
         { href: "/changelog", label: "What's New" },
       ],
     },
@@ -41,7 +39,7 @@ export function SiteFooter() {
       links: [
         { href: "/become-a-pro", label: t("becomePro") },
         { href: "/ambassadors", label: t("ambassador") },
-        { href: "/pros", label: t("browsePros") },
+        { href: "/professionals", label: t("browsePros") },
       ],
     },
     {
