@@ -116,7 +116,7 @@ export function useApiMutation<TData = any, TResult = any>({
  * useApiMutationWithToast - API mutation with toast notifications
  * (Placeholder for future implementation with toast system)
  */
-export function useApiMutationWithToast<TData = any, TResult = any>(
+function useApiMutationWithToast<TData = any, TResult = any>(
   options: ApiMutationOptions<TData, TResult>
 ) {
   // This can be enhanced later with a toast notification system

@@ -52,14 +52,14 @@ export function validatePricingRuleForm(formData: PricingRuleFormData): string |
 /**
  * Validate commission rate (10-30%)
  */
-export function validateCommissionRate(rate: number): boolean {
+function validateCommissionRate(rate: number): boolean {
   return rate >= 10 && rate <= 30;
 }
 
 /**
  * Validate deposit percentage (0-100%)
  */
-export function validateDepositPercentage(percentage: number | null): boolean {
+function validateDepositPercentage(percentage: number | null): boolean {
   if (percentage === null) {
     return true;
   }
@@ -69,7 +69,7 @@ export function validateDepositPercentage(percentage: number | null): boolean {
 /**
  * Validate price range (min <= max)
  */
-export function validatePriceRange(min: number | null, max: number | null): boolean {
+function validatePriceRange(min: number | null, max: number | null): boolean {
   if (min === null || max === null) {
     return true;
   }

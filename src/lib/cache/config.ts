@@ -25,7 +25,7 @@ export const CACHE_DURATIONS = {
   DAY: 86_400,
 } as const;
 
-export type CacheDuration = (typeof CACHE_DURATIONS)[keyof typeof CACHE_DURATIONS];
+type CacheDuration = (typeof CACHE_DURATIONS)[keyof typeof CACHE_DURATIONS];
 
 /**
  * CDN Cache-Control headers matching duration presets
@@ -63,4 +63,4 @@ export const CACHE_HEADERS = {
   },
 } as const;
 
-export type CacheHeaderPreset = keyof typeof CACHE_HEADERS;
+type CacheHeaderPreset = keyof typeof CACHE_HEADERS;

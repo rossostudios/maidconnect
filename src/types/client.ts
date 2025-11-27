@@ -42,7 +42,7 @@ export type ClientDetectionResult = {
  * }
  * ```
  */
-export function detectClientType(headers: Headers): ClientDetectionResult {
+function detectClientType(headers: Headers): ClientDetectionResult {
   const clientTypeHeader = headers.get("x-client-type");
   const authHeader = headers.get("authorization");
   const cookieHeader = headers.get("cookie");

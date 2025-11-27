@@ -167,6 +167,6 @@ export function getAllFeatureFlagKeys(): FeatureFlagKey[] {
 /**
  * Check if a string is a valid feature flag key
  */
-export function isValidFeatureFlagKey(key: string): key is FeatureFlagKey {
+function isValidFeatureFlagKey(key: string): key is FeatureFlagKey {
   return getAllFeatureFlagKeys().includes(key as FeatureFlagKey);
 }

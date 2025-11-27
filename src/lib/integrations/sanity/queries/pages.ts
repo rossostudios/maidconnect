@@ -5,7 +5,7 @@
 /**
  * Fetch a page by pageType (e.g., 'homepage', 'about', 'pricing')
  */
-export const pageByTypeQuery = `
+const pageByTypeQuery = `
   *[_type == "page" && pageType == $pageType && language == $language && isPublished == true][0] {
     _id,
     title,
@@ -99,7 +99,7 @@ export const pageBySlugQuery = `
 /**
  * Fetch all published pages (for sitemap, etc.)
  */
-export const allPagesQuery = `
+const allPagesQuery = `
   *[_type == "page" && isPublished == true && language == $language] | order(publishedAt desc) {
     _id,
     title,

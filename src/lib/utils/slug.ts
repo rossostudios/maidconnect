@@ -171,7 +171,7 @@ export function sanitizeSlugInput(input: string): string {
  * // Returns: "juan-perez-xyz789"
  * ```
  */
-export function extractSlugFromUrl(url: string): string | null {
+function extractSlugFromUrl(url: string): string | null {
   if (!url) {
     return null;
   }
@@ -197,7 +197,7 @@ export function extractSlugFromUrl(url: string): string | null {
  * // Returns: "http://localhost:3000/pro/juan-perez"
  * ```
  */
-export function buildVanityUrl(slug: string, baseUrl?: string): string {
+function buildVanityUrl(slug: string, baseUrl?: string): string {
   const base = baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   return `${base}/pro/${slug}`;
 }

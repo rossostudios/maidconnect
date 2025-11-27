@@ -19,7 +19,7 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
   return <SupabaseContext.Provider value={value}>{children}</SupabaseContext.Provider>;
 }
 
-export function useSupabaseClient() {
+function useSupabaseClient() {
   const context = useContext(SupabaseContext);
 
   if (!context) {

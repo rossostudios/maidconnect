@@ -52,7 +52,7 @@ type LiaTabsProps = {
  * <LiaTabs tabs={tabs} activeTab="profile" onChange={setActiveTab} />
  * ```
  */
-export function LiaTabs({
+function LiaTabs({
   tabs,
   activeTab: controlledActiveTab,
   onChange,

@@ -91,7 +91,7 @@ export function getFeatureFlagWithDefault<T extends FeatureFlagValue>(
  * const flags = getAllFeatureFlags();
  * console.log(flags); // { match_wizard_enabled: true, hero_variant: 'control' }
  */
-export function getAllFeatureFlags(): Record<string, FeatureFlagValue> {
+function getAllFeatureFlags(): Record<string, FeatureFlagValue> {
   if (typeof window === "undefined") {
     return {};
   }
@@ -109,7 +109,7 @@ export function getAllFeatureFlags(): Record<string, FeatureFlagValue> {
  * // After user authentication
  * await reloadFeatureFlags();
  */
-export async function reloadFeatureFlags(): Promise<void> {
+async function reloadFeatureFlags(): Promise<void> {
   if (typeof window === "undefined") {
     return;
   }
@@ -135,7 +135,7 @@ export async function reloadFeatureFlags(): Promise<void> {
  * }
  * return <HeroControl />;
  */
-export function getHeroVariant(defaultVariant: HeroVariant = HERO_VARIANTS.CONTROL): HeroVariant {
+function getHeroVariant(defaultVariant: HeroVariant = HERO_VARIANTS.CONTROL): HeroVariant {
   const variant = getFeatureFlagWithDefault(FEATURE_FLAGS.HERO_VARIANT, defaultVariant);
 
   // Type guard: ensure variant is a valid HeroVariant
@@ -170,7 +170,7 @@ export function isMatchWizardEnabled(): boolean {
  *   return <RebookButton />;
  * }
  */
-export function isOneTapRebookEnabled(): boolean {
+function isOneTapRebookEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.ONE_TAP_REBOOK, false);
 }
 
@@ -191,7 +191,7 @@ export function isOneTapRebookEnabled(): boolean {
  *   hero_variant: 'variant_a'
  * });
  */
-export function overrideFeatureFlags(overrides: Record<FeatureFlagKey, FeatureFlagValue>): void {
+function overrideFeatureFlags(overrides: Record<FeatureFlagKey, FeatureFlagValue>): void {
   if (typeof window === "undefined") {
     return;
   }
@@ -210,7 +210,7 @@ export function overrideFeatureFlags(overrides: Record<FeatureFlagKey, FeatureFl
  * @example
  * clearFeatureFlagOverrides();
  */
-export function clearFeatureFlagOverrides(): void {
+function clearFeatureFlagOverrides(): void {
   if (typeof window === "undefined") {
     return;
   }
@@ -238,7 +238,7 @@ export function clearFeatureFlagOverrides(): void {
  * //   defaultValue: 'control'
  * // }
  */
-export function getFeatureFlagInfo(flagKey: FeatureFlagKey) {
+function getFeatureFlagInfo(flagKey: FeatureFlagKey) {
   const metadata = getFeatureFlagMetadata(flagKey);
   const currentValue = getFeatureFlag(flagKey);
 
@@ -288,7 +288,7 @@ export function getFeatureFlagOrDefault(flagKey: FeatureFlagKey): FeatureFlagVal
  * // Server Component
  * const enabled = isFeatureEnabledOrDefault('match_wizard_enabled');
  */
-export function isFeatureEnabledOrDefault(flagKey: FeatureFlagKey): boolean {
+function isFeatureEnabledOrDefault(flagKey: FeatureFlagKey): boolean {
   const value = getFeatureFlagOrDefault(flagKey);
   return Boolean(value);
 }
@@ -308,7 +308,7 @@ export function isFeatureEnabledOrDefault(flagKey: FeatureFlagKey): boolean {
  *   const intent = await parseBookingIntent(message);
  * }
  */
-export function isBookingIntentDetectionEnabled(): boolean {
+function isBookingIntentDetectionEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.BOOKING_INTENT_DETECTION, false);
 }
 
@@ -322,7 +322,7 @@ export function isBookingIntentDetectionEnabled(): boolean {
  *   const data = await extractDocumentData(file);
  * }
  */
-export function isDocumentExtractionEnabled(): boolean {
+function isDocumentExtractionEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.DOCUMENT_EXTRACTION, false);
 }
 
@@ -336,7 +336,7 @@ export function isDocumentExtractionEnabled(): boolean {
  *   const analysis = await analyzeReview(reviewText);
  * }
  */
-export function isReviewModerationEnabled(): boolean {
+function isReviewModerationEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.REVIEW_MODERATION_AI, false);
 }
 
@@ -350,7 +350,7 @@ export function isReviewModerationEnabled(): boolean {
  *   const criteria = await parseMatchingCriteria(query);
  * }
  */
-export function isSmartMatchingEnabled(): boolean {
+function isSmartMatchingEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.SMART_MATCHING, false);
 }
 
@@ -364,6 +364,6 @@ export function isSmartMatchingEnabled(): boolean {
  *   const insights = await generateBusinessInsights();
  * }
  */
-export function isAIAnalyticsEnabled(): boolean {
+function isAIAnalyticsEnabled(): boolean {
   return isFeatureEnabled(FEATURE_FLAGS.AI_ANALYTICS, false);
 }

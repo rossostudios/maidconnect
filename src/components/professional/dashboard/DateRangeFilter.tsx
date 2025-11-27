@@ -86,7 +86,7 @@ type DateRangeDropdownProps = {
   className?: string;
 };
 
-export function DateRangeDropdown({ value, onChange, className }: DateRangeDropdownProps) {
+function DateRangeDropdown({ value, onChange, className }: DateRangeDropdownProps) {
   return (
     <select
       aria-label="Select time period"

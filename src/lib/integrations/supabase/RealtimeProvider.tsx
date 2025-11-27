@@ -144,7 +144,7 @@ export function useRealtime() {
  * }
  * ```
  */
-export function useRealtimeHealth() {
+function useRealtimeHealth() {
   const { health } = useRealtime();
   return health;
 }

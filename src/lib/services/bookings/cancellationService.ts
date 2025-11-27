@@ -196,7 +196,7 @@ export function prepareCancellationNotificationData(
 /**
  * Send cancellation notifications to professional
  */
-export async function sendCancellationNotifications(
+async function sendCancellationNotifications(
   supabase: SupabaseClient,
   booking: CancellationBookingData,
   customerName: string,

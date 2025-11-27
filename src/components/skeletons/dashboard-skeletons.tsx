@@ -3,7 +3,7 @@
  * These provide instant visual feedback while dynamic content loads
  */
 
-export function BookingsListSkeleton() {
+function BookingsListSkeleton() {
   return (
     <div aria-label="Loading bookings" className="space-y-4" role="status">
       {[1, 2, 3].map((i) => (
@@ -50,7 +50,7 @@ export function FavoritesListSkeleton() {
   );
 }
 
-export function BookingCalendarSkeleton() {
+function BookingCalendarSkeleton() {
   return (
     <div aria-label="Loading calendar" className="space-y-6" role="status">
       <div className="animate-pulse">
@@ -79,7 +79,7 @@ export function BookingCalendarSkeleton() {
   );
 }
 
-export function ProfileMetricsSkeleton() {
+function ProfileMetricsSkeleton() {
   return (
     <dl aria-label="Loading metrics" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {[1, 2, 3, 4].map((i) => (
@@ -95,7 +95,7 @@ export function ProfileMetricsSkeleton() {
   );
 }
 
-export function ServiceAddonsSkeleton() {
+function ServiceAddonsSkeleton() {
   return (
     <div aria-label="Loading service addons" className="space-y-4" role="status">
       {[1, 2].map((i) => (
@@ -116,7 +116,7 @@ export function ServiceAddonsSkeleton() {
   );
 }
 
-export function AddressesSkeleton() {
+function AddressesSkeleton() {
   return (
     <div aria-label="Loading addresses" className="space-y-4" role="status">
       {[1, 2].map((i) => (
@@ -163,7 +163,7 @@ export function PendingRatingsSkeleton() {
   );
 }
 
-export function DocumentsSkeleton() {
+function DocumentsSkeleton() {
   return (
     <ul aria-label="Loading documents" className="divide-y divide-neutral-200" role="status">
       {[1, 2, 3].map((i) => (
@@ -181,7 +181,7 @@ export function DocumentsSkeleton() {
   );
 }
 
-export function PaymentMethodSkeleton() {
+function PaymentMethodSkeleton() {
   return (
     <div
       aria-label="Loading payment method"

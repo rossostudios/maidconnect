@@ -25,7 +25,7 @@ export type DirectoryParams = {
  * Generate cache key for professional directory listings
  * Normalizes params to ensure consistent cache hits
  */
-export function directoryKey(params: DirectoryParams): string[] {
+function directoryKey(params: DirectoryParams): string[] {
   return [
     "directory",
     `c:${params.country?.toUpperCase() || "all"}`,
@@ -45,32 +45,28 @@ export function directoryKey(params: DirectoryParams): string[] {
 /**
  * Generate cache key for professional availability
  */
-export function availabilityKey(
-  professionalId: string,
-  startDate: string,
-  endDate: string
-): string[] {
+function availabilityKey(professionalId: string, startDate: string, endDate: string): string[] {
   return ["availability", professionalId, startDate, endDate];
 }
 
 /**
  * Generate cache key for professional add-ons
  */
-export function addonsKey(professionalId: string): string[] {
+function addonsKey(professionalId: string): string[] {
   return ["addons", professionalId];
 }
 
 /**
  * Generate cache key for platform statistics
  */
-export function platformStatsKey(): string[] {
+function platformStatsKey(): string[] {
   return ["stats", "platform"];
 }
 
 /**
  * Generate cache key for changelog list
  */
-export function changelogListKey(params: {
+function changelogListKey(params: {
   page?: number;
   limit?: number;
   category?: string | null;
@@ -87,20 +83,20 @@ export function changelogListKey(params: {
 /**
  * Generate cache key for professional search
  */
-export function searchKey(query: string, limit: number): string[] {
+function searchKey(query: string, limit: number): string[] {
   return ["professionals", "search", `q:${query.toLowerCase().trim()}`, `l:${limit}`];
 }
 
 /**
  * Generate cache key for latest professionals
  */
-export function latestProfessionalsKey(limit: number): string[] {
+function latestProfessionalsKey(limit: number): string[] {
   return ["professionals", "latest", `l:${limit}`];
 }
 
 /**
  * Generate cache key for city professionals
  */
-export function cityProfessionalsKey(cityName: string): string[] {
+function cityProfessionalsKey(cityName: string): string[] {
   return ["professionals", "city", cityName.toLowerCase()];
 }

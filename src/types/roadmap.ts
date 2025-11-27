@@ -68,7 +68,7 @@ export interface RoadmapItemWithVoteStatus extends RoadmapItem {
 // Roadmap Vote Types
 // =============================================
 
-export type RoadmapVote = {
+type RoadmapVote = {
   id: string;
   user_id: string;
   roadmap_item_id: string;
@@ -110,7 +110,7 @@ export interface RoadmapCommentWithUser extends RoadmapComment {
   };
 }
 
-export type RoadmapCommentInput = {
+type RoadmapCommentInput = {
   roadmap_item_id: string;
   comment: string;
 };
@@ -149,13 +149,13 @@ export type RoadmapListResponse = {
   };
 };
 
-export type RoadmapDetailResponse = {
+type RoadmapDetailResponse = {
   success: boolean;
   data: RoadmapItemWithVoteStatus;
   comments?: RoadmapCommentWithUser[];
 };
 
-export type RoadmapStatsResponse = {
+type RoadmapStatsResponse = {
   success: boolean;
   stats: {
     total_items: number;
@@ -179,7 +179,7 @@ export type RoadmapAdminListParams = {
   search?: string;
 };
 
-export type RoadmapAdminStats = {
+type RoadmapAdminStats = {
   draft_count: number;
   published_count: number;
   archived_count: number;
@@ -299,7 +299,7 @@ export type RoadmapItemValidation = {
   tags: { max_items: number; max_length: number };
 };
 
-export const ROADMAP_VALIDATION: RoadmapItemValidation = {
+const ROADMAP_VALIDATION: RoadmapItemValidation = {
   title: { min: 3, max: 200 },
   slug: { min: 3, max: 200, pattern: /^[a-z0-9-]+$/ },
   description: { min: 10, max: 10_000 },
@@ -326,28 +326,28 @@ export function generateRoadmapSlug(title: string): string {
 /**
  * Get status config by status value
  */
-export function getStatusConfig(status: RoadmapStatus): RoadmapStatusConfig {
+function getStatusConfig(status: RoadmapStatus): RoadmapStatusConfig {
   return ROADMAP_STATUS_CONFIG[status];
 }
 
 /**
  * Get category config by category value
  */
-export function getCategoryConfig(category: RoadmapCategory): RoadmapCategoryConfig {
+function getCategoryConfig(category: RoadmapCategory): RoadmapCategoryConfig {
   return ROADMAP_CATEGORY_CONFIG[category];
 }
 
 /**
  * Check if user can edit roadmap item (admin only)
  */
-export function canEditRoadmapItem(userRole?: string): boolean {
+function canEditRoadmapItem(userRole?: string): boolean {
   return userRole === "admin";
 }
 
 /**
  * Check if roadmap item can be voted on
  */
-export function canVoteOnItem(item: RoadmapItem): boolean {
+function canVoteOnItem(item: RoadmapItem): boolean {
   return item.visibility === "published" && item.status !== "shipped";
 }
 
@@ -364,7 +364,7 @@ export function formatTargetQuarter(quarter: string | null): string {
 /**
  * Get status order for sorting
  */
-export function getStatusOrder(status: RoadmapStatus): number {
+function getStatusOrder(status: RoadmapStatus): number {
   const order: Record<RoadmapStatus, number> = {
     in_progress: 1,
     planned: 2,
@@ -377,7 +377,7 @@ export function getStatusOrder(status: RoadmapStatus): number {
 /**
  * Get priority order for sorting
  */
-export function getPriorityOrder(priority: RoadmapPriority): number {
+function getPriorityOrder(priority: RoadmapPriority): number {
   const order: Record<RoadmapPriority, number> = {
     high: 1,
     medium: 2,

@@ -54,7 +54,7 @@ export class UnauthorizedError extends AppError {
   }
 }
 
-export class InvalidCredentialsError extends AppError {
+class InvalidCredentialsError extends AppError {
   constructor(message = "Invalid email or password", details?: unknown) {
     super(message, 401, "INVALID_CREDENTIALS", details);
   }
@@ -70,13 +70,13 @@ export class ValidationError extends AppError {
   }
 }
 
-export class InvalidInputError extends AppError {
+class InvalidInputError extends AppError {
   constructor(message: string, field?: string) {
     super(message, 400, "INVALID_INPUT", field ? { field } : undefined);
   }
 }
 
-export class MissingRequiredFieldError extends AppError {
+class MissingRequiredFieldError extends AppError {
   constructor(field: string) {
     super(`Missing required field: ${field}`, 400, "MISSING_FIELD", { field });
   }
@@ -95,7 +95,7 @@ export class NotFoundError extends AppError {
   }
 }
 
-export class ResourceAlreadyExistsError extends AppError {
+class ResourceAlreadyExistsError extends AppError {
   constructor(resource: string, identifier?: string) {
     const message = identifier
       ? `${resource} with identifier '${identifier}' already exists`
@@ -104,7 +104,7 @@ export class ResourceAlreadyExistsError extends AppError {
   }
 }
 
-export class ResourceConflictError extends AppError {
+class ResourceConflictError extends AppError {
   constructor(message: string, details?: unknown) {
     super(message, 409, "RESOURCE_CONFLICT", details);
   }
@@ -158,13 +158,13 @@ export class ExternalServiceError extends AppError {
   }
 }
 
-export class StripeError extends ExternalServiceError {
+class StripeError extends ExternalServiceError {
   constructor(message: string, details?: Record<string, unknown>) {
     super("Stripe", message, details);
   }
 }
 
-export class EmailServiceError extends ExternalServiceError {
+class EmailServiceError extends ExternalServiceError {
   constructor(message: string, details?: Record<string, unknown>) {
     super("Email Service", message, details);
   }
@@ -174,19 +174,19 @@ export class EmailServiceError extends ExternalServiceError {
 // Upload & File Errors
 // ============================================
 
-export class FileUploadError extends AppError {
+class FileUploadError extends AppError {
   constructor(message: string, details?: unknown) {
     super(message, 400, "FILE_UPLOAD_ERROR", details);
   }
 }
 
-export class FileTooLargeError extends AppError {
+class FileTooLargeError extends AppError {
   constructor(maxSize: number) {
     super(`File size exceeds maximum of ${maxSize} bytes`, 413, "FILE_TOO_LARGE", { maxSize });
   }
 }
 
-export class InvalidFileTypeError extends AppError {
+class InvalidFileTypeError extends AppError {
   constructor(allowedTypes: string[]) {
     super(
       `Invalid file type. Allowed types: ${allowedTypes.join(", ")}`,
@@ -214,7 +214,7 @@ export function isOperationalError(error: unknown): error is AppError {
 /**
  * Checks if an error is a programming error (unexpected)
  */
-export function isProgrammingError(error: unknown): boolean {
+function isProgrammingError(error: unknown): boolean {
   return error instanceof Error && !isOperationalError(error);
 }
 
@@ -231,7 +231,7 @@ export function getStatusCode(error: unknown): number {
 /**
  * Extracts error code from any error
  */
-export function getErrorCode(error: unknown): string {
+function getErrorCode(error: unknown): string {
   if (error instanceof AppError) {
     return error.code;
   }

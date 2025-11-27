@@ -12,34 +12,34 @@ export const portableTextComponents: PortableTextComponents = {
   block: {
     // Headings
     h1: ({ children }) => (
-      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight lg:text-5xl">
+      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight lg:text-5xl dark:text-neutral-50">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-10 mb-4 scroll-m-20 border-neutral-200 border-b pb-3 font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-neutral-900 tracking-tight first:mt-0">
+      <h2 className="mt-10 mb-4 scroll-m-20 border-neutral-200 border-b pb-3 font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-neutral-900 tracking-tight first:mt-0 dark:border-neutral-700 dark:text-rausch-400">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 tracking-tight">
+      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 tracking-tight dark:text-neutral-100">
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="mt-6 mb-3 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl tracking-tight">
+      <h4 className="mt-6 mb-3 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl tracking-tight dark:text-neutral-200">
         {children}
       </h4>
     ),
     // Paragraph
     normal: ({ children }) => (
-      <p className="text-base text-neutral-700 leading-relaxed [&:not(:first-child)]:mt-5">
+      <p className="text-base text-neutral-700 leading-relaxed dark:text-neutral-300 [&:not(:first-child)]:mt-5">
         {children}
       </p>
     ),
     // Blockquote
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-rausch-500 border-l-4 bg-rausch-50 px-6 py-4 text-base text-neutral-700 italic leading-relaxed">
+      <blockquote className="my-8 rounded-lg border-rausch-500 border-l-4 bg-rausch-50 px-6 py-4 text-base text-neutral-700 italic leading-relaxed dark:border-rausch-400 dark:bg-rausch-950/30 dark:text-neutral-200">
         {children}
       </blockquote>
     ),
@@ -48,15 +48,21 @@ export const portableTextComponents: PortableTextComponents = {
   list: {
     // Bulleted list
     bullet: ({ children }) => (
-      <ul className="my-6 ml-6 list-disc text-base text-neutral-700 [&>li]:mt-3">{children}</ul>
+      <ul className="my-6 ml-6 list-disc text-base text-neutral-700 dark:text-neutral-300 [&>li]:mt-3">
+        {children}
+      </ul>
     ),
     // Numbered list
     number: ({ children }) => (
-      <ol className="my-6 ml-6 list-decimal text-base text-neutral-700 [&>li]:mt-3">{children}</ol>
+      <ol className="my-6 ml-6 list-decimal text-base text-neutral-700 dark:text-neutral-300 [&>li]:mt-3">
+        {children}
+      </ol>
     ),
     // Checkbox list
     checkbox: ({ children }) => (
-      <ul className="my-6 ml-6 list-none text-base text-neutral-700 [&>li]:mt-3">{children}</ul>
+      <ul className="my-6 ml-6 list-none text-base text-neutral-700 dark:text-neutral-300 [&>li]:mt-3">
+        {children}
+      </ul>
     ),
   },
 
@@ -82,13 +88,13 @@ export const portableTextComponents: PortableTextComponents = {
   marks: {
     // Strong/bold
     strong: ({ children }) => (
-      <strong className="font-semibold text-neutral-900">{children}</strong>
+      <strong className="font-semibold text-neutral-900 dark:text-neutral-100">{children}</strong>
     ),
     // Emphasis/italic
     em: ({ children }) => <em className="italic">{children}</em>,
     // Code
     code: ({ children }) => (
-      <code className="relative rounded bg-rausch-50 px-[0.4rem] py-[0.2rem] font-medium font-mono text-rausch-600 text-sm">
+      <code className="relative rounded-lg bg-rausch-50 px-[0.4rem] py-[0.2rem] font-medium font-mono text-rausch-600 text-sm dark:bg-rausch-950/40 dark:text-rausch-300">
         {children}
       </code>
     ),
@@ -98,7 +104,9 @@ export const portableTextComponents: PortableTextComponents = {
     "strike-through": ({ children }) => <s className="line-through">{children}</s>,
     // Highlight
     highlight: ({ children }) => (
-      <mark className="bg-rausch-100 px-1 text-neutral-900">{children}</mark>
+      <mark className="rounded bg-rausch-100 px-1 text-neutral-900 dark:bg-rausch-900/40 dark:text-rausch-200">
+        {children}
+      </mark>
     ),
     // External link
     link: ({ children, value }) => {
@@ -108,7 +116,7 @@ export const portableTextComponents: PortableTextComponents = {
       if (href.startsWith("http")) {
         return (
           <a
-            className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
+            className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
             href={href}
             rel={blank ? "noopener noreferrer" : undefined}
             target={blank ? "_blank" : undefined}
@@ -120,7 +128,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
+          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
           href={href}
         >
           {children}
@@ -147,7 +155,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700"
+          className="font-medium text-rausch-600 underline underline-offset-4 transition hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
           href={href}
         >
           {children}
@@ -295,7 +303,7 @@ export const portableTextComponents: PortableTextComponents = {
 /**
  * Wrapper component for Portable Text rendering
  */
-export function SanityPortableText({
+function SanityPortableText({
   value,
   components,
 }: {

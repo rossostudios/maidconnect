@@ -21,7 +21,7 @@ export function invalidateTags(tags: CacheTag[]): void {
  * Invalidate all tags for a domain
  * @example invalidateDomain('professionals') // Invalidates all professionals:* tags
  */
-export function invalidateDomain(domain: string): void {
+function invalidateDomain(domain: string): void {
   invalidateTags(getTagsForDomain(domain));
 }
 
@@ -46,7 +46,7 @@ export function invalidateProfessionals(): void {
  * Invalidate professional availability cache
  * Call when: Booking created, cancelled, or rescheduled
  */
-export function invalidateProfessionalAvailability(): void {
+function invalidateProfessionalAvailability(): void {
   invalidateTag(CACHE_TAGS.PROFESSIONALS_AVAILABILITY);
 }
 
@@ -91,7 +91,7 @@ export function invalidateRoadmap(): void {
  * Invalidate platform statistics cache
  * Call when: Any statistic-affecting event occurs
  */
-export function invalidatePlatformStats(): void {
+function invalidatePlatformStats(): void {
   invalidateTag(CACHE_TAGS.PLATFORM_STATS);
 }
 

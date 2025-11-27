@@ -122,7 +122,7 @@ export type BookingAddon = {
 // Input Types
 // ============================================================================
 
-export type CreateBookingInput = {
+type CreateBookingInput = {
   professionalId: string;
   serviceId: string;
   pricingTierId?: string;
@@ -143,7 +143,7 @@ export type CreateBookingInput = {
   addonIds?: string[];
 };
 
-export type UpdateBookingInput = {
+type UpdateBookingInput = {
   scheduledDate?: string;
   scheduledStartTime?: string;
   scheduledEndTime?: string;
@@ -158,11 +158,11 @@ export type UpdateBookingInput = {
   status?: BookingStatus;
 };
 
-export type CancelBookingInput = {
+type CancelBookingInput = {
   reason: string;
 };
 
-export type RateBookingInput = {
+type RateBookingInput = {
   rating: number; // 1-5
   review?: string;
 };
@@ -191,7 +191,7 @@ export type ProfessionalBookingSummary = {
   totalRatings: number;
 };
 
-export type BookingPriceCalculation = {
+type BookingPriceCalculation = {
   basePrice: number;
   tierPrice: number;
   addonsPrice: number;
@@ -203,34 +203,34 @@ export type BookingPriceCalculation = {
 // Response Types
 // ============================================================================
 
-export type CreateBookingResponse =
+type CreateBookingResponse =
   | { success: true; booking: Booking }
   | { success: false; error: string };
 
-export type UpdateBookingResponse =
+type UpdateBookingResponse =
   | { success: true; booking: Booking }
   | { success: false; error: string };
 
-export type CancelBookingResponse = { success: true } | { success: false; error: string };
+type CancelBookingResponse = { success: true } | { success: false; error: string };
 
-export type GetBookingResponse =
+type GetBookingResponse =
   | { success: true; booking: BookingWithDetails }
   | { success: false; error: string };
 
-export type GetBookingsResponse =
+type GetBookingsResponse =
   | { success: true; bookings: BookingWithDetails[] }
   | { success: false; error: string };
 
-export type RateBookingResponse = { success: true } | { success: false; error: string };
+type RateBookingResponse = { success: true } | { success: false; error: string };
 
-export type GetCustomerBookingSummaryResponse =
+type GetCustomerBookingSummaryResponse =
   | { success: true; summary: CustomerBookingSummary }
   | { success: false; error: string };
 
-export type GetProfessionalBookingSummaryResponse =
+type GetProfessionalBookingSummaryResponse =
   | { success: true; summary: ProfessionalBookingSummary }
   | { success: false; error: string };
 
-export type CheckBookingAvailabilityResponse =
+type CheckBookingAvailabilityResponse =
   | { success: true; available: boolean }
   | { success: false; error: string };

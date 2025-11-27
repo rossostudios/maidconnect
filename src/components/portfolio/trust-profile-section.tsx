@@ -539,7 +539,7 @@ export type TrustBadgeCompactProps = {
   className?: string;
 };
 
-export function TrustBadgeCompact({ type, className }: TrustBadgeCompactProps) {
+function TrustBadgeCompact({ type, className }: TrustBadgeCompactProps) {
   const config = {
     background_check: {
       label: "Background Checked",

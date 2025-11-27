@@ -96,7 +96,7 @@ export async function getSession(): Promise<SessionContext> {
   return { user: appUser };
 }
 
-export async function requireUser(options: RequireUserOptions = {}): Promise<AppUser> {
+async function requireUser(options: RequireUserOptions = {}): Promise<AppUser> {
   const { allowedRoles, fallback } = options;
   const { user } = await getSession();
 

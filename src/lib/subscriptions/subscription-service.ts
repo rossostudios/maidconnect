@@ -390,7 +390,7 @@ export async function createFreeSubscription(
 /**
  * Check if user has an active paid subscription
  */
-export async function hasActivePaidSubscription(
+async function hasActivePaidSubscription(
   userId: string,
   planType?: "customer" | "professional"
 ): Promise<boolean> {

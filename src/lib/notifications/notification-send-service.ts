@@ -181,7 +181,7 @@ export function countSuccessfulSends(results: SendResult[]): number {
 /**
  * Helper function to send push notifications (can be called from other services)
  */
-export async function sendPushNotification(
+async function sendPushNotification(
   userId: string,
   notification: {
     title: string;

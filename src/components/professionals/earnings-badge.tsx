@@ -186,7 +186,7 @@ export function EarningsBadge({
  * <EarningsBadgeCompact tier="gold" />
  * ```
  */
-export function EarningsBadgeCompact({ tier, className }: EarningsBadgeCompactProps) {
+function EarningsBadgeCompact({ tier, className }: EarningsBadgeCompactProps) {
   if (tier === "none") {
     return null;
   }
@@ -232,7 +232,7 @@ type EarningsBadgeTooltipProps = {
  * </EarningsBadgeTooltip>
  * ```
  */
-export function EarningsBadgeTooltip({ totalBookings, children }: EarningsBadgeTooltipProps) {
+function EarningsBadgeTooltip({ totalBookings, children }: EarningsBadgeTooltipProps) {
   const badge = getBadgeFromBookings(totalBookings);
   const progress = calculateTierProgress(totalBookings);
 

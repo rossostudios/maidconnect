@@ -137,13 +137,13 @@ export const clientEnvSchema = z.object({
 });
 
 // Export types for TypeScript autocomplete
-export type ServerEnv = z.infer<typeof serverEnvSchema>;
-export type ClientEnv = z.infer<typeof clientEnvSchema>;
+type ServerEnv = z.infer<typeof serverEnvSchema>;
+type ClientEnv = z.infer<typeof clientEnvSchema>;
 
 /**
  * Validates environment variables and throws detailed error if invalid
  */
-export function validateEnv() {
+function validateEnv() {
   const parsed = serverEnvSchema.safeParse(process.env);
 
   if (!parsed.success) {

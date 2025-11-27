@@ -222,15 +222,16 @@ export function ArticleViewer({
     }).format(date);
   };
 
-  // Inject single "Back to top" button at the end of article (mobile affordance)
+  // Inject single "Back to top" button after article content (mobile affordance)
   useEffect(() => {
     const contentElement = contentRef.current;
-    if (!contentElement) {
+    const parentElement = contentElement?.parentElement;
+    if (!contentElement || !parentElement) {
       return;
     }
 
     // Remove any existing back-to-top buttons to prevent duplicates
-    for (const btn of contentElement.querySelectorAll(".back-to-top-btn")) {
+    for (const btn of parentElement.querySelectorAll(".back-to-top-btn")) {
       btn.remove();
     }
 
@@ -240,7 +241,7 @@ export function ArticleViewer({
     backToTopBtn.innerHTML = `
       <button
         type="button"
-        class="inline-flex items-center gap-2  border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm font-medium text-[neutral-400] transition hover:border-[neutral-400]/40 hover:bg-[neutral-50] hover:text-[neutral-900]"
+        class="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm font-medium text-neutral-500 transition hover:border-rausch-400 hover:bg-rausch-50 hover:text-rausch-600 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:border-rausch-400 dark:hover:bg-rausch-950/30 dark:hover:text-rausch-400"
         aria-label="${locale === "en" ? "Back to top" : "Volver arriba"}"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,12 +257,12 @@ export function ArticleViewer({
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Insert at the end of content
-    contentElement.appendChild(backToTopBtn);
+    // Insert as sibling AFTER the prose div (outside prose styling)
+    contentElement.insertAdjacentElement("afterend", backToTopBtn);
 
     // Cleanup function
     return () => {
-      for (const btn of contentElement.querySelectorAll(".back-to-top-btn")) {
+      for (const btn of parentElement.querySelectorAll(".back-to-top-btn")) {
         btn.remove();
       }
     };

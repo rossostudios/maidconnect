@@ -56,7 +56,7 @@ export const geistSans = GeistSans;
  * - Dashboard: All numbers, timestamps, data values
  * - Admin: Tables, metrics, analytics, IDs
  */
-export const geistMono = GeistMono;
+const geistMono = GeistMono;
 
 /**
  * Font Usage Guidelines - Lia Design System:

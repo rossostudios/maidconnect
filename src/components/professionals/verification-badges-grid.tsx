@@ -145,10 +145,7 @@ export type VerificationSummaryBadgeProps = {
   className?: string;
 };
 
-export function VerificationSummaryBadge({
-  verification,
-  className,
-}: VerificationSummaryBadgeProps) {
+function VerificationSummaryBadge({ verification, className }: VerificationSummaryBadgeProps) {
   const {
     level,
     backgroundCheckPassed,

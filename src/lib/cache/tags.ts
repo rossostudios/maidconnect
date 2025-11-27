@@ -120,6 +120,6 @@ export function getTagsForDomain(domain: string): CacheTag[] {
 /**
  * Type guard to check if a string is a valid cache tag
  */
-export function isValidTag(tag: string): tag is CacheTag {
+function isValidTag(tag: string): tag is CacheTag {
   return Object.values(CACHE_TAGS).includes(tag as CacheTag);
 }

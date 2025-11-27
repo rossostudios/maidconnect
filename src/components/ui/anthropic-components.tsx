@@ -231,13 +231,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: { value: string; label: string }[];
 }
 
-export const Select: React.FC<SelectProps> = ({
-  label,
-  error,
-  options,
-  className = "",
-  ...props
-}) => (
+const Select: React.FC<SelectProps> = ({ label, error, options, className = "", ...props }) => (
   <div className="w-full">
     {label && (
       <label className="mb-1.5 block font-medium font-sans text-[#222222] text-sm">{label}</label>
@@ -266,7 +260,7 @@ interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
   label?: string;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ label, className = "", ...props }) => (
+const Checkbox: React.FC<CheckboxProps> = ({ label, className = "", ...props }) => (
   <label className="flex cursor-pointer items-center">
     <input
       className={`h-5 w-5 rounded border-2 border-[#DDDDDD] text-[#7A3B4A] transition-colors duration-200 focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 ${className}
@@ -286,7 +280,7 @@ interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "
   label?: string;
 }
 
-export const Radio: React.FC<RadioProps> = ({ label, className = "", ...props }) => (
+const Radio: React.FC<RadioProps> = ({ label, className = "", ...props }) => (
   <label className="flex cursor-pointer items-center">
     <input
       className={`h-5 w-5 border-2 border-[#DDDDDD] text-[#7A3B4A] transition-colors duration-200 focus:ring-2 focus:ring-[#7A3B4A] focus:ring-opacity-20 ${className}
@@ -307,7 +301,7 @@ type DividerProps = {
   orientation?: "horizontal" | "vertical";
 };
 
-export const Divider: React.FC<DividerProps> = ({ className = "", orientation = "horizontal" }) => (
+const Divider: React.FC<DividerProps> = ({ className = "", orientation = "horizontal" }) => (
   <div
     className={`bg-[#DDDDDD] ${orientation === "horizontal" ? "h-px w-full" : "h-full w-px"}
         ${className}
@@ -324,12 +318,7 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
 }
 
-export const Link: React.FC<LinkProps> = ({
-  variant = "primary",
-  children,
-  className = "",
-  ...props
-}) => {
+const Link: React.FC<LinkProps> = ({ variant = "primary", children, className = "", ...props }) => {
   const variants = {
     primary: "text-[#6B3340] hover:text-[#5D2B35] underline",
     secondary: "text-[#00A699] hover:text-[#008F84] underline",
@@ -350,7 +339,7 @@ export const Link: React.FC<LinkProps> = ({
 // USAGE EXAMPLES
 // ============================================
 
-export const ComponentShowcase = () => {
+const ComponentShowcase = () => {
   const [toggleState, setToggleState] = React.useState(false);
 
   return (

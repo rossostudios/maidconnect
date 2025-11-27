@@ -14,7 +14,7 @@ export const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: STRIPE_API_VERSION,
 });
 
-export function getStripePublishableKey() {
+function getStripePublishableKey() {
   const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   if (!key) {
     throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set in the environment.");
@@ -34,6 +34,6 @@ export function assertStripeSignature(request: NextRequest) {
   return { signature, secret: webhookSecret };
 }
 
-export type StripeEvent<T extends Stripe.Event.Type = Stripe.Event.Type> = Stripe.Event & {
+type StripeEvent<T extends Stripe.Event.Type = Stripe.Event.Type> = Stripe.Event & {
   type: T;
 };

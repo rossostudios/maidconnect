@@ -37,13 +37,13 @@ export type OnboardingProgress = {
 /**
  * Server Action Response Types
  */
-export type MarkItemCompletedResponse = {
+type MarkItemCompletedResponse = {
   success: boolean;
   updatedChecklist?: OnboardingChecklist;
   error?: string;
 };
 
-export type GetOnboardingProgressResponse = {
+type GetOnboardingProgressResponse = {
   success: boolean;
   progress?: OnboardingProgress;
   error?: string;

@@ -40,6 +40,6 @@ export function KeyboardBadge({ keys, className, size = "md" }: KeyboardBadgePro
 /**
  * Single Key Badge (for simpler use cases)
  */
-export function KeyBadge({ keyLabel, className }: { keyLabel: string; className?: string }) {
+function KeyBadge({ keyLabel, className }: { keyLabel: string; className?: string }) {
   return <KeyboardBadge className={className} keys={[keyLabel]} />;
 }

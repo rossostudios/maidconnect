@@ -14,7 +14,7 @@ export type VettingStatus =
   | "approved" // Documents verified, awaiting profile completion
   | "active"; // Fully onboarded and can accept bookings
 
-export function getNextVettingStatus(currentStatus: string): VettingStatus | null {
+function getNextVettingStatus(currentStatus: string): VettingStatus | null {
   switch (currentStatus) {
     case "application_pending":
       return "application_in_review";
@@ -27,7 +27,7 @@ export function getNextVettingStatus(currentStatus: string): VettingStatus | nul
   }
 }
 
-export function canProgressToStatus(currentStatus: string, targetStatus: VettingStatus): boolean {
+function canProgressToStatus(currentStatus: string, targetStatus: VettingStatus): boolean {
   const statusOrder: VettingStatus[] = [
     "application_pending",
     "application_in_review",

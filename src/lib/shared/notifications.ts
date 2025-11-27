@@ -64,7 +64,7 @@ export async function sendPushNotification(payload: NotificationPayload) {
  * CUSTOMER NOTIFICATIONS
  */
 
-export async function notifyCustomerBookingConfirmed(
+async function notifyCustomerBookingConfirmed(
   customerId: string,
   booking: {
     id: string;
@@ -122,7 +122,7 @@ export async function notifyCustomerBookingDeclined(
   });
 }
 
-export async function notifyCustomerServiceStarted(
+async function notifyCustomerServiceStarted(
   customerId: string,
   booking: {
     id: string;
@@ -139,7 +139,7 @@ export async function notifyCustomerServiceStarted(
   });
 }
 
-export async function notifyCustomerServiceCompleted(
+async function notifyCustomerServiceCompleted(
   customerId: string,
   booking: {
     id: string;
@@ -157,7 +157,7 @@ export async function notifyCustomerServiceCompleted(
   });
 }
 
-export async function notifyCustomerNewMessage(
+async function notifyCustomerNewMessage(
   customerId: string,
   message: {
     senderName: string;
@@ -174,7 +174,7 @@ export async function notifyCustomerNewMessage(
   });
 }
 
-export async function notifyCustomerReviewReminder(
+async function notifyCustomerReviewReminder(
   customerId: string,
   booking: {
     id: string;
@@ -191,7 +191,7 @@ export async function notifyCustomerReviewReminder(
   });
 }
 
-export async function notifyCustomerProfessionalEnRoute(
+async function notifyCustomerProfessionalEnRoute(
   customerId: string,
   booking: {
     bookingId: string;
@@ -226,7 +226,7 @@ export async function notifyCustomerProfessionalEnRoute(
  * PROFESSIONAL NOTIFICATIONS
  */
 
-export async function notifyProfessionalNewBooking(
+async function notifyProfessionalNewBooking(
   professionalId: string,
   booking: {
     id: string;
@@ -277,7 +277,7 @@ export async function notifyProfessionalBookingCanceled(
   });
 }
 
-export async function notifyProfessionalPaymentReceived(
+async function notifyProfessionalPaymentReceived(
   professionalId: string,
   booking: {
     id: string;
@@ -296,7 +296,7 @@ export async function notifyProfessionalPaymentReceived(
   });
 }
 
-export async function notifyProfessionalNewMessage(
+async function notifyProfessionalNewMessage(
   professionalId: string,
   message: {
     senderName: string;
@@ -313,7 +313,7 @@ export async function notifyProfessionalNewMessage(
   });
 }
 
-export async function notifyProfessionalReviewReceived(
+async function notifyProfessionalReviewReceived(
   professionalId: string,
   review: {
     customerName: string;
@@ -332,7 +332,7 @@ export async function notifyProfessionalReviewReceived(
   });
 }
 
-export async function notifyProfessionalServiceReminder(
+async function notifyProfessionalServiceReminder(
   professionalId: string,
   booking: {
     id: string;
@@ -356,7 +356,7 @@ export async function notifyProfessionalServiceReminder(
   });
 }
 
-export async function notifyProfessionalBookingRescheduled(
+async function notifyProfessionalBookingRescheduled(
   professionalId: string,
   booking: {
     id: string;
@@ -383,7 +383,7 @@ export async function notifyProfessionalBookingRescheduled(
   });
 }
 
-export async function notifyProfessionalDisputeFiled(
+async function notifyProfessionalDisputeFiled(
   professionalId: string,
   dispute: {
     id: string;
@@ -406,7 +406,7 @@ export async function notifyProfessionalDisputeFiled(
  * ADMIN NOTIFICATIONS (Critical Alerts)
  */
 
-export async function notifyAdminDisputeFiled(
+async function notifyAdminDisputeFiled(
   adminId: string,
   dispute: {
     id: string;
@@ -426,7 +426,7 @@ export async function notifyAdminDisputeFiled(
   });
 }
 
-export async function notifyAdminPaymentFailure(
+async function notifyAdminPaymentFailure(
   adminId: string,
   failure: {
     bookingId: string;
@@ -448,7 +448,7 @@ export async function notifyAdminPaymentFailure(
   });
 }
 
-export async function notifyAdminPaymentCapturedButDBFailed(
+async function notifyAdminPaymentCapturedButDBFailed(
   adminId: string,
   failure: {
     bookingId: string;
@@ -474,7 +474,7 @@ export async function notifyAdminPaymentCapturedButDBFailed(
  * Helper function to notify all admins
  * Fetches all users with admin role and sends notification to each
  */
-export async function notifyAllAdmins(
+async function notifyAllAdmins(
   notificationFn: (adminId: string, ...fnArgs: any[]) => Promise<any>,
   ...args: any[]
 ) {
@@ -499,7 +499,7 @@ export async function notifyAllAdmins(
  * REBOOK NUDGE NOTIFICATIONS (Sprint 2)
  */
 
-export async function notifyCustomerRebookNudge(
+async function notifyCustomerRebookNudge(
   customerId: string,
   booking: {
     id: string;

@@ -6,7 +6,7 @@
     "src/app/**/route.ts",
     "src/app/**/loading.tsx",
     "src/app/**/error.tsx",
-    "middleware.ts",
+    "proxy.ts",
     "src/i18n.ts"
   ],
   "project": ["src/**/*.{ts,tsx}"],
@@ -45,7 +45,7 @@
       "src/app/**/page.tsx!",
       "src/app/**/layout.tsx!",
       "src/app/**/route.ts!",
-      "middleware.ts!"
+      "proxy.ts!"
     ]
   }
 }

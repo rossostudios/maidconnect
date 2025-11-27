@@ -197,7 +197,7 @@ export async function deleteRecord(documentType: string, documentId: string) {
  * Batch index multiple documents
  * Useful for initial sync or bulk updates
  */
-export async function batchIndexDocuments(documents: any[], documentType: string) {
+async function batchIndexDocuments(documents: any[], documentType: string) {
   const transformers: Record<string, (doc: any) => any> = {
     helpArticle: transformHelpArticle,
     changelog: transformChangelog,
@@ -240,7 +240,7 @@ export async function batchIndexDocuments(documents: any[], documentType: string
  * Clear an entire index
  * Use with caution - this deletes all records
  */
-export async function clearIndex(indexName: string) {
+async function clearIndex(indexName: string) {
   const index = getWriteIndex(indexName);
   await index.clearObjects();
 }

@@ -25,12 +25,12 @@ export type SharePlatform =
 /**
  * Payout status types
  */
-export type PayoutStatus = "requested" | "processing" | "completed" | "failed";
+type PayoutStatus = "requested" | "processing" | "completed" | "failed";
 
 /**
  * Payout types
  */
-export type PayoutType = "instant" | "batch";
+type PayoutType = "instant" | "batch";
 
 // ========================================
 // Profile Sharing Events
@@ -39,7 +39,7 @@ export type PayoutType = "instant" | "batch";
 /**
  * Track when a professional makes their profile public
  */
-export function trackProfileMadePublic(props: {
+function trackProfileMadePublic(props: {
   professionalId: string;
   slug: string;
   hasEarningsBadge: boolean;
@@ -59,7 +59,7 @@ export function trackProfileMadePublic(props: {
 /**
  * Track when a professional updates their vanity URL slug
  */
-export function trackSlugUpdated(props: {
+function trackSlugUpdated(props: {
   professionalId: string;
   oldSlug: string | null;
   newSlug: string;

@@ -155,7 +155,7 @@ type FlexibleDestinationsProps = {
   className?: string;
 };
 
-export function FlexibleDestinations({
+function FlexibleDestinations({
   cities = DEFAULT_CITIES,
   title = "Explore by City",
   subtitle = "Find professionals in your area",

@@ -39,7 +39,7 @@ export type CalendarBooking = {
 /**
  * Date range selection state
  */
-export type DateRangeSelection = {
+type DateRangeSelection = {
   start: Date | null;
   end: Date | null;
   hoveredDate: Date | null;
@@ -86,7 +86,7 @@ export type CalendarGridProps = {
 /**
  * Visual state for a calendar day cell
  */
-export type CalendarDayCellState =
+type CalendarDayCellState =
   | "available"
   | "blocked"
   | "booked"
@@ -156,7 +156,7 @@ export type BlockedDatesSet = Set<string>; // Set of dateKeys (YYYY-MM-DD)
 /**
  * API request for updating pricing
  */
-export type UpdatePricingRequest = {
+type UpdatePricingRequest = {
   dates: string[];
   hourlyRateCents: number;
 };
@@ -164,7 +164,7 @@ export type UpdatePricingRequest = {
 /**
  * API request for blocking/unblocking dates
  */
-export type UpdateBlockedDatesRequest = {
+type UpdateBlockedDatesRequest = {
   dates: string[];
   action: "block" | "unblock";
 };
@@ -172,7 +172,7 @@ export type UpdateBlockedDatesRequest = {
 /**
  * API response for pricing update
  */
-export type UpdatePricingResponse = {
+type UpdatePricingResponse = {
   success: boolean;
   updatedDates: number;
 };
@@ -180,7 +180,7 @@ export type UpdatePricingResponse = {
 /**
  * API response for blocked dates update
  */
-export type UpdateBlockedDatesResponse = {
+type UpdateBlockedDatesResponse = {
   success: boolean;
   blockedDates: string[];
 };

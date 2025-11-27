@@ -28,7 +28,7 @@ export const paginationQuerySchema = z.object({
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
 
-export type PaginationQuery = z.infer<typeof paginationQuerySchema>;
+type PaginationQuery = z.infer<typeof paginationQuerySchema>;
 
 export const paginatedResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
   z.object({
@@ -61,7 +61,7 @@ export const errorResponseSchema = z.object({
   }),
 });
 
-export type ErrorResponse = z.infer<typeof errorResponseSchema>;
+type ErrorResponse = z.infer<typeof errorResponseSchema>;
 
 // ============================================
 // Common Request Body Schemas
@@ -76,7 +76,7 @@ export const searchQuerySchema = z.object({
   ...paginationQuerySchema.shape,
 });
 
-export type SearchQuery = z.infer<typeof searchQuerySchema>;
+type SearchQuery = z.infer<typeof searchQuerySchema>;
 
 // ============================================
 // Filter Schemas
@@ -99,7 +99,7 @@ export const priceRangeSchema = z.object({
 /**
  * Validates request body and returns typed data or throws validation error
  */
-export async function validateRequestBody<T extends z.ZodTypeAny>(
+async function validateRequestBody<T extends z.ZodTypeAny>(
   request: Request,
   schema: T
 ): Promise<z.infer<T>> {

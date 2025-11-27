@@ -94,6 +94,6 @@ export function Logo({ size = "md", variant = "full", className, responsive = fa
  * LogoMark - Just the isologo mark
  * Convenience export for compact spaces
  */
-export function LogoMark({ size = "md", className }: { size?: LogoSize; className?: string }) {
+function LogoMark({ size = "md", className }: { size?: LogoSize; className?: string }) {
   return <Logo className={className} size={size} variant="mark" />;
 }

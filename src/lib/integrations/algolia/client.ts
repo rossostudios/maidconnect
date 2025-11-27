@@ -102,7 +102,7 @@ export function initializeIndices() {
  * Configure index settings for optimal search experience
  * This should be run once during setup or when updating search configuration
  */
-export async function configureIndexSettings() {
+async function configureIndexSettings() {
   const indices = initializeIndices();
 
   // Help Articles Index Configuration
@@ -180,7 +180,7 @@ export async function configureIndexSettings() {
  */
 let browserSearchClient: SearchClient | null = null;
 
-export function getBrowserSearchClient(): SearchClient {
+function getBrowserSearchClient(): SearchClient {
   if (typeof window === "undefined") {
     throw new Error("getBrowserSearchClient() can only be called in the browser");
   }

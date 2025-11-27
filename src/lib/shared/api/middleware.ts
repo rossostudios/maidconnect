@@ -121,7 +121,7 @@ export function withAuth<T extends unknown[]>(
  * });
  * ```
  */
-export function withAdmin<T extends unknown[]>(
+function withAdmin<T extends unknown[]>(
   handler: AuthenticatedHandler<T>,
   context?: Record<string, unknown>
 ) {
@@ -143,7 +143,7 @@ export function withAdmin<T extends unknown[]>(
  * });
  * ```
  */
-export function withProfessional<T extends unknown[]>(
+function withProfessional<T extends unknown[]>(
   handler: AuthenticatedHandler<T>,
   context?: Record<string, unknown>
 ) {
@@ -165,7 +165,7 @@ export function withProfessional<T extends unknown[]>(
  * });
  * ```
  */
-export function withCustomer<T extends unknown[]>(
+function withCustomer<T extends unknown[]>(
   handler: AuthenticatedHandler<T>,
   context?: Record<string, unknown>
 ) {
@@ -198,7 +198,7 @@ export function withCustomer<T extends unknown[]>(
  * );
  * ```
  */
-export function withValidation<TSchema, T extends unknown[]>(
+function withValidation<TSchema, T extends unknown[]>(
   schema: { parse: (data: unknown) => TSchema },
   handler: (validatedData: TSchema, ...args: T) => Promise<NextResponse> | NextResponse,
   context?: Record<string, unknown>
@@ -239,7 +239,7 @@ export function withValidation<TSchema, T extends unknown[]>(
  * });
  * ```
  */
-export function compose<T extends unknown[]>(
+function compose<T extends unknown[]>(
   ...middlewares: Array<(handler: RouteHandler<T>) => RouteHandler<T>>
 ) {
   return (handler: RouteHandler<T>): RouteHandler<T> =>
@@ -264,7 +264,7 @@ export function compose<T extends unknown[]>(
  * });
  * ```
  */
-export function withAuthMethods<T extends Record<string, AuthenticatedHandler<[Request]>>>(
+function withAuthMethods<T extends Record<string, AuthenticatedHandler<[Request]>>>(
   handlers: T
 ): Record<keyof T, RouteHandler<[Request]>> {
   const wrappedHandlers: Record<string, RouteHandler<[Request]>> = {};
@@ -332,7 +332,7 @@ function isOriginAllowed(origin: string, allowedOrigins: string[]): boolean {
  * });
  * ```
  */
-export function withCors(options: {
+function withCors(options: {
   allowedOrigins?: string[];
   allowedMethods?: string[];
   allowedHeaders?: string[];

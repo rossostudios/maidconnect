@@ -13,11 +13,11 @@ import { emailSchema, phoneSchema, uuidSchema } from "./api";
 
 export const userRoleSchema = z.enum(["customer", "professional", "admin"]);
 
-export type UserRole = z.infer<typeof userRoleSchema>;
+type UserRole = z.infer<typeof userRoleSchema>;
 
 export const accountStatusSchema = z.enum(["active", "suspended", "deactivated"]);
 
-export type AccountStatus = z.infer<typeof accountStatusSchema>;
+type AccountStatus = z.infer<typeof accountStatusSchema>;
 
 // ============================================
 // Base Profile Schema
@@ -56,7 +56,7 @@ export const professionalProfileSchema = baseProfileSchema.extend({
   acceptingNewClients: z.boolean().default(true),
 });
 
-export type ProfessionalProfile = z.infer<typeof professionalProfileSchema>;
+type ProfessionalProfile = z.infer<typeof professionalProfileSchema>;
 
 // ============================================
 // Customer Profile Schema
@@ -74,7 +74,7 @@ export const customerProfileSchema = baseProfileSchema.extend({
     .optional(),
 });
 
-export type CustomerProfile = z.infer<typeof customerProfileSchema>;
+type CustomerProfile = z.infer<typeof customerProfileSchema>;
 
 // ============================================
 // Update Profile Schemas
@@ -97,7 +97,7 @@ export const updateProfessionalProfileSchema = updateBaseProfileSchema.extend({
   acceptingNewClients: z.boolean().optional(),
 });
 
-export type UpdateProfessionalProfileInput = z.infer<typeof updateProfessionalProfileSchema>;
+type UpdateProfessionalProfileInput = z.infer<typeof updateProfessionalProfileSchema>;
 
 export const updateCustomerProfileSchema = updateBaseProfileSchema.extend({
   preferredLanguage: z.string().length(2).optional(),
@@ -110,7 +110,7 @@ export const updateCustomerProfileSchema = updateBaseProfileSchema.extend({
     .optional(),
 });
 
-export type UpdateCustomerProfileInput = z.infer<typeof updateCustomerProfileSchema>;
+type UpdateCustomerProfileInput = z.infer<typeof updateCustomerProfileSchema>;
 
 // ============================================
 // Authentication Schemas
@@ -129,20 +129,20 @@ export const signUpSchema = z.object({
   role: userRoleSchema,
 });
 
-export type SignUpInput = z.infer<typeof signUpSchema>;
+type SignUpInput = z.infer<typeof signUpSchema>;
 
 export const signInSchema = z.object({
   email: emailSchema,
   password: z.string().min(1, "Password is required"),
 });
 
-export type SignInInput = z.infer<typeof signInSchema>;
+type SignInInput = z.infer<typeof signInSchema>;
 
 export const resetPasswordRequestSchema = z.object({
   email: emailSchema,
 });
 
-export type ResetPasswordRequestInput = z.infer<typeof resetPasswordRequestSchema>;
+type ResetPasswordRequestInput = z.infer<typeof resetPasswordRequestSchema>;
 
 export const resetPasswordSchema = z.object({
   token: z.string().min(1),
@@ -155,7 +155,7 @@ export const resetPasswordSchema = z.object({
     .regex(/[0-9]/, "Password must contain at least one number"),
 });
 
-export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 
 export const updatePasswordSchema = z.object({
   currentPassword: z.string().min(1),
@@ -168,7 +168,7 @@ export const updatePasswordSchema = z.object({
     .regex(/[0-9]/, "Password must contain at least one number"),
 });
 
-export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;
+type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;
 
 // ============================================
 // Account Management Schemas
@@ -180,7 +180,7 @@ export const deleteAccountSchema = z.object({
   feedback: z.string().max(2000).optional(),
 });
 
-export type DeleteAccountInput = z.infer<typeof deleteAccountSchema>;
+type DeleteAccountInput = z.infer<typeof deleteAccountSchema>;
 
 export const exportDataSchema = z.object({
   includeBookings: z.boolean().default(true),
@@ -190,7 +190,7 @@ export const exportDataSchema = z.object({
   format: z.enum(["json", "csv"]).default("json"),
 });
 
-export type ExportDataInput = z.infer<typeof exportDataSchema>;
+type ExportDataInput = z.infer<typeof exportDataSchema>;
 
 // ============================================
 // Admin Operations Schemas
@@ -203,7 +203,7 @@ export const moderateUserSchema = z.object({
   duration: z.number().int().positive().optional(), // Duration in days for temporary actions
 });
 
-export type ModerateUserInput = z.infer<typeof moderateUserSchema>;
+type ModerateUserInput = z.infer<typeof moderateUserSchema>;
 
 export const updateUserRoleSchema = z.object({
   userId: uuidSchema,
@@ -211,7 +211,7 @@ export const updateUserRoleSchema = z.object({
   reason: z.string().min(10).max(500),
 });
 
-export type UpdateUserRoleInput = z.infer<typeof updateUserRoleSchema>;
+type UpdateUserRoleInput = z.infer<typeof updateUserRoleSchema>;
 
 // ============================================
 // Verification Schemas
@@ -221,11 +221,11 @@ export const verifyEmailSchema = z.object({
   token: z.string().min(1),
 });
 
-export type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;
+type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;
 
 export const verifyPhoneSchema = z.object({
   phoneNumber: phoneSchema,
   verificationCode: z.string().length(6).regex(/^\d+$/, "Verification code must be 6 digits"),
 });
 
-export type VerifyPhoneInput = z.infer<typeof verifyPhoneSchema>;
+type VerifyPhoneInput = z.infer<typeof verifyPhoneSchema>;

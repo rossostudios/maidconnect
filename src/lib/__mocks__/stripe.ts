@@ -277,7 +277,7 @@ export function createMockCustomer(overrides?: Partial<Stripe.Customer>): Stripe
 /**
  * Creates mock Charge data
  */
-export function createMockCharge(overrides?: Partial<Stripe.Charge>): Stripe.Charge {
+function createMockCharge(overrides?: Partial<Stripe.Charge>): Stripe.Charge {
   return {
     id: "ch_mock_789",
     object: "charge",
@@ -366,9 +366,7 @@ export function createMockRefund(overrides?: Partial<Stripe.Refund>): Stripe.Ref
 /**
  * Creates mock PaymentMethod data
  */
-export function createMockPaymentMethod(
-  overrides?: Partial<Stripe.PaymentMethod>
-): Stripe.PaymentMethod {
+function createMockPaymentMethod(overrides?: Partial<Stripe.PaymentMethod>): Stripe.PaymentMethod {
   return {
     id: "pm_mock_345",
     object: "payment_method",
@@ -445,7 +443,7 @@ export function createMockStripeError(
 /**
  * Creates mock webhook signature headers
  */
-export function createMockWebhookSignature(): { signature: string; secret: string } {
+function createMockWebhookSignature(): { signature: string; secret: string } {
   return {
     signature: "t=1614556800,v1=mock_signature_abc123",
     secret: "whsec_test_mock_secret",
@@ -455,7 +453,7 @@ export function createMockWebhookSignature(): { signature: string; secret: strin
 /**
  * Mock successful payment flow
  */
-export function mockSuccessfulPayment(mockStripe: MockStripeClient, amount: number) {
+function mockSuccessfulPayment(mockStripe: MockStripeClient, amount: number) {
   const paymentIntent = createMockPaymentIntent({
     amount,
     status: "succeeded",
@@ -472,7 +470,7 @@ export function mockSuccessfulPayment(mockStripe: MockStripeClient, amount: numb
 /**
  * Mock failed payment flow
  */
-export function mockFailedPayment(mockStripe: MockStripeClient, reason: string) {
+function mockFailedPayment(mockStripe: MockStripeClient, reason: string) {
   const error = createMockStripeError("card_error", reason, "card_declined");
 
   mockStripe.paymentIntents.create.mockRejectedValue(error);

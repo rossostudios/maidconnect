@@ -45,7 +45,7 @@ type ActivityItem = {
  * Anthropic-inspired stat card with rounded corners.
  * Clean typography with refined font weights.
  */
-export function LiaStatCard({
+function LiaStatCard({
   title,
   value,
   change,
@@ -146,7 +146,7 @@ export function LiaStatCard({
  * Timeline-based activity feed with Anthropic rounded design.
  * Clean, scannable layout with refined typography.
  */
-export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) {
+function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) {
   const statusStyles = {
     success: {
       bg: "bg-emerald-600",
@@ -236,7 +236,7 @@ export function LiaActivityFeed({ activities }: { activities: ActivityItem[] }) 
  * Generic container for dashboard content.
  * Anthropic rounded design with refined typography.
  */
-export function LiaCard({
+function LiaCard({
   title,
   description,
   action,
@@ -281,7 +281,7 @@ export function LiaCard({
  * Data table with Anthropic rounded design.
  * Clean typography, easy to scan layout.
  */
-export function LiaTable<T extends Record<string, unknown>>({
+function LiaTable<T extends Record<string, unknown>>({
   title,
   description,
   columns,
@@ -365,7 +365,7 @@ export function LiaTable<T extends Record<string, unknown>>({
  *
  * Empty state with Anthropic rounded design and clear messaging.
  */
-export function LiaEmptyState({
+function LiaEmptyState({
   icon,
   title,
   description,

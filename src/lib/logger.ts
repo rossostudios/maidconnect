@@ -126,7 +126,7 @@ export const logger = {
  *   // Your handler code
  * });
  */
-export function withLogging<T extends (...args: unknown[]) => Promise<Response>>(
+function withLogging<T extends (...args: unknown[]) => Promise<Response>>(
   handler: T,
   routeName?: string
 ): T {
@@ -172,12 +172,12 @@ export function withLogging<T extends (...args: unknown[]) => Promise<Response>>
 /**
  * Check if Better Stack is configured
  */
-export const isLoggingEnabled = (): boolean => logtail !== null;
+const isLoggingEnabled = (): boolean => logtail !== null;
 
 /**
  * Get runtime information for debugging
  */
-export const getRuntimeInfo = () => ({
+const getRuntimeInfo = () => ({
   isEdge: isEdgeRuntime,
   logtailEnabled: logtail !== null,
   nodeEnv: process.env.NODE_ENV,
@@ -191,7 +191,7 @@ export const getRuntimeInfo = () => ({
 /**
  * Creates user context for logging (with PII sanitization)
  */
-export function withUserContext(userId: string, additionalInfo?: Record<string, unknown>) {
+function withUserContext(userId: string, additionalInfo?: Record<string, unknown>) {
   return {
     user: {
       id: userId,
@@ -203,7 +203,7 @@ export function withUserContext(userId: string, additionalInfo?: Record<string, 
 /**
  * Creates request context for logging
  */
-export function withRequestContext(request: Request) {
+function withRequestContext(request: Request) {
   const url = new URL(request.url);
 
   return {
@@ -221,7 +221,7 @@ export function withRequestContext(request: Request) {
 /**
  * Creates error context for logging
  */
-export function withErrorContext(error: unknown) {
+function withErrorContext(error: unknown) {
   if (error instanceof Error) {
     return {
       error: {
@@ -244,7 +244,7 @@ export function withErrorContext(error: unknown) {
 /**
  * Creates performance context for logging
  */
-export function withPerformanceContext(startTime: number) {
+function withPerformanceContext(startTime: number) {
   const duration = Date.now() - startTime;
 
   return {
@@ -258,7 +258,7 @@ export function withPerformanceContext(startTime: number) {
 /**
  * Creates database query context for logging
  */
-export function withDatabaseContext(
+function withDatabaseContext(
   operation: string,
   table: string,
   additionalInfo?: Record<string, unknown>
@@ -351,7 +351,7 @@ export function sanitizePII(data: unknown): unknown {
 /**
  * Logs with full context (combines multiple context builders)
  */
-export async function logWithContext(
+async function logWithContext(
   level: LogLevel,
   message: string,
   ...contexts: Record<string, unknown>[]

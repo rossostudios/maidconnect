@@ -53,7 +53,7 @@ export type EditorBlock = {
   };
 };
 
-export type BlockEditorProps = {
+type BlockEditorProps = {
   initialContent?: string; // Markdown input
   onChange?: (markdown: string) => void;
   placeholder?: string;
@@ -63,10 +63,7 @@ export type BlockEditorProps = {
 /**
  * Block type icons and labels
  */
-export const BLOCK_TYPES: Record<
-  BlockType,
-  { label: string; icon: IconSvgObject; shortcut: string }
-> = {
+const BLOCK_TYPES: Record<BlockType, { label: string; icon: IconSvgObject; shortcut: string }> = {
   paragraph: { label: "Text", icon: TextIcon, shortcut: "Ctrl+Alt+0" },
   heading1: { label: "Heading 1", icon: Heading01Icon, shortcut: "Ctrl+Alt+1" },
   heading2: { label: "Heading 2", icon: Heading02Icon, shortcut: "Ctrl+Alt+2" },
@@ -84,7 +81,7 @@ export const BLOCK_TYPES: Record<
   image: { label: "Image", icon: ImageAdd01Icon, shortcut: "Ctrl+Shift+I" },
 };
 
-export const CALLOUT_TYPES = {
+const CALLOUT_TYPES = {
   info: { label: "Info", iconComponent: Idea01Icon, color: "blue" },
   warning: { label: "Warning", iconComponent: Alert01Icon, color: "orange" },
   success: { label: "Success", iconComponent: CheckmarkCircle02Icon, color: "green" },

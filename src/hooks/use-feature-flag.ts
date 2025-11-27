@@ -53,7 +53,7 @@ export function useFeatureFlag(flag: FeatureFlag, userId?: string): boolean {
  * }
  * ```
  */
-export function useEnabledFlags(userId?: string): FeatureFlag[] {
+function useEnabledFlags(userId?: string): FeatureFlag[] {
   return useMemo(() => getEnabledFlags(userId), [userId]);
 }
 
@@ -83,10 +83,7 @@ export function useEnabledFlags(userId?: string): FeatureFlag[] {
  * }
  * ```
  */
-export function useFeatureFlags(
-  flags: FeatureFlag[],
-  userId?: string
-): Record<FeatureFlag, boolean> {
+function useFeatureFlags(flags: FeatureFlag[], userId?: string): Record<FeatureFlag, boolean> {
   return useMemo(() => {
     const result = {} as Record<FeatureFlag, boolean>;
     for (const flag of flags) {

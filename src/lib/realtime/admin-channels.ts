@@ -81,7 +81,7 @@ export type ProfessionalReviewPayload = RealtimePostgresChangesPayload<{
   updated_at: string;
 }>;
 
-export type NotificationPayload = RealtimePostgresChangesPayload<{
+type NotificationPayload = RealtimePostgresChangesPayload<{
   id: string;
   user_id: string;
   type: string;
@@ -190,7 +190,7 @@ export const CHANNEL_CONFIGS = {
  * // Returns: "status=eq.pending&priority=eq.high"
  * ```
  */
-export function buildFilter(conditions: Record<string, string | number | boolean>): string {
+function buildFilter(conditions: Record<string, string | number | boolean>): string {
   return Object.entries(conditions)
     .map(([key, value]) => `${key}=eq.${value}`)
     .join("&");

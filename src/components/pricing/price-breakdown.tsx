@@ -12,7 +12,7 @@ type PriceBreakdownProps = {
   className?: string;
 };
 
-export function PriceBreakdown({
+function PriceBreakdown({
   baseAmount,
   addonsTotal = 0,
   hours,
@@ -145,7 +145,7 @@ export function CompactPrice({
   );
 }
 
-export function calculateTotalWithFees(
+function calculateTotalWithFees(
   baseAmount: number,
   addonsTotal = 0,
   includePlatformFee = false

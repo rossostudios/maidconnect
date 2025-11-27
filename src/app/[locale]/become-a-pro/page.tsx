@@ -239,7 +239,7 @@ async function FilterSection() {
                       icon={CheckmarkCircle02Icon}
                     />
                   </div>
-                  <span className="font-medium text-left text-neutral-900 dark:text-white">
+                  <span className="text-left font-medium text-neutral-900 dark:text-white">
                     {t(`requirements.${req.key}`)}
                   </span>
                 </div>
@@ -411,12 +411,7 @@ async function HowItWorksSection() {
 async function FAQSection() {
   const t = await getTranslations("becomeAPro.faq");
 
-  const faqs = [
-    { key: "payment" },
-    { key: "fee" },
-    { key: "verification" },
-    { key: "schedule" },
-  ];
+  const faqs = [{ key: "payment" }, { key: "fee" }, { key: "verification" }, { key: "schedule" }];
 
   return (
     <section className="bg-white py-24 md:py-32 dark:bg-rausch-950">

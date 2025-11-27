@@ -179,7 +179,7 @@ export function generateTimeSlots(
 /**
  * Check if instant booking is allowed for given parameters
  */
-export function canInstantBook(
+function canInstantBook(
   scheduledStart: Date,
   durationHours: number,
   settings: InstantBookingSettings,
@@ -296,7 +296,7 @@ export function getAvailabilityForRange(
 /**
  * Check if a specific time slot is available
  */
-export function isSlotAvailable(
+function isSlotAvailable(
   date: Date,
   startTime: string,
   durationMinutes: number,
@@ -357,7 +357,7 @@ export function isSlotAvailable(
 /**
  * Get next available date
  */
-export function getNextAvailableDate(
+function getNextAvailableDate(
   settings: AvailabilitySettings,
   existingBookings: { scheduled_start: string; scheduled_end: string }[],
   blockedDates: string[],

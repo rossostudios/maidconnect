@@ -47,7 +47,7 @@ export function trackEvent(event: string, properties?: Record<string, any>) {
 /**
  * Track booking events
  */
-export const bookingEvents = {
+const bookingEvents = {
   started: (data: RequiredEventProperties & { service: string; city?: string }) =>
     trackEvent("Booking Started", data),
 
@@ -66,7 +66,7 @@ export const bookingEvents = {
 /**
  * Track search events
  */
-export const searchEvents = {
+const searchEvents = {
   performed: (data: RequiredEventProperties & { query: string; resultCount: number }) =>
     trackEvent("Search Performed", data),
 
@@ -78,7 +78,7 @@ export const searchEvents = {
 /**
  * Track professional events
  */
-export const professionalEvents = {
+const professionalEvents = {
   viewed: (data: RequiredEventProperties & { professionalId: string; source?: string }) =>
     trackEvent("Professional Viewed", data),
 
@@ -92,7 +92,7 @@ export const professionalEvents = {
 /**
  * Track conversion funnel
  */
-export const funnelEvents = {
+const funnelEvents = {
   viewedLanding: (data: RequiredEventProperties) => trackEvent("Viewed Landing Page", data),
   clickedCTA: (data: RequiredEventProperties & { ctaText: string }) =>
     trackEvent("Clicked CTA", data),
@@ -147,7 +147,7 @@ export const videoEvents = {
 /**
  * Track customer support interaction events
  */
-export const supportEvents = {
+const supportEvents = {
   /** Customer initiates chat with support team */
   chatStarted: (
     data: RequiredEventProperties & {
@@ -180,7 +180,7 @@ export function resetUser() {
 /**
  * Check if feature flag is enabled
  */
-export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean {
+function isFeatureEnabled(flagKey: string, defaultValue = false): boolean {
   if (typeof window === "undefined") {
     return defaultValue;
   }
@@ -191,7 +191,7 @@ export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean
 /**
  * Get feature flag variant
  */
-export function getFeatureFlag(flagKey: string): string | boolean | undefined {
+function getFeatureFlag(flagKey: string): string | boolean | undefined {
   if (typeof window === "undefined") {
     return;
   }
@@ -202,7 +202,7 @@ export function getFeatureFlag(flagKey: string): string | boolean | undefined {
 /**
  * Set user properties
  */
-export function setUserProperties(properties: Record<string, any>) {
+function setUserProperties(properties: Record<string, any>) {
   if (typeof window === "undefined") {
     return;
   }

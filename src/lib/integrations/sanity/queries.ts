@@ -22,7 +22,7 @@ export const HELP_CATEGORIES_QUERY =
   "articleCount": count(*[_type == "helpArticle" && references(^._id) && isPublished == true])
 }`);
 
-export const HELP_CATEGORY_BY_SLUG_QUERY =
+const HELP_CATEGORY_BY_SLUG_QUERY =
   defineQuery(`*[_type == "helpCategory" && slug.current == $slug && language == $language][0] {
   _id,
   name,
@@ -45,7 +45,7 @@ export const HELP_ARTICLES_BY_CATEGORY_QUERY =
   language
 }`);
 
-export const HELP_ARTICLE_BY_SLUG_QUERY =
+const HELP_ARTICLE_BY_SLUG_QUERY =
   defineQuery(`*[_type == "helpArticle" && slug.current == $slug && language == $language && isPublished == true][0] {
   _id,
   title,
@@ -67,7 +67,7 @@ export const HELP_ARTICLE_BY_SLUG_QUERY =
   seoMetadata
 }`);
 
-export const HELP_ARTICLES_SEARCH_QUERY =
+const HELP_ARTICLES_SEARCH_QUERY =
   defineQuery(`*[_type == "helpArticle" && language == $language && isPublished == true && (
   title match $searchTerm + "*" ||
   excerpt match $searchTerm + "*" ||
@@ -82,7 +82,7 @@ export const HELP_ARTICLES_SEARCH_QUERY =
   language
 }`);
 
-export const POPULAR_HELP_ARTICLES_QUERY =
+const POPULAR_HELP_ARTICLES_QUERY =
   defineQuery(`*[_type == "helpArticle" && language == $language && isPublished == true] | order(publishedAt desc) [0...$limit] {
   _id,
   title,
@@ -96,7 +96,7 @@ export const POPULAR_HELP_ARTICLES_QUERY =
 // CHANGELOG QUERIES
 // ============================================================================
 
-export const CHANGELOGS_QUERY =
+const CHANGELOGS_QUERY =
   defineQuery(`*[_type == "changelog" && language == $language] | order(publishedAt desc, sprintNumber desc) [0...$limit] {
   _id,
   sprintNumber,
@@ -111,7 +111,7 @@ export const CHANGELOGS_QUERY =
   language
 }`);
 
-export const CHANGELOG_BY_SLUG_QUERY =
+const CHANGELOG_BY_SLUG_QUERY =
   defineQuery(`*[_type == "changelog" && slug.current == $slug && language == $language][0] {
   _id,
   sprintNumber,
@@ -127,7 +127,7 @@ export const CHANGELOG_BY_SLUG_QUERY =
   language
 }`);
 
-export const LATEST_CHANGELOG_QUERY =
+const LATEST_CHANGELOG_QUERY =
   defineQuery(`*[_type == "changelog" && language == $language] | order(publishedAt desc) [0] {
   _id,
   sprintNumber,
@@ -146,7 +146,7 @@ export const LATEST_CHANGELOG_QUERY =
 // ROADMAP QUERIES
 // ============================================================================
 
-export const ROADMAP_ITEMS_QUERY =
+const ROADMAP_ITEMS_QUERY =
   defineQuery(`*[_type == "roadmapItem" && language == $language] | order(priority desc, status asc) {
   _id,
   title,
@@ -163,7 +163,7 @@ export const ROADMAP_ITEMS_QUERY =
   "changelogTitle": changelogReference->title
 }`);
 
-export const ROADMAP_ITEM_BY_SLUG_QUERY =
+const ROADMAP_ITEM_BY_SLUG_QUERY =
   defineQuery(`*[_type == "roadmapItem" && slug.current == $slug && language == $language][0] {
   _id,
   title,
@@ -186,7 +186,7 @@ export const ROADMAP_ITEM_BY_SLUG_QUERY =
   }
 }`);
 
-export const ROADMAP_BY_STATUS_QUERY =
+const ROADMAP_BY_STATUS_QUERY =
   defineQuery(`*[_type == "roadmapItem" && status == $status && language == $language] | order(priority desc) {
   _id,
   title,
@@ -204,7 +204,7 @@ export const ROADMAP_BY_STATUS_QUERY =
 // MARKETING PAGES QUERIES
 // ============================================================================
 
-export const PAGE_BY_SLUG_QUERY =
+const PAGE_BY_SLUG_QUERY =
   defineQuery(`*[_type == "page" && slug.current == $slug && language == $language && isPublished == true][0] {
   _id,
   title,
@@ -216,7 +216,7 @@ export const PAGE_BY_SLUG_QUERY =
   publishedAt
 }`);
 
-export const PAGE_BY_TYPE_QUERY =
+const PAGE_BY_TYPE_QUERY =
   defineQuery(`*[_type == "page" && pageType == $pageType && language == $language && isPublished == true][0] {
   _id,
   title,
@@ -228,7 +228,7 @@ export const PAGE_BY_TYPE_QUERY =
   publishedAt
 }`);
 
-export const CITY_PAGE_BY_SLUG_QUERY =
+const CITY_PAGE_BY_SLUG_QUERY =
   defineQuery(`*[_type == "cityPage" && citySlug.current == $citySlug && language == $language && isPublished == true][0] {
   _id,
   cityName,
@@ -244,7 +244,7 @@ export const CITY_PAGE_BY_SLUG_QUERY =
   publishedAt
 }`);
 
-export const ALL_CITY_PAGES_QUERY =
+const ALL_CITY_PAGES_QUERY =
   defineQuery(`*[_type == "cityPage" && language == $language && isPublished == true] | order(cityName asc) {
   _id,
   cityName,
@@ -259,7 +259,7 @@ export const ALL_CITY_PAGES_QUERY =
 // GLOBAL SEARCH QUERY
 // ============================================================================
 
-export const GLOBAL_SEARCH_QUERY = defineQuery(`{
+const GLOBAL_SEARCH_QUERY = defineQuery(`{
   "helpArticles": *[_type == "helpArticle" && language == $language && isPublished == true && (
     title match $searchTerm + "*" ||
     excerpt match $searchTerm + "*"
@@ -295,31 +295,30 @@ export const GLOBAL_SEARCH_QUERY = defineQuery(`{
 // SITEMAP QUERIES
 // ============================================================================
 
-export const SITEMAP_HELP_ARTICLES_QUERY =
-  defineQuery(`*[_type == "helpArticle" && isPublished == true] {
+const SITEMAP_HELP_ARTICLES_QUERY = defineQuery(`*[_type == "helpArticle" && isPublished == true] {
   "slug": slug.current,
   language,
   publishedAt
 }`);
 
-export const SITEMAP_CHANGELOGS_QUERY = defineQuery(`*[_type == "changelog"] {
+const SITEMAP_CHANGELOGS_QUERY = defineQuery(`*[_type == "changelog"] {
   "slug": slug.current,
   language,
   publishedAt
 }`);
 
-export const SITEMAP_ROADMAP_ITEMS_QUERY = defineQuery(`*[_type == "roadmapItem"] {
+const SITEMAP_ROADMAP_ITEMS_QUERY = defineQuery(`*[_type == "roadmapItem"] {
   "slug": slug.current,
   language
 }`);
 
-export const SITEMAP_PAGES_QUERY = defineQuery(`*[_type == "page" && isPublished == true] {
+const SITEMAP_PAGES_QUERY = defineQuery(`*[_type == "page" && isPublished == true] {
   "slug": slug.current,
   language,
   publishedAt
 }`);
 
-export const SITEMAP_CITY_PAGES_QUERY = defineQuery(`*[_type == "cityPage" && isPublished == true] {
+const SITEMAP_CITY_PAGES_QUERY = defineQuery(`*[_type == "cityPage" && isPublished == true] {
   "slug": citySlug.current,
   language,
   publishedAt
@@ -329,7 +328,7 @@ export const SITEMAP_CITY_PAGES_QUERY = defineQuery(`*[_type == "cityPage" && is
 // BLOG QUERIES
 // ============================================================================
 
-export const BLOG_POSTS_QUERY =
+const BLOG_POSTS_QUERY =
   defineQuery(`*[_type == "blogPost" && language == $language && isPublished == true] | order(publishedAt desc) [0...$limit] {
   _id,
   title,
@@ -348,7 +347,7 @@ export const BLOG_POSTS_QUERY =
   language
 }`);
 
-export const BLOG_POST_BY_SLUG_QUERY =
+const BLOG_POST_BY_SLUG_QUERY =
   defineQuery(`*[_type == "blogPost" && slug.current == $slug && language == $language && isPublished == true][0] {
   _id,
   title,
@@ -368,7 +367,7 @@ export const BLOG_POST_BY_SLUG_QUERY =
   seoMetadata
 }`);
 
-export const FEATURED_BLOG_POSTS_QUERY =
+const FEATURED_BLOG_POSTS_QUERY =
   defineQuery(`*[_type == "blogPost" && language == $language && isPublished == true && isFeatured == true] | order(publishedAt desc) [0...$limit] {
   _id,
   title,
@@ -386,7 +385,7 @@ export const FEATURED_BLOG_POSTS_QUERY =
   language
 }`);
 
-export const BLOG_POSTS_BY_CATEGORY_QUERY =
+const BLOG_POSTS_BY_CATEGORY_QUERY =
   defineQuery(`*[_type == "blogPost" && category._ref == $categoryId && language == $language && isPublished == true] | order(publishedAt desc) [0...$limit] {
   _id,
   title,
@@ -403,7 +402,7 @@ export const BLOG_POSTS_BY_CATEGORY_QUERY =
   language
 }`);
 
-export const SITEMAP_BLOG_POSTS_QUERY = defineQuery(`*[_type == "blogPost" && isPublished == true] {
+const SITEMAP_BLOG_POSTS_QUERY = defineQuery(`*[_type == "blogPost" && isPublished == true] {
   "slug": slug.current,
   language,
   publishedAt

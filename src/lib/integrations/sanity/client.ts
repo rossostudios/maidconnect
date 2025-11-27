@@ -34,7 +34,7 @@ export const serverClient = createClient({
 /**
  * Client for write operations (migrations, webhooks)
  */
-export const writeClient = createClient({
+const writeClient = createClient({
   projectId,
   dataset,
   apiVersion,
@@ -45,7 +45,7 @@ export const writeClient = createClient({
 /**
  * Export config for reuse
  */
-export const sanityConfig = {
+const sanityConfig = {
   projectId,
   dataset,
   apiVersion,

@@ -4,7 +4,7 @@ export type AmbassadorApplicationState = {
   fieldErrors?: Record<string, string>;
 };
 
-export const defaultApplicationState: AmbassadorApplicationState = { status: "idle" };
+const defaultApplicationState: AmbassadorApplicationState = { status: "idle" };
 
 export type ProfessionType =
   | "realtor"

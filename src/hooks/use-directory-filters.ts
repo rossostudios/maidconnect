@@ -42,7 +42,7 @@ export const SERVICE_CATEGORIES = [
  */
 export const SERVICE_OPTIONS = SERVICE_CATEGORIES.flatMap((cat) => cat.options);
 
-export type ServiceCategory = (typeof SERVICE_OPTIONS)[number]["value"];
+type ServiceCategory = (typeof SERVICE_OPTIONS)[number]["value"];
 
 /**
  * View modes for the directory

@@ -63,7 +63,7 @@ export async function requireAdmin(): Promise<User> {
 /**
  * Check if a user is an admin (non-throwing version)
  */
-export async function isAdmin(): Promise<boolean> {
+async function isAdmin(): Promise<boolean> {
   try {
     await requireAdmin();
     return true;

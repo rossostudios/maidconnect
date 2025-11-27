@@ -4,7 +4,7 @@ export function Skeleton({ className = "", ...props }: React.HTMLAttributes<HTML
   return <div className={cn("animate-pulse rounded bg-neutral-200", className)} {...props} />;
 }
 
-export function DashboardSectionSkeleton() {
+function DashboardSectionSkeleton() {
   return (
     <section className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       <div className="space-y-4">
@@ -97,7 +97,7 @@ export function ConversationSkeleton() {
  *
  * Loading state for Tanstack tables with rows and columns.
  */
-export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
+function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       {/* Header */}
@@ -129,7 +129,7 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
  *
  * Loading state for user profile cards with avatar and info.
  */
-export function ProfileCardSkeleton() {
+function ProfileCardSkeleton() {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       <div className="flex items-center gap-4">
@@ -156,7 +156,7 @@ export function ProfileCardSkeleton() {
  *
  * Loading state for dashboard stat cards.
  */
-export function StatCardSkeleton() {
+function StatCardSkeleton() {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       <div className="flex items-center justify-between">
@@ -175,7 +175,7 @@ export function StatCardSkeleton() {
  *
  * Loading state for forms with multiple fields.
  */
-export function FormSkeleton({ fields = 4 }: { fields?: number }) {
+function FormSkeleton({ fields = 4 }: { fields?: number }) {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       <div className="space-y-6">
@@ -199,7 +199,7 @@ export function FormSkeleton({ fields = 4 }: { fields?: number }) {
  *
  * Loading state for calendar components.
  */
-export function CalendarSkeleton() {
+function CalendarSkeleton() {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       {/* Month header */}
@@ -231,7 +231,7 @@ export function CalendarSkeleton() {
  *
  * Loading state for chart/graph components.
  */
-export function ChartSkeleton() {
+function ChartSkeleton() {
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">

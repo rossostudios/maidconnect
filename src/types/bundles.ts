@@ -29,7 +29,7 @@ export type ServiceBundle = {
 /**
  * Bundle Creation/Update Input
  */
-export type BundleInput = {
+type BundleInput = {
   name: string;
   description?: string;
   services: BundleService[];
@@ -39,7 +39,7 @@ export type BundleInput = {
 /**
  * Bundle with Calculated Metrics
  */
-export type BundleWithMetrics = ServiceBundle & {
+type BundleWithMetrics = ServiceBundle & {
   savingsAmount: number;
   savingsPercentage: number;
   averageServiceDuration: number;
@@ -64,30 +64,30 @@ export type QuickQuote = {
 /**
  * Server Action Response Types
  */
-export type CreateBundleResponse = {
+type CreateBundleResponse = {
   success: boolean;
   bundle?: ServiceBundle;
   error?: string;
 };
 
-export type UpdateBundleResponse = {
+type UpdateBundleResponse = {
   success: boolean;
   bundle?: ServiceBundle;
   error?: string;
 };
 
-export type DeleteBundleResponse = {
+type DeleteBundleResponse = {
   success: boolean;
   error?: string;
 };
 
-export type GetBundlesResponse = {
+type GetBundlesResponse = {
   success: boolean;
   bundles?: ServiceBundle[];
   error?: string;
 };
 
-export type GenerateQuickQuoteResponse = {
+type GenerateQuickQuoteResponse = {
   success: boolean;
   quote?: QuickQuote;
   error?: string;

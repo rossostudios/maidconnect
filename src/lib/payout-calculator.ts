@@ -130,7 +130,7 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
  * This function fetches pricing rules for each unique category/city combination
  * and applies the appropriate commission rate to each booking
  */
-export async function calculatePayoutFromBookingsWithDynamicRates(
+async function calculatePayoutFromBookingsWithDynamicRates(
   bookings: BookingForPayout[]
 ): Promise<PayoutCalculation> {
   if (bookings.length === 0) {
@@ -181,7 +181,7 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
  * Format amount in currency (COP by default)
  * @deprecated Use formatCurrency from @/lib/format instead
  */
-export function formatPayoutAmount(amountInCents: number, currency: Currency = "COP"): string {
+function formatPayoutAmount(amountInCents: number, currency: Currency = "COP"): string {
   return formatCurrency(amountInCents / 100, {
     locale: "es-CO",
     currency,
@@ -232,7 +232,7 @@ export function getCurrentPayoutPeriod(): {
 /**
  * Check if a booking should be included in current payout period
  */
-export function isBookingInPayoutPeriod(
+function isBookingInPayoutPeriod(
   booking: BookingForPayout,
   periodStart: Date,
   periodEnd: Date
@@ -287,7 +287,7 @@ function getNextFriday(date: Date): Date {
  * Get description of payout schedule
  * Airbnb model: pros keep 100%, customer pays 15% service fee
  */
-export function getPayoutScheduleDescription(): string {
+function getPayoutScheduleDescription(): string {
   return `Payouts are processed twice weekly:
 • Tuesday at 10 AM - covers bookings completed Friday through Monday
 • Friday at 10 AM - covers bookings completed Tuesday through Thursday

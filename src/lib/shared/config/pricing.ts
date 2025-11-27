@@ -192,7 +192,7 @@ export function getCurrencyForCountry(countryCode: CountryCode): CurrencyCode {
 /**
  * Check if a price is within valid range for a country
  */
-export function isValidPrice(price: number, countryCode: CountryCode): boolean {
+function isValidPrice(price: number, countryCode: CountryCode): boolean {
   const { minPrice, maxPrice } = getPricingConfig(countryCode).constraints;
   return price >= minPrice && price <= maxPrice;
 }
@@ -201,7 +201,7 @@ export function isValidPrice(price: number, countryCode: CountryCode): boolean {
  * Calculate platform commission for a booking
  * Uses the standard 15% marketplace rate for all bookings
  */
-export function calculateCommission(price: number, countryCode: CountryCode): number {
+function calculateCommission(price: number, countryCode: CountryCode): number {
   const { commission } = getPricingConfig(countryCode);
   return Math.round(price * commission.marketplaceRate);
 }
@@ -209,14 +209,14 @@ export function calculateCommission(price: number, countryCode: CountryCode): nu
 /**
  * Get primary payment processor for a country
  */
-export function getPrimaryPaymentProcessor(countryCode: CountryCode): PaymentProcessor {
+function getPrimaryPaymentProcessor(countryCode: CountryCode): PaymentProcessor {
   return getPricingConfig(countryCode).paymentProcessors.primary;
 }
 
 /**
  * Check if a payment processor is supported for a country
  */
-export function isPaymentProcessorSupported(
+function isPaymentProcessorSupported(
   processor: PaymentProcessor,
   countryCode: CountryCode
 ): boolean {
@@ -230,7 +230,7 @@ export function isPaymentProcessorSupported(
 /**
  * @deprecated Use getPricingConfig(countryCode).commission.marketplaceRate instead
  */
-export const MARKETPLACE_COMMISSION_RATE = COUNTRY_PRICING.CO.commission.marketplaceRate;
+const MARKETPLACE_COMMISSION_RATE = COUNTRY_PRICING.CO.commission.marketplaceRate;
 
 // ============================================================================
 // Exchange Rate Helpers (for display/info only)
@@ -252,7 +252,7 @@ export const APPROXIMATE_USD_RATES: Record<CurrencyCode, number> = {
  * Get approximate USD equivalent for display
  * @warning DO NOT use for actual pricing - this is for display only
  */
-export function getApproximateUSD(amountInMinorUnits: number, currency: CurrencyCode): number {
+function getApproximateUSD(amountInMinorUnits: number, currency: CurrencyCode): number {
   const rate = APPROXIMATE_USD_RATES[currency];
   return amountInMinorUnits / (rate * 100); // Convert from minor units to major, then to USD
 }

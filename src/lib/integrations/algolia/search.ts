@@ -112,7 +112,7 @@ export async function searchProfessionals(params: AlgoliaSearchParams) {
  * Multi-index search across all content types
  * Useful for global search like CMD K
  */
-export async function searchAll(query: string, language?: "en" | "es") {
+async function searchAll(query: string, language?: "en" | "es") {
   const languageFilter = language ? `language:${language}` : undefined;
 
   const [helpArticles, changelog, roadmap, cityPages, professionals] = await Promise.all([
@@ -161,7 +161,7 @@ export async function searchAll(query: string, language?: "en" | "es") {
 /**
  * Get search suggestions for autocomplete
  */
-export async function getSearchSuggestions(query: string, indexName: string, maxResults = 5) {
+async function getSearchSuggestions(query: string, indexName: string, maxResults = 5) {
   const index = getSearchIndex(indexName);
 
   const results = await index.search(query, {

@@ -104,7 +104,7 @@ export type DialogTriggerProps = {
   ref?: React.RefObject<HTMLButtonElement | null>;
 };
 
-export const DialogTrigger = ({ className, children, asChild, ref }: DialogTriggerProps) => {
+const DialogTrigger = ({ className, children, asChild, ref }: DialogTriggerProps) => {
   // If asChild is true, just render the children directly
   // React Aria DialogTrigger will handle the button role
   if (asChild) {
@@ -148,7 +148,7 @@ export type DialogOverlayProps = {
  * Lia Design System: neutral-900 with 80% opacity.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const DialogOverlay = ({ className, ref }: DialogOverlayProps) => {
+const DialogOverlay = ({ className, ref }: DialogOverlayProps) => {
   return (
     <div
       className={cn(
@@ -412,12 +412,7 @@ export interface DialogDescriptionProps extends React.HTMLAttributes<HTMLParagra
  * Lia Design System: text-sm, neutral-400.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const DialogDescription = ({
-  className,
-  children,
-  ref,
-  ...props
-}: DialogDescriptionProps) => {
+const DialogDescription = ({ className, children, ref, ...props }: DialogDescriptionProps) => {
   return (
     <p
       className={cn(
@@ -460,7 +455,7 @@ export type DialogCloseProps = {
   ref?: React.RefObject<HTMLButtonElement | null>;
 };
 
-export const DialogClose = ({ className, children, asChild, ref }: DialogCloseProps) => {
+const DialogClose = ({ className, children, asChild, ref }: DialogCloseProps) => {
   // If asChild, just render children - parent should be a Button
   if (asChild) {
     return <>{children}</>;

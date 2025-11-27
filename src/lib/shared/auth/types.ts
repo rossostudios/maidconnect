@@ -8,7 +8,7 @@ export type OnboardingStatus =
   | "active"
   | "suspended";
 
-export type ProfileRecord = {
+type ProfileRecord = {
   id: string;
   role: AppRole;
   locale: string | null;

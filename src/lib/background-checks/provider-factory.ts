@@ -219,7 +219,7 @@ export class BackgroundCheckProviderFactory {
  * Helper function to initialize factory from environment variables
  * Call this at app startup
  */
-export async function initializeBackgroundCheckFactory(): Promise<void> {
+async function initializeBackgroundCheckFactory(): Promise<void> {
   const config: StoredProviderConfig = {
     activeProvider: (process.env.BACKGROUND_CHECK_PROVIDER as BackgroundCheckProvider) || "checkr",
 

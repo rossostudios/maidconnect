@@ -171,7 +171,7 @@ export async function handleApiError(
  * export const POST = withErrorHandling(handlePOST);
  * ```
  */
-export function withErrorHandling<T extends unknown[]>(
+function withErrorHandling<T extends unknown[]>(
   handler: (...args: T) => Promise<NextResponse> | NextResponse,
   context?: Record<string, unknown>
 ) {
@@ -197,7 +197,7 @@ export function withErrorHandling<T extends unknown[]>(
  * assert(amount > 0, new ValidationError("Amount must be positive"));
  * ```
  */
-export function assert(condition: unknown, error: Error): asserts condition {
+function assert(condition: unknown, error: Error): asserts condition {
   if (!condition) {
     throw error;
   }
@@ -206,7 +206,7 @@ export function assert(condition: unknown, error: Error): asserts condition {
 /**
  * Asserts that a value is defined (not null or undefined)
  */
-export function assertDefined<T>(value: T | null | undefined, error: Error): asserts value is T {
+function assertDefined<T>(value: T | null | undefined, error: Error): asserts value is T {
   if (value === null || value === undefined) {
     throw error;
   }
@@ -215,7 +215,7 @@ export function assertDefined<T>(value: T | null | undefined, error: Error): ass
 /**
  * Safely parses JSON and throws ValidationError if invalid
  */
-export async function parseJsonBody(request: Request): Promise<unknown> {
+async function parseJsonBody(request: Request): Promise<unknown> {
   try {
     return await request.json();
   } catch {
@@ -226,7 +226,7 @@ export async function parseJsonBody(request: Request): Promise<unknown> {
 /**
  * Extracts and validates search params
  */
-export function getSearchParams(request: Request): URLSearchParams {
+function getSearchParams(request: Request): URLSearchParams {
   const url = new URL(request.url);
   return url.searchParams;
 }

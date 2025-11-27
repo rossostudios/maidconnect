@@ -12,7 +12,7 @@ type SendEmailResult = {
 /**
  * Send new booking request notification to professional
  */
-export async function sendNewBookingRequestEmail(
+async function sendNewBookingRequestEmail(
   professionalEmail: string,
   data: {
     customerName: string;
@@ -109,7 +109,7 @@ export async function sendBookingDeclinedEmail(
 /**
  * Send booking reminder (24 hours before service)
  */
-export async function sendBookingReminderEmail(
+async function sendBookingReminderEmail(
   recipientEmail: string,
   data: {
     customerName: string;
@@ -140,7 +140,7 @@ export async function sendBookingReminderEmail(
 /**
  * Send message notification
  */
-export async function sendMessageNotificationEmail(
+async function sendMessageNotificationEmail(
   recipientEmail: string,
   recipientName: string,
   senderName: string,
@@ -173,7 +173,7 @@ export async function sendMessageNotificationEmail(
 /**
  * Send service completed notification
  */
-export async function sendServiceCompletedEmail(
+async function sendServiceCompletedEmail(
   recipientEmail: string,
   data: {
     customerName: string;
@@ -205,7 +205,7 @@ export async function sendServiceCompletedEmail(
 /**
  * Send account suspension notification
  */
-export async function sendAccountSuspensionEmail(
+async function sendAccountSuspensionEmail(
   userEmail: string,
   userName: string,
   reason: string,
@@ -231,7 +231,7 @@ export async function sendAccountSuspensionEmail(
 /**
  * Send account restoration notification
  */
-export async function sendAccountRestorationEmail(
+async function sendAccountRestorationEmail(
   userEmail: string,
   userName: string,
   liftReason: string
@@ -253,7 +253,7 @@ export async function sendAccountRestorationEmail(
 /**
  * Send booking reschedule notification
  */
-export async function sendBookingRescheduleEmail(
+async function sendBookingRescheduleEmail(
   recipientEmail: string,
   data: {
     customerName: string;
@@ -286,7 +286,7 @@ export async function sendBookingRescheduleEmail(
 /**
  * Send professional application approved notification
  */
-export async function sendProfessionalApprovedEmail(
+async function sendProfessionalApprovedEmail(
   professionalEmail: string,
   professionalName: string,
   notes?: string
@@ -308,7 +308,7 @@ export async function sendProfessionalApprovedEmail(
 /**
  * Send professional application rejected notification
  */
-export async function sendProfessionalRejectedEmail(
+async function sendProfessionalRejectedEmail(
   professionalEmail: string,
   professionalName: string,
   rejectionReason: string,
@@ -335,7 +335,7 @@ export async function sendProfessionalRejectedEmail(
 /**
  * Send professional info requested notification
  */
-export async function sendProfessionalInfoRequestedEmail(
+async function sendProfessionalInfoRequestedEmail(
   professionalEmail: string,
   professionalName: string,
   notes?: string
@@ -357,7 +357,7 @@ export async function sendProfessionalInfoRequestedEmail(
 /**
  * Send background check completion notification to professional
  */
-export async function sendBackgroundCheckCompletedEmail(
+async function sendBackgroundCheckCompletedEmail(
   recipientEmail: string,
   professionalName: string,
   status: "clear" | "consider" | "suspended",
@@ -391,11 +391,7 @@ export async function sendBackgroundCheckCompletedEmail(
  * Generic send email function
  * Use this for custom emails or when specific templates don't exist
  */
-export async function sendEmail(
-  to: string,
-  subject: string,
-  html: string
-): Promise<SendEmailResult> {
+async function sendEmail(to: string, subject: string, html: string): Promise<SendEmailResult> {
   try {
     await resend.emails.send({
       from: FROM_EMAIL,

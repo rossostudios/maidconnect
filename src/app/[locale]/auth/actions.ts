@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { AUTH_ROUTES } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export type SignOutActionState = {
+type SignOutActionState = {
   success?: boolean;
   error?: string;
 };

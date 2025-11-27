@@ -128,7 +128,7 @@ export type PaymentNotification = AdminNotification & {
 /**
  * Union type of all notification types
  */
-export type TypedAdminNotification =
+type TypedAdminNotification =
   | BookingNotification
   | ProfessionalNotification
   | DisputeNotification
@@ -139,7 +139,7 @@ export type TypedAdminNotification =
 /**
  * Notification filter options
  */
-export type NotificationFilter = {
+type NotificationFilter = {
   types?: NotificationEventType[];
   severity?: NotificationSeverity[];
   since?: Date;
@@ -148,7 +148,7 @@ export type NotificationFilter = {
 /**
  * Notification preferences
  */
-export type NotificationPreferences = {
+type NotificationPreferences = {
   enabled: boolean;
   soundEnabled: boolean;
   desktopNotifications: boolean;

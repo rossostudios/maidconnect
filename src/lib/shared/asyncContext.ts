@@ -121,7 +121,7 @@ export function getRequestContext(): RequestContext | undefined {
  * logger.info('Processing payment', { requestId: getRequestId() });
  * ```
  */
-export function getRequestId(): string {
+function getRequestId(): string {
   return getRequestContext()?.requestId || "unknown";
 }
 
@@ -139,7 +139,7 @@ export function getRequestId(): string {
  * }
  * ```
  */
-export function getUserId(): string | undefined {
+function getUserId(): string | undefined {
   return getRequestContext()?.userId;
 }
 
@@ -157,7 +157,7 @@ export function getUserId(): string | undefined {
  * }
  * ```
  */
-export function getRequestDuration(): number {
+function getRequestDuration(): number {
   const context = getRequestContext();
   if (!context) {
     return 0;

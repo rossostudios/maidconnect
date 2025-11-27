@@ -119,7 +119,7 @@ export function estimateBookingsCount(frequency: SubscriptionTier, months = 3): 
  * Format currency in Colombian Pesos
  * @deprecated Use formatCOP from @/lib/utils/format instead
  */
-export function formatCOP(amount: number): string {
+function formatCOP(amount: number): string {
   return formatCOPCurrency(amount);
 }
 

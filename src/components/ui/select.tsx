@@ -405,7 +405,7 @@ export type SelectLabelProps = {
  * Lia Design System: uppercase, tracking-wider, neutral-400.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const SelectLabel = ({ className, children, ref }: SelectLabelProps) => {
+const SelectLabel = ({ className, children, ref }: SelectLabelProps) => {
   return (
     <div
       className={cn(
@@ -445,7 +445,7 @@ export type SelectSeparatorProps = {
  * Lia Design System: neutral-200.
  * React 19: Uses ref as regular prop instead of forwardRef.
  */
-export const SelectSeparator = ({ className, ref }: SelectSeparatorProps) => {
+const SelectSeparator = ({ className, ref }: SelectSeparatorProps) => {
   return (
     <div
       className={cn(
@@ -485,7 +485,7 @@ export type SelectGroupProps = {
   ref?: React.RefObject<HTMLDivElement | null>;
 };
 
-export const SelectGroup = ({ className, children, ref }: SelectGroupProps) => (
+const SelectGroup = ({ className, children, ref }: SelectGroupProps) => (
   <div className={cn("py-1", className)} ref={ref}>
     {children}
   </div>

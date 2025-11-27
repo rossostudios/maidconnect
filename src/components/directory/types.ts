@@ -82,7 +82,7 @@ export type DirectoryResponse = {
 /**
  * Filter counts for faceted search
  */
-export type FilterCounts = {
+type FilterCounts = {
   services: Array<{ value: string; label: string; count: number }>;
   cities: Array<{ value: string; label: string; count: number }>;
   countries: Array<{ value: string; label: string; count: number }>;

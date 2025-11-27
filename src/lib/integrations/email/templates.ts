@@ -617,7 +617,7 @@ export function professionalInfoRequestedEmail(professionalName: string, notes?:
   `;
 }
 
-export function rebookNudgeEmail(
+function rebookNudgeEmail(
   data: BookingEmailData & { professionalId: string },
   variant: "24h" | "72h",
   dashboardUrl: string

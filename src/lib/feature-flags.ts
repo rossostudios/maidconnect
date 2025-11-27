@@ -159,7 +159,7 @@ export function getEnabledFlags(userId?: string): FeatureFlag[] {
  * Feature flag context for logging and analytics
  * Include in Better Stack logs to correlate feature usage with errors
  */
-export function getFeatureFlagContext(userId?: string): Record<string, boolean> {
+function getFeatureFlagContext(userId?: string): Record<string, boolean> {
   const flags: Record<string, boolean> = {};
   for (const flag of Object.keys(defaultFlags) as FeatureFlag[]) {
     flags[flag] = isFeatureEnabled(flag, userId);
@@ -214,7 +214,7 @@ export function getRebookNudgeVariant(userId: string): "24h" | "72h" {
  * @param sessionId - Session ID for deterministic bucketing (use before user signup)
  * @returns 'expat_focused' (current) or 'generic' (broader appeal)
  */
-export function getHeroCopyVariant(sessionId: string): "expat_focused" | "generic" {
+function getHeroCopyVariant(sessionId: string): "expat_focused" | "generic" {
   if (!isFeatureEnabled("hero_copy_variant")) {
     return "expat_focused"; // Default to current version
   }

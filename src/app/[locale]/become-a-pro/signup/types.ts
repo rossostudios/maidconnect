@@ -4,7 +4,7 @@ export type ProSignUpActionState = {
   fieldErrors?: Record<string, string>;
 };
 
-export const defaultProSignUpState: ProSignUpActionState = { status: "idle" };
+const defaultProSignUpState: ProSignUpActionState = { status: "idle" };
 
 export type ServiceCategory =
   | "housekeeping"

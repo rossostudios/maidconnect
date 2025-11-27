@@ -489,7 +489,7 @@ export const paypal = new Proxy({} as PayPalClient, {
 /**
  * Assert PayPal webhook signature headers are present
  */
-export function assertPayPalSignature(request: NextRequest) {
+function assertPayPalSignature(request: NextRequest) {
   const transmissionId = request.headers.get("paypal-transmission-id");
   const transmissionSig = request.headers.get("paypal-transmission-sig");
   const transmissionTime = request.headers.get("paypal-transmission-time");

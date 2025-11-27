@@ -162,7 +162,7 @@ export async function sendExpoNotification(
 /**
  * Send Expo push notifications to multiple users
  */
-export async function sendExpoNotificationToMultipleUsers(
+async function sendExpoNotificationToMultipleUsers(
   userIds: string[],
   notification: ExpoPushNotificationPayload
 ): Promise<{ success: boolean; totalSent: number; errors: string[] }> {

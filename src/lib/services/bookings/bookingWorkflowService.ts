@@ -211,7 +211,7 @@ export function formatAmount(
 /**
  * Fetch customer and professional details for notifications
  */
-export async function fetchNotificationDetails(
+async function fetchNotificationDetails(
   supabase: SupabaseClient,
   professionalId: string,
   customerId: string
@@ -239,7 +239,7 @@ export async function fetchNotificationDetails(
 /**
  * Send acceptance notifications (email + push)
  */
-export async function sendAcceptanceNotifications(
+async function sendAcceptanceNotifications(
   booking: BookingWorkflowData,
   professionalName: string,
   customerName: string,
@@ -275,7 +275,7 @@ export async function sendAcceptanceNotifications(
 /**
  * Send decline notifications (email + push)
  */
-export async function sendDeclineNotifications(
+async function sendDeclineNotifications(
   booking: BookingWorkflowData,
   professionalName: string,
   customerName: string,

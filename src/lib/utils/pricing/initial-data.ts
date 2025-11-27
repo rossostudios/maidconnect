@@ -52,14 +52,14 @@ export function createInitialFormData(rule: PricingRule | null): PricingRuleForm
 /**
  * Get default effective start date (today)
  */
-export function getDefaultEffectiveDate(): string {
+function getDefaultEffectiveDate(): string {
   return new Date().toISOString().split("T")[0]!;
 }
 
 /**
  * Check if rule is currently effective (within date range and active)
  */
-export function isRuleEffective(rule: PricingRule): boolean {
+function isRuleEffective(rule: PricingRule): boolean {
   if (!rule.is_active) {
     return false;
   }

@@ -27,13 +27,13 @@ type ServiceType = {
 // Service types with average rates from market research
 // In production, this would come from the database via props
 const SERVICE_TYPES: ServiceType[] = [
-  { id: "cleaning", label: "Cleaning", averageRate: 35000 },
-  { id: "deep-cleaning", label: "Deep Clean / Move-out", averageRate: 45000 },
-  { id: "childcare", label: "Nanny & Childcare", averageRate: 50000 },
-  { id: "senior-care", label: "Senior Companionship", averageRate: 40000 },
-  { id: "private-chef", label: "Private Chef", averageRate: 60000 },
-  { id: "meal-prep", label: "Meal Prep", averageRate: 45000 },
-  { id: "laundry", label: "Laundry & Ironing", averageRate: 30000 },
+  { id: "cleaning", label: "Cleaning", averageRate: 35_000 },
+  { id: "deep-cleaning", label: "Deep Clean / Move-out", averageRate: 45_000 },
+  { id: "childcare", label: "Nanny & Childcare", averageRate: 50_000 },
+  { id: "senior-care", label: "Senior Companionship", averageRate: 40_000 },
+  { id: "private-chef", label: "Private Chef", averageRate: 60_000 },
+  { id: "meal-prep", label: "Meal Prep", averageRate: 45_000 },
+  { id: "laundry", label: "Laundry & Ironing", averageRate: 30_000 },
 ];
 
 type EarningsCalculatorProps = {
@@ -122,7 +122,7 @@ export function EarningsCalculator({
         </div>
         <input
           className={cn(
-            "w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 h-2",
+            "h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200",
             "dark:bg-rausch-700",
             "[&::-webkit-slider-thumb]:appearance-none",
             "[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5",
@@ -165,7 +165,7 @@ export function EarningsCalculator({
               "dark:border-rausch-700 dark:bg-rausch-800 dark:text-white"
             )}
             id="hourly-rate"
-            min={10000}
+            min={10_000}
             onChange={(e) => setHourlyRate(Number(e.target.value))}
             step={1000}
             type="number"

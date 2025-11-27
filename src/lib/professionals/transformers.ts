@@ -75,7 +75,7 @@ export function parseAvailability(payload: unknown): AvailabilitySlot[] {
     .filter((value): value is AvailabilitySlot => Boolean(value?.day));
 }
 
-export function parseReferences(payload: unknown): ProfessionalReference[] {
+function parseReferences(payload: unknown): ProfessionalReference[] {
   if (!payload || typeof payload !== "object") {
     return [];
   }

@@ -21,7 +21,7 @@ export const bookingStatusSchema = z.enum([
   "refunded",
 ]);
 
-export type BookingStatus = z.infer<typeof bookingStatusSchema>;
+type BookingStatus = z.infer<typeof bookingStatusSchema>;
 
 // ============================================
 // Address Schema
@@ -38,7 +38,7 @@ export const addressSchema = z.object({
   additionalInfo: z.string().max(500).optional(),
 });
 
-export type Address = z.infer<typeof addressSchema>;
+type Address = z.infer<typeof addressSchema>;
 
 // ============================================
 // Create Booking Schema
@@ -93,7 +93,7 @@ export const createBookingSchema = z
     }
   );
 
-export type CreateBookingInput = z.infer<typeof createBookingSchema>;
+type CreateBookingInput = z.infer<typeof createBookingSchema>;
 
 // ============================================
 // Update Booking Schema
@@ -112,7 +112,7 @@ export const updateBookingSchema = z.object({
   professionalNotes: z.string().max(2000).optional(),
 });
 
-export type UpdateBookingInput = z.infer<typeof updateBookingSchema>;
+type UpdateBookingInput = z.infer<typeof updateBookingSchema>;
 
 // ============================================
 // Booking Query/Filter Schemas
@@ -134,7 +134,7 @@ export const bookingFilterSchema = z.object({
   maxAmount: z.coerce.number().nonnegative().optional(),
 });
 
-export type BookingFilter = z.infer<typeof bookingFilterSchema>;
+type BookingFilter = z.infer<typeof bookingFilterSchema>;
 
 // ============================================
 // Cancel Booking Schema
@@ -146,7 +146,7 @@ export const cancelBookingSchema = z.object({
   refundAmount: z.number().nonnegative().int().optional(),
 });
 
-export type CancelBookingInput = z.infer<typeof cancelBookingSchema>;
+type CancelBookingInput = z.infer<typeof cancelBookingSchema>;
 
 // ============================================
 // Complete Booking Schema
@@ -159,7 +159,7 @@ export const completeBookingSchema = z.object({
   professionalNotes: z.string().max(2000).optional(),
 });
 
-export type CompleteBookingInput = z.infer<typeof completeBookingSchema>;
+type CompleteBookingInput = z.infer<typeof completeBookingSchema>;
 
 // ============================================
 // Review/Rating Schema
@@ -172,4 +172,4 @@ export const createReviewSchema = z.object({
   wouldRecommend: z.boolean().default(true),
 });
 
-export type CreateReviewInput = z.infer<typeof createReviewSchema>;
+type CreateReviewInput = z.infer<typeof createReviewSchema>;

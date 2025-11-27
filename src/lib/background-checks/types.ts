@@ -124,7 +124,7 @@ export type WebhookEvent = {
 // Provider Configuration
 // ============================================================================
 
-export type ProviderConfig = {
+type ProviderConfig = {
   provider: BackgroundCheckProvider;
   apiKey: string;
   webhookSecret: string;

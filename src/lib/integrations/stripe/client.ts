@@ -41,7 +41,7 @@ export const stripe = new Proxy({} as Stripe, {
   },
 });
 
-export function getStripePublishableKey() {
+function getStripePublishableKey() {
   const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   if (!key) {
     throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set in the environment.");
@@ -49,7 +49,7 @@ export function getStripePublishableKey() {
   return key;
 }
 
-export function assertStripeSignature(request: NextRequest) {
+function assertStripeSignature(request: NextRequest) {
   const signature = request.headers.get("stripe-signature");
   if (!signature) {
     throw new Error("Missing Stripe signature header.");
@@ -61,6 +61,6 @@ export function assertStripeSignature(request: NextRequest) {
   return { signature, secret: webhookSecret };
 }
 
-export type StripeEvent<T extends Stripe.Event.Type = Stripe.Event.Type> = Stripe.Event & {
+type StripeEvent<T extends Stripe.Event.Type = Stripe.Event.Type> = Stripe.Event & {
   type: T;
 };

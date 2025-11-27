@@ -181,7 +181,7 @@ export async function trackBookingCompletedServer(
   });
 }
 
-export async function trackBookingRescheduledServer(
+async function trackBookingRescheduledServer(
   userId: string,
   data: {
     bookingId: string;
@@ -193,7 +193,7 @@ export async function trackBookingRescheduledServer(
   await trackServerEvent(userId, "Booking Rescheduled", data);
 }
 
-export async function trackBookingExtendedServer(
+async function trackBookingExtendedServer(
   userId: string,
   data: {
     bookingId: string;
@@ -204,7 +204,7 @@ export async function trackBookingExtendedServer(
   await trackServerEvent(userId, "Booking Time Extended", data);
 }
 
-export async function trackBookingDeclinedServer(
+async function trackBookingDeclinedServer(
   userId: string,
   data: {
     bookingId: string;
@@ -215,7 +215,7 @@ export async function trackBookingDeclinedServer(
   await trackServerEvent(userId, "Booking Declined", data);
 }
 
-export async function trackBookingDisputeCreatedServer(
+async function trackBookingDisputeCreatedServer(
   userId: string,
   data: {
     bookingId: string;
@@ -241,7 +241,7 @@ export async function trackBookingDisputeCreatedServer(
  * @example
  * const variant = await getFeatureFlagServer('hero_variant', userId);
  */
-export async function getFeatureFlagServer(
+async function getFeatureFlagServer(
   flagKey: FeatureFlagKey,
   distinctId: string,
   defaultValue?: FeatureFlagValue
@@ -271,7 +271,7 @@ export async function getFeatureFlagServer(
  * @example
  * const enabled = await isFeatureFlagEnabledServer('match_wizard_enabled', userId);
  */
-export async function isFeatureFlagEnabledServer(
+async function isFeatureFlagEnabledServer(
   flagKey: FeatureFlagKey,
   distinctId: string,
   defaultValue = false
@@ -299,7 +299,7 @@ export async function isFeatureFlagEnabledServer(
  * @example
  * const flags = await getAllFeatureFlagsServer(userId);
  */
-export async function getAllFeatureFlagsServer(
+async function getAllFeatureFlagsServer(
   distinctId: string
 ): Promise<Record<string, FeatureFlagValue>> {
   const client = getPostHogClient();
@@ -327,7 +327,7 @@ export async function getAllFeatureFlagsServer(
  * @example
  * const payload = await getFeatureFlagPayloadServer('hero_variant', userId);
  */
-export async function getFeatureFlagPayloadServer(
+async function getFeatureFlagPayloadServer(
   flagKey: FeatureFlagKey,
   distinctId: string
 ): Promise<string | number | boolean | Record<string, any> | undefined> {

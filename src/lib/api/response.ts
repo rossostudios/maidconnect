@@ -134,7 +134,7 @@ export function badRequest(message: string, details?: unknown): NextResponse {
  * return unauthorized("Session expired");
  * ```
  */
-export function unauthorized(message = "Not authenticated"): NextResponse {
+function unauthorized(message = "Not authenticated"): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -203,7 +203,7 @@ export function notFound(message = "Resource not found"): NextResponse {
  * return conflict("Booking time slot already taken");
  * ```
  */
-export function conflict(message: string, details?: unknown): NextResponse {
+function conflict(message: string, details?: unknown): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -228,7 +228,7 @@ export function conflict(message: string, details?: unknown): NextResponse {
  * return internalError("Database connection failed");
  * ```
  */
-export function internalError(message = "Internal server error"): NextResponse {
+function internalError(message = "Internal server error"): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -254,7 +254,7 @@ export function internalError(message = "Internal server error"): NextResponse {
  * });
  * ```
  */
-export function paginated<T = unknown>(options: {
+function paginated<T = unknown>(options: {
   items: T[];
   page: number;
   limit: number;

@@ -63,7 +63,7 @@ export type UpdateRuleInput = Partial<CreateRuleInput> & {
 /**
  * Fetch all pricing rules
  */
-export async function fetchPricingRules(supabase: SupabaseClient): Promise<PricingRule[]> {
+async function fetchPricingRules(supabase: SupabaseClient): Promise<PricingRule[]> {
   const { data, error } = await supabase
     .from("pricing_controls")
     .select("*")
@@ -80,7 +80,7 @@ export async function fetchPricingRules(supabase: SupabaseClient): Promise<Prici
 /**
  * Fetch single pricing rule by ID
  */
-export async function fetchPricingRule(
+async function fetchPricingRule(
   supabase: SupabaseClient,
   ruleId: string
 ): Promise<PricingRule | null> {
@@ -101,7 +101,7 @@ export async function fetchPricingRule(
 /**
  * Fetch active pricing rules only
  */
-export async function fetchActivePricingRules(supabase: SupabaseClient): Promise<PricingRule[]> {
+async function fetchActivePricingRules(supabase: SupabaseClient): Promise<PricingRule[]> {
   const { data, error } = await supabase
     .from("pricing_controls")
     .select("*")
@@ -152,7 +152,7 @@ export async function togglePricingRuleActive(
 /**
  * Create new pricing rule
  */
-export async function createPricingRule(
+async function createPricingRule(
   supabase: SupabaseClient,
   input: CreateRuleInput
 ): Promise<{ success: true; rule: PricingRule } | { success: false; error: string }> {
@@ -194,7 +194,7 @@ export async function createPricingRule(
 /**
  * Update existing pricing rule
  */
-export async function updatePricingRule(
+async function updatePricingRule(
   supabase: SupabaseClient,
   ruleId: string,
   input: UpdateRuleInput
@@ -226,7 +226,7 @@ export async function updatePricingRule(
 /**
  * Delete pricing rule
  */
-export async function deletePricingRule(
+async function deletePricingRule(
   supabase: SupabaseClient,
   ruleId: string
 ): Promise<{ success: boolean; error?: string }> {
@@ -250,7 +250,7 @@ export async function deletePricingRule(
 /**
  * Validate pricing rule input
  */
-export function validatePricingRuleInput(
+function validatePricingRuleInput(
   input: CreateRuleInput
 ): { valid: true } | { valid: false; error: string } {
   // Required field: country

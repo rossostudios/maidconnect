@@ -43,7 +43,7 @@ export function isMac(): boolean {
 /**
  * Format keyboard shortcut for display
  */
-export function formatShortcut(keys: string[], keysWindows?: string[]): string[] {
+function formatShortcut(keys: string[], keysWindows?: string[]): string[] {
   const isMacOS = isMac();
   const keysToUse = !isMacOS && keysWindows ? keysWindows : keys;
 
@@ -229,7 +229,7 @@ export function getShortcutsByRole(role?: AppRole): typeof KEYBOARD_SHORTCUTS {
 /**
  * Get shortcuts by category
  */
-export function getShortcutsByCategory(
+function getShortcutsByCategory(
   category: ShortcutCategory,
   role?: AppRole
 ): typeof KEYBOARD_SHORTCUTS {
@@ -240,7 +240,7 @@ export function getShortcutsByCategory(
 /**
  * Category labels for UI
  */
-export const CATEGORY_LABELS: Record<ShortcutCategory, string> = {
+const CATEGORY_LABELS: Record<ShortcutCategory, string> = {
   general: "General",
   navigation: "Navigation",
   actions: "Actions",

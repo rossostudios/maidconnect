@@ -142,7 +142,7 @@ export function SuspensionAlert({ suspension }: { suspension: Suspension }) {
   );
 }
 
-export function UserDetailsGrid({ user }: { user: User }) {
+function UserDetailsGrid({ user }: { user: User }) {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <div>
@@ -169,7 +169,7 @@ export function UserDetailsGrid({ user }: { user: User }) {
   );
 }
 
-export function SuspensionHistoryList({
+function SuspensionHistoryList({
   suspensionHistory,
 }: {
   suspensionHistory: SuspensionHistoryItem[];
@@ -218,7 +218,7 @@ function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryIt
   );
 }
 
-export function UserStatsCard({
+function UserStatsCard({
   stats,
 }: {
   stats: {

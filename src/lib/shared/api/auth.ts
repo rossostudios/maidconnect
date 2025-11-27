@@ -17,7 +17,7 @@ import type { Database } from "@/types/databaseTypes";
 
 // Type aliases for database tables
 export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
-export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 // TODO: Re-enable when recurring_plans table is added to database types
 // export type RecurringPlan = Database["public"]["Tables"]["recurring_plans"]["Row"];
 
@@ -87,7 +87,7 @@ export async function requireAuth(request: Request): Promise<AuthContext> {
  * }
  * ```
  */
-export async function getOptionalAuth(request: Request): Promise<AuthContext | null> {
+async function getOptionalAuth(request: Request): Promise<AuthContext | null> {
   // Check for mobile client Authorization header (JWT auth)
   const authHeader = request.headers.get("authorization");
 
@@ -232,7 +232,7 @@ export async function requireCustomer(
  * @throws {NotFoundError} If booking doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the booking
  */
-export async function requireProfessionalOwnership<T = Booking>(
+async function requireProfessionalOwnership<T = Booking>(
   supabase: SupabaseClient<Database>,
   userId: string,
   bookingId: string,
@@ -276,7 +276,7 @@ export async function requireProfessionalOwnership<T = Booking>(
  * @throws {NotFoundError} If booking doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the booking
  */
-export async function requireCustomerOwnership<T = Booking>(
+async function requireCustomerOwnership<T = Booking>(
   supabase: SupabaseClient<Database>,
   userId: string,
   bookingId: string,
@@ -314,7 +314,7 @@ export async function requireCustomerOwnership<T = Booking>(
  *
  * @throws {NotFoundError} If professional profile doesn't exist
  */
-export async function requireProfessionalProfile(
+async function requireProfessionalProfile(
   supabase: SupabaseClient<Database>,
   userId: string
 ): Promise<Database["public"]["Tables"]["professional_profiles"]["Row"]> {
@@ -342,7 +342,7 @@ export async function requireProfessionalProfile(
  *
  * @throws {NotFoundError} If customer profile doesn't exist
  */
-export async function requireCustomerProfile(
+async function requireCustomerProfile(
   supabase: SupabaseClient<Database>,
   userId: string
 ): Promise<Database["public"]["Tables"]["customer_profiles"]["Row"]> {
@@ -377,7 +377,7 @@ export async function requireCustomerProfile(
  * @throws {NotFoundError} If resource doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the resource
  */
-export async function requireResourceOwnership<T extends Record<string, unknown>>(
+async function requireResourceOwnership<T extends Record<string, unknown>>(
   supabase: SupabaseClient<Database>,
   table: keyof Database["public"]["Tables"],
   resourceId: string,

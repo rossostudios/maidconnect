@@ -41,7 +41,7 @@ export type WeeklySchedule = {
   endTime: string;
 }[];
 
-export type AvailabilityCache = {
+type AvailabilityCache = {
   profileId: string;
   userId: string;
   firstName: string;
@@ -75,7 +75,7 @@ export type CalendarHealth = {
 /**
  * Time Slot for Availability Display
  */
-export type TimeSlot = {
+type TimeSlot = {
   start: string; // ISO 8601
   end: string; // ISO 8601
   available: boolean;
@@ -85,25 +85,25 @@ export type TimeSlot = {
 /**
  * Server Action Response Types
  */
-export type UpdateWorkingHoursResponse = {
+type UpdateWorkingHoursResponse = {
   success: boolean;
   workingHours?: WorkingHours;
   error?: string;
 };
 
-export type UpdateTravelBufferResponse = {
+type UpdateTravelBufferResponse = {
   success: boolean;
   travelBuffer?: TravelBuffer;
   error?: string;
 };
 
-export type GetCalendarHealthResponse = {
+type GetCalendarHealthResponse = {
   success: boolean;
   health?: CalendarHealth;
   error?: string;
 };
 
-export type CheckAvailabilityResponse = {
+type CheckAvailabilityResponse = {
   success: boolean;
   available?: boolean;
   conflicts?: string[];

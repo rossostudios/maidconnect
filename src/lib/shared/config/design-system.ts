@@ -93,7 +93,7 @@ export const COLORS = {
  *
  * Burgundy palette: Rausch deep wine for primary, Babu teal for secondary.
  */
-export const SEMANTIC_COLORS = {
+const SEMANTIC_COLORS = {
   // Backgrounds
   background: COLORS.neutral[50], // Main page background (#F7F7F7)
   card: "rgb(255 255 255)", // Card surfaces
@@ -130,7 +130,7 @@ export const SEMANTIC_COLORS = {
 /**
  * Lia Grid System Constants
  */
-export const LIA_GRID = {
+const LIA_GRID = {
   /** Base unit: 8px - Foundation of entire system */
   baseUnit: 8,
 
@@ -305,7 +305,7 @@ export const TYPOGRAPHY = {
  * Max-width values for centered containers.
  * All values follow 8px grid system.
  */
-export const CONTAINER = {
+const CONTAINER = {
   /** Small container: 640px */
   sm: 640,
   /** Medium container: 768px */
@@ -324,7 +324,7 @@ export const CONTAINER = {
  * Mobile-first breakpoints for responsive layouts.
  * Aligned with Tailwind CSS defaults.
  */
-export const BREAKPOINTS = {
+const BREAKPOINTS = {
   sm: 640,
   md: 768,
   lg: 1024,
@@ -338,7 +338,7 @@ export const BREAKPOINTS = {
  * @param columns - Number of columns (6, 10, 12, or 13)
  * @returns CSS Grid configuration object
  */
-export function getGridConfig(columns: 6 | 10 | 12 | 13) {
+function getGridConfig(columns: 6 | 10 | 12 | 13) {
   const config = GRID_COLUMNS[columns];
   return {
     gridTemplateColumns: `repeat(${config.columns}, minmax(0, 1fr))`,
@@ -354,7 +354,7 @@ export function getGridConfig(columns: 6 | 10 | 12 | 13) {
  * @param scale - Typography scale key (e.g., 'heading.h1', 'body.base')
  * @returns CSS properties object
  */
-export function getTypographyStyles<
+function getTypographyStyles<
   C extends keyof typeof TYPOGRAPHY,
   S extends keyof (typeof TYPOGRAPHY)[C],
 >(category: C, size: S): { fontSize: string; lineHeight: string } {

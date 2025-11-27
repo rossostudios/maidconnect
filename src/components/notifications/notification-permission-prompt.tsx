@@ -159,7 +159,7 @@ export function NotificationPermissionPrompt({
 }
 
 // Component to show when notifications are disabled in browser settings
-export function NotificationsDeniedMessage() {
+function NotificationsDeniedMessage() {
   return (
     <div className="border border-[neutral-500]/30 bg-[neutral-500]/5 p-6">
       <div className="flex items-start gap-4">

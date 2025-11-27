@@ -11,7 +11,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 // Types
 // ============================================================================
 
-export type ArticleFeedback = {
+type ArticleFeedback = {
   id: string;
   article_id: string;
   user_id: string | null;
@@ -95,7 +95,7 @@ export async function getUserFeedbackForArticle(
 /**
  * Get feedback statistics for an article
  */
-export async function getArticleFeedbackStats(
+async function getArticleFeedbackStats(
   supabase: SupabaseClient,
   articleId: string
 ): Promise<{ helpful: number; notHelpful: number; total: number }> {
@@ -222,7 +222,7 @@ export async function updateFeedbackVote(
 /**
  * Delete article feedback
  */
-export async function deleteFeedback(
+async function deleteFeedback(
   supabase: SupabaseClient,
   feedbackId: string
 ): Promise<{ success: boolean; error?: string }> {
@@ -247,7 +247,7 @@ export async function deleteFeedback(
  * Submit feedback with user authentication check
  * Main orchestrator for article feedback submission
  */
-export async function submitFeedbackWithAuth(
+async function submitFeedbackWithAuth(
   supabase: SupabaseClient,
   input: FeedbackInput
 ): Promise<FeedbackResult> {
@@ -287,7 +287,7 @@ export async function submitFeedbackWithAuth(
 /**
  * Add text feedback to existing vote
  */
-export async function addTextToFeedback(
+async function addTextToFeedback(
   supabase: SupabaseClient,
   feedbackId: string,
   feedbackText: string

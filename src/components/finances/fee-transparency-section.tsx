@@ -248,7 +248,7 @@ export type FeeBadgeProps = {
   className?: string;
 };
 
-export function FeeBadge({ feePercent, className }: FeeBadgeProps) {
+function FeeBadge({ feePercent, className }: FeeBadgeProps) {
   return (
     <span
       className={cn(

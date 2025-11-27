@@ -37,21 +37,21 @@ export function buildPricingPayload(formData: PricingRuleFormData) {
 /**
  * Convert percentage from whole number to decimal
  */
-export function percentageToDecimal(percentage: number): number {
+function percentageToDecimal(percentage: number): number {
   return percentage / 100;
 }
 
 /**
  * Convert percentage from decimal to whole number
  */
-export function decimalToPercentage(decimal: number): number {
+function decimalToPercentage(decimal: number): number {
   return decimal * 100;
 }
 
 /**
  * Convert empty string to null (for optional fields)
  */
-export function emptyToNull(value: string): string | null {
+function emptyToNull(value: string): string | null {
   return value.trim() === "" ? null : value;
 }
 

@@ -11,7 +11,7 @@ import { trackEvent } from "./utils";
 /**
  * Client-side PMF event tracking for dashboard insights
  */
-export const pmfTracking = {
+const pmfTracking = {
   /**
    * Track when user submits a service request brief
    * Dashboard: "Briefs Submitted (Daily Trend)" + "Brief-to-Booking Conversion"

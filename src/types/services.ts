@@ -144,7 +144,7 @@ export type ServiceInput = {
   includedItems?: string[];
 };
 
-export type PricingTierInput = {
+type PricingTierInput = {
   tierName: string;
   tierLevel: number;
   description?: string;
@@ -157,7 +157,7 @@ export type PricingTierInput = {
   isDefault?: boolean;
 };
 
-export type AddonInput = {
+type AddonInput = {
   name: string;
   description?: string;
   priceCop: number;
@@ -213,7 +213,7 @@ export type ServiceByCategory = {
 // Server Action Response Types
 // ============================================================================
 
-export type CreateServiceResponse =
+type CreateServiceResponse =
   | {
       success: true;
       service: ProfessionalService;
@@ -223,7 +223,7 @@ export type CreateServiceResponse =
       error: string;
     };
 
-export type UpdateServiceResponse =
+type UpdateServiceResponse =
   | {
       success: true;
       service: ProfessionalService;
@@ -233,7 +233,7 @@ export type UpdateServiceResponse =
       error: string;
     };
 
-export type DeleteServiceResponse =
+type DeleteServiceResponse =
   | {
       success: true;
     }
@@ -242,7 +242,7 @@ export type DeleteServiceResponse =
       error: string;
     };
 
-export type GetServicesResponse =
+type GetServicesResponse =
   | {
       success: true;
       services: ProfessionalService[];
@@ -252,7 +252,7 @@ export type GetServicesResponse =
       error: string;
     };
 
-export type GetServiceDetailsResponse =
+type GetServiceDetailsResponse =
   | {
       success: true;
       service: ServiceWithDetails;
@@ -262,7 +262,7 @@ export type GetServiceDetailsResponse =
       error: string;
     };
 
-export type GetServiceCategoriesResponse =
+type GetServiceCategoriesResponse =
   | {
       success: true;
       categories: ServiceCategory[];
@@ -272,7 +272,7 @@ export type GetServiceCategoriesResponse =
       error: string;
     };
 
-export type CreatePricingTierResponse =
+type CreatePricingTierResponse =
   | {
       success: true;
       tier: ServicePricingTier;
@@ -282,7 +282,7 @@ export type CreatePricingTierResponse =
       error: string;
     };
 
-export type CreateAddonResponse =
+type CreateAddonResponse =
   | {
       success: true;
       addon: ServiceAddon;
@@ -292,7 +292,7 @@ export type CreateAddonResponse =
       error: string;
     };
 
-export type CalculateServicePriceResponse =
+type CalculateServicePriceResponse =
   | {
       success: true;
       calculation: ServicePriceCalculation;
@@ -302,7 +302,7 @@ export type CalculateServicePriceResponse =
       error: string;
     };
 
-export type GetServicesSummaryResponse =
+type GetServicesSummaryResponse =
   | {
       success: true;
       summary: ServicesSummary;
@@ -312,7 +312,7 @@ export type GetServicesSummaryResponse =
       error: string;
     };
 
-export type GetServicesByCategoryResponse =
+type GetServicesByCategoryResponse =
   | {
       success: true;
       services: ServiceByCategory[];

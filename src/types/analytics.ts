@@ -131,7 +131,7 @@ export type AnalyticsDashboard = {
 // Server Action Response Types
 // ============================================================================
 
-export type GetPerformanceMetricsResponse =
+type GetPerformanceMetricsResponse =
   | {
       success: true;
       metrics: PerformanceMetrics;
@@ -141,7 +141,7 @@ export type GetPerformanceMetricsResponse =
       error: string;
     };
 
-export type GetPerformanceSummaryResponse =
+type GetPerformanceSummaryResponse =
   | {
       success: true;
       summary: PerformanceSummary;
@@ -151,7 +151,7 @@ export type GetPerformanceSummaryResponse =
       error: string;
     };
 
-export type GetRevenueTrendResponse =
+type GetRevenueTrendResponse =
   | {
       success: true;
       trend: RevenueTrendDataPoint[];
@@ -161,7 +161,7 @@ export type GetRevenueTrendResponse =
       error: string;
     };
 
-export type GetTopProfessionalsResponse =
+type GetTopProfessionalsResponse =
   | {
       success: true;
       professionals: TopProfessional[];
@@ -171,7 +171,7 @@ export type GetTopProfessionalsResponse =
       error: string;
     };
 
-export type GetAnalyticsDashboardResponse =
+type GetAnalyticsDashboardResponse =
   | {
       success: true;
       dashboard: AnalyticsDashboard;
@@ -181,7 +181,7 @@ export type GetAnalyticsDashboardResponse =
       error: string;
     };
 
-export type InitializeMetricsResponse =
+type InitializeMetricsResponse =
   | {
       success: true;
       metrics: PerformanceMetrics;
@@ -191,7 +191,7 @@ export type InitializeMetricsResponse =
       error: string;
     };
 
-export type GenerateSnapshotResponse =
+type GenerateSnapshotResponse =
   | {
       success: true;
       snapshot: RevenueSnapshot;
@@ -205,19 +205,19 @@ export type GenerateSnapshotResponse =
 // Chart/Visualization Types
 // ============================================================================
 
-export type ChartDataPoint = {
+type ChartDataPoint = {
   label: string;
   value: number;
   color?: string;
 };
 
-export type TimeSeriesDataPoint = {
+type TimeSeriesDataPoint = {
   timestamp: string;
   value: number;
   label?: string;
 };
 
-export type ComparisonMetric = {
+type ComparisonMetric = {
   current: number;
   previous: number;
   change: number; // Percentage change

@@ -130,7 +130,7 @@ export function getAllPlans(): SubscriptionPlan[] {
 /**
  * Get plans by type
  */
-export function getPlansByType(planType: PlanType): SubscriptionPlan[] {
+function getPlansByType(planType: PlanType): SubscriptionPlan[] {
   return planType === "customer" ? CUSTOMER_PLANS : PROFESSIONAL_PLANS;
 }
 
@@ -144,7 +144,7 @@ export function getPlanBySlug(slug: string): SubscriptionPlan | undefined {
 /**
  * Get plan by ID
  */
-export function getPlanById(id: string): SubscriptionPlan | undefined {
+function getPlanById(id: string): SubscriptionPlan | undefined {
   return getAllPlans().find((plan) => plan.id === id);
 }
 

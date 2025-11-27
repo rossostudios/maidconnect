@@ -59,7 +59,7 @@ export function getConversationUnreadCount(
 /**
  * Update conversation unread count locally (optimistic update)
  */
-export function updateConversationUnreadCount(
+function updateConversationUnreadCount(
   conversations: Conversation[],
   conversationId: string,
   userRole: "customer" | "professional",

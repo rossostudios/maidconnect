@@ -34,7 +34,7 @@ export function hasSensitiveContent(message: string): boolean {
  * - LibreTranslate fallback ensures service continuity
  * - Client-side caching reduces API costs by ~70%
  */
-export async function translateText(
+async function translateText(
   text: string,
   sourceLang: SupportedLanguage,
   targetLang: SupportedLanguage

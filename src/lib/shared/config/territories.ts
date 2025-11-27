@@ -171,7 +171,7 @@ export const CITIES_BY_COUNTRY: Record<CountryCode, CityConfig[]> = {
 /**
  * All cities (flattened array)
  */
-export const ALL_CITIES = Object.values(CITIES_BY_COUNTRY).flat();
+const ALL_CITIES = Object.values(CITIES_BY_COUNTRY).flat();
 
 /**
  * Legacy: Colombia cities only (for backward compatibility)
@@ -329,7 +329,7 @@ export const CURRENCIES: Record<CurrencyCode, CurrencyConfig> = {
 /**
  * Get currency configuration by code
  */
-export function getCurrencyConfig(code: CurrencyCode): CurrencyConfig {
+function getCurrencyConfig(code: CurrencyCode): CurrencyConfig {
   return CURRENCIES[code];
 }
 
@@ -348,21 +348,21 @@ export function getCurrencyByCountry(countryCode: CountryCode): CurrencyConfig {
 /**
  * Check if a country uses Stripe
  */
-export function usesStripe(countryCode: CountryCode): boolean {
+function usesStripe(countryCode: CountryCode): boolean {
   return COUNTRIES[countryCode].paymentProcessor === "stripe";
 }
 
 /**
  * Check if a country uses PayPal
  */
-export function usesPayPal(countryCode: CountryCode): boolean {
+function usesPayPal(countryCode: CountryCode): boolean {
   return COUNTRIES[countryCode].paymentProcessor === "paypal";
 }
 
 /**
  * Get country by code (with validation)
  */
-export function getCountry(code: string): CountryConfig | null {
+function getCountry(code: string): CountryConfig | null {
   if (code in COUNTRIES) {
     return COUNTRIES[code as CountryCode];
   }
@@ -372,7 +372,7 @@ export function getCountry(code: string): CountryConfig | null {
 /**
  * Validate country code
  */
-export function isValidCountryCode(code: string): code is CountryCode {
+function isValidCountryCode(code: string): code is CountryCode {
   return code in COUNTRIES;
 }
 
@@ -390,7 +390,7 @@ export function isValidCountryCode(code: string): code is CountryCode {
  * isOperationalMarket("CO") // true (Colombia is operational)
  * isOperationalMarket("BR") // false (Brazil not supported)
  */
-export function isOperationalMarket(countryCode: string): countryCode is SupportedMarket {
+function isOperationalMarket(countryCode: string): countryCode is SupportedMarket {
   return (
     SUPPORTED_MARKETS.includes(countryCode as SupportedMarket) &&
     (countryCode in COUNTRIES ? COUNTRIES[countryCode as CountryCode].isActive : false)
@@ -400,7 +400,7 @@ export function isOperationalMarket(countryCode: string): countryCode is Support
 /**
  * Get country name in locale
  */
-export function getCountryName(countryCode: CountryCode, locale: "en" | "es" = "es"): string {
+function getCountryName(countryCode: CountryCode, locale: "en" | "es" = "es"): string {
   const country = COUNTRIES[countryCode];
   return locale === "en" ? country.nameEn : country.nameEs;
 }

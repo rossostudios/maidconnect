@@ -64,7 +64,7 @@ export type RealtimeSubscription = {
  * });
  * ```
  */
-export function subscribeToTable<T>(
+function subscribeToTable<T>(
   table: string,
   callback: (payload: RealtimeEvent<T>) => void,
   options: {
@@ -251,7 +251,7 @@ export function subscribeToPresence(
  * });
  * ```
  */
-export async function broadcastToChannel(
+async function broadcastToChannel(
   channelName: string,
   event: string,
   payload: Record<string, unknown>
@@ -285,7 +285,7 @@ export async function broadcastToChannel(
  * sub.unsubscribe();
  * ```
  */
-export function subscribeToBroadcast(
+function subscribeToBroadcast(
   channelName: string,
   event: string,
   callback: (payload: Record<string, unknown>) => void

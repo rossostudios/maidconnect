@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export type ModalFormState<TFormData = Record<string, any>> = {
+type ModalFormState<TFormData = Record<string, any>> = {
   formData: TFormData;
   isSubmitting: boolean;
   error: string | null;
@@ -158,7 +158,7 @@ export function useModalForm<TFormData extends Record<string, any>>({
  * <Modal isOpen={modal.isOpen} onClose={modal.close} />
  * ```
  */
-export function useModalState(initialOpen = false) {
+function useModalState(initialOpen = false) {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
   return {

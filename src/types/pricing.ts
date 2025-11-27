@@ -48,7 +48,7 @@ export type PricingRuleFormData = {
 /**
  * Field update helper type for form state management
  */
-export type FieldUpdateFn = <K extends keyof PricingRuleFormData>(
+type FieldUpdateFn = <K extends keyof PricingRuleFormData>(
   field: K,
   value: PricingRuleFormData[K]
 ) => void;
@@ -69,7 +69,7 @@ export const SERVICE_CATEGORIES = [
 /**
  * Service category type (union of all possible values)
  */
-export type ServiceCategory = (typeof SERVICE_CATEGORIES)[number];
+type ServiceCategory = (typeof SERVICE_CATEGORIES)[number];
 
 /**
  * Available cities for pricing rules
@@ -81,12 +81,12 @@ export { CITIES } from "@/lib/shared/config/territories";
 /**
  * City type (union of all possible values)
  */
-export type City = (typeof CITIES)[number];
+type City = (typeof CITIES)[number];
 
 /**
  * Pricing rule scope (for display/filtering)
  */
-export type PricingRuleScope = {
+type PricingRuleScope = {
   category: string | null;
   city: string | null;
 };
@@ -94,7 +94,7 @@ export type PricingRuleScope = {
 /**
  * Form validation error structure
  */
-export type PricingRuleValidationErrors = {
+type PricingRuleValidationErrors = {
   commission_rate?: string;
   background_check_fee_cop?: string;
   min_price_cop?: string;

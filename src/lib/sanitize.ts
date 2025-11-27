@@ -255,6 +255,6 @@ export const SANITIZE_PRESETS = {
  * const safeContent = sanitize(userInput, 'USER_CONTENT');
  * ```
  */
-export function sanitize(dirty: string, preset: keyof typeof SANITIZE_PRESETS = "DEFAULT"): string {
+function sanitize(dirty: string, preset: keyof typeof SANITIZE_PRESETS = "DEFAULT"): string {
   return SANITIZE_PRESETS[preset](dirty);
 }

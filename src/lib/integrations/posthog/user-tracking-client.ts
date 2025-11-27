@@ -37,7 +37,7 @@ export type UserProperties = {
  * Call this after login/signup to identify the user
  * CRITICAL: Also registers multi-country context for analytics
  */
-export function identifyAuthenticatedUser(userId: string, properties?: UserProperties) {
+function identifyAuthenticatedUser(userId: string, properties?: UserProperties) {
   identifyUserClient(userId, {
     ...properties,
     identified_at: new Date().toISOString(),
@@ -59,7 +59,7 @@ export function identifyAuthenticatedUser(userId: string, properties?: UserPrope
  * Track user signup
  * Includes multi-country context for LATAM market analytics
  */
-export function trackSignup(data: {
+function trackSignup(data: {
   userId: string;
   method: "email" | "google" | "facebook";
   role: "customer" | "professional";
@@ -98,7 +98,7 @@ export function trackSignup(data: {
 /**
  * Track user login
  */
-export function trackLogin(data: { userId: string; method: "email" | "google" | "facebook" }) {
+function trackLogin(data: { userId: string; method: "email" | "google" | "facebook" }) {
   trackEvent("User Logged In", {
     login_method: data.method,
     timestamp: new Date().toISOString(),
@@ -109,7 +109,7 @@ export function trackLogin(data: { userId: string; method: "email" | "google" | 
  * Track user logout
  * CRITICAL: Clears multi-country context to prevent data pollution
  */
-export function trackLogout() {
+function trackLogout() {
   trackEvent("User Logged Out", {
     timestamp: new Date().toISOString(),
   });
@@ -125,14 +125,14 @@ export function trackLogout() {
  * Update user properties
  * Call this when user profile is updated
  */
-export function updateUserProfile(properties: Partial<UserProperties>) {
+function updateUserProfile(properties: Partial<UserProperties>) {
   identifyUserClient(undefined as any, properties);
 }
 
 /**
  * Track email verification
  */
-export function trackEmailVerified(userId: string) {
+function trackEmailVerified(userId: string) {
   identifyUserClient(userId, {
     email_verified: true,
     email_verified_at: new Date().toISOString(),
@@ -146,7 +146,7 @@ export function trackEmailVerified(userId: string) {
 /**
  * Track professional verification
  */
-export function trackProfessionalVerified(userId: string, verificationType: string) {
+function trackProfessionalVerified(userId: string, verificationType: string) {
   identifyUserClient(userId, {
     professional_verified: true,
     verification_type: verificationType,
@@ -162,7 +162,7 @@ export function trackProfessionalVerified(userId: string, verificationType: stri
 /**
  * Track subscription/plan change
  */
-export function trackPlanChange(data: {
+function trackPlanChange(data: {
   userId: string;
   oldPlan?: string;
   newPlan: string;

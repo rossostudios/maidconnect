@@ -19,7 +19,7 @@ import type { Database } from "@/types/supabase";
 
 // Type aliases for database tables
 export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
-export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 // TODO: Re-enable when recurring_plans table is added to database types
 // export type RecurringPlan = Database["public"]["Tables"]["recurring_plans"]["Row"];
 
@@ -75,7 +75,7 @@ export async function requireAuth(_request: Request): Promise<AuthContext> {
  * }
  * ```
  */
-export async function getOptionalAuth(_request: Request): Promise<AuthContext | null> {
+async function getOptionalAuth(_request: Request): Promise<AuthContext | null> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -318,7 +318,7 @@ export async function requireProfessionalProfile(
  *
  * @throws {NotFoundError} If customer profile doesn't exist
  */
-export async function requireCustomerProfile(
+async function requireCustomerProfile(
   supabase: SupabaseClient<Database>,
   userId: string
 ): Promise<Database["public"]["Tables"]["customer_profiles"]["Row"]> {

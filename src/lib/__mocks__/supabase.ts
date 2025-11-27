@@ -80,7 +80,7 @@ export type MockAuthResponse = {
   error: Error | null;
 };
 
-export type MockStorageResponse = {
+type MockStorageResponse = {
   data: {
     path?: string;
     id?: string;
@@ -222,7 +222,7 @@ export function createMockQueryBuilder(
  * mockSupabaseQuery(query, { data: [{ id: '123' }], error: null });
  * ```
  */
-export function mockSupabaseQuery(
+function mockSupabaseQuery(
   queryBuilder: MockQueryBuilder,
   response: { data: unknown; error: Error | null }
 ): void {
@@ -367,7 +367,7 @@ export function createMockSupabaseClient(): MockSupabaseClient {
 /**
  * Creates mock user data
  */
-export function createMockUser(
+function createMockUser(
   overrides?: Partial<{
     id: string;
     email: string;
@@ -388,7 +388,7 @@ export function createMockUser(
 /**
  * Creates mock professional data
  */
-export function createMockProfessional(overrides?: Record<string, unknown>) {
+function createMockProfessional(overrides?: Record<string, unknown>) {
   return {
     id: "mock-pro-456",
     user_id: "mock-user-123",
@@ -428,7 +428,7 @@ export function createMockBooking(overrides?: Record<string, unknown>) {
 /**
  * Creates a mock error for testing error handling
  */
-export function createMockSupabaseError(message: string, code?: string) {
+function createMockSupabaseError(message: string, code?: string) {
   const error = new Error(message);
   if (code) {
     (error as any).code = code;
@@ -439,7 +439,7 @@ export function createMockSupabaseError(message: string, code?: string) {
 /**
  * Creates a mock auth response
  */
-export function createMockAuthResponse(
+function createMockAuthResponse(
   user?: Record<string, unknown> | null,
   error?: Error | null
 ): MockAuthResponse {

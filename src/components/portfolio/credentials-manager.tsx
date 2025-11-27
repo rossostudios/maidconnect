@@ -587,7 +587,7 @@ export type CredentialsSummaryProps = {
   className?: string;
 };
 
-export function CredentialsSummary({ total, verified, className }: CredentialsSummaryProps) {
+function CredentialsSummary({ total, verified, className }: CredentialsSummaryProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <HugeiconsIcon

@@ -633,7 +633,7 @@ function TemplateCard({ template, onClick }: TemplateCardProps) {
 /**
  * Extract booking context from a conversation for quick replies
  */
-export function extractBookingContext(
+function extractBookingContext(
   conversation: {
     booking?: {
       id: string;

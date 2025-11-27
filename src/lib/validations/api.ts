@@ -11,9 +11,9 @@ import { z } from "zod";
 // ============================================
 
 export const uuidSchema = z.string().uuid();
-export const emailSchema = z.string().email();
-export const phoneSchema = z.string().regex(/^\+?[1-9]\d{1,14}$/); // E.164 format
-export const urlSchema = z.string().url();
+const emailSchema = z.string().email();
+const phoneSchema = z.string().regex(/^\+?[1-9]\d{1,14}$/); // E.164 format
+const urlSchema = z.string().url();
 export const dateSchema = z.string().datetime();
 export const isoDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/); // YYYY-MM-DD
 
@@ -28,9 +28,9 @@ export const paginationQuerySchema = z.object({
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
 
-export type PaginationQuery = z.infer<typeof paginationQuerySchema>;
+type PaginationQuery = z.infer<typeof paginationQuerySchema>;
 
-export const paginatedResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
+const paginatedResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
   z.object({
     data: z.array(dataSchema),
     pagination: z.object({
@@ -45,7 +45,7 @@ export const paginatedResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =
 // Standard API Response Schemas
 // ============================================
 
-export const successResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
+const successResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
   z.object({
     success: z.literal(true),
     data: dataSchema,
@@ -61,13 +61,13 @@ export const errorResponseSchema = z.object({
   }),
 });
 
-export type ErrorResponse = z.infer<typeof errorResponseSchema>;
+type ErrorResponse = z.infer<typeof errorResponseSchema>;
 
 // ============================================
 // Common Request Body Schemas
 // ============================================
 
-export const idParamSchema = z.object({
+const idParamSchema = z.object({
   id: uuidSchema,
 });
 
@@ -76,18 +76,18 @@ export const searchQuerySchema = z.object({
   ...paginationQuerySchema.shape,
 });
 
-export type SearchQuery = z.infer<typeof searchQuerySchema>;
+type SearchQuery = z.infer<typeof searchQuerySchema>;
 
 // ============================================
 // Filter Schemas
 // ============================================
 
-export const dateRangeSchema = z.object({
+const dateRangeSchema = z.object({
   startDate: isoDateSchema,
   endDate: isoDateSchema,
 });
 
-export const priceRangeSchema = z.object({
+const priceRangeSchema = z.object({
   minPrice: z.coerce.number().nonnegative(),
   maxPrice: z.coerce.number().nonnegative(),
 });
@@ -99,7 +99,7 @@ export const priceRangeSchema = z.object({
 /**
  * Validates request body and returns typed data or throws validation error
  */
-export async function validateRequestBody<T extends z.ZodTypeAny>(
+async function validateRequestBody<T extends z.ZodTypeAny>(
   request: Request,
   schema: T
 ): Promise<z.infer<T>> {
@@ -125,7 +125,7 @@ export async function validateRequestBody<T extends z.ZodTypeAny>(
 /**
  * Validates URL search params and returns typed data
  */
-export function validateSearchParams<T extends z.ZodTypeAny>(
+function validateSearchParams<T extends z.ZodTypeAny>(
   searchParams: URLSearchParams,
   schema: T
 ): z.infer<T> {
@@ -144,7 +144,7 @@ export function validateSearchParams<T extends z.ZodTypeAny>(
 /**
  * Creates a success response with proper typing
  */
-export function createSuccessResponse<T>(data: T, message?: string) {
+function createSuccessResponse<T>(data: T, message?: string) {
   return {
     success: true as const,
     data,
@@ -155,7 +155,7 @@ export function createSuccessResponse<T>(data: T, message?: string) {
 /**
  * Creates an error response with proper typing
  */
-export function createErrorResponse(code: string, message: string, details?: unknown) {
+function createErrorResponse(code: string, message: string, details?: unknown) {
   return {
     success: false as const,
     error: {

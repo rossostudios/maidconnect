@@ -68,7 +68,7 @@ export function getBlurDataUrl(source: SanityImageSource): string {
  * @param widths - Array of image widths
  * @returns srcset string
  */
-export function getSrcSet(
+function getSrcSet(
   source: SanityImageSource,
   widths: number[] = [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
 ): string {
@@ -85,7 +85,7 @@ export function getSrcSet(
  * @param image - Sanity image object with alt field
  * @returns Alt text or empty string
  */
-export function getImageAlt(image: any): string {
+function getImageAlt(image: any): string {
   return image?.alt || image?.caption || "";
 }
 
@@ -94,6 +94,6 @@ export function getImageAlt(image: any): string {
  * @param source - Sanity image reference
  * @returns True if valid image source
  */
-export function isValidImageSource(source: any): boolean {
+function isValidImageSource(source: any): boolean {
   return !!source && typeof source === "object" && "_type" in source && source._type === "image";
 }

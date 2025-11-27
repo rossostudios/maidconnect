@@ -117,7 +117,7 @@ export interface ProfessionalRecord extends AlgoliaRecord {
 /**
  * Union type of all Algolia records
  */
-export type AlgoliaRecordType =
+type AlgoliaRecordType =
   | HelpArticleRecord
   | ChangelogRecord
   | RoadmapItemRecord
@@ -135,7 +135,7 @@ export const ALGOLIA_INDICES = {
   PROFESSIONALS: "professionals",
 } as const;
 
-export type AlgoliaIndexName = (typeof ALGOLIA_INDICES)[keyof typeof ALGOLIA_INDICES];
+type AlgoliaIndexName = (typeof ALGOLIA_INDICES)[keyof typeof ALGOLIA_INDICES];
 
 /**
  * Search result with highlighting
@@ -173,7 +173,7 @@ export type AlgoliaSearchParams = {
 /**
  * Search response from Algolia
  */
-export type AlgoliaSearchResponse<T extends AlgoliaRecord> = {
+type AlgoliaSearchResponse<T extends AlgoliaRecord> = {
   hits: AlgoliaSearchHit<T>[];
   nbHits: number;
   page: number;

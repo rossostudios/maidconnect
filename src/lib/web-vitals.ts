@@ -157,7 +157,7 @@ export function reportWebVitals(metric: Metric) {
  * Get Web Vitals summary for current page
  * Useful for debugging
  */
-export function getWebVitalsSummary(): {
+function getWebVitalsSummary(): {
   metrics: Array<{ name: string; value: number; rating: string }>;
   performance: PerformanceNavigationTiming | null;
 } {
