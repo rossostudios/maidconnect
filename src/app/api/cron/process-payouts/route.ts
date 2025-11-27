@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withAdvisoryLock } from "@/lib/cron";
 import { withRateLimit } from "@/lib/rate-limit";
 
 /**
@@ -44,23 +45,44 @@ async function handleCronPayouts(request: Request) {
       : "http://localhost:3000";
     const processUrl = `${baseUrl}/api/admin/payouts/process`;
 
-    const response = await fetch(processUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Pass cron secret for authentication
-        Authorization: `Bearer ${cronSecret}`,
-      },
-      body: JSON.stringify({
-        // Process all professionals with pending earnings
-        dryRun: false,
-      }),
-    });
+    // RELIABILITY: Add 5-minute timeout to prevent cron job from hanging
+    // Vercel has a 25-minute hard limit, but we want to fail fast and retry
+    const controller = new AbortController();
+    const timeoutMs = 5 * 60 * 1000; // 5 minutes
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-    const result = await response.json();
+    let response: Response;
+    let result: Record<string, unknown>;
+
+    try {
+      response = await fetch(processUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Pass cron secret for authentication
+          Authorization: `Bearer ${cronSecret}`,
+        },
+        body: JSON.stringify({
+          // Process all professionals with pending earnings
+          dryRun: false,
+        }),
+        signal: controller.signal,
+      });
+
+      result = await response.json();
+    } catch (fetchError) {
+      // Handle timeout specifically
+      if (fetchError instanceof Error && fetchError.name === "AbortError") {
+        throw new Error(`Payout processing timed out after ${timeoutMs / 1000} seconds`);
+      }
+      throw fetchError;
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
-      throw new Error(result.error || "Failed to process payouts");
+      const errorMessage = typeof result.error === "string" ? result.error : "Failed to process payouts";
+      throw new Error(errorMessage);
     }
 
     return NextResponse.json({
@@ -86,5 +108,10 @@ function getDayName(dayOfWeek: number): string {
   return days[dayOfWeek] || "Unknown";
 }
 
-// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
-export const GET = withRateLimit(handleCronPayouts, "cron");
+// Apply rate limiting + advisory lock for true single-instance execution
+// Rate limit: Fast Redis check prevents retries within 5 minutes
+// Advisory lock: Database-level lock prevents concurrent execution across serverless instances
+export const GET = withRateLimit(
+  withAdvisoryLock("process-payouts", handleCronPayouts),
+  "cron"
+);

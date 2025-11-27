@@ -48,20 +48,32 @@ export async function POST(request: Request) {
     );
   }
 
-  // Epic H-2.3: Idempotency check - Prevent duplicate processing
-  const { data: existingEvent } = await supabaseAdmin
-    .from("stripe_webhook_events")
-    .select("event_id")
-    .eq("event_id", event.id)
-    .single();
+  // Epic H-2.3: Idempotency - Store event BEFORE processing to prevent race conditions
+  // If Stripe retries during processing, the INSERT will fail due to unique constraint
+  const { error: insertError } = await supabaseAdmin.from("stripe_webhook_events").insert({
+    event_id: event.id,
+    event_type: event.type,
+    status: "processing",
+    payload: event as unknown as Record<string, unknown>,
+  });
 
-  if (existingEvent) {
-    logger.info("[Stripe Webhook] Duplicate event ignored (idempotency)", {
+  if (insertError) {
+    // Unique constraint violation = duplicate event (already processing or completed)
+    if (insertError.code === "23505") {
+      logger.info("[Stripe Webhook] Duplicate event ignored (idempotency)", {
+        eventId: event.id,
+        eventType: event.type,
+      });
+      // Return 200 OK to prevent Stripe from retrying
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+
+    // Other database errors - log but continue (don't block webhook processing)
+    logger.error("[Stripe Webhook] Failed to store event for idempotency", {
       eventId: event.id,
-      eventType: event.type,
+      error: insertError.message,
+      code: insertError.code,
     });
-    // Return 200 OK to prevent Stripe from retrying
-    return NextResponse.json({ received: true, duplicate: true });
   }
 
   // Log webhook event
@@ -72,22 +84,38 @@ export async function POST(request: Request) {
   });
 
   // Process event using handler service
-  await processWebhookEvent(event);
-
-  // Epic H-2.3: Store event in database to prevent replay
-  const { error: insertError } = await supabaseAdmin.from("stripe_webhook_events").insert({
-    event_id: event.id,
-    event_type: event.type,
-    payload: event as unknown as Record<string, unknown>,
-  });
-
-  if (insertError) {
-    logger.error("[Stripe Webhook] Failed to store event for idempotency", {
+  let processingError: Error | null = null;
+  try {
+    await processWebhookEvent(event);
+  } catch (err) {
+    processingError = err instanceof Error ? err : new Error(String(err));
+    logger.error("[Stripe Webhook] Event processing failed", {
       eventId: event.id,
-      error: insertError.message,
-      code: insertError.code,
+      eventType: event.type,
+      error: processingError.message,
     });
-    // Continue anyway - event already processed, better to succeed than fail
+  }
+
+  // Update event status to completed or failed
+  const { error: updateError } = await supabaseAdmin
+    .from("stripe_webhook_events")
+    .update({
+      status: processingError ? "failed" : "completed",
+      error_message: processingError?.message || null,
+      processed_at: new Date().toISOString(),
+    })
+    .eq("event_id", event.id);
+
+  if (updateError) {
+    logger.error("[Stripe Webhook] Failed to update event status", {
+      eventId: event.id,
+      error: updateError.message,
+    });
+  }
+
+  // Re-throw processing error after updating status
+  if (processingError) {
+    throw processingError;
   }
 
   logger.info("[Stripe Webhook] Event processed successfully", {

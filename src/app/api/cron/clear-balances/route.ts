@@ -11,8 +11,10 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { withAdvisoryLock } from "@/lib/cron";
 import { trackServerEvent } from "@/lib/integrations/posthog/server";
 import { logger } from "@/lib/logger";
+import { withRateLimit } from "@/lib/rate-limit";
 import { BalanceService } from "@/lib/services/balance/balance-service";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
@@ -20,7 +22,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin-client";
  * GET /api/cron/clear-balances
  * Process all pending balance clearances past their 24hr hold period
  */
-export async function GET(request: NextRequest) {
+async function handleClearBalances(request: NextRequest) {
   // ========================================
   // 1. Verify Cron Secret (Security)
   // ========================================
@@ -147,3 +149,11 @@ export const runtime = "nodejs"; // Use Node.js runtime for Supabase compatibili
 
 // Maximum execution time: 60 seconds
 export const maxDuration = 60;
+
+// Apply rate limiting + advisory lock for true single-instance execution
+// Rate limit: Fast Redis check prevents retries within 5 minutes
+// Advisory lock: Database-level lock prevents concurrent execution across serverless instances
+export const GET = withRateLimit(
+  withAdvisoryLock("clear-balances", handleClearBalances),
+  "cron"
+);

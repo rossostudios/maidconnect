@@ -73,22 +73,33 @@ export async function POST(request: Request) {
       );
     }
 
-    // Idempotency check - Prevent duplicate processing
-    // Note: We'll need a paypal_webhook_events table similar to stripe_webhook_events
-    const { data: existingEvent } = await supabaseAdmin
-      .from("webhook_events")
-      .select("event_id")
-      .eq("event_id", webhookEvent.id)
-      .eq("provider", "paypal")
-      .maybeSingle();
+    // Epic H-2.3: Idempotency - Store event BEFORE processing to prevent race conditions
+    // If PayPal retries during processing, the INSERT will fail due to unique constraint
+    const { error: insertError } = await supabaseAdmin.from("webhook_events").insert({
+      event_id: webhookEvent.id,
+      event_type: webhookEvent.event_type,
+      provider: "paypal",
+      status: "processing",
+      payload: webhookEvent as unknown as Record<string, unknown>,
+    });
 
-    if (existingEvent) {
-      logger.info("[PayPal Webhook] Duplicate event ignored (idempotency)", {
+    if (insertError) {
+      // Unique constraint violation = duplicate event (already processing or completed)
+      if (insertError.code === "23505") {
+        logger.info("[PayPal Webhook] Duplicate event ignored (idempotency)", {
+          eventId: webhookEvent.id,
+          eventType: webhookEvent.event_type,
+        });
+        // Return 200 OK to prevent PayPal from retrying
+        return NextResponse.json({ received: true, duplicate: true });
+      }
+
+      // Other database errors - log but continue (don't block webhook processing)
+      logger.error("[PayPal Webhook] Failed to store event for idempotency", {
         eventId: webhookEvent.id,
-        eventType: webhookEvent.event_type,
+        error: insertError.message,
+        code: insertError.code,
       });
-      // Return 200 OK to prevent PayPal from retrying
-      return NextResponse.json({ received: true, duplicate: true });
     }
 
     // Log webhook event
@@ -99,23 +110,39 @@ export async function POST(request: Request) {
     });
 
     // Process event based on type
-    await processPayPalWebhookEvent(webhookEvent);
-
-    // Store event in database to prevent replay
-    const { error: insertError } = await supabaseAdmin.from("webhook_events").insert({
-      event_id: webhookEvent.id,
-      event_type: webhookEvent.event_type,
-      provider: "paypal",
-      payload: webhookEvent as unknown as Record<string, unknown>,
-    });
-
-    if (insertError) {
-      logger.error("[PayPal Webhook] Failed to store event for idempotency", {
+    let processingError: Error | null = null;
+    try {
+      await processPayPalWebhookEvent(webhookEvent);
+    } catch (err) {
+      processingError = err instanceof Error ? err : new Error(String(err));
+      logger.error("[PayPal Webhook] Event processing failed", {
         eventId: webhookEvent.id,
-        error: insertError.message,
-        code: insertError.code,
+        eventType: webhookEvent.event_type,
+        error: processingError.message,
       });
-      // Continue anyway - event already processed
+    }
+
+    // Update event status to completed or failed
+    const { error: updateError } = await supabaseAdmin
+      .from("webhook_events")
+      .update({
+        status: processingError ? "failed" : "completed",
+        error_message: processingError?.message || null,
+        processed_at: new Date().toISOString(),
+      })
+      .eq("event_id", webhookEvent.id)
+      .eq("provider", "paypal");
+
+    if (updateError) {
+      logger.error("[PayPal Webhook] Failed to update event status", {
+        eventId: webhookEvent.id,
+        error: updateError.message,
+      });
+    }
+
+    // Re-throw processing error after updating status
+    if (processingError) {
+      throw processingError;
     }
 
     logger.info("[PayPal Webhook] Event processed successfully", {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withAdvisoryLock } from "@/lib/cron";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { formatDate, formatTime } from "@/lib/format";
 import { withRateLimit } from "@/lib/rate-limit";
@@ -308,5 +309,10 @@ async function handleAutoDeclineBookings(request: Request) {
   }
 }
 
-// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
-export const GET = withRateLimit(handleAutoDeclineBookings, "cron");
+// Apply rate limiting + advisory lock for true single-instance execution
+// Rate limit: Fast Redis check prevents retries within 5 minutes
+// Advisory lock: Database-level lock prevents concurrent execution across serverless instances
+export const GET = withRateLimit(
+  withAdvisoryLock("auto-decline-bookings", handleAutoDeclineBookings),
+  "cron"
+);

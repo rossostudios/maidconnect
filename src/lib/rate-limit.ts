@@ -44,24 +44,52 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 
-type RateLimitStore = Map<string, { count: number; resetTime: number }>;
+type RateLimitEntry = { count: number; resetTime: number };
+type RateLimitStore = Map<string, RateLimitEntry>;
 
 // In-memory store for rate limiting (development only)
+// IMPORTANT: This store is only used when Upstash is not configured
 const store: RateLimitStore = new Map();
 
-// Clean up expired entries every 5 minutes (in-memory only)
-if (typeof setInterval !== "undefined") {
-  setInterval(
-    () => {
-      const now = Date.now();
-      for (const [key, value] of store.entries()) {
-        if (now > value.resetTime) {
-          store.delete(key);
-        }
-      }
-    },
-    5 * 60 * 1000
-  );
+// Maximum entries to prevent unbounded memory growth
+const MAX_STORE_SIZE = 10000;
+
+// Track last cleanup time for lazy cleanup
+let lastCleanupTime = 0;
+const CLEANUP_INTERVAL_MS = 60_000; // Clean at most once per minute
+
+/**
+ * Lazy cleanup of expired entries (serverless-safe)
+ * Called on each store access instead of using setInterval (which causes memory leaks in serverless)
+ */
+function lazyCleanup(): void {
+  const now = Date.now();
+
+  // Only cleanup if more than CLEANUP_INTERVAL_MS has passed
+  if (now - lastCleanupTime < CLEANUP_INTERVAL_MS) {
+    return;
+  }
+
+  lastCleanupTime = now;
+
+  // Remove expired entries
+  for (const [key, value] of store.entries()) {
+    if (now > value.resetTime) {
+      store.delete(key);
+    }
+  }
+
+  // If still over max size, remove oldest entries
+  if (store.size > MAX_STORE_SIZE) {
+    const entries = Array.from(store.entries());
+    // Sort by resetTime ascending (oldest first)
+    entries.sort((a, b) => a[1].resetTime - b[1].resetTime);
+    // Remove oldest entries to get back under limit
+    const toRemove = entries.slice(0, store.size - MAX_STORE_SIZE);
+    for (const [key] of toRemove) {
+      store.delete(key);
+    }
+  }
 }
 
 export type RateLimitConfig = {
@@ -146,6 +174,9 @@ export function checkRateLimit(identifier: string, config: RateLimitConfig): Sim
       resetTime: Date.now() + config.windowMs,
     };
   }
+
+  // Serverless-safe cleanup: run on each access instead of setInterval
+  lazyCleanup();
 
   const now = Date.now();
   const key = identifier;

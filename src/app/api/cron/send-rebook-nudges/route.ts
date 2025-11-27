@@ -11,6 +11,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { withAdvisoryLock } from "@/lib/cron";
 import { sendEmail } from "@/lib/email/send";
 import { rebookNudgeEmail } from "@/lib/email/templates";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -380,5 +381,10 @@ async function handleRebookNudges(request: Request) {
   }
 }
 
-// Apply rate limiting: 1 request per 5 minutes (prevents concurrent cron execution)
-export const GET = withRateLimit(handleRebookNudges, "cron");
+// Apply rate limiting + advisory lock for true single-instance execution
+// Rate limit: Fast Redis check prevents retries within 5 minutes
+// Advisory lock: Database-level lock prevents concurrent execution across serverless instances
+export const GET = withRateLimit(
+  withAdvisoryLock("send-rebook-nudges", handleRebookNudges),
+  "cron"
+);

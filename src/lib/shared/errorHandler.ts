@@ -100,8 +100,9 @@ export function formatErrorResponse(error: unknown, path?: string): ErrorRespons
 
 /**
  * Logs error with appropriate level and context
+ * IMPORTANT: This is async to ensure logs are sent before serverless function terminates
  */
-export function logError(error: unknown, context?: Record<string, unknown>) {
+export async function logError(error: unknown, context?: Record<string, unknown>): Promise<void> {
   const errorContext = {
     ...context,
     errorName: error instanceof Error ? error.name : "Unknown",
@@ -111,31 +112,35 @@ export function logError(error: unknown, context?: Record<string, unknown>) {
 
   // Operational errors are logged as warnings (expected errors)
   if (isOperationalError(error)) {
-    logger.warn("Operational error occurred", errorContext);
+    await logger.warn("Operational error occurred", errorContext);
   } else {
     // Programming errors are logged as errors (unexpected)
-    logger.error("Unexpected error occurred", errorContext);
+    await logger.error("Unexpected error occurred", errorContext);
   }
 }
 
 /**
  * Main error handler function
  * Logs the error and returns a formatted response
+ * IMPORTANT: Async to ensure logs are flushed before serverless function terminates
  */
-export function handleApiError(
+export async function handleApiError(
   error: unknown,
   request?: Request,
   context?: Record<string, unknown>
-): NextResponse {
+): Promise<NextResponse> {
   const path = request?.url;
 
-  // Log the error with context
-  logError(error, {
+  // Log the error with context (await to ensure log is sent)
+  await logError(error, {
     ...context,
     path,
     method: request?.method,
     userAgent: request?.headers.get("user-agent"),
   });
+
+  // Flush logs before returning (critical for serverless)
+  await logger.flush();
 
   // Format and return error response
   const errorResponse = formatErrorResponse(error, path);
@@ -176,7 +181,8 @@ export function withErrorHandling<T extends unknown[]>(
     } catch (error) {
       // Extract request if it's the first argument
       const request = args[0] instanceof Request ? args[0] : undefined;
-      return handleApiError(error, request, context);
+      // Await to ensure logs are flushed before serverless function terminates
+      return await handleApiError(error, request, context);
     }
   };
 }

@@ -3,12 +3,18 @@
  *
  * Handles webhooks from both Checkr and Truora providers.
  * Route: POST /api/webhooks/background-checks
+ *
+ * SECURITY (Epic H-2.3):
+ * - Signature verification (provider-specific)
+ * - Idempotency checks (prevent duplicate processing)
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { getBackgroundCheckProvider } from "@/lib/background-checks";
 import type { WebhookEvent } from "@/lib/background-checks/types";
 import { sendBackgroundCheckCompletedEmail } from "@/lib/email/send";
+import { logger } from "@/lib/logger";
+import { supabaseAdmin } from "@/lib/supabase/admin-client";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "nodejs";
@@ -26,7 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const signature = checkrSignature || truoraSignature;
 
     if (!signature) {
-      console.error("[BackgroundCheckWebhook] Missing webhook signature");
+      logger.error("[BackgroundCheckWebhook] Missing webhook signature");
       return NextResponse.json({ error: "Missing signature" }, { status: 400 });
     }
 
@@ -40,15 +46,89 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const provider = getBackgroundCheckProvider();
     const event: WebhookEvent = await provider.verifyWebhook(rawBody, signature, headers);
 
-    console.log(`[BackgroundCheckWebhook] Received ${event.type} from ${event.provider}`);
+    // Epic H-2.3: Idempotency - Store event BEFORE processing to prevent race conditions
+    // Use providerCheckId + type as unique key (same check can have multiple event types)
+    const eventKey = `${event.providerCheckId}:${event.type}`;
+    const { error: insertError } = await supabaseAdmin.from("webhook_events").insert({
+      event_id: eventKey,
+      event_type: event.type,
+      provider: event.provider, // "checkr" or "truora"
+      status: "processing",
+      payload: event.data,
+    });
+
+    if (insertError) {
+      // Unique constraint violation = duplicate event (already processing or completed)
+      if (insertError.code === "23505") {
+        logger.info("[BackgroundCheckWebhook] Duplicate event ignored (idempotency)", {
+          providerCheckId: event.providerCheckId,
+          eventType: event.type,
+          provider: event.provider,
+        });
+        // Return 200 OK to prevent provider from retrying
+        return NextResponse.json({ received: true, duplicate: true });
+      }
+
+      // Other database errors - log but continue (don't block webhook processing)
+      logger.error("[BackgroundCheckWebhook] Failed to store event for idempotency", {
+        providerCheckId: event.providerCheckId,
+        error: insertError.message,
+        code: insertError.code,
+      });
+    }
+
+    logger.info("[BackgroundCheckWebhook] Processing event", {
+      type: event.type,
+      provider: event.provider,
+      providerCheckId: event.providerCheckId,
+    });
 
     // Handle the webhook event
-    await handleWebhookEvent(event);
+    let processingError: Error | null = null;
+    try {
+      await handleWebhookEvent(event);
+    } catch (err) {
+      processingError = err instanceof Error ? err : new Error(String(err));
+      logger.error("[BackgroundCheckWebhook] Event processing failed", {
+        providerCheckId: event.providerCheckId,
+        eventType: event.type,
+        error: processingError.message,
+      });
+    }
+
+    // Update event status to completed or failed
+    const { error: updateError } = await supabaseAdmin
+      .from("webhook_events")
+      .update({
+        status: processingError ? "failed" : "completed",
+        error_message: processingError?.message || null,
+        processed_at: new Date().toISOString(),
+      })
+      .eq("event_id", eventKey)
+      .eq("provider", event.provider);
+
+    if (updateError) {
+      logger.error("[BackgroundCheckWebhook] Failed to update event status", {
+        providerCheckId: event.providerCheckId,
+        error: updateError.message,
+      });
+    }
+
+    // Re-throw processing error after updating status
+    if (processingError) {
+      throw processingError;
+    }
+
+    logger.info("[BackgroundCheckWebhook] Event processed successfully", {
+      type: event.type,
+      provider: event.provider,
+      providerCheckId: event.providerCheckId,
+    });
 
     // Return 200 to acknowledge receipt
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("[BackgroundCheckWebhook] Error:", error);
+    logger.error("[BackgroundCheckWebhook] Error:", { error });
 
     // Return 400 for verification failures, 500 for processing errors
     const status = error instanceof Error && error.message.includes("verification") ? 400 : 500;

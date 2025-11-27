@@ -85,7 +85,8 @@ export function withAdmin<T extends unknown[]>(
   context?: Record<string, unknown>
 ) {
   return withAuth(async (authContext, ...args: T) => {
-    await requireAdmin(authContext.user);
+    // SECURITY: Verify admin role against database, not JWT metadata
+    await requireAdmin(authContext.supabase, authContext.user.id);
     return handler(authContext, ...args);
   }, context);
 }
@@ -106,7 +107,8 @@ export function withProfessional<T extends unknown[]>(
   context?: Record<string, unknown>
 ) {
   return withAuth(async (authContext, ...args: T) => {
-    await requireProfessional(authContext.user);
+    // SECURITY: Verify professional role against database, not JWT metadata
+    await requireProfessional(authContext.supabase, authContext.user.id);
     return handler(authContext, ...args);
   }, context);
 }
@@ -127,7 +129,8 @@ export function withCustomer<T extends unknown[]>(
   context?: Record<string, unknown>
 ) {
   return withAuth(async (authContext, ...args: T) => {
-    await requireCustomer(authContext.user);
+    // SECURITY: Verify customer role against database, not JWT metadata
+    await requireCustomer(authContext.supabase, authContext.user.id);
     return handler(authContext, ...args);
   }, context);
 }
@@ -233,7 +236,52 @@ export function withAuthMethods<T extends Record<string, AuthenticatedHandler<[R
 }
 
 /**
+ * Production domain whitelist for CORS
+ * Loaded from CORS_ALLOWED_ORIGINS env var (comma-separated)
+ * Falls back to production domains if not configured
+ */
+function getAllowedOrigins(): string[] {
+  const envOrigins = process.env.CORS_ALLOWED_ORIGINS;
+  if (envOrigins) {
+    return envOrigins.split(",").map((origin) => origin.trim());
+  }
+
+  // Production defaults - NEVER use "*" in production
+  return [
+    "https://casaora.co",
+    "https://www.casaora.co",
+    "https://app.casaora.co",
+    // Vercel preview deployments
+    "https://*.vercel.app",
+  ];
+}
+
+/**
+ * Validate origin against allowlist
+ * Supports wildcard patterns (e.g., "https://*.vercel.app")
+ */
+function isOriginAllowed(origin: string, allowedOrigins: string[]): boolean {
+  for (const allowed of allowedOrigins) {
+    if (allowed === origin) {
+      return true;
+    }
+    // Support wildcard patterns
+    if (allowed.includes("*")) {
+      const pattern = allowed.replace(/\*/g, ".*");
+      const regex = new RegExp(`^${pattern}$`);
+      if (regex.test(origin)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/**
  * CORS middleware
+ *
+ * SECURITY: Never defaults to "*". Requires explicit domain whitelist.
+ * Configure via CORS_ALLOWED_ORIGINS env var or pass allowedOrigins option.
  *
  * @example
  * ```typescript
@@ -248,19 +296,38 @@ export function withCors(options: {
   allowedMethods?: string[];
   allowedHeaders?: string[];
 }) {
-  return async (_request: Request): Promise<NextResponse> => {
+  return async (request: Request): Promise<NextResponse> => {
     const {
-      allowedOrigins = ["*"],
+      allowedOrigins = getAllowedOrigins(),
       allowedMethods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders = ["Content-Type", "Authorization"],
     } = options;
 
+    // Get the origin from the request
+    const requestOrigin = request.headers.get("Origin") || "";
+
+    // Validate origin against allowlist (NEVER allow "*" in production)
+    const origin = isOriginAllowed(requestOrigin, allowedOrigins) ? requestOrigin : "";
+
+    // If origin not allowed, return empty CORS headers (browser will block)
+    if (!origin) {
+      return new NextResponse(null, {
+        status: 204,
+        headers: {
+          // No CORS headers - browser will reject cross-origin requests
+          Vary: "Origin",
+        },
+      });
+    }
+
     return new NextResponse(null, {
       status: 204,
       headers: {
-        "Access-Control-Allow-Origin": allowedOrigins.join(", "),
+        "Access-Control-Allow-Origin": origin,
         "Access-Control-Allow-Methods": allowedMethods.join(", "),
         "Access-Control-Allow-Headers": allowedHeaders.join(", "),
+        "Access-Control-Allow-Credentials": "true",
+        Vary: "Origin",
       },
     });
   };

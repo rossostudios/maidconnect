@@ -115,21 +115,39 @@ export async function getOptionalAuth(request: Request): Promise<AuthContext | n
 /**
  * Require user to have a specific role
  *
+ * SECURITY: Verifies role against the profiles table, NOT JWT metadata.
+ * JWT user_metadata is client-controlled and can be spoofed. Always verify
+ * against the database for authorization decisions.
+ *
  * @example
  * ```typescript
  * const { user, supabase } = await requireAuth(request);
- * await requireRole(user, "admin");
+ * await requireRole(supabase, user.id, "admin");
  * ```
  *
  * @throws {UnauthorizedError} If user doesn't have the required role
+ * @throws {NotFoundError} If user profile doesn't exist
  */
 export async function requireRole(
-  user: User,
+  supabase: SupabaseClient<Database>,
+  userId: string,
   role: "admin" | "professional" | "customer"
 ): Promise<void> {
-  const userRole = user.user_metadata?.role;
+  // Query the profiles table for the authoritative role
+  // NEVER trust JWT metadata for authorization decisions
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", userId)
+    .maybeSingle();
 
-  if (userRole !== role) {
+  if (error || !profile) {
+    throw new NotFoundError("Profile");
+  }
+
+  const dbRole = profile.role as string | null;
+
+  if (dbRole !== role) {
     throw new UnauthorizedError(`This action requires ${role} role`);
   }
 }
@@ -137,46 +155,64 @@ export async function requireRole(
 /**
  * Require user to be an admin
  *
+ * SECURITY: Verifies admin role against the profiles table, NOT JWT metadata.
+ *
  * @example
  * ```typescript
  * const { user, supabase } = await requireAuth(request);
- * await requireAdmin(user);
+ * await requireAdmin(supabase, user.id);
  * ```
  *
  * @throws {UnauthorizedError} If user is not an admin
+ * @throws {NotFoundError} If user profile doesn't exist
  */
-export async function requireAdmin(user: User): Promise<void> {
-  await requireRole(user, "admin");
+export async function requireAdmin(
+  supabase: SupabaseClient<Database>,
+  userId: string
+): Promise<void> {
+  await requireRole(supabase, userId, "admin");
 }
 
 /**
  * Require user to be a professional
  *
+ * SECURITY: Verifies professional role against the profiles table, NOT JWT metadata.
+ *
  * @example
  * ```typescript
  * const { user, supabase } = await requireAuth(request);
- * await requireProfessional(user);
+ * await requireProfessional(supabase, user.id);
  * ```
  *
  * @throws {UnauthorizedError} If user is not a professional
+ * @throws {NotFoundError} If user profile doesn't exist
  */
-export async function requireProfessional(user: User): Promise<void> {
-  await requireRole(user, "professional");
+export async function requireProfessional(
+  supabase: SupabaseClient<Database>,
+  userId: string
+): Promise<void> {
+  await requireRole(supabase, userId, "professional");
 }
 
 /**
  * Require user to be a customer
  *
+ * SECURITY: Verifies customer role against the profiles table, NOT JWT metadata.
+ *
  * @example
  * ```typescript
  * const { user, supabase } = await requireAuth(request);
- * await requireCustomer(user);
+ * await requireCustomer(supabase, user.id);
  * ```
  *
  * @throws {UnauthorizedError} If user is not a customer
+ * @throws {NotFoundError} If user profile doesn't exist
  */
-export async function requireCustomer(user: User): Promise<void> {
-  await requireRole(user, "customer");
+export async function requireCustomer(
+  supabase: SupabaseClient<Database>,
+  userId: string
+): Promise<void> {
+  await requireRole(supabase, userId, "customer");
 }
 
 /**
