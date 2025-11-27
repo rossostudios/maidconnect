@@ -23,6 +23,10 @@ export type DirectoryCardsPanelProps = {
   professionals: DirectoryProfessional[];
   /** Loading state */
   isLoading?: boolean;
+  /** Error message (if fetch failed) */
+  error?: string | null;
+  /** Callback to retry failed fetch */
+  onRetry?: () => void;
   /** Currently selected professional ID (for map sync) */
   selectedId?: string | null;
   /** Callback when a card is hovered */
@@ -56,7 +60,7 @@ function CardsSkeleton() {
 function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
         <svg
           className="h-8 w-8 text-neutral-400"
           fill="none"
@@ -72,10 +76,49 @@ function EmptyState() {
           />
         </svg>
       </div>
-      <h3 className="mb-2 font-semibold text-lg text-neutral-900">No professionals found</h3>
-      <p className="max-w-sm text-neutral-600">
+      <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-neutral-100">No professionals found</h3>
+      <p className="max-w-sm text-neutral-600 dark:text-neutral-400">
         Try adjusting your filters or search criteria to find more results.
       </p>
+    </div>
+  );
+}
+
+/**
+ * Error state when fetch fails
+ */
+function ErrorState({ error, onRetry }: { error: string; onRetry?: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/50">
+        <svg
+          className="h-8 w-8 text-red-500 dark:text-red-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <title>Error</title>
+          <path
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+          />
+        </svg>
+      </div>
+      <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+        Something went wrong
+      </h3>
+      <p className="mb-4 max-w-sm text-neutral-600 dark:text-neutral-400">{error}</p>
+      {onRetry && (
+        <button
+          className="rounded-lg bg-rausch-500 px-6 py-2 font-medium text-white transition-colors hover:bg-rausch-600 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
+          onClick={onRetry}
+          type="button"
+        >
+          Try again
+        </button>
+      )}
     </div>
   );
 }
@@ -83,6 +126,8 @@ function EmptyState() {
 export function DirectoryCardsPanel({
   professionals,
   isLoading = false,
+  error,
+  onRetry,
   selectedId,
   onHover,
   onClick,
@@ -92,6 +137,15 @@ export function DirectoryCardsPanel({
     return (
       <div className={cn("p-6", className)}>
         <CardsSkeleton />
+      </div>
+    );
+  }
+
+  // Error state takes precedence over empty state
+  if (error) {
+    return (
+      <div className={cn("p-6", className)}>
+        <ErrorState error={error} onRetry={onRetry} />
       </div>
     );
   }

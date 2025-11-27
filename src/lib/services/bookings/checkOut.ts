@@ -17,6 +17,7 @@ import {
   notifyCustomerServiceCompleted,
   notifyProfessionalPaymentReceived,
 } from "@/lib/shared/notifications";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import { verifyBookingLocation } from "@/lib/utils/gpsVerification";
 
 export type BookingCheckOutData = {
@@ -425,10 +426,7 @@ export async function prepareCheckOutEmailData(
     : checkedInAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const duration = `${actualDurationMinutes} minutes`;
   const address = formatBookingAddress(booking.address);
-  const amount = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: booking.currency || "COP",
-  }).format(capturedAmount / 100);
+  const amount = formatFromMinorUnits(capturedAmount, (booking.currency || "COP") as Currency);
 
   return {
     customerEmail: customerUser.user?.email,

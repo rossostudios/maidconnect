@@ -6,6 +6,7 @@ import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { EmptyState, EmptyStateInlineLink } from "@/components/shared/empty-state";
 import { cn } from "@/lib/utils";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 import { isWithinDisputeWindow } from "./dispute-modal";
 
 // Dynamic imports for modals (lazy load on demand)
@@ -147,11 +148,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
 
   const amount = booking.amount_captured || booking.amount_authorized;
   const amountDisplay = amount
-    ? new Intl.NumberFormat("es-CO", {
-        style: "currency",
-        currency: booking.currency || "COP",
-        maximumFractionDigits: 0,
-      }).format(amount / 100)
+    ? formatFromMinorUnits(amount, booking.currency || "COP")
     : "—";
 
   const statusColor =

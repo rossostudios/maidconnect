@@ -7,6 +7,7 @@ import type { ProfessionalBookingSummary } from "@/components/professionals/type
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/useAvailability";
 import type { AvailabilitySlot } from "@/lib/professionals/transformers";
+import { formatCOP as formatCOPUtil } from "@/lib/utils/format";
 
 /**
  * Props for the professional availability calendar
@@ -334,11 +335,7 @@ function formatCOP(value: number | null | undefined): string | null {
   if (!value || Number.isNaN(value)) {
     return null;
   }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return formatCOPUtil(value);
 }
 
 function formatTime(date: Date): string {

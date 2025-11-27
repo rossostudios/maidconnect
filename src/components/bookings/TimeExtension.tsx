@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { FormModal } from "@/components/shared/form-modal";
 import { useModalForm } from "@/hooks/use";
 import { useApiMutation } from "@/hooks/useMutation";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 type TimeExtensionOption = {
   minutes: number;
@@ -76,12 +77,8 @@ export function TimeExtensionModal({
   // Calculate cost for selected time
   const calculateCost = (minutes: number): number => Math.round((hourlyRate / 60) * minutes);
 
-  const formatCurrency = (amountInCents: number): string =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: currency || "COP",
-      minimumFractionDigits: 0,
-    }).format(amountInCents / 100);
+  const formatCurrencyAmount = (amountInCents: number): string =>
+    formatFromMinorUnits(amountInCents, (currency || "COP") as Currency);
 
   const currentMinutes = customMinutes ? Number.parseInt(customMinutes, 10) : selectedMinutes;
   const estimatedCost = currentMinutes && currentMinutes > 0 ? calculateCost(currentMinutes) : 0;

@@ -8,6 +8,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
 import { getRebookNudgeVariant, isFeatureEnabled } from "@/lib/feature-flags";
+import { formatFromMinorUnits, type Currency } from "@/lib/format";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import {
@@ -427,10 +428,7 @@ export async function prepareCheckOutEmailData(
     : checkedInAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const duration = `${actualDurationMinutes} minutes`;
   const address = formatBookingAddress(booking.address);
-  const amount = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: booking.currency || "COP",
-  }).format(capturedAmount / 100);
+  const amount = formatFromMinorUnits(capturedAmount, (booking.currency || "COP") as Currency);
 
   return {
     customerEmail: customerUser.user?.email,

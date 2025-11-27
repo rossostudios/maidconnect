@@ -12,6 +12,7 @@ import {
   notifyCustomerBookingAccepted,
   notifyCustomerBookingDeclined,
 } from "@/lib/shared/notifications";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 export type BookingWorkflowData = {
   id: string;
@@ -194,7 +195,7 @@ export function formatAddress(address: any): string {
 }
 
 /**
- * Format currency amount for display
+ * Format currency amount for display (amounts stored in minor units/cents)
  */
 export function formatAmount(
   amountAuthorized: number | null | undefined,
@@ -204,10 +205,7 @@ export function formatAmount(
     return;
   }
 
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: currency || "COP",
-  }).format(amountAuthorized / 100);
+  return formatFromMinorUnits(amountAuthorized, (currency || "COP") as Currency);
 }
 
 /**

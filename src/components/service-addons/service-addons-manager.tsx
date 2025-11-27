@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { confirm } from "@/lib/toast";
+import { formatCOP } from "@/lib/utils/format";
 
 export type ServiceAddon = {
   id: string;
@@ -278,11 +279,7 @@ function AddonCard({
   isLoading: boolean;
 }) {
   const t = useTranslations("dashboard.pro.serviceAddons");
-  const priceFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(addon.price_cop);
+  const priceFormatted = formatCOP(addon.price_cop);
 
   const durationFormatted =
     addon.duration_minutes > 0

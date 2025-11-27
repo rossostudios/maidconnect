@@ -13,6 +13,7 @@ import { useState } from "react";
 import type { CustomerDispute } from "@/app/[locale]/dashboard/customer/disputes/page";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 type Props = {
   disputes: CustomerDispute[];
@@ -80,15 +81,11 @@ function DisputeCard({ dispute }: { dispute: CustomerDispute }) {
       year: "numeric",
     });
 
-  const formatCurrency = (cents: number | null, currency: string | null) => {
+  const formatDisputeAmount = (cents: number | null, currency: string | null) => {
     if (!cents) {
       return "—";
     }
-    const amount = cents / 100;
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency || "USD",
-    }).format(amount);
+    return formatFromMinorUnits(cents, (currency || "USD") as Currency);
   };
 
   return (
@@ -159,7 +156,7 @@ function DisputeCard({ dispute }: { dispute: CustomerDispute }) {
           <div>
             <span className="text-neutral-500">Amount:</span>{" "}
             <span className="font-medium text-neutral-900">
-              {formatCurrency(dispute.booking.total_amount_cents, dispute.booking.currency)}
+              {formatDisputeAmount(dispute.booking.total_amount_cents, dispute.booking.currency)}
             </span>
           </div>
         )}

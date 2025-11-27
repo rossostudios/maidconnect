@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
-import type { BookingWithDetails } from "@/types";
+import type { BookingStatus, BookingWithDetails } from "@/types";
 
 type BookingCardProps = {
   booking: BookingWithDetails;
@@ -14,6 +14,22 @@ type BookingCardProps = {
   onCancel?: (bookingId: string) => void;
   onRate?: (bookingId: string) => void;
 };
+
+type BadgeVariant =
+  | "default"
+  | "secondary"
+  | "primary"
+  | "muted"
+  | "outline"
+  | "pending"
+  | "confirmed"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "success"
+  | "warning"
+  | "danger"
+  | "info";
 
 // --- Helper Functions (extracted for complexity reduction) ---
 
@@ -34,8 +50,30 @@ function formatBookingTime(timeStr: string): string {
   return `${displayHour}:${minutes} ${ampm}`;
 }
 
-function getCurrencyCode(booking: BookingWithDetails): Currency {
-  return ((booking as any).currency?.toUpperCase() || "COP") as Currency;
+/**
+ * Maps BookingStatus to a valid Badge variant
+ * Note: 'disputed' status maps to 'danger' variant since Badge doesn't have a 'disputed' variant
+ */
+function getStatusBadgeVariant(status: BookingStatus): BadgeVariant {
+  const statusToVariant: Record<BookingStatus, BadgeVariant> = {
+    pending: "pending",
+    confirmed: "confirmed",
+    in_progress: "in_progress",
+    completed: "completed",
+    cancelled: "cancelled",
+    disputed: "danger",
+  };
+  return statusToVariant[status];
+}
+
+/**
+ * Get currency code for booking
+ * Currently all bookings use COP (Colombian Peso) as indicated by *Cop price fields
+ */
+function getCurrencyCode(_booking: BookingWithDetails): Currency {
+  // All price fields in BookingWithDetails are *Cop (e.g., totalPriceCop)
+  // If multi-currency support is added, this function should be updated
+  return "COP";
 }
 
 function getOtherParty(
@@ -90,7 +128,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
             <h3 className="font-semibold text-lg text-neutral-900">
               {booking.service?.name || "Service"}
             </h3>
-            <Badge variant={booking.status as any}>
+            <Badge variant={getStatusBadgeVariant(booking.status)}>
               {booking.status.replace("_", " ").toUpperCase()}
             </Badge>
           </div>
@@ -171,7 +209,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
           </button>
         )}
 
-        {canRate && (
+        {canRate && onRate && (
           <button
             className="flex-1 rounded-lg bg-rausch-500 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-rausch-600 focus:outline-none focus:ring-2 focus:ring-rausch-500 focus:ring-offset-2"
             onClick={() => onRate(booking.id)}
@@ -181,7 +219,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
           </button>
         )}
 
-        {canCancel && (
+        {canCancel && onCancel && (
           <button
             className="rounded-lg border border-red-200 bg-white px-4 py-2 font-medium text-red-600 text-sm transition-colors hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             onClick={() => onCancel(booking.id)}

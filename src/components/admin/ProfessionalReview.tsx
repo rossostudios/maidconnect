@@ -3,6 +3,7 @@
 import { BaseModal } from "@/components/shared/base-modal";
 import { type UseModalFormReturn, useModalForm } from "@/hooks/use";
 import { useApiMutation } from "@/hooks/useMutation";
+import { formatCOP } from "@/lib/utils/format";
 
 type ProfessionalInQueue = {
   profile_id: string;
@@ -449,9 +450,5 @@ function formatMoney(amount?: number) {
     return "—";
   }
 
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatCOP(amount);
 }

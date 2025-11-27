@@ -34,6 +34,7 @@ import type { VerificationData } from "@/components/professionals/verification-b
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
+import { formatCOP } from "@/lib/utils/format";
 import {
   trackEarningsBadgeViewed,
   trackVanityUrlViewed,
@@ -84,11 +85,7 @@ function formatCOPWithFallback(value: number | null | undefined) {
   if (!value || Number.isNaN(value)) {
     return null;
   }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return formatCOP(value);
 }
 
 export function ProfessionalProfileView({

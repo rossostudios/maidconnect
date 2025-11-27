@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
+import { formatCOP } from "@/lib/utils/format";
 import { matchWizardTracking } from "@/lib/integrations/posthog";
 import type { WizardData } from "../match-wizard";
 
@@ -140,12 +141,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
     fetchMatches();
   }, [data]);
 
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    }).format(amount);
+  const formatCurrency = (amount: number) => formatCOP(amount);
 
   const getVerificationBadge = (level: string) => {
     const badges = {

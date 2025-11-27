@@ -10,6 +10,7 @@ import {
   calculateCancellationPolicy,
   getCancellationPolicyDescription,
 } from "@/lib/cancellation-policy";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 
 type CancelBookingModalProps = {
   isOpen: boolean;
@@ -85,10 +86,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     if (!amount) {
       return "—";
     }
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: currency || "COP",
-    }).format(amount / 100);
+    return formatFromMinorUnits(amount, currency || "COP");
   };
 
   const refundAmount =

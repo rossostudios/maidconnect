@@ -11,6 +11,7 @@ import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
 import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { sendPushNotification } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 // Type for booking with joined professional profile
 type BookingWithProfessionalProfile = {
@@ -118,10 +119,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
 
   // Send notification to customer about time extension
   const professionalName = booking.professional_profiles?.full_name || "Your professional";
-  const formattedAmount = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: booking.currency || "COP",
-  }).format(additionalAmount / 100);
+  const formattedAmount = formatFromMinorUnits(additionalAmount, (booking.currency || "COP") as Currency);
 
   await sendPushNotification({
     userId: booking.customer_id,

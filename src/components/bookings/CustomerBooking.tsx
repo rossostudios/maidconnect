@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 import { isWithinDisputeWindow } from "./DisputeModal";
 
 // Dynamic imports for modals (lazy load on demand)
@@ -141,11 +142,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
 
   const amount = booking.amount_captured || booking.amount_authorized;
   const amountDisplay = amount
-    ? new Intl.NumberFormat("es-CO", {
-        style: "currency",
-        currency: booking.currency || "COP",
-        maximumFractionDigits: 0,
-      }).format(amount / 100)
+    ? formatFromMinorUnits(amount, (booking.currency || "COP") as Currency)
     : "—";
 
   const statusColor =

@@ -9,6 +9,7 @@ import { AvailabilityCalendar } from "@/components/shared/availability-calendar"
 import type { DayAvailability } from "@/hooks/use-availability-data";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { formatCurrency as formatCurrencyUtil } from "@/lib/utils/format";
 
 /**
  * Booking data structure for the customer dashboard calendar
@@ -325,11 +326,7 @@ function formatCurrency(value: number | null | undefined, currency?: string | nu
   if (!value || Number.isNaN(value)) {
     return null;
   }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency || "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return formatCurrencyUtil(value, { currency: (currency || "COP") as "COP" | "USD" | "EUR" });
 }
 
 function formatTime(date: Date): string {

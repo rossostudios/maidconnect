@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/useAvailability";
+import { formatCOP as formatCOPUtil } from "@/lib/utils/format";
 
 /**
  * Booking data structure for the professional dashboard
@@ -256,11 +257,7 @@ function formatCOP(value: number | null | undefined): string | null {
   if (!value || Number.isNaN(value)) {
     return null;
   }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return formatCOPUtil(value);
 }
 
 function formatTime(date: Date): string {

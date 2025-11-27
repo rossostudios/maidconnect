@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EmptyState, EmptyStateLink } from "@/components/shared/empty-state";
 import { ListSkeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/routing";
+import { formatCOP } from "@/lib/utils/format";
 import { FavoriteButton } from "./favorite-button";
 
 type FavoriteProfessional = {
@@ -106,11 +107,7 @@ function ProfessionalCard({
   onRemove: () => void;
 }) {
   const t = useTranslations("dashboard.customer.favoritesList");
-  const priceFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(professional.hourly_rate_cop);
+  const priceFormatted = formatCOP(professional.hourly_rate_cop);
 
   return (
     <div className="group relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition hover:border-rausch-300 hover:shadow-md">

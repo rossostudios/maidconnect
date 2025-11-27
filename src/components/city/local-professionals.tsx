@@ -5,6 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 
 type Professional = {
   profile_id: string;
@@ -98,11 +99,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
   const t = useTranslations("city");
 
   const hourlyRate = professional.hourly_rate_cop
-    ? new Intl.NumberFormat("es-CO", {
-        style: "currency",
-        currency: "COP",
-        maximumFractionDigits: 0,
-      }).format(professional.hourly_rate_cop / 100)
+    ? formatFromMinorUnits(professional.hourly_rate_cop, "COP")
     : null;
 
   return (

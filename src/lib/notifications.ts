@@ -4,7 +4,7 @@
  */
 
 import { sendExpoNotification } from "@/lib/expo-push";
-import { formatDate } from "@/lib/format";
+import { formatCOP, formatDate } from "@/lib/format";
 
 type NotificationPayload = {
   userId: string;
@@ -285,11 +285,7 @@ export async function notifyProfessionalPaymentReceived(
     amount: number;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(booking.amount);
+  const amountFormatted = formatCOP(booking.amount);
 
   return sendPushNotification({
     userId: professionalId,
@@ -516,11 +512,7 @@ export async function notifyAdminPaymentFailure(
     errorMessage: string;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(failure.amount);
+  const amountFormatted = formatCOP(failure.amount);
 
   return sendPushNotification({
     userId: adminId,
@@ -542,11 +534,7 @@ export async function notifyAdminPaymentCapturedButDBFailed(
     paymentIntentId: string;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(failure.amountCaptured);
+  const amountFormatted = formatCOP(failure.amountCaptured);
 
   return sendPushNotification({
     userId: adminId,
@@ -604,12 +592,7 @@ export async function notifyProfessionalNewJobNearby(
     day: "numeric",
   });
 
-  const currencyCode = job.currency || "COP";
-  const payFormatted = new Intl.NumberFormat(currencyCode === "COP" ? "es-CO" : "en-US", {
-    style: "currency",
-    currency: currencyCode,
-    minimumFractionDigits: 0,
-  }).format(job.estimatedPay);
+  const payFormatted = formatCOP(job.estimatedPay);
 
   return sendPushNotification({
     userId: professionalId,

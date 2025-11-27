@@ -4,7 +4,7 @@
  */
 
 import { sendExpoNotification } from "@/lib/shared/expoPush";
-import { formatDate } from "@/lib/utils/format";
+import { formatCOP, formatDate } from "@/lib/utils/format";
 
 type NotificationPayload = {
   userId: string;
@@ -285,11 +285,7 @@ export async function notifyProfessionalPaymentReceived(
     amount: number;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(booking.amount);
+  const amountFormatted = formatCOP(booking.amount);
 
   return sendPushNotification({
     userId: professionalId,
@@ -440,11 +436,7 @@ export async function notifyAdminPaymentFailure(
     errorMessage: string;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(failure.amount);
+  const amountFormatted = formatCOP(failure.amount);
 
   return sendPushNotification({
     userId: adminId,
@@ -466,11 +458,7 @@ export async function notifyAdminPaymentCapturedButDBFailed(
     paymentIntentId: string;
   }
 ) {
-  const amountFormatted = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  }).format(failure.amountCaptured);
+  const amountFormatted = formatCOP(failure.amountCaptured);
 
   return sendPushNotification({
     userId: adminId,

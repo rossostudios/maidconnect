@@ -8,6 +8,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { calculateCancellationPolicy } from "@/lib/cancellation-policy";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { formatFromMinorUnits, type Currency } from "@/lib/format";
 import { notifyProfessionalBookingCanceled } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 
@@ -234,8 +235,5 @@ export async function sendCancellationNotifications(
  * Format refund amount for display
  */
 export function formatRefundAmount(amount: number, currency: string): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: currency || "COP",
-  }).format(amount / 100);
+  return formatFromMinorUnits(amount, (currency || "COP") as Currency);
 }

@@ -7,6 +7,7 @@ import type React from "react";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { formatCurrency } from "@/lib/format";
+import { togglePricingRuleActive } from "@/lib/services/admin/pricingControlsService";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
@@ -159,18 +160,14 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
 
   const handleToggleActive = async (ruleId: string, currentState: boolean) => {
     const supabase = createSupabaseBrowserClient();
+    const result = await togglePricingRuleActive(supabase, ruleId, currentState);
 
-    const { error } = await supabase
-      .from("pricing_controls")
-      .update({ is_active: !currentState })
-      .eq("id", ruleId);
-
-    if (error) {
+    if (!result.success) {
       toast.error("Failed to update rule");
       return;
     }
 
-    setRules(rules.map((r) => (r.id === ruleId ? { ...r, is_active: !currentState } : r)));
+    setRules(rules.map((r) => (r.id === ruleId ? { ...r, is_active: result.newState! } : r)));
     toast.success(currentState ? "Rule deactivated" : "Rule activated");
   };
 

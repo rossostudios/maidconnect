@@ -5,6 +5,8 @@
  * Encourages long-term recurring bookings with better pricing.
  */
 
+import { formatCOP as formatCOPCurrency } from "@/lib/utils/format";
+
 export type SubscriptionTier = "none" | "weekly" | "biweekly" | "monthly";
 
 export type PricingCalculation = {
@@ -115,14 +117,10 @@ export function estimateBookingsCount(frequency: SubscriptionTier, months = 3): 
 
 /**
  * Format currency in Colombian Pesos
+ * @deprecated Use formatCOP from @/lib/utils/format instead
  */
 export function formatCOP(amount: number): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatCOPCurrency(amount);
 }
 
 /**

@@ -16,6 +16,7 @@ import { notifyCustomerBookingConfirmed, notifyProfessionalNewBooking } from "@/
 import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 import type { Database } from "@/types/supabase";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 // Type-safe Supabase client alias
 type TypedSupabaseClient = SupabaseClient<Database>;
@@ -100,10 +101,7 @@ function formatBookingDetails(fullBooking: NotificationBookingData) {
   const duration = fullBooking.duration_minutes ? `${fullBooking.duration_minutes} minutes` : "TBD";
   const address = formatBookingAddress(fullBooking.address as BookingAddress);
   const amount = fullBooking.amount_authorized
-    ? `${new Intl.NumberFormat("es-CO", {
-        style: "currency",
-        currency: fullBooking.currency || "COP",
-      }).format(fullBooking.amount_authorized / 100)}`
+    ? formatFromMinorUnits(fullBooking.amount_authorized, (fullBooking.currency || "COP") as Currency)
     : undefined;
 
   return { scheduledDate, scheduledTime, duration, address, amount };

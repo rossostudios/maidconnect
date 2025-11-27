@@ -22,6 +22,10 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ArticleTags } from "@/components/help/article-tags";
 import { portableTextComponents } from "@/lib/integrations/sanity/PortableText";
+import {
+  submitArticleFeedback,
+  updateFeedbackTextByIdentifier,
+} from "@/lib/services/help/articleFeedbackService";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { cn } from "@/lib/utils";
 
@@ -149,21 +153,22 @@ export function ArticleViewer({
         data: { user },
       } = await supabase.auth.getUser();
 
-      const { error } = await supabase.from("help_article_feedback").insert({
-        article_id: article._id,
-        user_id: user?.id || null,
-        session_id: user ? null : sessionId,
-        is_helpful: isHelpful,
-        feedback_text: feedbackText || null,
-      });
+      const result = await submitArticleFeedback(
+        supabase,
+        {
+          articleId: article._id,
+          isHelpful,
+          feedbackText: feedbackText || undefined,
+          sessionId,
+        },
+        user?.id || null
+      );
 
-      if (error) {
-        // Check if already submitted
-        if (error.code === "23505") {
-          // Unique constraint violation
+      if (!result.success) {
+        if (result.alreadySubmitted) {
           toast.info(t("feedback.alreadySubmitted"));
         } else {
-          console.error("Feedback error:", error);
+          console.error("Feedback error:", result.error);
           toast.error(t("feedback.error"));
         }
       } else {
@@ -198,13 +203,9 @@ export function ArticleViewer({
         data: { user },
       } = await supabase.auth.getUser();
 
-      await supabase
-        .from("help_article_feedback")
-        .update({ feedback_text: feedbackText })
-        .match({
-          article_id: article._id,
-          ...(user ? { user_id: user.id } : { session_id: sessionId }),
-        });
+      const identifier = user ? { userId: user.id } : { sessionId: sessionId || "" };
+
+      await updateFeedbackTextByIdentifier(supabase, article._id, feedbackText, identifier);
 
       setShowFeedbackForm(false);
     } catch (error) {

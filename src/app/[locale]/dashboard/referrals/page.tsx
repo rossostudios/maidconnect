@@ -5,6 +5,7 @@ import { ReferralCard } from "@/components/referrals/referral-card";
 import { requireUser } from "@/lib/auth";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 
 type Referral = {
   id: string;
@@ -94,11 +95,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           </div>
           <div className="mb-1 text-neutral-700 text-sm">Total Earnings</div>
           <div className="font-bold text-3xl text-neutral-900">
-            {new Intl.NumberFormat("es-CO", {
-              style: "currency",
-              currency: "COP",
-              maximumFractionDigits: 0,
-            }).format(totalCredits / 100)}
+            {formatFromMinorUnits(totalCredits, "COP")}
           </div>
         </div>
 

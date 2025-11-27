@@ -8,6 +8,7 @@ import { geistSans } from "@/app/fonts";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/use-availability-data";
 import { cn } from "@/lib/utils";
+import { formatCOP as formatCOPUtil } from "@/lib/utils/format";
 
 /**
  * Booking data structure for the professional dashboard
@@ -285,11 +286,7 @@ function formatCOP(value: number | null | undefined): string | null {
   if (!value || Number.isNaN(value)) {
     return null;
   }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return formatCOPUtil(value);
 }
 
 function formatTime(date: Date): string {

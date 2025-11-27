@@ -4,6 +4,7 @@ import { DisputeResolutionDashboard } from "@/components/admin/dispute-resolutio
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
+import { formatCOP } from "@/lib/utils/format";
 
 export default async function AdminDisputesPage() {
   unstable_noStore();
@@ -105,19 +106,13 @@ export default async function AdminDisputesPage() {
     },
   ];
 
-  const currencyFormatter = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  });
-
   const queueInsights = [
     { label: "Urgent Queue", value: urgentDisputes, descriptor: "Priority urgent/high" },
     { label: "Unassigned", value: unassignedDisputes, descriptor: "Need owner" },
     { label: "Aging >72h", value: agingDisputes, descriptor: "Watch SLA" },
     {
       label: "Refund Exposure",
-      value: currencyFormatter.format(refundExposure || 0),
+      value: formatCOP(refundExposure || 0),
       descriptor: "Pending payouts",
     },
   ];
@@ -218,7 +213,7 @@ export default async function AdminDisputesPage() {
                   Refund Exposure
                 </p>
                 <p className={cn("mt-1 text-lg text-neutral-900", geistSans.className)}>
-                  {currencyFormatter.format(refundExposure || 0)}
+                  {formatCOP(refundExposure || 0)}
                 </p>
               </div>
             </div>

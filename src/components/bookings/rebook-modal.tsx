@@ -6,6 +6,7 @@ import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
 import { useRouter } from "@/i18n/routing";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 import type { CustomerBooking } from "./customer-booking-list";
 
 type Props = {
@@ -117,11 +118,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
             <p>
               <span className="font-medium text-[neutral-400]">Amount:</span>{" "}
               <span className="text-[neutral-900]">
-                {new Intl.NumberFormat("es-CO", {
-                  style: "currency",
-                  currency: booking.currency || "COP",
-                  maximumFractionDigits: 0,
-                }).format((booking.amount_captured || 0) / 100)}
+                {formatFromMinorUnits(booking.amount_captured || 0, booking.currency || "COP")}
               </span>
             </p>
           )}

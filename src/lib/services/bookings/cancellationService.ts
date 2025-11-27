@@ -10,6 +10,7 @@ import { sendBookingDeclinedEmail } from "@/lib/integrations/email/send";
 import { stripe } from "@/lib/integrations/stripe";
 import { notifyProfessionalBookingCanceled } from "@/lib/shared/notifications";
 import { calculateCancellationPolicy } from "@/lib/utils/cancellationPolicy";
+import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
 
 export type CancellationBookingData = {
   id: string;
@@ -234,8 +235,5 @@ export async function sendCancellationNotifications(
  * Format refund amount for display
  */
 export function formatRefundAmount(amount: number, currency: string): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: currency || "COP",
-  }).format(amount / 100);
+  return formatFromMinorUnits(amount, (currency || "COP") as Currency);
 }

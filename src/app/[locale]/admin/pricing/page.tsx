@@ -11,6 +11,7 @@ import { PricingControlsManager } from "@/components/admin/pricing-controls-mana
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
+import { formatCOP } from "@/lib/utils/format";
 
 export const metadata = {
   title: "Pricing Controls | Admin",
@@ -89,11 +90,6 @@ export default async function AdminPricingPage() {
     },
   ];
 
-  const currencyFormatter = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  });
   const dateFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
 
   const timeline = (upcomingRules.length > 0 ? upcomingRules : rules).slice(0, 4).map((rule) => ({
@@ -152,8 +148,7 @@ export default async function AdminPricingPage() {
                   Background Fee Band
                 </span>
                 <span className={cn("ml-2 text-base text-neutral-900", geistSans.className)}>
-                  {currencyFormatter.format(minBackgroundFee)} -{" "}
-                  {currencyFormatter.format(maxBackgroundFee)}
+                  {formatCOP(minBackgroundFee)} - {formatCOP(maxBackgroundFee)}
                 </span>
               </div>
             )}

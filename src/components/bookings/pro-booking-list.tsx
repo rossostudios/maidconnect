@@ -5,7 +5,17 @@ import { useTranslations } from "next-intl";
 import { memo, useCallback, useMemo, useOptimistic, useState } from "react";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import { formatCOP } from "@/lib/utils/format";
 import { type BookingForExecution, ServiceExecutionCard } from "./service-execution-card";
+
+// Type for translation function from next-intl
+type TranslationFunction = ReturnType<typeof useTranslations<string>>;
+
+// Type for Next.js router
+type NextRouter = ReturnType<typeof useRouter>;
+
+// Type for booking actions
+type BookingAction = "capture" | "void" | "accept" | "decline";
 
 export type ProfessionalBooking = {
   id: string;
@@ -40,16 +50,12 @@ function formatScheduled(scheduledStart: string | null): string {
   });
 }
 
-// Helper: Format currency amount
+// Helper: Format currency amount using centralized utility
 function formatAmount(amount: number | null): string {
   if (!amount) {
     return "—";
   }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatCOP(amount);
 }
 
 // Helper: Get status badge classes
@@ -86,7 +92,7 @@ function AcceptDeclineActions({
   booking: ProfessionalBooking;
   loadingId: string | null;
   onAction: (booking: ProfessionalBooking, action: "accept" | "decline") => void;
-  t: any;
+  t: TranslationFunction;
   size?: "default" | "mobile";
 }) {
   const isMobile = size === "mobile";
@@ -137,7 +143,7 @@ function CaptureVoidActions({
   booking: ProfessionalBooking;
   loadingId: string | null;
   onAction: (booking: ProfessionalBooking, action: "capture" | "void") => void;
-  t: any;
+  t: TranslationFunction;
   showCapture: boolean;
   showVoid: boolean;
   size?: "default" | "mobile";
@@ -188,8 +194,8 @@ async function handleAcceptDecline(
   setLoadingId: (id: string | null) => void,
   setMessage: (msg: string | null) => void,
   updateOptimisticBooking: (update: { id: string; status: string }) => void,
-  router: any,
-  t: any
+  router: NextRouter,
+  t: TranslationFunction
 ) {
   setLoadingId(`${booking.id}-${action}`);
   setMessage(null);
@@ -227,7 +233,7 @@ async function handleCaptureVoid(
   action: "capture" | "void",
   setLoadingId: (id: string | null) => void,
   setMessage: (msg: string | null) => void,
-  router: any
+  router: NextRouter
 ) {
   if (!booking.stripe_payment_intent_id) {
     setMessage("Missing payment intent for this booking.");
@@ -271,8 +277,8 @@ const BookingTableRow = memo(function BookingTableRow({
 }: {
   booking: ProfessionalBooking;
   loadingId: string | null;
-  onAction: (booking: ProfessionalBooking, action: any) => void;
-  t: any;
+  onAction: (booking: ProfessionalBooking, action: BookingAction) => void;
+  t: TranslationFunction;
 }) {
   const scheduled = formatScheduled(booking.scheduled_start);
   const amountDisplay = formatAmount(booking.amount_authorized);
@@ -345,8 +351,8 @@ const BookingMobileCard = memo(function BookingMobileCard({
 }: {
   booking: ProfessionalBooking;
   loadingId: string | null;
-  onAction: (booking: ProfessionalBooking, action: any) => void;
-  t: any;
+  onAction: (booking: ProfessionalBooking, action: BookingAction) => void;
+  t: TranslationFunction;
 }) {
   const scheduled = formatScheduled(booking.scheduled_start);
   const amountDisplay = formatAmount(booking.amount_authorized);

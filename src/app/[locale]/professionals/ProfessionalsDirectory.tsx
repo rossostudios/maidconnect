@@ -21,7 +21,6 @@ import {
   DirectorySplitView,
 } from "@/components/directory/layouts";
 import type { DirectoryProfessional } from "@/components/directory/types";
-import { Button } from "@/components/ui/button";
 import { useProfessionals } from "@/hooks/use-professionals";
 
 export function ProfessionalsDirectory() {
@@ -101,31 +100,16 @@ export function ProfessionalsDirectory() {
         </div>
       </div>
 
-      {/* Error State */}
-      {error && (
-        <div className="container mx-auto px-4 py-4">
-          <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
-            {error}
-            <Button
-              className="ml-2 text-red-700 hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
-              onClick={refetch}
-              size="sm"
-              variant="ghost"
-            >
-              Retry
-            </Button>
-          </div>
-        </div>
-      )}
-
       {/* Main Split View */}
       <DirectorySplitView
         cardsPanel={
           <div className="flex flex-col">
             <DirectoryCardsPanel
+              error={error}
               isLoading={isLoading}
               onClick={handleCardClick}
               onHover={handleCardHover}
+              onRetry={refetch}
               professionals={professionals}
               selectedId={highlightedId}
             />

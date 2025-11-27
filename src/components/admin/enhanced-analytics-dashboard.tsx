@@ -32,7 +32,17 @@ import { AnalyticsEmptyState } from "@/components/admin/analytics-empty-state";
 import { MetricCard } from "@/components/dashboard/metric-card";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
+import {
+  type TimeRange as ServiceTimeRange,
+  type AnalyticsMetrics as ServiceAnalyticsMetrics,
+  type AnalyticsTrendData,
+  loadAnalyticsData,
+} from "@/lib/services/analytics/analyticsDataService";
+import {
+  type CityMetrics as ServiceCityMetrics,
+  type CategoryMetrics as ServiceCategoryMetrics,
+} from "@/lib/services/analytics/analyticsCalculations";
 import { cn } from "@/lib/utils/core";
 
 type AnalyticsMetrics = {
@@ -130,128 +140,22 @@ const getRepeatVariant = (value: number) => {
   return "pink";
 };
 
-const calculateRepeatBookingRate = (bookings: any[] | null | undefined) => {
-  const customerBookingCounts = new Map<string, number>();
-
-  for (const booking of bookings ?? []) {
-    if (booking.customer_id && booking.status !== "cancelled") {
-      customerBookingCounts.set(
-        booking.customer_id,
-        (customerBookingCounts.get(booking.customer_id) || 0) + 1
-      );
-    }
-  }
-
-  const customersWithMultipleBookings = Array.from(customerBookingCounts.values()).filter(
-    (count) => count >= 2
-  ).length;
-  const totalUniqueCustomers = customerBookingCounts.size;
-
-  if (totalUniqueCustomers === 0) {
-    return 0;
-  }
-
-  return (customersWithMultipleBookings / totalUniqueCustomers) * 100;
+/**
+ * Format category name for display (capitalize, replace underscores)
+ */
+const formatCategoryName = (category: string): string => {
+  return category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 };
 
-const calculateActiveProfessionalCount = (bookings: any[] | null | undefined) => {
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-  const activeProfessionalIds = new Set(
-    (bookings ?? [])
-      .filter((b) => new Date(b.created_at) >= thirtyDaysAgo && b.status !== "cancelled")
-      .map((b) => b.professional_id)
-  );
-
-  return activeProfessionalIds.size;
-};
-
-const generateTrendData = (bookings: any[] | null | undefined, days: number, now: Date) => {
-  const trendDataArray: TrendData[] = [];
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(now);
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-    const dayBookings = bookings?.filter((b) => {
-      const bookingDate = new Date(b.created_at);
-      return bookingDate.toDateString() === date.toDateString();
-    });
-
-    const dayRevenue =
-      dayBookings
-        ?.filter((b) => b.status !== "cancelled")
-        .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) || 0;
-
-    trendDataArray.push({
-      date: dateStr,
-      bookings: dayBookings?.length || 0,
-      revenue: dayRevenue / 100,
-    });
-  }
-  return trendDataArray;
-};
-
-const computeCityMetrics = (bookings: any[] | null | undefined): CityMetrics[] => {
-  const citiesMap = new Map<
-    string,
-    { total: number; accepted: number; professionals: Set<string>; ttfbDays: number[] }
-  >();
-
-  for (const booking of bookings ?? []) {
-    const city = booking.city || "Unknown";
-    if (!citiesMap.has(city)) {
-      citiesMap.set(city, { total: 0, accepted: 0, professionals: new Set(), ttfbDays: [] });
-    }
-
-    const cityData = citiesMap.get(city)!;
-    cityData.total++;
-    if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-      cityData.accepted++;
-    }
-    if (booking.professional_id) {
-      cityData.professionals.add(booking.professional_id);
-    }
-  }
-
-  return Array.from(citiesMap.entries())
-    .map(([city, data]) => ({
-      city,
-      fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-      avgTimeToFirstBooking: 0,
-      bookingCount: data.total,
-      professionalCount: data.professionals.size,
-    }))
-    .sort((a, b) => b.bookingCount - a.bookingCount)
-    .slice(0, 5);
-};
-
-const computeCategoryMetrics = (bookings: any[] | null | undefined) => {
-  const categoriesMap = new Map<string, { total: number; accepted: number; totalAmount: number }>();
-
-  for (const booking of bookings ?? []) {
-    const category = booking.service_category || "Unknown";
-    if (!categoriesMap.has(category)) {
-      categoriesMap.set(category, { total: 0, accepted: 0, totalAmount: 0 });
-    }
-
-    const categoryData = categoriesMap.get(category)!;
-    categoryData.total++;
-    if (booking.status !== "cancelled" && booking.status !== "pending_payment") {
-      categoryData.accepted++;
-      categoryData.totalAmount += booking.amount_estimated || 0;
-    }
-  }
-
-  return Array.from(categoriesMap.entries())
-    .map(([category, data]) => ({
-      category: category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-      fillRate: data.total > 0 ? (data.accepted / data.total) * 100 : 0,
-      bookingCount: data.total,
-      avgPrice: data.accepted > 0 ? data.totalAmount / data.accepted : 0,
-    }))
-    .sort((a, b) => b.bookingCount - a.bookingCount);
+/**
+ * Format trend data date for display
+ */
+const formatTrendDataForDisplay = (trendData: AnalyticsTrendData[]): TrendData[] => {
+  return trendData.map((item) => ({
+    date: new Date(item.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+    bookings: item.bookings,
+    revenue: item.revenue / 100, // Convert to display format
+  }));
 };
 
 export function EnhancedAnalyticsDashboard() {
@@ -267,89 +171,33 @@ export function EnhancedAnalyticsDashboard() {
     try {
       const supabase = createSupabaseBrowserClient();
 
-      // Calculate date range
-      const now = new Date();
-      const startDate = new Date(now);
-      const days = getDaysForRange(selectedTimeRange);
-      startDate.setDate(startDate.getDate() - days);
+      // Use service layer to fetch and compute all analytics
+      const analyticsData = await loadAnalyticsData(supabase, selectedTimeRange as ServiceTimeRange);
 
-      // Fetch bookings
-      const { data: bookings } = await supabase
-        .from("bookings")
-        .select(`
-          id,
-          status,
-          created_at,
-          customer_id,
-          professional_id,
-          amount_estimated,
-          service_category,
-          city
-        `)
-        .gte("created_at", startDate.toISOString());
-
-      // Fetch professionals
-      const { data: professionals } = await supabase
-        .from("profiles")
-        .select("id, role, created_at, approval_date")
-        .eq("role", "professional");
-
-      // Fetch customers
-      const { data: customers } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("role", "customer");
-
-      // Calculate metrics
-      const totalBookings = bookings?.length || 0;
-      const acceptedBookings =
-        bookings?.filter((b) => b.status !== "cancelled" && b.status !== "pending_payment")
-          .length || 0;
-      const fillRate = totalBookings > 0 ? (acceptedBookings / totalBookings) * 100 : 0;
-
-      // Calculate time to first booking
-      const proFirstBookings = professionals
-        ?.map((pro) => {
-          const firstBooking = bookings
-            ?.filter((b) => b.professional_id === pro.id && b.status !== "cancelled")
-            .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())[0];
-
-          if (!(firstBooking && pro.approval_date)) {
-            return null;
-          }
-
-          const approvalDate = new Date(pro.approval_date);
-          const firstBookingDate = new Date(firstBooking.created_at);
-          const daysDiff = Math.floor(
-            (firstBookingDate.getTime() - approvalDate.getTime()) / (1000 * 60 * 60 * 24)
-          );
-
-          return daysDiff >= 0 ? daysDiff : null;
-        })
-        .filter((dayValue): dayValue is number => dayValue !== null);
-
-      const avgTimeToFirstBooking =
-        proFirstBookings && proFirstBookings.length > 0
-          ? proFirstBookings.reduce((sum, dayValue) => sum + dayValue, 0) / proFirstBookings.length
-          : 0;
-
-      // Calculate repeat booking rate
-      const repeatBookingRate = calculateRepeatBookingRate(bookings);
-      const activeProfessionalCount = calculateActiveProfessionalCount(bookings);
-
+      // Map service metrics to component's expected format (excluding totalRevenue)
       setMetrics({
-        fillRate,
-        avgTimeToFirstBooking,
-        repeatBookingRate,
-        totalBookings,
-        totalProfessionals: professionals?.length || 0,
-        totalCustomers: customers?.length || 0,
-        activeProfessionals: activeProfessionalCount,
+        fillRate: analyticsData.metrics.fillRate,
+        avgTimeToFirstBooking: analyticsData.metrics.avgTimeToFirstBooking,
+        repeatBookingRate: analyticsData.metrics.repeatBookingRate,
+        totalBookings: analyticsData.metrics.totalBookings,
+        totalProfessionals: analyticsData.metrics.totalProfessionals,
+        totalCustomers: analyticsData.metrics.totalCustomers,
+        activeProfessionals: analyticsData.metrics.activeProfessionals,
       });
 
-      setTrendData(generateTrendData(bookings, days, now));
-      setCityMetrics(computeCityMetrics(bookings));
-      setCategoryMetrics(computeCategoryMetrics(bookings));
+      // Format trend data for display
+      setTrendData(formatTrendDataForDisplay(analyticsData.trendData));
+
+      // Use city metrics directly (top 5 for display)
+      setCityMetrics(analyticsData.cityMetrics.slice(0, 5));
+
+      // Format category names for display
+      setCategoryMetrics(
+        analyticsData.categoryMetrics.map((cat) => ({
+          ...cat,
+          category: formatCategoryName(cat.category),
+        }))
+      );
     } catch (error) {
       console.error("Failed to load analytics:", error);
     } finally {

@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { ReceiptData } from "@/app/api/bookings/receipt/route";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
+import { formatFromMinorUnits } from "@/lib/utils/format";
 import type { CustomerBooking } from "./customer-booking-list";
 
 type Props = {
@@ -55,11 +56,7 @@ export function ReceiptModal({ booking, isOpen, onClose }: Props) {
   }, [fetchReceipt]);
 
   const formatCurrency = (cents: number, currency: string) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency,
-      maximumFractionDigits: 0,
-    }).format(cents / 100);
+    formatFromMinorUnits(cents, currency);
 
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", {

@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { formatCOP as formatCOPUtil } from "@/lib/utils/format";
 
 type Booking = {
   id: string;
@@ -38,11 +39,7 @@ function formatCurrency(amount: number | null) {
   if (!amount) {
     return "—";
   }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatCOPUtil(amount);
 }
 
 function getStatusBadge(status: string) {

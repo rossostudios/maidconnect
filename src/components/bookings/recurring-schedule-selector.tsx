@@ -3,6 +3,7 @@
 import { Calendar01Icon, InformationCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import { formatCurrency, type Currency } from "@/lib/utils/format";
 
 /**
  * Recurring Schedule Selector Component
@@ -89,11 +90,7 @@ function createDefaultEndDate(): string {
 }
 
 function formatAmount(amount: number, currency: string): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency,
-    minimumFractionDigits: 0,
-  }).format(amount);
+  return formatCurrency(amount, { currency: currency as Currency });
 }
 
 export function RecurringScheduleSelector({

@@ -7,6 +7,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sendBookingConfirmedEmail, sendBookingDeclinedEmail } from "@/lib/email/send";
+import { formatFromMinorUnits, type Currency } from "@/lib/format";
 import { notifyCustomerBookingAccepted, notifyCustomerBookingDeclined } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 
@@ -201,10 +202,7 @@ export function formatAmount(
     return;
   }
 
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: currency || "COP",
-  }).format(amountAuthorized / 100);
+  return formatFromMinorUnits(amountAuthorized, (currency || "COP") as Currency);
 }
 
 /**

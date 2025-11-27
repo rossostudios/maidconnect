@@ -12,6 +12,7 @@
 import { BaseModal } from "@/components/shared/base-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
+import { formatCOP } from "@/lib/utils/format";
 
 // --- Helper Functions (extracted for reduced complexity) ---
 
@@ -22,11 +23,7 @@ function formatMoney(amount?: number): string {
   if (!amount) {
     return "—";
   }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatCOP(amount);
 }
 
 /**
