@@ -48,6 +48,19 @@ export const CACHE_HEADERS = {
   LONG: {
     "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200",
   },
+  /** 24 hours fresh, 48 hours stale - for static/reference data */
+  DAY: {
+    "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800",
+  },
+  /**
+   * Authenticated routes - prevents bfcache issues
+   * - private: Only browser can cache, not CDN
+   * - no-store: Don't cache at all (prevents stale auth data)
+   * - must-revalidate: Always check with server
+   */
+  NO_STORE: {
+    "Cache-Control": "private, no-store, must-revalidate",
+  },
 } as const;
 
 export type CacheHeaderPreset = keyof typeof CACHE_HEADERS;

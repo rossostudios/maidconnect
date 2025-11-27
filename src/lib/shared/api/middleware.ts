@@ -93,7 +93,16 @@ export function withAuth<T extends unknown[]>(
         });
 
         // Call handler with auth context
-        return await handler(authContext, ...args);
+        const response = await handler(authContext, ...args);
+
+        // BFCACHE FIX: Add Cache-Control header for authenticated routes
+        // Prevents "in-flight network requests" bfcache issues
+        // - private: Only browser can cache, not CDN
+        // - no-store: Don't cache authenticated data
+        // - must-revalidate: Always check with server
+        response.headers.set("Cache-Control", "private, no-store, must-revalidate");
+
+        return response;
       } catch (error) {
         return handleApiError(error, request, context);
       }

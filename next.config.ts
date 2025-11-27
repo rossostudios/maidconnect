@@ -73,11 +73,15 @@ const nextConfig: NextConfig = {
       // Legacy Radix (migration in progress)
       "@radix-ui/react-dialog",
       "@radix-ui/react-select",
+      // CMS (Sanity)
+      "@sanity/client",
+      "@sanity/image-url",
       // Data/state management
       "@tanstack/react-query",
       "zod",
       // Animation
       "motion",
+      "framer-motion", // Legacy imports in some components
       // Utilities
       "date-fns",
       "recharts",

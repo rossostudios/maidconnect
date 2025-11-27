@@ -318,18 +318,15 @@ jobs:
             const shortSha = context.sha.substring(0, 7);
             const artifactsUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
 
-            const commentBody = `## 📦 Bundle & Performance Analysis
+            // Build table using array to avoid YAML parsing issues with | at line start
+            const tableRows = [
+              '| Check | Status |',
+              '|-------|--------|',
+              `| Bundle Size | ${bundleBadge} ${bundleStatus.toUpperCase()} |`,
+              `| Lighthouse CI | ${lighthouseBadge} ${lighthouseResult.toUpperCase()} |`,
+            ].join('\n');
 
-| Check | Status |
-|-------|--------|
-| Bundle Size | ${bundleBadge} ${bundleStatus.toUpperCase()} |
-| Lighthouse CI | ${lighthouseBadge} ${lighthouseResult.toUpperCase()} |
-
-${bundleReport}
-
----
-*Commit: ${shortSha} | [View Artifacts](${artifactsUrl})*
-`;
+            const commentBody = `## 📦 Bundle & Performance Analysis\n\n${tableRows}\n\n${bundleReport}\n\n---\n*Commit: ${shortSha} | [View Artifacts](${artifactsUrl})*`;
 
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,

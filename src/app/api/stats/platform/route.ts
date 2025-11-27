@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_DURATIONS, CACHE_HEADERS, CACHE_TAGS } from "@/lib/cache";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type PlatformStats = {
@@ -11,7 +12,7 @@ type PlatformStats = {
 
 /**
  * Cached function to fetch platform statistics
- * Revalidates every 5 minutes to reduce DB load while keeping data fresh
+ * Uses CACHE_DURATIONS.MEDIUM (5 min) to reduce DB load while keeping data fresh
  */
 const getPlatformStats = unstable_cache(
   async (): Promise<PlatformStats> => {
@@ -58,17 +59,12 @@ const getPlatformStats = unstable_cache(
       lastUpdated: new Date().toISOString(),
     };
   },
-  ["platform-stats"], // Cache key
+  ["platform-stats"],
   {
-    revalidate: 300, // Revalidate every 5 minutes
-    tags: ["platform-stats", "bookings", "professionals"],
+    revalidate: CACHE_DURATIONS.MEDIUM, // 5 minutes
+    tags: [CACHE_TAGS.PLATFORM_STATS, CACHE_TAGS.BOOKINGS, CACHE_TAGS.PROFESSIONALS],
   }
 );
-
-// Cache headers for CDN and browser caching
-const cacheHeaders = {
-  "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-};
 
 /**
  * GET /api/stats/platform
@@ -82,7 +78,7 @@ export async function GET() {
   try {
     const stats = await getPlatformStats();
 
-    return NextResponse.json(stats, { headers: cacheHeaders });
+    return NextResponse.json(stats, { headers: CACHE_HEADERS.MEDIUM });
   } catch (error) {
     console.error("Error fetching platform stats:", error);
 
@@ -95,7 +91,7 @@ export async function GET() {
         lastUpdated: new Date().toISOString(),
         error: "Failed to fetch live stats",
       },
-      { headers: cacheHeaders }
+      { headers: CACHE_HEADERS.MEDIUM }
     );
   }
 }
