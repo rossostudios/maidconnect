@@ -154,7 +154,10 @@ export default async function HelpCategoryPage({
             <div className="mx-auto max-w-4xl">
               {/* Breadcrumb */}
               <nav className="mb-6 flex items-center gap-2 text-neutral-700 text-sm dark:text-neutral-400">
-                <Link className="hover:text-rausch-600 dark:hover:text-rausch-400" href={`/${locale}/help`}>
+                <Link
+                  className="hover:text-rausch-600 dark:hover:text-rausch-400"
+                  href={`/${locale}/help`}
+                >
                   {t("breadcrumb.home")}
                 </Link>
                 <span>/</span>
@@ -165,7 +168,9 @@ export default async function HelpCategoryPage({
                 {category.name}
               </h1>
               {category.description && (
-                <p className="text-lg text-neutral-700 dark:text-neutral-300">{category.description}</p>
+                <p className="text-lg text-neutral-700 dark:text-neutral-300">
+                  {category.description}
+                </p>
               )}
 
               {/* Search Bar */}
@@ -209,7 +214,9 @@ export default async function HelpCategoryPage({
                             {article.title}
                           </h3>
                           {article.excerpt && (
-                            <p className="mb-3 text-neutral-700 text-sm dark:text-neutral-400">{article.excerpt}</p>
+                            <p className="mb-3 text-neutral-700 text-sm dark:text-neutral-400">
+                              {article.excerpt}
+                            </p>
                           )}
 
                           <div className="flex flex-wrap items-center gap-4 text-neutral-700 text-xs dark:text-neutral-400">
@@ -222,7 +229,9 @@ export default async function HelpCategoryPage({
                               <span className="flex items-center gap-1">
                                 <span
                                   className={
-                                    helpfulPercentage >= 70 ? "text-rausch-600 dark:text-rausch-400" : "text-neutral-700 dark:text-neutral-400"
+                                    helpfulPercentage >= 70
+                                      ? "text-rausch-600 dark:text-rausch-400"
+                                      : "text-neutral-700 dark:text-neutral-400"
                                   }
                                 >
                                   {helpfulPercentage}% {t("category.helpful")}
@@ -252,7 +261,9 @@ export default async function HelpCategoryPage({
               <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-neutral-50">
                 {t("category.noArticles.title")}
               </h3>
-              <p className="mb-6 text-neutral-700 dark:text-neutral-300">{t("category.noArticles.description")}</p>
+              <p className="mb-6 text-neutral-700 dark:text-neutral-300">
+                {t("category.noArticles.description")}
+              </p>
               <Link
                 className="inline-flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600"
                 href={`/${locale}/help`}

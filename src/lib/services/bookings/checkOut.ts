@@ -17,7 +17,7 @@ import {
   notifyCustomerServiceCompleted,
   notifyProfessionalPaymentReceived,
 } from "@/lib/shared/notifications";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 import { verifyBookingLocation } from "@/lib/utils/gpsVerification";
 
 export type BookingCheckOutData = {

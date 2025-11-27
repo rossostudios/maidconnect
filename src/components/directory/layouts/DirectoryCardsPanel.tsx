@@ -76,7 +76,9 @@ function EmptyState() {
           />
         </svg>
       </div>
-      <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-neutral-100">No professionals found</h3>
+      <h3 className="mb-2 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
+        No professionals found
+      </h3>
       <p className="max-w-sm text-neutral-600 dark:text-neutral-400">
         Try adjusting your filters or search criteria to find more results.
       </p>

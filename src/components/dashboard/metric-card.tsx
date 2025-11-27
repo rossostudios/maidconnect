@@ -261,11 +261,7 @@ export function MetricCard({
                 {value}
               </p>
               {trend && trendValue && (
-                <Badge
-                  className="font-semibold"
-                  size="sm"
-                  variant={TREND_BADGE_VARIANTS[trend]}
-                >
+                <Badge className="font-semibold" size="sm" variant={TREND_BADGE_VARIANTS[trend]}>
                   {trendValue}
                 </Badge>
               )}

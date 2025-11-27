@@ -8,21 +8,49 @@
  * - Horizontal scrolling with gradient fade indicators
  * - Active state with underline indicator
  * - Keyboard accessible with focus states
+ *
+ * Following "The Core Four" service structure
  */
 
 import {
-  BabyBottleIcon,
-  Bone01Icon,
-  Car01Icon,
-  CleaningBucketIcon,
-  HeartCheckIcon,
   Home01Icon,
+  Restaurant01Icon,
   SparklesIcon,
+  UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useRef, useState } from "react";
-import type { ServiceCategory, useDirectoryFilters } from "@/hooks/use-directory-filters";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { useDirectoryFilters } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
+
+/**
+ * Category definitions following "The Core Four" structure
+ * Icons match Airbnb's visual style
+ */
+const CATEGORIES = [
+  {
+    value: null,
+    label: "All Services",
+    icon: SparklesIcon,
+  },
+  {
+    value: "cleaning",
+    label: "Home & Cleaning",
+    icon: Home01Icon,
+  },
+  {
+    value: "family",
+    label: "Family Care",
+    icon: UserGroupIcon,
+  },
+  {
+    value: "kitchen",
+    label: "Kitchen",
+    icon: Restaurant01Icon,
+  },
+] as const;
+
+type CategoryValue = (typeof CATEGORIES)[number]["value"];
 
 type CategoryChipsProps = {
   filters: ReturnType<typeof useDirectoryFilters>["filters"];
@@ -30,54 +58,13 @@ type CategoryChipsProps = {
   className?: string;
 };
 
-/**
- * Category definitions with icons matching Airbnb's visual style
- */
-const CATEGORIES = [
-  {
-    value: null as ServiceCategory | null,
-    label: "All Services",
-    icon: Home01Icon,
-  },
-  {
-    value: "housekeeping" as ServiceCategory,
-    label: "Housekeeping",
-    icon: CleaningBucketIcon,
-  },
-  {
-    value: "childcare" as ServiceCategory,
-    label: "Childcare",
-    icon: BabyBottleIcon,
-  },
-  {
-    value: "elder-care" as ServiceCategory,
-    label: "Elder Care",
-    icon: HeartCheckIcon,
-  },
-  {
-    value: "pet-care" as ServiceCategory,
-    label: "Pet Care",
-    icon: Bone01Icon,
-  },
-  {
-    value: "relocation" as ServiceCategory,
-    label: "Relocation",
-    icon: Car01Icon,
-  },
-  {
-    value: "lifestyle" as ServiceCategory,
-    label: "Lifestyle",
-    icon: SparklesIcon,
-  },
-];
-
 export function CategoryChips({ filters, setFilter, className }: CategoryChipsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftGradient, setShowLeftGradient] = useState(false);
   const [showRightGradient, setShowRightGradient] = useState(true);
 
   // Update gradient visibility on scroll
-  const updateGradients = () => {
+  const updateGradients = useCallback(() => {
     const container = scrollRef.current;
     if (!container) {
       return;
@@ -86,7 +73,7 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
     const { scrollLeft, scrollWidth, clientWidth } = container;
     setShowLeftGradient(scrollLeft > 0);
     setShowRightGradient(scrollLeft < scrollWidth - clientWidth - 10);
-  };
+  }, []);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -104,7 +91,7 @@ export function CategoryChips({ filters, setFilter, className }: CategoryChipsPr
     };
   }, [updateGradients]);
 
-  const handleCategoryClick = (value: ServiceCategory | null) => {
+  const handleCategoryClick = (value: CategoryValue) => {
     setFilter("service", value);
     // Reset to page 1 when changing category
     setFilter("page", 1);

@@ -2,10 +2,12 @@
 
 import {
   Baby02Icon,
-  Bone01Icon,
   Bread01Icon,
   CleanIcon,
-  PlantIcon,
+  Home01Icon,
+  Restaurant01Icon,
+  ShirtIcon,
+  UserGroupIcon,
   UserLove02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, type HugeiconsProps } from "@hugeicons/react";
@@ -18,14 +20,46 @@ export type ServiceOption = {
   icon: FC<HugeiconsProps>;
 };
 
-const SERVICES: ServiceOption[] = [
-  { id: "cleaning", label: "Cleaning", icon: CleanIcon },
-  { id: "childcare", label: "Childcare", icon: Baby02Icon },
-  { id: "eldercare", label: "Elder Care", icon: UserLove02Icon },
-  { id: "cooking", label: "Cooking", icon: Bread01Icon },
-  { id: "gardening", label: "Gardening", icon: PlantIcon },
-  { id: "pet-care", label: "Pet Care", icon: Bone01Icon },
+/**
+ * Service categories following "The Core Four" structure
+ * Matches the services page and directory filters
+ */
+export type ServiceCategory = {
+  label: string;
+  icon: FC<HugeiconsProps>;
+  services: ServiceOption[];
+};
+
+const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    label: "Home & Cleaning",
+    icon: Home01Icon,
+    services: [
+      { id: "standard-cleaning", label: "Standard Cleaning", icon: CleanIcon },
+      { id: "deep-cleaning", label: "Deep Clean / Move-out", icon: CleanIcon },
+      { id: "laundry-ironing", label: "Laundry & Ironing", icon: ShirtIcon },
+    ],
+  },
+  {
+    label: "Family Care",
+    icon: UserGroupIcon,
+    services: [
+      { id: "nanny-childcare", label: "Nanny & Childcare", icon: Baby02Icon },
+      { id: "senior-companionship", label: "Senior Companionship", icon: UserLove02Icon },
+    ],
+  },
+  {
+    label: "Kitchen",
+    icon: Restaurant01Icon,
+    services: [
+      { id: "meal-prep", label: "Meal Prep / Private Chef", icon: Bread01Icon },
+      { id: "event-cooking", label: "Event Cooking", icon: Bread01Icon },
+    ],
+  },
 ];
+
+// Flattened services for backwards compatibility
+const SERVICES: ServiceOption[] = SERVICE_CATEGORIES.flatMap((cat) => cat.services);
 
 export type ServicePanelProps = {
   /** Currently selected service ID */
@@ -39,7 +73,8 @@ export type ServicePanelProps = {
 };
 
 /**
- * Airbnb-style service selection panel with chip grid.
+ * Airbnb-style service selection panel with grouped categories.
+ * Shows "The Core Four" service structure.
  */
 export function ServicePanel({
   selectedService,
@@ -67,56 +102,55 @@ export function ServicePanel({
         <p className="mt-1 text-neutral-500 text-sm dark:text-neutral-400">Select a service type</p>
       </div>
 
-      {/* Service chips grid */}
-      <div className="grid grid-cols-2 gap-2">
-        {SERVICES.map((service) => {
-          const isSelected = selectedService === service.id;
-          const IconComponent = service.icon;
-
-          return (
-            <button
-              className={cn(
-                "flex items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition-all",
-                "hover:border-neutral-300 hover:bg-neutral-50 dark:hover:border-rausch-500/50 dark:hover:bg-muted",
-                isSelected
-                  ? "border-rausch-500 bg-rausch-50 dark:border-rausch-500/70 dark:bg-rausch-500/20"
-                  : "border-neutral-200 bg-white dark:border-border dark:bg-card"
-              )}
-              key={service.id}
-              onClick={() => handleServiceClick(service)}
-              type="button"
-            >
-              <div
-                className={cn(
-                  "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
-                  isSelected
-                    ? "bg-rausch-100 dark:bg-rausch-500/30"
-                    : "bg-neutral-100 dark:bg-muted"
-                )}
-              >
-                <HugeiconsIcon
-                  className={cn(
-                    "h-5 w-5",
-                    isSelected
-                      ? "text-rausch-600 dark:text-rausch-400"
-                      : "text-neutral-600 dark:text-neutral-400"
-                  )}
-                  icon={IconComponent}
-                />
-              </div>
-              <span
-                className={cn(
-                  "font-medium",
-                  isSelected
-                    ? "text-rausch-600 dark:text-rausch-400"
-                    : "text-neutral-900 dark:text-neutral-50"
-                )}
-              >
-                {service.label}
+      {/* Service categories */}
+      <div className="space-y-4">
+        {SERVICE_CATEGORIES.map((category) => (
+          <div key={category.label}>
+            {/* Category label */}
+            <div className="mb-2 flex items-center gap-2 px-2">
+              <HugeiconsIcon
+                className="h-4 w-4 text-neutral-500 dark:text-neutral-400"
+                icon={category.icon}
+              />
+              <span className="font-medium text-neutral-700 text-xs uppercase tracking-wider dark:text-neutral-400">
+                {category.label}
               </span>
-            </button>
-          );
-        })}
+            </div>
+
+            {/* Service chips */}
+            <div className="grid grid-cols-1 gap-1.5">
+              {category.services.map((service) => {
+                const isSelected = selectedService === service.id;
+
+                return (
+                  <button
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all",
+                      "hover:border-neutral-300 hover:bg-neutral-50 dark:hover:border-rausch-500/50 dark:hover:bg-muted",
+                      isSelected
+                        ? "border-rausch-500 bg-rausch-50 dark:border-rausch-500/70 dark:bg-rausch-500/20"
+                        : "border-neutral-200 bg-white dark:border-border dark:bg-card"
+                    )}
+                    key={service.id}
+                    onClick={() => handleServiceClick(service)}
+                    type="button"
+                  >
+                    <span
+                      className={cn(
+                        "font-medium text-sm",
+                        isSelected
+                          ? "text-rausch-600 dark:text-rausch-400"
+                          : "text-neutral-900 dark:text-neutral-50"
+                      )}
+                    >
+                      {service.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* All services link */}

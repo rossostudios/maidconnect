@@ -55,8 +55,7 @@ export function ReceiptModal({ booking, isOpen, onClose }: Props) {
     fetchReceipt();
   }, [fetchReceipt]);
 
-  const formatCurrency = (cents: number, currency: string) =>
-    formatFromMinorUnits(cents, currency);
+  const formatCurrency = (cents: number, currency: string) => formatFromMinorUnits(cents, currency);
 
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", {

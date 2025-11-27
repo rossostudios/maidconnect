@@ -4,6 +4,7 @@ import {
   Building06Icon,
   Calendar03Icon,
   CheckmarkBadge01Icon,
+  CleaningBucketIcon,
   HeadphonesIcon,
   HelpCircleIcon,
   Home09Icon,
@@ -33,6 +34,12 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
       href: "/professionals",
       description: t("dropdown.findHelp.browseDesc"),
       icon: Calendar03Icon,
+    },
+    {
+      name: t("dropdown.findHelp.services"),
+      href: "/services",
+      description: t("dropdown.findHelp.servicesDesc"),
+      icon: CleaningBucketIcon,
     },
     {
       name: t("dropdown.findHelp.howItWorks"),
@@ -90,6 +97,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut, ov
   const mobileLinks = [
     // Customer actions
     { href: "/professionals", label: t("dropdown.findHelp.browse") },
+    { href: "/services", label: t("dropdown.findHelp.services") },
     { href: "/how-it-works", label: t("dropdown.findHelp.howItWorks") },
     // Professional actions
     { href: "/become-a-pro", label: t("dropdown.forProfessionals.becomePro") },

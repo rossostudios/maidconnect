@@ -17,17 +17,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import {
-  type TimeRange as ServiceTimeRange,
-  type AnalyticsMetrics as ServiceAnalyticsMetrics,
-  fetchAnalyticsRawData,
-  computeAnalyticsMetrics,
-} from "@/lib/services/analytics/analyticsDataService";
-import {
-  calculateCityMetrics,
   calculateCategoryMetrics,
-  type CityMetrics as ServiceCityMetrics,
+  calculateCityMetrics,
   type CategoryMetrics as ServiceCategoryMetrics,
+  type CityMetrics as ServiceCityMetrics,
 } from "@/lib/services/analytics/analyticsCalculations";
+import {
+  computeAnalyticsMetrics,
+  fetchAnalyticsRawData,
+  type TimeRange as ServiceTimeRange,
+} from "@/lib/services/analytics/analyticsDataService";
 
 export type TimeRange = "7d" | "30d" | "90d" | "all";
 

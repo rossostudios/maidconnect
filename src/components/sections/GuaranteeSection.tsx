@@ -52,7 +52,7 @@ const visualConfigs = {
   },
   refund: {
     steps: [
-      { label: "Issue Unresolved", status: "complete" },
+      { label: "Issue Reported", status: "complete" },
       { label: "Refund Requested", status: "complete" },
       { label: "Review Approved", status: "complete" },
       { label: "Refund Processed", status: "complete" },
@@ -94,7 +94,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
             className={`rounded-full px-2 py-0.5 font-medium text-xs ${
               config.outcomeColor === "green"
                 ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
-                : "bg-rausch-100 text-rausch-700 dark:bg-rausch-500/20 dark:text-rausch-400"
+                : "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400"
             }`}
           >
             {config.outcome}
@@ -109,7 +109,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
           className={`absolute top-5 bottom-5 left-[14px] w-0.5 bg-gradient-to-b sm:top-6 sm:bottom-6 sm:left-[18px] ${
             config.outcomeColor === "green"
               ? "from-green-500 via-green-400 to-green-300"
-              : "from-green-500 via-rausch-400 to-neutral-200"
+              : "from-green-500 via-violet-400 to-neutral-200"
           }`}
         />
 
@@ -132,7 +132,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
                     isComplete
                       ? "bg-green-500 text-white"
                       : isActive
-                        ? "border-2 border-rausch-400 bg-rausch-50 text-rausch-500 dark:bg-rausch-500/20 dark:text-rausch-400"
+                        ? "border-2 border-violet-400 bg-violet-50 text-violet-500 dark:bg-violet-500/20 dark:text-violet-400"
                         : "border-2 border-neutral-300 bg-white text-neutral-400 dark:border-border dark:bg-muted"
                   }`}
                 >
@@ -142,7 +142,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
                       icon={CheckmarkCircle02Icon}
                     />
                   ) : isActive ? (
-                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-rausch-500 sm:h-2 sm:w-2 dark:bg-rausch-400" />
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-500 sm:h-2 sm:w-2 dark:bg-violet-400" />
                   ) : (
                     <div className="h-1.5 w-1.5 rounded-full bg-neutral-300 sm:h-2 sm:w-2 dark:bg-neutral-500" />
                   )}
@@ -154,7 +154,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
                     isComplete
                       ? "border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/10"
                       : isActive
-                        ? "border-rausch-200 bg-rausch-50 dark:border-rausch-500/30 dark:bg-rausch-500/10"
+                        ? "border-violet-200 bg-violet-50 dark:border-violet-500/30 dark:bg-violet-500/10"
                         : "border-neutral-200 bg-white dark:border-border dark:bg-card"
                   }`}
                 >
@@ -163,7 +163,7 @@ function GuaranteeFlowVisual({ activeFeature }: { activeFeature: string }) {
                       isComplete
                         ? "text-green-700 dark:text-green-400"
                         : isActive
-                          ? "text-rausch-700 dark:text-rausch-400"
+                          ? "text-violet-700 dark:text-violet-400"
                           : "text-neutral-600 dark:text-neutral-400"
                     }`}
                   >
@@ -205,8 +205,8 @@ function FeatureList({
           <motion.div
             className={`cursor-pointer rounded-xl border transition-all active:scale-[0.99] ${
               isActive
-                ? "border-rausch-200 bg-rausch-50/50 dark:border-rausch-500/50 dark:bg-rausch-500/10"
-                : "border-neutral-200 bg-white hover:border-neutral-300 dark:border-border dark:bg-card dark:hover:border-rausch-500/30"
+                ? "border-violet-200 bg-violet-50/50 dark:border-violet-500/50 dark:bg-violet-500/10"
+                : "border-neutral-200 bg-white hover:border-neutral-300 dark:border-border dark:bg-card dark:hover:border-violet-500/30"
             }`}
             key={feature.id}
             layout
@@ -216,18 +216,18 @@ function FeatureList({
             <div className="flex w-full items-center gap-3 px-3 py-3 sm:px-4">
               <div
                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors sm:h-8 sm:w-8 ${
-                  isActive ? "bg-rausch-100 dark:bg-rausch-500/20" : "bg-neutral-100 dark:bg-muted"
+                  isActive ? "bg-violet-100 dark:bg-violet-500/20" : "bg-neutral-100 dark:bg-muted"
                 }`}
               >
                 <HugeiconsIcon
-                  className={`h-4 w-4 ${isActive ? "text-rausch-600 dark:text-rausch-400" : "text-neutral-600 dark:text-neutral-400"}`}
+                  className={`h-4 w-4 ${isActive ? "text-violet-600 dark:text-violet-400" : "text-neutral-600 dark:text-neutral-400"}`}
                   icon={feature.icon}
                 />
               </div>
               <span
                 className={`flex-1 text-left font-medium text-sm ${
                   isActive
-                    ? "text-rausch-700 dark:text-rausch-400"
+                    ? "text-violet-700 dark:text-violet-400"
                     : "text-neutral-700 dark:text-neutral-300"
                 }`}
               >
@@ -235,7 +235,7 @@ function FeatureList({
               </span>
               <HugeiconsIcon
                 className={`h-4 w-4 shrink-0 transition-transform ${
-                  isActive ? "rotate-45 text-rausch-500 dark:text-rausch-400" : "text-neutral-400"
+                  isActive ? "rotate-45 text-violet-500 dark:text-violet-400" : "text-neutral-400"
                 }`}
                 icon={isActive ? Remove01Icon : Add01Icon}
               />

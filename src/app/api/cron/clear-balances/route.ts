@@ -153,7 +153,4 @@ export const maxDuration = 60;
 // Apply rate limiting + advisory lock for true single-instance execution
 // Rate limit: Fast Redis check prevents retries within 5 minutes
 // Advisory lock: Database-level lock prevents concurrent execution across serverless instances
-export const GET = withRateLimit(
-  withAdvisoryLock("clear-balances", handleClearBalances),
-  "cron"
-);
+export const GET = withRateLimit(withAdvisoryLock("clear-balances", handleClearBalances), "cron");

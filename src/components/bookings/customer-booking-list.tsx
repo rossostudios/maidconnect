@@ -147,9 +147,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
     : t("card.notScheduled");
 
   const amount = booking.amount_captured || booking.amount_authorized;
-  const amountDisplay = amount
-    ? formatFromMinorUnits(amount, booking.currency || "COP")
-    : "—";
+  const amountDisplay = amount ? formatFromMinorUnits(amount, booking.currency || "COP") : "—";
 
   const statusColor =
     {

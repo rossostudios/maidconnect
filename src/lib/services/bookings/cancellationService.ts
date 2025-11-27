@@ -10,7 +10,7 @@ import { sendBookingDeclinedEmail } from "@/lib/integrations/email/send";
 import { stripe } from "@/lib/integrations/stripe";
 import { notifyProfessionalBookingCanceled } from "@/lib/shared/notifications";
 import { calculateCancellationPolicy } from "@/lib/utils/cancellationPolicy";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 export type CancellationBookingData = {
   id: string;

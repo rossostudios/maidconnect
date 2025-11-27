@@ -1,14 +1,14 @@
 import {
   ArrowRight01Icon,
   Calendar03Icon,
+  CheckmarkCircle02Icon,
   Coins01Icon,
-  Home09Icon,
   SecurityCheckIcon,
   StarIcon,
-  UserCheck01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
+import { EarningsCalculator } from "@/components/become-a-pro/earnings-calculator";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import {
@@ -38,6 +38,8 @@ export default async function BecomeAProPage() {
       <main className="flex-1">
         <HeroSection />
         <BenefitsSection />
+        <FilterSection />
+        <EarningsSection />
         <HowItWorksSection />
         <FAQSection />
         <CTASection />
@@ -72,7 +74,7 @@ async function HeroSection() {
           </div>
 
           {/* Headline - larger with better spacing */}
-          <h1 className="mb-8 font-bold text-4xl text-white tracking-tight leading-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mb-8 font-bold text-4xl text-white leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
 
@@ -86,10 +88,10 @@ async function HeroSection() {
             <Link
               className={cn(
                 "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
-                "bg-white font-semibold text-rausch-700 text-lg",
+                "bg-white font-semibold text-lg text-rausch-700",
                 "shadow-lg shadow-rausch-950/20",
                 "transition-all duration-200",
-                "hover:bg-rausch-50 hover:shadow-xl hover:scale-[1.02]"
+                "hover:scale-[1.02] hover:bg-rausch-50 hover:shadow-xl"
               )}
               href="/become-a-pro/signup"
             >
@@ -110,7 +112,7 @@ async function HeroSection() {
           </div>
 
           {/* Trust indicators - cleaner styling */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-rausch-200/80">
+          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-rausch-200/80 text-sm">
             <div className="flex items-center gap-2">
               <HugeiconsIcon className="h-5 w-5 text-green-400" icon={SecurityCheckIcon} />
               <span>{t("trustBadge1")}</span>
@@ -135,34 +137,19 @@ async function BenefitsSection() {
 
   const benefits = [
     {
-      icon: Coins01Icon,
-      title: t("items.earnings.title"),
-      description: t("items.earnings.description"),
-    },
-    {
-      icon: Calendar03Icon,
-      title: t("items.flexibility.title"),
-      description: t("items.flexibility.description"),
-    },
-    {
       icon: SecurityCheckIcon,
-      title: t("items.protection.title"),
-      description: t("items.protection.description"),
+      title: t("items.safety.title"),
+      description: t("items.safety.description"),
+    },
+    {
+      icon: Coins01Icon,
+      title: t("items.financial.title"),
+      description: t("items.financial.description"),
     },
     {
       icon: StarIcon,
       title: t("items.growth.title"),
       description: t("items.growth.description"),
-    },
-    {
-      icon: Home09Icon,
-      title: t("items.clients.title"),
-      description: t("items.clients.description"),
-    },
-    {
-      icon: UserCheck01Icon,
-      title: t("items.support.title"),
-      description: t("items.support.description"),
     },
   ];
 
@@ -179,8 +166,8 @@ async function BenefitsSection() {
           </p>
         </div>
 
-        {/* Benefits grid - cleaner cards with more whitespace */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {/* Benefits grid - 3 cards centered */}
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
           {benefits.map((benefit, index) => (
             <div
               className={cn(
@@ -194,7 +181,10 @@ async function BenefitsSection() {
             >
               {/* Larger icon container */}
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-rausch-50 transition-colors group-hover:bg-rausch-100 dark:bg-rausch-800 dark:group-hover:bg-rausch-700">
-                <HugeiconsIcon className="h-7 w-7 text-rausch-600 dark:text-rausch-300" icon={benefit.icon} />
+                <HugeiconsIcon
+                  className="h-7 w-7 text-rausch-600 dark:text-rausch-300"
+                  icon={benefit.icon}
+                />
               </div>
               <h3 className="mb-3 font-semibold text-lg text-neutral-900 dark:text-white">
                 {benefit.title}
@@ -204,6 +194,120 @@ async function BenefitsSection() {
               </p>
             </div>
           ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+async function FilterSection() {
+  const t = await getTranslations("becomeAPro.filter");
+
+  const requirements = [
+    { key: "experience" },
+    { key: "background" },
+    { key: "references" },
+    { key: "commitment" },
+  ];
+
+  return (
+    <section className="bg-neutral-50 py-24 md:py-32 dark:bg-rausch-900">
+      <Container className="max-w-4xl">
+        <div className="text-center">
+          {/* Section header */}
+          <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl lg:text-5xl dark:text-white">
+            {t("title")}
+          </h2>
+          <p className="mx-auto mb-12 max-w-2xl text-lg text-neutral-600 leading-relaxed sm:text-xl dark:text-rausch-100/80">
+            {t("subtitle")}
+          </p>
+
+          {/* Requirements checklist */}
+          <div className="mx-auto max-w-xl">
+            <div className="space-y-4">
+              {requirements.map((req) => (
+                <div
+                  className={cn(
+                    "flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-5",
+                    "dark:border-rausch-800 dark:bg-rausch-900/50"
+                  )}
+                  key={req.key}
+                >
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                    <HugeiconsIcon
+                      className="h-5 w-5 text-green-600 dark:text-green-400"
+                      icon={CheckmarkCircle02Icon}
+                    />
+                  </div>
+                  <span className="font-medium text-left text-neutral-900 dark:text-white">
+                    {t(`requirements.${req.key}`)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+async function EarningsSection() {
+  const t = await getTranslations("becomeAPro.earnings");
+
+  return (
+    <section className="bg-white py-24 md:py-32 dark:bg-rausch-950">
+      <Container className="max-w-4xl">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          {/* Content */}
+          <div>
+            <h2 className="mb-6 font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white">
+              {t("title")}
+            </h2>
+            <p className="mb-8 text-lg text-neutral-600 leading-relaxed dark:text-rausch-100/80">
+              {t("subtitle")}
+            </p>
+
+            {/* Key points */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                  <HugeiconsIcon
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
+                    icon={CheckmarkCircle02Icon}
+                  />
+                </div>
+                <span className="text-neutral-700 dark:text-rausch-100/90">
+                  {t("points.setRates")}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                  <HugeiconsIcon
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
+                    icon={CheckmarkCircle02Icon}
+                  />
+                </div>
+                <span className="text-neutral-700 dark:text-rausch-100/90">
+                  {t("points.noDeductions")}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                  <HugeiconsIcon
+                    className="h-4 w-4 text-green-600 dark:text-green-400"
+                    icon={CheckmarkCircle02Icon}
+                  />
+                </div>
+                <span className="text-neutral-700 dark:text-rausch-100/90">
+                  {t("points.escrow")}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Calculator */}
+          <EarningsCalculator />
         </div>
       </Container>
     </section>
@@ -287,10 +391,10 @@ async function HowItWorksSection() {
           <Link
             className={cn(
               "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
-              "bg-rausch-500 font-semibold text-white text-lg",
+              "bg-rausch-500 font-semibold text-lg text-white",
               "shadow-lg shadow-rausch-500/20",
               "transition-all duration-200",
-              "hover:bg-rausch-600 hover:shadow-xl hover:scale-[1.02]",
+              "hover:scale-[1.02] hover:bg-rausch-600 hover:shadow-xl",
               "dark:bg-white dark:text-rausch-700 dark:shadow-white/10 dark:hover:bg-rausch-50"
             )}
             href="/become-a-pro/signup"
@@ -308,11 +412,10 @@ async function FAQSection() {
   const t = await getTranslations("becomeAPro.faq");
 
   const faqs = [
-    { key: "requirements" },
-    { key: "earnings" },
-    { key: "schedule" },
+    { key: "payment" },
+    { key: "fee" },
     { key: "verification" },
-    { key: "support" },
+    { key: "schedule" },
   ];
 
   return (
@@ -363,10 +466,10 @@ async function CTASection() {
             <Link
               className={cn(
                 "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
-                "bg-white font-semibold text-rausch-600 text-lg",
+                "bg-white font-semibold text-lg text-rausch-600",
                 "shadow-lg shadow-rausch-600/20",
                 "transition-all duration-200",
-                "hover:bg-neutral-50 hover:shadow-xl hover:scale-[1.02]",
+                "hover:scale-[1.02] hover:bg-neutral-50 hover:shadow-xl",
                 "dark:text-rausch-700"
               )}
               href="/become-a-pro/signup"

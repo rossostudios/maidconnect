@@ -81,7 +81,8 @@ async function handleCronPayouts(request: Request) {
     }
 
     if (!response.ok) {
-      const errorMessage = typeof result.error === "string" ? result.error : "Failed to process payouts";
+      const errorMessage =
+        typeof result.error === "string" ? result.error : "Failed to process payouts";
       throw new Error(errorMessage);
     }
 
@@ -111,7 +112,4 @@ function getDayName(dayOfWeek: number): string {
 // Apply rate limiting + advisory lock for true single-instance execution
 // Rate limit: Fast Redis check prevents retries within 5 minutes
 // Advisory lock: Database-level lock prevents concurrent execution across serverless instances
-export const GET = withRateLimit(
-  withAdvisoryLock("process-payouts", handleCronPayouts),
-  "cron"
-);
+export const GET = withRateLimit(withAdvisoryLock("process-payouts", handleCronPayouts), "cron");

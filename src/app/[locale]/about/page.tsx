@@ -71,7 +71,7 @@ async function HeroSection() {
         <div className="max-w-3xl py-24 text-center sm:py-32">
           {/* Badge */}
           <div className="mb-6 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
-            <span className="font-medium text-white text-sm">{t("badge")}</span>
+            <span className="font-medium text-sm text-white">{t("badge")}</span>
           </div>
 
           {/* Headline */}
@@ -80,9 +80,7 @@ async function HeroSection() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">
-            {t("subtitle")}
-          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">{t("subtitle")}</p>
         </div>
       </Container>
     </section>
@@ -142,8 +140,7 @@ async function MissionSection() {
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
         style={{
-          backgroundImage:
-            "radial-gradient(circle, currentColor 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -160,7 +157,7 @@ async function MissionSection() {
             {/* Decorative quotation mark */}
             <span
               aria-hidden="true"
-              className="absolute -top-8 left-1/2 -translate-x-1/2 font-serif text-8xl text-rausch-200 leading-none select-none sm:-top-12 sm:text-9xl dark:text-rausch-700"
+              className="-top-8 -translate-x-1/2 sm:-top-12 absolute left-1/2 select-none font-serif text-8xl text-rausch-200 leading-none sm:text-9xl dark:text-rausch-700"
             >
               "
             </span>
@@ -206,10 +203,10 @@ async function CTASection() {
             <Link
               className={cn(
                 "inline-flex items-center justify-center gap-3 rounded-full px-10 py-4",
-                "bg-white font-semibold text-rausch-600 text-lg",
+                "bg-white font-semibold text-lg text-rausch-600",
                 "shadow-lg shadow-rausch-600/20",
                 "transition-all duration-200",
-                "hover:bg-neutral-50 hover:shadow-xl hover:scale-[1.02]",
+                "hover:scale-[1.02] hover:bg-neutral-50 hover:shadow-xl",
                 "dark:text-rausch-700"
               )}
               href="/professionals"
@@ -233,9 +230,7 @@ async function CTASection() {
           </div>
 
           {/* Trust indicator */}
-          <p className="pt-4 text-sm text-white/70">
-            {t("trustIndicator")}
-          </p>
+          <p className="pt-4 text-sm text-white/70">{t("trustIndicator")}</p>
         </div>
       </Container>
     </section>

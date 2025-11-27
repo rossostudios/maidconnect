@@ -8,13 +8,12 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-
+import type { ProfessionalProfileDetail } from "@/components/professionals/professional-profile-view";
 import type {
   ProfessionalBookingSummary,
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
-import type { ProfessionalProfileDetail } from "@/components/professionals/professional-profile-view";
 import {
   computeAvailableToday,
   formatLocation,
@@ -229,9 +228,7 @@ async function fetchReviewsForProfessional(
  * PERFORMANCE: Parallelizes profile + bookings + reviews queries
  * Previous: ~450ms sequential → Now: ~150ms parallel
  */
-export async function getProfessionalProfileById(
-  profileId: string
-): Promise<ProfileServiceResult> {
+export async function getProfessionalProfileById(profileId: string): Promise<ProfileServiceResult> {
   const supabase = await createSupabaseServerClient();
 
   // First, get the profile (required before we can fetch related data)
@@ -272,9 +269,7 @@ export async function getProfessionalProfileById(
  * PERFORMANCE: Parallelizes profile lookup + bookings + reviews
  * Previous: ~550ms (4 sequential) → Now: ~150ms (1 + 2 parallel)
  */
-export async function getProfessionalProfileBySlug(
-  slug: string
-): Promise<ProfileServiceResult> {
+export async function getProfessionalProfileBySlug(slug: string): Promise<ProfileServiceResult> {
   const supabase = await createSupabaseServerClient();
 
   // First, look up the profile by slug (required to get profile_id)

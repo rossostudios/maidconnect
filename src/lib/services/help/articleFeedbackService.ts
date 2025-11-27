@@ -315,7 +315,9 @@ export async function updateFeedbackTextByIdentifier(
 ): Promise<{ success: boolean; error?: string }> {
   const matchCondition = {
     article_id: articleId,
-    ...("userId" in identifier ? { user_id: identifier.userId } : { session_id: identifier.sessionId }),
+    ...("userId" in identifier
+      ? { user_id: identifier.userId }
+      : { session_id: identifier.sessionId }),
   };
 
   const { error } = await supabase

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { FormModal } from "@/components/shared/form-modal";
 import { useModalForm } from "@/hooks/use";
 import { useApiMutation } from "@/hooks/useMutation";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 type TimeExtensionOption = {
   minutes: number;

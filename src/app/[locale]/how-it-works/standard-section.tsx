@@ -3,19 +3,8 @@
 import { Calendar03Icon, SecurityCheckIcon, ShieldKeyIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion, type Variants } from "motion/react";
-import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import type { HugeIcon } from "@/types/icons";
-
-/**
- * ProcessSection - "The Standard" Card Design
- *
- * Features:
- * - Large watermark step numbers (01, 02, 03)
- * - Icon containers with rounded-xl
- * - Title + subtitle format
- * - System Action Bars with pulsing green dots
- */
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -33,13 +22,6 @@ const stagger: Variants = {
   },
 };
 
-// Map step numbers to icons
-const stepIcons: Record<string, HugeIcon> = {
-  "01": SecurityCheckIcon,
-  "02": Calendar03Icon,
-  "03": ShieldKeyIcon,
-};
-
 type Step = {
   number: string;
   title: string;
@@ -48,6 +30,68 @@ type Step = {
   systemAction: string;
   systemStatus: string;
 };
+
+type StandardSectionProps = {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  step1: Step;
+  step2: Step;
+  step3: Step;
+};
+
+// Map step numbers to icons
+const stepIcons: Record<string, HugeIcon> = {
+  "01": SecurityCheckIcon,
+  "02": Calendar03Icon,
+  "03": ShieldKeyIcon,
+};
+
+export function StandardSection({
+  sectionTitle,
+  sectionSubtitle,
+  step1,
+  step2,
+  step3,
+}: StandardSectionProps) {
+  const steps = [step1, step2, step3];
+
+  return (
+    <section className="bg-neutral-50 py-16 md:py-24 lg:py-32 dark:bg-rausch-900">
+      <Container className="max-w-6xl">
+        <motion.div
+          animate="visible"
+          className="mb-12 text-center md:mb-16"
+          initial="hidden"
+          variants={stagger}
+        >
+          <motion.h2
+            className="font-medium text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white"
+            variants={fadeIn}
+          >
+            {sectionTitle}
+          </motion.h2>
+          <motion.p
+            className="mt-4 text-lg text-neutral-600 dark:text-rausch-300"
+            variants={fadeIn}
+          >
+            {sectionSubtitle}
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          animate="visible"
+          className="grid gap-6 md:gap-8 lg:grid-cols-3"
+          initial="hidden"
+          variants={stagger}
+        >
+          {steps.map((step) => (
+            <StandardStepCard key={step.number} step={step} />
+          ))}
+        </motion.div>
+      </Container>
+    </section>
+  );
+}
 
 function StandardStepCard({ step }: { step: Step }) {
   const Icon = stepIcons[step.number] || SecurityCheckIcon;
@@ -99,73 +143,5 @@ function StandardStepCard({ step }: { step: Step }) {
         </div>
       </div>
     </motion.div>
-  );
-}
-
-export function ProcessSection() {
-  const t = useTranslations("home.process");
-
-  const steps: Step[] = [
-    {
-      number: "01",
-      title: t("step1.title"),
-      subtitle: t("step1.subtitle"),
-      description: t("step1.description"),
-      systemAction: t("step1.systemAction"),
-      systemStatus: t("step1.systemStatus"),
-    },
-    {
-      number: "02",
-      title: t("step2.title"),
-      subtitle: t("step2.subtitle"),
-      description: t("step2.description"),
-      systemAction: t("step2.systemAction"),
-      systemStatus: t("step2.systemStatus"),
-    },
-    {
-      number: "03",
-      title: t("step3.title"),
-      subtitle: t("step3.subtitle"),
-      description: t("step3.description"),
-      systemAction: t("step3.systemAction"),
-      systemStatus: t("step3.systemStatus"),
-    },
-  ];
-
-  return (
-    <section className="bg-neutral-50 py-16 md:py-24 lg:py-32 dark:bg-rausch-900" id="how-it-works">
-      <Container className="max-w-6xl">
-        <motion.div
-          animate="visible"
-          className="mb-12 text-center md:mb-16"
-          initial="hidden"
-          variants={stagger}
-        >
-          <motion.h2
-            className="font-medium text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white"
-            variants={fadeIn}
-          >
-            {t("title")}
-          </motion.h2>
-          <motion.p
-            className="mt-4 text-lg text-neutral-600 dark:text-rausch-300"
-            variants={fadeIn}
-          >
-            {t("subtitle")}
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          animate="visible"
-          className="grid gap-6 md:gap-8 lg:grid-cols-3"
-          initial="hidden"
-          variants={stagger}
-        >
-          {steps.map((step) => (
-            <StandardStepCard key={step.number} step={step} />
-          ))}
-        </motion.div>
-      </Container>
-    </section>
   );
 }

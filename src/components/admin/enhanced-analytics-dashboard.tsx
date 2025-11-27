@@ -34,15 +34,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
 import {
-  type TimeRange as ServiceTimeRange,
-  type AnalyticsMetrics as ServiceAnalyticsMetrics,
   type AnalyticsTrendData,
   loadAnalyticsData,
+  type TimeRange as ServiceTimeRange,
 } from "@/lib/services/analytics/analyticsDataService";
-import {
-  type CityMetrics as ServiceCityMetrics,
-  type CategoryMetrics as ServiceCategoryMetrics,
-} from "@/lib/services/analytics/analyticsCalculations";
 import { cn } from "@/lib/utils/core";
 
 type AnalyticsMetrics = {
@@ -143,9 +138,8 @@ const getRepeatVariant = (value: number) => {
 /**
  * Format category name for display (capitalize, replace underscores)
  */
-const formatCategoryName = (category: string): string => {
-  return category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-};
+const formatCategoryName = (category: string): string =>
+  category.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 
 /**
  * Format trend data date for display
@@ -172,7 +166,10 @@ export function EnhancedAnalyticsDashboard() {
       const supabase = createSupabaseBrowserClient();
 
       // Use service layer to fetch and compute all analytics
-      const analyticsData = await loadAnalyticsData(supabase, selectedTimeRange as ServiceTimeRange);
+      const analyticsData = await loadAnalyticsData(
+        supabase,
+        selectedTimeRange as ServiceTimeRange
+      );
 
       // Map service metrics to component's expected format (excluding totalRevenue)
       setMetrics({

@@ -271,7 +271,9 @@ export function HelpSearchBar({
               return (
                 <div className="flex items-center justify-center px-4 py-8">
                   <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
-                  <span className="ml-2 text-neutral-400 text-sm dark:text-neutral-500">{t("search.searching")}</span>
+                  <span className="ml-2 text-neutral-400 text-sm dark:text-neutral-500">
+                    {t("search.searching")}
+                  </span>
                 </div>
               );
             }
@@ -330,7 +332,9 @@ export function HelpSearchBar({
             }
             return (
               <div className="px-4 py-8 text-center">
-                <p className="text-neutral-500 text-sm dark:text-neutral-400">{t("search.noResults")}</p>
+                <p className="text-neutral-500 text-sm dark:text-neutral-400">
+                  {t("search.noResults")}
+                </p>
                 <button
                   className="mt-2 text-neutral-600 text-sm hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
                   onClick={() => router.push(`/${locale}/help`)}

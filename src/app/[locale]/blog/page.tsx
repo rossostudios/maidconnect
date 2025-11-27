@@ -79,9 +79,14 @@ async function BlogList({ locale }: { locale: string }) {
 
   if (!blogPosts || blogPosts.length === 0) {
     return (
-      <div className="rounded-lg border border-neutral-200 dark:border-rausch-700 bg-white dark:bg-rausch-900 p-12 text-center shadow-sm">
-        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-neutral-600 dark:text-rausch-300" icon={BookOpen01Icon} />
-        <h3 className="mb-2 font-bold text-neutral-900 dark:text-white text-xl">{t("empty.title")}</h3>
+      <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center shadow-sm dark:border-rausch-700 dark:bg-rausch-900">
+        <HugeiconsIcon
+          className="mx-auto mb-4 h-12 w-12 text-neutral-600 dark:text-rausch-300"
+          icon={BookOpen01Icon}
+        />
+        <h3 className="mb-2 font-bold text-neutral-900 text-xl dark:text-white">
+          {t("empty.title")}
+        </h3>
         <p className="text-neutral-600 dark:text-rausch-300">{t("empty.description")}</p>
       </div>
     );
@@ -156,7 +161,9 @@ async function BlogList({ locale }: { locale: string }) {
               {/* Author */}
               {post.author && (
                 <div className="mt-4 border-neutral-200 border-t pt-4">
-                  <p className="font-medium text-neutral-900 text-sm">{t("meta.author", { author: post.author })}</p>
+                  <p className="font-medium text-neutral-900 text-sm">
+                    {t("meta.author", { author: post.author })}
+                  </p>
                 </div>
               )}
             </div>
@@ -188,17 +195,17 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-neutral-50 dark:bg-rausch-950 px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-neutral-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-rausch-950">
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-rausch-500/10 to-rausch-600/10">
               <HugeiconsIcon className="h-8 w-8 text-rausch-500" icon={BookOpen01Icon} />
             </div>
-            <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 dark:text-white leading-tight sm:text-5xl">
+            <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl dark:text-white">
               {t("hero.title")}
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-neutral-700 dark:text-rausch-200 sm:text-xl">
+            <p className="mx-auto max-w-2xl text-lg text-neutral-700 sm:text-xl dark:text-rausch-200">
               {t("hero.subtitle")}
             </p>
           </div>

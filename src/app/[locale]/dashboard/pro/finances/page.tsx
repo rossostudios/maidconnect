@@ -4,8 +4,8 @@ import { getTranslations } from "next-intl/server";
 import { geistSans } from "@/app/fonts";
 import { FinancesPageClient } from "@/components/finances/finances-page-client";
 import { requireUser } from "@/lib/auth";
-import type { CountryCode } from "@/lib/shared/config/territories";
 import { getCurrencyForCountry } from "@/lib/shared/config/pricing";
+import type { CountryCode } from "@/lib/shared/config/territories";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils/core";
 

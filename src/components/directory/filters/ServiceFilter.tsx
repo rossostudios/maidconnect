@@ -1,13 +1,14 @@
 "use client";
 
 /**
- * ServiceFilter - Minimal Lia Design System
+ * ServiceFilter - Lia Design System
  *
- * Multi-select service filter with checkboxes for boutique marketplace.
+ * Grouped multi-select service filter with "The Core Four" categories.
+ * Organized by service domain for better UX and reduced decision fatigue.
  */
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { SERVICE_CATEGORIES } from "@/hooks/use-directory-filters";
+import { SERVICE_CATEGORIES, SERVICE_OPTIONS } from "@/hooks/use-directory-filters";
 import { cn } from "@/lib/utils";
 
 type ServiceFilterProps = {
@@ -38,7 +39,7 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
         return "All Services";
       }
       if (count === 1) {
-        return SERVICE_CATEGORIES.find((c) => c.value === selectedServices[0])?.label;
+        return SERVICE_OPTIONS.find((opt) => opt.value === selectedServices[0])?.label;
       }
       return `${count} services`;
     };
@@ -50,29 +51,39 @@ export function ServiceFilter({ value, onChange, className, compact = false }: S
   }
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-4", className)}>
       {/* Section label */}
       <p className="font-medium text-neutral-700 text-sm dark:text-rausch-100">Service Type</p>
 
-      {/* Checkbox list */}
-      <div aria-label="Service Type" className="space-y-2" role="group">
-        {SERVICE_CATEGORIES.map((cat) => (
-          <div className="group flex cursor-pointer items-center gap-2.5" key={cat.value}>
-            <Checkbox
-              checked={selectedServices.includes(cat.value)}
-              className="h-4 w-4"
-              id={`service-${cat.value}`}
-              onCheckedChange={(checked) => handleToggle(cat.value, !!checked)}
-            />
-            <label
-              className="cursor-pointer text-neutral-700 text-sm group-hover:text-neutral-900 dark:text-rausch-200 dark:group-hover:text-rausch-50"
-              htmlFor={`service-${cat.value}`}
-            >
-              {cat.label}
-            </label>
+      {/* Grouped categories */}
+      {SERVICE_CATEGORIES.map((category) => (
+        <div className="space-y-2" key={category.label}>
+          {/* Category header */}
+          <p className="font-medium text-neutral-500 text-xs uppercase tracking-wide dark:text-rausch-300">
+            {category.label}
+          </p>
+
+          {/* Options within category */}
+          <div aria-label={category.label} className="space-y-2 pl-2" role="group">
+            {category.options.map((opt) => (
+              <div className="group flex cursor-pointer items-center gap-2.5" key={opt.value}>
+                <Checkbox
+                  checked={selectedServices.includes(opt.value)}
+                  className="h-4 w-4"
+                  id={`service-${opt.value}`}
+                  onCheckedChange={(checked) => handleToggle(opt.value, !!checked)}
+                />
+                <label
+                  className="cursor-pointer text-neutral-700 text-sm group-hover:text-neutral-900 dark:text-rausch-200 dark:group-hover:text-rausch-50"
+                  htmlFor={`service-${opt.value}`}
+                >
+                  {opt.label}
+                </label>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { useState } from "react";
 import type { CustomerDispute } from "@/app/[locale]/dashboard/customer/disputes/page";
 import { geistSans } from "@/app/fonts";
 import { cn } from "@/lib/utils";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 type Props = {
   disputes: CustomerDispute[];

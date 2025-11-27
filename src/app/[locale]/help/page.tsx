@@ -178,8 +178,12 @@ export default async function HelpCenterPage({
         <section className="border-neutral-200 border-b bg-neutral-50 py-16 dark:border-border dark:bg-background">
           <Container>
             <div className="mx-auto max-w-3xl text-center">
-              <h1 className="type-serif-lg mb-4 text-neutral-900 dark:text-neutral-50">{t("hero.title")}</h1>
-              <p className="mb-8 text-lg text-neutral-500 md:text-xl dark:text-neutral-400">{t("hero.subtitle")}</p>
+              <h1 className="type-serif-lg mb-4 text-neutral-900 dark:text-neutral-50">
+                {t("hero.title")}
+              </h1>
+              <p className="mb-8 text-lg text-neutral-500 md:text-xl dark:text-neutral-400">
+                {t("hero.subtitle")}
+              </p>
 
               {/* Search Bar */}
               <HelpSearchBar autoFocus className="mx-auto max-w-2xl" />
@@ -221,7 +225,9 @@ export default async function HelpCenterPage({
                     </h3>
 
                     {category.description && (
-                      <p className="text-neutral-500 text-sm dark:text-neutral-400">{category.description}</p>
+                      <p className="text-neutral-500 text-sm dark:text-neutral-400">
+                        {category.description}
+                      </p>
                     )}
 
                     <div className="mt-4 flex items-center text-rausch-500 text-sm">
@@ -279,8 +285,12 @@ export default async function HelpCenterPage({
 
           {/* Contact CTA */}
           <section className="mt-16 rounded-lg border border-neutral-200 bg-gradient-to-br from-white to-white p-8 text-center md:p-12 dark:border-border dark:from-card dark:to-card">
-            <h2 className="mb-4 font-bold text-2xl text-neutral-900 dark:text-neutral-50">{t("contact.title")}</h2>
-            <p className="mb-6 text-lg text-neutral-700 dark:text-neutral-300">{t("contact.description")}</p>
+            <h2 className="mb-4 font-bold text-2xl text-neutral-900 dark:text-neutral-50">
+              {t("contact.title")}
+            </h2>
+            <p className="mb-6 text-lg text-neutral-700 dark:text-neutral-300">
+              {t("contact.description")}
+            </p>
             <Link
               className="inline-flex items-center gap-2 rounded-lg bg-rausch-500 px-8 py-3 font-semibold text-white transition hover:bg-rausch-600"
               href={`/${locale}/contact`}

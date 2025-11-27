@@ -40,21 +40,28 @@ import { geistSans } from "../fonts";
 export const metadata: Metadata = {
   metadataBase: new URL("https://casaora.co"),
   title: {
-    default: "Casaora® · Trusted Marketplace for Home Professionals",
-    template: "%s · Casaora®",
+    default: "Casaora | Verified Housekeepers, Nannies & Chefs in Latin America",
+    template: "%s | Casaora",
   },
   description:
-    "Casaora is the trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers including nannies, housekeepers, caregivers, and cooks. Simple, fair, and dignified.",
+    "Book background-checked housekeepers, nannies, and private chefs across Colombia, Paraguay, Uruguay, and Argentina. Secure payments, verified reviews, and the Casaora Happiness Guarantee.",
   keywords: [
-    "Casaora®",
-    "domestic help marketplace",
-    "hire housekeeper Latin America",
-    "nanny services Colombia",
-    "caregivers Mexico",
-    "private chef booking",
-    "verified home professionals",
-    "household staff marketplace",
+    "housekeeper",
+    "nanny",
+    "private chef",
+    "home cleaning",
+    "childcare",
+    "Latin America",
+    "Colombia",
+    "Argentina",
+    "Uruguay",
+    "Paraguay",
+    "background check",
+    "verified professionals",
   ],
+  authors: [{ name: "Casaora" }],
+  creator: "Casaora",
+  publisher: "Casaora",
   icons: {
     icon: [
       { url: "/isologo.svg", type: "image/svg+xml" },
@@ -69,19 +76,42 @@ export const metadata: Metadata = {
     title: "Casaora",
   },
   openGraph: {
-    title: "Casaora® · Trusted Marketplace for Home Professionals",
-    description:
-      "The trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers. Simple, fair, and dignified.",
-    url: "https://casaora.co",
-    siteName: "Casaora®",
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    alternateLocale: "es_ES",
+    url: "https://casaora.co",
+    siteName: "Casaora",
+    title: "Casaora | Verified Housekeepers, Nannies & Chefs in Latin America",
+    description:
+      "Book background-checked housekeepers, nannies, and private chefs across Colombia, Paraguay, Uruguay, and Argentina.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Casaora - The new standard for home care",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Casaora® · Trusted Marketplace for Home Professionals",
+    site: "@casaora",
+    creator: "@casaora",
+    title: "Casaora | Verified Housekeepers, Nannies & Chefs",
     description:
-      "The trusted marketplace for household help in Latin America. Connect with verified, professional domestic workers.",
+      "Book background-checked housekeepers, nannies, and private chefs across Latin America.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -119,6 +149,29 @@ export default async function RootLayout({
       <head>
         {/* LCP Preload: Hero image is the largest contentful paint element */}
         <link as="image" fetchPriority="high" href="/hero.png" rel="preload" type="image/png" />
+
+        {/* JSON-LD Organization Schema - Static structured data for SEO */}
+        <script id="organization-schema" type="application/ld+json">
+          {`{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Casaora",
+            "url": "https://casaora.co",
+            "logo": "https://casaora.co/logo.png",
+            "description": "The new standard for home care in Latin America",
+            "sameAs": [
+              "https://twitter.com/casaora",
+              "https://instagram.com/casaora",
+              "https://linkedin.com/company/casaora"
+            ],
+            "areaServed": [
+              { "@type": "Country", "name": "Colombia" },
+              { "@type": "Country", "name": "Paraguay" },
+              { "@type": "Country", "name": "Uruguay" },
+              { "@type": "Country", "name": "Argentina" }
+            ]
+          }`}
+        </script>
       </head>
       <body
         className={`${geistSans.variable} ${geistSans.variable} antialiased`}

@@ -65,13 +65,7 @@ export function VerificationBadge({ label, status }: { label: string; status: st
 /**
  * SectionCard - Container for card sections with header
  */
-export function SectionCard({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+export function SectionCard({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="rounded-lg border border-neutral-200 bg-white">
       <div className="border-neutral-200 border-b bg-neutral-50 px-6 py-4">

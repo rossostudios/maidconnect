@@ -7,7 +7,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sendBookingConfirmedEmail, sendBookingDeclinedEmail } from "@/lib/email/send";
-import { formatFromMinorUnits, type Currency } from "@/lib/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/format";
 import { notifyCustomerBookingAccepted, notifyCustomerBookingDeclined } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 

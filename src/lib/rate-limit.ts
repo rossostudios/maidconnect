@@ -52,7 +52,7 @@ type RateLimitStore = Map<string, RateLimitEntry>;
 const store: RateLimitStore = new Map();
 
 // Maximum entries to prevent unbounded memory growth
-const MAX_STORE_SIZE = 10000;
+const MAX_STORE_SIZE = 10_000;
 
 // Track last cleanup time for lazy cleanup
 let lastCleanupTime = 0;

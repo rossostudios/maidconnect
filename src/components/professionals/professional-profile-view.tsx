@@ -34,7 +34,6 @@ import type { VerificationData } from "@/components/professionals/verification-b
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
-import { formatCOP } from "@/lib/utils/format";
 import {
   trackEarningsBadgeViewed,
   trackVanityUrlViewed,
@@ -42,6 +41,7 @@ import {
 import type { AppUser } from "@/lib/auth/types";
 import { bookingTracking } from "@/lib/integrations/posthog/booking-tracking-client";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
+import { formatCOP } from "@/lib/utils/format";
 
 export type ProfessionalProfileDetail = {
   id: string;

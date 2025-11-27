@@ -57,12 +57,16 @@ function VerifiedProfileVisual({
               </div>
               <div className="opacity-60">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-medium text-muted-foreground text-sm">{t("visuals.profileCard.backgroundName")}</span>
+                  <span className="font-medium text-muted-foreground text-sm">
+                    {t("visuals.profileCard.backgroundName")}
+                  </span>
                   <span className="rounded-full bg-amber-100 px-1.5 py-0.5 font-medium text-[10px] text-amber-700">
                     {t("visuals.profileCard.proBadge")}
                   </span>
                 </div>
-                <p className="text-muted-foreground/70 text-xs">{t("visuals.profileCard.backgroundSpecialty")}</p>
+                <p className="text-muted-foreground/70 text-xs">
+                  {t("visuals.profileCard.backgroundSpecialty")}
+                </p>
               </div>
             </div>
           </motion.div>
@@ -70,7 +74,7 @@ function VerifiedProfileVisual({
           {/* Main Profile Card - Tilted */}
           <motion.div
             animate={{ y: [0, -4, 0] }}
-            className="-rotate-2 relative z-10 w-full origin-bottom-left overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
+            className="group -rotate-2 relative z-10 w-full origin-bottom-left overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
             transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             {/* Cover image */}
@@ -95,7 +99,7 @@ function VerifiedProfileVisual({
                   {/* Verification badge */}
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    className="-right-0.5 -bottom-0.5 absolute flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"
+                    className="-right-0.5 -bottom-0.5 absolute flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white group-hover:animate-badge-glow"
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                   >
                     <HugeiconsIcon className="h-3 w-3 text-white" icon={CheckmarkCircle02Icon} />
@@ -106,12 +110,16 @@ function VerifiedProfileVisual({
               {/* Name and details - positioned next to avatar */}
               <div className="ml-[76px] min-h-[40px]">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-foreground text-sm">{t("visuals.profileCard.mainName")}</span>
+                  <span className="font-semibold text-foreground text-sm">
+                    {t("visuals.profileCard.mainName")}
+                  </span>
                   <span className="rounded-full bg-rausch-100 px-1.5 py-0.5 font-medium text-[10px] text-rausch-700 dark:bg-rausch-500/20 dark:text-rausch-400">
                     {t("visuals.profileCard.proBadge")}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-xs">{t("visuals.profileCard.mainSpecialty")}</p>
+                <p className="text-muted-foreground text-xs">
+                  {t("visuals.profileCard.mainSpecialty")}
+                </p>
               </div>
 
               {/* Rating row - clean single line */}
@@ -126,7 +134,9 @@ function VerifiedProfileVisual({
                   ))}
                 </div>
                 <span className="font-semibold text-foreground text-sm">4.9</span>
-                <span className="text-muted-foreground/70 text-xs">{t("visuals.profileCard.reviewCount")}</span>
+                <span className="text-muted-foreground/70 text-xs">
+                  {t("visuals.profileCard.reviewCount")}
+                </span>
               </div>
 
               {/* Verification badges - horizontal pills */}
@@ -203,12 +213,16 @@ function VerifiedProfileVisual({
 
                 <div className="pt-16">
                   <div className="flex items-center gap-3">
-                    <h3 className="font-bold text-2xl text-foreground">{t("visuals.profileCard.mainName")}</h3>
+                    <h3 className="font-bold text-2xl text-foreground">
+                      {t("visuals.profileCard.mainName")}
+                    </h3>
                     <span className="rounded-full bg-rausch-100 px-3 py-1 font-semibold text-rausch-700 text-sm dark:bg-rausch-500/20 dark:text-rausch-400">
                       {t("visuals.profileCard.proBadge")}
                     </span>
                   </div>
-                  <p className="mt-1 text-lg text-muted-foreground">{t("visuals.profileCard.mainSpecialty")}</p>
+                  <p className="mt-1 text-lg text-muted-foreground">
+                    {t("visuals.profileCard.mainSpecialty")}
+                  </p>
 
                   {/* Rating */}
                   <div className="mt-4 flex items-center gap-2">
@@ -222,7 +236,9 @@ function VerifiedProfileVisual({
                       ))}
                     </div>
                     <span className="font-semibold text-foreground text-lg">4.9</span>
-                    <span className="text-muted-foreground">{t("visuals.profileCard.reviewCount")}</span>
+                    <span className="text-muted-foreground">
+                      {t("visuals.profileCard.reviewCount")}
+                    </span>
                   </div>
 
                   {/* Bio */}
@@ -312,7 +328,9 @@ function SecurePaymentVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
       <div className="w-full max-w-[220px] overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         <div className="border-border border-b px-3 py-2">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs">{t("visuals.securePayment.paymentHeld")}</span>
+            <span className="text-muted-foreground text-xs">
+              {t("visuals.securePayment.paymentHeld")}
+            </span>
             <span className="flex items-center gap-1 text-green-600 text-xs dark:text-green-400">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
               {t("visuals.securePayment.protected")}
@@ -321,10 +339,14 @@ function SecurePaymentVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
         </div>
         <div className="px-3 py-2">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-foreground text-sm">{t("visuals.securePayment.amount")}</span>
+            <span className="font-medium text-foreground text-sm">
+              {t("visuals.securePayment.amount")}
+            </span>
             <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={CreditCardIcon} />
           </div>
-          <p className="mt-0.5 text-muted-foreground text-xs">{t("visuals.securePayment.releasedWhen")}</p>
+          <p className="mt-0.5 text-muted-foreground text-xs">
+            {t("visuals.securePayment.releasedWhen")}
+          </p>
         </div>
       </div>
     </div>
@@ -367,7 +389,9 @@ function ReviewsVisual({
             </div>
             <div className="flex items-center gap-2 bg-muted/50 px-4 py-2">
               <div className="h-7 w-7 rounded-full bg-gradient-to-br from-babu-200 to-babu-300 dark:from-babu-400 dark:to-babu-500" />
-              <span className="text-muted-foreground text-xs">{t("visuals.reviews.backgroundName")}</span>
+              <span className="text-muted-foreground text-xs">
+                {t("visuals.reviews.backgroundName")}
+              </span>
             </div>
           </motion.div>
 
@@ -396,11 +420,20 @@ function ReviewsVisual({
             {/* Author */}
             <div className="flex items-center gap-3 border-border border-t bg-muted/50 px-4 py-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                <Image alt={t("visuals.reviews.featuredName")} className="object-cover" fill src="/review-brooke.png" />
+                <Image
+                  alt={t("visuals.reviews.featuredName")}
+                  className="object-cover"
+                  fill
+                  src="/review-brooke.png"
+                />
               </div>
               <div>
-                <p className="font-semibold text-foreground text-sm">{t("visuals.reviews.featuredName")}</p>
-                <p className="text-muted-foreground text-xs">{t("visuals.reviews.verifiedCustomer")}</p>
+                <p className="font-semibold text-foreground text-sm">
+                  {t("visuals.reviews.featuredName")}
+                </p>
+                <p className="text-muted-foreground text-xs">
+                  {t("visuals.reviews.verifiedCustomer")}
+                </p>
               </div>
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
@@ -447,7 +480,12 @@ function ReviewsVisual({
               <div className="flex gap-6 p-6">
                 {/* Avatar */}
                 <div className="relative h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl">
-                  <Image alt={t("visuals.reviews.featuredName")} className="object-cover" fill src="/review-brooke.png" />
+                  <Image
+                    alt={t("visuals.reviews.featuredName")}
+                    className="object-cover"
+                    fill
+                    src="/review-brooke.png"
+                  />
                 </div>
 
                 <div className="flex-1">
@@ -470,8 +508,12 @@ function ReviewsVisual({
                   {/* Author info */}
                   <div className="mt-6 flex items-center gap-3">
                     <div>
-                      <p className="font-bold text-foreground text-xl">{t("visuals.reviews.featuredName")}</p>
-                      <p className="text-muted-foreground">{t("visuals.reviews.verifiedCustomer")}</p>
+                      <p className="font-bold text-foreground text-xl">
+                        {t("visuals.reviews.featuredName")}
+                      </p>
+                      <p className="text-muted-foreground">
+                        {t("visuals.reviews.verifiedCustomer")}
+                      </p>
                     </div>
                     <div className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20">
                       <HugeiconsIcon

@@ -7,14 +7,14 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
-  calculateFillRate,
-  calculateAvgTimeToFirstBooking,
-  calculateRepeatBookingRate,
-  calculateActiveProfessionals,
-  calculateCityMetrics,
-  calculateCategoryMetrics,
-  type CityMetrics,
   type CategoryMetrics,
+  type CityMetrics,
+  calculateActiveProfessionals,
+  calculateAvgTimeToFirstBooking,
+  calculateCategoryMetrics,
+  calculateCityMetrics,
+  calculateFillRate,
+  calculateRepeatBookingRate,
 } from "./analyticsCalculations";
 
 // ============================================================================
@@ -170,10 +170,7 @@ export async function fetchAnalyticsCustomers(
   supabase: SupabaseClient,
   startDate: Date | null
 ): Promise<AnalyticsCustomer[]> {
-  let query = supabase
-    .from("profiles")
-    .select("id, role, created_at")
-    .eq("role", "customer");
+  let query = supabase.from("profiles").select("id, role, created_at").eq("role", "customer");
 
   if (startDate) {
     query = query.gte("created_at", startDate.toISOString());

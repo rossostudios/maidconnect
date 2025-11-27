@@ -9,18 +9,40 @@ import {
 } from "nuqs";
 
 /**
- * Service categories available for filtering
+ * Service categories available for filtering - "The Core Four" grouped structure
+ * Organized by service domain for better UX and reduced decision fatigue
  */
 export const SERVICE_CATEGORIES = [
-  { value: "housekeeping", label: "Housekeeping & Cleaning" },
-  { value: "childcare", label: "Childcare & Nanny" },
-  { value: "relocation", label: "Relocation & Move-in" },
-  { value: "elder-care", label: "Elder Care" },
-  { value: "pet-care", label: "Pet Care" },
-  { value: "lifestyle", label: "Lifestyle & Personal" },
+  {
+    label: "Home & Cleaning",
+    options: [
+      { value: "standard-cleaning", label: "Standard Cleaning" },
+      { value: "deep-cleaning", label: "Deep Clean / Move-out" },
+      { value: "laundry-ironing", label: "Laundry & Ironing" },
+    ],
+  },
+  {
+    label: "Family Care",
+    options: [
+      { value: "nanny-childcare", label: "Nanny & Childcare" },
+      { value: "senior-companionship", label: "Senior Companionship" },
+    ],
+  },
+  {
+    label: "Kitchen",
+    options: [
+      { value: "meal-prep", label: "Meal Prep / Private Chef" },
+      { value: "event-cooking", label: "Event Cooking" },
+    ],
+  },
 ] as const;
 
-export type ServiceCategory = (typeof SERVICE_CATEGORIES)[number]["value"];
+/**
+ * Flattened service options for backwards compatibility and lookups
+ */
+export const SERVICE_OPTIONS = SERVICE_CATEGORIES.flatMap((cat) => cat.options);
+
+export type ServiceCategory = (typeof SERVICE_OPTIONS)[number]["value"];
 
 /**
  * View modes for the directory
@@ -67,6 +89,11 @@ export type DirectoryFilters = {
   verifiedOnly: boolean;
   backgroundChecked: boolean;
 
+  // Specialty tag filters
+  englishSpeaking: boolean;
+  petFriendly: boolean;
+  hasPassport: boolean;
+
   // Search & view
   query: string | null;
   view: ViewMode;
@@ -98,6 +125,11 @@ const filterParsers = {
   minRating: parseAsInteger,
   verifiedOnly: parseAsBoolean.withDefault(false),
   backgroundChecked: parseAsBoolean.withDefault(false),
+
+  // Specialty tags
+  englishSpeaking: parseAsBoolean.withDefault(false),
+  petFriendly: parseAsBoolean.withDefault(false),
+  hasPassport: parseAsBoolean.withDefault(false),
 
   // Search & view
   query: parseAsString,
@@ -161,6 +193,9 @@ export function useDirectoryFilters() {
       minRating: null,
       verifiedOnly: false,
       backgroundChecked: false,
+      englishSpeaking: false,
+      petFriendly: false,
+      hasPassport: false,
       query: null,
       view: "grid",
       sort: "rating",
@@ -197,6 +232,9 @@ export function useDirectoryFilters() {
     filters.minRating,
     filters.verifiedOnly ? "true" : null,
     filters.backgroundChecked ? "true" : null,
+    filters.englishSpeaking ? "true" : null,
+    filters.petFriendly ? "true" : null,
+    filters.hasPassport ? "true" : null,
     filters.query,
   ].filter(Boolean).length;
 
@@ -241,7 +279,7 @@ export function useDirectoryFilters() {
     }
     if (filters.service) {
       const serviceLabel =
-        SERVICE_CATEGORIES.find((s) => s.value === filters.service)?.label || filters.service;
+        SERVICE_OPTIONS.find((s) => s.value === filters.service)?.label || filters.service;
       chips.push({ key: "service", label: "Service", value: serviceLabel });
     }
     if (filters.minRate || filters.maxRate) {
@@ -287,6 +325,27 @@ export function useDirectoryFilters() {
         value: "Checked",
       });
     }
+    if (filters.englishSpeaking) {
+      chips.push({
+        key: "englishSpeaking",
+        label: "Language",
+        value: "English Speaking",
+      });
+    }
+    if (filters.petFriendly) {
+      chips.push({
+        key: "petFriendly",
+        label: "Specialty",
+        value: "Pet Friendly",
+      });
+    }
+    if (filters.hasPassport) {
+      chips.push({
+        key: "hasPassport",
+        label: "Travel",
+        value: "Has Visa/Passport",
+      });
+    }
     if (filters.query) {
       chips.push({ key: "query", label: "Search", value: filters.query });
     }
@@ -312,6 +371,9 @@ export function useDirectoryFilters() {
       minRating: null,
       verifiedOnly: false,
       backgroundChecked: false,
+      englishSpeaking: false,
+      petFriendly: false,
+      hasPassport: false,
       query: null,
     };
 
@@ -384,6 +446,15 @@ export function buildApiQueryParams(
   }
   if (filters.backgroundChecked) {
     params.set("backgroundChecked", "true");
+  }
+  if (filters.englishSpeaking) {
+    params.set("englishSpeaking", "true");
+  }
+  if (filters.petFriendly) {
+    params.set("petFriendly", "true");
+  }
+  if (filters.hasPassport) {
+    params.set("hasPassport", "true");
   }
   if (filters.query) {
     params.set("query", filters.query);

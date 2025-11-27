@@ -14,8 +14,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
-import { formatCOP } from "@/lib/utils/format";
 import { matchWizardTracking } from "@/lib/integrations/posthog";
+import { formatCOP } from "@/lib/utils/format";
 import type { WizardData } from "../match-wizard";
 
 type ResultsStepProps = {

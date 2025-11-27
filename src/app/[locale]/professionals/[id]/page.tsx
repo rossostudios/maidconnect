@@ -8,8 +8,7 @@ import { SiteHeader } from "@/components/sections/SiteHeader";
 import { getSession } from "@/lib/auth";
 import { getProfessionalProfileById } from "@/lib/services/professionals/profileService";
 
-const UUID_REGEX =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 type RouteParams = {
   params: Promise<{

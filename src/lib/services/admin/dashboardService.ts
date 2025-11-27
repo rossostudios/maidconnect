@@ -80,10 +80,7 @@ export async function fetchTodayBookings(
  * Fetch pending bookings awaiting confirmation
  */
 export async function fetchPendingBookings(supabase: SupabaseClient): Promise<BookingRecord[]> {
-  const { data } = await supabase
-    .from("bookings")
-    .select("id, status")
-    .eq("status", "pending");
+  const { data } = await supabase.from("bookings").select("id, status").eq("status", "pending");
 
   return (data || []) as BookingRecord[];
 }
@@ -233,10 +230,7 @@ export function calculateRevenue(bookings: BookingRecord[]): number {
 /**
  * Count bookings by status
  */
-export function countBookingsByStatus(
-  bookings: BookingRecord[],
-  status: BookingStatus
-): number {
+export function countBookingsByStatus(bookings: BookingRecord[], status: BookingStatus): number {
   return bookings.filter((b) => b.status === status).length;
 }
 
@@ -244,9 +238,7 @@ export function countBookingsByStatus(
  * Calculate unique active professionals (with active bookings)
  */
 export function calculateActiveProfessionals(activeBookings: BookingRecord[]): number {
-  const uniquePros = new Set(
-    activeBookings.map((b) => b.professional_id).filter(Boolean)
-  );
+  const uniquePros = new Set(activeBookings.map((b) => b.professional_id).filter(Boolean));
   return uniquePros.size;
 }
 

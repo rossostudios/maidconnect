@@ -89,7 +89,10 @@ export function TableOfContents({ className }: TableOfContentsProps) {
           {t("toc.title")} ({headings.length})
         </span>
         <HugeiconsIcon
-          className={cn("h-4 w-4 text-neutral-500 transition-transform dark:text-neutral-400", isOpen && "rotate-180")}
+          className={cn(
+            "h-4 w-4 text-neutral-500 transition-transform dark:text-neutral-400",
+            isOpen && "rotate-180"
+          )}
           icon={ArrowDown01Icon}
         />
       </button>
@@ -132,7 +135,9 @@ export function TableOfContents({ className }: TableOfContentsProps) {
 
       {/* Desktop: Always visible with minimal Notion-style */}
       <div className="hidden lg:block">
-        <h4 className="mb-4 text-neutral-500 text-xs uppercase tracking-wide dark:text-neutral-400">{t("toc.title")}</h4>
+        <h4 className="mb-4 text-neutral-500 text-xs uppercase tracking-wide dark:text-neutral-400">
+          {t("toc.title")}
+        </h4>
         <nav>
           <ul className="space-y-1 border-neutral-200 border-l pl-3 text-sm dark:border-border">
             {headings.map((heading) => (

@@ -19,7 +19,9 @@ export function ContactFAQ() {
   return (
     <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32 dark:bg-rausch-900">
       <Container className="max-w-4xl">
-        <h2 className="mb-12 text-center font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white">{t("title")}</h2>
+        <h2 className="mb-12 text-center font-bold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white">
+          {t("title")}
+        </h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
@@ -48,7 +50,7 @@ export function ContactFAQ() {
               >
                 <div className="overflow-hidden">
                   <div className="border-neutral-200 border-t p-6 pt-4 sm:p-8 sm:pt-6 dark:border-rausch-700">
-                    <p className="text-neutral-600 text-base leading-relaxed dark:text-rausch-300">
+                    <p className="text-base text-neutral-600 leading-relaxed dark:text-rausch-300">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

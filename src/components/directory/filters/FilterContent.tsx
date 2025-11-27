@@ -17,6 +17,7 @@ import { LocationFilter } from "./LocationFilter";
 import { PriceRangeFilter } from "./PriceRangeFilter";
 import { RatingFilter } from "./RatingFilter";
 import { ServiceFilter } from "./ServiceFilter";
+import { SpecialtyFilter } from "./SpecialtyFilter";
 import { VerificationFilter } from "./VerificationFilter";
 
 export type FilterContentProps = {
@@ -90,6 +91,18 @@ export function FilterContent({
       <VerificationFilter
         onVerifiedOnlyChange={(v) => setFilter("verifiedOnly", v)}
         verifiedOnly={filters.verifiedOnly}
+      />
+
+      <FilterDivider />
+
+      {/* Specialty Filter */}
+      <SpecialtyFilter
+        englishSpeaking={filters.englishSpeaking}
+        hasPassport={filters.hasPassport}
+        onEnglishSpeakingChange={(v) => setFilter("englishSpeaking", v)}
+        onHasPassportChange={(v) => setFilter("hasPassport", v)}
+        onPetFriendlyChange={(v) => setFilter("petFriendly", v)}
+        petFriendly={filters.petFriendly}
       />
     </div>
   );

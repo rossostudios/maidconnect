@@ -10,7 +10,7 @@ import {
   calculateCancellationPolicy,
   getCancellationPolicyDescription,
 } from "@/lib/cancellationPolicy";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 type CancelBookingModalProps = {
   isOpen: boolean;

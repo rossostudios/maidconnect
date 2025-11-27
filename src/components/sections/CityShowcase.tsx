@@ -181,6 +181,11 @@ export function CityShowcase({ className }: CityShowcaseProps) {
                     <div className="absolute right-3 bottom-3 rounded-full bg-card px-3 py-1 font-medium text-foreground text-xs shadow-sm">
                       {city.proCount} {t("pros")}
                     </div>
+
+                    {/* Hover Overlay with Pricing */}
+                    <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-neutral-900/80 to-transparent pb-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="font-medium text-sm text-white">{t("startsAt")}</span>
+                    </div>
                   </div>
 
                   {/* City Info */}

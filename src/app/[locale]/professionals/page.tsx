@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default function ProfessionalsPage() {
   return (
-    <div className="bg-neutral-50 dark:bg-rausch-950 text-neutral-900 dark:text-white">
+    <div className="bg-neutral-50 text-neutral-900 dark:bg-rausch-950 dark:text-white">
       <SiteHeader />
       <main className="min-h-screen">
         <Suspense fallback={<DirectoryGridSkeleton />}>

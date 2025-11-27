@@ -8,7 +8,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
 import { getRebookNudgeVariant, isFeatureEnabled } from "@/lib/feature-flags";
-import { formatFromMinorUnits, type Currency } from "@/lib/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/format";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import {

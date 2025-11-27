@@ -43,8 +43,8 @@ export function FeatureSectionClient({
     <section
       className={
         background === "white"
-          ? "bg-white dark:bg-rausch-950 py-16 md:py-24"
-          : "bg-neutral-50 dark:bg-rausch-900 py-16 md:py-24"
+          ? "bg-white py-16 md:py-24 dark:bg-rausch-950"
+          : "bg-neutral-50 py-16 md:py-24 dark:bg-rausch-900"
       }
     >
       <Container className="max-w-6xl">
@@ -56,10 +56,12 @@ export function FeatureSectionClient({
         >
           {/* Text Content */}
           <motion.div className={reversed ? "lg:order-2" : "lg:order-1"} variants={fadeIn}>
-            <h2 className="font-medium text-3xl text-neutral-900 dark:text-white leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+            <h2 className="font-medium text-3xl text-neutral-900 leading-tight tracking-tight sm:text-4xl lg:text-[42px] dark:text-white">
               {title}
             </h2>
-            <p className="mt-4 text-lg text-neutral-600 dark:text-rausch-300 leading-relaxed">{description}</p>
+            <p className="mt-4 text-lg text-neutral-600 leading-relaxed dark:text-rausch-300">
+              {description}
+            </p>
 
             {/* Checkmark Feature List - Dunas style */}
             <ul className="mt-8 space-y-3">
@@ -99,20 +101,27 @@ type FlowDiagramProps = {
 
 export function FlowDiagram({ items }: FlowDiagramProps) {
   return (
-    <div className="relative rounded-2xl border border-neutral-200 dark:border-rausch-800 bg-neutral-50 dark:bg-rausch-900 p-8">
+    <div className="relative rounded-2xl border border-neutral-200 bg-neutral-50 p-8 dark:border-rausch-800 dark:bg-rausch-900">
       <div className="flex flex-col gap-4">
         {items.map((item, idx) => (
           <div key={idx}>
-            <div className="flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-rausch-800 bg-white dark:bg-rausch-950 px-5 py-4 shadow-sm">
+            <div className="flex items-center gap-4 rounded-xl border border-neutral-200 bg-white px-5 py-4 shadow-sm dark:border-rausch-800 dark:bg-rausch-950">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-rausch-800">
-                <HugeiconsIcon className="h-5 w-5 text-neutral-600 dark:text-rausch-300" icon={item.icon} />
+                <HugeiconsIcon
+                  className="h-5 w-5 text-neutral-600 dark:text-rausch-300"
+                  icon={item.icon}
+                />
               </div>
               <div>
                 <p className="font-medium text-neutral-900 dark:text-white">{item.label}</p>
-                {item.sublabel && <p className="text-neutral-500 dark:text-rausch-400 text-sm">{item.sublabel}</p>}
+                {item.sublabel && (
+                  <p className="text-neutral-500 text-sm dark:text-rausch-400">{item.sublabel}</p>
+                )}
               </div>
             </div>
-            {idx < items.length - 1 && <div className="ml-9 h-4 w-0.5 bg-neutral-200 dark:bg-rausch-700" />}
+            {idx < items.length - 1 && (
+              <div className="ml-9 h-4 w-0.5 bg-neutral-200 dark:bg-rausch-700" />
+            )}
           </div>
         ))}
       </div>
@@ -135,28 +144,30 @@ export function SettingsCard({
   rightTitle = "Information",
 }: SettingsCardProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-neutral-200 dark:border-rausch-800 bg-white dark:bg-rausch-950 shadow-sm">
+    <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-rausch-800 dark:bg-rausch-950">
       <div className="grid md:grid-cols-2">
         {/* Left Column - Settings */}
-        <div className="border-neutral-200 dark:border-rausch-800 p-6 md:border-r">
+        <div className="border-neutral-200 p-6 md:border-r dark:border-rausch-800">
           <h4 className="mb-4 font-medium text-neutral-900 dark:text-white">{leftTitle}</h4>
           <div className="space-y-3">
             {leftItems.map((item, idx) => (
               <div className="flex items-center justify-between" key={idx}>
-                <span className="text-neutral-500 dark:text-rausch-400 text-sm">{item.label}</span>
-                <span className="font-medium text-neutral-900 dark:text-white text-sm">{item.value}</span>
+                <span className="text-neutral-500 text-sm dark:text-rausch-400">{item.label}</span>
+                <span className="font-medium text-neutral-900 text-sm dark:text-white">
+                  {item.value}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Right Column - Information */}
-        <div className="bg-neutral-50 dark:bg-rausch-900 p-6">
+        <div className="bg-neutral-50 p-6 dark:bg-rausch-900">
           <h4 className="mb-4 font-medium text-neutral-900 dark:text-white">{rightTitle}</h4>
           <div className="space-y-3">
             {rightItems.map((item, idx) => (
               <div className="flex items-center justify-between" key={idx}>
-                <span className="text-neutral-600 dark:text-rausch-300 text-sm">{item.label}</span>
+                <span className="text-neutral-600 text-sm dark:text-rausch-300">{item.label}</span>
                 {item.hasCheck && (
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500">
                     <HugeiconsIcon

@@ -164,14 +164,7 @@ export function ArticleViewer({
         user?.id || null
       );
 
-      if (!result.success) {
-        if (result.alreadySubmitted) {
-          toast.info(t("feedback.alreadySubmitted"));
-        } else {
-          console.error("Feedback error:", result.error);
-          toast.error(t("feedback.error"));
-        }
-      } else {
+      if (result.success) {
         setFeedbackSubmitted(true);
         setFeedbackType(isHelpful ? "helpful" : "not_helpful");
 
@@ -179,6 +172,11 @@ export function ArticleViewer({
         if (!(isHelpful || feedbackText)) {
           setShowFeedbackForm(true);
         }
+      } else if (result.alreadySubmitted) {
+        toast.info(t("feedback.alreadySubmitted"));
+      } else {
+        console.error("Feedback error:", result.error);
+        toast.error(t("feedback.error"));
       }
     } catch (error) {
       console.error("Feedback submission failed:", error);
@@ -273,11 +271,17 @@ export function ArticleViewer({
     <div className={articleTheme.shell}>
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
-        <Link className="hover:text-neutral-700 dark:hover:text-neutral-300" href={`/${locale}/help`}>
+        <Link
+          className="hover:text-neutral-700 dark:hover:text-neutral-300"
+          href={`/${locale}/help`}
+        >
           {t("breadcrumb.home")}
         </Link>
         <span>/</span>
-        <Link className="hover:text-neutral-700 dark:hover:text-neutral-300" href={`/${locale}/help/${categorySlug}`}>
+        <Link
+          className="hover:text-neutral-700 dark:hover:text-neutral-300"
+          href={`/${locale}/help/${categorySlug}`}
+        >
           {categoryName}
         </Link>
       </nav>
@@ -325,8 +329,11 @@ export function ArticleViewer({
           {/* Need-to-Know Summary Card (Zendesk 2025 - above-the-fold orientation) */}
           <div className={cn(articleTheme.gradientCard, "lg:sticky lg:top-6")}>
             <div className="mb-3 flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-400" icon={Note01Icon} />
-              <h3 className="font-semibold text-neutral-900 text-lg dark:text-neutral-50">
+              <HugeiconsIcon
+                className="h-5 w-5 text-neutral-500 dark:text-neutral-400"
+                icon={Note01Icon}
+              />
+              <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-50">
                 {locale === "en" ? "Need to Know" : "Lo que necesitas saber"}
               </h3>
             </div>
@@ -356,7 +363,10 @@ export function ArticleViewer({
               </div>
               {relatedArticles.length > 0 && (
                 <div className="flex items-start gap-2">
-                  <HugeiconsIcon className="mt-0.5 h-4 w-4 text-neutral-500 dark:text-neutral-400" icon={Link01Icon} />
+                  <HugeiconsIcon
+                    className="mt-0.5 h-4 w-4 text-neutral-500 dark:text-neutral-400"
+                    icon={Link01Icon}
+                  />
                   <div>
                     <span className="font-medium">
                       {locale === "en" ? "Related:" : "Relacionado:"}
@@ -372,7 +382,7 @@ export function ArticleViewer({
 
       {/* Article Content - Constrained for readability (50-75ch per UXPin 2025) */}
       <div
-        className="prose prose-lg w-full max-w-none prose-a:text-neutral-600 prose-headings:text-neutral-900 prose-p:text-neutral-700 dark:prose-invert dark:prose-a:text-neutral-400 dark:prose-headings:text-neutral-50 dark:prose-p:text-neutral-300"
+        className="prose prose-lg dark:prose-invert w-full max-w-none prose-a:text-neutral-600 prose-headings:text-neutral-900 prose-p:text-neutral-700 dark:prose-a:text-neutral-400 dark:prose-headings:text-neutral-50 dark:prose-p:text-neutral-300"
         ref={contentRef}
       >
         <PortableText components={portableTextComponents} value={article.content} />
@@ -431,7 +441,7 @@ export function ArticleViewer({
         {/* Enhanced Feedback Form with Quick Responses */}
         {showFeedbackForm && !feedbackSubmitted && (
           <div className="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-border dark:bg-card">
-            <h4 className="mb-4 font-semibold text-neutral-900 text-lg dark:text-neutral-50">
+            <h4 className="mb-4 font-semibold text-lg text-neutral-900 dark:text-neutral-50">
               {locale === "en"
                 ? "What stopped you from completing your task?"
                 : "¿Qué te impidió completar tu tarea?"}
@@ -486,7 +496,7 @@ export function ArticleViewer({
 
             <div className="flex flex-wrap gap-3">
               <button
-                className="rounded-lg bg-rausch-500 px-6 py-2 font-medium text-white text-sm transition hover:bg-rausch-600 disabled:opacity-50 dark:bg-rausch-600 dark:hover:bg-rausch-500"
+                className="rounded-lg bg-rausch-500 px-6 py-2 font-medium text-sm text-white transition hover:bg-rausch-600 disabled:opacity-50 dark:bg-rausch-600 dark:hover:bg-rausch-500"
                 disabled={submitting || !feedbackText}
                 onClick={handleFeedbackTextSubmit}
                 type="button"
@@ -512,7 +522,9 @@ export function ArticleViewer({
       {/* Related Articles */}
       {showRelatedArticles && relatedArticles.length > 0 && (
         <div className="mx-auto mb-12 max-w-3xl">
-          <h3 className="mb-6 font-semibold text-neutral-900 text-xl dark:text-neutral-50">{t("related.title")}</h3>
+          <h3 className="mb-6 font-semibold text-neutral-900 text-xl dark:text-neutral-50">
+            {t("related.title")}
+          </h3>
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
@@ -523,7 +535,11 @@ export function ArticleViewer({
                 <h4 className="mb-2 font-semibold text-neutral-900 group-hover:text-rausch-600 dark:text-neutral-50 dark:group-hover:text-rausch-400">
                   {related.title}
                 </h4>
-                {related.excerpt && <p className="text-neutral-500 text-sm dark:text-neutral-400">{related.excerpt}</p>}
+                {related.excerpt && (
+                  <p className="text-neutral-500 text-sm dark:text-neutral-400">
+                    {related.excerpt}
+                  </p>
+                )}
                 <div className="mt-3 flex items-center text-rausch-600 text-sm dark:text-rausch-400">
                   <span>{t("related.readMore")}</span>
                   <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
@@ -540,7 +556,9 @@ export function ArticleViewer({
           className="mx-auto mb-4 h-12 w-12 text-rausch-500 dark:text-rausch-400"
           icon={BubbleChatIcon}
         />
-        <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-50">{t("contact.title")}</h3>
+        <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-50">
+          {t("contact.title")}
+        </h3>
         <p className="mb-6 text-neutral-500 dark:text-neutral-400">{t("contact.description")}</p>
         <Link
           className="inline-flex items-center gap-2 rounded-lg bg-rausch-500 px-6 py-3 font-semibold text-white transition hover:bg-rausch-600 dark:bg-rausch-600 dark:hover:bg-rausch-500"

@@ -150,9 +150,7 @@ export function RecurringPlansManager({
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-neutral-200">
             <HugeiconsIcon className="h-8 w-8 text-neutral-500" icon={Calendar03Icon} />
           </div>
-          <h3 className="font-semibold text-neutral-900 text-xl">
-            {EMPTY_STATE_TITLES[filter]}
-          </h3>
+          <h3 className="font-semibold text-neutral-900 text-xl">{EMPTY_STATE_TITLES[filter]}</h3>
           <p className="mt-2 text-neutral-500">
             {filter === "all"
               ? "Create a recurring plan to save up to 15% on regular bookings."

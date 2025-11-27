@@ -1,14 +1,4 @@
-import {
-  ArrowRight01Icon,
-  Calendar03Icon,
-  CheckmarkBadge01Icon,
-  File01Icon,
-  Home09Icon,
-  Search01Icon,
-  SecurityCheckIcon,
-  StarIcon,
-  UserCheck01Icon,
-} from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/SiteFooter";
@@ -21,8 +11,8 @@ import {
 } from "@/components/ui/accordion";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
-import { FeatureSectionClient, FlowDiagram, SettingsCard } from "./feature-section-client";
 import { HeroSectionClient } from "./hero-section-client";
+import { StandardSection } from "./standard-section";
 
 export default async function HowItWorksPage() {
   return (
@@ -30,9 +20,7 @@ export default async function HowItWorksPage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <EverythingYouNeedSection />
-        <AdaptiveJourneysSection />
-        <DesignedForConversionSection />
+        <StandardSectionWrapper />
         <FAQSection />
         <CTASection />
       </main>
@@ -47,108 +35,37 @@ async function HeroSection() {
   return <HeroSectionClient badge={t("badge")} subtitle={t("subtitle")} title={t("title")} />;
 }
 
-async function EverythingYouNeedSection() {
-  const t = await getTranslations("howItWorks.everythingYouNeed");
-
-  const features = [
-    t("features.vettedProfessionals"),
-    t("features.backgroundChecks"),
-    t("features.transparentPricing"),
-    t("features.flexibleScheduling"),
-    t("features.qualityGuarantee"),
-    t("features.securePayments"),
-  ];
+async function StandardSectionWrapper() {
+  const t = await getTranslations("howItWorks.standard");
 
   return (
-    <FeatureSectionClient
-      background="neutral"
-      description={t("description")}
-      features={features}
-      illustration={
-        <FlowDiagram
-          items={[
-            { icon: Search01Icon, label: t("diagram.search"), sublabel: t("diagram.searchDesc") },
-            {
-              icon: UserCheck01Icon,
-              label: t("diagram.verify"),
-              sublabel: t("diagram.verifyDesc"),
-            },
-            { icon: Calendar03Icon, label: t("diagram.book"), sublabel: t("diagram.bookDesc") },
-            { icon: StarIcon, label: t("diagram.review"), sublabel: t("diagram.reviewDesc") },
-          ]}
-        />
-      }
-      title={t("title")}
-    />
-  );
-}
-
-async function AdaptiveJourneysSection() {
-  const t = await getTranslations("howItWorks.adaptiveJourneys");
-
-  const features = [
-    t("features.stagedOnboarding"),
-    t("features.privateInteractions"),
-    t("features.multiServiceBooking"),
-    t("features.smartMatching"),
-  ];
-
-  return (
-    <FeatureSectionClient
-      description={t("description")}
-      features={features}
-      illustration={
-        <SettingsCard
-          leftItems={[
-            { label: t("card.serviceType"), value: t("card.serviceTypeValue") },
-            { label: t("card.location"), value: t("card.locationValue") },
-            { label: t("card.frequency"), value: t("card.frequencyValue") },
-          ]}
-          leftTitle={t("card.preferences")}
-          rightItems={[
-            { label: t("card.backgroundCheck"), hasCheck: true },
-            { label: t("card.reviews"), hasCheck: true },
-            { label: t("card.availability"), hasCheck: true },
-          ]}
-          rightTitle={t("card.requirements")}
-        />
-      }
-      reversed
-      title={t("title")}
-    />
-  );
-}
-
-async function DesignedForConversionSection() {
-  const t = await getTranslations("howItWorks.designedForConversion");
-
-  const features = [
-    t("features.instantAvailability"),
-    t("features.realTimeUpdates"),
-    t("features.deepLocalization"),
-    t("features.descriptiveProfiles"),
-    t("features.multipleOptions"),
-    t("features.dynamicPricing"),
-    t("features.autoCompletion"),
-    t("features.smartReminders"),
-  ];
-
-  return (
-    <FeatureSectionClient
-      background="neutral"
-      description={t("description")}
-      features={features}
-      illustration={
-        <FlowDiagram
-          items={[
-            { icon: Home09Icon, label: t("diagram.selectService") },
-            { icon: CheckmarkBadge01Icon, label: t("diagram.choosePro") },
-            { icon: SecurityCheckIcon, label: t("diagram.verifyDetails") },
-            { icon: File01Icon, label: t("diagram.confirmBooking") },
-          ]}
-        />
-      }
-      title={t("title")}
+    <StandardSection
+      sectionSubtitle={t("sectionSubtitle")}
+      sectionTitle={t("sectionTitle")}
+      step1={{
+        number: t("step1.number"),
+        title: t("step1.title"),
+        subtitle: t("step1.subtitle"),
+        description: t("step1.description"),
+        systemAction: t("step1.systemAction"),
+        systemStatus: t("step1.systemStatus"),
+      }}
+      step2={{
+        number: t("step2.number"),
+        title: t("step2.title"),
+        subtitle: t("step2.subtitle"),
+        description: t("step2.description"),
+        systemAction: t("step2.systemAction"),
+        systemStatus: t("step2.systemStatus"),
+      }}
+      step3={{
+        number: t("step3.number"),
+        title: t("step3.title"),
+        subtitle: t("step3.subtitle"),
+        description: t("step3.description"),
+        systemAction: t("step3.systemAction"),
+        systemStatus: t("step3.systemStatus"),
+      }}
     />
   );
 }
@@ -159,10 +76,10 @@ async function FAQSection() {
   const faqs = [{ key: "q1" }, { key: "q2" }, { key: "q3" }, { key: "q4" }];
 
   return (
-    <section className="bg-white dark:bg-rausch-950 py-16 md:py-24 lg:py-32">
+    <section className="bg-white py-16 md:py-24 lg:py-32 dark:bg-rausch-950">
       <Container className="max-w-3xl">
         <div className="mb-12 text-center">
-          <h2 className="font-medium text-3xl text-neutral-900 dark:text-white tracking-tight sm:text-4xl">
+          <h2 className="font-medium text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-white">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-neutral-600 dark:text-rausch-300">{t("subtitle")}</p>

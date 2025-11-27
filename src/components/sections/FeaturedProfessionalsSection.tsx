@@ -7,17 +7,18 @@
  * - Category-filtered professionals
  *
  * Following Lia Design System.
+ * Using "The Core Four" service categories.
  */
 
 "use client";
 
 import {
-  CleaningBucketIcon,
-  FlashIcon,
-  Home09Icon,
+  Home01Icon,
+  Restaurant01Icon,
   SparklesIcon,
-  ToolsIcon,
+  UserGroupIcon,
 } from "@hugeicons/core-free-icons";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { geistSans } from "@/app/fonts";
 import {
@@ -30,11 +31,12 @@ import { cn } from "@/lib/utils/core";
 
 // Mock featured professionals data
 // In production, this would come from an API endpoint
+// Using "The Core Four" service categories
 const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-1",
     name: "María González",
-    service: "House Cleaning",
+    service: "Standard Cleaning",
     rating: 4.9,
     reviewCount: 127,
     hourlyRate: 35_000,
@@ -46,7 +48,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-2",
     name: "Carlos Rodríguez",
-    service: "Plumbing",
+    service: "Deep Clean / Move-out",
     rating: 4.8,
     reviewCount: 89,
     hourlyRate: 45_000,
@@ -58,7 +60,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-3",
     name: "Ana Martínez",
-    service: "Electrical",
+    service: "Nanny & Childcare",
     rating: 4.9,
     reviewCount: 64,
     hourlyRate: 50_000,
@@ -69,7 +71,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-4",
     name: "Juan Pérez",
-    service: "Handyman",
+    service: "Laundry & Ironing",
     rating: 4.7,
     reviewCount: 156,
     hourlyRate: 30_000,
@@ -81,7 +83,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-5",
     name: "Lucía Fernández",
-    service: "Gardening",
+    service: "Senior Companionship",
     rating: 4.8,
     reviewCount: 43,
     hourlyRate: 32_000,
@@ -92,7 +94,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-6",
     name: "Roberto Silva",
-    service: "Painting",
+    service: "Meal Prep / Private Chef",
     rating: 4.6,
     reviewCount: 78,
     hourlyRate: 40_000,
@@ -104,7 +106,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-7",
     name: "Carmen López",
-    service: "Moving",
+    service: "Event Cooking",
     rating: 4.9,
     reviewCount: 95,
     hourlyRate: 55_000,
@@ -115,7 +117,7 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   {
     id: "pro-8",
     name: "Diego Morales",
-    service: "Appliance Repair",
+    service: "Standard Cleaning",
     rating: 4.8,
     reviewCount: 112,
     hourlyRate: 48_000,
@@ -126,25 +128,35 @@ const FEATURED_PROFESSIONALS: FeaturedProfessional[] = [
   },
 ];
 
-// Categories for filtering
+// Categories for filtering - "The Core Four" structure
 const SERVICE_CATEGORIES: ServiceCategory[] = [
   { id: "all", label: "All", icon: SparklesIcon },
-  { id: "cleaning", label: "Cleaning", icon: CleaningBucketIcon },
-  { id: "electrical", label: "Electrical", icon: FlashIcon },
-  { id: "handyman", label: "Handyman", icon: ToolsIcon },
-  { id: "home", label: "Home", icon: Home09Icon },
+  { id: "cleaning", label: "Home & Cleaning", icon: Home01Icon },
+  { id: "family", label: "Family Care", icon: UserGroupIcon },
+  { id: "kitchen", label: "Kitchen", icon: Restaurant01Icon },
 ];
 
+// Map category IDs to service keywords for filtering
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  cleaning: ["Cleaning", "Laundry", "Ironing", "Move-out"],
+  family: ["Childcare", "Nanny", "Senior", "Companionship"],
+  kitchen: ["Meal", "Chef", "Cooking", "Event"],
+};
+
 export function FeaturedProfessionalsSection() {
+  const t = useTranslations("home.featuredProfessionals");
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Filter professionals by category
+  // Filter professionals by category using keyword matching
   const filteredProfessionals =
     activeCategory === "all"
       ? FEATURED_PROFESSIONALS
-      : FEATURED_PROFESSIONALS.filter((pro) =>
-          pro.service.toLowerCase().includes(activeCategory.toLowerCase())
-        );
+      : FEATURED_PROFESSIONALS.filter((pro) => {
+          const keywords = CATEGORY_KEYWORDS[activeCategory] || [];
+          return keywords.some((keyword) =>
+            pro.service.toLowerCase().includes(keyword.toLowerCase())
+          );
+        });
 
   return (
     <section className="bg-white py-16 md:py-24 dark:bg-background">
@@ -157,7 +169,7 @@ export function FeaturedProfessionalsSection() {
               geistSans.className
             )}
           >
-            Top-Rated Professionals
+            {t("title")}
           </h2>
           <p
             className={cn(
@@ -165,7 +177,7 @@ export function FeaturedProfessionalsSection() {
               geistSans.className
             )}
           >
-            Discover verified professionals trusted by thousands of customers in your area
+            {t("subtitle")}
           </p>
         </div>
 
@@ -182,7 +194,7 @@ export function FeaturedProfessionalsSection() {
         <FeaturedCarousel
           cardVariant="expanded"
           professionals={filteredProfessionals}
-          subtitle={`${filteredProfessionals.length} professionals available`}
+          subtitle={t("available", { count: filteredProfessionals.length })}
           title=""
         />
 
@@ -195,8 +207,9 @@ export function FeaturedProfessionalsSection() {
             )}
             href="/professionals"
           >
-            Browse All Professionals
+            {t("browseAll")}
             <svg
+              aria-hidden="true"
               className="h-4 w-4"
               fill="none"
               stroke="currentColor"

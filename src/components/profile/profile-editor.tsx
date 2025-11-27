@@ -35,16 +35,22 @@ type SubmissionState = {
 };
 
 const LANGUAGE_OPTIONS = ["English", "Español", "Português", "Français", "Deutsch"];
+
+/**
+ * Service options matching "The Core Four" grouped structure
+ * from use-directory-filters.ts SERVICE_OPTIONS
+ */
 const SERVICE_OPTIONS = [
-  "House cleaning",
-  "Laundry",
-  "Cooking",
-  "Organization",
-  "Childcare",
-  "Pet care",
-  "Errand running",
-  "Gardening",
-  "Elder care",
+  // Home & Cleaning
+  "Standard Cleaning",
+  "Deep Clean / Move-out",
+  "Laundry & Ironing",
+  // Family Care
+  "Nanny & Childcare",
+  "Senior Companionship",
+  // Kitchen
+  "Meal Prep / Private Chef",
+  "Event Cooking",
 ];
 
 export function ProfileEditor({ profile: initialProfile }: Props) {

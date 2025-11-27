@@ -8,7 +8,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { calculateCancellationPolicy } from "@/lib/cancellation-policy";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
-import { formatFromMinorUnits, type Currency } from "@/lib/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/format";
 import { notifyProfessionalBookingCanceled } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 

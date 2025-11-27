@@ -3,7 +3,7 @@
 import { Calendar01Icon, InformationCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
-import { formatCurrency, type Currency } from "@/lib/utils/format";
+import { type Currency, formatCurrency } from "@/lib/utils/format";
 
 /**
  * Recurring Schedule Selector Component

@@ -12,7 +12,7 @@ import {
   notifyCustomerBookingAccepted,
   notifyCustomerBookingDeclined,
 } from "@/lib/shared/notifications";
-import { formatFromMinorUnits, type Currency } from "@/lib/utils/format";
+import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
 
 export type BookingWorkflowData = {
   id: string;

@@ -299,10 +299,8 @@ export function validatePricingRuleInput(
   }
 
   // Validate effective date range if end date provided
-  if (input.effective_until) {
-    if (new Date(input.effective_from) > new Date(input.effective_until)) {
-      return { valid: false, error: "Effective from date must be before effective until date" };
-    }
+  if (input.effective_until && new Date(input.effective_from) > new Date(input.effective_until)) {
+    return { valid: false, error: "Effective from date must be before effective until date" };
   }
 
   return { valid: true };

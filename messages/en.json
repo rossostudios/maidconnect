@@ -19,6 +19,8 @@
         "featuredDesc": "Find vetted, background-checked professionals ready to help your home.",
         "browse": "Browse Professionals",
         "browseDesc": "Find and book trusted help for your home",
+        "services": "Our Services",
+        "servicesDesc": "Detailed scopes of work for each service category",
         "howItWorks": "How It Works",
         "howItWorksDesc": "Learn how Casaora connects you with professionals"
       },
@@ -79,24 +81,24 @@
     }
   },
   "features": {
-    "title": "Why choose Casaora",
-    "tag": "Trust & Safety",
-    "subtitle": "Your home is personal. That's why we built every feature with safety and trust at the core.",
+    "title": "Built for peace of mind.",
+    "tag": "Platform Features",
+    "subtitle": "We replaced the uncertainty of social media with the security of verified systems. Every feature is designed to protect your home.",
     "verifiedProfessionals": {
-      "title": "Verified professionals",
-      "description": "Every professional passes ID verification and background checks. See real reviews from families in your area."
+      "title": "The 5-Point Vetting Standard",
+      "description": "We don't just check IDs. We verify criminal records, references, and skills. We reject 85% of applicants so you don't have to."
     },
     "securePayments": {
-      "title": "Secure payments",
-      "description": "Payments are held safely until the job is complete. No cash, no hassle."
+      "title": "Escrow Protection",
+      "description": "Your money is held in our secure vault and only released when you are satisfied with the work."
     },
     "realTimeBooking": {
-      "title": "Instant booking",
-      "description": "Find available professionals and book in minutes. No back-and-forth needed."
+      "title": "Instant Matches",
+      "description": "Skip the negotiation. See real-time availability and transparent pricing instantly."
     },
     "reviewSystem": {
-      "title": "Real reviews",
-      "description": "Read honest feedback from families who've hired the same professionals."
+      "title": "Community Validated",
+      "description": "Reviews you can trust. Only neighbors who have actually booked and paid for a service can leave feedback."
     },
     "backgroundChecks": {
       "title": "Background checks",
@@ -146,16 +148,16 @@
   },
   "home": {
     "hero": {
-      "headline": "Book trusted home help across Latin America",
-      "subheadline": "Verified housekeepers, nannies, chefs, and caregivers—ready when you need them. Trusted by expats and locals in 17 cities.",
+      "headline": "Come home to peace of mind.",
+      "subheadline": "The first background-checked marketplace for domestic professionals in Latin America. Connect with rated housekeepers, nannies, and caregivers—verified for your safety.",
       "searchPlaceholder": "What do you need?",
       "locationPlaceholder": "Where?",
       "datePlaceholder": "When?",
-      "searchButton": "Search",
+      "searchButton": "Find a Verified Pro",
       "trustBadges": {
-        "vetted": "Vetted & reviewed professionals",
-        "payments": "Secure in-app payments",
-        "pricing": "Fair and transparent pricing",
+        "vetted": "Identity Verified",
+        "payments": "Top-Rated Professionals",
+        "pricing": "Insured Bookings",
         "instant": "Instant booking"
       },
       "searchBar": {
@@ -169,23 +171,29 @@
       }
     },
     "process": {
-      "badge": "How It Works",
-      "title": "How Casaora works for your home",
-      "description": "Three simple steps connect you with trusted, background-checked professionals",
-      "disclaimer": "15% service fee covers background checks, insurance & support. Professionals keep 100%.",
+      "title": "The Infrastructure of Trust.",
+      "subtitle": "We replaced the uncertainty of the informal market with a rigorous, 3-pillar safety system.",
       "step1": {
-        "title": "Tell us what you need",
-        "description": "Select your service—cleaning, childcare, cooking, or eldercare. Choose your schedule, location, and any special requirements."
+        "title": "The 5-Point Safety Check",
+        "subtitle": "Rigorous vetting",
+        "description": "Before a professional ever appears in your search, they pass a rigorous screening: National ID verification, criminal background check, reference interviews, and skills assessment. We reject 85% of applicants to ensure excellence.",
+        "systemAction": "Verifying applicant",
+        "systemStatus": "All checks pass"
       },
       "step2": {
-        "title": "Meet verified professionals",
-        "description": "Browse professionals who've passed background checks and ID verification. See their experience, reviews, and availability."
+        "title": "Instant Booking, No Negotiation",
+        "subtitle": "Real-time availability",
+        "description": "Forget the back-and-forth WhatsApp messages. See real-time availability, clear hourly rates, and verified reviews. Book a trusted professional in 60 seconds.",
+        "systemAction": "Matching availability",
+        "systemStatus": "Searching"
       },
       "step3": {
-        "title": "Book instantly & relax",
-        "description": "Confirm your booking with secure payment. Chat through the app, and enjoy peace of mind with our satisfaction guarantee."
-      },
-      "cta": "Find Help Now"
+        "title": "Payment Protection",
+        "subtitle": "Escrow vault",
+        "description": "Your payment is held in our secure escrow vault. Funds are only released to the professional after the job is completed to your satisfaction. If they cancel, you are instantly refunded.",
+        "systemAction": "Securing payment",
+        "systemStatus": "Protected"
+      }
     },
     "howItWorksCards": {
       "title": "How it works",
@@ -245,8 +253,8 @@
     },
     "guarantee": {
       "badge": "Service Guarantee",
-      "title": "Your satisfaction, guaranteed",
-      "subtitle": "If something's not right, we'll make it right — or your money back.",
+      "title": "We don't get paid until you're happy.",
+      "subtitle": "Funds are held in escrow. If the job isn't done to your standard, we fix it or refund it instantly.",
       "features": {
         "quality": {
           "title": "Quality assurance",
@@ -301,12 +309,19 @@
       }
     },
     "cityShowcase": {
-      "title": "Explore cities we serve",
-      "subtitle": "Trusted professionals across Latin America",
+      "title": "One account. Every major city.",
+      "subtitle": "From Bogotá to Buenos Aires, access the same rigorous background checks, secure payments, and 5-star professionals. Your peace of mind travels with you.",
       "pros": "pros",
+      "startsAt": "Starts at $5/hr",
       "viewAll": "View all cities",
       "coverage": "17 cities, 4 countries",
       "bottomNote": "Same quality standards everywhere. Background checks included in all locations."
+    },
+    "featuredProfessionals": {
+      "title": "Meet the top 1% of talent.",
+      "subtitle": "Your neighbors, vetted. From culinary experts to master housekeepers, find professionals who take pride in their craft.",
+      "available": "{count} professionals available",
+      "browseAll": "Browse All Professionals"
     },
     "simplePricing": {
       "title": "Simple, transparent pricing",
@@ -2120,6 +2135,153 @@
         "title": "Cooking",
         "description": "Personal chefs and cooks for daily meals, special occasions, or meal prep. Bring great food to your table."
       }
+    },
+    "page": {
+      "title": "Our Services",
+      "subtitle": "Detailed scopes of work for each service category",
+      "included": "What's Included",
+      "excluded": "What's Not Included"
+    },
+    "categories": {
+      "homeCleaning": {
+        "label": "Home & Cleaning",
+        "standardCleaning": {
+          "title": "Standard Cleaning",
+          "included": [
+            "Dusting all surfaces",
+            "Vacuuming and mopping floors",
+            "Cleaning kitchen counters and stovetop",
+            "Wiping down bathroom sinks, mirrors, toilets",
+            "Making beds (linens already on)",
+            "Emptying trash"
+          ],
+          "excluded": [
+            "Inside fridge/oven",
+            "Window tracks",
+            "Laundry/ironing",
+            "Organization"
+          ]
+        },
+        "deepCleaning": {
+          "title": "Deep Clean / Move-out",
+          "included": [
+            "Everything in Standard Cleaning",
+            "Inside fridge and oven",
+            "Baseboards and window sills",
+            "Cabinet fronts",
+            "Light fixtures",
+            "Door handles and switch plates"
+          ],
+          "excluded": [
+            "Exterior windows",
+            "Garage",
+            "Heavy furniture moving",
+            "Pest control"
+          ]
+        },
+        "laundryIroning": {
+          "title": "Laundry & Ironing",
+          "included": [
+            "Washing and drying clothes",
+            "Folding and organizing",
+            "Ironing garments",
+            "Changing bed linens"
+          ],
+          "excluded": [
+            "Dry cleaning pickup/delivery",
+            "Repairs or alterations",
+            "Specialty fabric care"
+          ]
+        }
+      },
+      "familyCare": {
+        "label": "Family Care",
+        "nannyChildcare": {
+          "title": "Nanny & Childcare",
+          "included": [
+            "Supervision and safety",
+            "Meal prep for children",
+            "Light tidying of children's spaces",
+            "Homework assistance",
+            "Transportation (if licensed and agreed)",
+            "Engaging activities"
+          ],
+          "excluded": [
+            "Medical care or administration",
+            "Overnight stays (unless pre-arranged)",
+            "Tutoring specialized subjects",
+            "Housekeeping beyond children's areas"
+          ]
+        },
+        "seniorCompanionship": {
+          "title": "Senior Companionship",
+          "included": [
+            "Companionship and conversation",
+            "Light meal preparation",
+            "Medication reminders (non-medical)",
+            "Accompaniment to appointments",
+            "Light housekeeping",
+            "Grocery shopping"
+          ],
+          "excluded": [
+            "Medical care or nursing",
+            "Lifting or physical therapy",
+            "Administering injections",
+            "Bathing assistance (requires certification)"
+          ]
+        }
+      },
+      "kitchen": {
+        "label": "Kitchen",
+        "mealPrep": {
+          "title": "Meal Prep / Private Chef",
+          "included": [
+            "Menu planning",
+            "Grocery shopping (with budget)",
+            "Cooking meals",
+            "Portioning and storage",
+            "Kitchen cleanup after cooking"
+          ],
+          "excluded": [
+            "Serving at events",
+            "Specialty dietary plans (medical)",
+            "Bartending"
+          ]
+        },
+        "eventCooking": {
+          "title": "Event Cooking",
+          "included": [
+            "Multi-course meal preparation",
+            "Guest serving coordination",
+            "Table setup assistance",
+            "Post-event kitchen cleanup"
+          ],
+          "excluded": [
+            "Event planning/coordination",
+            "Bartending (separate service)",
+            "Rental equipment"
+          ]
+        }
+      }
+    },
+    "promise": {
+      "title": "The Casaora Promise & Resolution Protocol",
+      "happinessGuarantee": {
+        "title": "The Happiness Guarantee",
+        "description": "If a service doesn't meet expectations, report within 24 hours. We will either re-send a professional to fix the issue at no additional cost, or issue a full refund for the affected service."
+      },
+      "propertyProtection": {
+        "title": "Property Protection",
+        "description": "All professionals undergo background checks and identity verification. In the rare event of property damage during service, file a claim within 48 hours with photos/documentation and we will mediate the dispute and facilitate compensation up to $500 per incident."
+      },
+      "theftMisconduct": {
+        "title": "Theft & Misconduct",
+        "description": "Zero tolerance policy. If you suspect theft or serious misconduct, report immediately. We will permanently ban the professional, assist with police reports if needed, and connect you with our insurance partner for claims over $500."
+      },
+      "cancellations": {
+        "title": "Cancellations & Late Arrivals",
+        "description": "Free cancellation up to 24 hours before service. Pro no-show? Full refund plus 20% credit for your next booking. Pro more than 15 minutes late? You receive a 15% discount automatically applied."
+      }
     }
   },
   "process": {
@@ -2223,7 +2385,7 @@
   },
   "footer": {
     "description": "Trusted home professionals in Latin America",
-    "tagline": "Trusted home professionals in Latin America. Simple, safe, and fair.",
+    "tagline": "The new standard for home care.",
     "copyright": "© {year} Casaora. All rights reserved.",
     "platform": "Platform",
     "company": "Company",
@@ -3164,7 +3326,27 @@
       "rating45": "4.5+",
       "rating48": "4.8+",
       "availableToday": "Available today",
-      "reset": "Reset"
+      "reset": "Reset",
+      "specialty": {
+        "title": "Specialty Tags",
+        "englishSpeaking": "English Speaking",
+        "petFriendly": "Pet Friendly",
+        "hasPassport": "Has Visa/Passport"
+      },
+      "serviceCategories": {
+        "homeCleaning": "Home & Cleaning",
+        "familyCare": "Family Care",
+        "kitchen": "Kitchen"
+      },
+      "serviceTypes": {
+        "standardCleaning": "Standard Cleaning",
+        "deepCleaning": "Deep Clean / Move-out",
+        "laundryIroning": "Laundry & Ironing",
+        "nannyChildcare": "Nanny & Childcare",
+        "seniorCompanionship": "Senior Companionship",
+        "mealPrep": "Meal Prep / Private Chef",
+        "eventCooking": "Event Cooking"
+      }
     },
     "results": {
       "noResults": "No professionals match these filters yet."
@@ -3764,110 +3946,73 @@
   },
   "about": {
     "meta": {
-      "title": "Our Story | Casaora",
-      "description": "We built Casaora because we lived the struggle of finding trustworthy home help in Latin America. Too many scams, too little trust. We're changing that."
+      "title": "Building the Infrastructure of Trust | Casaora",
+      "description": "We are on a mission to professionalize the domestic economy in Latin America—bringing dignity to workers and peace of mind to families."
     },
     "hero": {
-      "badge": "Our Story",
-      "title": "Home help you can actually trust",
-      "subtitle": "We built Casaora because finding reliable help shouldn't feel like a gamble."
+      "badge": "Our Mission",
+      "title": "Building the infrastructure of trust.",
+      "subtitle": "We are on a mission to professionalize the domestic economy in Latin America—bringing dignity to workers and peace of mind to families."
     },
     "story": {
       "problem": {
-        "title": "We've been there",
-        "paragraph1": "Moving to a new country is hard. Finding trustworthy help for your home shouldn't be. But it is. We know because we lived it—scrolling through Facebook groups, hoping the person who shows up is actually reliable.",
-        "paragraph2": "Too many scams. Too little accountability. No way to verify who you're letting into your home. We got tired of the guesswork."
+        "title": "The Story",
+        "paragraph1": "Latin America is home to millions of talented, hardworking domestic professionals. Yet, for decades, the industry has relied on informal networks, uncertainty, and cash-in-hand arrangements. This status quo fails everyone: families struggle with reliability, and professionals lack the recognition and security they deserve.",
+        "paragraph2": "We founded Casaora to change this. We believe that inviting someone into your home is one of the most intimate transactions you can make. It shouldn't be a gamble; it should be a guarantee."
       },
       "solution": {
-        "title": "So we built something better",
-        "paragraph1": "Casaora connects you with verified home professionals across Latin America. Every professional passes background checks and ID verification. You see real reviews from real families. Simple booking, secure payments, and support when you need it. No more hoping for the best."
+        "title": "The New Standard",
+        "paragraph1": "Casaora is more than a booking platform; it is a verification engine. We have built the most rigorous vetting process in the region to bridge the trust gap between expats, locals, and service providers. By standardizing safety, payments, and ratings, we aren't just making it easier to clean a house. We are creating a safer, fairer, and more connected community for everyone."
       }
     },
     "mission": {
-      "title": "Our mission",
-      "statement": "To make finding trustworthy home help as simple and safe as it should be. Fair for families. Fair for professionals. Built on trust, not luck."
+      "title": "Our Values",
+      "statement": "Safety First: Verification isn't a feature; it's our foundation. Radical Transparency: No hidden fees, no hidden profiles. Dignity of Work: We champion our professionals as partners, ensuring fair pay and respect."
     },
     "cta": {
-      "title": "Ready to find help you can trust?",
+      "title": "Ready to experience the new standard?",
       "subtitle": "Join families across Latin America who book with confidence.",
-      "browseProfessionals": "Browse Professionals",
+      "browseProfessionals": "Find a Verified Pro",
       "becomePro": "Become a Pro",
       "trustIndicator": "Trusted by families across Latin America"
     }
   },
   "howItWorks": {
     "meta": {
-      "title": "How It Works - Book Trusted Home Help | Casaora",
-      "description": "Find verified professionals, book instantly, and pay securely. One simple 15% fee covers background checks, insurance, and support."
+      "title": "The Casaora Standard | Verified Home Professionals",
+      "description": "We take the risk. You take the relaxation. 5-point verification, instant booking, and secure escrow payments protect every booking."
     },
     "hero": {
-      "badge": "How It Works",
-      "title": "Find trusted home help with confidence",
-      "subtitle": "Casaora provides compliant hiring journeys optimized for quality. Built with the standards of modern families top of mind."
+      "badge": "The Casaora Standard",
+      "title": "We take the risk. You take the relaxation.",
+      "subtitle": "Traditional hiring relies on luck. Casaora relies on a 5-step verification engine and secure escrow payments."
     },
-    "everythingYouNeed": {
-      "title": "Everything you need, and more",
-      "description": "Access the top 20% of home professionals who pass our rigorous three-step verification. Fine-tune every detail to fit your household needs.",
-      "features": {
-        "vettedProfessionals": "Vetted professionals",
-        "backgroundChecks": "Background checks included",
-        "transparentPricing": "Transparent pricing",
-        "flexibleScheduling": "Flexible scheduling",
-        "qualityGuarantee": "Quality guarantee",
-        "securePayments": "Secure payments"
+    "standard": {
+      "sectionTitle": "The Standard",
+      "sectionSubtitle": "Three things every booking includes",
+      "step1": {
+        "number": "01",
+        "title": "The 5-Point Safety Check",
+        "subtitle": "Rigorous vetting",
+        "description": "Before a professional ever appears in your search, they pass a rigorous screening: National ID verification, criminal background check, reference interviews, and skills assessment. We do the work so you don't have to.",
+        "systemAction": "Verifying applicant",
+        "systemStatus": "All checks pass"
       },
-      "diagram": {
-        "search": "Search Professionals",
-        "searchDesc": "Filter by service and availability",
-        "verify": "Review Profiles",
-        "verifyDesc": "Check reviews and credentials",
-        "book": "Book Service",
-        "bookDesc": "Schedule and pay securely",
-        "review": "Leave Review",
-        "reviewDesc": "Share your experience"
-      }
-    },
-    "adaptiveJourneys": {
-      "title": "Adaptive journeys for every need",
-      "description": "Avoid friction by asking basic information at account creation, and collecting additional details based on your service needs.",
-      "features": {
-        "stagedOnboarding": "Staged onboarding for a smooth start",
-        "privateInteractions": "Private, secure interactions",
-        "multiServiceBooking": "Multi-service booking options",
-        "smartMatching": "Smart matching based on your preferences"
+      "step2": {
+        "number": "02",
+        "title": "Instant Booking, No Negotiation",
+        "subtitle": "Real-time availability",
+        "description": "Forget the back-and-forth WhatsApp messages. See real-time availability, clear hourly rates, and verified reviews. Book a trusted professional in 60 seconds.",
+        "systemAction": "Matching availability",
+        "systemStatus": "Searching"
       },
-      "card": {
-        "preferences": "Preferences",
-        "requirements": "Requirements",
-        "serviceType": "Service type",
-        "serviceTypeValue": "Housekeeping",
-        "location": "Location",
-        "locationValue": "Your city",
-        "frequency": "Frequency",
-        "frequencyValue": "Weekly",
-        "backgroundCheck": "Background check",
-        "reviews": "Verified reviews",
-        "availability": "Real-time availability"
-      }
-    },
-    "designedForConversion": {
-      "title": "Designed for trust",
-      "description": "We obsess over every detail of the hiring flow — from ID verification to the smallest interactions. With Casaora, you have a team of professionals working continually to ensure quality on your behalf.",
-      "features": {
-        "instantAvailability": "Instant availability check",
-        "realTimeUpdates": "Real-time updates",
-        "deepLocalization": "Deep localization",
-        "descriptiveProfiles": "Descriptive profiles",
-        "multipleOptions": "Multiple service options",
-        "dynamicPricing": "Dynamic pricing display",
-        "autoCompletion": "Auto-completion for easy booking",
-        "smartReminders": "Smart reminders"
-      },
-      "diagram": {
-        "selectService": "Select service type",
-        "choosePro": "Choose your professional",
-        "verifyDetails": "Verify booking details",
-        "confirmBooking": "Confirm and pay"
+      "step3": {
+        "number": "03",
+        "title": "Payment Protection",
+        "subtitle": "Escrow vault",
+        "description": "Your payment is held in our secure escrow vault. Funds are only released to the professional after the job is completed to your satisfaction. If they cancel, you are instantly refunded.",
+        "systemAction": "Securing payment",
+        "systemStatus": "Protected"
       }
     },
     "customer": {
@@ -3876,7 +4021,7 @@
       "steps": {
         "search": {
           "title": "Browse verified pros",
-          "description": "Only 1 in 5 applicants pass our vetting. Filter by service, location, and availability."
+          "description": "Every professional passes our rigorous vetting process. Filter by service, location, and availability."
         },
         "book": {
           "title": "Vetting included",
@@ -3926,7 +4071,7 @@
       "subtitle": "Your security is our top priority. Here's how we keep you protected.",
       "verification": {
         "title": "Rigorous Verification",
-        "description": "Only 1 in 5 applicants pass our three-step process: ID verification, background checks via official databases (POLICIA in Colombia, RNPP in Paraguay, DNIC in Uruguay, PFA in Argentina), and skills assessment. We continuously monitor quality through reviews."
+        "description": "Every professional passes our verification process: ID verification, background checks via official databases (POLICIA in Colombia, RNPP in Paraguay, DNIC in Uruguay, PFA in Argentina), and skills assessment. We continuously monitor quality through reviews."
       },
       "payments": {
         "title": "Secure Payments",
@@ -3942,7 +4087,7 @@
       "subtitle": "Got questions? We've got answers.",
       "q1": {
         "question": "How are professionals verified?",
-        "answer": "Only 1 in 5 applicants (20%) pass our three-step verification process: identity verification, background checks through official national databases (Colombian National Police, Paraguayan RNPP, Uruguayan DNIC, or Argentine Federal Police depending on country), and skills assessment with reference checks. We continuously monitor quality through customer reviews, ensuring only the top professionals remain on our platform."
+        "answer": "Every professional passes our three-step verification process: identity verification, background checks through official national databases (Colombian National Police, Paraguayan RNPP, Uruguayan DNIC, or Argentine Federal Police depending on country), and skills assessment with reference checks. We continuously monitor quality through customer reviews, ensuring only the top professionals remain on our platform."
       },
       "q2": {
         "question": "What if I'm not satisfied with the service?",
@@ -4802,41 +4947,29 @@
     "subtitle": "Join the leading platform for home service professionals in Latin America",
     "hero": {
       "badge": "Now Accepting Applications",
-      "title": "Turn your skills into income",
-      "subtitle": "Join thousands of verified professionals earning on their terms",
-      "primaryCta": "Apply Now",
+      "title": "Your work deserves respect. And a fair wage.",
+      "subtitle": "Welcome to Casaora – a platform built by people who believe domestic professionals deserve the same dignity, protections, and opportunities as any other career.",
+      "primaryCta": "Join the Waitlist",
       "secondaryCta": "Learn More",
-      "trustBadge1": "Background Verified",
-      "trustBadge2": "Keep 100% of Your Rate",
-      "trustBadge3": "Flexible Schedule"
+      "trustBadge1": "Verified Clients",
+      "trustBadge2": "Escrow Protection",
+      "trustBadge3": "You Set Your Rate"
     },
     "benefits": {
-      "title": "Why join Casaora?",
-      "subtitle": "Everything you need to build a successful home service business",
+      "title": "Why professionals choose Casaora",
+      "subtitle": "The tools, protection, and dignity you deserve",
       "items": {
-        "earnings": {
-          "title": "Competitive Pay",
-          "description": "Keep 100% of your rate. We only charge clients a 15% service fee."
+        "safety": {
+          "title": "Safety First",
+          "description": "We verify every client before they can book you. Our escrow system ensures you're never left unpaid."
         },
-        "flexibility": {
-          "title": "Flexible Schedule",
-          "description": "Work when you want. Set your own availability and accept jobs that fit your life."
-        },
-        "protection": {
-          "title": "Safe Payments",
-          "description": "Get paid securely through the app. No cash handling, no chasing payments."
+        "financial": {
+          "title": "Financial Security",
+          "description": "Your earnings are held in escrow until the job is complete. No more chasing payments."
         },
         "growth": {
-          "title": "Grow Your Business",
-          "description": "Build your reputation with reviews and get discovered by more clients."
-        },
-        "clients": {
-          "title": "Quality Clients",
-          "description": "Connect with verified families who value professional home services."
-        },
-        "support": {
-          "title": "Professional Support",
-          "description": "Access to training, resources, and a dedicated support team."
+          "title": "Professional Growth",
+          "description": "Build your reputation with verified reviews. Your hard work becomes your resume."
         }
       }
     },
@@ -4863,11 +4996,32 @@
       },
       "cta": "Start Your Application"
     },
+    "filter": {
+      "title": "We are selective. Are you ready?",
+      "subtitle": "Only 15% of applicants are accepted. Here's what we're looking for:",
+      "requirements": {
+        "experience": "At least 2 years of professional experience",
+        "background": "Clear background check",
+        "references": "3 verifiable references",
+        "commitment": "Commitment to Casaora's quality standards"
+      }
+    },
     "earnings": {
-      "title": "Earn on your terms",
-      "subtitle": "Casaora professionals earn competitive rates across Latin America",
-      "hourlyRate": "Average hourly rate",
-      "weeklyEarnings": "Weekly potential",
+      "title": "See what you could earn",
+      "subtitle": "You set your own rates. We only charge clients a 15% protection fee.",
+      "points": {
+        "setRates": "You set your own hourly rate",
+        "noDeductions": "No deductions from your earnings",
+        "escrow": "Secure escrow protection on every job"
+      },
+      "calculator": {
+        "service": "Service type",
+        "hoursPerWeek": "Hours per week",
+        "hourlyRate": "Your hourly rate",
+        "weeklyEarnings": "Weekly earnings",
+        "monthlyEarnings": "Monthly earnings",
+        "note": "15% protection fee charged to clients, not deducted from your earnings"
+      },
       "disclaimer": "Earnings vary based on location, experience, and hours worked"
     },
     "testimonials": {
@@ -4876,35 +5030,31 @@
     },
     "faq": {
       "title": "Frequently asked questions",
-      "subtitle": "Everything you need to know about becoming a Casaora Pro",
+      "subtitle": "Everything you need to know about joining Casaora",
       "items": {
-        "requirements": {
-          "question": "What are the requirements to join?",
-          "answer": "You must be 18+, have valid ID, pass a background check, and have relevant experience in your service area. We accept professionals with various skill levels."
+        "payment": {
+          "question": "How does payment work?",
+          "answer": "When a client books you, their payment is held in our secure escrow vault. Once you complete the job and both parties confirm, the funds are released directly to your account. No cash handling, no chasing payments."
         },
-        "earnings": {
-          "question": "How much can I earn?",
-          "answer": "You set your own rates and keep 100% of what you charge. Top professionals earn competitive wages based on their experience and services offered."
+        "fee": {
+          "question": "What's the 15% protection fee?",
+          "answer": "We charge clients a 15% fee on top of your rate—this covers platform costs, background checks, insurance, and support. You keep 100% of what you charge. If you set $20/hour, you receive $20/hour."
+        },
+        "verification": {
+          "question": "How long does verification take?",
+          "answer": "Our verification process typically takes 5-7 business days. This includes ID verification, background checks, and reference validation. We move fast because we know you're eager to start earning."
         },
         "schedule": {
           "question": "Can I set my own schedule?",
-          "answer": "Yes! You have complete control over your availability. Work full-time, part-time, or just weekends—whatever fits your life."
-        },
-        "verification": {
-          "question": "How does verification work?",
-          "answer": "Our verification process includes ID verification, background checks, and reference validation. This helps build trust with clients and keeps everyone safe."
-        },
-        "support": {
-          "question": "What support do you offer?",
-          "answer": "We provide 24/7 support, training resources, liability coverage, and a dedicated team to help you succeed on the platform."
+          "answer": "Absolutely. You have complete control over your availability. Accept jobs when it works for you—full-time, part-time, weekends only, or just a few hours here and there. Your time, your rules."
         }
       }
     },
     "cta": {
-      "title": "Ready to get started?",
-      "subtitle": "Join thousands of professionals already earning on Casaora",
+      "title": "Ready to join?",
+      "subtitle": "Your work has value. Let us help you prove it.",
       "button": "Apply Now",
-      "note": "Free to join • No monthly fees • Start earning this week"
+      "note": "Free to join • No monthly fees • Escrow protection from day one"
     },
     "signup": {
       "title": "Create your professional account",
