@@ -154,10 +154,10 @@ export function EarningsBadgeSettings() {
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-neutral-200 bg-white p-6">
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-rausch-900/30 dark:bg-rausch-950/40">
         <div className="flex items-center gap-3">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-200 border-t-rausch-500" />
-          <span className={cn("text-neutral-600", geistSans.className)}>Loading settings...</span>
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-200 border-t-rausch-500 dark:border-neutral-700 dark:border-t-rausch-400" />
+          <span className={cn("text-neutral-600 dark:text-neutral-400", geistSans.className)}>Loading settings...</span>
         </div>
       </div>
     );
@@ -165,8 +165,8 @@ export function EarningsBadgeSettings() {
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-6">
-        <p className={cn("text-red-700", geistSans.className)}>{error}</p>
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6 dark:border-red-800 dark:bg-red-900/20">
+        <p className={cn("text-red-700 dark:text-red-400", geistSans.className)}>{error}</p>
       </div>
     );
   }
@@ -176,13 +176,13 @@ export function EarningsBadgeSettings() {
   // ========================================
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-6">
+    <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-rausch-900/30 dark:bg-rausch-950/40">
       {/* Header */}
       <div className="mb-6">
-        <h3 className={cn("mb-2 font-semibold text-neutral-900 text-xl", geistSans.className)}>
+        <h3 className={cn("mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100", geistSans.className)}>
           Earnings Badge
         </h3>
-        <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
+        <p className={cn("text-neutral-600 text-sm dark:text-neutral-400", geistSans.className)}>
           Showcase your achievements and earnings on your public profile to build trust with
           potential clients.
         </p>
@@ -190,7 +190,7 @@ export function EarningsBadgeSettings() {
 
       {/* Current Badge Preview */}
       <div className="mb-6">
-        <p className={cn("mb-3 block font-medium text-neutral-700 text-sm", geistSans.className)}>
+        <p className={cn("mb-3 block font-medium text-neutral-700 text-sm dark:text-neutral-300", geistSans.className)}>
           Your Current Badge
         </p>
         <EarningsBadge
@@ -204,7 +204,7 @@ export function EarningsBadgeSettings() {
 
       {/* Toggle Control */}
       <div
-        className="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+        className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800/50"
         data-testid="share-earnings-badge-toggle"
       >
         <div className="mb-2">
@@ -215,7 +215,7 @@ export function EarningsBadgeSettings() {
             onChange={handleToggle}
           />
         </div>
-        <p className={cn("text-neutral-600 text-sm", geistSans.className)}>
+        <p className={cn("text-neutral-600 text-sm dark:text-neutral-400", geistSans.className)}>
           {enabled
             ? "Your earnings badge is visible to everyone visiting your profile"
             : "Your earnings badge is hidden from your public profile"}
@@ -223,8 +223,8 @@ export function EarningsBadgeSettings() {
       </div>
 
       {/* Info Message */}
-      <div className="mt-4 rounded-lg border border-babu-200 bg-babu-50 p-4">
-        <p className={cn("text-babu-700 text-sm", geistSans.className)}>
+      <div className="mt-4 rounded-lg border border-babu-200 bg-babu-50 p-4 dark:border-babu-800 dark:bg-babu-900/20">
+        <p className={cn("text-babu-700 text-sm dark:text-babu-300", geistSans.className)}>
           💡 <strong>Tip:</strong> Professionals who display their earnings badge see 23% more
           bookings on average. Your badge tier is based on total completed bookings.
         </p>

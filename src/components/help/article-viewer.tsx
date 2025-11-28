@@ -226,7 +226,7 @@ export function ArticleViewer({
   useEffect(() => {
     const contentElement = contentRef.current;
     const parentElement = contentElement?.parentElement;
-    if (!contentElement || !parentElement) {
+    if (!(contentElement && parentElement)) {
       return;
     }
 

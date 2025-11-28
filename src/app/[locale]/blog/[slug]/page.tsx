@@ -131,7 +131,7 @@ export default async function BlogPostPage({
       <SiteHeader />
       <div className="min-h-screen bg-neutral-50 dark:bg-background">
         {/* Header */}
-        <header className="border-b border-neutral-200 bg-white py-12 md:py-16 dark:border-border dark:bg-card">
+        <header className="border-neutral-200 border-b bg-white py-12 md:py-16 dark:border-border dark:bg-card">
           <div className="mx-auto max-w-4xl px-6 sm:px-8 lg:px-10">
             {/* Back Link */}
             <Link
@@ -164,7 +164,7 @@ export default async function BlogPostPage({
             )}
 
             {/* Meta Info */}
-            <div className="flex flex-wrap items-center gap-6 border-t border-neutral-200 pt-8 dark:border-border">
+            <div className="flex flex-wrap items-center gap-6 border-neutral-200 border-t pt-8 dark:border-border">
               {/* Author */}
               {post.author && (
                 <div className="flex items-center gap-3">
@@ -179,7 +179,9 @@ export default async function BlogPostPage({
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-neutral-900 dark:text-neutral-50">{post.author}</p>
+                    <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                      {post.author}
+                    </p>
                   </div>
                 </div>
               )}
@@ -229,13 +231,13 @@ export default async function BlogPostPage({
                   )}
 
                   {/* Content */}
-                  <div className="prose prose-neutral max-w-none px-8 py-12 md:px-12 md:py-16 lg:px-16 dark:prose-invert dark:text-neutral-300">
+                  <div className="prose prose-neutral dark:prose-invert max-w-none px-8 py-12 md:px-12 md:py-16 lg:px-16 dark:text-neutral-300">
                     <PortableText components={portableTextComponents} value={post.content} />
                   </div>
 
                   {/* Tags */}
                   {post.tags && post.tags.length > 0 && (
-                    <div className="border-t border-neutral-200 px-8 py-8 md:px-12 lg:px-16 dark:border-border">
+                    <div className="border-neutral-200 border-t px-8 py-8 md:px-12 lg:px-16 dark:border-border">
                       <div className="flex flex-wrap gap-2">
                         {post.tags.map((tag) => (
                           <span

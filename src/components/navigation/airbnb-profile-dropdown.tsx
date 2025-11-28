@@ -22,7 +22,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { signOutAction } from "@/app/[locale]/auth/actions";
 import {
   DropdownMenu,
@@ -96,6 +96,11 @@ export function AirbnbProfileDropdown({
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure icons render only after client-side mount to fix createElementNS error
+  // when Hugeicons SVG renders inside React Aria's portal before DOM is ready
+  useEffect(() => setMounted(true), []);
 
   const isLoading = isPending || isSigningOut;
 
@@ -191,14 +196,18 @@ export function AirbnbProfileDropdown({
         {/* Main Links */}
         <DropdownMenuItem>
           <Link className="flex w-full items-center gap-3" href={`${settingsBasePath}/profile`}>
-            <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={UserCircleIcon} />
+            {mounted && (
+              <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={UserCircleIcon} />
+            )}
             <span>Your Profile</span>
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem>
           <Link className="flex w-full items-center gap-3" href={`${settingsBasePath}/settings`}>
-            <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={Settings02Icon} />
+            {mounted && (
+              <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={Settings02Icon} />
+            )}
             <span>Account Settings</span>
           </Link>
         </DropdownMenuItem>
@@ -210,7 +219,9 @@ export function AirbnbProfileDropdown({
             {additionalItems.map((item) => (
               <DropdownMenuItem key={item.href}>
                 <Link className="flex w-full items-center gap-3" href={item.href}>
-                  <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={item.icon} />
+                  {mounted && (
+                    <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={item.icon} />
+                  )}
                   <span>{item.label}</span>
                 </Link>
               </DropdownMenuItem>
@@ -223,7 +234,9 @@ export function AirbnbProfileDropdown({
         {/* Help & Support */}
         <DropdownMenuItem>
           <Link className="flex w-full items-center gap-3" href={`/${locale}/help`}>
-            <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={HelpCircleIcon} />
+            {mounted && (
+              <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={HelpCircleIcon} />
+            )}
             <span>Help & Support</span>
           </Link>
         </DropdownMenuItem>
@@ -233,7 +246,7 @@ export function AirbnbProfileDropdown({
         {/* Country Switcher (Pro only) */}
         {showCountrySwitcher && country && (
           <DropdownMenuLabel className="flex items-center gap-3 font-normal text-muted-foreground text-xs">
-            <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
+            {mounted && <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />}
             <span>
               {country.flag} {country.name}
             </span>
@@ -243,7 +256,9 @@ export function AirbnbProfileDropdown({
         {/* Language Switcher */}
         <div className="px-2 py-1.5">
           <div className="flex items-center gap-3 px-2">
-            <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={LanguageSquareIcon} />
+            {mounted && (
+              <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={LanguageSquareIcon} />
+            )}
             <div className="flex flex-1 gap-1">
               <button
                 className={cn(
@@ -283,11 +298,12 @@ export function AirbnbProfileDropdown({
           )}
           onSelect={handleSignOut}
         >
-          {isLoading ? (
-            <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
-          ) : (
-            <HugeiconsIcon className="h-4 w-4" icon={Logout01Icon} />
-          )}
+          {mounted &&
+            (isLoading ? (
+              <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading03Icon} />
+            ) : (
+              <HugeiconsIcon className="h-4 w-4" icon={Logout01Icon} />
+            ))}
           <span>{isLoading ? "Signing out..." : "Sign Out"}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

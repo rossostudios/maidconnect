@@ -337,22 +337,22 @@ function UrgencyTaskBoardSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-4", className)}>
       {[0, 1].map((i) => (
-        <div className="animate-pulse rounded-lg border border-border bg-muted/50 p-4" key={i}>
+        <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
           <div className="mb-3 flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-muted" />
-            <div className="h-4 w-24 rounded bg-muted" />
+            <div className="h-4 w-4 rounded bg-muted-foreground/20" />
+            <div className="h-4 w-24 rounded bg-muted-foreground/20" />
           </div>
           <div className="space-y-3">
             {[0, 1].map((j) => (
               <div className="flex items-center justify-between rounded-lg bg-card p-3" key={j}>
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-muted" />
+                  <div className="h-10 w-10 rounded-lg bg-muted-foreground/20" />
                   <div className="space-y-2">
-                    <div className="h-4 w-32 rounded bg-muted" />
-                    <div className="h-3 w-24 rounded bg-muted" />
+                    <div className="h-4 w-32 rounded bg-muted-foreground/20" />
+                    <div className="h-3 w-24 rounded bg-muted-foreground/20" />
                   </div>
                 </div>
-                <div className="h-8 w-20 rounded-lg bg-muted" />
+                <div className="h-8 w-20 rounded-lg bg-muted-foreground/20" />
               </div>
             ))}
           </div>

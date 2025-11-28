@@ -16,9 +16,9 @@ const cardVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-white shadow-sm ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
-        elevated: "bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
-        outlined: "bg-white shadow-none ring-1 ring-black/8 dark:bg-neutral-900 dark:ring-white/12",
+        default: "bg-white shadow-sm ring-1 ring-black/5 dark:bg-rausch-950/40 dark:ring-rausch-900/30",
+        elevated: "bg-white shadow-md ring-1 ring-black/5 dark:bg-rausch-950/40 dark:ring-rausch-900/30",
+        outlined: "bg-white shadow-none ring-1 ring-black/8 dark:bg-rausch-950/40 dark:ring-rausch-900/30",
       },
     },
     defaultVariants: {

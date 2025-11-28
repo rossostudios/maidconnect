@@ -47,7 +47,9 @@ export function DateRangeFilter({
     <div
       aria-label="Select time period"
       className={cn(
-        "inline-flex items-center rounded-lg border border-neutral-200 bg-neutral-50 p-1",
+        "inline-flex items-center rounded-lg border p-1",
+        "border-neutral-200 bg-neutral-100",
+        "dark:border-border dark:bg-muted",
         className
       )}
       role="group"
@@ -61,8 +63,8 @@ export function DateRangeFilter({
               "rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rausch-500 focus-visible:ring-offset-1",
               size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-sm",
               isSelected
-                ? "bg-white text-neutral-900 shadow-sm"
-                : "bg-transparent text-neutral-600 hover:text-neutral-900"
+                ? "bg-white text-neutral-900 shadow-sm dark:bg-background dark:text-foreground"
+                : "bg-transparent text-neutral-600 hover:text-neutral-900 dark:text-muted-foreground dark:hover:text-foreground"
             )}
             key={period}
             onClick={() => onChange(period)}
@@ -86,12 +88,14 @@ type DateRangeDropdownProps = {
   className?: string;
 };
 
-function DateRangeDropdown({ value, onChange, className }: DateRangeDropdownProps) {
+export function DateRangeDropdown({ value, onChange, className }: DateRangeDropdownProps) {
   return (
     <select
       aria-label="Select time period"
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-medium text-neutral-700 text-sm",
+        "rounded-lg border px-3 py-1.5 font-medium text-sm",
+        "border-neutral-200 bg-white text-neutral-700",
+        "dark:border-border dark:bg-muted dark:text-muted-foreground",
         "focus:border-rausch-500 focus:outline-none focus:ring-2 focus:ring-rausch-500/20",
         "cursor-pointer appearance-none bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat pr-8",
         className

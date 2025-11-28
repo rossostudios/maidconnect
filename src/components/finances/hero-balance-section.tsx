@@ -125,14 +125,21 @@ export function HeroBalanceSection({
 
   if (isLoading) {
     return (
-      <div className={cn("rounded-lg border border-border bg-card p-8", className)}>
+      <div
+        className={cn(
+          "rounded-lg border p-8",
+          "border-stone-800/60 bg-gradient-to-br from-stone-900 to-stone-950",
+          "dark:border-border dark:from-rausch-950 dark:via-rausch-950/80 dark:to-rausch-950/60",
+          className
+        )}
+      >
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
-            <div className="h-4 w-24 animate-pulse rounded bg-muted" />
-            <div className="h-14 w-64 animate-pulse rounded-lg bg-muted/50" />
-            <div className="h-4 w-48 animate-pulse rounded bg-muted" />
+            <div className="h-4 w-24 animate-pulse rounded bg-stone-800/40 dark:bg-rausch-900/40" />
+            <div className="h-14 w-64 animate-pulse rounded-lg bg-stone-800/30 dark:bg-rausch-900/30" />
+            <div className="h-4 w-48 animate-pulse rounded bg-stone-800/40 dark:bg-rausch-900/40" />
           </div>
-          <div className="h-12 w-36 animate-pulse rounded-lg bg-muted" />
+          <div className="h-12 w-36 animate-pulse rounded-lg bg-stone-800/40 dark:bg-rausch-900/40" />
         </div>
       </div>
     );
@@ -183,7 +190,12 @@ export function HeroBalanceSection({
 
   return (
     <div
-      className={cn("rounded-lg border border-border bg-card p-8", className)}
+      className={cn(
+        "rounded-lg border p-8",
+        "border-stone-800/60 bg-gradient-to-br from-stone-900 to-stone-950",
+        "dark:border-border dark:from-rausch-950 dark:via-rausch-950/80 dark:to-rausch-950/60",
+        className
+      )}
       data-testid="hero-balance-section"
     >
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -191,14 +203,19 @@ export function HeroBalanceSection({
         <div className="space-y-1">
           <p
             className={cn(
-              "font-medium text-muted-foreground text-sm tracking-wide",
+              "font-medium text-sm tracking-wide",
+              "text-stone-400 dark:text-rausch-300",
               geistSans.className
             )}
           >
             {t("title")}
           </p>
           <p
-            className={cn("font-bold text-5xl text-foreground tracking-tight", geistSans.className)}
+            className={cn(
+              "font-bold text-5xl tracking-tight",
+              "text-stone-100 dark:text-rausch-50",
+              geistSans.className
+            )}
             data-testid="hero-balance-amount"
           >
             {formatFromMinorUnits(balance.availableCop, currencyCode)}
@@ -207,22 +224,28 @@ export function HeroBalanceSection({
           {/* Pending Balance Subtitle */}
           {balance.pendingCop > 0 && (
             <div className="flex items-center gap-2 pt-1">
-              <HugeiconsIcon className="size-4 text-muted-foreground" icon={Clock01Icon} />
-              <p className={cn("text-muted-foreground text-sm", geistSans.className)}>
+              <HugeiconsIcon
+                className="size-4 text-stone-400 dark:text-rausch-300"
+                icon={Clock01Icon}
+              />
+              <p className={cn("text-sm text-stone-400 dark:text-rausch-300", geistSans.className)}>
                 {formatFromMinorUnits(balance.pendingCop, currencyCode)}{" "}
                 {t("pending.label").toLowerCase()}
                 {nextClearanceDate && (
-                  <span className="text-muted-foreground"> · Clears {nextClearanceDate}</span>
+                  <span className="text-stone-500 dark:text-rausch-400">
+                    {" "}
+                    · Clears {nextClearanceDate}
+                  </span>
                 )}
               </p>
             </div>
           )}
         </div>
 
-        {/* Get Paid CTA */}
+        {/* Get Paid CTA - 44px+ touch target */}
         <div className="flex flex-col items-start gap-3 md:items-end">
           <Button
-            className="gap-2 px-8"
+            className="min-h-[44px] gap-2 px-8"
             data-testid="hero-get-paid-button"
             disabled={!eligibility.isEligible}
             onClick={onRequestPayout}
@@ -235,7 +258,7 @@ export function HeroBalanceSection({
 
           {/* Eligibility Warning */}
           {!eligibility.isEligible && eligibility.reasons.length > 0 && (
-            <p className={cn("text-amber-600 text-xs", geistSans.className)}>
+            <p className={cn("text-amber-500 text-xs dark:text-amber-400", geistSans.className)}>
               {eligibility.reasons[0]}
             </p>
           )}

@@ -207,8 +207,8 @@ export function IntroVideoUpload({
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <h2 className="font-semibold text-neutral-900 text-xl">{t("title")}</h2>
-          <p className="text-base text-neutral-700 leading-relaxed">{t("description")}</p>
+          <h2 className="font-semibold text-neutral-900 text-xl dark:text-neutral-100">{t("title")}</h2>
+          <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">{t("description")}</p>
         </div>
         {getStatusBadge()}
       </div>
@@ -227,30 +227,30 @@ export function IntroVideoUpload({
 
       {/* Rejection Reason */}
       {videoStatus === "rejected" && rejectionReason && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-          <h3 className="font-semibold text-red-900 text-sm">{t("rejectionReasonTitle")}</h3>
-          <p className="mt-1 text-red-700 text-sm">{rejectionReason}</p>
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
+          <h3 className="font-semibold text-red-900 text-sm dark:text-red-300">{t("rejectionReasonTitle")}</h3>
+          <p className="mt-1 text-red-700 text-sm dark:text-red-400">{rejectionReason}</p>
         </div>
       )}
 
       {/* Guidelines */}
-      <div className="space-y-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
-        <h3 className="font-semibold text-base text-neutral-900">{t("guidelines.title")}</h3>
-        <ul className="space-y-2 text-neutral-700 text-sm">
+      <div className="space-y-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-800/50">
+        <h3 className="font-semibold text-base text-neutral-900 dark:text-neutral-100">{t("guidelines.title")}</h3>
+        <ul className="space-y-2 text-neutral-600 text-sm dark:text-neutral-400">
           <li className="flex items-start gap-2">
-            <span className="text-rausch-500">•</span>
+            <span className="text-rausch-500 dark:text-rausch-400">•</span>
             <span>{t("guidelines.duration", { maxDuration: MAX_DURATION_SECONDS })}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-rausch-500">•</span>
+            <span className="text-rausch-500 dark:text-rausch-400">•</span>
             <span>{t("guidelines.fileSize", { maxSize: MAX_FILE_SIZE_MB })}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-rausch-500">•</span>
+            <span className="text-rausch-500 dark:text-rausch-400">•</span>
             <span>{t("guidelines.content")}</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-rausch-500">•</span>
+            <span className="text-rausch-500 dark:text-rausch-400">•</span>
             <span>{t("guidelines.quality")}</span>
           </li>
         </ul>
@@ -288,8 +288,8 @@ export function IntroVideoUpload({
 
         {/* Error Message */}
         {error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-3">
-            <p className="text-red-700 text-sm">{error}</p>
+          <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20">
+            <p className="text-red-700 text-sm dark:text-red-400">{error}</p>
           </div>
         )}
       </div>

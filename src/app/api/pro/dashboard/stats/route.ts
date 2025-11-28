@@ -40,6 +40,10 @@ function getPeriodDates(period: Period): { start: Date; end: Date; previousStart
       start.setDate(start.getDate() - 90);
       previousStart.setDate(previousStart.getDate() - 180);
       break;
+    default:
+      // Default to 7d if somehow an invalid period is passed
+      start.setDate(start.getDate() - 7);
+      previousStart.setDate(previousStart.getDate() - 14);
   }
 
   start.setHours(0, 0, 0, 0);
@@ -89,15 +93,39 @@ export async function GET(request: NextRequest) {
     const countryCode = (profile.country_code as CountryCode) || "CO";
     const currencyCode = COUNTRIES[countryCode]?.currencyCode || "COP";
 
-    // Get all bookings for this professional
+    // Get all bookings for this professional (with service_name for breakdown)
     const { data: allBookings } = await supabase
       .from("bookings")
       .select(
-        "id, status, scheduled_start, amount_captured, amount_authorized, amount_estimated, created_at, currency"
+        "id, status, scheduled_start, amount_captured, amount_authorized, amount_estimated, created_at, currency, service_name, customer_id"
       )
       .eq("professional_id", user.id);
 
     const bookings = allBookings || [];
+
+    // Get recent bookings with client info for the table
+    const { data: recentBookingsData } = await supabase
+      .from("bookings")
+      .select(
+        `
+        id,
+        status,
+        scheduled_start,
+        amount_captured,
+        amount_authorized,
+        amount_estimated,
+        service_name,
+        customer_id,
+        users!bookings_customer_id_fkey (
+          id,
+          full_name,
+          avatar_url
+        )
+      `
+      )
+      .eq("professional_id", user.id)
+      .order("scheduled_start", { ascending: false })
+      .limit(5);
 
     // Calculate earnings breakdown
     // PAID: Completed bookings with captured amounts in the period
@@ -180,6 +208,51 @@ export async function GET(request: NextRequest) {
     const earningsTrendData = buildEarningsTrendData(bookings, start, end, period);
     const bookingActivityData = buildBookingActivityData(bookings, start, end, period);
 
+    // Service breakdown for donut chart (completed bookings in period)
+    const serviceBreakdown = buildServiceBreakdown(
+      periodBookings.filter((b) => b.status === "completed")
+    );
+
+    // Revenue flow by month (last 12 months)
+    const revenueFlow = buildRevenueFlowByMonth(bookings);
+
+    // Active clients count (unique customers with completed/confirmed bookings in period)
+    const activeClientIds = new Set(
+      periodBookings
+        .filter((b) => ["completed", "confirmed"].includes(b.status) && b.customer_id)
+        .map((b) => b.customer_id)
+    );
+    const activeClientsCount = activeClientIds.size;
+
+    // Previous period active clients for trend
+    const previousActiveClientIds = new Set(
+      previousPeriodBookings
+        .filter((b) => ["completed", "confirmed"].includes(b.status) && b.customer_id)
+        .map((b) => b.customer_id)
+    );
+    const activeClientsTrend = calculateTrend(activeClientsCount, previousActiveClientIds.size);
+
+    // Format recent bookings for table
+    const recentBookings = (recentBookingsData || []).map((booking) => {
+      const client = booking.users as {
+        id: string;
+        full_name: string | null;
+        avatar_url: string | null;
+      } | null;
+      return {
+        id: booking.id,
+        client: {
+          name: client?.full_name || "Unknown Client",
+          avatar: client?.avatar_url || null,
+        },
+        serviceType: booking.service_name || "General Service",
+        date: booking.scheduled_start,
+        amount:
+          booking.amount_captured || booking.amount_authorized || booking.amount_estimated || 0,
+        status: booking.status,
+      };
+    });
+
     return NextResponse.json({
       success: true,
       period,
@@ -199,6 +272,10 @@ export async function GET(request: NextRequest) {
         cancelled: cancelledCount,
         trend: bookingsTrend,
       },
+      activeClients: {
+        value: activeClientsCount,
+        trend: activeClientsTrend,
+      },
       performance: {
         rating: metrics?.average_rating || 0,
         totalReviews: metrics?.total_reviews || 0,
@@ -208,7 +285,10 @@ export async function GET(request: NextRequest) {
       charts: {
         earningsTrend: earningsTrendData,
         bookingActivity: bookingActivityData,
+        serviceBreakdown,
+        revenueFlow,
       },
+      recentBookings,
     });
   } catch (error) {
     logger.error("[Dashboard Stats API] Failed to get stats", {
@@ -229,6 +309,8 @@ type Booking = {
   amount_estimated: number | null;
   created_at: string | null;
   currency: string | null;
+  service_name: string | null;
+  customer_id: string | null;
 };
 
 function buildEarningsTrendData(
@@ -341,6 +423,67 @@ function buildBookingActivityData(
   }
 
   return data;
+}
+
+// Service colors matching Lia Design System
+const SERVICE_COLORS: Record<string, string> = {
+  Cleaning: "#7A3B4A", // rausch-500
+  Nanny: "#00A699", // babu-500
+  Cooking: "#788C5D", // green-500
+  Errands: "#B0AEA5", // neutral-500
+  Other: "#767676", // foggy gray
+};
+
+function buildServiceBreakdown(
+  completedBookings: Booking[]
+): Array<{ label: string; value: number; color: string }> {
+  // Group by service name
+  const serviceMap = new Map<string, number>();
+
+  for (const booking of completedBookings) {
+    const serviceName = booking.service_name || "Other";
+    serviceMap.set(serviceName, (serviceMap.get(serviceName) || 0) + 1);
+  }
+
+  // Convert to array and sort by value descending
+  const breakdown = Array.from(serviceMap.entries())
+    .map(([label, value]) => ({
+      label,
+      value,
+      color: SERVICE_COLORS[label] || SERVICE_COLORS.Other,
+    }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 4); // Top 4 services
+
+  return breakdown;
+}
+
+function buildRevenueFlowByMonth(bookings: Booking[]): Array<{ month: string; amount: number }> {
+  const now = new Date();
+  const months: Array<{ month: string; amount: number }> = [];
+
+  // Get last 12 months
+  for (let i = 11; i >= 0; i--) {
+    const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0, 23, 59, 59, 999);
+
+    const monthBookings = bookings.filter((b) => {
+      if (b.status !== "completed" || !b.amount_captured || !b.scheduled_start) {
+        return false;
+      }
+      const bookingDate = new Date(b.scheduled_start);
+      return bookingDate >= monthDate && bookingDate <= monthEnd;
+    });
+
+    const amount = monthBookings.reduce((sum, b) => sum + (b.amount_captured || 0), 0);
+
+    months.push({
+      month: monthDate.toLocaleDateString("en-US", { month: "short" }),
+      amount,
+    });
+  }
+
+  return months;
 }
 
 export const runtime = "nodejs";

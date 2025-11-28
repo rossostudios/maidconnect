@@ -80,10 +80,12 @@ type DashboardStats = {
 };
 
 type PerformanceChartsProps = {
+  /** Whether to show KPI cards (default: true). Set to false when using standalone PerformanceKPIs */
+  showKPIs?: boolean;
   className?: string;
 };
 
-export function PerformanceCharts({ className }: PerformanceChartsProps) {
+export function PerformanceCharts({ showKPIs = true, className }: PerformanceChartsProps) {
   const [period, setPeriod] = useState<DatePeriod>("7d");
   const [data, setData] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -127,7 +129,7 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
       {/* Content */}
       <div className="p-6">
         {isLoading ? (
-          <PerformanceChartsSkeleton />
+          <PerformanceChartsSkeleton showKPIs={showKPIs} />
         ) : error ? (
           <div className="py-8 text-center">
             <p className="text-muted-foreground text-sm">{error}</p>
@@ -141,38 +143,40 @@ export function PerformanceCharts({ className }: PerformanceChartsProps) {
           </div>
         ) : data ? (
           <div className="space-y-6">
-            {/* KPI Cards */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <KPICard
-                icon={Calendar03Icon}
-                index={0}
-                label="Bookings"
-                trend={data.bookings.trend}
-                value={data.bookings.total}
-              />
-              <KPICard
-                icon={StarIcon}
-                index={1}
-                label="Rating"
-                subtext={`${data.performance.totalReviews} reviews`}
-                suffix="★"
-                value={data.performance.rating}
-              />
-              <KPICard
-                icon={Clock01Icon}
-                index={2}
-                label="Response Rate"
-                suffix="%"
-                value={data.performance.responseRate}
-              />
-              <KPICard
-                icon={CheckmarkCircle02Icon}
-                index={3}
-                label="Completion Rate"
-                suffix="%"
-                value={data.performance.completionRate}
-              />
-            </div>
+            {/* KPI Cards - Optional (hidden when using standalone PerformanceKPIs) */}
+            {showKPIs && (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <KPICard
+                  icon={Calendar03Icon}
+                  index={0}
+                  label="Bookings"
+                  trend={data.bookings.trend}
+                  value={data.bookings.total}
+                />
+                <KPICard
+                  icon={StarIcon}
+                  index={1}
+                  label="Rating"
+                  subtext={`${data.performance.totalReviews} reviews`}
+                  suffix="★"
+                  value={data.performance.rating}
+                />
+                <KPICard
+                  icon={Clock01Icon}
+                  index={2}
+                  label="Response Rate"
+                  suffix="%"
+                  value={data.performance.responseRate}
+                />
+                <KPICard
+                  icon={CheckmarkCircle02Icon}
+                  index={3}
+                  label="Completion Rate"
+                  suffix="%"
+                  value={data.performance.completionRate}
+                />
+              </div>
+            )}
 
             {/* Charts Grid */}
             <div className="grid gap-6 lg:grid-cols-2">
@@ -411,22 +415,24 @@ function BookingActivityChart({ data, period }: BookingActivityChartProps) {
   );
 }
 
-function PerformanceChartsSkeleton() {
+function PerformanceChartsSkeleton({ showKPIs = true }: { showKPIs?: boolean }) {
   return (
     <div className="space-y-6">
-      {/* KPI Cards Skeleton */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[0, 1, 2, 3].map((i) => (
-          <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
-            <div className="mb-2 flex items-center justify-between">
-              <div className="h-3 w-16 rounded bg-muted" />
-              <div className="h-4 w-4 rounded bg-muted" />
+      {/* KPI Cards Skeleton - Optional */}
+      {showKPIs && (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[0, 1, 2, 3].map((i) => (
+            <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
+              <div className="mb-2 flex items-center justify-between">
+                <div className="h-3 w-16 rounded bg-muted" />
+                <div className="h-4 w-4 rounded bg-muted" />
+              </div>
+              <div className="h-8 w-16 rounded bg-muted" />
+              <div className="mt-2 h-3 w-12 rounded bg-muted" />
             </div>
-            <div className="h-8 w-16 rounded bg-muted" />
-            <div className="mt-2 h-3 w-12 rounded bg-muted" />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Charts Skeleton */}
       <div className="grid gap-6 lg:grid-cols-2">

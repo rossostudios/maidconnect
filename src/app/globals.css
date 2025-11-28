@@ -866,6 +866,156 @@
   }
 }
 
+/* =====================================================
+   Zero-Bloat Marketing Component Animations
+   CSS keyframes to replace Framer Motion (~45KB savings)
+   ===================================================== */
+
+/* Vetting Card - Step indicator pulse */
+@keyframes vetting-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--color-rausch-500);
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+/* Vetting Card - Badge pop-in with spring overshoot */
+@keyframes badge-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(8px);
+  }
+  60% {
+    transform: scale(1.08) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Vetting Card - Step content slide-in */
+@keyframes step-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Vetting Card - Checkmark spring animation */
+@keyframes check-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Vetting Card - Connector fill animation */
+@keyframes connector-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Vetting Card - Header dot pulse */
+@keyframes header-dot-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* Calendar - Day cell pop-in with stagger support */
+@keyframes day-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Calendar - Selection ring pulse */
+@keyframes selection-ring {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--color-rausch-500);
+  }
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-rausch-500) 30%, transparent);
+  }
+}
+
+/* Animation utility classes */
+.animate-vetting-pulse {
+  animation: vetting-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-badge-pop-in {
+  animation: badge-pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-step-enter {
+  animation: step-enter 0.3s ease-out forwards;
+}
+
+.animate-check-pop {
+  animation: check-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-connector-fill {
+  animation: connector-fill 0.3s ease-out forwards;
+}
+
+.animate-header-dot-pulse {
+  animation: header-dot-pulse 2s ease-in-out infinite;
+}
+
+.animate-day-pop {
+  animation: day-pop 0.25s ease-out forwards;
+}
+
+.animate-selection-ring {
+  animation: selection-ring 2s ease-in-out infinite;
+}
+
+/* Reduced Motion - Disable all marketing animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-vetting-pulse,
+  .animate-badge-pop-in,
+  .animate-step-enter,
+  .animate-check-pop,
+  .animate-connector-fill,
+  .animate-header-dot-pulse,
+  .animate-day-pop,
+  .animate-selection-ring {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* End Zero-Bloat Marketing Animations */
+
 .marquee-row {
   animation-timing-function: linear;
   animation-iteration-count: infinite;

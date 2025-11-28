@@ -86,7 +86,7 @@ export function CustomerAirbnbShell({
       icon: FavouriteIcon,
     },
     {
-      href: `/${locale}/dashboard/account/profile`,
+      href: `/${locale}/dashboard/customer/settings`,
       label: "Profile",
       icon: UserCircleIcon,
     },

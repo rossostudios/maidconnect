@@ -2,10 +2,8 @@
 
 import {
   Add01Icon,
-  Calendar03Icon,
   Cancel01Icon,
   CheckmarkCircle02Icon,
-  CreditCardIcon,
   Shield01Icon,
   StarIcon,
 } from "@hugeicons/core-free-icons";
@@ -14,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { EscrowVaultCard, InstantMatchCalendar, VettingCard } from "@/components/marketing";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
@@ -32,127 +31,9 @@ function VerifiedProfileVisual({
 }) {
   return (
     <>
-      <div className="relative flex items-center justify-center py-4">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden rounded-xl">
-          <div className="-top-8 -right-8 absolute h-32 w-32 rounded-full bg-muted/60 blur-2xl" />
-          <div className="-bottom-4 -left-4 absolute h-24 w-24 rounded-full bg-muted/50 blur-xl" />
-        </div>
-
-        {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-[260px] pr-5 pb-5">
-          {/* Background Card (offset) */}
-          <motion.div
-            animate={{ y: [0, -2, 0] }}
-            className="absolute top-3 right-0 bottom-0 left-3 z-0 overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-lg"
-            transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          >
-            {/* Cover image */}
-            <div className="relative h-20 overflow-hidden">
-              <Image alt="Background" className="object-cover opacity-50" fill src="/guatape.png" />
-            </div>
-            <div className="flex items-center gap-3 px-3 py-3">
-              <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
-                <div className="h-full w-full bg-gradient-to-br from-muted-foreground/30 to-muted-foreground/50" />
-              </div>
-              <div className="opacity-60">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-medium text-muted-foreground text-sm">
-                    {t("visuals.profileCard.backgroundName")}
-                  </span>
-                  <span className="rounded-full bg-amber-100 px-1.5 py-0.5 font-medium text-[10px] text-amber-700">
-                    {t("visuals.profileCard.proBadge")}
-                  </span>
-                </div>
-                <p className="text-muted-foreground/70 text-xs">
-                  {t("visuals.profileCard.backgroundSpecialty")}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Main Profile Card - Tilted */}
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            className="group -rotate-2 relative z-10 w-full origin-bottom-left overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
-            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          >
-            {/* Cover image */}
-            <div className="relative h-24 overflow-hidden">
-              <Image alt="Profile cover" className="object-cover" fill src="/guatape.png" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-
-            {/* Profile content */}
-            <div className="relative px-4 pt-3 pb-4">
-              {/* Avatar - positioned to overlap cover */}
-              <div className="-top-10 absolute left-4">
-                <div className="relative">
-                  <div className="aspect-square h-16 w-16 overflow-hidden rounded-full border-[3px] border-card bg-muted shadow-lg">
-                    <Image
-                      alt="María Camila"
-                      className="h-full w-full object-cover"
-                      fill
-                      src="/mariacamila.png"
-                    />
-                  </div>
-                  {/* Verification badge */}
-                  <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    className="-right-0.5 -bottom-0.5 absolute flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white group-hover:animate-badge-glow"
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                  >
-                    <HugeiconsIcon className="h-3 w-3 text-white" icon={CheckmarkCircle02Icon} />
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Name and details - positioned next to avatar */}
-              <div className="ml-[76px] min-h-[40px]">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-foreground text-sm">
-                    {t("visuals.profileCard.mainName")}
-                  </span>
-                  <span className="rounded-full bg-rausch-100 px-1.5 py-0.5 font-medium text-[10px] text-rausch-700 dark:bg-rausch-500/20 dark:text-rausch-400">
-                    {t("visuals.profileCard.proBadge")}
-                  </span>
-                </div>
-                <p className="text-muted-foreground text-xs">
-                  {t("visuals.profileCard.mainSpecialty")}
-                </p>
-              </div>
-
-              {/* Rating row - clean single line */}
-              <div className="mt-3 flex items-center gap-1.5">
-                <div className="flex items-center">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <HugeiconsIcon
-                      className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
-                      icon={StarIcon}
-                      key={star}
-                    />
-                  ))}
-                </div>
-                <span className="font-semibold text-foreground text-sm">4.9</span>
-                <span className="text-muted-foreground/70 text-xs">
-                  {t("visuals.profileCard.reviewCount")}
-                </span>
-              </div>
-
-              {/* Verification badges - horizontal pills */}
-              <div className="mt-3 flex gap-2">
-                <span className="flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-1 text-[10px] text-green-700 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-400">
-                  <HugeiconsIcon className="h-3 w-3" icon={Shield01Icon} />
-                  {t("visuals.profileCard.idVerified")}
-                </span>
-                <span className="flex items-center gap-1 rounded-full border border-babu-200 bg-babu-50 px-2 py-1 text-[10px] text-babu-700 dark:border-babu-500/30 dark:bg-babu-500/10 dark:text-babu-400">
-                  <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle02Icon} />
-                  {t("visuals.profileCard.backgroundCheck")}
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+      {/* Vetting Process Flow - Shows the 5-point verification (CSS-first, zero-bloat) */}
+      <div className="flex justify-center py-4">
+        <VettingCard autoPlayInterval={2500} className="w-full max-w-sm" />
       </div>
 
       {/* Expanded Modal */}
@@ -267,92 +148,6 @@ function VerifiedProfileVisual({
   );
 }
 
-function SecurePaymentVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
-  return (
-    <div className="relative flex flex-col items-center gap-3 py-2">
-      {/* Payment flow animation */}
-      <div className="flex w-full items-center justify-center gap-2">
-        {/* Customer wallet */}
-        <motion.div
-          animate={{ x: [0, 4, 0] }}
-          className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted"
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-        >
-          <div className="h-6 w-6 rounded-md bg-gradient-to-br from-rausch-400 to-rausch-600" />
-        </motion.div>
-
-        {/* Arrow flow */}
-        <div className="flex items-center gap-0.5">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1, 0.8] }}
-              className="h-1.5 w-1.5 rounded-full bg-rausch-400"
-              key={i}
-              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, delay: i * 0.2 }}
-            />
-          ))}
-        </div>
-
-        {/* Casaora escrow */}
-        <motion.div
-          animate={{ scale: [1, 1.05, 1] }}
-          className="flex h-14 w-14 items-center justify-center rounded-xl border-2 border-rausch-200 bg-rausch-50 dark:border-rausch-500/50 dark:bg-rausch-500/20"
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
-        >
-          <HugeiconsIcon className="h-6 w-6 text-rausch-600" icon={Shield01Icon} />
-        </motion.div>
-
-        {/* Arrow flow */}
-        <div className="flex items-center gap-0.5">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1, 0.8] }}
-              className="h-1.5 w-1.5 rounded-full bg-green-400"
-              key={i}
-              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, delay: 1 + i * 0.2 }}
-            />
-          ))}
-        </div>
-
-        {/* Professional */}
-        <motion.div
-          animate={{ x: [0, -4, 0] }}
-          className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30"
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 1.5 }}
-        >
-          <span className="font-semibold text-green-700 text-sm dark:text-green-400">$</span>
-        </motion.div>
-      </div>
-
-      {/* Transaction card */}
-      <div className="w-full max-w-[220px] overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-        <div className="border-border border-b px-3 py-2">
-          <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs">
-              {t("visuals.securePayment.paymentHeld")}
-            </span>
-            <span className="flex items-center gap-1 text-green-600 text-xs dark:text-green-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              {t("visuals.securePayment.protected")}
-            </span>
-          </div>
-        </div>
-        <div className="px-3 py-2">
-          <div className="flex items-center justify-between">
-            <span className="font-medium text-foreground text-sm">
-              {t("visuals.securePayment.amount")}
-            </span>
-            <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={CreditCardIcon} />
-          </div>
-          <p className="mt-0.5 text-muted-foreground text-xs">
-            {t("visuals.securePayment.releasedWhen")}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function ReviewsVisual({
   isExpanded,
   setIsExpanded,
@@ -364,45 +159,16 @@ function ReviewsVisual({
 }) {
   return (
     <>
-      <div className="flex flex-col gap-3 py-2">
-        {/* Stacked Testimonial Cards Container */}
-        <div className="relative pr-6 pb-6">
+      <div className="flex flex-col gap-3 py-4">
+        {/* Stacked Testimonial Cards Container - Larger size */}
+        <div className="relative pr-8 pb-8">
           {/* Background testimonial card (offset) */}
           <motion.div
             animate={{ y: [0, -2, 0] }}
-            className="absolute top-4 right-0 bottom-0 left-4 z-0 overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-md"
+            className="absolute top-5 right-0 bottom-0 left-5 z-0 overflow-hidden rounded-2xl bg-stone-900 shadow-lg dark:bg-rausch-950/90"
             transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
-            <div className="p-4 opacity-50">
-              <div className="mb-2 flex items-center gap-0.5">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <HugeiconsIcon
-                    className="h-3.5 w-3.5 fill-amber-300 text-amber-300"
-                    icon={StarIcon}
-                    key={star}
-                  />
-                ))}
-              </div>
-              <p className="line-clamp-2 text-muted-foreground text-xs leading-relaxed">
-                {t("visuals.reviews.backgroundReview")}
-              </p>
-            </div>
-            <div className="flex items-center gap-2 bg-muted/50 px-4 py-2">
-              <div className="h-7 w-7 rounded-full bg-gradient-to-br from-babu-200 to-babu-300 dark:from-babu-400 dark:to-babu-500" />
-              <span className="text-muted-foreground text-xs">
-                {t("visuals.reviews.backgroundName")}
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Featured testimonial card - Tilted */}
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            className="relative z-10 origin-bottom-left rotate-1 overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
-            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          >
-            {/* Quote */}
-            <div className="p-4">
+            <div className="p-5 opacity-60">
               <div className="mb-3 flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <HugeiconsIcon
@@ -412,14 +178,52 @@ function ReviewsVisual({
                   />
                 ))}
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="line-clamp-2 text-sm text-stone-400 leading-relaxed">
+                {t("visuals.reviews.backgroundReview")}
+              </p>
+            </div>
+            <div className="flex items-center gap-3 bg-stone-800/60 px-5 py-3 dark:bg-rausch-900/60">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-babu-400 to-babu-600">
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+              </div>
+              <span className="text-sm text-stone-400 dark:text-rausch-300">
+                {t("visuals.reviews.backgroundName")}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Featured testimonial card - Tilted - Larger size, dark theme for consistency */}
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            className="relative z-10 origin-bottom-left rotate-1 overflow-hidden rounded-2xl bg-gradient-to-br from-stone-900 to-stone-950 shadow-xl dark:from-rausch-950/90 dark:via-rausch-950 dark:to-stone-950"
+            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          >
+            {/* Quote */}
+            <div className="p-5">
+              <div className="mb-4 flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <HugeiconsIcon
+                    className="h-5 w-5 fill-amber-400 text-amber-400"
+                    icon={StarIcon}
+                    key={star}
+                  />
+                ))}
+              </div>
+              <p className="text-base text-stone-300 leading-relaxed dark:text-rausch-200">
                 {t("visuals.reviews.featuredReview")}
               </p>
             </div>
 
             {/* Author */}
-            <div className="flex items-center gap-3 border-border border-t bg-muted/50 px-4 py-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-full">
+            <div className="flex items-center gap-3 border-stone-800/60 border-t bg-stone-800/40 px-5 py-4 dark:border-rausch-800/40 dark:bg-rausch-900/40">
+              <div className="relative h-12 w-12 overflow-hidden rounded-full">
                 <Image
                   alt={t("visuals.reviews.featuredName")}
                   className="object-cover"
@@ -428,20 +232,20 @@ function ReviewsVisual({
                 />
               </div>
               <div>
-                <p className="font-semibold text-foreground text-sm">
+                <p className="font-semibold text-sm text-stone-100 dark:text-rausch-100">
                   {t("visuals.reviews.featuredName")}
                 </p>
-                <p className="text-muted-foreground text-xs">
+                <p className="text-stone-400 text-xs dark:text-rausch-300">
                   {t("visuals.reviews.verifiedCustomer")}
                 </p>
               </div>
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
-                className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20"
+                className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-green-950/50 dark:bg-green-900/50"
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               >
                 <HugeiconsIcon
-                  className="h-3 w-3 text-green-600 dark:text-green-400"
+                  className="h-3.5 w-3.5 text-green-400"
                   icon={CheckmarkCircle02Icon}
                 />
               </motion.div>
@@ -539,70 +343,6 @@ function ReviewsVisual({
   );
 }
 
-function InstantBookingVisual({ t }: { t: ReturnType<typeof useTranslations> }) {
-  const times = t.raw("visuals.calendar.times") as string[];
-
-  return (
-    <div className="flex flex-col gap-3 py-2">
-      {/* Mini calendar */}
-      <div className="rounded-xl border border-border bg-card p-3 shadow-sm">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="font-medium text-foreground text-sm">{t("visuals.calendar.month")}</span>
-          <HugeiconsIcon className="h-4 w-4 text-muted-foreground" icon={Calendar03Icon} />
-        </div>
-        <div className="grid grid-cols-7 gap-1 text-center text-xs">
-          {(t.raw("visuals.calendar.days") as string[]).map((d, i) => (
-            <span className="text-muted-foreground" key={`day-${d}-${i}`}>
-              {d}
-            </span>
-          ))}
-          {Array.from({ length: 7 }).map((_, i) => (
-            <span className="text-muted-foreground/50" key={`prev-${i}`}>
-              {24 + i}
-            </span>
-          ))}
-          {Array.from({ length: 21 }).map((_, i) => (
-            <motion.span
-              className={cn(
-                "flex h-6 w-6 items-center justify-center rounded-lg text-sm",
-                i + 1 === 21
-                  ? "bg-rausch-500 font-medium text-white"
-                  : i + 1 === 22
-                    ? "border border-rausch-200 bg-rausch-50 text-rausch-600 dark:border-rausch-500/50 dark:bg-rausch-500/20 dark:text-rausch-400"
-                    : "text-muted-foreground"
-              )}
-              key={`curr-${i}`}
-              whileHover={{ scale: i + 1 !== 21 ? 1.1 : 1 }}
-            >
-              {i + 1}
-            </motion.span>
-          ))}
-        </div>
-      </div>
-
-      {/* Time slots */}
-      <div className="grid grid-cols-2 gap-2">
-        {times.map((time, i) => (
-          <motion.button
-            className={cn(
-              "rounded-lg border px-3 py-1.5 text-sm transition-colors",
-              i === 1
-                ? "border-rausch-500 bg-rausch-50 font-medium text-rausch-600 dark:border-rausch-500/50 dark:bg-rausch-500/20 dark:text-rausch-400"
-                : "border-border text-muted-foreground hover:border-rausch-200 dark:hover:border-rausch-500/50"
-            )}
-            key={time}
-            type="button"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {time}
-          </motion.button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ============================================================================
 // BENTO CARD DATA
 // ============================================================================
@@ -660,7 +400,7 @@ export function BenefitsSection() {
       id: "payments",
       title: t("securePayments.title"),
       description: t("securePayments.description"),
-      visual: <SecurePaymentVisual t={t} />,
+      visual: <EscrowVaultCard amount={35} className="mx-auto" currency="USD" />,
       span: "md:col-span-2 lg:col-span-3",
       gradient: "from-rausch-50/60 via-white to-amber-50/40",
     },
@@ -679,7 +419,7 @@ export function BenefitsSection() {
       id: "booking",
       title: t("realTimeBooking.title"),
       description: t("realTimeBooking.description"),
-      visual: <InstantBookingVisual t={t} />,
+      visual: <InstantMatchCalendar className="mx-auto w-full max-w-sm" />,
       span: "md:col-span-2 lg:col-span-3",
       gradient: "from-amber-50/60 via-white to-rausch-50/40",
     },

@@ -14,11 +14,17 @@
 
 "use client";
 
-import { ArrowDown01Icon, ArrowUp01Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
+import {
+  ArrowDown01Icon,
+  ArrowRight01Icon,
+  ArrowUp01Icon,
+  Calendar03Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { geistSans } from "@/app/fonts";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { type Currency, formatFromMinorUnits } from "@/lib/utils/format";
@@ -168,10 +174,8 @@ function EarningsColumn({
     <motion.div
       animate={{ opacity: 1, y: 0 }}
       className={cn(
-        "rounded-lg border p-4",
-        variant === "primary"
-          ? "border-rausch-200 bg-rausch-50/50 dark:border-rausch-900/50 dark:bg-rausch-900/10"
-          : "border-border bg-muted/30"
+        "rounded-lg border border-border p-4",
+        variant === "primary" ? "bg-rausch-50/50 dark:bg-rausch-950/30" : "bg-muted/30"
       )}
       initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -190,7 +194,7 @@ function EarningsColumn({
           <HugeiconsIcon
             className={cn(
               "h-4 w-4",
-              variant === "primary" ? "text-rausch-500" : "text-muted-foreground"
+              variant === "primary" ? "text-rausch-500" : "text-muted-foreground/70"
             )}
             icon={Icon}
           />
@@ -200,8 +204,8 @@ function EarningsColumn({
       {/* Amount */}
       <p
         className={cn(
-          "font-bold text-2xl",
-          variant === "primary" ? "text-foreground" : "text-foreground/80"
+          "font-bold text-2xl text-foreground",
+          variant === "secondary" && "opacity-90"
         )}
       >
         {formatFromMinorUnits(amount, currency)}
@@ -214,7 +218,9 @@ function EarningsColumn({
             <span
               className={cn(
                 "flex items-center gap-0.5 font-medium text-xs",
-                isPositiveTrend ? "text-green-600" : "text-red-500"
+                isPositiveTrend
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-500 dark:text-red-400"
               )}
             >
               <HugeiconsIcon
@@ -233,18 +239,21 @@ function EarningsColumn({
       {/* Subtext (if trend is shown) */}
       {trend !== undefined && <p className="mt-0.5 text-muted-foreground text-xs">{subtext}</p>}
 
-      {/* Action Link */}
-      <Link
+      {/* Action Button - 44px+ touch target */}
+      <Button
+        asChild
         className={cn(
-          "mt-4 block text-center font-medium text-xs transition-colors",
-          variant === "primary"
-            ? "text-rausch-600 hover:text-rausch-700 dark:text-rausch-400 dark:hover:text-rausch-300"
-            : "text-muted-foreground hover:text-foreground"
+          "mt-4 min-h-[44px] w-full gap-1.5",
+          variant === "secondary" && "text-foreground"
         )}
-        href={actionHref}
+        size="sm"
+        variant={variant === "primary" ? "default" : "outline"}
       >
-        {actionLabel} →
-      </Link>
+        <Link href={actionHref}>
+          {actionLabel}
+          <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
+        </Link>
+      </Button>
     </motion.div>
   );
 }
@@ -254,10 +263,10 @@ function EarningsOverviewSkeleton() {
     <div className="grid gap-6 md:grid-cols-2">
       {[0, 1].map((i) => (
         <div className="animate-pulse rounded-lg border border-border bg-muted/30 p-4" key={i}>
-          <div className="mb-3 h-3 w-12 rounded bg-muted" />
-          <div className="h-8 w-24 rounded bg-muted" />
-          <div className="mt-2 h-3 w-20 rounded bg-muted" />
-          <div className="mt-4 h-3 w-16 rounded bg-muted" />
+          <div className="mb-3 h-3 w-12 rounded bg-muted-foreground/20" />
+          <div className="h-8 w-24 rounded bg-muted-foreground/20" />
+          <div className="mt-2 h-3 w-20 rounded bg-muted-foreground/20" />
+          <div className="mt-4 h-3 w-16 rounded bg-muted-foreground/20" />
         </div>
       ))}
     </div>

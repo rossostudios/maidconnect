@@ -1,6 +1,6 @@
 "use client";
 
-import { Cancel01Icon, Search01Icon, TranslateIcon } from "@hugeicons/core-free-icons";
+import { ArrowLeft01Icon, Cancel01Icon, Search01Icon, TranslateIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
@@ -109,6 +109,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [previousUnreadCount, setPreviousUnreadCount] = useState(0);
   const [isPending, startTransition] = useTransition();
+
+  // Mobile responsive state - show thread on mobile when conversation selected
+  const [showThreadOnMobile, setShowThreadOnMobile] = useState(false);
 
   // Search and filter state
   const [searchQuery, setSearchQuery] = useState("");
@@ -326,10 +329,28 @@ export function MessagingInterface({ userId, userRole }: Props) {
     );
   }
 
+  // Handle conversation selection with mobile toggle
+  const handleSelectConversation = (conv: Conversation) => {
+    startTransition(() => {
+      setSelectedConversation(conv);
+      setShowThreadOnMobile(true); // Show thread on mobile
+    });
+  };
+
+  // Handle back to list on mobile
+  const handleBackToList = () => {
+    setShowThreadOnMobile(false);
+  };
+
   return (
-    <div className="flex h-[calc(100vh-200px)] min-h-[600px] overflow-hidden rounded-lg border border-border bg-background shadow-sm">
-      {/* Conversations List */}
-      <div className="w-96 flex-shrink-0 overflow-y-auto border-border border-r">
+    <div className="flex h-[calc(100vh-180px)] min-h-0 overflow-hidden rounded-lg border border-border bg-background pb-20 shadow-sm md:pb-0">
+      {/* Conversations List - Full width on mobile, hidden when viewing thread */}
+      <div
+        className={cn(
+          "w-full flex-shrink-0 overflow-y-auto border-border md:w-80 md:border-r",
+          showThreadOnMobile && "hidden md:block"
+        )}
+      >
         <div className="border-border border-b bg-muted/30 px-6 py-5">
           <h2 className={cn("font-semibold text-foreground text-xl", geistSans.className)}>
             Conversations
@@ -475,12 +496,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   selectedConversation?.id === conv.id ? "bg-muted/50" : ""
                 }`}
                 key={conv.id}
-                onClick={() => {
-                  // React 19: Use useTransition for smooth UI updates
-                  startTransition(() => {
-                    setSelectedConversation(conv);
-                  });
-                }}
+                onClick={() => handleSelectConversation(conv)}
                 type="button"
               >
                 <div className="flex items-start gap-4">
@@ -531,39 +547,56 @@ export function MessagingInterface({ userId, userRole }: Props) {
         )}
       </div>
 
-      {/* Message Thread */}
-      <div className="flex flex-1 flex-col">
+      {/* Message Thread - Hidden on mobile when no conversation selected */}
+      <div
+        className={cn(
+          "flex flex-1 flex-col",
+          !showThreadOnMobile && "hidden md:flex"
+        )}
+      >
         {selectedConversation ? (
           <>
             {/* Thread Header */}
-            <div className="flex items-center justify-between border-border border-b bg-muted/30 px-8 py-5">
-              {selectedOtherUser && (
-                <div className="flex items-center gap-4">
-                  {selectedOtherUser.avatar_url ? (
-                    <Image
-                      alt={selectedOtherUser.full_name}
-                      className="h-12 w-12 rounded-full object-cover"
-                      height={48}
-                      loading="lazy"
-                      src={selectedOtherUser.avatar_url}
-                      width={48}
-                    />
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted font-semibold text-base text-muted-foreground">
-                      {selectedOtherUser.full_name.charAt(0).toUpperCase()}
+            <div className="flex items-center justify-between border-border border-b bg-muted/30 px-4 py-4 md:px-8 md:py-5">
+              <div className="flex items-center gap-3 md:gap-4">
+                {/* Mobile Back Button */}
+                <button
+                  aria-label="Back to conversations"
+                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+                  onClick={handleBackToList}
+                  type="button"
+                >
+                  <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />
+                </button>
+
+                {selectedOtherUser && (
+                  <>
+                    {selectedOtherUser.avatar_url ? (
+                      <Image
+                        alt={selectedOtherUser.full_name}
+                        className="h-10 w-10 rounded-full object-cover md:h-12 md:w-12"
+                        height={48}
+                        loading="lazy"
+                        src={selectedOtherUser.avatar_url}
+                        width={48}
+                      />
+                    ) : (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-semibold text-sm text-muted-foreground md:h-12 md:w-12 md:text-base">
+                        {selectedOtherUser.full_name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-semibold text-foreground text-base md:text-lg">
+                        {selectedOtherUser.full_name}
+                      </h3>
+                      <p className="text-muted-foreground text-xs md:text-sm">
+                        Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
+                        {new Date(selectedConversation.booking.scheduled_start).toLocaleDateString()}
+                      </p>
                     </div>
-                  )}
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg">
-                      {selectedOtherUser.full_name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
-                      {new Date(selectedConversation.booking.scheduled_start).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-              )}
+                  </>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 {autoTranslateEnabled && (
                   <div className="flex items-center gap-2">

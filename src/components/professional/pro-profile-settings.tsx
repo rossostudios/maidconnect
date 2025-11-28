@@ -67,24 +67,24 @@ export function ProProfileSettings({ initialSlug, vanityBaseUrl, profileVisibili
   };
 
   return (
-    <div className="space-y-6 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+    <div className="space-y-6 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p
             className={cn(
-              "font-semibold text-neutral-600 text-xs uppercase tracking-[0.18em]",
+              "font-semibold text-neutral-600 text-xs uppercase tracking-[0.18em] dark:text-neutral-400",
               geistSans.className
             )}
           >
             Public profile
           </p>
-          <h2 className={cn("mt-1 font-semibold text-neutral-900 text-xl", geistSans.className)}>
+          <h2 className={cn("mt-1 font-semibold text-neutral-900 text-xl dark:text-neutral-100", geistSans.className)}>
             Vanity URL & visibility
           </h2>
         </div>
 
         {profileVisibility && (
-          <span className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 font-semibold text-neutral-700 text-xs">
+          <span className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 font-semibold text-neutral-700 text-xs dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
             {profileVisibility === "public" ? "Visible" : "Hidden"}
           </span>
         )}
@@ -92,11 +92,11 @@ export function ProProfileSettings({ initialSlug, vanityBaseUrl, profileVisibili
 
       <div className="space-y-4">
         <div className="space-y-1">
-          <p className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}>
+          <p className={cn("font-medium text-neutral-900 text-sm dark:text-neutral-100", geistSans.className)}>
             Current link
           </p>
           <p
-            className={cn("break-all text-neutral-600 text-sm", geistSans.className)}
+            className={cn("break-all text-neutral-600 text-sm dark:text-neutral-400", geistSans.className)}
             data-testid="current-slug"
           >
             {currentUrl}
@@ -105,16 +105,16 @@ export function ProProfileSettings({ initialSlug, vanityBaseUrl, profileVisibili
 
         <form className="space-y-3" onSubmit={handleSubmit}>
           <label
-            className={cn("font-medium text-neutral-900 text-sm", geistSans.className)}
+            className={cn("font-medium text-neutral-900 text-sm dark:text-neutral-100", geistSans.className)}
             htmlFor="slug"
           >
             Vanity URL
           </label>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <div className="flex min-w-0 flex-1 items-center rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-neutral-700 text-sm">
-              <span className="whitespace-nowrap text-neutral-500">{baseUrl}/pro/</span>
+            <div className="flex min-w-0 flex-1 items-center rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-neutral-700 text-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
+              <span className="whitespace-nowrap text-neutral-500 dark:text-neutral-500">{baseUrl}/pro/</span>
               <input
-                className="min-w-0 flex-1 bg-transparent px-2 py-2 text-neutral-900 outline-none"
+                className="min-w-0 flex-1 bg-transparent px-2 py-2 text-neutral-900 outline-none dark:text-neutral-100 dark:placeholder-neutral-500"
                 id="slug"
                 name="slug"
                 onChange={(event) => setSlug(event.target.value)}
@@ -126,8 +126,8 @@ export function ProProfileSettings({ initialSlug, vanityBaseUrl, profileVisibili
               {saving ? "Saving…" : "Save"}
             </Button>
           </div>
-          {error ? <p className="text-red-600 text-sm">{error}</p> : null}
-          <p className="text-neutral-500 text-xs">
+          {error ? <p className="text-rausch-600 text-sm dark:text-rausch-400">{error}</p> : null}
+          <p className="text-neutral-500 text-xs dark:text-neutral-400">
             Use lowercase letters, numbers, and hyphens only. Your link will be public once profile
             visibility is set to public.
           </p>
