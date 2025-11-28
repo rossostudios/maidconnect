@@ -1,0 +1,1 @@
+export { InstantMatchCard } from "./InstantMatchCard";
